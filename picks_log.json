@@ -7276,6 +7276,57 @@
     "streakTeamName": "San Jos\u00e9 State"
    },
    {
+    "id": "nba|401909981|1q|total|under",
+    "game": "nba|401909981",
+    "date": "2026-11-14",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T00:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Cavaliers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -108,
+    "title": "1Q Under 60.5",
+    "est": 0.5663,
+    "edge": 0.047,
+    "agree": 6,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 9,
+    "streakTeam": "cle",
+    "angles": [
+     [
+      "Cavaliers 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Mavericks 1Q unders, last 8 (60.5)",
+      "7-1"
+     ],
+     [
+      "Cavaliers 1Q unders, season (60.5)",
+      "11-2"
+     ],
+     [
+      "Mavericks 1Q unders on the road (60.5)",
+      "4-1"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Cavaliers 56.3 \u00b7 Mavericks 56.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Cavaliers"
+   },
+   {
     "id": "ncaaf|401871061|1q|ats|away",
     "game": "ncaaf|401871061",
     "date": "2026-11-14",
@@ -7465,48 +7516,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Michigan"
-   },
-   {
-    "id": "ncaab|401909728|1h|ml|away",
-    "game": "ncaab|401909728",
-    "date": "2026-11-14",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-14T21:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Southern Utah @ Wake Forest",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 600,
-    "title": "Southern Utah 1H ML",
-    "est": 0.1894,
-    "edge": 0.0465,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "southern-utah-thunderbirds",
-    "angles": [
-     [
-      "Southern Utah 1H ML, season",
-      "3-1"
-     ],
-     [
-      "Southern Utah 1H ML, last 8",
-      "3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Southern Utah"
    }
   ]
  }
