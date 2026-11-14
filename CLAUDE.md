@@ -30,12 +30,63 @@ refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
   non-Division I opponents'). No logo: a small colored badge with the
   abbreviation.
 - Color rule (tokens in template.html):
-  - Green outlined box = best price (`--best`), on odds cells only.
-  - Green text, badge or soft green fill = a win or a profit (`--good`: +units,
-    the side that won).
-  - Red = a loss or minus units (`--bad`). Yellow = a tie, a push, or units
-    between -0.5u and +0.5u (`--push`).
+  - Best price (Odds only) = soft green tint with a thin green outline
+    (`--best-bg` + `--best`).
+  - Win = soft green fill (`--good-dim`); loss = the cell dims to 50%;
+    tie/push = soft yellow fill (`--push-dim`).
+  - Units: green above +0.5u (`--good`), red below -0.5u (`--bad`), yellow in
+    between (`--push`).
   - Never blue for results or units.
 - Muted text is `--text-muted` everywhere (4.5:1+ on cards in both themes);
   never `--text-faint` for words. Cards: one 1px `--card-border`, no card
   inside a card (template.html `.st-card`, shared by Stats, Matchups and Odds).
+
+## Design tokens
+
+Every new page or component uses these tokens only (CSS variables and `.t-*`
+classes in template.html's `<style>`, written out as assets/site.css). No page,
+script or other stylesheet sets its own font-family, font-size, font-weight or
+colors for text, cells or units; tests/test_design_tokens.py enforces it. Team
+badges (logo stand-ins) are the one exception.
+
+Type: two families. Barlow Condensed (bold) for page titles and section
+headings, Source Sans 3 for everything else, numbers included, with tabular
+figures on the body. No mono font. No bold numbers: emphasis is color and fill.
+
+| Token | Use | Font | Weight | Size |
+|---|---|---|---|---|
+| title | Page title | Barlow Condensed | 700 | 32px (26px phone) |
+| section | Section heading | Barlow Condensed | 700 | 20px (18px phone) |
+| team | Card title, team names, segment scores next to teams | Source Sans 3 | 600 | 15px |
+| body / num | Body and table text; main numbers (lines, records, %, units) | Source Sans 3 | 400 text / 500 numbers | 14px |
+| price | Prices under lines, secondary numbers, notes | Source Sans 3 | 400, muted | 13px |
+| label | Column headers, small caps labels, status | Source Sans 3 | 600, caps, 0.6px spacing, muted | 11px |
+
+Colors:
+
+| Token | CSS variable | Dark | Light |
+|---|---|---|---|
+| page bg | `--bg` | #0B0F15 | #F5F7FA |
+| card bg | `--panel` | #131921 | #FFFFFF |
+| card border | `--card-border` | #2A3442 | #D5DCE5 |
+| divider | `--border-soft` | #1F2731 | #E6EBF1 |
+| text | `--text` | #E8EDF3 | #141B24 |
+| muted text | `--text-muted` | #A3AFBE (7.9:1 on cards) | #5A6676 (5.8:1) |
+| cell | `--cell` | #1A212B | #F1F4F8 |
+| win fill | `--good-dim` | rgba(34,197,94,0.16) | #DFF3E6 |
+| best bg | `--best-bg` | rgba(34,197,94,0.10) | #EEFAF2 |
+| best outline | `--best` | rgba(74,222,128,0.55) | #7FCF9C |
+| units up | `--good` | #4ADE80 | #15803D |
+| units down | `--bad` | #F87171 | #B91C1C |
+| units even | `--push` | #FACC15 | #A16207 |
+| push fill | `--push-dim` | rgba(250,204,21,0.14) | #FBF3D6 |
+
+Spacing:
+
+| Token | Value |
+|---|---|
+| `--cell-gap` | 8px between every odds/result cell, side to side and row to row |
+| `--cell-min-h`, `--cell-pad`, `--cell-radius` | cells: 48px min height, 4px 6px padding, 8px radius; line on top, price under |
+| `--open-gap` | 12px extra after the Open column |
+| `--odds-pad-x`, `--game-pad-top`, `--game-pad-bottom` | Odds tables: 24px left/right, 12px above and 14px below each game, a divider between games |
+| `--card-pad`, `--card-radius` | cards: 16px 18px padding, 1px `--card-border`, 14px radius |

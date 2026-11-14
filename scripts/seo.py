@@ -129,8 +129,8 @@ come from using the site or relying on its information.</p>
 <p><a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p>
 '''
 
-LEGAL = {'privacy': ('RTYB — Privacy Policy', 'How RTYB — Run to Your Bets handles your data.', PRIVACY),
-         'terms': ('RTYB — Terms of Use', 'The terms for using RTYB — Run to Your Bets.', TERMS)}
+LEGAL = {'privacy': ('Privacy Policy | RTYB', 'How RTYB — Run to Your Bets handles your data.', PRIVACY),
+         'terms': ('Terms of Use | RTYB', 'The terms for using RTYB — Run to Your Bets.', TERMS)}
 
 
 def write_legal(page, status, logo_svg):

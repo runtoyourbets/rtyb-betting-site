@@ -34,8 +34,8 @@ TODAY_SHOWN = 4    # games a sport in Today
 TRENDS_SHOWN = 3   # hottest trends before the email box
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800'
-         '&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap">')
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800'
+         '&family=Source+Sans+3:wght@400;500;600&display=swap">')
 
 
 def esc(s):
@@ -389,7 +389,7 @@ PAGE_JS = '''
 
 def page(title, desc, body, status, depth='', noindex=False):
     """noindex: reachable by URL but kept out of search (Picks, Streaks)."""
-    css = f'<link rel="stylesheet" href="{depth}assets/site.css"><link rel="stylesheet" href="{depth}assets/home.css">'
+    css = f'<link rel="stylesheet" href="{depth}assets/site.css">'
     robots = '<meta name="robots" content="noindex">' if noindex else ''
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title>'
@@ -639,7 +639,7 @@ def build(template, nhl_data, logo_svg, now_utc=None):
     with open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(home)
 
-    learn_page = page('RTYB — Learn', 'How first-segment bets work: spreads, moneylines, totals, NRFI, First Five and units.',
+    learn_page = page('Learn: How 1st Period, Quarter and Half Bets Work | RTYB', 'How first-segment bets work: spreads, moneylines, totals, NRFI, First Five and units.',
                       LEARN_BODY, status, depth='../').replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, 'learn'), exist_ok=True)
     with open(os.path.join(ROOT, 'learn', 'index.html'), 'w', encoding='utf-8') as f:
@@ -666,7 +666,7 @@ def write_picks(template, nhl_data, logo_svg, body, now_utc=None):
     today = now_utc.astimezone(ET).date().isoformat()
     by_sport, _ = collect(template, nhl_data)
     status = [(sp,) + sport_status(sp, by_sport.get(sp['key'], {}), today) for sp in sports.LAUNCHED]
-    html = page('RTYB — Today’s Picks', 'Trend-based plays for the first quarter, half, period and inning, ranked by confidence, with every tier’s record public.',
+    html = page('Today’s Picks | RTYB', 'Trend-based plays for the first quarter, half, period and inning, ranked by confidence, with every tier’s record public.',
                 body, status, depth='../', noindex=True).replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, 'picks'), exist_ok=True)
     with open(os.path.join(ROOT, 'picks', 'index.html'), 'w', encoding='utf-8') as f:

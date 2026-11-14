@@ -210,7 +210,7 @@
       // only the outcome that hit is green; a tied period is the TIE cell
       if (done) res = done.na || !done.su || done.su === 'NA' ? 'P' : done.su === want ? 'W' : 'L';
     }
-    var none = line == null && price == null, body = none ? '<span class="mc-dash">&ndash;</span>' : oddsCell(line, price);
+    var none = line == null && price == null, body = none ? '<span class="cell"><span class="mc-dash">&ndash;</span></span>' : oddsCell(line, price);
     // no price, nothing to highlight
     return '<td class="mc-cell' + (none ? '' : resultCls(res)) + '"' + (tip ? ' data-tip="' + esc(tip) + '" data-tap title="' + esc(tip) + '"' : '') + '>' + body + '</td>';
   }
@@ -1347,26 +1347,28 @@
       return [rf];
     }
     var ml = newCard('ml', pre + 'Moneyline', [['home', 'Home'], ['away', 'Away']], 'T');
-    var mlfd = newCard('mlfd', pre + 'Moneyline', [['fav', 'Favorite'], ['dog', 'Underdog']], 'T');
+    var mlfd = newCard('mlfd', pre + 'Favorites / Underdogs', [['fav', 'Favorite'], ['dog', 'Underdog']], 'T');
     var sp = newCard('ats', pre + 'Spread', [['home', 'Home'], ['away', 'Away']], 'P');
     var tot = newCard('tot', pre + totalWord(k), [['over', 'Over'], ['under', 'Under']], nhl ? '' : 'P');
     var bt = newCard('btts', pre + 'BTTS', [['yes', 'Yes'], ['no', 'No']], '');
     var m3 = newCard('ml3', pre + '3-way ML', [['home', 'Home'], ['away', 'Away'], ['tie', 'Tie']], '');
-    var fd = newCard('fd', pre + 'Favorites/Underdogs', [['mlfav', 'ML Fav'], ['mldog', 'ML Dog'], ['spfav', 'Spread Fav'], ['spdog', 'Spread Dog']], '');
+    var fd = newCard('fd', pre + 'Favorites / Underdogs', [['mlfav', 'ML Fav'], ['mldog', 'ML Dog'], ['spfav', 'Spread Fav'], ['spdog', 'Spread Dog']], '');
     fd.rows[0].fmt = fd.rows[1].fmt = 'T'; fd.rows[2].fmt = fd.rows[3].fmt = 'P';
-    var ha = newCard('ha', pre + 'Home/Away', [['hfav', 'Home Fav'], ['hdog', 'Home Dog'], ['rfav', 'Road Fav'], ['rdog', 'Road Dog']], 'P');
-    ml.tie = 0; mlfd.tie = 0;
+    var ha = newCard('ha', pre + 'Home / Away', [['hfav', 'Home Fav'], ['hdog', 'Home Dog'], ['rfav', 'Road Fav'], ['rdog', 'Road Dog']], 'P');
+    // a tied segment: its own row on the Moneyline card; NHL's tie lives on
+    // the 3-way ML card instead (the ML record stays W-L-T)
+    if (!nhl) ml.tie = 0;
     var fdSeen = {};
     list.forEach(function(g) {
       var r = g.res[k], u = r.u || {}, o = (g.odds || {})[k] || {};
       if (hasMl(k) && r.su && r.su !== 'NA') {
         var aRes = r.su === 'P' ? 'T' : r.su, hRes = flipRes(aRes), us = u.su;
-        ml.gp++; if (aRes === 'T') ml.tie++;
+        ml.gp++; if (aRes === 'T' && !nhl) ml.tie++;
         sAdd(ml.by.home.r, hRes, us ? us[1] : null); sAdd(ml.by.away.r, aRes, us ? us[0] : null);
         var f = segFavSide(g, k);
         if (f) {
           var fi = f === 'away' ? 0 : 1, fRes = f === 'away' ? aRes : hRes;
-          mlfd.gp++; if (aRes === 'T') mlfd.tie++;
+          mlfd.gp++;
           sAdd(mlfd.by.fav.r, fRes, us ? us[fi] : null); sAdd(mlfd.by.dog.r, flipRes(fRes), us ? us[1 - fi] : null);
           sAdd(fd.by.mlfav.r, fRes, us ? us[fi] : null); sAdd(fd.by.mldog.r, flipRes(fRes), us ? us[1 - fi] : null);
           fdSeen[g.id] = 1;
@@ -2251,9 +2253,10 @@
   // One cell style for Odds and Matchups: the line on top (large, bold), the
   // price under it (small, muted); a moneyline cell shows the price in the
   // line style.
+  // one cell (template.html .cell): the line on top, the price under it
   function oddsCell(line, price) {
-    if (line == null) return price == null ? '' : '<span class="ob-ln">' + esc(signed(price)) + '</span>';
-    return '<span class="ob-ln">' + esc(line) + '</span>' + (price != null ? '<span class="ob-pr">' + esc(signed(price)) + '</span>' : '');
+    if (line == null) return price == null ? '' : '<span class="cell"><span class="ob-ln">' + esc(signed(price)) + '</span></span>';
+    return '<span class="cell"><span class="ob-ln">' + esc(line) + '</span>' + (price != null ? '<span class="ob-pr">' + esc(signed(price)) + '</span>' : '') + '</span>';
   }
   // the name behind a logo or cell (data-tip): hover shows the title; a long
   // press (logos) or a tap (cells without a link) shows it on phones
@@ -2362,7 +2365,7 @@
       function teamCell(g, sd, k) {
         if (sd[1]) return '<span class="ob-team"><span class="ob-tie">' + esc(sd[1]) + '</span></span>';
         var side = sd[2] || sd[0], slug = g[side], sc = g.state !== 'pre' && g.score && g.score[k];
-        return '<span class="ob-team">' + badge(slug, 20) + '<span class="tn-full">' + esc(shortName(slug)) + '</span><span class="tn-short mono">' + esc(code(slug)) + '</span>' +
+        return '<span class="ob-team">' + badge(slug, 20) + '<span class="tn-full">' + esc(shortName(slug)) + '</span><span class="tn-short">' + esc(code(slug)) + '</span>' +
           (sc ? '<span class="ob-sc mono">' + esc(sc[side === 'away' ? 0 : 1]) + '</span>' : '') + '</span>';
       }
       // Team, Open and one column per source
@@ -2484,7 +2487,7 @@
     }
     var x = top.x, segTxt = periodFamily() || D.segments.length < 2 ? '' : seg(top.k).tag + ' ';
     var ties = x.t ? ' (' + x.t + ' ' + (x.ties ? 'tie' : 'push') + (x.t === 1 ? '' : x.ties ? 's' : 'es') + ')' : '';
-    return segTxt + x.label.replace(' (moneyline)', ' ML').replace(' (spread)', ' ATS').replace(' (F5 moneyline)', ' F5 ML') + ' went ' + x.w + '–' + x.l + ties + ', ' + fmtUnits(x.u).replace(/\.?0+u$/, 'u');
+    return segTxt + x.label.replace(' (moneyline)', ' ML').replace(' (spread)', ' Spread').replace(' (F5 moneyline)', ' F5 ML') + ' went ' + x.w + '–' + x.l + ties + ', ' + fmtUnits(x.u).replace(/\.?0+u$/, 'u');
   }
   function hubHero(slate, prev) {
     var wk = D.schedule === 'week', live = slate.games.filter(hubLive).length;

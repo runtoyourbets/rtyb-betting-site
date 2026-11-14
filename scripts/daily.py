@@ -185,7 +185,7 @@ def write_pages(page, status, logo_svg, pieces=None):
         body = ('<section class="hp-sec hd-soon"><h1>The Daily</h1>'
                 '<p class="lead">Coming soon: The Morning Run (yesterday&rsquo;s recap), On Tap (today&rsquo;s preview) and the weekly '
                 'Running Tab column, for every sport we cover.</p><p><a href="../">Back to today&rsquo;s games</a></p></section>')
-    out = page('RTYB — The Daily', 'Recaps, previews and the weekly column from RTYB, for first-period, first-quarter and first-half bettors.',
+    out = page('The Daily: Recaps and Previews | RTYB', 'Recaps, previews and the weekly column from RTYB, for first-period, first-quarter and first-half bettors.',
                body, status, depth='../').replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, 'daily'), exist_ok=True)
     with open(os.path.join(ROOT, 'daily', 'index.html'), 'w', encoding='utf-8') as f:
