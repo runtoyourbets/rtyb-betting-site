@@ -7190,10 +7190,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 120,
+    "price": 122,
     "title": "Cavaliers 1Q ML",
-    "est": 0.5077,
-    "edge": 0.0532,
+    "est": 0.5048,
+    "edge": 0.0544,
     "agree": 3,
     "sample": 13,
     "tier": "B",
@@ -7503,8 +7503,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Southern Utah"
    },
    {
