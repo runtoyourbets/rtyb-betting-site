@@ -6856,6 +6856,52 @@
     "streakTeamName": "Michigan"
    },
    {
+    "id": "nba|401909981|1q|ml|home",
+    "game": "nba|401909981",
+    "date": "2026-11-14",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T00:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Cavaliers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 148,
+    "title": "Cavaliers 1Q ML",
+    "est": 0.4719,
+    "edge": 0.0687,
+    "agree": 3,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "cle",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "4-1"
+     ],
+     [
+      "Cavaliers 1Q ML at home",
+      "4-2"
+     ],
+     [
+      "Cavaliers 1Q ML, season",
+      "7-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Cavaliers"
+   },
+   {
     "id": "ncaaf|401864538|1h|ml|away",
     "game": "ncaaf|401864538",
     "date": "2026-11-14",
@@ -7174,52 +7220,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Montreal"
-   },
-   {
-    "id": "nba|401909981|1q|ml|home",
-    "game": "nba|401909981",
-    "date": "2026-11-14",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T00:30Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Cavaliers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 124,
-    "title": "Cavaliers 1Q ML",
-    "est": 0.502,
-    "edge": 0.0556,
-    "agree": 3,
-    "sample": 13,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "cle",
-    "angles": [
-     [
-      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
-      "4-1"
-     ],
-     [
-      "Cavaliers 1Q ML at home",
-      "4-2"
-     ],
-     [
-      "Cavaliers 1Q ML, season",
-      "7-6"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Cavaliers"
    },
    {
     "id": "ncaaf|401864538|1q|total|under",
