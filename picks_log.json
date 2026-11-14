@@ -7176,56 +7176,6 @@
     "streakTeamName": "Montreal"
    },
    {
-    "id": "nba|401909983|1q|ml|away",
-    "game": "nba|401909983",
-    "date": "2026-11-14",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Nets @ Grizzlies",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 108,
-    "title": "Nets 1Q ML",
-    "est": 0.5319,
-    "edge": 0.0511,
-    "agree": 4,
-    "sample": 11,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "bkn",
-    "angles": [
-     [
-      "Grizzlies\u2019s opponents 1Q ML, Grizzlies at home",
-      "5-1"
-     ],
-     [
-      "Nets 1Q ML, last 8",
-      "5-3"
-     ],
-     [
-      "Nets 1Q ML on the road",
-      "4-3"
-     ],
-     [
-      "Nets 1Q ML, season",
-      "6-5"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Nets"
-   },
-   {
     "id": "nba|401909981|1q|ml|home",
     "game": "nba|401909981",
     "date": "2026-11-14",
@@ -7320,6 +7270,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "San Jos\u00e9 State"
+   },
+   {
+    "id": "nba|401909983|1q|ml|away",
+    "game": "nba|401909983",
+    "date": "2026-11-14",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Nets @ Grizzlies",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 105,
+    "title": "Nets 1Q ML",
+    "est": 0.537,
+    "edge": 0.0492,
+    "agree": 4,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "bkn",
+    "angles": [
+     [
+      "Grizzlies\u2019s opponents 1Q ML, Grizzlies at home",
+      "5-1"
+     ],
+     [
+      "Nets 1Q ML, last 8",
+      "5-3"
+     ],
+     [
+      "Nets 1Q ML on the road",
+      "4-3"
+     ],
+     [
+      "Nets 1Q ML, season",
+      "6-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Nets"
    },
    {
     "id": "ncaaf|401871061|1q|ats|away",
