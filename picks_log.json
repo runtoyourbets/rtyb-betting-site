@@ -7511,6 +7511,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Michigan"
+   },
+   {
+    "id": "ncaab|401909728|1h|ml|away",
+    "game": "ncaab|401909728",
+    "date": "2026-11-14",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-14T21:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Southern Utah @ Wake Forest",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 600,
+    "title": "Southern Utah 1H ML",
+    "est": 0.1894,
+    "edge": 0.0465,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "southern-utah-thunderbirds",
+    "angles": [
+     [
+      "Southern Utah 1H ML, season",
+      "3-1"
+     ],
+     [
+      "Southern Utah 1H ML, last 8",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Southern Utah"
    }
   ]
  }
