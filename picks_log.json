@@ -7272,56 +7272,6 @@
     "streakTeamName": "Nets"
    },
    {
-    "id": "ncaaf|401864538|1q|total|under",
-    "game": "ncaaf|401864538",
-    "date": "2026-11-14",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-15T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "San Jos\u00e9 State @ Air Force",
-    "href": "college-football/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 9.5,
-    "price": 112,
-    "title": "1Q Under 9.5",
-    "est": 0.5209,
-    "edge": 0.0492,
-    "agree": 6,
-    "sample": 10,
-    "tier": "B",
-    "tags": [
-     "Under Grinder"
-    ],
-    "streak": -1,
-    "streakTeam": "san-jos-state-spartans",
-    "angles": [
-     [
-      "San Jos\u00e9 State 1Q unders on the road (9.5)",
-      "5-0"
-     ],
-     [
-      "San Jos\u00e9 State 1Q unders, season (9.5)",
-      "9-1"
-     ],
-     [
-      "San Jos\u00e9 State 1Q unders, last 8 (9.5)",
-      "7-1"
-     ],
-     [
-      "Air Force 1Q unders at home (9.5)",
-      "4-1"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Air Force 6.4 \u00b7 San Jos\u00e9 State 4.0",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "San Jos\u00e9 State"
-   },
-   {
     "id": "ncaaf|401871061|1q|ats|away",
     "game": "ncaaf|401871061",
     "date": "2026-11-14",
@@ -7729,6 +7679,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Texas Tech"
+   },
+   {
+    "id": "ncaaf|401856858|1h|ml|away",
+    "game": "ncaaf|401856858",
+    "date": "2026-11-14",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-15T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Baylor @ BYU",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 210,
+    "title": "Baylor 1H ML",
+    "est": 0.3614,
+    "edge": 0.0388,
+    "agree": 3,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "baylor-bears",
+    "angles": [
+     [
+      "Baylor 1H ML, last 8",
+      "6-1-1"
+     ],
+     [
+      "Baylor 1H ML, season",
+      "6-2-1"
+     ],
+     [
+      "Baylor 1H ML on the road",
+      "2-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Baylor"
    }
   ]
  }
