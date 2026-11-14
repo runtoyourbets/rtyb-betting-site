@@ -7190,10 +7190,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 116,
+    "price": 120,
     "title": "Cavaliers 1Q ML",
-    "est": 0.5136,
-    "edge": 0.0506,
+    "est": 0.5077,
+    "edge": 0.0532,
     "agree": 3,
     "sample": 13,
     "tier": "B",
@@ -7270,6 +7270,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "San Jos\u00e9 State"
+   },
+   {
+    "id": "nba|401909983|1q|ml|away",
+    "game": "nba|401909983",
+    "date": "2026-11-14",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Nets @ Grizzlies",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 102,
+    "title": "Nets 1Q ML",
+    "est": 0.5423,
+    "edge": 0.0473,
+    "agree": 4,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "bkn",
+    "angles": [
+     [
+      "Grizzlies\u2019s opponents 1Q ML, Grizzlies at home",
+      "5-1"
+     ],
+     [
+      "Nets 1Q ML, last 8",
+      "5-3"
+     ],
+     [
+      "Nets 1Q ML on the road",
+      "4-3"
+     ],
+     [
+      "Nets 1Q ML, season",
+      "6-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Nets"
    },
    {
     "id": "ncaaf|401871061|1q|ats|away",
@@ -7458,56 +7508,6 @@
     "streakTeamName": "Southern Utah"
    },
    {
-    "id": "nba|401909983|1q|ml|away",
-    "game": "nba|401909983",
-    "date": "2026-11-14",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Nets @ Grizzlies",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 100,
-    "title": "Nets 1Q ML",
-    "est": 0.5459,
-    "edge": 0.0459,
-    "agree": 4,
-    "sample": 11,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "bkn",
-    "angles": [
-     [
-      "Grizzlies\u2019s opponents 1Q ML, Grizzlies at home",
-      "5-1"
-     ],
-     [
-      "Nets 1Q ML, last 8",
-      "5-3"
-     ],
-     [
-      "Nets 1Q ML on the road",
-      "4-3"
-     ],
-     [
-      "Nets 1Q ML, season",
-      "6-5"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Nets"
-   },
-   {
     "id": "ncaaf|401858523|1h|ats|away",
     "game": "ncaaf|401858523",
     "date": "2026-11-14",
@@ -7683,6 +7683,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Florida Atlantic"
+   },
+   {
+    "id": "ncaaf|401856858|1h|ml|away",
+    "game": "ncaaf|401856858",
+    "date": "2026-11-14",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-15T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Baylor @ BYU",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 210,
+    "title": "Baylor 1H ML",
+    "est": 0.3614,
+    "edge": 0.0388,
+    "agree": 3,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "baylor-bears",
+    "angles": [
+     [
+      "Baylor 1H ML, last 8",
+      "6-1-1"
+     ],
+     [
+      "Baylor 1H ML, season",
+      "6-2-1"
+     ],
+     [
+      "Baylor 1H ML on the road",
+      "2-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Baylor"
    }
   ]
  }
