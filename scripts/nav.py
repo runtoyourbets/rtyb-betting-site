@@ -24,15 +24,16 @@ def esc(s):
     return html.escape('' if s is None else str(s), quote=True)
 
 
-def _sport_items(base, status, section):
+def _sport_items(base, status, section, badges=True):
     """Sports menu rows. status: [(sport, live, short)]; a sport page passes
-    its section so the menu switches sport and keeps the page."""
+    its section so the menu switches sport and keeps the page. The phone
+    menu (badges=False) shows just the sport icon and name."""
     out = ''
     for sp, live, short in status:
         sec = section if section in sp['sections'] else 'games'
+        badge = f'<span class="hn-badge{" live" if live else ""}">{"LIVE" if live else esc(short)}</span>' if badges else ''
         out += (f'<a class="hn-sport-item" href="{base}{sports.section_path(sp, sec).lstrip("/")}">'
-                f'<span class="hn-sport-name">{icons.sport_icon(sp)}{esc(sp["label"])}</span>'
-                f'<span class="hn-badge{" live" if live else ""}">{"LIVE" if live else esc(short)}</span></a>')
+                f'<span class="hn-sport-name">{icons.sport_icon(sp)}{esc(sp["label"])}</span>{badge}</a>')
     return out
 
 
@@ -83,7 +84,7 @@ def header(base, status, sport=None, section=None, home_href=None):
   </div>
   <div class="hm-body">
     <button class="hm-acc" id="hmSportsBtn" type="button" aria-expanded="true" aria-controls="hmSports">Sports <span aria-hidden="true">&#9662;</span></button>
-    <div class="hm-sports" id="hmSports">{items}</div>
+    <div class="hm-sports" id="hmSports">{_sport_items(base, status, section, badges=False)}</div>
     {phone}
     <a class="hm-item hm-signin" href="{premium}">Sign in</a>
     <button class="hm-item hm-theme" id="hmTheme" type="button">Light / dark theme</button>

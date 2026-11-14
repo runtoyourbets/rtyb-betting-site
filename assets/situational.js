@@ -21,7 +21,7 @@
  *   ties (true: a tied segment is its own result with a Tie %; false: a push),
  *   tonightLocked () => true when "Tonight only" is premium-locked}
  * League view extras (the Splits page): view.range ({from, to} | {wk} |
- * {none}), view.noSeg (the page has its own segment toggle), view.controls /
+ * {post: true | false} (postseason / regular season) | {none}), view.noSeg (the page has its own segment toggle), view.controls /
  * view.line (HTML for the header), view.after(box) (wire them after a redraw).
  * Team view extras: view.next = {id, label} (the team's next game and how
  * to say it: "Tonight vs MON"); its rows get a Tonight tag.
@@ -293,7 +293,9 @@
         : view.conf ? all.filter(function(e) { return e.c.teamConf === view.conf; }) : all;
       // the Splits page's time filter: {from, to} dates, a league week (wk), or none
       var R = view.range;
-      if (R) pool = R.none ? [] : pool.filter(function(e) { return R.wk ? e.c.g.wk === R.wk : e.c.date >= R.from && e.c.date <= R.to; });
+      if (R) pool = R.none ? [] : pool.filter(function(e) {
+        return R.post != null ? !!e.c.g.post === R.post : R.wk ? e.c.g.wk === R.wk : e.c.date >= R.from && e.c.date <= R.to;
+      });
       return REG.groups.map(function(gr) {
         var rows = [], hidden = [];
         REG.rows.forEach(function(row) {
@@ -329,6 +331,8 @@
     // are real edges in one market -- the hub's Team to Watch: edge 1 = in
     // the team's favor, -1 = against it (the team page's 60% / 40% over 10+
     // games, or more than 5 units either way)
+    // a row's name: a string, or a function of the segment's total cuts ("Low total (under 221.5)")
+    function lab(row, k) { return typeof row.label === 'function' ? row.label(C, { cuts: (src.totalCuts || {})[k] }) : row.label; }
     function spots(k, slug, gameId, marketId) {
       var fit = {}, out = [];
       nextFits(k, slug, gameId).forEach(function(r) { fit[r.id] = 1; });
@@ -339,7 +343,7 @@
           var a = x.agg[m.id], d = a.a + a.b, u = m.pair ? Math.max(a.ua, a.ub) : a.ua, edge = 0;
           if ((m.pair ? a.na || a.nb : a.na) && Math.abs(u) > 5) edge = u > 0 ? 1 : -1;
           else if (d >= 10) edge = a.a / d >= 0.6 ? 1 : a.a / d <= 0.4 ? -1 : 0;
-          if (edge) out.push({ label: x.row.label, rec: a.a + '-' + a.b + (a.p ? '-' + a.p : ''), pct: d ? a.a / d : null, edge: edge });
+          if (edge) out.push({ label: lab(x.row, k), rec: a.a + '-' + a.b + (a.p ? '-' + a.p : ''), pct: d ? a.a / d : null, edge: edge });
         });
       });
       return out;
@@ -354,7 +358,7 @@
           var a = x.agg[m.id], d = a.a + a.b;
           if (d < 10) return;
           var sc = Math.abs(a.a / d - 0.5);
-          if (!best || sc > best.sc) best = { sc: sc, label: x.row.label, short: x.row.short, rec: a.a + '-' + a.b + (m.pair || m.id === 'ml3' ? '' : '-' + a.p),
+          if (!best || sc > best.sc) best = { sc: sc, label: lab(x.row, k), short: x.row.short, rec: a.a + '-' + a.b + (m.pair || m.id === 'ml3' ? '' : '-' + a.p),
                                               pct: Math.round(100 * a.a / d), market: m.label, pctHead: m.pctHead, own: !!x.row.own };
         });
       });
@@ -427,19 +431,11 @@
         groups = groups.map(function(G) { return { name: G.name, rows: G.rows.filter(function(x) { return FIT[x.row.id]; }), hidden: [], notes: G.notes }; })
           .filter(function(G) { return G.rows.length; });
       }
-      var who = !league ? '' : conf ? 'as ' + (((src.conf || {}).short || {})[conf] || conf) + ' teams' : 'as ' + (st.persp === 'fav' ? 'favorite' : 'home team');
       var sel = markets.filter(function(m) { return m.id === st.market; })[0];
-      var segTag = (src.segments.filter(function(s) { return s.key === k; })[0] || {}).tag || '';
-      // mirrored rows (league view, both sides of every game): a game-level
-      // market (O/U, BTTS) reads the same on Away as on Home, so say so once
-      var MIRROR = {};
-      if (league && !conf && sel.pair) {
-        var pairs = { away: 'home', dog: 'fav', d1: 'f1', d4: 'f4', d8: 'f8' };
-        REG.rows.forEach(function(r) { if (r && pairs[r.id]) MIRROR[r.id] = (REG.rows.filter(function(x) { return x && x.id === pairs[r.id]; })[0] || {}).label; });
-      }
-
-      // the control bar: segment, market, then (top bar only on phones) View as / conference
-      function bar(first) {
+      // the one control bar, pinned under the header: segment, market, the
+      // page's time range (view.controls), then View as / conference; two
+      // rows on phones
+      function bar() {
         var b = '';
         if (src.segments.length > 1 && !view.noSeg) b += '<div class="seg-toggle" role="group" aria-label="Segment">' + src.segments.map(function(s) {
           return '<button class="seg-btn" data-sit-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>'; }).join('') + '</div>';
@@ -450,7 +446,7 @@
           REG.conferences.map(function(c) { return '<option value="' + esc(c) + '"' + (c === conf ? ' selected' : '') + '>' + esc(((src.conf || {}).short || {})[c] || c) + '</option>'; }).join('') + '</select>';
         if (league && !conf && REG.perspectives) full += '<div class="seg-toggle sit-persp" role="group" aria-label="View as"><span class="control-label">View as</span>' +
           REG.perspectives.map(function(p) { return '<button class="seg-btn" data-sit-persp="' + p[0] + '" aria-pressed="' + (st.persp === p[0]) + '">' + p[1] + '</button>'; }).join('') + '</div>';
-        return '<div class="sit-bar' + (first ? ' sit-bar-top' : '') + '">' + b + (full ? '<div class="sit-full">' + full + '</div>' : '') + '</div>';
+        return '<div class="ob-stick sit-stick"><div class="sit-bar"><div class="sit-row1">' + b + '</div><div class="sit-full">' + (view.controls || '') + full + '</div></div></div>';
       }
 
       function recTxt(m, x) { return x.n ? x.a + '-' + x.b + (m.pair || m.id === 'ml3' ? (x.p ? '-' + x.p : '') : '-' + x.p) : '&mdash;'; }
@@ -459,7 +455,7 @@
       function decided(m, x) { return x.a + x.b; }
       function pctOf(m, x) { var d = decided(m, x); return d ? Math.round(100 * x.a / d) : null; }
       function tieOf(x) { var d = x.a + x.b + x.p; return d ? Math.round(100 * (x.p + (x.d || 0)) / d) : null; }
-      var isSu = sel.id === 'ml3' || (sel.id === 'su' && !!src.ties);
+      var isSu = sel.id === 'ml3';   // Tie %: the 3-way view only
       // the units shown: the market's own, or the better side of a pair
       function unitsPick(m, x) {
         if (!m.pair) return { u: x.ua, n: x.na, pre: '' };
@@ -481,20 +477,18 @@
         var up = unitsPick(m, x);
         return pill(up.u, up.n, up.pre, tone);
       }
-      function desc(row) { return typeof row.def === 'function' ? row.def(C, { cuts: (src.totalCuts || {})[k] }) : row.def; }
-      function perTeam(a) { return a.gp > a.games ? ' <span class="sit-per">per team</span>' : ''; }
+      var PER_TEAM = false;
+      function perTeam(a) { if (a.gp > a.games) { PER_TEAM = true; return '<sup class="st-mark">*</sup>'; } return ''; }
       var TONIGHT_TAG = '<span class="sit-tn">Tonight</span>';
       function labelCell(row, a, tone) {
-        return '<td class="sit-label' + (row.indent ? ' ind' : '') + '"><span class="sit-name">' + esc(row.label) + '</span>' + (FIT[row.id] ? ' ' + TONIGHT_TAG : '') +
-          (a.gp && a.gp < (REG.smallSample || 10) ? ' <span class="sit-small">Small sample</span>' : '') +
-          '<span class="sit-desc">' + esc(desc(row)) + (who && (conf || !row.own) ? ' &middot; ' + who : '') + '</span></td>';
+        return '<td class="sit-label' + (row.indent ? ' ind' : '') + '"><span class="sit-name">' + esc(lab(row, k)) + '</span>' + (FIT[row.id] ? ' ' + TONIGHT_TAG : '') +
+          (a.gp && a.gp < (REG.smallSample || 10) ? ' <span class="sit-small">Small sample</span>' : '') + '</td>';
       }
       function cells(row, a) {
         var x0 = a[sel.id], p = pctOf(sel, x0), tone = edgeOf(sel, x0);
-        var mark = a.gp && a.lined < a.gp ? '<sup class="st-mark">*</sup>' : '';
+        var mark = a.gp && a.lined < a.gp ? '<sup class="st-mark">&dagger;</sup>' : '';
         if (a.gp && a.lined < a.gp) MARKED = true;
         var h = labelCell(row, a, tone) + '<td class="num mono">' + (a.gp || '&mdash;') + perTeam(a) + '</td>';
-        if (MIRROR[row.id]) return h + '<td class="num sit-same" colspan="' + (isSu ? 4 : 3) + '">Same games as ' + MIRROR[row.id] + '</td>';
         h += '<td class="num mono sit-sel">' + recTxt(sel, x0) + mark + '</td>' +
           '<td class="num"><div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '&mdash;' : p + '%') + '</span></div></td>' +
           (isSu ? '<td class="num mono">' + (tieOf(x0) == null ? '&mdash;' : tieOf(x0) + '%') + '</td>' : '') +
@@ -503,27 +497,28 @@
       }
       var MARKED = false;
       var ncol = 5 + (isSu ? 1 : 0);
+      // fixed column widths, so every group's card lines up
+      var cols = '<colgroup><col class="sc-l"><col class="sc-gp"><col class="sc-rec"><col class="sc-pct">' + (isSu ? '<col class="sc-tie">' : '') + '<col class="sc-u"></colgroup>';
       var thead = '<tr><th class="sit-label">Split</th><th class="num">GP</th><th class="num">' + esc(sel.head) + '</th><th class="num">' + esc(sel.pctHead) +
         '</th>' + (isSu ? '<th class="num">Tie %</th>' : '') + '<th class="num">Units</th></tr>';
       function mobRows(G) {
         return G.rows.map(function(x) {
           var a = x.agg, x0 = a[sel.id], p = pctOf(sel, x0), tone = edgeOf(sel, x0);
           return '<details class="sit-mrow' + (FIT[x.row.id] ? ' sit-on' : '') + '" id="sit-m-' + esc(x.row.id) + '"><summary><span class="sit-mlabel' + (x.row.indent ? ' ind' : '') + '">' + esc(x.row.short) + (FIT[x.row.id] ? ' ' + TONIGHT_TAG : '') +
-              (a.gp && a.gp < (REG.smallSample || 10) ? ' <span class="sit-small">Small</span>' : '') +
-              (who && (conf || !x.row.own) ? '<span class="sit-who">' + who + '</span>' : '') + '</span>' +
+              (a.gp && a.gp < (REG.smallSample || 10) ? ' <span class="sit-small">Small</span>' : '') + '</span>' +
             '<span class="mono sit-mrec">' + recTxt(sel, x0) + '</span><span class="sit-mval">' + (sel.id === 'su' ? '<span class="mono">' + (p == null ? '&mdash;' : p + '%') + '</span>' : unitsOf(sel, x0, tone)) +
             '</span><span class="sit-chev" aria-hidden="true">&#9662;</span></summary>' +
-            '<div class="sit-mbody"><p>' + esc(desc(x.row)) + '</p>' +
+            '<div class="sit-mbody"><p class="sit-mname">' + esc(lab(x.row, k)) + '</p>' +
               '<div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '&mdash;' : p + '%') + '</span></div>' +
               '<div class="sit-m3">' + markets.map(function(m) { var xx = a[m.id]; return '<div><b>' + esc(m.label) + '</b><span class="mono">' + recTxt(m, xx) + '</span>' + unitsOf(m, xx, edgeOf(m, xx)) + '</div>'; }).join('') + '</div>' +
-              '<div class="sit-mfoot">' + a.gp + (a.gp > a.games ? ' team-games' : ' game' + (a.gp === 1 ? '' : 's')) + (a.lined < a.gp ? '<sup class="st-mark">*</sup>' : '') + '</div></div></details>';
+              '<div class="sit-mfoot">' + a.gp + (a.gp > a.games ? ' team-games' : ' game' + (a.gp === 1 ? '' : 's')) + (a.lined < a.gp ? '<sup class="st-mark">&dagger;</sup>' : '') + '</div></div></details>';
         }).join('');
       }
       var tip = esc(REG.foot || 'Records count every game; units count only games with saved closing odds, 1 unit at the closing price (spreads and totals at -110 when only the line was saved).') +
         ' Small sample: under ' + (REG.smallSample || 10) + ' games; rows under 5 games stay hidden. ' +
         '&ldquo;Per team&rdquo; rows count each team&rsquo;s game, so one game can count twice. Green and red mark real edges: 60%+ (or 40% and under) over 10+ games, or more than 5 units either way.';
       var html = '<div class="st-sec sit"><div class="st-sec-head"><h2>Situational Results <button type="button" class="info-tip tip-left" aria-label="About this table">i<span class="tip-bubble" role="tooltip">' + tip + '</span></button></h2>' +
-        (view.controls ? '<div class="st-ctl">' + view.controls + '</div>' : '') + '</div>' + (view.line || '') +
+        '</div>' + bar() + (view.line || '') +
         (st.comboMsg ? '<p class="sit-combo">Combining filters is a Premium feature: one at a time for now.</p>' : '');
       if (!league && view.next) {
         var tonightLocked = src.tonightLocked && src.tonightLocked();
@@ -533,18 +528,17 @@
           '<button type="button" class="seg-btn sit-tonly" data-sit-tonight aria-pressed="' + st.tonightOnly + '"' + (tonightLocked ? ' disabled title="Premium"' : '') + '>Tonight only' + (tonightLocked ? ' &#128274;' : '') + '</button></div>';
       }
       if (!groups.length) html += '<div class="sit-notyet">' + (st.tonightOnly ? 'None of tonight&rsquo;s situations has 5+ games yet.' : 'No games in these splits yet.') + '</div>';
-      html += groups.map(function(G, gi) {
+      html += groups.map(function(G) {
         var id = 'sit-g-' + G.name.toLowerCase().replace(/[^a-z]+/g, '-');
-        var notes = league && !conf && G.notes.length ? '<div class="sit-note">' + G.notes.map(esc).join(' ') + '</div>' : '';
-        var tbl = '<div class="sit-desk' + (REG.mobileList ? '' : ' sit-scroll') + '"><div class="sit-wrap"><table class="sit-table"><thead>' + thead + '</thead><tbody>' +
+        var tbl = '<div class="sit-desk' + (REG.mobileList ? '' : ' sit-scroll') + '"><div class="sit-wrap"><table class="sit-table">' + cols + '<thead>' + thead + '</thead><tbody>' +
           G.rows.map(function(x) { return '<tr id="sit-r-' + esc(x.row.id) + '"' + (FIT[x.row.id] ? ' class="sit-on"' : '') + '>' + cells(x.row, x.agg) + '</tr>'; }).join('') +
-          (G.hidden.length ? '<tr class="sit-notyet"><td colspan="' + ncol + '">Not yet: ' + G.hidden.map(function(r) { return esc(r.label); }).join(' &middot; ') + '</td></tr>' : '') +
+          (G.hidden.length ? '<tr class="sit-notyet"><td colspan="' + ncol + '">Not yet: ' + G.hidden.map(function(r) { return esc(lab(r, k)); }).join(' &middot; ') + '</td></tr>' : '') +
           '</tbody></table></div></div>';
         var mob = REG.mobileList ? '<div class="sit-mob">' + mobRows(G) +
           (G.hidden.length ? '<div class="sit-notyet">Not yet: ' + G.hidden.map(function(r) { return esc(r.short); }).join(' &middot; ') + '</div>' : '') + '</div>' : '';
-        return '<section class="sit-gsec" id="' + id + '"><h4 class="sit-gtitle">' + esc(G.name) + ' <span class="sit-gset">&middot; ' + esc(segTag) + ' &middot; ' + esc(sel.label) + '</span></h4>' +
-          notes + bar(gi === 0) + tbl + mob + '</section>';
-      }).join('') + (MARKED ? '<p class="st-foot"><sup>*</sup> Games without a saved line aren&rsquo;t counted in the units.</p>' : '') + '</div>';
+        return '<section class="st-card sit-gsec" id="' + id + '"><div class="st-head"><h4>' + esc(G.name) + '</h4></div>' + tbl + mob + '</section>';
+      }).join('') + (PER_TEAM ? '<p class="st-foot"><sup>*</sup> Per team: each team&rsquo;s game counts, so one game can count twice.</p>' : '') +
+        (MARKED ? '<p class="st-foot"><sup>&dagger;</sup> Games without a saved line aren&rsquo;t counted in the units.</p>' : '') + '</div>';
       var locked = league && src.locked && src.locked();
       box.className = 'adv-section' + (locked ? ' locked' : '');
       box.innerHTML = html + (locked && src.lockHtml ? src.lockHtml() : '');
@@ -586,7 +580,21 @@
         };
       });
     }
-    return { render: render, contexts: function(k, mode) { return contexts(k, mode || 'current'); }, tags: tags, nextFits: nextFits, spots: spots, standout: standout,
+    // the How to read box's glossary: every group's rows and what each means
+    // (the definitions live here, not under the rows)
+    function glossary(k) {
+      var notes = [], by = {}, order = [];
+      REG.groups.forEach(function(G) { if (G.note) notes.push(G.note); });
+      REG.rows.forEach(function(row) {
+        if (!row || !row.def || row.teamOnly) return;
+        var name = GROUP_OF[row.group] || ((REG.groups.filter(function(G) { return G.id === row.group; })[0] || {}).label) || '';
+        if (!by[name]) { by[name] = []; order.push(name); }
+        by[name].push('<dt>' + esc(lab(row, k)) + '</dt><dd>' + esc(typeof row.def === 'function' ? row.def(C, { cuts: (src.totalCuts || {})[k] }) : row.def) + '</dd>');
+      });
+      return '<div class="htr-gloss"><h3>Glossary</h3>' + notes.map(function(n) { return '<p>' + esc(n) + '</p>'; }).join('') +
+        order.map(function(n) { return '<h4>' + esc(n) + '</h4><dl>' + by[n].join('') + '</dl>'; }).join('') + '</div>';
+    }
+    return { render: render, glossary: glossary, contexts: function(k, mode) { return contexts(k, mode || 'current'); }, tags: tags, nextFits: nextFits, spots: spots, standout: standout,
              markets: markets, reg: REG, state: st };
   }
   window.RTYBSit = { create: create, etParts: etParts };

@@ -36,7 +36,9 @@ def game(g, date):
            'state': STATE.get(g.get('state'), 'pre'), 'away': g['away'], 'home': g['home'],
            'as': g.get('awayFinal'), 'hs': g.get('homeFinal'), 'ot': g.get('ot') or '',
            'firstGoal': g.get('firstGoal'), 'ag': g.get('awayGoalie'), 'hg': g.get('homeGoalie'),
-           'fml': g.get('fgMl'), 'detail': g.get('detail') or ''}
+           'fml': g.get('fgMl'), 'detail': g.get('detail') or '',
+           # postseason: the NHL's game id carries the type (2025030111: 03 = playoffs)
+           'post': str(g.get('id') or '')[4:6] == '03'}
     periods = [(g.get(f'awayP{i}'), g.get(f'homeP{i}')) for i in (1, 2, 3)]
     known = []
     for a, h in periods:   # the periods scored so far, in order

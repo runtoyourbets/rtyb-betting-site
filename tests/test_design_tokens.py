@@ -17,7 +17,8 @@ STYLE_ATTR = re.compile(r'style=\\?"([^"\\]*(?:\\.[^"\\]*)*)\\?"|style=\'([^\']*
 STYLE_PROP = re.compile(r'\.style\.(?:color|background(?:Color)?|borderColor|font\w*)\s*=\s*([^;\n]+)')
 BADGE = ('team-badge', 'team-logo-fallback')
 TOKENS = ('--ff-display', '--ff-body', '--fs-title', '--fs-section', '--fs-team', '--fs-body', '--fs-num', '--fs-price',
-          '--fs-label', '--cell', '--best-bg', '--good-dim', '--push-dim', '--cell-gap', '--cell-min-h', '--card-pad')
+          '--fs-label', '--cell', '--best-bg', '--good-dim', '--push-dim', '--cell-gap', '--cell-min-h', '--card-pad',
+          '--title-bg', '--title-text')
 
 
 def near_badge(lines, i):

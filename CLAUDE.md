@@ -80,6 +80,8 @@ Colors:
 | units down | `--bad` | #F87171 | #B91C1C |
 | units even | `--push` | #FACC15 | #A16207 |
 | push fill | `--push-dim` | rgba(250,204,21,0.14) | #FBF3D6 |
+| card title bar | `--title-bg` | rgba(167,139,250,0.14) | #EFEAFE |
+| card title text | `--title-text` | #D6CCFF | #4B2FB8 |
 
 Spacing:
 
@@ -89,4 +91,8 @@ Spacing:
 | `--cell-min-h`, `--cell-pad`, `--cell-radius` | cells: 48px min height, 4px 6px padding, 8px radius; line on top, price under |
 | `--open-gap` | 12px extra after the Open column |
 | `--odds-pad-x`, `--game-pad-top`, `--game-pad-bottom` | Odds tables: 24px left/right, 12px above and 14px below each game, a divider between games |
-| `--card-pad`, `--card-radius` | cards: 16px 18px padding, 1px `--card-border`, 14px radius |
+| `--card-pad`, `--card-radius` | cards: 16px 18px padding (`--card-pad-y`, `--card-pad-x`), 1px `--card-border`, 14px radius |
+
+Every Stats card (Overview, Splits groups, Edges, team-page Splits) opens with a title bar:
+a soft purple band (`--title-bg`) across the top with the title in label style
+(`--title-text`). Stat rows keep label / record / % / units at 1.4 / 1.2 / 0.8 / 1.

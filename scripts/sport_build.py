@@ -1178,7 +1178,8 @@ def build(sp, teams_list, now_utc=None):
     odds_schedule = {d: [{'away': g['away'], 'home': g['home'], 'start': g.get('start'),
                           'state': {'in': 'live', 'final': 'final', 'post': 'final'}.get(g.get('state'), 'pre'),
                           'score': seg_scores(sp, g), 'detail': g.get('detail') or '',
-                          'res': g.get('res') if g.get('state') in ('final', 'post') else None} for g in day]
+                          # a segment is graded the moment it ends, live games included
+                          'res': g.get('res') if g.get('state') in ('in', 'final', 'post') else None} for g in day]
                      for d, day in by_date.items()}
     write_odds_page(sp, slug_dir, now_utc, odds_schedule, weeks=doc.get('weeks'))
     import hub   # the Arena hub (/{slug}/): Matchup of the Day and The Daily, after the odds files it prices from

@@ -18,7 +18,7 @@ class StatsPagesTest(unittest.TestCase):
 
     def test_every_page_is_a_stats_page(self):
         for sp in sports.SPORTS:
-            for sec, _, _ in build_site.STATS_PAGES:
+            for sec, _, _, _ in build_site.STATS_PAGES:
                 self.assertEqual(build_site.stats_meta(sp, sec, None)['section'], 'stats')
 
     def test_tabs_mark_the_current_page(self):

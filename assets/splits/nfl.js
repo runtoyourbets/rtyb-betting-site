@@ -78,7 +78,7 @@
       test: function(c) { return sun(c) && c.mins < 14 * 60; } },
     { id: 'late', label: 'Late afternoon · 4:05/4:25 ET', short: '4:05/4:25', group: 'ko', def: 'Sunday kickoffs from 2:00 PM to 6:59 PM ET.',
       test: function(c) { return sun(c) && c.mins >= 14 * 60 && !prime(c); } },
-    { id: 'prime', label: 'Primetime (all)', short: 'Primetime', group: 'ko', def: 'Any kickoff at 7:00 PM ET or later.',
+    { id: 'prime', label: 'Primetime (7 PM ET+)', short: 'Primetime', group: 'ko', def: 'Any kickoff at 7:00 PM ET or later.',
       test: function(c) { return prime(c); } },
     { id: 'tnf', label: 'Thursday night', short: 'TNF', group: 'ko', indent: 1, def: 'Thursday kickoffs at 7:00 PM ET or later.',
       test: function(c) { return c.dow === 4 && prime(c); } },

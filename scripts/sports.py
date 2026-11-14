@@ -28,6 +28,16 @@ Field reference
 SPREAD_MARKETS = ['ATS', 'ML', 'Total']
 NO_ML_MARKETS = ['ATS', 'Total']
 
+# The bottom block (newsletter signup, 21+ line, about and commission lines,
+# Privacy · Terms · email) on every page's footer. 'home-only' keeps it on
+# the home page alone (until launch); 'everywhere' brings it back on every page.
+FOOTER = 'home-only'
+
+
+def footer_on(is_home=False):
+    return FOOTER == 'everywhere' or is_home
+
+
 SPORTS = [
     {
         'key': 'nhl', 'label': 'NHL', 'slug': 'nhl', 'sport_type': 'period',

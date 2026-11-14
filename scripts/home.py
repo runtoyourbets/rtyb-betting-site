@@ -387,14 +387,16 @@ PAGE_JS = '''
 </script>'''
 
 
-def page(title, desc, body, status, depth='', noindex=False):
-    """noindex: reachable by URL but kept out of search (Picks, Streaks)."""
+def page(title, desc, body, status, depth='', noindex=False, is_home=False):
+    """noindex: reachable by URL but kept out of search (Picks, Streaks).
+    The footer follows sports.FOOTER (the home page passes is_home)."""
     css = f'<link rel="stylesheet" href="{depth}assets/site.css">'
     robots = '<meta name="robots" content="noindex">' if noindex else ''
+    footer = FOOTER if sports.footer_on(is_home) else ''
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title>'
             f'<meta name="description" content="{esc(desc)}">{robots}{FONTS}{css}</head>'
-            f'<body class="home">{nav_html(status, depth)}<main class="hp">{body}</main>{FOOTER}{PAGE_JS}{account.ACCOUNT_JS}</body></html>')
+            f'<body class="home">{nav_html(status, depth)}<main class="hp">{body}</main>{footer}{PAGE_JS}{account.ACCOUNT_JS}</body></html>')
 
 
 # ------------------------------------------------------------------- build
@@ -635,7 +637,7 @@ def build(template, nhl_data, logo_svg, now_utc=None):
                 f'<button class="hs-arrow next" type="button" aria-label="Scroll leagues right" hidden>&rsaquo;</button></div>')
     body = (f'{chip_row}{hero}{today_html}{trends_html}{results_html}{daily_html}{premium}{learn_html}')
     home = page('RTYB — Run to Your Bets', 'First period, first quarter and first half betting odds, stats and trends for every NHL and NBA game.',
-                body, status).replace('__LOGO_SVG__', logo_svg)
+                body, status, is_home=True).replace('__LOGO_SVG__', logo_svg)
     with open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(home)
 

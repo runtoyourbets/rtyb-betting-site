@@ -20,18 +20,18 @@
     { id: 'home', label: 'Home', short: 'Home', group: 'ha', own: true, def: 'Games as the home team.', test: function(c) { return c.home; } },
     { id: 'away', label: 'Away', short: 'Away', group: 'ha', own: true, def: 'Games as the road team.', test: function(c) { return !c.home; } },
     { id: 'fav', label: 'Favorite', short: 'Fav', group: 'ha', own: true, def: 'Favored by the closing 1st-period moneyline (full-game when there’s no 1P price).', test: function(c) { return c.fav === true; } },
-    { id: 'heavy', label: 'Heavy favorite', short: 'Heavy fav', group: 'ha', indent: 1, own: true, def: 'A favorite at a closing full-game moneyline of -200 or shorter.', test: function(c) { return c.fav === true && c.favMl != null && c.favMl <= C.heavy; } },
-    { id: 'small', label: 'Small favorite', short: 'Small fav', group: 'ha', indent: 1, own: true, def: 'A favorite at a closing full-game moneyline of -199 to -101.', test: function(c) { return c.fav === true && c.favMl != null && c.favMl > C.heavy && c.favMl <= -101; } },
+    { id: 'heavy', label: 'Heavy favorite (-200 or shorter)', short: 'Heavy fav', group: 'ha', indent: 1, own: true, def: 'A favorite at a closing full-game moneyline of -200 or shorter.', test: function(c) { return c.fav === true && c.favMl != null && c.favMl <= C.heavy; } },
+    { id: 'small', label: 'Small favorite (-199 to -101)', short: 'Small fav', group: 'ha', indent: 1, own: true, def: 'A favorite at a closing full-game moneyline of -199 to -101.', test: function(c) { return c.fav === true && c.favMl != null && c.favMl > C.heavy && c.favMl <= -101; } },
     { id: 'dog', label: 'Underdog', short: 'Dog', group: 'ha', own: true, def: 'The underdog by the closing 1st-period moneyline (full-game when there’s no 1P price).', test: function(c) { return c.fav === false; } },
 
     { id: 'div', label: 'Division', short: 'Div', group: 'opp', def: 'Against a division rival.', test: function(c) { return c.ti && c.oi && c.ti.division === c.oi.division; } },
     { id: 'conf', label: 'Conference', short: 'Conf', group: 'opp', def: 'Same conference, other division.', test: function(c) { return c.ti && c.oi && c.ti.conference === c.oi.conference && c.ti.division !== c.oi.division; } },
     { id: 'nonconf', label: 'Non-conference', short: 'Non-conf', group: 'opp', def: 'Against the other conference.', test: function(c) { return c.ti && c.oi && c.ti.conference !== c.oi.conference; } },
 
-    { id: 'mat', label: 'Matinee', short: 'Matinee', group: 'drop', def: 'Puck drop before 5:00 PM ET.', test: function(c) { return c.mins < 17 * 60; } },
-    { id: 'early', label: 'Early', short: 'Early', group: 'drop', def: 'Puck drop 5:00 to 7:59 PM ET.', test: function(c) { return c.mins >= 17 * 60 && c.mins < 20 * 60; } },
-    { id: 'late', label: 'Late', short: 'Late', group: 'drop', def: 'Puck drop 8:00 to 9:59 PM ET.', test: function(c) { return c.mins >= 20 * 60 && c.mins < 22 * 60; } },
-    { id: 'west', label: 'West Coast late', short: 'West late', group: 'drop', def: 'Puck drop at 10:00 PM ET or later.', test: function(c) { return c.mins >= 22 * 60; } },
+    { id: 'mat', label: 'Matinee (before 5 PM ET)', short: 'Matinee', group: 'drop', def: 'Puck drop before 5:00 PM ET.', test: function(c) { return c.mins < 17 * 60; } },
+    { id: 'early', label: 'Early (5 to 7:59 PM ET)', short: 'Early', group: 'drop', def: 'Puck drop 5:00 to 7:59 PM ET.', test: function(c) { return c.mins >= 17 * 60 && c.mins < 20 * 60; } },
+    { id: 'late', label: 'Late (8 to 9:59 PM ET)', short: 'Late', group: 'drop', def: 'Puck drop 8:00 to 9:59 PM ET.', test: function(c) { return c.mins >= 20 * 60 && c.mins < 22 * 60; } },
+    { id: 'west', label: 'West Coast late (10 PM ET+)', short: 'West late', group: 'drop', def: 'Puck drop at 10:00 PM ET or later.', test: function(c) { return c.mins >= 22 * 60; } },
 
     { id: 'rested', label: 'Rested', short: 'Rested', group: 'rest', own: true, def: 'More rest days than the opponent.', test: function(c) { return c.restDays != null && c.oppRestDays != null && c.restDays > c.oppRestDays; } },
     { id: 'tired', label: 'Tired', short: 'Tired', group: 'rest', own: true, def: 'Fewer rest days than the opponent.', test: function(c) { return c.restDays != null && c.oppRestDays != null && c.restDays < c.oppRestDays; } },
@@ -42,7 +42,7 @@
     { id: 'nob2b', label: 'Neither team on a back-to-back', short: 'No B2B', group: 'rest', def: 'Neither team played yesterday.', test: function(c) { return !c.b2b && !c.oppB2b; } },
     { id: 'three', label: '3 games in 4 nights', short: '3 in 4', group: 'rest', own: true, def: 'The team’s 3rd game within 4 days.', test: function(c) { return c.threeIn4; } },
     { id: 'trip3', label: '3rd+ game of a road trip', short: 'Road trip 3+', group: 'rest', own: true, def: 'At least the 3rd straight road game.', test: function(c) { return c.trip >= 3; } },
-    { id: 'homeback', label: 'First home game after a road trip', short: 'Home from trip', group: 'rest', own: true, def: 'Home after a road trip of 3 or more games.', test: function(c) { return c.home && c.tripEnded >= 3; } },
+    { id: 'homeback', label: 'First home game after a 3+ game road trip', short: 'Home from trip', group: 'rest', own: true, def: 'Home after a road trip of 3 or more games.', test: function(c) { return c.home && c.tripEnded >= 3; } },
     { id: 'tz', label: 'Crossed 2+ time zones', short: '2+ time zones', group: 'rest', own: true, def: 'Two or more time zones from the last game’s arena.', test: function(c) { return c.tzCrossed != null && c.tzCrossed >= 2; } },
 
     { id: 'pw', label: 'After a win', short: 'Off W', group: 'prev', own: true, def: 'Won its previous game.', test: function(c) { return c.prev && c.prev.res === 'W'; } },

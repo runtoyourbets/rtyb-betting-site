@@ -14,6 +14,13 @@
     if (c.segTotal == null || !c.cuts) return false;
     return n === 0 ? c.segTotal < c.cuts[0] : n === 1 ? c.segTotal >= c.cuts[0] && c.segTotal < c.cuts[1] : c.segTotal >= c.cuts[1];
   }
+  // a total-size row's name with its range: "Low 1H total (under 68.5)"
+  function cutLabel(name, n) {
+    return function(C2, info) {
+      var k = info.cuts;
+      return k ? name + ' (' + ['under ' + k[0], k[0] + ' to ' + (k[1] - 0.5), k[1] + '+'][n] + ')' : name;
+    };
+  }
   function cutDef(n) {
     return function(C2, info) {
       var k = info.cuts;
@@ -54,8 +61,8 @@
     { id: 'wkday', label: 'Weekday', short: 'Weekday', group: 'tip', def: 'Monday through Friday.', test: function(c) { return c.dow >= 1 && c.dow <= 5; } },
     { id: 'sat', label: 'Saturday', short: 'Saturday', group: 'tip', def: 'Saturday games.', test: function(c) { return c.dow === 6; } },
     { id: 'sun', label: 'Sunday', short: 'Sunday', group: 'tip', def: 'Sunday games.', test: function(c) { return c.dow === 0; } },
-    { id: 'aft', label: 'Afternoon', short: 'Afternoon', group: 'tip', def: 'Tip-off before 6:00 PM ET.', test: function(c) { return c.mins < 18 * 60; } },
-    { id: 'night', label: 'Night', short: 'Night', group: 'tip', def: 'Tip-off at 6:00 PM ET or later.', test: function(c) { return c.mins >= 18 * 60; } },
+    { id: 'aft', label: 'Afternoon (before 6 PM ET)', short: 'Afternoon', group: 'tip', def: 'Tip-off before 6:00 PM ET.', test: function(c) { return c.mins < 18 * 60; } },
+    { id: 'night', label: 'Night (6 PM ET+)', short: 'Night', group: 'tip', def: 'Tip-off at 6:00 PM ET or later.', test: function(c) { return c.mins >= 18 * 60; } },
 
     { id: 'r4', label: 'After 4+ days off', short: '4+ days off', group: 'rest', own: true, def: 'Four or more days off before the game.', test: function(c) { return c.restDays != null && c.restDays >= 4; } },
     { id: 'g2in3', label: '2nd game in 3 days', short: '2nd in 3 days', group: 'rest', own: true, def: 'Played within the last two days (tournament and holiday stretches).', test: function(c) { return c.restDays != null && c.restDays <= 1; } },
@@ -70,9 +77,9 @@
     { id: 'ws', label: 'On a 3+ game win streak', short: 'W streak 3+', group: 'prev', own: true, def: 'Won its last 3 or more games.', test: function(c) { return c.streak >= C.streak; } },
     { id: 'ls', label: 'On a 3+ game losing streak', short: 'L streak 3+', group: 'prev', own: true, def: 'Lost its last 3 or more games.', test: function(c) { return c.streak <= -C.streak; } },
 
-    { id: 'tlow', label: 'Low 1H total', short: 'Low total', group: 'size', def: cutDef(0), test: function(c) { return third(c, 0); } },
-    { id: 'tmid', label: 'Middle 1H total', short: 'Mid total', group: 'size', def: cutDef(1), test: function(c) { return third(c, 1); } },
-    { id: 'thigh', label: 'High 1H total', short: 'High total', group: 'size', def: cutDef(2), test: function(c) { return third(c, 2); } },
+    { id: 'tlow', label: cutLabel('Low 1H total', 0), short: 'Low total', group: 'size', def: cutDef(0), test: function(c) { return third(c, 0); } },
+    { id: 'tmid', label: cutLabel('Middle 1H total', 1), short: 'Mid total', group: 'size', def: cutDef(1), test: function(c) { return third(c, 1); } },
+    { id: 'thigh', label: cutLabel('High 1H total', 2), short: 'High total', group: 'size', def: cutDef(2), test: function(c) { return third(c, 2); } },
   ];
   window.RTYB_SPLITS = window.RTYB_SPLITS || {};
   window.RTYB_SPLITS.ncaab = { config: C, groups: groups, rows: rows, markets: [{ id: 'ats' }, { id: 'tot' }], favBy: 'fg-spread', periods: 2,

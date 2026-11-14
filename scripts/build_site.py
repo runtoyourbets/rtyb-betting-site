@@ -457,6 +457,8 @@ def render_page(template, page_key, teams_menu_html, meta=None, team_code='', sp
     out = apply_sport(out, sport, section)
     out = out.replace('__EMPTY_HTML__', empty_html)
     out = out.replace('__SPORT_BODY__', sport_body)
+    if not sports.footer_on():   # sports.FOOTER: the bottom block is on the home page only for now
+        out = re.sub(r'\n<footer>.*?</footer>\n', '\n', out, count=1, flags=re.S)
     meta = meta or PAGE_META[page_key]
     out = out.replace('__PAGE_TITLE__', meta['title'])
     out = out.replace('__PAGE_H1__', meta['h1'])
@@ -711,10 +713,11 @@ def how_to_read_html(sp, section):
                  'Rows under 5 games stay hidden until they have enough. Green and red mark real edges: 60%+ (or 40% and under) '
                  'over 10+ games, or more than 5 units either way.']
     elif section == 'edges':
-        segs = ' or '.join(sports.SEGMENT_WORDS[s['key']] for s in sp['segments'] if s['key'] != '1i')
-        lines = [f'Each row: how often it came true after the {segs}, and the units from betting it at the closing pregame price '
-                 '(live prices at the break will differ).',
-                 'Best Closers win the rest of the game most often; Biggest Faders lose it most. Win % leaves ties out.']
+        lines = ['How often: the share of finished games where the row came true.',
+                 'Worth it at: the break-even price for that rate. A live price better than it (a bigger plus number, or a '
+                 'smaller minus one) has paid over the sample; worse has not. It is the rate turned into odds, not a pick.',
+                 'Rows need 10 games to show; 10 to 19 are tagged small sample. Best closers win the rest of the game most '
+                 'often, biggest faders lose it most (win % leaves ties out; ties broken by the average margin).']
     else:
         return ''
     seo = SEO_COPY.get((section, sp['key']))
@@ -766,18 +769,22 @@ def sport_app_body(sp, section):
             f'<noscript>This page needs JavaScript.</noscript></div>' + how_to_read_html(sp, section))
 
 
-# The Stats pages: (data-section, folder under /{slug}/stats/, tab label)
-STATS_PAGES = [('stats', '', 'Overview'), ('splits', 'splits', 'Splits'), ('edges', 'edges', 'Edges')]
+# The Stats pages: (data-section, folder under /{slug}/stats/, tab name, line under it)
+STATS_PAGES = [('stats', '', 'Overview', 'The big picture'), ('splits', 'splits', 'Splits', 'Find your spot'),
+               ('edges', 'edges', 'Edges', 'Live-bet angles')]
 
 
 def stats_tabs_html(sp, current):
-    """Overview · Splits · Edges, under the heading (market-pill style)."""
+    """Overview · Splits · Edges: three tab cards under the heading (the
+    current page tinted, the others with an arrow)."""
     base = sports.section_path(sp, 'stats')
-    return ('<nav class="seg-toggle stats-tabs" aria-label="Stats pages">'
-            + ''.join(f'<a class="seg-btn" href="{base}{sub + "/" if sub else ""}"'
-                      + (' aria-current="page" aria-pressed="true"' if sec == current else ' aria-pressed="false"') + f'>{label}</a>'
-                      for sec, sub, label in STATS_PAGES)
-            + '</nav>')
+    out = []
+    for sec, sub, name, line in STATS_PAGES:
+        cur = sec == current
+        out.append(f'<a class="stc" href="{base}{sub + "/" if sub else ""}"' + (' aria-current="page"' if cur else '')
+                   + f'><span class="stc-name">{name}' + ('' if cur else '<span class="stc-go" aria-hidden="true">&rarr;</span>')
+                   + f'</span><span class="stc-sub">{line}</span></a>')
+    return '<nav class="stats-cards" aria-label="Stats pages">' + ''.join(out) + '</nav>'
 
 
 def stats_meta(sp, page, season_label):
@@ -793,12 +800,18 @@ def stats_meta(sp, page, season_label):
         return {'title': f"{sp['label']} {words} Splits{season} | RTYB", 'h1': f"{sp['label']} Splits", 'section': 'stats',
                 'desc': f"{sp['label']} {segs} records by situation: home and road, favorite and underdog, rest and schedule."}
     return {'title': f"{sp['label']} {words} Edges: Best Closers & Faders | RTYB", 'h1': f"{sp['label']} Edges", 'section': 'stats',
-            'desc': f"What happens after the {segs} in the {sp['label']}: leads held and blown, plus the best closers and biggest faders."}
+            'desc': f"What happens after the {segs} in {league_in(sp)}: who holds a lead, who comes back, and which teams "
+                    f"close or fade, with the price each spot is worth."}
+
+
+def league_in(sp):
+    """'the NBA', 'MLB', 'college basketball' (after "in")."""
+    return {'ncaab': 'college basketball', 'ncaaf': 'college football', 'mlb': 'MLB'}.get(sp['key'], f"the {sp['label']}")
 
 
 def write_stats_pages(template, sp, teams_menu_html, season_label, has_data):
     """/{slug}/stats/ (Overview), /stats/splits/ and /stats/edges/, every sport."""
-    for sec, sub, _ in STATS_PAGES:
+    for sec, sub, _, _ in STATS_PAGES:
         meta = stats_meta(sp, sec, season_label)
         if has_data:
             html = render_page(template, 'sport', teams_menu_html, meta=meta, sport=sp,
@@ -1128,7 +1141,7 @@ def main():
                          'state': nhl_state.get(g.get('state'), 'pre'),
                          'score': {'1p': [g['awayP1'], g['homeP1']]} if g.get('awayP1') is not None and g.get('homeP1') is not None else None,
                          'detail': g.get('detail') or '',
-                         'res': nhl_sport.game(g, d).get('res') if nhl_state.get(g.get('state')) == 'final' else None}
+                         'res': nhl_sport.game(g, d).get('res') if nhl_state.get(g.get('state')) in ('live', 'final') else None}
                         for g in games]
                     for d, games in merged_games.items() if d >= SEASON_START}
     two_word = ('Blue Jackets', 'Maple Leafs', 'Red Wings', 'Golden Knights')
