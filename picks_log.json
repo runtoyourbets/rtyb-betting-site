@@ -7033,8 +7033,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 2.45,
     "streakTeamName": "Georgia Tech"
    },
    {
@@ -7226,6 +7226,52 @@
     "streakTeamName": "Nets"
    },
    {
+    "id": "nba|401909981|1q|ml|home",
+    "game": "nba|401909981",
+    "date": "2026-11-14",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T00:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Cavaliers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 116,
+    "title": "Cavaliers 1Q ML",
+    "est": 0.5136,
+    "edge": 0.0506,
+    "agree": 3,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "cle",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "4-1"
+     ],
+     [
+      "Cavaliers 1Q ML at home",
+      "4-2"
+     ],
+     [
+      "Cavaliers 1Q ML, season",
+      "7-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Cavaliers"
+   },
+   {
     "id": "ncaaf|401864538|1q|total|under",
     "game": "ncaaf|401864538",
     "date": "2026-11-14",
@@ -7274,57 +7320,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "San Jos\u00e9 State"
-   },
-   {
-    "id": "nba|401909981|1q|total|under",
-    "game": "nba|401909981",
-    "date": "2026-11-14",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T00:30Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Cavaliers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -108,
-    "title": "1Q Under 60.5",
-    "est": 0.5663,
-    "edge": 0.047,
-    "agree": 6,
-    "sample": 13,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 9,
-    "streakTeam": "cle",
-    "angles": [
-     [
-      "Cavaliers 1Q unders, last 8 (60.5)",
-      "8-0"
-     ],
-     [
-      "Mavericks 1Q unders, last 8 (60.5)",
-      "7-1"
-     ],
-     [
-      "Cavaliers 1Q unders, season (60.5)",
-      "11-2"
-     ],
-     [
-      "Mavericks 1Q unders on the road (60.5)",
-      "4-1"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Cavaliers 56.3 \u00b7 Mavericks 56.4",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Cavaliers"
    },
    {
     "id": "ncaaf|401871061|1q|ats|away",
