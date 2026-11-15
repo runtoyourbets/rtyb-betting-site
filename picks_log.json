@@ -8050,57 +8050,6 @@
     "streakTeamName": "Coastal Carolina"
    },
    {
-    "id": "nba|401909992|1q|total|under",
-    "game": "nba|401909992",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-16T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Hawks @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -102,
-    "title": "1Q Under 60.5",
-    "est": 0.5512,
-    "edge": 0.0463,
-    "agree": 5,
-    "sample": 13,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 13,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, season (60.5)",
-      "13-0"
-     ],
-     [
-      "Bucks 1Q unders, last 8 (60.5)",
-      "8-0"
-     ],
-     [
-      "Bucks 1Q unders at home (60.5)",
-      "7-0"
-     ],
-     [
-      "Hawks 1Q unders, last 8 (60.5)",
-      "5-3"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
-   },
-   {
     "id": "nfl|401873064|1q|ml|away",
     "game": "nfl|401873064",
     "date": "2026-11-15",
@@ -8187,6 +8136,57 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "New Hampshire"
+   },
+   {
+    "id": "nba|401909992|1q|total|under",
+    "game": "nba|401909992",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-16T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Hawks @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -112,
+    "title": "1Q Under 60.5",
+    "est": 0.5675,
+    "edge": 0.0392,
+    "agree": 5,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 13,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, season (60.5)",
+      "13-0"
+     ],
+     [
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Bucks 1Q unders at home (60.5)",
+      "7-0"
+     ],
+     [
+      "Hawks 1Q unders, last 8 (60.5)",
+      "5-3"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
    },
    {
     "id": "nba|401909986|1q|total|under",
