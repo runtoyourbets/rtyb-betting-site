@@ -7930,10 +7930,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1450,
+    "price": 1800,
     "title": "William & Mary 1H ML",
-    "est": 0.1126,
-    "edge": 0.0481,
+    "est": 0.1018,
+    "edge": 0.0491,
     "agree": 2,
     "sample": 3,
     "tier": "C",
@@ -8147,6 +8147,48 @@
     "streakTeamName": "Bucks"
    },
    {
+    "id": "ncaab|401909554|1h|ml|away",
+    "game": "ncaab|401909554",
+    "date": "2026-11-15",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-15T18:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "New Hampshire @ Boston College",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 920,
+    "title": "New Hampshire 1H ML",
+    "est": 0.1388,
+    "edge": 0.0408,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "new-hampshire-wildcats",
+    "angles": [
+     [
+      "New Hampshire 1H ML, season",
+      "3-1"
+     ],
+     [
+      "New Hampshire 1H ML, last 8",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "New Hampshire"
+   },
+   {
     "id": "nba|401909986|1q|total|under",
     "game": "nba|401909986",
     "date": "2026-11-15",
@@ -8332,48 +8374,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Kings"
-   },
-   {
-    "id": "ncaab|401909554|1h|ml|away",
-    "game": "ncaab|401909554",
-    "date": "2026-11-15",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-15T18:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "New Hampshire @ Boston College",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 650,
-    "title": "New Hampshire 1H ML",
-    "est": 0.1699,
-    "edge": 0.0366,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "new-hampshire-wildcats",
-    "angles": [
-     [
-      "New Hampshire 1H ML, season",
-      "3-1"
-     ],
-     [
-      "New Hampshire 1H ML, last 8",
-      "3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "New Hampshire"
    },
    {
     "id": "nba|401909986|1h|ml|away",
