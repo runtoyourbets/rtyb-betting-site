@@ -8240,6 +8240,57 @@
     "streakTeamName": "Lakers"
    },
    {
+    "id": "nba|401909988|1q|ats|home",
+    "game": "nba|401909988",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 4.5,
+    "price": -104,
+    "title": "Jazz 1Q +4.5",
+    "est": 0.545,
+    "edge": 0.0352,
+    "agree": 4,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ATS at +4.5, season",
+      "10-3"
+     ],
+     [
+      "Jazz 1Q ATS at +4.5, last 8",
+      "6-2"
+     ],
+     [
+      "Jazz 1Q ATS at +4.5 at home",
+      "5-2"
+     ],
+     [
+      "Spurs\u2019s opponents 1Q ATS at +4.5, Spurs on the road",
+      "4-2"
+     ]
+    ],
+    "info": "Jazz avg 1Q margin at home: +2.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
     "id": "nba|401909985|1q|ml|away",
     "game": "nba|401909985",
     "date": "2026-11-15",
@@ -8281,57 +8332,6 @@
     "status": "W",
     "units": 1.4,
     "streakTeamName": "Pacers"
-   },
-   {
-    "id": "nba|401909988|1q|ats|home",
-    "game": "nba|401909988",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 4.5,
-    "price": -105,
-    "title": "Jazz 1Q +4.5",
-    "est": 0.5467,
-    "edge": 0.0345,
-    "agree": 4,
-    "sample": 13,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 6,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ATS at +4.5, season",
-      "10-3"
-     ],
-     [
-      "Jazz 1Q ATS at +4.5, last 8",
-      "6-2"
-     ],
-     [
-      "Jazz 1Q ATS at +4.5 at home",
-      "5-2"
-     ],
-     [
-      "Spurs\u2019s opponents 1Q ATS at +4.5, Spurs on the road",
-      "4-2"
-     ]
-    ],
-    "info": "Jazz avg 1Q margin at home: +2.0",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
    },
    {
     "id": "nfl|401873056|1q|ml|away",
@@ -8379,48 +8379,6 @@
     "status": "W",
     "units": 0.6944,
     "streakTeamName": "Texans"
-   },
-   {
-    "id": "nba|401909988|1q|ml|home",
-    "game": "nba|401909988",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 265,
-    "title": "Jazz 1Q ML",
-    "est": 0.3077,
-    "edge": 0.0337,
-    "agree": 2,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 0,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ML at home",
-      "4-3"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "6-5-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401909993|1q|total|over",
@@ -8474,50 +8432,46 @@
     "streakTeamName": "Kings"
    },
    {
-    "id": "nba|401909986|1h|ml|away",
-    "game": "nba|401909986",
+    "id": "nba|401909988|1q|ml|home",
+    "game": "nba|401909988",
     "date": "2026-11-15",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-15T21:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Lakers @ Suns",
+    "start": "2026-11-15T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Jazz",
     "href": "nba/matchups/",
     "market": "ml",
-    "side": "away",
+    "side": "home",
     "line": null,
-    "price": -135,
-    "title": "Lakers 1H ML",
-    "est": 0.608,
-    "edge": 0.0335,
-    "agree": 3,
+    "price": 260,
+    "title": "Jazz 1Q ML",
+    "est": 0.3105,
+    "edge": 0.0327,
+    "agree": 2,
     "sample": 11,
     "tier": "C",
     "tags": [
-     "Chalk Eater"
+     "Dog Hunter"
     ],
-    "streak": 3,
-    "streakTeam": "lal",
+    "streak": 0,
+    "streakTeam": "utah",
     "angles": [
      [
-      "Lakers 1H ML on the road",
-      "6-0-1"
+      "Jazz 1Q ML at home",
+      "4-3"
      ],
      [
-      "Lakers 1H ML, season",
-      "10-1-2"
-     ],
-     [
-      "Lakers 1H ML, last 8",
-      "6-1-1"
+      "Jazz 1Q ML, season",
+      "6-5-2"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Lakers"
+    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401909991|1h|ml|away",
@@ -8568,6 +8522,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Rockets"
+   },
+   {
+    "id": "nba|401909986|1h|ml|away",
+    "game": "nba|401909986",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T21:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Lakers @ Suns",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -140,
+    "title": "Lakers 1H ML",
+    "est": 0.6145,
+    "edge": 0.0311,
+    "agree": 3,
+    "sample": 11,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 3,
+    "streakTeam": "lal",
+    "angles": [
+     [
+      "Lakers 1H ML on the road",
+      "6-0-1"
+     ],
+     [
+      "Lakers 1H ML, season",
+      "10-1-2"
+     ],
+     [
+      "Lakers 1H ML, last 8",
+      "6-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Lakers"
    }
   ]
  }
