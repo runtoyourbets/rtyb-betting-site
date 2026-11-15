@@ -7958,6 +7958,48 @@
     "streakTeamName": "William & Mary"
    },
    {
+    "id": "ncaab|401920896|1h|ml|away",
+    "game": "ncaab|401920896",
+    "date": "2026-11-15",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-16T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Coastal Carolina @ Wisconsin",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 2000,
+    "title": "Coastal Carolina 1H ML",
+    "est": 0.0943,
+    "edge": 0.0467,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "coastal-carolina-chanticleers",
+    "angles": [
+     [
+      "Coastal Carolina 1H ML, season",
+      "3-1"
+     ],
+     [
+      "Coastal Carolina 1H ML, last 8",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Coastal Carolina"
+   },
+   {
     "id": "nhl|2026020326|1p|ml|away",
     "game": "nhl|2026020326",
     "date": "2026-11-15",
@@ -8006,48 +8048,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Edmonton"
-   },
-   {
-    "id": "ncaab|401920896|1h|ml|away",
-    "game": "ncaab|401920896",
-    "date": "2026-11-15",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-16T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Coastal Carolina @ Wisconsin",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 1500,
-    "title": "Coastal Carolina 1H ML",
-    "est": 0.1074,
-    "edge": 0.0449,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "coastal-carolina-chanticleers",
-    "angles": [
-     [
-      "Coastal Carolina 1H ML, season",
-      "3-1"
-     ],
-     [
-      "Coastal Carolina 1H ML, last 8",
-      "3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Coastal Carolina"
    },
    {
     "id": "nfl|401873064|1q|ml|away",
