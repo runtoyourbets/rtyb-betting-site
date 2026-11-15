@@ -8337,53 +8337,6 @@
     "streakTeamName": "Rockets"
    },
    {
-    "id": "nfl|401873056|1q|ml|away",
-    "game": "nfl|401873056",
-    "date": "2026-11-15",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-15T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Texans @ Browns",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -154,
-    "title": "Texans 1Q ML",
-    "est": 0.638,
-    "edge": 0.0317,
-    "agree": 3,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Early Bird"
-    ],
-    "streak": 1,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Texans 1Q ML, season",
-      "4-2-2"
-     ],
-     [
-      "Texans 1Q ML, last 8",
-      "4-2-2"
-     ],
-     [
-      "Texans 1Q ML on the road",
-      "2-1-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Texans"
-   },
-   {
     "id": "nfl|401873058|1q|total|over",
     "game": "nfl|401873058",
     "date": "2026-11-15",
@@ -8433,6 +8386,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Chiefs"
+   },
+   {
+    "id": "nfl|401873056|1q|ml|away",
+    "game": "nfl|401873056",
+    "date": "2026-11-15",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-15T18:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Texans @ Browns",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -157,
+    "title": "Texans 1Q ML",
+    "est": 0.6418,
+    "edge": 0.0309,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Early Bird"
+    ],
+    "streak": 1,
+    "streakTeam": "hou",
+    "angles": [
+     [
+      "Texans 1Q ML, season",
+      "4-2-2"
+     ],
+     [
+      "Texans 1Q ML, last 8",
+      "4-2-2"
+     ],
+     [
+      "Texans 1Q ML on the road",
+      "2-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Texans"
    }
   ]
  }
