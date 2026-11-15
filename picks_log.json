@@ -7221,8 +7221,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Nets"
    },
    {
@@ -7505,6 +7505,52 @@
     "streakTeamName": "Michigan"
    },
    {
+    "id": "ncaaf|401856863|1q|ml|away",
+    "game": "ncaaf|401856863",
+    "date": "2026-11-14",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-15T02:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Texas Tech @ Oklahoma State",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 135,
+    "title": "Texas Tech 1Q ML",
+    "est": 0.4693,
+    "edge": 0.0438,
+    "agree": 3,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "texas-tech-red-raiders",
+    "angles": [
+     [
+      "Oklahoma State\u2019s opponents 1Q ML, Oklahoma State at home",
+      "3-1"
+     ],
+     [
+      "Texas Tech 1Q ML, season",
+      "5-3-1"
+     ],
+     [
+      "Texas Tech 1Q ML, last 8",
+      "4-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Texas Tech"
+   },
+   {
     "id": "nhl|2026020318|1p|btts|yes",
     "game": "nhl|2026020318",
     "date": "2026-11-14",
@@ -7635,52 +7681,6 @@
     "streakTeamName": "Florida Atlantic"
    },
    {
-    "id": "ncaaf|401856863|1q|ml|away",
-    "game": "ncaaf|401856863",
-    "date": "2026-11-14",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-15T02:30Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Texas Tech @ Oklahoma State",
-    "href": "college-football/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 125,
-    "title": "Texas Tech 1Q ML",
-    "est": 0.4842,
-    "edge": 0.0398,
-    "agree": 3,
-    "sample": 8,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "texas-tech-red-raiders",
-    "angles": [
-     [
-      "Oklahoma State\u2019s opponents 1Q ML, Oklahoma State at home",
-      "3-1"
-     ],
-     [
-      "Texas Tech 1Q ML, season",
-      "5-3-1"
-     ],
-     [
-      "Texas Tech 1Q ML, last 8",
-      "4-3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Texas Tech"
-   },
-   {
     "id": "ncaaf|401856858|1h|ml|away",
     "game": "ncaaf|401856858",
     "date": "2026-11-14",
@@ -7722,8 +7722,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Baylor"
    },
    {
