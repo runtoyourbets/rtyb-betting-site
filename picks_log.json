@@ -7958,48 +7958,6 @@
     "streakTeamName": "William & Mary"
    },
    {
-    "id": "ncaab|401920896|1h|ml|away",
-    "game": "ncaab|401920896",
-    "date": "2026-11-15",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-16T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Coastal Carolina @ Wisconsin",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 2000,
-    "title": "Coastal Carolina 1H ML",
-    "est": 0.0943,
-    "edge": 0.0467,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "coastal-carolina-chanticleers",
-    "angles": [
-     [
-      "Coastal Carolina 1H ML, season",
-      "3-1"
-     ],
-     [
-      "Coastal Carolina 1H ML, last 8",
-      "3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Coastal Carolina"
-   },
-   {
     "id": "nhl|2026020326|1p|ml|away",
     "game": "nhl|2026020326",
     "date": "2026-11-15",
@@ -8048,6 +8006,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Edmonton"
+   },
+   {
+    "id": "ncaab|401920896|1h|ml|away",
+    "game": "ncaab|401920896",
+    "date": "2026-11-15",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-16T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Coastal Carolina @ Wisconsin",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 1800,
+    "title": "Coastal Carolina 1H ML",
+    "est": 0.0987,
+    "edge": 0.0461,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "coastal-carolina-chanticleers",
+    "angles": [
+     [
+      "Coastal Carolina 1H ML, season",
+      "3-1"
+     ],
+     [
+      "Coastal Carolina 1H ML, last 8",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Coastal Carolina"
    },
    {
     "id": "nfl|401873064|1q|ml|away",
@@ -8145,48 +8145,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bucks"
-   },
-   {
-    "id": "ncaab|401909554|1h|ml|away",
-    "game": "ncaab|401909554",
-    "date": "2026-11-15",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-15T18:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "New Hampshire @ Boston College",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 800,
-    "title": "New Hampshire 1H ML",
-    "est": 0.1503,
-    "edge": 0.0392,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "new-hampshire-wildcats",
-    "angles": [
-     [
-      "New Hampshire 1H ML, season",
-      "3-1"
-     ],
-     [
-      "New Hampshire 1H ML, last 8",
-      "3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "New Hampshire"
    },
    {
     "id": "nba|401909986|1q|total|under",
@@ -8374,6 +8332,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Kings"
+   },
+   {
+    "id": "ncaab|401909554|1h|ml|away",
+    "game": "ncaab|401909554",
+    "date": "2026-11-15",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-15T18:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "New Hampshire @ Boston College",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 650,
+    "title": "New Hampshire 1H ML",
+    "est": 0.1699,
+    "edge": 0.0366,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "new-hampshire-wildcats",
+    "angles": [
+     [
+      "New Hampshire 1H ML, season",
+      "3-1"
+     ],
+     [
+      "New Hampshire 1H ML, last 8",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "New Hampshire"
    },
    {
     "id": "nba|401909986|1h|ml|away",
