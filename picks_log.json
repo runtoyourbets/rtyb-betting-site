@@ -7129,8 +7129,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "P",
+    "units": 0.0,
     "streakTeamName": "Edmonton"
    },
    {
@@ -7588,8 +7588,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.65,
     "streakTeamName": "New Jersey"
    },
    {
