@@ -8231,6 +8231,49 @@
     "streakTeamName": "Jazz"
    },
    {
+    "id": "nba|401909985|1q|ml|away",
+    "game": "nba|401909985",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T18:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pacers @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 148,
+    "title": "Pacers 1Q ML",
+    "est": 0.4415,
+    "edge": 0.0383,
+    "agree": 2,
+    "sample": 12,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Early Bird"
+    ],
+    "streak": -1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1Q ML on the road",
+      "4-2"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "4-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
+   },
+   {
     "id": "nba|401909988|1q|ats|home",
     "game": "nba|401909988",
     "date": "2026-11-15",
@@ -8280,49 +8323,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
-   },
-   {
-    "id": "nba|401909985|1q|ml|away",
-    "game": "nba|401909985",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pacers @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 145,
-    "title": "Pacers 1Q ML",
-    "est": 0.4451,
-    "edge": 0.0369,
-    "agree": 2,
-    "sample": 12,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Early Bird"
-    ],
-    "streak": -1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1Q ML on the road",
-      "4-2"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "4-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
    },
    {
     "id": "nfl|401873056|1q|ml|away",
