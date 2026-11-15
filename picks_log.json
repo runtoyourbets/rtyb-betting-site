@@ -6897,8 +6897,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "P",
+    "units": 0.0,
     "streakTeamName": "Cavaliers"
    },
    {
@@ -7630,8 +7630,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Florida Atlantic"
    },
    {
@@ -7815,8 +7815,8 @@
      ]
     ],
     "info": "Cavaliers avg 1Q margin at home: +1.0",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.9009,
     "streakTeamName": "Cavaliers"
    },
    {
