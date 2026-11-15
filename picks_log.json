@@ -8245,53 +8245,6 @@
     "streakTeamName": "Lakers"
    },
    {
-    "id": "nfl|401873056|1q|ml|away",
-    "game": "nfl|401873056",
-    "date": "2026-11-15",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-15T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Texans @ Browns",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -148,
-    "title": "Texans 1Q ML",
-    "est": 0.6301,
-    "edge": 0.0333,
-    "agree": 3,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Early Bird"
-    ],
-    "streak": 1,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Texans 1Q ML, season",
-      "4-2-2"
-     ],
-     [
-      "Texans 1Q ML, last 8",
-      "4-2-2"
-     ],
-     [
-      "Texans 1Q ML on the road",
-      "2-1-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Texans"
-   },
-   {
     "id": "nba|401909991|1h|ml|away",
     "game": "nba|401909991",
     "date": "2026-11-15",
@@ -8342,6 +8295,53 @@
     "streakTeamName": "Rockets"
    },
    {
+    "id": "nfl|401873056|1q|ml|away",
+    "game": "nfl|401873056",
+    "date": "2026-11-15",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-15T18:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Texans @ Browns",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -154,
+    "title": "Texans 1Q ML",
+    "est": 0.638,
+    "edge": 0.0317,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Early Bird"
+    ],
+    "streak": 1,
+    "streakTeam": "hou",
+    "angles": [
+     [
+      "Texans 1Q ML, season",
+      "4-2-2"
+     ],
+     [
+      "Texans 1Q ML, last 8",
+      "4-2-2"
+     ],
+     [
+      "Texans 1Q ML on the road",
+      "2-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Texans"
+   },
+   {
     "id": "nfl|401873058|1q|total|over",
     "game": "nfl|401873058",
     "date": "2026-11-15",
@@ -8356,10 +8356,10 @@
     "market": "total",
     "side": "over",
     "line": 9.5,
-    "price": -108,
+    "price": -110,
     "title": "1Q Over 9.5",
-    "est": 0.5513,
-    "edge": 0.0321,
+    "est": 0.5548,
+    "edge": 0.031,
     "agree": 6,
     "sample": 9,
     "tier": "C",
