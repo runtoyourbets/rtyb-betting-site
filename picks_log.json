@@ -8133,8 +8133,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "New Hampshire"
    },
    {
@@ -8187,6 +8187,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bucks"
+   },
+   {
+    "id": "nba|401909993|1q|total|over",
+    "game": "nba|401909993",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-16T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Thunder @ Kings",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 55.5,
+    "price": 100,
+    "title": "1Q Over 55.5",
+    "est": 0.5373,
+    "edge": 0.0373,
+    "agree": 6,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "sac",
+    "angles": [
+     [
+      "Thunder 1Q overs on the road (55.5)",
+      "7-1"
+     ],
+     [
+      "Kings 1Q overs at home (55.5)",
+      "6-1"
+     ],
+     [
+      "Thunder 1Q overs, last 8 (55.5)",
+      "6-2"
+     ],
+     [
+      "Thunder 1Q overs, season (55.5)",
+      "9-4"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Kings 58.1 \u00b7 Thunder 56.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Kings"
    },
    {
     "id": "nba|401909988|1q|ats|home",
@@ -8254,10 +8305,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 280,
+    "price": 270,
     "title": "Jazz 1Q ML",
-    "est": 0.2998,
-    "edge": 0.0366,
+    "est": 0.305,
+    "edge": 0.0347,
     "agree": 2,
     "sample": 11,
     "tier": "C",
