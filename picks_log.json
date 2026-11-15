@@ -8138,6 +8138,49 @@
     "streakTeamName": "New Hampshire"
    },
    {
+    "id": "nba|401909985|1q|ml|away",
+    "game": "nba|401909985",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T18:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pacers @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 154,
+    "title": "Pacers 1Q ML",
+    "est": 0.4347,
+    "edge": 0.041,
+    "agree": 2,
+    "sample": 12,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Early Bird"
+    ],
+    "streak": -1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1Q ML on the road",
+      "4-2"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "4-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
+   },
+   {
     "id": "nba|401909992|1q|total|under",
     "game": "nba|401909992",
     "date": "2026-11-15",
@@ -8187,49 +8230,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bucks"
-   },
-   {
-    "id": "nba|401909985|1q|ml|away",
-    "game": "nba|401909985",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pacers @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 150,
-    "title": "Pacers 1Q ML",
-    "est": 0.4392,
-    "edge": 0.0392,
-    "agree": 2,
-    "sample": 12,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Early Bird"
-    ],
-    "streak": -1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1Q ML on the road",
-      "4-2"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "4-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
    },
    {
     "id": "nba|401909988|1q|ml|home",
