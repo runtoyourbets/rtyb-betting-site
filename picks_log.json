@@ -7916,6 +7916,48 @@
     "streakTeamName": "Nashville"
    },
    {
+    "id": "ncaab|401918453|1h|ml|away",
+    "game": "ncaab|401918453",
+    "date": "2026-11-15",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-15T19:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "William & Mary @ Michigan",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 1400,
+    "title": "William & Mary 1H ML",
+    "est": 0.1145,
+    "edge": 0.0479,
+    "agree": 2,
+    "sample": 3,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "william-and-mary-tribe",
+    "angles": [
+     [
+      "William & Mary 1H ML, season",
+      "3-0"
+     ],
+     [
+      "William & Mary 1H ML, last 8",
+      "3-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "William & Mary"
+   },
+   {
     "id": "nhl|2026020326|1p|ml|away",
     "game": "nhl|2026020326",
     "date": "2026-11-15",
