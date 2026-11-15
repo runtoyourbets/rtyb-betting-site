@@ -8474,56 +8474,6 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "nba|401909991|1h|ml|away",
-    "game": "nba|401909991",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-16T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rockets @ Wizards",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -240,
-    "title": "Rockets 1H ML",
-    "est": 0.7382,
-    "edge": 0.0323,
-    "agree": 4,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 3,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Rockets 1H ML, last 8",
-      "6-0-2"
-     ],
-     [
-      "Rockets 1H ML on the road",
-      "4-0-1"
-     ],
-     [
-      "Rockets 1H ML, season",
-      "10-1-2"
-     ],
-     [
-      "Wizards\u2019s opponents 1H ML, Wizards at home",
-      "4-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rockets"
-   },
-   {
     "id": "nba|401909986|1h|ml|away",
     "game": "nba|401909986",
     "date": "2026-11-15",
@@ -8568,6 +8518,56 @@
     "status": "W",
     "units": 0.7143,
     "streakTeamName": "Lakers"
+   },
+   {
+    "id": "nba|401909991|1h|ml|away",
+    "game": "nba|401909991",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-16T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Rockets @ Wizards",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -250,
+    "title": "Rockets 1H ML",
+    "est": 0.7443,
+    "edge": 0.03,
+    "agree": 4,
+    "sample": 11,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 3,
+    "streakTeam": "hou",
+    "angles": [
+     [
+      "Rockets 1H ML, last 8",
+      "6-0-2"
+     ],
+     [
+      "Rockets 1H ML on the road",
+      "4-0-1"
+     ],
+     [
+      "Rockets 1H ML, season",
+      "10-1-2"
+     ],
+     [
+      "Wizards\u2019s opponents 1H ML, Wizards at home",
+      "4-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Rockets"
    }
   ]
  }
