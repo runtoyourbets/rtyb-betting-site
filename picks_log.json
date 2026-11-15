@@ -7930,10 +7930,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1550,
+    "price": 1450,
     "title": "William & Mary 1H ML",
-    "est": 0.109,
-    "edge": 0.0484,
+    "est": 0.1126,
+    "edge": 0.0481,
     "agree": 2,
     "sample": 3,
     "tier": "C",
@@ -8110,13 +8110,13 @@
     "market": "total",
     "side": "under",
     "line": 61.5,
-    "price": -120,
+    "price": -118,
     "title": "1Q Under 61.5",
-    "est": 0.5854,
-    "edge": 0.0399,
+    "est": 0.5825,
+    "edge": 0.0412,
     "agree": 6,
     "sample": 13,
-    "tier": "C",
+    "tier": "B",
     "tags": [
      "Under Grinder",
      "Streak Rider"
@@ -8161,13 +8161,13 @@
     "market": "total",
     "side": "under",
     "line": 59.5,
-    "price": -104,
+    "price": -102,
     "title": "1Q Under 59.5",
-    "est": 0.549,
-    "edge": 0.0392,
+    "est": 0.5456,
+    "edge": 0.0406,
     "agree": 6,
     "sample": 13,
-    "tier": "C",
+    "tier": "B",
     "tags": [
      "Under Grinder",
      "Streak Rider"
@@ -8240,6 +8240,57 @@
     "streakTeamName": "Jazz"
    },
    {
+    "id": "nba|401909993|1q|total|over",
+    "game": "nba|401909993",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-16T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Thunder @ Kings",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 54.5,
+    "price": 100,
+    "title": "1Q Over 54.5",
+    "est": 0.5373,
+    "edge": 0.0373,
+    "agree": 6,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "sac",
+    "angles": [
+     [
+      "Thunder 1Q overs on the road (54.5)",
+      "7-1"
+     ],
+     [
+      "Kings 1Q overs at home (54.5)",
+      "6-1"
+     ],
+     [
+      "Thunder 1Q overs, last 8 (54.5)",
+      "6-2"
+     ],
+     [
+      "Thunder 1Q overs, season (54.5)",
+      "9-4"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Kings 58.1 \u00b7 Thunder 56.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Kings"
+   },
+   {
     "id": "nba|401909985|1q|ml|away",
     "game": "nba|401909985",
     "date": "2026-11-15",
@@ -8297,10 +8348,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -134,
+    "price": -130,
     "title": "Lakers 1H ML",
-    "est": 0.6066,
-    "edge": 0.034,
+    "est": 0.6012,
+    "edge": 0.036,
     "agree": 3,
     "sample": 11,
     "tier": "C",
@@ -8329,105 +8380,55 @@
     "streakTeamName": "Lakers"
    },
    {
-    "id": "nba|401909991|1h|ml|away",
-    "game": "nba|401909991",
+    "id": "nba|401909988|1q|ats|home",
+    "game": "nba|401909988",
     "date": "2026-11-15",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-16T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rockets @ Wizards",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -240,
-    "title": "Rockets 1H ML",
-    "est": 0.7382,
-    "edge": 0.0323,
-    "agree": 4,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 3,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Rockets 1H ML, last 8",
-      "6-0-2"
-     ],
-     [
-      "Rockets 1H ML on the road",
-      "4-0-1"
-     ],
-     [
-      "Rockets 1H ML, season",
-      "10-1-2"
-     ],
-     [
-      "Wizards\u2019s opponents 1H ML, Wizards at home",
-      "4-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rockets"
-   },
-   {
-    "id": "nfl|401873058|1q|total|over",
-    "game": "nfl|401873058",
-    "date": "2026-11-15",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-15T18:00Z",
+    "start": "2026-11-15T22:00Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Chiefs @ Falcons",
-    "href": "nfl/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 9.5,
-    "price": -110,
-    "title": "1Q Over 9.5",
-    "est": 0.5548,
-    "edge": 0.031,
-    "agree": 6,
-    "sample": 9,
+    "matchup": "Spurs @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 5.5,
+    "price": -108,
+    "title": "Jazz 1Q +5.5",
+    "est": 0.5516,
+    "edge": 0.0324,
+    "agree": 4,
+    "sample": 13,
     "tier": "C",
     "tags": [
-     "Over Lover",
-     "Early Bird"
+     "Dog Hunter",
+     "Streak Rider"
     ],
-    "streak": -1,
-    "streakTeam": "kc",
+    "streak": 6,
+    "streakTeam": "utah",
     "angles": [
      [
-      "Falcons 1Q overs at home (9.5)",
-      "5-0"
+      "Jazz 1Q ATS at +5.5, season",
+      "10-3"
      ],
      [
-      "Falcons 1Q overs, season (9.5)",
-      "8-1"
-     ],
-     [
-      "Falcons 1Q overs, last 8 (9.5)",
-      "7-1"
-     ],
-     [
-      "Chiefs 1Q overs, season (9.5)",
+      "Jazz 1Q ATS at +5.5, last 8",
       "6-2"
+     ],
+     [
+      "Jazz 1Q ATS at +5.5 at home",
+      "5-2"
+     ],
+     [
+      "Spurs\u2019s opponents 1Q ATS at +5.5, Spurs on the road",
+      "4-2"
      ]
     ],
-    "info": "Avg 1Q total in their games: Falcons 11.7 \u00b7 Chiefs 10.9",
+    "info": "Jazz avg 1Q margin at home: +2.0",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Chiefs"
+    "streakTeamName": "Jazz"
    }
   ]
  }
