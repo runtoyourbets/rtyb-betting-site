@@ -8152,13 +8152,13 @@
     "market": "total",
     "side": "under",
     "line": 60.5,
-    "price": -115,
+    "price": -110,
     "title": "1Q Under 60.5",
-    "est": 0.5721,
-    "edge": 0.0372,
+    "est": 0.5644,
+    "edge": 0.0406,
     "agree": 5,
     "sample": 13,
-    "tier": "C",
+    "tier": "B",
     "tags": [
      "Under Grinder",
      "Streak Rider"
@@ -8187,99 +8187,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bucks"
-   },
-   {
-    "id": "nba|401909988|1q|ats|home",
-    "game": "nba|401909988",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 4.5,
-    "price": -102,
-    "title": "Jazz 1Q +4.5",
-    "est": 0.5416,
-    "edge": 0.0367,
-    "agree": 4,
-    "sample": 13,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 6,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ATS at +4.5, season",
-      "10-3"
-     ],
-     [
-      "Jazz 1Q ATS at +4.5, last 8",
-      "6-2"
-     ],
-     [
-      "Jazz 1Q ATS at +4.5 at home",
-      "5-2"
-     ],
-     [
-      "Spurs\u2019s opponents 1Q ATS at +4.5, Spurs on the road",
-      "4-2"
-     ]
-    ],
-    "info": "Jazz avg 1Q margin at home: +2.0",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
-   },
-   {
-    "id": "nba|401909988|1q|ml|home",
-    "game": "nba|401909988",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 280,
-    "title": "Jazz 1Q ML",
-    "est": 0.2998,
-    "edge": 0.0366,
-    "agree": 2,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 0,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ML at home",
-      "4-3"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "6-5-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401909985|1q|ml|away",
@@ -8323,6 +8230,57 @@
     "status": "W",
     "units": 1.4,
     "streakTeamName": "Pacers"
+   },
+   {
+    "id": "nba|401909988|1q|ats|home",
+    "game": "nba|401909988",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 4.5,
+    "price": -105,
+    "title": "Jazz 1Q +4.5",
+    "est": 0.5467,
+    "edge": 0.0345,
+    "agree": 4,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ATS at +4.5, season",
+      "10-3"
+     ],
+     [
+      "Jazz 1Q ATS at +4.5, last 8",
+      "6-2"
+     ],
+     [
+      "Jazz 1Q ATS at +4.5 at home",
+      "5-2"
+     ],
+     [
+      "Spurs\u2019s opponents 1Q ATS at +4.5, Spurs on the road",
+      "4-2"
+     ]
+    ],
+    "info": "Jazz avg 1Q margin at home: +2.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
    },
    {
     "id": "nfl|401873056|1q|ml|away",
@@ -8370,6 +8328,48 @@
     "status": "W",
     "units": 0.6944,
     "streakTeamName": "Texans"
+   },
+   {
+    "id": "nba|401909988|1q|ml|home",
+    "game": "nba|401909988",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 265,
+    "title": "Jazz 1Q ML",
+    "est": 0.3077,
+    "edge": 0.0337,
+    "agree": 2,
+    "sample": 11,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ML at home",
+      "4-3"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "6-5-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401909993|1q|total|over",
