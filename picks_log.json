@@ -7958,6 +7958,56 @@
     "streakTeamName": "William & Mary"
    },
    {
+    "id": "nhl|2026020326|1p|ml|away",
+    "game": "nhl|2026020326",
+    "date": "2026-11-15",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-16T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Edmonton @ Philadelphia",
+    "href": "nhl/matchups/?date=2026-11-15",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -135,
+    "title": "Edmonton 1P ML",
+    "est": 0.6217,
+    "edge": 0.0473,
+    "agree": 4,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 0,
+    "streakTeam": "EDM",
+    "angles": [
+     [
+      "Edmonton 1P ML, last 8",
+      "3-0-5"
+     ],
+     [
+      "Edmonton 1P ML on the road",
+      "6-1-2"
+     ],
+     [
+      "Edmonton 1P ML, season",
+      "10-3-8"
+     ],
+     [
+      "Philadelphia\u2019s opponents 1P ML, Philadelphia at home",
+      "4-2-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Edmonton"
+   },
+   {
     "id": "ncaab|401920896|1h|ml|away",
     "game": "ncaab|401920896",
     "date": "2026-11-15",
@@ -7998,56 +8048,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Coastal Carolina"
-   },
-   {
-    "id": "nhl|2026020326|1p|ml|away",
-    "game": "nhl|2026020326",
-    "date": "2026-11-15",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-16T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Edmonton @ Philadelphia",
-    "href": "nhl/matchups/?date=2026-11-15",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -137,
-    "title": "Edmonton 1P ML",
-    "est": 0.6242,
-    "edge": 0.0462,
-    "agree": 4,
-    "sample": 13,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 0,
-    "streakTeam": "EDM",
-    "angles": [
-     [
-      "Edmonton 1P ML, last 8",
-      "3-0-5"
-     ],
-     [
-      "Edmonton 1P ML on the road",
-      "6-1-2"
-     ],
-     [
-      "Edmonton 1P ML, season",
-      "10-3-8"
-     ],
-     [
-      "Philadelphia\u2019s opponents 1P ML, Philadelphia at home",
-      "4-2-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Edmonton"
    },
    {
     "id": "nfl|401873064|1q|ml|away",
@@ -8231,6 +8231,57 @@
     "streakTeamName": "Jazz"
    },
    {
+    "id": "nba|401909988|1q|ats|home",
+    "game": "nba|401909988",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 4.5,
+    "price": 100,
+    "title": "Jazz 1Q +4.5",
+    "est": 0.5382,
+    "edge": 0.0382,
+    "agree": 4,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ATS at +4.5, season",
+      "10-3"
+     ],
+     [
+      "Jazz 1Q ATS at +4.5, last 8",
+      "6-2"
+     ],
+     [
+      "Jazz 1Q ATS at +4.5 at home",
+      "5-2"
+     ],
+     [
+      "Spurs\u2019s opponents 1Q ATS at +4.5, Spurs on the road",
+      "4-2"
+     ]
+    ],
+    "info": "Jazz avg 1Q margin at home: +2.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
     "id": "nba|401909985|1q|ml|away",
     "game": "nba|401909985",
     "date": "2026-11-15",
@@ -8365,57 +8416,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Lakers"
-   },
-   {
-    "id": "nba|401909985|1q|ats|away",
-    "game": "nba|401909985",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pacers @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 2.5,
-    "price": -115,
-    "title": "Pacers 1Q +2.5",
-    "est": 0.566,
-    "edge": 0.0311,
-    "agree": 4,
-    "sample": 13,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Early Bird"
-    ],
-    "streak": 3,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1Q ATS at +2.5 on the road",
-      "6-0"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, season",
-      "10-3"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, last 8",
-      "6-2"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ATS at +2.5, 76ers at home",
-      "4-3"
-     ]
-    ],
-    "info": "Pacers avg 1Q margin on the road: +3.7",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
    }
   ]
  }
