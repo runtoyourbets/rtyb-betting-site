@@ -8189,99 +8189,6 @@
     "streakTeamName": "New Hampshire"
    },
    {
-    "id": "nba|401909986|1q|total|under",
-    "game": "nba|401909986",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T21:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Lakers @ Suns",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 59.5,
-    "price": -104,
-    "title": "1Q Under 59.5",
-    "est": 0.549,
-    "edge": 0.0392,
-    "agree": 6,
-    "sample": 13,
-    "tier": "C",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "lal",
-    "angles": [
-     [
-      "Lakers 1Q unders, last 8 (59.5)",
-      "7-1"
-     ],
-     [
-      "Lakers 1Q unders on the road (59.5)",
-      "6-1"
-     ],
-     [
-      "Suns 1Q unders at home (59.5)",
-      "6-2"
-     ],
-     [
-      "Suns 1Q unders, last 8 (59.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Suns 55.8 \u00b7 Lakers 58.8",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Lakers"
-   },
-   {
-    "id": "nba|401909988|1q|ml|home",
-    "game": "nba|401909988",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 290,
-    "title": "Jazz 1Q ML",
-    "est": 0.2949,
-    "edge": 0.0385,
-    "agree": 2,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 0,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ML at home",
-      "4-3"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "6-5-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
-   },
-   {
     "id": "nba|401909988|1q|ats|home",
     "game": "nba|401909988",
     "date": "2026-11-15",
@@ -8331,6 +8238,99 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
+   },
+   {
+    "id": "nba|401909988|1q|ml|home",
+    "game": "nba|401909988",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 280,
+    "title": "Jazz 1Q ML",
+    "est": 0.2998,
+    "edge": 0.0366,
+    "agree": 2,
+    "sample": 11,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ML at home",
+      "4-3"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "6-5-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
+    "id": "nba|401909986|1q|total|under",
+    "game": "nba|401909986",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-15T21:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Lakers @ Suns",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 59.5,
+    "price": -108,
+    "title": "1Q Under 59.5",
+    "est": 0.5555,
+    "edge": 0.0363,
+    "agree": 6,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "lal",
+    "angles": [
+     [
+      "Lakers 1Q unders, last 8 (59.5)",
+      "7-1"
+     ],
+     [
+      "Lakers 1Q unders on the road (59.5)",
+      "6-1"
+     ],
+     [
+      "Suns 1Q unders at home (59.5)",
+      "6-2"
+     ],
+     [
+      "Suns 1Q unders, last 8 (59.5)",
+      "6-2"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Suns 55.8 \u00b7 Lakers 58.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Lakers"
    },
    {
     "id": "nba|401909985|1q|ml|away",
