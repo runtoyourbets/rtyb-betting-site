@@ -8000,6 +8000,57 @@
     "streakTeamName": "Coastal Carolina"
    },
    {
+    "id": "nba|401909992|1q|total|under",
+    "game": "nba|401909992",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-16T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Hawks @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -102,
+    "title": "1Q Under 60.5",
+    "est": 0.5512,
+    "edge": 0.0463,
+    "agree": 5,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 13,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, season (60.5)",
+      "13-0"
+     ],
+     [
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Bucks 1Q unders at home (60.5)",
+      "7-0"
+     ],
+     [
+      "Hawks 1Q unders, last 8 (60.5)",
+      "5-3"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
     "id": "nhl|2026020326|1p|ml|away",
     "game": "nhl|2026020326",
     "date": "2026-11-15",
@@ -8138,55 +8189,46 @@
     "streakTeamName": "New Hampshire"
    },
    {
-    "id": "nba|401909992|1q|total|under",
-    "game": "nba|401909992",
+    "id": "nba|401909988|1q|ml|home",
+    "game": "nba|401909988",
     "date": "2026-11-15",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-16T01:00Z",
+    "start": "2026-11-15T22:00Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Hawks @ Bucks",
+    "matchup": "Spurs @ Jazz",
     "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 61.5,
-    "price": -118,
-    "title": "1Q Under 61.5",
-    "est": 0.5825,
-    "edge": 0.0412,
-    "agree": 6,
-    "sample": 13,
-    "tier": "B",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 295,
+    "title": "Jazz 1Q ML",
+    "est": 0.2925,
+    "edge": 0.0393,
+    "agree": 2,
+    "sample": 11,
+    "tier": "C",
     "tags": [
-     "Under Grinder",
-     "Streak Rider"
+     "Dog Hunter"
     ],
-    "streak": 13,
-    "streakTeam": "mil",
+    "streak": 0,
+    "streakTeam": "utah",
     "angles": [
      [
-      "Bucks 1Q unders, season (61.5)",
-      "13-0"
+      "Jazz 1Q ML at home",
+      "4-3"
      ],
      [
-      "Bucks 1Q unders, last 8 (61.5)",
-      "8-0"
-     ],
-     [
-      "Bucks 1Q unders at home (61.5)",
-      "7-0"
-     ],
-     [
-      "Hawks 1Q unders, season (61.5)",
-      "9-4"
+      "Jazz 1Q ML, season",
+      "6-5-2"
      ]
     ],
-    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Bucks"
+    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401909986|1q|total|under",
@@ -8238,48 +8280,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Lakers"
-   },
-   {
-    "id": "nba|401909988|1q|ml|home",
-    "game": "nba|401909988",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 290,
-    "title": "Jazz 1Q ML",
-    "est": 0.2949,
-    "edge": 0.0385,
-    "agree": 2,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 0,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ML at home",
-      "4-3"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "6-5-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401909993|1q|total|over",
