@@ -8152,13 +8152,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 154,
+    "price": 150,
     "title": "Pacers 1Q ML",
-    "est": 0.4347,
-    "edge": 0.041,
+    "est": 0.4392,
+    "edge": 0.0392,
     "agree": 2,
     "sample": 12,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Dog Hunter",
      "Early Bird"
