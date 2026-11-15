@@ -8008,6 +8008,52 @@
     "streakTeamName": "Edmonton"
    },
    {
+    "id": "nfl|401873064|1q|ml|away",
+    "game": "nfl|401873064",
+    "date": "2026-11-15",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-16T01:20Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Steelers @ Bengals",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 134,
+    "title": "Steelers 1Q ML",
+    "est": 0.4757,
+    "edge": 0.0483,
+    "agree": 3,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "pit",
+    "angles": [
+     [
+      "Bengals\u2019s opponents 1Q ML, Bengals at home",
+      "2-1"
+     ],
+     [
+      "Steelers 1Q ML, season",
+      "5-3"
+     ],
+     [
+      "Steelers 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Steelers"
+   },
+   {
     "id": "ncaab|401920896|1h|ml|away",
     "game": "ncaab|401920896",
     "date": "2026-11-15",
@@ -8050,50 +8096,55 @@
     "streakTeamName": "Coastal Carolina"
    },
    {
-    "id": "nfl|401873064|1q|ml|away",
-    "game": "nfl|401873064",
+    "id": "nba|401909992|1q|total|under",
+    "game": "nba|401909992",
     "date": "2026-11-15",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-16T01:20Z",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-16T01:00Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Steelers @ Bengals",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 126,
-    "title": "Steelers 1Q ML",
-    "est": 0.4876,
-    "edge": 0.0451,
-    "agree": 3,
-    "sample": 8,
-    "tier": "C",
+    "matchup": "Hawks @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -102,
+    "title": "1Q Under 60.5",
+    "est": 0.5512,
+    "edge": 0.0463,
+    "agree": 5,
+    "sample": 13,
+    "tier": "B",
     "tags": [
-     "Dog Hunter"
+     "Under Grinder",
+     "Streak Rider"
     ],
-    "streak": 2,
-    "streakTeam": "pit",
+    "streak": 13,
+    "streakTeam": "mil",
     "angles": [
      [
-      "Bengals\u2019s opponents 1Q ML, Bengals at home",
-      "2-1"
+      "Bucks 1Q unders, season (60.5)",
+      "13-0"
      ],
      [
-      "Steelers 1Q ML, season",
-      "5-3"
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
      ],
      [
-      "Steelers 1Q ML, last 8",
+      "Bucks 1Q unders at home (60.5)",
+      "7-0"
+     ],
+     [
+      "Hawks 1Q unders, last 8 (60.5)",
       "5-3"
      ]
     ],
-    "info": null,
+    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Steelers"
+    "streakTeamName": "Bucks"
    },
    {
     "id": "ncaab|401909554|1h|ml|away",
@@ -8136,57 +8187,6 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "New Hampshire"
-   },
-   {
-    "id": "nba|401909992|1q|total|under",
-    "game": "nba|401909992",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-16T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Hawks @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -112,
-    "title": "1Q Under 60.5",
-    "est": 0.5675,
-    "edge": 0.0392,
-    "agree": 5,
-    "sample": 13,
-    "tier": "C",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 13,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, season (60.5)",
-      "13-0"
-     ],
-     [
-      "Bucks 1Q unders, last 8 (60.5)",
-      "8-0"
-     ],
-     [
-      "Bucks 1Q unders at home (60.5)",
-      "7-0"
-     ],
-     [
-      "Hawks 1Q unders, last 8 (60.5)",
-      "5-3"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
    },
    {
     "id": "nba|401909986|1q|total|under",
