@@ -8050,6 +8050,52 @@
     "streakTeamName": "Edmonton"
    },
    {
+    "id": "nfl|401873064|1q|ml|away",
+    "game": "nfl|401873064",
+    "date": "2026-11-15",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-16T01:20Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Steelers @ Bengals",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 124,
+    "title": "Steelers 1Q ML",
+    "est": 0.4907,
+    "edge": 0.0443,
+    "agree": 3,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "pit",
+    "angles": [
+     [
+      "Bengals\u2019s opponents 1Q ML, Bengals at home",
+      "2-1"
+     ],
+     [
+      "Steelers 1Q ML, season",
+      "5-3"
+     ],
+     [
+      "Steelers 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Steelers"
+   },
+   {
     "id": "nba|401909992|1q|total|under",
     "game": "nba|401909992",
     "date": "2026-11-15",
@@ -8099,52 +8145,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bucks"
-   },
-   {
-    "id": "nfl|401873064|1q|ml|away",
-    "game": "nfl|401873064",
-    "date": "2026-11-15",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-16T01:20Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Steelers @ Bengals",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 120,
-    "title": "Steelers 1Q ML",
-    "est": 0.4972,
-    "edge": 0.0426,
-    "agree": 3,
-    "sample": 8,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "pit",
-    "angles": [
-     [
-      "Bengals\u2019s opponents 1Q ML, Bengals at home",
-      "2-1"
-     ],
-     [
-      "Steelers 1Q ML, season",
-      "5-3"
-     ],
-     [
-      "Steelers 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Steelers"
    },
    {
     "id": "ncaab|401909554|1h|ml|away",
@@ -8325,55 +8325,51 @@
     "streakTeamName": "Pacers"
    },
    {
-    "id": "nba|401909988|1q|ats|home",
-    "game": "nba|401909988",
+    "id": "nfl|401873056|1q|ml|away",
+    "game": "nfl|401873056",
     "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-15T22:00Z",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-15T18:00Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Spurs @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 4.5,
-    "price": -105,
-    "title": "Jazz 1Q +4.5",
-    "est": 0.5467,
-    "edge": 0.0345,
-    "agree": 4,
-    "sample": 13,
+    "matchup": "Texans @ Browns",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -145,
+    "title": "Texans 1Q ML",
+    "est": 0.626,
+    "edge": 0.0341,
+    "agree": 3,
+    "sample": 6,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Chalk Eater",
+     "Early Bird"
     ],
-    "streak": 6,
-    "streakTeam": "utah",
+    "streak": 1,
+    "streakTeam": "hou",
     "angles": [
      [
-      "Jazz 1Q ATS at +4.5, season",
-      "10-3"
+      "Texans 1Q ML, season",
+      "4-2-2"
      ],
      [
-      "Jazz 1Q ATS at +4.5, last 8",
-      "6-2"
+      "Texans 1Q ML, last 8",
+      "4-2-2"
      ],
      [
-      "Jazz 1Q ATS at +4.5 at home",
-      "5-2"
-     ],
-     [
-      "Spurs\u2019s opponents 1Q ATS at +4.5, Spurs on the road",
-      "4-2"
+      "Texans 1Q ML on the road",
+      "2-1-1"
      ]
     ],
-    "info": "Jazz avg 1Q margin at home: +2.0",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Jazz"
+    "streakTeamName": "Texans"
    },
    {
     "id": "nba|401909986|1h|ml|away",
