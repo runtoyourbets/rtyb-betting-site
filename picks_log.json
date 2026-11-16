@@ -7957,8 +7957,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Steelers"
    },
    {
@@ -8041,8 +8041,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 25.0,
     "streakTeamName": "Coastal Carolina"
    },
    {
