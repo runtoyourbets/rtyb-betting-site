@@ -8722,10 +8722,10 @@
     "market": "ats",
     "side": "away",
     "line": -1.5,
-    "price": -105,
+    "price": -104,
     "title": "Rockets 1H -1.5",
-    "est": 0.5495,
-    "edge": 0.0373,
+    "est": 0.5479,
+    "edge": 0.0381,
     "agree": 3,
     "sample": 14,
     "tier": "C",
@@ -8803,6 +8803,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Ravens"
+   },
+   {
+    "id": "nba|401909999|1q|ml|home",
+    "game": "nba|401909999",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Trail Blazers @ Timberwolves",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -122,
+    "title": "Timberwolves 1Q ML",
+    "est": 0.5816,
+    "edge": 0.0321,
+    "agree": 4,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1Q ML at home",
+      "5-2"
+     ],
+     [
+      "Timberwolves 1Q ML, season",
+      "9-4"
+     ],
+     [
+      "Timberwolves 1Q ML, last 8",
+      "5-3"
+     ],
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers on the road",
+      "4-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
    }
   ]
  }
