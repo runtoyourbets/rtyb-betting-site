@@ -8630,10 +8630,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -144,
+    "price": -140,
     "title": "Grizzlies 1H ML",
-    "est": 0.6433,
-    "edge": 0.0531,
+    "est": 0.6384,
+    "edge": 0.0551,
     "agree": 4,
     "sample": 12,
     "tier": "B",
@@ -8709,90 +8709,6 @@
     "streakTeamName": "Eastern Kentucky"
    },
    {
-    "id": "nba|401910001|1q|ml|away",
-    "game": "nba|401910001",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T02:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Suns @ Nuggets",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 176,
-    "title": "Suns 1Q ML",
-    "est": 0.4033,
-    "edge": 0.041,
-    "agree": 2,
-    "sample": 12,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "phx",
-    "angles": [
-     [
-      "Suns 1Q ML, last 8",
-      "6-2"
-     ],
-     [
-      "Suns 1Q ML, season",
-      "7-5"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Suns"
-   },
-   {
-    "id": "nba|401910001|1h|ml|away",
-    "game": "nba|401910001",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T02:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Suns @ Nuggets",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 220,
-    "title": "Suns 1H ML",
-    "est": 0.3508,
-    "edge": 0.0383,
-    "agree": 2,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "phx",
-    "angles": [
-     [
-      "Nuggets\u2019s opponents 1H ML, Nuggets at home",
-      "3-1"
-     ],
-     [
-      "Suns 1H ML, last 8",
-      "4-3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Suns"
-   },
-   {
     "id": "nba|401909998|1h|ats|away",
     "game": "nba|401909998",
     "date": "2026-11-16",
@@ -8807,10 +8723,10 @@
     "market": "ats",
     "side": "away",
     "line": -1.5,
-    "price": -106,
+    "price": -105,
     "title": "Rockets 1H -1.5",
-    "est": 0.5511,
-    "edge": 0.0366,
+    "est": 0.5495,
+    "edge": 0.0373,
     "agree": 3,
     "sample": 14,
     "tier": "C",
@@ -8838,6 +8754,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Rockets"
+   },
+   {
+    "id": "nba|401910001|1q|ml|away",
+    "game": "nba|401910001",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Suns @ Nuggets",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 164,
+    "title": "Suns 1Q ML",
+    "est": 0.4151,
+    "edge": 0.0363,
+    "agree": 2,
+    "sample": 12,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Suns 1Q ML, last 8",
+      "6-2"
+     ],
+     [
+      "Suns 1Q ML, season",
+      "7-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
    },
    {
     "id": "nfl|401873065|1q|total|over",
@@ -8904,10 +8862,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 500,
+    "price": 550,
     "title": "Portland State 1H ML",
-    "est": 0.1993,
-    "edge": 0.0327,
+    "est": 0.1877,
+    "edge": 0.0338,
     "agree": 2,
     "sample": 3,
     "tier": "C",
@@ -8980,6 +8938,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Timberwolves"
+   },
+   {
+    "id": "nba|401910001|1h|ml|away",
+    "game": "nba|401910001",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Suns @ Nuggets",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 198,
+    "title": "Suns 1H ML",
+    "est": 0.3677,
+    "edge": 0.0321,
+    "agree": 2,
+    "sample": 11,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Nuggets\u2019s opponents 1H ML, Nuggets at home",
+      "3-1"
+     ],
+     [
+      "Suns 1H ML, last 8",
+      "4-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
    }
   ]
  }
