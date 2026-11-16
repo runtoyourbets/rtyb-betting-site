@@ -7958,56 +7958,6 @@
     "streakTeamName": "William & Mary"
    },
    {
-    "id": "nhl|2026020326|1p|ml|away",
-    "game": "nhl|2026020326",
-    "date": "2026-11-15",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-16T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Edmonton @ Philadelphia",
-    "href": "nhl/matchups/?date=2026-11-15",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -132,
-    "title": "Edmonton 1P ML",
-    "est": 0.6179,
-    "edge": 0.0489,
-    "agree": 4,
-    "sample": 13,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 0,
-    "streakTeam": "EDM",
-    "angles": [
-     [
-      "Edmonton 1P ML, last 8",
-      "3-0-5"
-     ],
-     [
-      "Edmonton 1P ML on the road",
-      "6-1-2"
-     ],
-     [
-      "Edmonton 1P ML, season",
-      "10-3-8"
-     ],
-     [
-      "Philadelphia\u2019s opponents 1P ML, Philadelphia at home",
-      "4-2-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Edmonton"
-   },
-   {
     "id": "nfl|401873064|1q|ml|away",
     "game": "nfl|401873064",
     "date": "2026-11-15",
@@ -8096,6 +8046,107 @@
     "streakTeamName": "Coastal Carolina"
    },
    {
+    "id": "nhl|2026020326|1p|ml|away",
+    "game": "nhl|2026020326",
+    "date": "2026-11-15",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-16T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Edmonton @ Philadelphia",
+    "href": "nhl/matchups/?date=2026-11-15",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -135,
+    "title": "Edmonton 1P ML",
+    "est": 0.6217,
+    "edge": 0.0473,
+    "agree": 4,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 0,
+    "streakTeam": "EDM",
+    "angles": [
+     [
+      "Edmonton 1P ML, last 8",
+      "3-0-5"
+     ],
+     [
+      "Edmonton 1P ML on the road",
+      "6-1-2"
+     ],
+     [
+      "Edmonton 1P ML, season",
+      "10-3-8"
+     ],
+     [
+      "Philadelphia\u2019s opponents 1P ML, Philadelphia at home",
+      "4-2-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Edmonton"
+   },
+   {
+    "id": "nba|401909992|1q|total|under",
+    "game": "nba|401909992",
+    "date": "2026-11-15",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-16T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Hawks @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -105,
+    "title": "1Q Under 60.5",
+    "est": 0.5563,
+    "edge": 0.0441,
+    "agree": 5,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 13,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, season (60.5)",
+      "13-0"
+     ],
+     [
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Bucks 1Q unders at home (60.5)",
+      "7-0"
+     ],
+     [
+      "Hawks 1Q unders, last 8 (60.5)",
+      "5-3"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
     "id": "ncaab|401909554|1h|ml|away",
     "game": "ncaab|401909554",
     "date": "2026-11-15",
@@ -8136,57 +8187,6 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "New Hampshire"
-   },
-   {
-    "id": "nba|401909992|1q|total|under",
-    "game": "nba|401909992",
-    "date": "2026-11-15",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-16T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Hawks @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -112,
-    "title": "1Q Under 60.5",
-    "est": 0.5675,
-    "edge": 0.0392,
-    "agree": 5,
-    "sample": 13,
-    "tier": "C",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 13,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, season (60.5)",
-      "13-0"
-     ],
-     [
-      "Bucks 1Q unders, last 8 (60.5)",
-      "8-0"
-     ],
-     [
-      "Bucks 1Q unders at home (60.5)",
-      "7-0"
-     ],
-     [
-      "Hawks 1Q unders, last 8 (60.5)",
-      "5-3"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 49.7 \u00b7 Hawks 58.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
    },
    {
     "id": "nba|401909986|1q|total|under",
