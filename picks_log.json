@@ -7916,6 +7916,52 @@
     "streakTeamName": "Nashville"
    },
    {
+    "id": "nfl|401873064|1q|ml|away",
+    "game": "nfl|401873064",
+    "date": "2026-11-15",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-16T01:20Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Steelers @ Bengals",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 140,
+    "title": "Steelers 1Q ML",
+    "est": 0.4672,
+    "edge": 0.0506,
+    "agree": 3,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "pit",
+    "angles": [
+     [
+      "Bengals\u2019s opponents 1Q ML, Bengals at home",
+      "2-1"
+     ],
+     [
+      "Steelers 1Q ML, season",
+      "5-3"
+     ],
+     [
+      "Steelers 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Steelers"
+   },
+   {
     "id": "ncaab|401918453|1h|ml|away",
     "game": "ncaab|401918453",
     "date": "2026-11-15",
@@ -7956,52 +8002,6 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "William & Mary"
-   },
-   {
-    "id": "nfl|401873064|1q|ml|away",
-    "game": "nfl|401873064",
-    "date": "2026-11-15",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-16T01:20Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Steelers @ Bengals",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 134,
-    "title": "Steelers 1Q ML",
-    "est": 0.4757,
-    "edge": 0.0483,
-    "agree": 3,
-    "sample": 8,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "pit",
-    "angles": [
-     [
-      "Bengals\u2019s opponents 1Q ML, Bengals at home",
-      "2-1"
-     ],
-     [
-      "Steelers 1Q ML, season",
-      "5-3"
-     ],
-     [
-      "Steelers 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Steelers"
    },
    {
     "id": "ncaab|401920896|1h|ml|away",
@@ -8565,8 +8565,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.4,
     "streakTeamName": "Rockets"
    }
   ]
