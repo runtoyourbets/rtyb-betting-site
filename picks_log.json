@@ -8630,10 +8630,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -140,
+    "price": -142,
     "title": "Grizzlies 1H ML",
-    "est": 0.6384,
-    "edge": 0.0551,
+    "est": 0.6409,
+    "edge": 0.0541,
     "agree": 4,
     "sample": 12,
     "tier": "B",
@@ -8709,26 +8709,26 @@
     "streakTeamName": "Eastern Kentucky"
    },
    {
-    "id": "nba|401910001|1q|ml|away",
+    "id": "nba|401910001|1h|ml|away",
     "game": "nba|401910001",
     "date": "2026-11-16",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
     "start": "2026-11-17T02:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
+    "seg": "1h",
+    "segTag": "1H",
     "matchup": "Suns @ Nuggets",
     "href": "nba/matchups/",
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 180,
-    "title": "Suns 1Q ML",
-    "est": 0.3996,
-    "edge": 0.0425,
+    "price": 230,
+    "title": "Suns 1H ML",
+    "est": 0.3439,
+    "edge": 0.0408,
     "agree": 2,
-    "sample": 12,
+    "sample": 11,
     "tier": "B",
     "tags": [
      "Dog Hunter"
@@ -8737,12 +8737,12 @@
     "streakTeam": "phx",
     "angles": [
      [
-      "Suns 1Q ML, last 8",
-      "6-2"
+      "Nuggets\u2019s opponents 1H ML, Nuggets at home",
+      "3-1"
      ],
      [
-      "Suns 1Q ML, season",
-      "7-5"
+      "Suns 1H ML, last 8",
+      "4-3-1"
      ]
     ],
     "info": null,
@@ -8798,26 +8798,26 @@
     "streakTeamName": "Rockets"
    },
    {
-    "id": "nba|401910001|1h|ml|away",
+    "id": "nba|401910001|1q|ml|away",
     "game": "nba|401910001",
     "date": "2026-11-16",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
     "start": "2026-11-17T02:00Z",
-    "seg": "1h",
-    "segTag": "1H",
+    "seg": "1q",
+    "segTag": "1Q",
     "matchup": "Suns @ Nuggets",
     "href": "nba/matchups/",
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 220,
-    "title": "Suns 1H ML",
-    "est": 0.3508,
-    "edge": 0.0383,
+    "price": 170,
+    "title": "Suns 1Q ML",
+    "est": 0.4091,
+    "edge": 0.0387,
     "agree": 2,
-    "sample": 11,
+    "sample": 12,
     "tier": "C",
     "tags": [
      "Dog Hunter"
@@ -8826,12 +8826,12 @@
     "streakTeam": "phx",
     "angles": [
      [
-      "Nuggets\u2019s opponents 1H ML, Nuggets at home",
-      "3-1"
+      "Suns 1Q ML, last 8",
+      "6-2"
      ],
      [
-      "Suns 1H ML, last 8",
-      "4-3-1"
+      "Suns 1Q ML, season",
+      "7-5"
      ]
     ],
     "info": null,
@@ -8854,10 +8854,10 @@
     "market": "total",
     "side": "over",
     "line": 7.5,
-    "price": 130,
+    "price": 135,
     "title": "1Q Over 7.5",
-    "est": 0.4704,
-    "edge": 0.0356,
+    "est": 0.4633,
+    "edge": 0.0378,
     "agree": 5,
     "sample": 9,
     "tier": "C",
