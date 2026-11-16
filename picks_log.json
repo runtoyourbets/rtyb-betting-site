@@ -8807,10 +8807,10 @@
     "market": "ats",
     "side": "away",
     "line": -1.5,
-    "price": -105,
+    "price": -102,
     "title": "Rockets 1H -1.5",
-    "est": 0.5495,
-    "edge": 0.0373,
+    "est": 0.5446,
+    "edge": 0.0396,
     "agree": 3,
     "sample": 14,
     "tier": "C",
@@ -8838,6 +8838,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Rockets"
+   },
+   {
+    "id": "ncaab|401917532|1h|ml|away",
+    "game": "ncaab|401917532",
+    "date": "2026-11-16",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-17T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Portland State @ Saint Mary's",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 650,
+    "title": "Portland State 1H ML",
+    "est": 0.169,
+    "edge": 0.0357,
+    "agree": 2,
+    "sample": 3,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "portland-state-vikings",
+    "angles": [
+     [
+      "Portland State 1H ML, season",
+      "2-1-1"
+     ],
+     [
+      "Portland State 1H ML, last 8",
+      "2-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Portland State"
    },
    {
     "id": "nfl|401873065|1q|total|over",
@@ -8888,48 +8930,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Ravens"
-   },
-   {
-    "id": "ncaab|401917532|1h|ml|away",
-    "game": "ncaab|401917532",
-    "date": "2026-11-16",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-17T03:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Portland State @ Saint Mary's",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 610,
-    "title": "Portland State 1H ML",
-    "est": 0.1759,
-    "edge": 0.035,
-    "agree": 2,
-    "sample": 3,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "portland-state-vikings",
-    "angles": [
-     [
-      "Portland State 1H ML, season",
-      "2-1-1"
-     ],
-     [
-      "Portland State 1H ML, last 8",
-      "2-1-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Portland State"
    },
    {
     "id": "nba|401909999|1q|ml|home",
