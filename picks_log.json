@@ -8835,6 +8835,57 @@
     "streakTeamName": "Portland State"
    },
    {
+    "id": "nba|401909998|1h|ats|away",
+    "game": "nba|401909998",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Rockets @ Heat",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": -0.5,
+    "price": -112,
+    "title": "Rockets 1H -0.5",
+    "est": 0.5645,
+    "edge": 0.0362,
+    "agree": 4,
+    "sample": 14,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "hou",
+    "angles": [
+     [
+      "Rockets 1H ATS at -0.5 on the road",
+      "5-1"
+     ],
+     [
+      "Rockets 1H ATS at -0.5, season",
+      "11-3"
+     ],
+     [
+      "Rockets 1H ATS at -0.5, last 8",
+      "6-2"
+     ],
+     [
+      "Heat\u2019s opponents 1H ATS at -0.5, Heat at home",
+      "4-2"
+     ]
+    ],
+    "info": "Rockets avg 1H margin on the road: +10.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Rockets"
+   },
+   {
     "id": "nfl|401873065|1q|total|over",
     "game": "nfl|401873065",
     "date": "2026-11-16",
@@ -8883,57 +8934,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Ravens"
-   },
-   {
-    "id": "nba|401909998|1h|ats|away",
-    "game": "nba|401909998",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rockets @ Heat",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": -0.5,
-    "price": -114,
-    "title": "Rockets 1H -0.5",
-    "est": 0.5675,
-    "edge": 0.0348,
-    "agree": 4,
-    "sample": 14,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Rockets 1H ATS at -0.5 on the road",
-      "5-1"
-     ],
-     [
-      "Rockets 1H ATS at -0.5, season",
-      "11-3"
-     ],
-     [
-      "Rockets 1H ATS at -0.5, last 8",
-      "6-2"
-     ],
-     [
-      "Heat\u2019s opponents 1H ATS at -0.5, Heat at home",
-      "4-2"
-     ]
-    ],
-    "info": "Rockets avg 1H margin on the road: +10.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rockets"
    },
    {
     "id": "nba|401909999|1q|ml|home",
