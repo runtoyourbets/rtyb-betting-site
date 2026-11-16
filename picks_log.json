@@ -8574,56 +8574,6 @@
     "streakTeamName": "Rockets"
    },
    {
-    "id": "nba|401909996|1h|ml|away",
-    "game": "nba|401909996",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Grizzlies @ Wizards",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -135,
-    "title": "Grizzlies 1H ML",
-    "est": 0.6321,
-    "edge": 0.0576,
-    "agree": 4,
-    "sample": 12,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 2,
-    "streakTeam": "mem",
-    "angles": [
-     [
-      "Grizzlies 1H ML on the road",
-      "5-0-1"
-     ],
-     [
-      "Wizards\u2019s opponents 1H ML, Wizards at home",
-      "5-1"
-     ],
-     [
-      "Grizzlies 1H ML, season",
-      "9-3-1"
-     ],
-     [
-      "Grizzlies 1H ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Grizzlies"
-   },
-   {
     "id": "nhl|2026020332|1p|btts|yes",
     "game": "nhl|2026020332",
     "date": "2026-11-16",
@@ -8664,6 +8614,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Vancouver"
+   },
+   {
+    "id": "nba|401909996|1h|ml|away",
+    "game": "nba|401909996",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Grizzlies @ Wizards",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -140,
+    "title": "Grizzlies 1H ML",
+    "est": 0.6384,
+    "edge": 0.0551,
+    "agree": 4,
+    "sample": 12,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "mem",
+    "angles": [
+     [
+      "Grizzlies 1H ML on the road",
+      "5-0-1"
+     ],
+     [
+      "Wizards\u2019s opponents 1H ML, Wizards at home",
+      "5-1"
+     ],
+     [
+      "Grizzlies 1H ML, season",
+      "9-3-1"
+     ],
+     [
+      "Grizzlies 1H ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Grizzlies"
    },
    {
     "id": "ncaab|401928841|1h|ml|away",
