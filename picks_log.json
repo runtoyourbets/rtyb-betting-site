@@ -8523,6 +8523,57 @@
  "2026-11-16": {
   "plays": [
    {
+    "id": "nba|401909998|1h|ml|away",
+    "game": "nba|401909998",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Rockets @ Heat",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -134,
+    "title": "Rockets 1H ML",
+    "est": 0.6294,
+    "edge": 0.0567,
+    "agree": 4,
+    "sample": 12,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "hou",
+    "angles": [
+     [
+      "Rockets 1H ML, last 8",
+      "6-0-2"
+     ],
+     [
+      "Rockets 1H ML on the road",
+      "5-0-1"
+     ],
+     [
+      "Rockets 1H ML, season",
+      "11-1-2"
+     ],
+     [
+      "Heat\u2019s opponents 1H ML, Heat at home",
+      "4-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Rockets"
+   },
+   {
     "id": "nba|401909996|1h|ml|away",
     "game": "nba|401909996",
     "date": "2026-11-16",
@@ -8571,57 +8622,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
-   },
-   {
-    "id": "nba|401909998|1h|ml|away",
-    "game": "nba|401909998",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rockets @ Heat",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -142,
-    "title": "Rockets 1H ML",
-    "est": 0.6395,
-    "edge": 0.0527,
-    "agree": 4,
-    "sample": 12,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Rockets 1H ML, last 8",
-      "6-0-2"
-     ],
-     [
-      "Rockets 1H ML on the road",
-      "5-0-1"
-     ],
-     [
-      "Rockets 1H ML, season",
-      "11-1-2"
-     ],
-     [
-      "Heat\u2019s opponents 1H ML, Heat at home",
-      "4-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rockets"
    },
    {
     "id": "nba|401910001|1q|ml|away",
@@ -8708,6 +8708,53 @@
     "streakTeamName": "Suns"
    },
    {
+    "id": "nba|401909998|1h|ats|away",
+    "game": "nba|401909998",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Rockets @ Heat",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": -1.5,
+    "price": -105,
+    "title": "Rockets 1H -1.5",
+    "est": 0.5495,
+    "edge": 0.0373,
+    "agree": 3,
+    "sample": 14,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "hou",
+    "angles": [
+     [
+      "Rockets 1H ATS at -1.5 on the road",
+      "5-1"
+     ],
+     [
+      "Rockets 1H ATS at -1.5, season",
+      "11-3"
+     ],
+     [
+      "Rockets 1H ATS at -1.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Rockets avg 1H margin on the road: +10.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Rockets"
+   },
+   {
     "id": "nfl|401873065|1q|total|over",
     "game": "nfl|401873065",
     "date": "2026-11-16",
@@ -8756,53 +8803,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Ravens"
-   },
-   {
-    "id": "nba|401909998|1h|ats|away",
-    "game": "nba|401909998",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rockets @ Heat",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": -1.5,
-    "price": -110,
-    "title": "Rockets 1H -1.5",
-    "est": 0.5574,
-    "edge": 0.0336,
-    "agree": 3,
-    "sample": 14,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Rockets 1H ATS at -1.5 on the road",
-      "5-1"
-     ],
-     [
-      "Rockets 1H ATS at -1.5, season",
-      "11-3"
-     ],
-     [
-      "Rockets 1H ATS at -1.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Rockets avg 1H margin on the road: +10.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rockets"
    }
   ]
  }
