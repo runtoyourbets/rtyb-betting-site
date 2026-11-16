@@ -8709,6 +8709,48 @@
     "streakTeamName": "Eastern Kentucky"
    },
    {
+    "id": "nba|401910001|1q|ml|away",
+    "game": "nba|401910001",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Suns @ Nuggets",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 180,
+    "title": "Suns 1Q ML",
+    "est": 0.3996,
+    "edge": 0.0425,
+    "agree": 2,
+    "sample": 12,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Suns 1Q ML, last 8",
+      "6-2"
+     ],
+     [
+      "Suns 1Q ML, season",
+      "7-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
+   },
+   {
     "id": "nba|401910001|1h|ml|away",
     "game": "nba|401910001",
     "date": "2026-11-16",
@@ -8743,48 +8785,6 @@
      [
       "Suns 1H ML, last 8",
       "4-3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Suns"
-   },
-   {
-    "id": "nba|401910001|1q|ml|away",
-    "game": "nba|401910001",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T02:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Suns @ Nuggets",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 170,
-    "title": "Suns 1Q ML",
-    "est": 0.4091,
-    "edge": 0.0387,
-    "agree": 2,
-    "sample": 12,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "phx",
-    "angles": [
-     [
-      "Suns 1Q ML, last 8",
-      "6-2"
-     ],
-     [
-      "Suns 1Q ML, season",
-      "7-5"
      ]
     ],
     "info": null,
