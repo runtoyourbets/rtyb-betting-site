@@ -8709,6 +8709,48 @@
     "streakTeamName": "Eastern Kentucky"
    },
    {
+    "id": "nba|401910001|1q|ml|away",
+    "game": "nba|401910001",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Suns @ Nuggets",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 180,
+    "title": "Suns 1Q ML",
+    "est": 0.3996,
+    "edge": 0.0425,
+    "agree": 2,
+    "sample": 12,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Suns 1Q ML, last 8",
+      "6-2"
+     ],
+     [
+      "Suns 1Q ML, season",
+      "7-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
+   },
+   {
     "id": "nba|401910001|1h|ml|away",
     "game": "nba|401910001",
     "date": "2026-11-16",
@@ -8743,95 +8785,6 @@
      [
       "Suns 1H ML, last 8",
       "4-3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Suns"
-   },
-   {
-    "id": "nba|401909998|1h|ats|away",
-    "game": "nba|401909998",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rockets @ Heat",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": -1.5,
-    "price": -102,
-    "title": "Rockets 1H -1.5",
-    "est": 0.5446,
-    "edge": 0.0396,
-    "agree": 3,
-    "sample": 14,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "hou",
-    "angles": [
-     [
-      "Rockets 1H ATS at -1.5 on the road",
-      "5-1"
-     ],
-     [
-      "Rockets 1H ATS at -1.5, season",
-      "11-3"
-     ],
-     [
-      "Rockets 1H ATS at -1.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Rockets avg 1H margin on the road: +10.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rockets"
-   },
-   {
-    "id": "nba|401910001|1q|ml|away",
-    "game": "nba|401910001",
-    "date": "2026-11-16",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-17T02:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Suns @ Nuggets",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 170,
-    "title": "Suns 1Q ML",
-    "est": 0.4091,
-    "edge": 0.0387,
-    "agree": 2,
-    "sample": 12,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "phx",
-    "angles": [
-     [
-      "Suns 1Q ML, last 8",
-      "6-2"
-     ],
-     [
-      "Suns 1Q ML, season",
-      "7-5"
      ]
     ],
     "info": null,
@@ -8888,6 +8841,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Ravens"
+   },
+   {
+    "id": "nba|401909998|1h|ats|away",
+    "game": "nba|401909998",
+    "date": "2026-11-16",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-17T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Rockets @ Heat",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": -1.5,
+    "price": -105,
+    "title": "Rockets 1H -1.5",
+    "est": 0.5495,
+    "edge": 0.0373,
+    "agree": 3,
+    "sample": 14,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "hou",
+    "angles": [
+     [
+      "Rockets 1H ATS at -1.5 on the road",
+      "5-1"
+     ],
+     [
+      "Rockets 1H ATS at -1.5, season",
+      "11-3"
+     ],
+     [
+      "Rockets 1H ATS at -1.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Rockets avg 1H margin on the road: +10.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Rockets"
    },
    {
     "id": "ncaab|401917532|1h|ml|away",
