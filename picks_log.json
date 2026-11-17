@@ -9330,52 +9330,6 @@
     "streakTeamName": "UT Arlington"
    },
    {
-    "id": "nba|401910003|1h|ml|home",
-    "game": "nba|401910003",
-    "date": "2026-11-17",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-18T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Trail Blazers @ Timberwolves",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -122,
-    "title": "Timberwolves 1H ML",
-    "est": 0.584,
-    "edge": 0.0344,
-    "agree": 3,
-    "sample": 13,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 1,
-    "streakTeam": "min",
-    "angles": [
-     [
-      "Timberwolves 1H ML, last 8",
-      "6-1-1"
-     ],
-     [
-      "Timberwolves 1H ML, season",
-      "11-2-1"
-     ],
-     [
-      "Timberwolves 1H ML at home",
-      "6-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Timberwolves"
-   },
-   {
     "id": "ncaab|401920511|1h|ml|away",
     "game": "ncaab|401920511",
     "date": "2026-11-17",
@@ -9416,6 +9370,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Rutgers"
+   },
+   {
+    "id": "nba|401910003|1h|ml|home",
+    "game": "nba|401910003",
+    "date": "2026-11-17",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-18T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Trail Blazers @ Timberwolves",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -124,
+    "title": "Timberwolves 1H ML",
+    "est": 0.5868,
+    "edge": 0.0332,
+    "agree": 3,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 1,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1H ML, last 8",
+      "6-1-1"
+     ],
+     [
+      "Timberwolves 1H ML, season",
+      "11-2-1"
+     ],
+     [
+      "Timberwolves 1H ML at home",
+      "6-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
    },
    {
     "id": "ncaab|401906773|1h|ml|away",
