@@ -19,6 +19,54 @@
   "schedule": "day"
  },
  {
+  "key": "nba",
+  "label": "NBA",
+  "slug": "nba",
+  "sport_type": "spread",
+  "segments": [
+   {
+    "key": "1q",
+    "label": "1st Quarter",
+    "tag": "1Q",
+    "markets": [
+     "ATS",
+     "ML",
+     "Total"
+    ]
+   },
+   {
+    "key": "1h",
+    "label": "1st Half",
+    "tag": "1H",
+    "markets": [
+     "ATS",
+     "ML",
+     "Total"
+    ]
+   }
+  ],
+  "schedule": "day"
+ },
+ {
+  "key": "ncaab",
+  "label": "NCAAB",
+  "slug": "college-basketball",
+  "sport_type": "spread",
+  "segments": [
+   {
+    "key": "1h",
+    "label": "1st Half",
+    "tag": "1H",
+    "markets": [
+     "ATS",
+     "ML",
+     "Total"
+    ]
+   }
+  ],
+  "schedule": "day"
+ },
+ {
   "key": "nfl",
   "label": "NFL",
   "slug": "nfl",
@@ -48,9 +96,9 @@
   "schedule": "week"
  },
  {
-  "key": "nba",
-  "label": "NBA",
-  "slug": "nba",
+  "key": "ncaaf",
+  "label": "NCAAF",
+  "slug": "college-football",
   "sport_type": "spread",
   "segments": [
    {
@@ -74,7 +122,7 @@
     ]
    }
   ],
-  "schedule": "day"
+  "schedule": "week"
  },
  {
   "key": "wnba",
@@ -123,54 +171,6 @@
     "key": "f5",
     "label": "First Five Innings",
     "tag": "F5",
-    "markets": [
-     "ATS",
-     "ML",
-     "Total"
-    ]
-   }
-  ],
-  "schedule": "day"
- },
- {
-  "key": "ncaaf",
-  "label": "NCAAF",
-  "slug": "college-football",
-  "sport_type": "spread",
-  "segments": [
-   {
-    "key": "1q",
-    "label": "1st Quarter",
-    "tag": "1Q",
-    "markets": [
-     "ATS",
-     "ML",
-     "Total"
-    ]
-   },
-   {
-    "key": "1h",
-    "label": "1st Half",
-    "tag": "1H",
-    "markets": [
-     "ATS",
-     "ML",
-     "Total"
-    ]
-   }
-  ],
-  "schedule": "week"
- },
- {
-  "key": "ncaab",
-  "label": "NCAAB",
-  "slug": "college-basketball",
-  "sport_type": "spread",
-  "segments": [
-   {
-    "key": "1h",
-    "label": "1st Half",
-    "tag": "1H",
     "markets": [
      "ATS",
      "ML",
