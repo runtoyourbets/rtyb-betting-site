@@ -9050,10 +9050,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1450,
+    "price": 1550,
     "title": "Old Dominion 1H ML",
-    "est": 0.1233,
-    "edge": 0.0587,
+    "est": 0.1199,
+    "edge": 0.0593,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -9288,46 +9288,50 @@
     "streakTeamName": "Oral Roberts"
    },
    {
-    "id": "ncaab|401929358|1h|ml|away",
-    "game": "ncaab|401929358",
+    "id": "nba|401910003|1h|ml|home",
+    "game": "nba|401910003",
     "date": "2026-11-17",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
     "start": "2026-11-18T01:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "UT Arlington @ Southern Miss",
-    "href": "college-basketball/matchups/",
+    "matchup": "Trail Blazers @ Timberwolves",
+    "href": "nba/matchups/",
     "market": "ml",
-    "side": "away",
+    "side": "home",
     "line": null,
-    "price": 126,
-    "title": "UT Arlington 1H ML",
-    "est": 0.4771,
-    "edge": 0.0346,
-    "agree": 2,
-    "sample": 4,
+    "price": -122,
+    "title": "Timberwolves 1H ML",
+    "est": 0.584,
+    "edge": 0.0344,
+    "agree": 3,
+    "sample": 13,
     "tier": "C",
     "tags": [
-     "Dog Hunter"
+     "Chalk Eater"
     ],
-    "streak": 2,
-    "streakTeam": "ut-arlington-mavericks",
+    "streak": 1,
+    "streakTeam": "min",
     "angles": [
      [
-      "UT Arlington 1H ML, season",
-      "4-0-1"
+      "Timberwolves 1H ML, last 8",
+      "6-1-1"
      ],
      [
-      "UT Arlington 1H ML, last 8",
-      "4-0-1"
+      "Timberwolves 1H ML, season",
+      "11-2-1"
+     ],
+     [
+      "Timberwolves 1H ML at home",
+      "6-2"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "UT Arlington"
+    "streakTeamName": "Timberwolves"
    },
    {
     "id": "ncaab|401920511|1h|ml|away",
@@ -9372,50 +9376,46 @@
     "streakTeamName": "Rutgers"
    },
    {
-    "id": "nba|401910003|1h|ml|home",
-    "game": "nba|401910003",
+    "id": "ncaab|401929358|1h|ml|away",
+    "game": "ncaab|401929358",
     "date": "2026-11-17",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
     "start": "2026-11-18T01:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Trail Blazers @ Timberwolves",
-    "href": "nba/matchups/",
+    "matchup": "UT Arlington @ Southern Miss",
+    "href": "college-basketball/matchups/",
     "market": "ml",
-    "side": "home",
+    "side": "away",
     "line": null,
-    "price": -124,
-    "title": "Timberwolves 1H ML",
-    "est": 0.5868,
-    "edge": 0.0332,
-    "agree": 3,
-    "sample": 13,
+    "price": 118,
+    "title": "UT Arlington 1H ML",
+    "est": 0.4914,
+    "edge": 0.0327,
+    "agree": 2,
+    "sample": 4,
     "tier": "C",
     "tags": [
-     "Chalk Eater"
+     "Dog Hunter"
     ],
-    "streak": 1,
-    "streakTeam": "min",
+    "streak": 2,
+    "streakTeam": "ut-arlington-mavericks",
     "angles": [
      [
-      "Timberwolves 1H ML, last 8",
-      "6-1-1"
+      "UT Arlington 1H ML, season",
+      "4-0-1"
      ],
      [
-      "Timberwolves 1H ML, season",
-      "11-2-1"
-     ],
-     [
-      "Timberwolves 1H ML at home",
-      "6-2"
+      "UT Arlington 1H ML, last 8",
+      "4-0-1"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Timberwolves"
+    "streakTeamName": "UT Arlington"
    },
    {
     "id": "ncaab|401906773|1h|ml|away",
