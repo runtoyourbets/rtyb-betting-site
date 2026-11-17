@@ -9120,48 +9120,6 @@
     "streakTeamName": "Sacred Heart"
    },
    {
-    "id": "ncaab|401927388|1h|ml|away",
-    "game": "ncaab|401927388",
-    "date": "2026-11-17",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-18T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Lindenwood @ Northern Iowa",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 325,
-    "title": "Lindenwood 1H ML",
-    "est": 0.2813,
-    "edge": 0.046,
-    "agree": 2,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "lindenwood-lions",
-    "angles": [
-     [
-      "Lindenwood 1H ML, season",
-      "3-2"
-     ],
-     [
-      "Lindenwood 1H ML, last 8",
-      "3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Lindenwood"
-   },
-   {
     "id": "ncaab|401920706|1h|ml|away",
     "game": "ncaab|401920706",
     "date": "2026-11-17",
@@ -9202,6 +9160,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Lipscomb"
+   },
+   {
+    "id": "ncaab|401927388|1h|ml|away",
+    "game": "ncaab|401927388",
+    "date": "2026-11-17",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-18T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Lindenwood @ Northern Iowa",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 280,
+    "title": "Lindenwood 1H ML",
+    "est": 0.3052,
+    "edge": 0.042,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "lindenwood-lions",
+    "angles": [
+     [
+      "Lindenwood 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Lindenwood 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Lindenwood"
    },
    {
     "id": "nhl|2026020343|1p|ml|away",
@@ -9302,10 +9302,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 124,
+    "price": 126,
     "title": "UT Arlington 1H ML",
-    "est": 0.4806,
-    "edge": 0.0342,
+    "est": 0.4771,
+    "edge": 0.0346,
     "agree": 2,
     "sample": 4,
     "tier": "C",
