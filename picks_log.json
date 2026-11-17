@@ -9288,6 +9288,48 @@
     "streakTeamName": "Oral Roberts"
    },
    {
+    "id": "ncaab|401929358|1h|ml|away",
+    "game": "ncaab|401929358",
+    "date": "2026-11-17",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-18T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "UT Arlington @ Southern Miss",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 115,
+    "title": "UT Arlington 1H ML",
+    "est": 0.4971,
+    "edge": 0.032,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "ut-arlington-mavericks",
+    "angles": [
+     [
+      "UT Arlington 1H ML, season",
+      "4-0-1"
+     ],
+     [
+      "UT Arlington 1H ML, last 8",
+      "4-0-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "UT Arlington"
+   },
+   {
     "id": "ncaab|401920511|1h|ml|away",
     "game": "ncaab|401920511",
     "date": "2026-11-17",
@@ -9328,48 +9370,6 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "Rutgers"
-   },
-   {
-    "id": "ncaab|401929358|1h|ml|away",
-    "game": "ncaab|401929358",
-    "date": "2026-11-17",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-18T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "UT Arlington @ Southern Miss",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 110,
-    "title": "UT Arlington 1H ML",
-    "est": 0.5069,
-    "edge": 0.0307,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "ut-arlington-mavericks",
-    "angles": [
-     [
-      "UT Arlington 1H ML, season",
-      "4-0-1"
-     ],
-     [
-      "UT Arlington 1H ML, last 8",
-      "4-0-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "UT Arlington"
    }
   ]
  }
