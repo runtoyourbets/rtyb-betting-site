@@ -9334,48 +9334,6 @@
     "streakTeamName": "Timberwolves"
    },
    {
-    "id": "ncaab|401920511|1h|ml|away",
-    "game": "ncaab|401920511",
-    "date": "2026-11-17",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-17T19:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rutgers @ Houston",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 650,
-    "title": "Rutgers 1H ML",
-    "est": 0.1667,
-    "edge": 0.0333,
-    "agree": 2,
-    "sample": 3,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "rutgers-scarlet-knights",
-    "angles": [
-     [
-      "Rutgers 1H ML, season",
-      "3-0"
-     ],
-     [
-      "Rutgers 1H ML, last 8",
-      "3-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rutgers"
-   },
-   {
     "id": "ncaab|401929358|1h|ml|away",
     "game": "ncaab|401929358",
     "date": "2026-11-17",
@@ -9418,46 +9376,46 @@
     "streakTeamName": "UT Arlington"
    },
    {
-    "id": "ncaab|401906773|1h|ml|away",
-    "game": "ncaab|401906773",
+    "id": "ncaab|401920511|1h|ml|away",
+    "game": "ncaab|401920511",
     "date": "2026-11-17",
     "sport": "ncaab",
     "label": "NCAAB",
     "slug": "college-basketball",
-    "start": "2026-11-17T21:30Z",
+    "start": "2026-11-17T19:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Notre Dame @ Florida",
+    "matchup": "Rutgers @ Houston",
     "href": "college-basketball/matchups/",
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 500,
-    "title": "Notre Dame 1H ML",
-    "est": 0.1972,
-    "edge": 0.0305,
+    "price": 550,
+    "title": "Rutgers 1H ML",
+    "est": 0.1853,
+    "edge": 0.0315,
     "agree": 2,
-    "sample": 4,
+    "sample": 3,
     "tier": "C",
     "tags": [
      "Dog Hunter"
     ],
     "streak": 3,
-    "streakTeam": "notre-dame-fighting-irish",
+    "streakTeam": "rutgers-scarlet-knights",
     "angles": [
      [
-      "Notre Dame 1H ML, season",
-      "3-1"
+      "Rutgers 1H ML, season",
+      "3-0"
      ],
      [
-      "Notre Dame 1H ML, last 8",
-      "3-1"
+      "Rutgers 1H ML, last 8",
+      "3-0"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Notre Dame"
+    "streakTeamName": "Rutgers"
    }
   ]
  }
