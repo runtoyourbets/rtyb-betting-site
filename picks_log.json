@@ -8986,5 +8986,97 @@
     "streakTeamName": "Timberwolves"
    }
   ]
+ },
+ "2026-11-17": {
+  "plays": [
+   {
+    "id": "nhl|2026020335|1p|ml|away",
+    "game": "nhl|2026020335",
+    "date": "2026-11-17",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-18T00:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Edmonton @ Florida",
+    "href": "nhl/matchups/?date=2026-11-17",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 100,
+    "title": "Edmonton 1P ML",
+    "est": 0.5659,
+    "edge": 0.0659,
+    "agree": 3,
+    "sample": 14,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "EDM",
+    "angles": [
+     [
+      "Edmonton 1P ML, last 8",
+      "4-0-4"
+     ],
+     [
+      "Edmonton 1P ML on the road",
+      "7-1-2"
+     ],
+     [
+      "Edmonton 1P ML, season",
+      "11-3-8"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Edmonton"
+   },
+   {
+    "id": "nhl|2026020343|1p|ml|away",
+    "game": "nhl|2026020343",
+    "date": "2026-11-17",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-18T03:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Calgary @ San Jose",
+    "href": "nhl/matchups/?date=2026-11-17",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 100,
+    "title": "Calgary 1P ML",
+    "est": 0.5411,
+    "edge": 0.0411,
+    "agree": 2,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "CGY",
+    "angles": [
+     [
+      "San Jose\u2019s opponents 1P ML, San Jose at home",
+      "6-2-3"
+     ],
+     [
+      "Calgary 1P ML, last 8",
+      "3-2-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Calgary"
+   }
+  ]
  }
 }
