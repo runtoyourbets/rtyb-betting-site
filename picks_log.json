@@ -8569,8 +8569,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Rockets"
    },
    {
@@ -8839,8 +8839,8 @@
      ]
     ],
     "info": "Rockets avg 1H margin on the road: +10.2",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Rockets"
    },
    {
@@ -8981,8 +8981,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "P",
+    "units": 0.0,
     "streakTeamName": "Timberwolves"
    }
   ]
