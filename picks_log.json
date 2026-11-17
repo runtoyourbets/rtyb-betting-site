@@ -9162,6 +9162,48 @@
     "streakTeamName": "Lipscomb"
    },
    {
+    "id": "nhl|2026020343|1p|ml|away",
+    "game": "nhl|2026020343",
+    "date": "2026-11-17",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-18T03:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Calgary @ San Jose",
+    "href": "nhl/matchups/?date=2026-11-17",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 105,
+    "title": "Calgary 1P ML",
+    "est": 0.5329,
+    "edge": 0.0451,
+    "agree": 2,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "CGY",
+    "angles": [
+     [
+      "San Jose\u2019s opponents 1P ML, San Jose at home",
+      "6-2-3"
+     ],
+     [
+      "Calgary 1P ML, last 8",
+      "3-2-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Calgary"
+   },
+   {
     "id": "ncaab|401927388|1h|ml|away",
     "game": "ncaab|401927388",
     "date": "2026-11-17",
@@ -9202,48 +9244,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Lindenwood"
-   },
-   {
-    "id": "nhl|2026020343|1p|ml|away",
-    "game": "nhl|2026020343",
-    "date": "2026-11-17",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-18T03:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Calgary @ San Jose",
-    "href": "nhl/matchups/?date=2026-11-17",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 104,
-    "title": "Calgary 1P ML",
-    "est": 0.5345,
-    "edge": 0.0443,
-    "agree": 2,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "CGY",
-    "angles": [
-     [
-      "San Jose\u2019s opponents 1P ML, San Jose at home",
-      "6-2-3"
-     ],
-     [
-      "Calgary 1P ML, last 8",
-      "3-2-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Calgary"
    },
    {
     "id": "ncaab|401918970|1h|ml|away",
@@ -9376,6 +9376,56 @@
     "streakTeamName": "Rutgers"
    },
    {
+    "id": "nba|401910003|1q|ml|home",
+    "game": "nba|401910003",
+    "date": "2026-11-17",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-18T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Trail Blazers @ Timberwolves",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -120,
+    "title": "Timberwolves 1Q ML",
+    "est": 0.577,
+    "edge": 0.0315,
+    "agree": 4,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 0,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1Q ML at home",
+      "5-2-1"
+     ],
+     [
+      "Timberwolves 1Q ML, season",
+      "9-4-1"
+     ],
+     [
+      "Timberwolves 1Q ML, last 8",
+      "4-3-1"
+     ],
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers on the road",
+      "4-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
+   },
+   {
     "id": "ncaab|401929358|1h|ml|away",
     "game": "ncaab|401929358",
     "date": "2026-11-17",
@@ -9416,6 +9466,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "UT Arlington"
+   },
+   {
+    "id": "nhl|2026020342|1p|ml|away",
+    "game": "nhl|2026020342",
+    "date": "2026-11-17",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-18T03:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Dallas @ Vegas",
+    "href": "nhl/matchups/?date=2026-11-17",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 110,
+    "title": "Dallas 1P ML",
+    "est": 0.5063,
+    "edge": 0.0301,
+    "agree": 3,
+    "sample": 12,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "DAL",
+    "angles": [
+     [
+      "Dallas 1P ML, last 8",
+      "4-1-3"
+     ],
+     [
+      "Dallas 1P ML on the road",
+      "2-1-4"
+     ],
+     [
+      "Dallas 1P ML, season",
+      "7-5-8"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Dallas"
    }
   ]
  }
