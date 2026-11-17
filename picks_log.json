@@ -9092,10 +9092,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1800,
+    "price": 1600,
     "title": "Sacred Heart 1H ML",
-    "est": 0.1025,
-    "edge": 0.0499,
+    "est": 0.108,
+    "edge": 0.0491,
     "agree": 2,
     "sample": 4,
     "tier": "C",
@@ -9162,6 +9162,48 @@
     "streakTeamName": "Lipscomb"
    },
    {
+    "id": "ncaab|401927388|1h|ml|away",
+    "game": "ncaab|401927388",
+    "date": "2026-11-17",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-18T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Lindenwood @ Northern Iowa",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 328,
+    "title": "Lindenwood 1H ML",
+    "est": 0.2799,
+    "edge": 0.0462,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "lindenwood-lions",
+    "angles": [
+     [
+      "Lindenwood 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Lindenwood 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Lindenwood"
+   },
+   {
     "id": "nhl|2026020343|1p|ml|away",
     "game": "nhl|2026020343",
     "date": "2026-11-17",
@@ -9202,48 +9244,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Calgary"
-   },
-   {
-    "id": "ncaab|401927388|1h|ml|away",
-    "game": "ncaab|401927388",
-    "date": "2026-11-17",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-18T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Lindenwood @ Northern Iowa",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 310,
-    "title": "Lindenwood 1H ML",
-    "est": 0.2887,
-    "edge": 0.0448,
-    "agree": 2,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "lindenwood-lions",
-    "angles": [
-     [
-      "Lindenwood 1H ML, season",
-      "3-2"
-     ],
-     [
-      "Lindenwood 1H ML, last 8",
-      "3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Lindenwood"
    },
    {
     "id": "ncaab|401918970|1h|ml|away",
