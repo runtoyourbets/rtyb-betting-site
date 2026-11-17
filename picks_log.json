@@ -9134,10 +9134,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 900,
+    "price": 820,
     "title": "Lipscomb 1H ML",
-    "est": 0.1446,
-    "edge": 0.0446,
+    "est": 0.1521,
+    "edge": 0.0434,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -9330,6 +9330,48 @@
     "streakTeamName": "UT Arlington"
    },
    {
+    "id": "ncaab|401920511|1h|ml|away",
+    "game": "ncaab|401920511",
+    "date": "2026-11-17",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-17T19:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Rutgers @ Houston",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 680,
+    "title": "Rutgers 1H ML",
+    "est": 0.162,
+    "edge": 0.0338,
+    "agree": 2,
+    "sample": 3,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "rutgers-scarlet-knights",
+    "angles": [
+     [
+      "Rutgers 1H ML, season",
+      "3-0"
+     ],
+     [
+      "Rutgers 1H ML, last 8",
+      "3-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Rutgers"
+   },
+   {
     "id": "nba|401910003|1h|ml|home",
     "game": "nba|401910003",
     "date": "2026-11-17",
@@ -9374,48 +9416,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Timberwolves"
-   },
-   {
-    "id": "ncaab|401920511|1h|ml|away",
-    "game": "ncaab|401920511",
-    "date": "2026-11-17",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-17T19:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rutgers @ Houston",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 600,
-    "title": "Rutgers 1H ML",
-    "est": 0.1753,
-    "edge": 0.0325,
-    "agree": 2,
-    "sample": 3,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "rutgers-scarlet-knights",
-    "angles": [
-     [
-      "Rutgers 1H ML, season",
-      "3-0"
-     ],
-     [
-      "Rutgers 1H ML, last 8",
-      "3-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rutgers"
    },
    {
     "id": "nba|401910003|1q|ml|home",
