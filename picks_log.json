@@ -9260,10 +9260,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1120,
+    "price": 1050,
     "title": "Oral Roberts 1H ML",
-    "est": 0.1208,
-    "edge": 0.0388,
+    "est": 0.1252,
+    "edge": 0.0382,
     "agree": 2,
     "sample": 4,
     "tier": "C",
@@ -9334,48 +9334,6 @@
     "streakTeamName": "Timberwolves"
    },
    {
-    "id": "ncaab|401929358|1h|ml|away",
-    "game": "ncaab|401929358",
-    "date": "2026-11-17",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-18T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "UT Arlington @ Southern Miss",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 118,
-    "title": "UT Arlington 1H ML",
-    "est": 0.4914,
-    "edge": 0.0327,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "ut-arlington-mavericks",
-    "angles": [
-     [
-      "UT Arlington 1H ML, season",
-      "4-0-1"
-     ],
-     [
-      "UT Arlington 1H ML, last 8",
-      "4-0-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "UT Arlington"
-   },
-   {
     "id": "ncaab|401920511|1h|ml|away",
     "game": "ncaab|401920511",
     "date": "2026-11-17",
@@ -9416,6 +9374,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Rutgers"
+   },
+   {
+    "id": "ncaab|401929358|1h|ml|away",
+    "game": "ncaab|401929358",
+    "date": "2026-11-17",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-18T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "UT Arlington @ Southern Miss",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 110,
+    "title": "UT Arlington 1H ML",
+    "est": 0.5069,
+    "edge": 0.0307,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "ut-arlington-mavericks",
+    "angles": [
+     [
+      "UT Arlington 1H ML, season",
+      "4-0-1"
+     ],
+     [
+      "UT Arlington 1H ML, last 8",
+      "4-0-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "UT Arlington"
    }
   ]
  }
