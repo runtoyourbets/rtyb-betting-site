@@ -136,7 +136,7 @@ def seg_of(doc, k):
 
 def code(doc, slug):
     t = (doc.get('teams') or {}).get(slug) or {}
-    return t.get('code') or str(t.get('short') or slug)[:4].upper()
+    return t.get('code') or (doc.get('otherCodes') or {}).get(slug) or str(t.get('short') or slug)[:4].upper()
 
 
 def short(doc, slug):

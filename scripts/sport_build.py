@@ -1123,11 +1123,15 @@ def build(sp, teams_list, now_utc=None):
         'weeks': week_list(games) if sp.get('schedule') == 'week' else None,
         'season': current, 'seasonLabel': season_label(sp['key'], current) if current else None,
         'generated': now_utc.strftime('%Y-%m-%dT%H:%M:%SZ'),
-        'teams': {t['slug']: dict({k: t.get(k) for k in ('name', 'short', 'code', 'color', 'conference', 'division')},
+        'teams': {t['slug']: dict({k: t.get(k) for k in ('name', 'short', 'color', 'conference', 'division')},
+                                  # one code per team, the same everywhere (sports.team_code)
+                                  code=sports.team_code(sp['key'], t.get('code')),
                                   # naming rule: college teams go by the school name, never the nickname
                                   **({'short': t.get('location') or t.get('short')} if sp['key'] in COLLEGE else {}),
                                   logo=logo_flag(sp['key'], t['slug'])) for t in teams_list},
         'otherTeams': extra,
+        # their codes, made once here so a badge and the text next to it agree
+        'otherCodes': {slug: sports.other_code(sp['key'], name) for slug, name in extra.items()},
         # logos for the opponents outside the league (non-Division I schools)
         'otherLogos': {slug: f for slug, f in ((slug, logo_flag(sp['key'], slug)) for slug in extra) if f},
         'games': by_date,
@@ -1151,6 +1155,9 @@ def build(sp, teams_list, now_utc=None):
         if len(lines) >= 6:
             cuts[s['key']] = [lines[len(lines) // 3], lines[2 * len(lines) // 3]]
     doc['totalCuts'] = cuts
+    # Edges lead buckets: about a third of the games each (scripts/lead_cuts.py)
+    import lead_cuts
+    doc['leadCuts'] = lead_cuts.update(sp['key'], sp['segments'], by_date)
     # "Since last season": the previous season's games in their own file,
     # loaded only when that option is picked
     prev = max((y for y in seasons if current is not None and y < current), default=None)

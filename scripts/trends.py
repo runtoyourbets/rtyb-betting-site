@@ -50,7 +50,7 @@ LOG_VERSION = 1
 # A loss by this much or more is a "blowout" (the tooltips say 3+ goals for NHL)
 BIG_LOSS = {'nhl': 3, 'nfl': 14, 'ncaaf': 17, 'nba': 10, 'wnba': 10, 'ncaab': 10, 'mlb': 4}
 SCORE_WORD = {'nhl': 'goals', 'mlb': 'runs'}
-MARKET_TAG = {'ml': 'ML', 'ats': 'ATS', 'total': 'O/U', 'btts': 'BTTS', 'ml3': '3-way', 'rfi': ''}
+MARKET_TAG = {'ml': 'ML', 'ats': 'Spread', 'total': 'O/U', 'btts': 'BTTS', 'ml3': '3-way', 'rfi': ''}
 SPREAD_WORD = {'mlb': 'run line', 'nhl': 'puck line'}
 DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
@@ -141,7 +141,7 @@ def prepare(sp, doc):
 
 def code(doc, slug):
     t = (doc.get('teams') or {}).get(slug) or {}
-    return t.get('code') or (t.get('short') or slug).upper()[:4]
+    return t.get('code') or (doc.get('otherCodes') or {}).get(slug) or (t.get('short') or slug).upper()[:4]
 
 
 # ----------------------------------------------------------------- bets
@@ -586,6 +586,8 @@ def update(sp, doc, now_utc, log_path=None):
     keep = {}
     for key, d, slate in groups:
         entry = log['slates'].get(key)
+        for c in (entry or {}).get('cards') or []:   # frozen before the market tags said "Spread"
+            c['tag'] = c['tag'].replace(' ATS', ' Spread')
         if entry is None and Date.fromisoformat(d).toordinal() < floor:
             continue
         starts = [G['g']['start'] for G in slate]

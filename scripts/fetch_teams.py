@@ -21,6 +21,9 @@ import time
 import urllib.request
 from datetime import date
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sports  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(ROOT, 'data_seed', 'teams')
 
@@ -85,8 +88,9 @@ def fetch_sport(key):
             conference = CONFERENCE_ALIASES.get(groups[-1], groups[-1])
             division = None
         code = t.get('abbreviation')
+        short_code = sports.team_code(key, code)   # one code per team: 3 max pro, 4 college
         teams[t['id']] = {
-            'code': code,
+            'code': short_code,
             'name': t.get('displayName'),
             'short': t.get('shortDisplayName'),
             'location': t.get('location'),

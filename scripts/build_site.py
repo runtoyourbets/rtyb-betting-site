@@ -63,6 +63,7 @@ import seo  # noqa: E402
 import streaks as streaks_page  # noqa: E402
 import daily  # noqa: E402
 import home  # noqa: E402
+import front  # noqa: E402
 import hub  # noqa: E402
 import icons  # noqa: E402
 import nav  # noqa: E402
@@ -344,7 +345,7 @@ def apply_sport(out, sport, section):
                       f'RTYB — Run to Your Bets: {sport["label"]} {sports.segment_summary(sport)} betting stats and trends.')
     out = out.replace('__SITE_NAV__', site_nav(sport, section or 'games'))
     out = out.replace('__LOGO_SVG__', LOGO_SVG)
-    if not sport.get('launched'):   # hidden sport: reachable by URL, kept out of search
+    if not sports.is_launched(sport['key']):   # hidden or out of season: reachable by URL, kept out of search
         out = out.replace('</title>', '</title>\n<meta name="robots" content="noindex">', 1)
     if '__SIT_JS__' in out:   # NHL Stats page: the shared split table, inlined
         js = ''.join(open(os.path.join(ROOT, 'assets', p), encoding='utf-8').read() for p in ('splits/nhl.js', 'situational.js'))
@@ -837,7 +838,12 @@ def write_hub(template, sp, teams_menu_html=''):
             'desc': (f"{sp['label']} {sports.segment_summary(sp)} betting {when.lower()}: the games, our Matchup of the "
                      f"{'Week' if weekly else 'Day'}, the trends and streaks to watch, and the best price at every sportsbook.")}
     if sport_has_data(sp['key']):
-        body = ('<div id="sportApp" data-section="hub"><div class="no-games-note">Loading&hellip;</div>'
+        # Yesterday's Best, The Slate, Hottest Trends, Yesterday's Results: the
+        # home page's sections (scripts/front.py) for this sport, in the HTML;
+        # assets/sport.js draws the rest of the hub under them
+        S = {sp['key']: front.Sport(sp)}
+        body = (f'<div class="hub-front">{front.sections(S, datetime.now(timezone.utc), root="../", hub=True)}</div>'
+                '<div id="sportApp" data-section="hub"><div class="no-games-note">Loading&hellip;</div>'
                 '<noscript>This page needs JavaScript.</noscript></div>')
         html = render_page(template, 'sport', teams_menu_html, meta=meta, sport=sp, sport_body=body)
     else:

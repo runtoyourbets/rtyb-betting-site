@@ -26,6 +26,17 @@ refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
 - College sports (NCAAB, NCAAF): desktop shows the school name (Kentucky,
   Arizona), never the nickname; mobile shows the school abbreviation (UK, ARIZ).
 - Inside cards, odds rows and records: abbreviations on every device.
+- Team abbreviations: one code per team, the same everywhere (badges, cards,
+  tables, Slate). Pro teams use the league's standard code, 3 characters max
+  (BOS, NY, GS, UTA); college teams 4 max (UCLA, IOWA, ORST). Teams outside
+  the league get one made from the school name (`sports.other_code`, written
+  to data.json as `otherCodes`), so a badge never disagrees with the text
+  next to it. `sports.team_code` enforces the limits.
+- In-season sports: `sports.LAUNCHED` (launched and between `season_start`
+  and `season_end`) drives every menu, pill row and list of sports; never
+  hard-code one.
+- A game with no saved line for any market of its segment shows nowhere, and
+  Results records count only games with a line for the market.
 - Every team shows its logo (scripts/fetch_sport_logos.py also fetches the
   non-Division I opponents'). No logo: a small colored badge with the
   abbreviation.

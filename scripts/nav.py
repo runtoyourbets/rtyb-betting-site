@@ -2,7 +2,7 @@
 The site nav, defined once for every page (home, Learn, The Daily, Picks,
 Streaks and every sport page; admin has its own):
 
-  Sports ▾ (the launched sports) · Trends · Odds · The Daily · Learn
+  Sports ▾ (the sports in season) · Matchups · Odds · Trends · The Daily · Learn
   ... Sign in · Go Premium · account · theme toggle
 
 Phones get a hamburger that opens a full-screen menu with the same links.
@@ -38,11 +38,12 @@ def _sport_items(base, status, section, badges=True):
 
 
 def links(base):
-    """[(label, href)] after the Sports menu. Trends and Odds open the NHL
-    pages for now."""
+    """[(label, href)] after the Sports menu. Matchups and Odds open the
+    every-sport index pages (/matchups/, /odds/); Trends opens NHL's for now."""
     nhl = sports.BY_KEY['nhl']
-    return [('Trends', base + sports.section_path(nhl, 'trends').lstrip('/')),
-            ('Odds', base + sports.section_path(nhl, 'odds').lstrip('/')),
+    return [('Matchups', base + 'matchups/'),
+            ('Odds', base + 'odds/'),
+            ('Trends', base + sports.section_path(nhl, 'trends').lstrip('/')),
             ('The Daily', base + 'daily/'),
             ('Learn', base + 'learn/')]
 

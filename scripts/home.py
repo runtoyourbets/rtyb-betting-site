@@ -2,14 +2,13 @@
 Home page (index.html) and Learn page (learn/index.html), generated at
 build time from the same data every sport page uses: NHL's merged data
 (build_site.py) and each other sport's {slug}/data.json (sport_build.py).
-Static -- the refresh job rebuilds them every run, so "Today" and
-"Yesterday" are as fresh as the rest of the site.
+Static -- the refresh job rebuilds them every run.
 
-Sections, top to bottom: nav (Sports, Today, Trends to Watch, Learn,
-Sign in, Go Premium, theme toggle; full-screen menu on phones), sport
-chips, hero with "Yesterday on RTYB", Today grid, yesterday's results,
-Trends to Watch (first one open, the rest behind the Premium overlay),
-Premium + email signup, Learn links, footer.
+Sections, top to bottom: nav, sport chips, hero (with Yesterday's Best),
+then the shared front sections (scripts/front.py, also on every Arena hub):
+The Slate, Hottest Trends (the rest behind the newsletter box) and
+Yesterday's Results; then The Daily, Premium + email signup, Learn links,
+footer. Every list of sports comes from sports.LAUNCHED (in season).
 
 Colors are the site tokens from assets/site.css (template.html :root).
 """
@@ -22,6 +21,7 @@ from zoneinfo import ZoneInfo
 
 import account
 import daily
+import front
 import icons
 import seo
 import signup
@@ -30,8 +30,6 @@ import sports
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ET = ZoneInfo('America/New_York')
-TODAY_SHOWN = 4    # games a sport in Today
-TRENDS_SHOWN = 3   # hottest trends before the email box
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800'
@@ -166,152 +164,13 @@ def sport_games(doc):
     return out
 
 
-# ---------------------------------------------------------------- summary
-
-class Tally:
-    """One market's record for a day: W-L(-T) and units over priced bets."""
-    def __init__(self, sport, what, ties=True, hits=False):
-        self.sport, self.what, self.ties, self.hits = sport, what, ties, hits
-        self.w = self.l = self.t = self.priced = 0
-        self.units = 0.0
-
-    def add(self, res, units):
-        if res == 'W':
-            self.w += 1
-        elif res == 'L':
-            self.l += 1
-        else:
-            self.t += 1
-        if units is not None:
-            self.units += units
-            self.priced += 1
-
-    def add_price(self, res, price):
-        """A bet at an American price (0u on a tie)."""
-        self.add(res, None if price is None else win_units(price) if res == 'W' else -1.0 if res == 'L' else 0.0)
-
-    @property
-    def n(self):
-        return self.w + self.l + self.t
-
-    @property
-    def rec(self):
-        if self.hits:
-            return f'{self.w} of {self.n}'
-        return f'{self.w}-{self.l}' + (f'-{self.t}' if self.ties else '')
-
-    @property
-    def u(self):
-        return round(self.units, 2) if self.priced else None
-
-    @property
-    def rate(self):
-        """Win %: ties and pushes stay out (2-0-4 is 100%)."""
-        return self.w / (self.w + self.l) if self.w + self.l else 0
-
-
-def nhl_records(games):
-    """A day's NHL 1st-period records: home teams, favorites, Over 1.5 and
-    BTTS Yes, each with units at the saved prices."""
-    done = [g for g in games if g['state'] == 'final' and g['segScore']]
-    home = Tally('NHL', '1P home teams')
-    fav = Tally('NHL', '1P favorites')
-    over = Tally('NHL', '1P Over 1.5', hits=True)
-    btts = Tally('NHL', '1P BTTS Yes', hits=True)
-    for g in done:
-        a, h = g['segScore']
-        ml = g['ml']
-        pa, ph = ml.get(g['away']['code']), ml.get(g['home']['code'])
-        home.add_price('W' if h > a else 'L' if h < a else 'T', ph)
-        if pa is not None and ph is not None and implied(pa) != implied(ph):
-            fav_away = implied(pa) > implied(ph)
-            mine, theirs = (a, h) if fav_away else (h, a)
-            fav.add_price('W' if mine > theirs else 'L' if mine < theirs else 'T', pa if fav_away else ph)
-        over.add_price('W' if a + h >= 2 else 'L', g['total15'].get('over'))
-        btts.add_price('W' if a >= 1 and h >= 1 else 'L', g['btts'][0])
-    return [x for x in (home, fav, over, btts) if x.n]
-
-
-def sport_records(label, games):
-    """A day's records for a sport from data.json (its first segment):
-    home teams SU and ATS, and overs, with units where odds were saved.
-    Results are stored from the away side."""
-    done = [g for g in games if g['segFinal'] and not g['res'].get('na')]
-    if not done:
-        return []
-    tag = done[0]['seg']
-    flip = {'W': 'L', 'L': 'W'}
-    su = Tally(label, f'{tag} home teams (SU)')
-    ats = Tally(label, f'{tag} home teams (ATS)')
-    over = Tally(label, f'{tag} overs', ties=False, hits=True)
-    for g in done:
-        r, u = g['res'], g['res'].get('u') or {}
-        if r.get('su'):
-            su.add(flip.get(r['su'], 'T'), (u.get('su') or [None, None])[1])
-        if r.get('ats') in ('W', 'L', 'P'):
-            ats.add(flip.get(r['ats'], 'T'), (u.get('ats') or [None, None])[1])
-        if r.get('tot') in ('O', 'U'):
-            over.add('W' if r['tot'] == 'O' else 'L', (u.get('tot') or [None, None])[0])
-    return [x for x in (su, ats, over) if x.n]
-
-
-def units_html(u, cls='ln-u'):
-    if u is None:
-        return ''
-    # green above +0.5u, red below -0.5u, yellow between (CLAUDE.md color rule)
-    tone = ' pos' if u > 0.5 else ' neg' if u < -0.5 else ' mid'
-    return f'<span class="{cls}{tone}">{fmt_units(u) if u else "0.00u"}</span>'
-
-
-# ------------------------------------------------------------------- html
-
-def game_card(g, kind):
-    when = ('Final' if g['state'] == 'final' else 'Live' if g['state'] == 'in'
-            else time_et(g['start']) if g.get('start') else '')
-    if g['state'] == 'off':
-        when = 'Postponed'
-    score = (f'<span class="hc-score">{g["score"][0]}&ndash;{g["score"][1]}</span>'
-             if g.get('score') and g['score'][0] is not None else '')
-    seg = ''
-    if g.get('segScore'):
-        a, h = g['segScore']
-        seg = f'<div class="hc-seg"><span class="hc-tag">{esc(g["seg"])}</span> {a}&ndash;{h}'
-        r = g.get('res') or {}
-        if r.get('rfi') in ('Y', 'N'):
-            seg += f' <span class="hc-chip {"w" if r["rfi"] == "N" else "l"}">{"NRFI" if r["rfi"] == "N" else "YRFI"}</span>'
-        seg += '</div>'
-    lines = ''.join(f'<div class="hc-line">{esc(x)}</div>' for x in (g.get('lines') or []) + (g.get('extra') or []))
-    if kind == 'today' and not lines:
-        lines = f'<div class="hc-line muted">{esc(g["seg"])} odds pending</div>'
-    team = lambda t: f'<span class="hc-team">{t.get("logo") or badge(t["code"], t["color"], 24)}<span>{esc(t["name"])}</span></span>'
-    return (f'<a class="hc-card" href="{esc(g["href"])}">'
-            f'<div class="hc-top"><span class="hc-sport">{icons.sport_icon(g["sport"])}{esc(g["label"])}</span><span class="hc-when">{esc(when)}</span></div>'
-            f'<div class="hc-teams">{team(g["away"])}<span class="hc-at">@</span>{team(g["home"])}{score}</div>'
-            f'{seg if kind == "results" else ""}{lines if kind == "today" else ""}</a>')
-
-
-PICK_DONE = {'LIVE': 'Live', 'W': 'Hit', 'L': 'Miss', 'P': 'Push', 'NA': 'No action'}
-
-
-def trend_pick(t, p):
-    """A pick chip: a bet only on a non-weak trend before its game starts."""
-    done = PICK_DONE.get(p.get('status'))
-    muted = done or t.get('strength') == 'weak'
-    agree = f' <span class="ht-agree">{p["agree"]} agree</span>' if (p.get('agree') or 0) > 1 else ''
-    return (f'<span class="ht-pick{" muted" if muted else ""}">{esc(p["label"])}'
-            f'{f" &middot; {done}" if done else ""}{agree}</span>')
-
-
-def trend_row(t, label):
-    picks = ''.join(trend_pick(t, p) for p in (t.get('games') or [])[:6])
-    more = len(t.get('games') or []) - 6
-    if more > 0:
-        picks += f'<span class="ht-pick muted">+{more} more</span>'
-    units = f' &middot; {fmt_units(t["units"])}' if t.get('units') is not None else ''
-    return (f'<div class="ht-row"><div class="ht-head"><span class="ht-sport">{esc(label)}</span>'
-            f'<span class="ht-tag">{esc(t.get("market"))}</span></div>'
-            f'<div class="ht-sentence">{esc(t["sentence"])}</div>'
-            f'<div class="ht-rec">{esc(t.get("record"))}{units}</div><div class="ht-picks">{picks}</div></div>')
+def locked_trends(n, cards):
+    """The trends past the ones shown, blurred behind the newsletter box."""
+    return (f'<div class="ht-locked"><div class="ht-blur" aria-hidden="true"><div class="tr-cards">{cards}</div></div>'
+            f'<div class="ht-overlay"><div class="ht-lock-card">'
+            f'<div class="ht-lock-title">{n} more trend{"s" if n != 1 else ""} today</div>'
+            f'<p>Free with the Running Tab, our newsletter. Sign up once and they unlock on this device.</p>'
+            f'<a class="btn-primary" href="#signup-tab">Get the Tab</a></div></div></div>')
 
 
 def nav_html(status, depth=''):
@@ -365,23 +224,6 @@ PAGE_JS = '''
     window.addEventListener('resize', syncArrows);
     syncArrows();
   }
-  // "All N games" expanders
-  document.querySelectorAll('[data-expand]').forEach(function(b) {
-    b.addEventListener('click', function() {
-      document.querySelectorAll('#' + b.getAttribute('data-expand') + ' .is-extra').forEach(function(el) { el.classList.remove('is-extra'); });
-      b.remove();
-    });
-  });
-  // Today: show one sport's games (and its "All N games" link) or all
-  document.querySelectorAll('[data-hp-sport]').forEach(function(b) {
-    b.addEventListener('click', function() {
-      var want = b.getAttribute('data-hp-sport');
-      document.querySelectorAll('[data-hp-sport]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
-      document.querySelectorAll('#today [data-sport]').forEach(function(el) {
-        el.hidden = want !== 'all' && el.getAttribute('data-sport') !== want;
-      });
-    });
-  });
   // Email signup: scripts/signup.py (Beehiiv forms; unblurs the trends after a signup)
 })();
 </script>'''
@@ -466,52 +308,6 @@ def build(template, nhl_data, logo_svg, now_utc=None):
     for sp in sports.LAUNCHED:
         chip, live, short = sport_status(sp, by_sport.get(sp['key'], {}), today)
         status.append((sp, chip, live, short))
-    # hidden sports (sports.py 'launched') stay off the home page
-    by_sport = {k: v for k, v in by_sport.items() if sports.is_launched(k)}
-
-    # today: every sport's games today, by start time
-    today_games = sorted((g for k in by_sport for g in by_sport[k].get(today, [])),
-                     key=lambda g: (g.get('start') or '', g['label']))
-    # yesterday: the latest date before today with finals in any sport
-    past = sorted({d for k in by_sport for d in by_sport[k] if d < today
-                   and any(g['state'] == 'final' for g in by_sport[k][d])})
-    yday = past[-1] if past else None
-    yday_games = sorted((g for k in by_sport for g in by_sport[k].get(yday, []) if g['state'] == 'final'),
-                        key=lambda g: (g.get('start') or '')) if yday else []
-    # yesterday's records per sport, with units, plus each sport's league-trend record
-    records = {}
-    if yday:
-        for sp in sports.LAUNCHED:
-            day = by_sport[sp['key']].get(yday, [])
-            records[sp['key']] = nhl_records(day) if sp['key'] == 'nhl' else sport_records(sp['label'], day)
-            if sp['key'] == 'nhl':
-                try:
-                    rec = (json.load(open(os.path.join(ROOT, 'league_trends_log.json'), encoding='utf-8')).get(yday) or {}).get('record')
-                except (OSError, ValueError):
-                    rec = None
-            else:
-                rec = (((docs.get(sp['key']) or {}).get('trends') or {}).get(yday) or {}).get('record')
-            if rec and rec.get('w', 0) + rec.get('l', 0):
-                tr = Tally(sp['label'], 'League trends', ties=False)
-                tr.w, tr.l = rec['w'], rec['l']
-                records[sp['key']].append(tr)
-
-    # trends to watch today: NHL's log plus each sport's, best first
-    trends = []
-    try:
-        log = json.load(open(os.path.join(ROOT, 'league_trends_log.json'), encoding='utf-8'))
-        trends += [('NHL', t) for t in (log.get(today) or {}).get('trends', [])]
-    except (OSError, ValueError):
-        pass
-    for sp in sports.LAUNCHED:
-        doc = docs.get(sp['key']) or {}
-        key = today
-        if doc.get('schedule') == 'week':
-            # Football's trends are per week: this week's, if it has games today.
-            wk = next((w for w in doc.get('weeks') or [] if w['start'] <= today <= w['end']), None)
-            key = wk['key'] if wk and doc.get('games', {}).get(today) else None
-        trends += [(sp['label'], t) for t in ((doc.get('trends') or {}).get(key) or {}).get('trends', [])]
-    trends.sort(key=lambda x: -(x[1].get('score') or 0))
 
     # ---- sections
     chips = ''.join(
@@ -519,93 +315,17 @@ def build(template, nhl_data, logo_svg, now_utc=None):
         f'<span class="hs-name">{icons.sport_icon(sp)}{esc(sp["label"])}</span><span class="hs-count">{esc(chip)}</span></a>'
         for sp, chip, live, short in status)
 
-    # hero proof card: yesterday's best result (most units), then up to 3
-    # more -- winning records only (positive units); never a losing one
-    all_recs = [r for sp in sports.LAUNCHED for r in records.get(sp['key'], [])]
-    winners = [r for r in all_recs if r.u is not None and r.u > 0]
-    if winners:
-        ranked = sorted(winners, key=lambda r: (-r.u, -r.rate, -r.n))
-        best = ranked[0]
-        rows = ''.join(f'<div class="ln-row"><span class="ln-sport">{esc(r.sport)}</span><span class="ln-what">{esc(r.what)}</span>'
-                       f'<span class="ln-val"><span class="ln-rec">{esc(r.rec)}</span>{units_html(r.u)}</span></div>'
-                       for r in ranked[1:4])
-        last = (f'<div class="ln-card"><div class="ln-head"><span>Yesterday on RTYB</span><span>{esc(day_label(yday))}</span></div>'
-                f'<div class="ln-best"><span class="ln-best-what">{esc(best.sport)} &middot; {esc(best.what)}</span>'
-                f'<span class="ln-best-rec">{esc(best.rec)}</span>{units_html(best.u, "ln-best-u")}</div>'
-                f'{rows}<div class="ln-foot">{len(yday_games)} games graded &middot; <a href="#results">See yesterday&rsquo;s results</a></div></div>')
-    elif yday_games:
-        last = (f'<div class="ln-card"><div class="ln-head"><span>Yesterday on RTYB</span><span>{esc(day_label(yday))}</span></div>'
-                f'<div class="ln-best"><span class="ln-best-what">{len(yday_games)} games graded</span></div>'
-                f'<div class="ln-foot"><a href="#results">See yesterday&rsquo;s results</a></div></div>')
-    else:
-        last = '<div class="ln-card"><div class="ln-head"><span>Yesterday on RTYB</span></div><p class="muted">No graded games yet.</p></div>'
-
+    # Yesterday's Best, The Slate, Hottest Trends and Yesterday's Results:
+    # the shared sections (scripts/front.py), every sport in season
+    S = front.load(now_utc)
+    yday = front.yesterday(now_utc)
+    best = front.yesterdays_best(S, yday)
     hero = (f'<section class="hh"><div class="hh-copy"><h1><span class="hh-a">The first</span> <span class="hh-b">period.</span><br><span class="hh-a">The first</span> <span class="hh-b">quarter.</span><br><span class="hh-a">The first</span> <span class="hh-b">half.</span></h1>'
-            f'<p>Early bets settle fast. Run to yours with the numbers! Odds, stats and trends for every NHL and NBA game.</p>'
+            f'<p>Early bets settle fast. Run to yours with the numbers! Odds, stats and trends for every {esc(sports.sport_names())} game.</p>'
             f'<div class="hh-cta"><a class="btn-primary" href="#trends">Today&rsquo;s trends</a>'
-            f'<a class="btn-ghost" href="#premium">Get the daily email</a></div>'
-            f'<p class="hh-note">Every trend graded. Every record public.</p></div>{last}</section>')
-
-    # today: up to TODAY_SHOWN games a sport (live, then upcoming, then
-    # finals), filter chips, and a link to each sport's full slate
-    order = {'in': 0, 'pre': 1, 'final': 2, 'off': 3}
-    cards, links, today_sports = '', '', []
-    for sp in sports.LAUNCHED:
-        games = sorted(by_sport[sp['key']].get(today, []), key=lambda g: (order.get(g['state'], 3), g.get('start') or ''))
-        if not games:
-            continue
-        today_sports.append(sp)
-        cards += ''.join(game_card(g, 'today').replace('class="hc-card"', f'class="hc-card" data-sport="{sp["key"]}"', 1)
-                         for g in games[:TODAY_SHOWN])
-        links += (f'<a class="hp-all" data-sport="{sp["key"]}" href="{sports.section_path(sp, "games").lstrip("/")}?date={today}">'
-                  f'All {len(games)} {esc(sp["label"])} matchup{"s" if len(games) != 1 else ""} &rarr;</a>')
-    filters = ''
-    if len(today_sports) > 1:
-        filters = ('<div class="seg-toggle hp-filter" role="group" aria-label="Sport">'
-                   '<button class="seg-btn" type="button" data-hp-sport="all" aria-pressed="true">All</button>'
-                   + ''.join(f'<button class="seg-btn" type="button" data-hp-sport="{sp["key"]}" aria-pressed="false">{esc(sp["label"])}</button>'
-                             for sp in today_sports) + '</div>')
-    today_html = (f'<section class="hp-sec" id="today"><div class="hp-head"><h2>Today</h2>'
-                  f'<span class="muted">{esc(day_label(today))} &middot; {len(today_games)} game{"s" if len(today_games) != 1 else ""}</span>{filters}</div>'
-                  + (f'<div class="hc-grid" id="todayGrid">{cards}</div><div class="hp-alls">{links}</div>' if cards
-                     else '<p class="hp-empty">No games on the board today.</p>') + '</section>')
-
-    # yesterday's results: one summary card per sport
-    res_cards = ''
-    for sp in sports.LAUNCHED:
-        recs = records.get(sp['key']) or []
-        n = sum(1 for g in yday_games if g['sport'] == sp['key'])
-        if not recs or not n:
-            continue
-        rows = ''.join(f'<div class="ln-row"><span class="ln-what">{esc(r.what)}</span>'
-                       f'<span class="ln-val"><span class="ln-rec">{esc(r.rec)}</span>{units_html(r.u)}</span></div>' for r in recs)
-        res_cards += (f'<div class="hr-card"><div class="hr-head"><span class="hc-sport">{icons.sport_icon(sp)}{esc(sp["label"])}</span>'
-                      f'<span class="muted">{n} game{"s" if n != 1 else ""} graded</span></div>{rows}'
-                      f'<a class="hr-link" href="{sports.section_path(sp, "games").lstrip("/")}?date={yday}">All {esc(sp["label"])} results &rarr;</a></div>')
-    results_html = ''
-    if res_cards:
-        results_html = (f'<section class="hp-sec" id="results"><div class="hp-head"><h2>Yesterday&rsquo;s results</h2>'
-                        f'<span class="muted">{esc(day_label(yday))}</span></div><div class="hr-grid">{res_cards}</div></section>')
-
-    # hottest trends: the 3 strongest shown, the rest behind an email box
-    hot = [x for x in trends if (x[1].get('strength') or 'weak') != 'weak']
-    if hot:
-        shown = ''.join(trend_row(t, s) for s, t in hot[:TRENDS_SHOWN])
-        rest = hot[TRENDS_SHOWN:]
-        locked = ''
-        if rest:
-            locked = (f'<div class="ht-locked"><div class="ht-blur" aria-hidden="true">{"".join(trend_row(t, s) for s, t in rest)}</div>'
-                      f'<div class="ht-overlay"><div class="ht-lock-card">'
-                      f'<div class="ht-lock-title">{len(rest)} more trend{"s" if len(rest) != 1 else ""} today</div>'
-                      f'<p>Free with the Running Tab, our newsletter. Sign up once and they unlock on this device.</p>'
-                      f'<a class="btn-primary" href="#signup-tab">Get the Tab</a></div></div></div>')
-        trends_html = (f'<section class="hp-sec" id="trends"><div class="hp-head"><h2>Hottest trends today</h2>'
-                       f'<span class="muted">Records from the side to bet. Ties are pushes.</span>'
-                       f'<a class="hp-head-link" href="{sports.section_path(sports.BY_KEY["nhl"], "trends").lstrip("/")}">All trends &rarr;</a></div>'
-                       f'<div class="ht-grid">{shown}</div>{locked}</section>')
-    else:
-        trends_html = ('<section class="hp-sec" id="trends"><div class="hp-head"><h2>Hottest trends today</h2></div>'
-                       '<p class="hp-empty">No trends clear the bar for today&rsquo;s games yet.</p></section>')
+            f'<a class="btn-ghost" href="#premium">Get the daily email</a></div></div>{best}</section>')
+    front_html = (front.slate(S, now_utc) + front.hottest_trends(S, now_utc, locked_html=locked_trends)
+                  + front.yesterdays_results(S, yday) + front.FRONT_JS)
 
     pieces = daily.load()
     # the newest recap, preview and column; a placeholder for any not published yet
@@ -635,11 +355,20 @@ def build(template, nhl_data, logo_svg, now_utc=None):
                 f'<button class="hs-arrow prev" type="button" aria-label="Scroll leagues left" hidden>&lsaquo;</button>'
                 f'<div class="hs-row" id="hsRow">{chips}</div>'
                 f'<button class="hs-arrow next" type="button" aria-label="Scroll leagues right" hidden>&rsaquo;</button></div>')
-    body = (f'{chip_row}{hero}{today_html}{trends_html}{results_html}{daily_html}{premium}{learn_html}')
-    home = page('RTYB — Run to Your Bets', 'First period, first quarter and first half betting odds, stats and trends for every NHL and NBA game.',
+    body = (f'{chip_row}{hero}{front_html}{daily_html}{premium}{learn_html}')
+    home = page('RTYB — Run to Your Bets', f'First period, first quarter and first half betting odds, stats and trends for every {sports.sport_names()} game.',
                 body, status, is_home=True).replace('__LOGO_SVG__', logo_svg)
     with open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(home)
+
+    # /matchups/ and /odds/: every sport's games today, the Slate card (front.py);
+    # the All tab is in the HTML, the pills filter it in place
+    for kind, x in front.INDEX.items():
+        out = page(x['title'], x['desc'].format(sports=sports.sport_names()), front.index_body(S, now_utc, kind) + front.FRONT_JS,
+                   status, depth='../').replace('__LOGO_SVG__', logo_svg)
+        os.makedirs(os.path.join(ROOT, kind), exist_ok=True)
+        with open(os.path.join(ROOT, kind, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(out)
 
     learn_page = page('Learn: How 1st Period, Quarter and Half Bets Work | RTYB', 'How first-segment bets work: spreads, moneylines, totals, NRFI, First Five and units.',
                       LEARN_BODY, status, depth='../').replace('__LOGO_SVG__', logo_svg)
@@ -648,7 +377,8 @@ def build(template, nhl_data, logo_svg, now_utc=None):
         f.write(learn_page)
     daily.write_pages(page, status, logo_svg, pieces)
     seo.write_legal(page, status, logo_svg)
-    return {'today': len(today_games), 'yesterday': len(yday_games), 'trends': len(trends)}
+    today_n = sum(1 for sp in S.values() for g in sp.games(today) if front.game_lined(sp, g))
+    return {'today': today_n, 'trends': front_html.count('class="tr-card"')}
 
 
 LEARN_LINKS = [
