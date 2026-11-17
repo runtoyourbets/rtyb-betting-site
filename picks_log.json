@@ -8704,8 +8704,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 2.45,
     "streakTeamName": "Eastern Kentucky"
    },
    {
@@ -8908,10 +8908,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 710,
+    "price": 730,
     "title": "Portland State 1H ML",
-    "est": 0.1601,
-    "edge": 0.0366,
+    "est": 0.1574,
+    "edge": 0.0369,
     "agree": 2,
     "sample": 3,
     "tier": "C",
