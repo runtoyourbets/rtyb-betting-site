@@ -9486,16 +9486,14 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -110,
+    "price": -108,
     "title": "Boston 1P ML",
-    "est": 0.5745,
-    "edge": 0.0507,
+    "est": 0.5716,
+    "edge": 0.0523,
     "agree": 3,
     "sample": 16,
     "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
+    "tags": [],
     "streak": -3,
     "streakTeam": "BOS",
     "angles": [
