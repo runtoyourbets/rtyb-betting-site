@@ -9795,9 +9795,7 @@
     "agree": 4,
     "sample": 14,
     "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
+    "tags": [],
     "streak": 2,
     "streakTeam": "phi",
     "angles": [
@@ -9908,6 +9906,57 @@
     "streakTeamName": "Colorado"
    },
    {
+    "id": "nba|401910017|1h|total|over",
+    "game": "nba|401910017",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Jazz @ Lakers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 109.5,
+    "price": -112,
+    "title": "1H Over 109.5",
+    "est": 0.5685,
+    "edge": 0.0402,
+    "agree": 6,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Lakers 1H overs at home (109.5)",
+      "7-0"
+     ],
+     [
+      "Lakers 1H overs, last 8 (109.5)",
+      "7-1"
+     ],
+     [
+      "Lakers 1H overs, season (109.5)",
+      "12-3"
+     ],
+     [
+      "Jazz 1H overs, last 8 (109.5)",
+      "6-2"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Lakers 121.3 \u00b7 Jazz 112.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
     "id": "nba|401910017|1q|ats|away",
     "game": "nba|401910017",
     "date": "2026-11-18",
@@ -9954,57 +10003,6 @@
      ]
     ],
     "info": "Jazz avg 1Q margin on the road: -0.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
-   },
-   {
-    "id": "nba|401910017|1h|total|over",
-    "game": "nba|401910017",
-    "date": "2026-11-18",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-19T03:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Jazz @ Lakers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 110.5,
-    "price": -110,
-    "title": "1H Over 110.5",
-    "est": 0.5619,
-    "edge": 0.0381,
-    "agree": 6,
-    "sample": 15,
-    "tier": "C",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Lakers 1H overs at home (110.5)",
-      "7-0"
-     ],
-     [
-      "Lakers 1H overs, last 8 (110.5)",
-      "7-1"
-     ],
-     [
-      "Lakers 1H overs, season (110.5)",
-      "12-3"
-     ],
-     [
-      "Jazz 1H overs, last 8 (110.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Lakers 121.3 \u00b7 Jazz 112.8",
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
