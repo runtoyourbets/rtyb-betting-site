@@ -9472,6 +9472,48 @@
  "2026-11-18": {
   "plays": [
    {
+    "id": "ncaab|401920963|1h|ml|away",
+    "game": "ncaab|401920963",
+    "date": "2026-11-18",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-19T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Morehead State @ Ohio",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 540,
+    "title": "Morehead State 1H ML",
+    "est": 0.2173,
+    "edge": 0.061,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "morehead-state-eagles",
+    "angles": [
+     [
+      "Morehead State 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Morehead State 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Morehead State"
+   },
+   {
     "id": "nhl|2026020344|1p|ml|away",
     "game": "nhl|2026020344",
     "date": "2026-11-18",
@@ -9734,6 +9776,53 @@
     "streakTeamName": "76ers"
    },
    {
+    "id": "ncaab|401925782|1h|ml|away",
+    "game": "ncaab|401925782",
+    "date": "2026-11-18",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-19T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Howard @ Duquesne",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 178,
+    "title": "Howard 1H ML",
+    "est": 0.3949,
+    "edge": 0.0352,
+    "agree": 3,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "howard-bison",
+    "angles": [
+     [
+      "Howard 1H ML, season",
+      "4-1"
+     ],
+     [
+      "Howard 1H ML, last 8",
+      "4-1"
+     ],
+     [
+      "Howard 1H ML on the road",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Howard"
+   },
+   {
     "id": "nba|401910017|1h|total|over",
     "game": "nba|401910017",
     "date": "2026-11-18",
@@ -9785,51 +9874,46 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "ncaab|401925782|1h|ml|away",
-    "game": "ncaab|401925782",
+    "id": "ncaab|401921134|1h|ml|away",
+    "game": "ncaab|401921134",
     "date": "2026-11-18",
     "sport": "ncaab",
     "label": "NCAAB",
     "slug": "college-basketball",
-    "start": "2026-11-19T00:00Z",
+    "start": "2026-11-19T00:30Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Howard @ Duquesne",
+    "matchup": "LSU New Orleans @ Texas Tech",
     "href": "college-basketball/matchups/",
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 168,
-    "title": "Howard 1H ML",
-    "est": 0.4064,
-    "edge": 0.0333,
-    "agree": 3,
-    "sample": 5,
+    "price": 3500,
+    "title": "LSU New Orleans 1H ML",
+    "est": 0.0593,
+    "edge": 0.0316,
+    "agree": 2,
+    "sample": 3,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Dog Hunter"
     ],
-    "streak": 4,
-    "streakTeam": "howard-bison",
+    "streak": 2,
+    "streakTeam": "lsu-new-orleans-privateers",
     "angles": [
      [
-      "Howard 1H ML, season",
-      "4-1"
+      "LSU New Orleans 1H ML, season",
+      "2-1"
      ],
      [
-      "Howard 1H ML, last 8",
-      "4-1"
-     ],
-     [
-      "Howard 1H ML on the road",
-      "3-1"
+      "LSU New Orleans 1H ML, last 8",
+      "2-1"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Howard"
+    "streakTeamName": "LSU New Orleans"
    },
    {
     "id": "nba|401910017|1q|ml|away",
