@@ -9516,6 +9516,98 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Boston"
+   },
+   {
+    "id": "nba|401910007|1h|ml|away",
+    "game": "nba|401910007",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Grizzlies @ Cavaliers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 134,
+    "title": "Grizzlies 1H ML",
+    "est": 0.4721,
+    "edge": 0.0447,
+    "agree": 2,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "mem",
+    "angles": [
+     [
+      "Grizzlies 1H ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Grizzlies 1H ML, season",
+      "9-4-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Grizzlies"
+   },
+   {
+    "id": "nba|401910010|1h|ml|away",
+    "game": "nba|401910010",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "76ers @ Magic",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -118,
+    "title": "76ers 1H ML",
+    "est": 0.5834,
+    "edge": 0.0421,
+    "agree": 4,
+    "sample": 14,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "phi",
+    "angles": [
+     [
+      "Magic\u2019s opponents 1H ML, Magic at home",
+      "4-1"
+     ],
+     [
+      "76ers 1H ML, last 8",
+      "5-2-1"
+     ],
+     [
+      "76ers 1H ML on the road",
+      "5-2"
+     ],
+     [
+      "76ers 1H ML, season",
+      "9-5-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "76ers"
    }
   ]
  }
