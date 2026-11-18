@@ -9468,5 +9468,55 @@
     "streakTeamName": "UT Arlington"
    }
   ]
+ },
+ "2026-11-18": {
+  "plays": [
+   {
+    "id": "nhl|2026020344|1p|ml|away",
+    "game": "nhl|2026020344",
+    "date": "2026-11-18",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-19T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Boston @ Detroit",
+    "href": "nhl/matchups/?date=2026-11-18",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -110,
+    "title": "Boston 1P ML",
+    "est": 0.5745,
+    "edge": 0.0507,
+    "agree": 3,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -3,
+    "streakTeam": "BOS",
+    "angles": [
+     [
+      "Detroit\u2019s opponents 1P ML, Detroit at home",
+      "4-1-5"
+     ],
+     [
+      "Boston 1P ML on the road",
+      "5-2-2"
+     ],
+     [
+      "Boston 1P ML, season",
+      "10-6-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Boston"
+   }
+  ]
  }
 }
