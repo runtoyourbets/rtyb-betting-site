@@ -859,13 +859,12 @@ def hot_cards(S, now_utc, bar=True):
 
 
 def trend_tip(sport, c):
-    """The "i" circle: what the trend means and how it's counted (the
-    Trends page's tooltip)."""
-    T = sport.trends.get('tips') or {}
-    body = (f'<b>{esc(c.get("meaning"))}</b><br>{esc(c.get("counted"))}'
-            + (f'<br>{esc((T.get("direction") or {}).get(c["dir"], ""))}' if c.get('dir') else '')
-            + f'<br>{esc((T.get("market_notes") or {}).get(c.get("note"), ""))}<br><i>{esc(c.get("example"))}</i>'
-            + f'<br><small>{esc(T.get("footer", ""))}</small>')
+    """The "i" circle, the same as the Trends page's: the card's title, what
+    it means, the Fade line on Fade cards and the last game that fit."""
+    fade = (sport.trends.get('tips') or {}).get('fade') or ''
+    body = (f'<b>{esc(c["title"])}</b><br>{esc(c.get("meaning"))}'
+            + (f'<br>{esc(fade)}' if c.get('dir') == 'Fade' else '')
+            + (f'<br><i>{esc(c["last"])}</i>' if c.get('last') else ''))
     return f'<button type="button" class="info-tip" aria-label="About this trend">i<span class="tip-bubble" role="tooltip">{body}</span></button>'
 
 
