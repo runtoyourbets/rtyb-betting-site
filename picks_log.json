@@ -9746,10 +9746,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 135,
+    "price": 140,
     "title": "Grizzlies 1H ML",
-    "est": 0.4708,
-    "edge": 0.0453,
+    "est": 0.4646,
+    "edge": 0.0479,
     "agree": 2,
     "sample": 13,
     "tier": "B",
@@ -9772,6 +9772,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
+   },
+   {
+    "id": "nba|401910014|1h|ml|away",
+    "game": "nba|401910014",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Hawks @ Thunder",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 162,
+    "title": "Hawks 1H ML",
+    "est": 0.4279,
+    "edge": 0.0462,
+    "agree": 2,
+    "sample": 14,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "atl",
+    "angles": [
+     [
+      "Hawks 1H ML on the road",
+      "6-2"
+     ],
+     [
+      "Hawks 1H ML, season",
+      "8-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Hawks"
    },
    {
     "id": "nhl|2026020346|1p|btts|yes",
@@ -9816,48 +9858,6 @@
     "streakTeamName": "Colorado"
    },
    {
-    "id": "nba|401910014|1h|ml|away",
-    "game": "nba|401910014",
-    "date": "2026-11-18",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-19T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Hawks @ Thunder",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 152,
-    "title": "Hawks 1H ML",
-    "est": 0.4382,
-    "edge": 0.0414,
-    "agree": 2,
-    "sample": 14,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "atl",
-    "angles": [
-     [
-      "Hawks 1H ML on the road",
-      "6-2"
-     ],
-     [
-      "Hawks 1H ML, season",
-      "8-6"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Hawks"
-   },
-   {
     "id": "nba|401910010|1h|ml|away",
     "game": "nba|401910010",
     "date": "2026-11-18",
@@ -9872,13 +9872,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -122,
+    "price": -120,
     "title": "76ers 1H ML",
-    "est": 0.589,
-    "edge": 0.0395,
+    "est": 0.5862,
+    "edge": 0.0408,
     "agree": 4,
     "sample": 14,
-    "tier": "C",
+    "tier": "B",
     "tags": [
      "Chalk Eater"
     ],
@@ -9906,6 +9906,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "76ers"
+   },
+   {
+    "id": "nba|401910017|1q|ats|away",
+    "game": "nba|401910017",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Jazz @ Lakers",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": -110,
+    "title": "Jazz 1Q +3.5",
+    "est": 0.5626,
+    "edge": 0.0388,
+    "agree": 4,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ATS at +3.5, last 8",
+      "7-1"
+     ],
+     [
+      "Jazz 1Q ATS at +3.5 on the road",
+      "6-1"
+     ],
+     [
+      "Jazz 1Q ATS at +3.5, season",
+      "11-4"
+     ],
+     [
+      "Lakers\u2019s opponents 1Q ATS at +3.5, Lakers at home",
+      "4-3"
+     ]
+    ],
+    "info": "Jazz avg 1Q margin on the road: -0.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
    },
    {
     "id": "ncaab|401927357|1h|ml|away",
@@ -9952,53 +10003,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Purdue Fort Wayne"
-   },
-   {
-    "id": "ncaab|401925782|1h|ml|away",
-    "game": "ncaab|401925782",
-    "date": "2026-11-18",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-19T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Howard @ Duquesne",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 178,
-    "title": "Howard 1H ML",
-    "est": 0.3949,
-    "edge": 0.0352,
-    "agree": 3,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "howard-bison",
-    "angles": [
-     [
-      "Howard 1H ML, season",
-      "4-1"
-     ],
-     [
-      "Howard 1H ML, last 8",
-      "4-1"
-     ],
-     [
-      "Howard 1H ML on the road",
-      "3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Howard"
    }
   ]
  }
