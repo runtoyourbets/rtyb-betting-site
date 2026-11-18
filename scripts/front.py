@@ -41,6 +41,7 @@ TRENDS_MORE = 6        # ... and after it
 TREND_ROWS = 5         # game rows per trend card
 TREND_MIN_N = 20       # Hottest Trends: games behind the record,
 TREND_MIN_EDGE = 0.05  # ... and points over the league rate, to qualify
+TREND_MIN_RATE = 0.55  # every Hottest Trends card (home, hubs, /trends/): a 55%+ win rate
 HOT_SHOWN = 3          # Hottest Trends: exactly this many cards,
 HOT_ROWS = 3           # ... with up to this many game rows each
 PREVIEW_HOUR = 11      # On Tap shows from 11 AM ET to the next day's 11 AM
@@ -487,12 +488,16 @@ def on_tap_hero(p, root):
             '<span class="ot-more">Read the preview &rarr;</span></a></section>')
 
 
+HOME_H1 = 'Run to Your Bets: First Period, Quarter & Half Betting'
+
+
 def slogan(S, hub=False):
+    """The home page's H1 (small, the slogan line); a hub's segments line
+    (the hub's H1 is its page head)."""
     if not hub:
-        words = ['The first period', 'The first quarter', 'The first half']
-    else:
-        sp = next(iter(S.values()))
-        words = ['The ' + x['label'].replace('1st ', 'first ').lower() for x in sp.segments]
+        return f'<h1 class="fr-slogan">{esc(HOME_H1)}</h1>'
+    sp = next(iter(S.values()))
+    words = ['The ' + x['label'].replace('1st ', 'first ').lower() for x in sp.segments]
     return f'<p class="fr-slogan">{" &middot; ".join(words)}</p>'
 
 
@@ -812,7 +817,8 @@ def trend_card(sport, c, by_id, root, now, show_sport, hidden=False, xs=None):
 
 def hot_cards(S, now_utc, bar=True):
     """[(sport, card, by_id, rows)] in order: cards with a game today (ET)
-    or live now, rows for today's games only; no 3-way ML; ranked by season
+    or live now, rows for today's games only; no 3-way ML; a 55%+ win rate
+    (TREND_MIN_RATE); ranked by season
     units. bar: Hottest Trends' bar too (20+ games, 5+ points over the
     league rate). A mirror (Fade X / Back the other side: the same bets)
     keeps the one with more units, and a card whose rows are all bets
@@ -825,7 +831,7 @@ def hot_cards(S, now_utc, bar=True):
         cards = (((sport.trends.get('slates') or {}).get(key) or {}).get('cards')) or []
         by_id = {str(g['id']): g for _, g in sport.all_games()}
         for c in cards:
-            if c.get('mk') == 'ml3' or (c.get('units') or 0) <= 0:
+            if c.get('mk') == 'ml3' or (c.get('units') or 0) <= 0 or (c.get('rate') or 0) < TREND_MIN_RATE - 1e-9:
                 continue
             if bar and ((c.get('n') or 0) < TREND_MIN_N or (c.get('rate') or 0) - (c.get('base') or 0) < TREND_MIN_EDGE - 1e-9):
                 continue
@@ -1088,7 +1094,7 @@ def index_section(sport, inner, more_href, more_text, heading_extra=''):
 
 
 def index_page(kind, day, sections_html, S):
-    return (f'<div class="ix" id="ix-top"><div class="ix-head"><h1>{INDEX[kind]["h1"]}</h1><span class="sl-date">{esc(day_label(day))}</span></div>'
+    return (f'<div class="ix" id="ix-top"><div class="ix-head"><h1>{esc(INDEX[kind]["h1"])}</h1><span class="sl-date">{esc(day_label(day))}</span></div>'
             f'{index_pills(S)}{sections_html}</div>')
 
 
@@ -1136,13 +1142,13 @@ def yesterdays_results(S, yday, root='', hub=False):
 
 # --------------------------------------------------------- index pages
 INDEX = {
-    'matchups': {'title': 'Matchups Today: First Period, First Quarter & First Half | RTYB', 'h1': 'Matchups Today',
+    'matchups': {'title': sports.page_title(f'{sports.CROSS_WORDS} Matchups', daily=True), 'h1': f'{sports.CROSS_WORDS} Matchups',
                  'desc': 'Every game today with first period, first quarter and first half odds: the favorite, spread, moneyline and total for {sports}.',
                  'link': 'Matchups'},
-    'odds': {'title': 'Odds Today: First Period, First Quarter & First Half | RTYB', 'h1': 'Odds Today',
+    'odds': {'title': sports.page_title(f'{sports.CROSS_WORDS} Odds', daily=True), 'h1': f'{sports.CROSS_WORDS} Odds',
              'desc': 'The best first period, first quarter and first half price at every sportsbook today, for {sports}.',
              'link': 'Odds'},
-    'trends': {'title': 'Betting Trends Today: First Period, First Quarter & First Half | RTYB', 'h1': 'Betting Trends Today',
+    'trends': {'title': sports.page_title(f'{sports.CROSS_WORDS} Betting Trends', daily=True), 'h1': f'{sports.CROSS_WORDS} Betting Trends',
                'desc': 'Every first period, first quarter and first half betting trend with a game today, for {sports}.',
                'link': 'Trends'},
 }
@@ -1268,8 +1274,9 @@ def sections(S, now_utc, root='', hub=False, learn=''):
 
     def box(cls, html):
         return f'<div class="{cls}">{html}</div>' if html else ''
-    top = box('fv-hero', hero) + box('fv-side', box('fv-yb', best) + box('fv-tab', running_tab()))
-    mid = box('fv-motd', motd(S, now_utc, root, hub)) + box('fv-pair', box('fv-team', team_watch(S, now_utc, root, hub)) + box('fv-move', line_move(S, now_utc, root, hub)))
-    bottom = box('fv-results', yesterdays_results(S, yday, root, hub)) + box('fv-learn', learn)
-    return (f'<div class="fv">{box("fv-slogan", slogan(S, hub))}{box("fv-top", top)}{box("fv-slate", slate(S, now_utc, root, hub))}'
-            f'{box("fv-mid", mid)}{box("fv-trends", hottest_trends(S, now_utc, root, hub))}{box("fv-bottom", bottom)}</div>{FRONT_JS}')
+    # in phone reading order; desktop places them by grid area (template.html .fv)
+    pair = box('fv-pair', box('fv-team', team_watch(S, now_utc, root, hub)) + box('fv-move', line_move(S, now_utc, root, hub)))
+    return ('<div class="fv">' + box('fv-slogan', slogan(S, hub)) + box('fv-hero', hero) + box('fv-yb', best)
+            + box('fv-slate', slate(S, now_utc, root, hub)) + box('fv-motd', motd(S, now_utc, root, hub))
+            + box('fv-trends', hottest_trends(S, now_utc, root, hub)) + pair + box('fv-tab', running_tab())
+            + box('fv-results', yesterdays_results(S, yday, root, hub)) + box('fv-learn', learn) + f'</div>{FRONT_JS}')

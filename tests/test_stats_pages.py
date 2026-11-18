@@ -12,9 +12,10 @@ import sports  # noqa: E402
 class StatsPagesTest(unittest.TestCase):
     def test_titles(self):
         nba = sports.BY_KEY['nba']
-        self.assertEqual(build_site.stats_meta(nba, 'stats', '2026–27')['title'], 'NBA First Quarter & First Half Stats 2026–27 | RTYB')
-        self.assertEqual(build_site.stats_meta(nba, 'splits', '2026–27')['title'], 'NBA First Quarter & First Half Splits 2026–27 | RTYB')
-        self.assertEqual(build_site.stats_meta(nba, 'edges', '2026–27')['title'], 'NBA First Quarter & First Half Edges: Best Closers & Faders | RTYB')
+        self.assertEqual(build_site.stats_meta(nba, 'stats', '2026–27')['title'], 'NBA First Quarter & First Half Stats | RTYB')
+        self.assertEqual(build_site.stats_meta(nba, 'splits', '2026–27')['title'], 'NBA First Quarter & First Half Splits | RTYB')
+        self.assertEqual(build_site.stats_meta(nba, 'edges', '2026–27')['title'], 'NBA First Quarter & First Half Edges: Closers & Faders | RTYB')
+        self.assertEqual(build_site.stats_meta(sports.BY_KEY['ncaab'], 'stats', None)['h1'], 'College Basketball First Half Stats')
 
     def test_every_page_is_a_stats_page(self):
         for sp in sports.SPORTS:

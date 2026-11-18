@@ -5,7 +5,7 @@ build time from the same data every sport page uses: NHL's merged data
 (build_site.py) and each other sport's {slug}/data.json (sport_build.py).
 Static -- the refresh job rebuilds them every run.
 
-Sections, top to bottom: nav, sport chips, then the shared front sections
+Sections, top to bottom: nav, then the shared front sections
 (scripts/front.py sections, also on every Arena hub): the slogan line, On
 Tap (or Yesterday's Best, large), Yesterday's Best, The Slate, Matchup of
 the Day, Hottest Trends, Team to Watch, Biggest Line Move, Get the Running
@@ -211,25 +211,6 @@ PAGE_JS = '''
   }
   document.getElementById('themeToggle').addEventListener('click', toggleTheme);
   // the menus are wired by scripts/nav.py
-  // League chips: arrows (and edge fades) when the row is wider than the
-  // screen; each arrow shows only when there's more that way.
-  var hsRow = document.getElementById('hsRow'), hsWrap = document.getElementById('hsWrap');
-  if (hsRow) {
-    var prev = hsWrap.querySelector('.prev'), next = hsWrap.querySelector('.next');
-    var syncArrows = function() {
-      var max = hsRow.scrollWidth - hsRow.clientWidth;
-      prev.hidden = hsRow.scrollLeft <= 2;
-      next.hidden = hsRow.scrollLeft >= max - 2;
-      hsWrap.classList.toggle('fade-l', !prev.hidden);
-      hsWrap.classList.toggle('fade-r', !next.hidden);
-    };
-    var by = function(dir) { hsRow.scrollBy({ left: dir * Math.max(160, hsRow.clientWidth * 0.7), behavior: 'smooth' }); };
-    prev.addEventListener('click', function() { by(-1); });
-    next.addEventListener('click', function() { by(1); });
-    hsRow.addEventListener('scroll', syncArrows, { passive: true });
-    window.addEventListener('resize', syncArrows);
-    syncArrows();
-  }
   // Email signup: scripts/signup.py (Beehiiv forms; unblurs the trends after a signup)
 })();
 </script>'''
@@ -315,12 +296,6 @@ def build(template, nhl_data, logo_svg, now_utc=None):
         chip, live, short = sport_status(sp, by_sport.get(sp['key'], {}), today)
         status.append((sp, chip, live, short))
 
-    # ---- sections
-    chips = ''.join(
-        f'<a class="hs-chip{" live" if live else ""}" href="{sports.section_path(sp, "games").lstrip("/")}">'
-        f'<span class="hs-name">{icons.sport_icon(sp)}{esc(sp["label"])}</span><span class="hs-count">{esc(chip)}</span></a>'
-        for sp, chip, live, short in status)
-
     # every section is shared with the hubs (scripts/front.py), every sport in season
     S = front.load(now_utc)
     learn = ''.join(guides.card(f'{guides.INDEX_DIR}/{slug}/', t, d) for slug, t, d in guides.GENERAL[:LEARN_SHOWN])
@@ -329,12 +304,8 @@ def build(template, nhl_data, logo_svg, now_utc=None):
     front_html = front.sections(S, now_utc, learn=learn_html)
     pieces = daily.load()
 
-    chip_row = (f'<div class="hs-wrap" id="hsWrap">'
-                f'<button class="hs-arrow prev" type="button" aria-label="Scroll leagues left" hidden>&lsaquo;</button>'
-                f'<div class="hs-row" id="hsRow">{chips}</div>'
-                f'<button class="hs-arrow next" type="button" aria-label="Scroll leagues right" hidden>&rsaquo;</button></div>')
-    body = f'{chip_row}{front_html}'
-    home = page('RTYB — Run to Your Bets', f'First period, first quarter and first half betting odds, stats and trends for every {sports.sport_names()} game.',
+    body = front_html   # no sport chips: the ☰ menu and the bottom bar cover it
+    home = page(sports.page_title(front.HOME_H1, daily=True), f'First period, first quarter and first half betting odds, stats and trends for every {sports.sport_names()} game.',
                 body, status, is_home=True).replace('__LOGO_SVG__', logo_svg)
     with open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(home)
@@ -356,9 +327,13 @@ def build(template, nhl_data, logo_svg, now_utc=None):
     return {'today': today_n, 'trends': front_html.count('ht-card')}
 
 
-def picks_shell(label):
-    """/picks/ and /{sport}/picks/ while sports.PICKS_LIVE is False."""
-    return (f'<section class="hp-sec hd-soon pk-shell"><h1>{esc(label)} Picks</h1>'
+PICKS_H1 = f'{sports.CROSS_WORDS} Picks'
+
+
+def picks_shell():
+    """/picks/ while sports.PICKS_LIVE is False (the sport pages' shells are
+    build_site.write_sport_extras)."""
+    return (f'<section class="hp-sec hd-soon pk-shell"><h1>{esc(PICKS_H1)}</h1>'
             '<p class="lead">Picks are coming with Premium.</p></section>')
 
 
@@ -372,8 +347,8 @@ def write_picks(template, nhl_data, logo_svg, body, now_utc=None):
     by_sport, _ = collect(template, nhl_data)
     status = [(sp,) + sport_status(sp, by_sport.get(sp['key'], {}), today) for sp in sports.LAUNCHED]
     if not sports.PICKS_LIVE:   # the Premium shell; picks.build still keeps the log
-        body = picks_shell('All Sports')
-    html = page('Today’s Picks | RTYB', 'Trend-based plays for the first quarter, half, period and inning, ranked by confidence, with every tier’s record public.',
+        body = picks_shell()
+    html = page(sports.page_title(PICKS_H1, daily=True), 'Trend-based plays for the first quarter, half, period and inning, ranked by confidence, with every tier’s record public.',
                 body, status, depth='../', noindex=True).replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, 'picks'), exist_ok=True)
     with open(os.path.join(ROOT, 'picks', 'index.html'), 'w', encoding='utf-8') as f:

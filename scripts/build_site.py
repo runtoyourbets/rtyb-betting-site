@@ -80,25 +80,25 @@ TEAM_COLOR_RE = re.compile(r"(\w+):\s*'(#[0-9A-Fa-f]{6})'")
 
 PAGE_META = {
     'games': {
-        'title': 'NHL Matchups Today: 1st Period Odds and Results | RTYB',
-        'h1': 'NHL Matchups',
+        'title': sports.sport_title('nhl', 'games'),
+        'h1': sports.h1('nhl', 'games'),
         'desc': ('First-period matchups, odds, and season hit rates for every NHL game day. '
                   'Pick a date above to see that day’s card.'),
     },
     'hitrates': {
-        'title': 'NHL 1st Period Stats | RTYB',
-        'h1': 'NHL Stats',
+        'title': sports.sport_title('nhl', 'stats'),
+        'h1': sports.h1('nhl', 'stats'),
         'desc': ('League-wide 1st-period results for the 2026–27 regular season (since Sept. 29): '
                   'home/away, favorites/underdogs, Over 1.5 and BTTS, with units.'),
     },
     'trends': {
-        'title': 'NHL Trends to Watch Today: 1st Period Betting Trends | RTYB',
-        'h1': 'NHL Trends to Watch',
+        'title': sports.sport_title('nhl', 'trends'),
+        'h1': sports.h1('nhl', 'trends'),
         'desc': ('League trends and team trends for today’s games: 1st-period Moneyline, Total 1.5 and BTTS, from the side to bet.'),
     },
     'teamsindex': {
-        'title': 'NHL Teams: 1st Period Records, Win % and Units | RTYB',
-        'h1': 'NHL Teams',
+        'title': sports.sport_title('nhl', 'teams'),
+        'h1': sports.h1('nhl', 'teams'),
         'desc': ('Every team’s 1st-period record, win % and units this season. '
                   'Pick a market, split by home/away, and tap any team for its full page.'),
     },
@@ -467,6 +467,7 @@ def render_page(template, page_key, teams_menu_html, meta=None, team_code='', sp
     meta = meta or PAGE_META[page_key]
     out = out.replace('__PAGE_TITLE__', meta['title'])
     out = out.replace('__PAGE_H1__', meta['h1'])
+    out = out.replace('__PAGE_SUB__', f'<p class="page-sub">{meta["sub"]}</p>' if meta.get('sub') else '')
     out = out.replace('__PAGE_DESC__', meta['desc'])
     out = out.replace('__TEAMS_MENU_ITEMS__', teams_menu_html)
     out = out.replace('__PAGE_TEAM_CODE__', team_code)
@@ -653,15 +654,10 @@ def team_detail_html(sport, team):
             + '</div>')
 
 
-def segment_title_words(sport):
-    """'First Quarter & First Half' -- the segment words in team page titles."""
-    return ' & '.join(seg['label'].replace('1st ', 'First ') for seg in sport['segments'])
-
-
 def sport_team_meta(sport, team, season_label):
     """Team page title, h1 (logo + name) and the line under it."""
-    title = f"{team['name']} {segment_title_words(sport)} Stats & Betting Record" + (f' {season_label}' if season_label else '')
-    return {'title': title, 'h1': esc(team['name']), 'icon': badge_html(team, 44, sport['key']),
+    heading = f"{team['name']} {sports.seg_words(sport)} Stats & Record"
+    return {'title': sports.page_title(heading), 'h1': esc(heading), 'icon': badge_html(team, 44, sport['key']),
             'desc': esc(' · '.join(filter(None, [short_group(team.get('division')), team.get('conference')]))),
             'section': 'teams'}
 
@@ -732,24 +728,17 @@ def how_to_read_html(sp, section):
 
 
 def section_title(sp, section):
-    """The browser-tab title for Odds, Trends and Teams, in the Matchups style:
-    "NHL Odds Today: 1st Period Lines and Prices | RTYB"."""
-    when = 'This Week' if sp.get('schedule') == 'week' else 'Today'
-    segs = ' & '.join(s['label'] for s in sp['segments'])
-    return {'odds': f"{sp['label']} Odds {when}: {segs} Lines and Prices | RTYB",
-            'trends': f"{sp['label']} Trends to Watch {when}: {segs} Betting Trends | RTYB",
-            'teams': f"{sp['label']} Teams: {segs} Records, Win % and Units | RTYB",
-            'games': matchups_meta(sp)['title']}[section]
+    """The browser-tab title for a sport page: its H1 (sports.h1), then
+    "Today" on the daily pages: "NHL First Period Odds Today | RTYB"."""
+    return sports.sport_title(sp, section)
 
 
 def matchups_meta(sp):
     """The Matchups page's title, h1 and description."""
-    when = 'This Week' if sp.get('schedule') == 'week' else 'Today'
     desc = SECTION_DESC['games'].format(label=sp['label'], segs=sports.segment_summary(sp))
     if sp.get('schedule') == 'week':
         desc = desc.replace('by date', 'by week')
-    return {'title': f"{sp['label']} Matchups {when}: {' & '.join(s['label'] for s in sp['segments'])} Odds and Results | RTYB",
-            'h1': f"{sp['label']} Matchups", 'section': 'games', 'desc': desc}
+    return {'title': sports.sport_title(sp, 'games'), 'h1': sports.h1(sp, 'games'), 'section': 'games', 'desc': desc}
 
 
 def write_moved_stubs(sp):
@@ -792,18 +781,16 @@ def stats_tabs_html(sp, current):
 
 
 def stats_meta(sp, page, season_label):
-    words = segment_title_words(sp)
-    season = f' {season_label}' if season_label else ''
     segs = sports.segment_summary(sp)
     if page == 'stats':
         markets = ('moneyline, O/U 1.5, BTTS and 3-way ML' if sp['key'] == 'nhl'
                    else 'moneyline, spread and O/U' if any(sports.has_ml(s) for s in sp['segments']) else 'spread and O/U')
-        return {'title': f"{sp['label']} {words} Stats{season} | RTYB", 'h1': f"{sp['label']} Stats", 'section': 'stats',
+        return {'title': sports.sport_title(sp, 'stats'), 'h1': sports.h1(sp, 'stats'), 'section': 'stats',
                 'desc': f"{sp['label']} {segs} results league-wide: {markets} records with units, scoring and the Money Board."}
     if page == 'splits':
-        return {'title': f"{sp['label']} {words} Splits{season} | RTYB", 'h1': f"{sp['label']} Splits", 'section': 'stats',
+        return {'title': sports.sport_title(sp, 'splits'), 'h1': sports.h1(sp, 'splits'), 'section': 'stats',
                 'desc': f"{sp['label']} {segs} records by situation: home and road, favorite and underdog, rest and schedule."}
-    return {'title': f"{sp['label']} {words} Edges: Best Closers & Faders | RTYB", 'h1': f"{sp['label']} Edges", 'section': 'stats',
+    return {'title': sports.sport_title(sp, 'edges'), 'h1': sports.h1(sp, 'edges'), 'section': 'stats',
             'desc': f"What happens after the {segs} in {league_in(sp)}: who holds a lead, who comes back, and which teams "
                     f"close or fade, with the price each spot is worth."}
 
@@ -825,19 +812,16 @@ def write_stats_pages(template, sp, teams_menu_html, season_label, has_data):
         write_light(html, f"{sp['slug']}/{sp['sections']['stats']}" + (f'/{sub}' if sub else ''))
 
 
-def hub_words(sp):
-    """'First Quarter & First Half' -- the hub's title words."""
-    return ' & '.join(s['label'].replace('1st ', 'First ') for s in sp['segments'])
-
-
 def write_hub(template, sp, teams_menu_html=''):
     """/{slug}/: the sport's Arena hub, drawn by assets/sport.js from
     data.json (NHL: sport.json), trends.json and hub.json (scripts/hub.py)."""
     weekly = sp.get('schedule') == 'week'
     when = 'This Week' if weekly else 'Today'
     info = sport_build.read_json(os.path.join(ROOT, sp['slug'], 'hub.json'), None) or {}
-    meta = {'title': f"{sp['label']} {hub_words(sp)} Odds, Trends & Stats {when} | RTYB",
-            'h1': info.get('h1') or f"{sp['label']} {when}", 'section': 'hub',
+    # the H1 is the same every day; the day (or week) goes on the line under it
+    sub = str(info.get('h1') or when)
+    sub = (sub[len(sp['label']):].strip(' ·') if sub.startswith(sp['label']) else sub) or when
+    meta = {'title': sports.sport_title(sp, 'hub'), 'h1': esc(sports.h1(sp, 'hub')), 'sub': esc(sub), 'section': 'hub',
             'desc': (f"{sp['label']} {sports.segment_summary(sp)} betting {when.lower()}: the games, our Matchup of the "
                      f"{'Week' if weekly else 'Day'}, the trends and streaks to watch, and the best price at every sportsbook.")}
     if sport_has_data(sp['key']):
@@ -869,7 +853,7 @@ def write_sport_extras(template):
             html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
         write_light(html, sports.guide_path(sp).strip('/'))
         if not sports.PICKS_LIVE:
-            meta = {'title': f"{sp['label']} Picks | RTYB", 'h1': f"{sp['label']} Picks", 'section': 'picks',
+            meta = {'title': sports.sport_title(sp, 'picks'), 'h1': sports.h1(sp, 'picks'), 'section': 'picks',
                     'desc': 'Picks are coming with Premium.'}
             html = render_page(template, 'sport', '', meta=meta, sport=sp, sport_body='')
             if NOINDEX not in html:
@@ -918,9 +902,7 @@ def build_other_sports(template):
         teams = load_teams(sp)
         write_stats_pages(template, sp, '', (SPORT_DATA.get(sp['key']) or {}).get('seasonLabel'), sport_has_data(sp['key']))
         for section in ('games', 'trends', 'odds', 'teams'):
-            label = sports.SECTION_LABELS[section]
-            h1 = (f'{sp["label"]} Trends to Watch' if section == 'trends' else f'{sp["label"]} Matchups' if section == 'games'
-                  else f'{sp["label"]} {label}')
+            h1 = sports.h1(sp, section)
             meta = {'title': section_title(sp, section), 'h1': h1,
                     'desc': f'{sp["label"]} {sports.segment_summary(sp)} {EMPTY_COPY[section][1]}.', 'section': section}
             if section == 'teams' and teams:
@@ -1199,7 +1181,7 @@ def main():
                          'short': next((w for w in two_word if info['name'].endswith(w)), info['name'].split(' ')[-1]),
                          'color': (team_colors.get(code) or '').lstrip('#') or None, 'svg': 1}
                   for code, info in full_data.get('summary', {}).items()}})
-    odds_meta = {'title': section_title(nhl, 'odds'), 'h1': 'NHL Odds', 'section': 'odds',
+    odds_meta = {'title': section_title(nhl, 'odds'), 'h1': sports.h1(nhl, 'odds'), 'section': 'odds',
                  'desc': SECTION_DESC['odds'].format(label='NHL', segs='1st Period')}
     write_light(render_page(template, 'sport', teams_menu_html, meta=odds_meta, sport=nhl,
                             sport_body=sport_app_body(nhl, 'odds')), 'nhl/odds')
@@ -1213,7 +1195,7 @@ def main():
     nhl_trends = trends.page_doc(nhl, nhl_doc, datetime.now(timezone.utc))
     sport_build.write_json(os.path.join(nhl_dir, 'trends.json'), nhl_trends)
     hub.build(nhl, nhl_doc, nhl_trends, nhl_dir)   # /nhl/'s Matchup of the Day and On Tap (nhl/hub.json)
-    trends_meta = {'title': section_title(nhl, 'trends'), 'h1': 'NHL Trends to Watch', 'section': 'trends',
+    trends_meta = {'title': section_title(nhl, 'trends'), 'h1': sports.h1(nhl, 'trends'), 'section': 'trends',
                    'desc': SECTION_DESC['trends'].format(label='NHL', segs='1st Period')}
     write_light(render_page(template, 'sport', teams_menu_html, meta=trends_meta, sport=nhl,
                             sport_body='<div id="sportApp" data-section="trends"><div class="no-games-note">Loading&hellip;</div>'
@@ -1223,7 +1205,7 @@ def main():
     nhl_teams = sorted(({'slug': team_slug(code), 'code': code, 'name': t['name'], 'short': t['short'], 'color': t.get('color'),
                          'division': f"{t['division']} Division", 'conference': f"{t['conference']}ern Conference"}
                         for code, t in nhl_doc['teams'].items()), key=lambda t: t['name'])
-    teams_meta = {'title': section_title(nhl, 'teams'), 'h1': 'NHL Teams', 'section': 'teams',
+    teams_meta = {'title': section_title(nhl, 'teams'), 'h1': sports.h1(nhl, 'teams'), 'section': 'teams',
                   'desc': 'Every NHL team’s 1st Period record, win % and units this season. Pick a market and side, and tap any team for its full page.'}
     write_light(render_page(template, 'sport', teams_menu_html, meta=teams_meta, sport=nhl,
                             sport_body=f'<div id="sportApp" data-section="teams">{teams_index_html(nhl, nhl_teams)}</div>'), 'nhl/teams')

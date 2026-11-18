@@ -15,7 +15,8 @@ after the page: index.md, glossary.md, first-segment-betting.md,
 moneyline.md, ..., and nhl.md, nba.md ... for the sport guides. Front matter:
 
   ---
-  title: "How Moneyline Bets Work"      (optional; else the default title)
+  title: "How Moneyline Bets Work"      (optional, general guides only: the
+                                        sport guides' H1 is fixed, sports.h1)
   description: "One or two sentences for search and share cards."
   updated: 2026-11-20
   ---
@@ -40,6 +41,7 @@ import sports
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, 'content', 'betting-guides')
 INDEX_DIR = 'betting-guides'
+INDEX_H1 = f'{sports.CROSS_WORDS} Betting Guides'
 
 # (slug, default title, one line for the cards)
 GENERAL = [
@@ -71,13 +73,9 @@ def anchor(term):
     return re.sub(r'[^a-z0-9]+', '-', term.lower()).strip('-')
 
 
-def hub_words(sp):
-    """'First Quarter & First Half'."""
-    return ' & '.join(s['label'].replace('1st ', 'First ') for s in sp['segments'])
-
-
 def sport_title(sp):
-    return f"{sp['label']} {hub_words(sp)} Betting Guide"
+    """'NHL First Period Betting Guide' (sports.h1)."""
+    return sports.h1(sp, 'guide')
 
 
 def bet_guides(sp):
@@ -127,7 +125,7 @@ def index_body(root):
     gen = ''.join(card(f'{root}{INDEX_DIR}/{slug}/', t, d) for slug, t, d in GENERAL)
     sps = ''.join(card(root + sports.guide_path(sp).lstrip('/'), sport_title(sp), f"{sp['label']} {sports.segment_summary(sp)} bets.")
                   for sp in sports.LAUNCHED)
-    return (f'<section class="hp-sec gd-index"><h1>{esc((doc or ({}, ""))[0].get("title") or "Betting Guides")}</h1>{intro}'
+    return (f'<section class="hp-sec gd-index"><h1>{esc(INDEX_H1)}</h1>{intro}'
             f'<h2 class="gd-h">The basics</h2><div class="hl-grid">{gen}</div>'
             + (f'<h2 class="gd-h">By sport</h2><div class="hl-grid">{sps}</div>' if sps else '')
             + f'<h2 class="gd-h">Glossary</h2><div class="hl-grid">{card(f"{root}{INDEX_DIR}/glossary/", GLOSSARY[1], GLOSSARY[2])}</div></section>')
@@ -153,7 +151,7 @@ def write(page, status, logo_svg):
             f.write(out)
 
     doc = read('index')
-    save(f'{INDEX_DIR}/', (doc[0].get('title') if doc else None) or 'Betting Guides: How First-Segment Bets Work | RTYB',
+    save(f'{INDEX_DIR}/', sports.page_title(INDEX_H1),
          (doc[0].get('description') if doc else None) or 'How first period, first quarter and first half bets work: moneylines, spreads, totals, BTTS, NRFI, First Five and units.',
          index_body('__R__'), False)
     n = 1
@@ -174,7 +172,7 @@ def sport_page(sp):
         h1 = title
     else:
         meta, md = doc
-        h1 = meta.get('title') or title
+        h1 = title   # the H1 is fixed (sports.h1); front-matter titles are for the general guides
         updated = str(meta.get('updated') or '')
         when = (f'<p class="dp-date">Updated {daily.nice_date(updated)}</p>'
                 if re.fullmatch(r'\d{4}-\d{2}-\d{2}', updated) else '')
@@ -183,5 +181,5 @@ def sport_page(sp):
     body = (f'<article class="gd-page gd-sport">{body}</article>'
             f'<section class="gd-block" aria-label="More guides"><h2 class="t-label">More guides</h2><div class="gd-links">{more}'
             f'<a class="gd-link" href="/{INDEX_DIR}/">All Betting Guides &rarr;</a></div></section>')
-    meta = {'title': f'{esc(h1)} | RTYB', 'h1': esc(h1), 'desc': esc(desc), 'section': 'guide'}
+    meta = {'title': sports.page_title(h1), 'h1': esc(h1), 'desc': esc(desc), 'section': 'guide'}
     return meta, body, noindex

@@ -37,6 +37,7 @@ PUBLISHED = os.path.join(ROOT, 'content', 'published')
 RECAP = False
 ALL = 'all'   # the home page's On Tap: one preview across every sport
 INDEX = 'on-tap'
+INDEX_H1 = 'On Tap: Today’s First-Segment Preview'
 KIND = {'recap': ('The Morning Run', 'recap'), 'preview': ('On Tap', 'preview'), 'column': ('Running Tab', 'column')}
 WEEKLY_KIND = {'recap': 'Weekend Recap', 'preview': 'Week Preview'}
 FOOT = '<p class="dp-21">21+ only. Gambling problem? Call 1-800-GAMBLER.</p>'
@@ -170,15 +171,24 @@ def home_cards(pieces):
     return out
 
 
+def heading(p):
+    """A sport's dated preview: 'NBA First Quarter & First Half Preview: Tue,
+    Nov 17' (sports.h1). Other pieces keep their own title."""
+    if p['kind'] != 'preview' or p['sport'] == ALL:
+        return p['title']
+    d = date.fromisoformat(p['date'])
+    return f"{sports.h1(p['sport'], 'preview')}: {d.strftime('%a, %b')} {d.day}"
+
+
 def page_title(p):
-    """'On Tap, Tue Nov 17: NBA First Quarter & NHL First Period Preview | RTYB'."""
+    """'[H1] | RTYB'; the every-sport preview: 'On Tap, Tue Nov 17: NBA First
+    Quarter & NHL First Period Preview | RTYB'."""
     if p['kind'] != 'preview':
         return f"{p['title']} | RTYB"
+    if p['sport'] != ALL:
+        return sports.page_title(heading(p))
     d = date.fromisoformat(p['date'])
-    if p['sport'] == ALL:
-        keys = [k for k in (p.get('covers') or []) if k in sports.BY_KEY] or [sp['key'] for sp in sports.LAUNCHED]
-    else:
-        keys = [p['sport']]
+    keys = [k for k in (p.get('covers') or []) if k in sports.BY_KEY] or [sp['key'] for sp in sports.LAUNCHED]
     words = ' & '.join(f"{sports.BY_KEY[k]['label']} {sports.BY_KEY[k]['segments'][0]['label'].replace('1st ', 'First ')}" for k in keys)
     return f"On Tap, {d.strftime('%a %b')} {d.day}: {words} Preview | RTYB"
 
@@ -194,7 +204,7 @@ def list_item(p, depth):
 def index_body(previews, depth, pills_html):
     """/on-tap/: the newest preview (the every-sport one when there is one),
     then the rest newest first, with sport pills."""
-    head = ('<div class="ix-head"><h1>On Tap</h1><p class="lead">Our daily first period, first quarter and first half preview, '
+    head = (f'<div class="ix-head"><h1>{esc(INDEX_H1)}</h1><p class="lead">Our daily first period, first quarter and first half preview, '
             'every sport in season. New at 11 AM ET.</p></div>')
     if not previews:
         return (f'<section class="ix ot-index">{head}'
@@ -220,7 +230,7 @@ def write_pages(page, status, logo_svg, pieces=None, pills=None, script=''):
         back = (f'<a href="{depth}{INDEX}/">&larr; More from On Tap</a>' if p['kind'] == 'preview'
                 else f'<a href="{depth}">&larr; Back to today&rsquo;s games</a>')
         body = (f'<article class="hp-sec dp-piece"><span class="hd-kicker">{kicker(p)}</span>'
-                f'<h1>{esc(p["title"])}</h1><p class="dp-date">{nice_date(p["date"])}</p>'
+                f'<h1>{esc(heading(p))}</h1><p class="dp-date">{nice_date(p["date"])}</p>'
                 f'<div class="dp-body">{to_html(p["body"])}</div>{FOOT}'
                 f'<p class="dp-back">{back}</p></article>')
         desc = (p['hook'] + ' ' if p['hook'] else '') + p['teaser']
@@ -233,7 +243,7 @@ def write_pages(page, status, logo_svg, pieces=None, pills=None, script=''):
     keys = {p['sport'] for p in previews}
     opts = [('all', 'All')] + [(sp['key'], sp['label']) for sp in sports.SPORTS if sp['key'] in keys]
     pills_html = pills('Sport', opts) if pills and len(opts) > 2 else ''
-    out = page('On Tap: First Period, First Quarter & First Half Previews | RTYB',
+    out = page(sports.page_title(INDEX_H1),
                'On Tap, RTYB’s daily preview: the first period, first quarter and first half games, trends and prices to know, for every sport in season.',
                index_body(previews, '../', pills_html) + script, status, depth='../', current=INDEX).replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, INDEX), exist_ok=True)

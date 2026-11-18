@@ -271,6 +271,50 @@ def guide_path(sport):
     return f"/{s['slug']}/betting-guide/"
 
 
+# H1s and page titles (every page): "[name] [segment words] [topic]".
+# Pills, menus, tags and badges keep the short label.
+SEO_NAME = {'ncaab': 'College Basketball', 'ncaaf': 'College Football'}
+H1_TOPIC = {'hub': 'Betting', 'picks': 'Picks', 'games': 'Matchups', 'odds': 'Odds', 'trends': 'Betting Trends',
+            'stats': 'Stats', 'splits': 'Splits', 'edges': 'Edges: Closers & Faders', 'teams': 'Team Records',
+            'guide': 'Betting Guide', 'preview': 'Preview'}
+DAILY_TOPICS = {'hub', 'picks', 'games', 'odds', 'trends'}   # "... Today" in the title
+TITLE_MAX = 65
+CROSS_WORDS = 'First Period, Quarter & Half'   # the every-sport pages
+
+
+def seo_name(sport):
+    """'NHL', 'College Basketball'."""
+    s = BY_KEY[sport] if isinstance(sport, str) else sport
+    return SEO_NAME.get(s['key'], s['label'])
+
+
+def seg_words(sport):
+    """'First Period', 'First Quarter & First Half', 'First Inning & First Five'."""
+    s = BY_KEY[sport] if isinstance(sport, str) else sport
+    return ' & '.join(seg['label'].replace('1st ', 'First ').replace(' Innings', '') for seg in s['segments'])
+
+
+def h1(sport, topic):
+    """'NHL First Period Odds'. The same text every day: dates, "Today",
+    "Week N" and counts go on the line under it."""
+    return f'{seo_name(sport)} {seg_words(sport)} {H1_TOPIC[topic]}'
+
+
+def page_title(heading, daily=False, weekly=False):
+    """'[H1] Today | RTYB' (weekly sports: 'This Week') for the daily pages,
+    '[H1] | RTYB' for evergreen ones; past TITLE_MAX the "Today" goes first."""
+    if daily:
+        t = f"{heading} {'This Week' if weekly else 'Today'} | RTYB"
+        if len(t) <= TITLE_MAX:
+            return t
+    return f'{heading} | RTYB'
+
+
+def sport_title(sport, topic):
+    s = BY_KEY[sport] if isinstance(sport, str) else sport
+    return page_title(h1(s, topic), topic in DAILY_TOPICS, s.get('schedule') == 'week')
+
+
 def segment_summary(sport):
     """'1st Quarter and 1st Half' -- for page descriptions."""
     labels = [seg['label'] for seg in sport['segments']]

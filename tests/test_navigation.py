@@ -54,6 +54,25 @@ class NavTest(unittest.TestCase):
         self.assertIn('betting-guides/', html)
 
 
+class HeadingTest(unittest.TestCase):
+    def test_h1s(self):
+        self.assertEqual(sports.h1('nhl', 'hub'), 'NHL First Period Betting')
+        self.assertEqual(sports.h1('ncaab', 'trends'), 'College Basketball First Half Betting Trends')
+        self.assertEqual(sports.h1('mlb', 'odds'), 'MLB First Inning & First Five Odds')
+        self.assertEqual(sports.h1('nba', 'edges'), 'NBA First Quarter & First Half Edges: Closers & Faders')
+
+    def test_titles(self):
+        self.assertEqual(sports.sport_title('nhl', 'odds'), 'NHL First Period Odds Today | RTYB')
+        self.assertEqual(sports.sport_title('nhl', 'teams'), 'NHL First Period Team Records | RTYB')
+        # past 65 characters "Today" goes first
+        long = sports.sport_title('ncaaf', 'trends')
+        self.assertNotIn('This Week', long)
+        self.assertEqual(front.INDEX['odds']['title'], 'First Period, Quarter & Half Odds Today | RTYB')
+
+    def test_hottest_trends_need_55(self):
+        self.assertEqual(front.TREND_MIN_RATE, 0.55)
+
+
 class IndexDayTest(unittest.TestCase):
     def test_rolls_over_at_6am_et(self):
         # 5:59 AM ET on Nov 18 is still Nov 17's page; 6:00 AM is Nov 18's
