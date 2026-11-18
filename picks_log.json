@@ -9288,6 +9288,56 @@
     "streakTeamName": "Oral Roberts"
    },
    {
+    "id": "nba|401910003|1q|ml|home",
+    "game": "nba|401910003",
+    "date": "2026-11-17",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-18T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Trail Blazers @ Timberwolves",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -118,
+    "title": "Timberwolves 1Q ML",
+    "est": 0.5741,
+    "edge": 0.0328,
+    "agree": 4,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 0,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1Q ML at home",
+      "5-2-1"
+     ],
+     [
+      "Timberwolves 1Q ML, season",
+      "9-4-1"
+     ],
+     [
+      "Timberwolves 1Q ML, last 8",
+      "4-3-1"
+     ],
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers on the road",
+      "4-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
+   },
+   {
     "id": "nba|401910003|1h|ml|home",
     "game": "nba|401910003",
     "date": "2026-11-17",
@@ -9302,10 +9352,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": -122,
+    "price": -125,
     "title": "Timberwolves 1H ML",
-    "est": 0.584,
-    "edge": 0.0344,
+    "est": 0.5882,
+    "edge": 0.0326,
     "agree": 3,
     "sample": 13,
     "tier": "C",
