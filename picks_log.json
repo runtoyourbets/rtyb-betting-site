@@ -9652,6 +9652,57 @@
     "streakTeamName": "76ers"
    },
    {
+    "id": "nba|401910017|1q|ats|away",
+    "game": "nba|401910017",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Jazz @ Lakers",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": -111,
+    "title": "Jazz 1Q +3.5",
+    "est": 0.5641,
+    "edge": 0.038,
+    "agree": 4,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ATS at +3.5, last 8",
+      "7-1"
+     ],
+     [
+      "Jazz 1Q ATS at +3.5 on the road",
+      "6-1"
+     ],
+     [
+      "Jazz 1Q ATS at +3.5, season",
+      "11-4"
+     ],
+     [
+      "Lakers\u2019s opponents 1Q ATS at +3.5, Lakers at home",
+      "4-3"
+     ]
+    ],
+    "info": "Jazz avg 1Q margin on the road: -0.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
     "id": "nba|401910007|1h|ats|away",
     "game": "nba|401910007",
     "date": "2026-11-18",
