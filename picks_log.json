@@ -9662,10 +9662,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1600,
+    "price": 2000,
     "title": "Siena 1H ML",
-    "est": 0.1107,
-    "edge": 0.0519,
+    "est": 0.1008,
+    "edge": 0.0532,
     "agree": 2,
     "sample": 4,
     "tier": "C",
@@ -9688,6 +9688,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Siena"
+   },
+   {
+    "id": "ncaab|401909516|1h|ml|away",
+    "game": "ncaab|401909516",
+    "date": "2026-11-18",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-18T23:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Navy @ Georgetown",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 900,
+    "title": "Navy 1H ML",
+    "est": 0.149,
+    "edge": 0.049,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "navy-midshipmen",
+    "angles": [
+     [
+      "Navy 1H ML, season",
+      "3-1-1"
+     ],
+     [
+      "Navy 1H ML, last 8",
+      "3-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Navy"
    },
    {
     "id": "nba|401910007|1h|ml|away",
@@ -9730,48 +9772,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
-   },
-   {
-    "id": "ncaab|401909516|1h|ml|away",
-    "game": "ncaab|401909516",
-    "date": "2026-11-18",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-18T23:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Navy @ Georgetown",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 800,
-    "title": "Navy 1H ML",
-    "est": 0.1588,
-    "edge": 0.0477,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 0,
-    "streakTeam": "navy-midshipmen",
-    "angles": [
-     [
-      "Navy 1H ML, season",
-      "3-1-1"
-     ],
-     [
-      "Navy 1H ML, last 8",
-      "3-1-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Navy"
    },
    {
     "id": "nba|401910010|1h|ml|away",
