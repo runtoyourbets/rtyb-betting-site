@@ -9920,13 +9920,13 @@
     "market": "total",
     "side": "over",
     "line": 109.5,
-    "price": -110,
+    "price": -115,
     "title": "1H Over 109.5",
-    "est": 0.5655,
-    "edge": 0.0417,
+    "est": 0.5729,
+    "edge": 0.038,
     "agree": 6,
     "sample": 15,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Over Lover",
      "Streak Rider"
