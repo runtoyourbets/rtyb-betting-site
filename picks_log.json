@@ -10011,6 +10011,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
+   },
+   {
+    "id": "nhl|2026020346|1p|btts|yes",
+    "game": "nhl|2026020346",
+    "date": "2026-11-18",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-19T03:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Colorado @ Utah",
+    "href": "nhl/matchups/?date=2026-11-18",
+    "market": "btts",
+    "side": "yes",
+    "line": null,
+    "price": 160,
+    "title": "1P BTTS Yes",
+    "est": 0.4275,
+    "edge": 0.0429,
+    "agree": 2,
+    "sample": 22,
+    "tier": "B",
+    "tags": [
+     "Over Lover"
+    ],
+    "streak": -2,
+    "streakTeam": "COL",
+    "angles": [
+     [
+      "Utah 1P BTTS, last 8",
+      "5-3"
+     ],
+     [
+      "Colorado 1P BTTS on the road",
+      "6-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Colorado"
    }
   ]
  }
