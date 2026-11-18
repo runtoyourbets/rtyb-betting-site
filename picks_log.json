@@ -9157,8 +9157,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Lindenwood"
    },
    {
@@ -9283,8 +9283,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 11.0,
     "streakTeamName": "Oral Roberts"
    },
    {
@@ -9463,8 +9463,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.1,
     "streakTeamName": "UT Arlington"
    }
   ]
