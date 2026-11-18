@@ -9652,57 +9652,6 @@
     "streakTeamName": "76ers"
    },
    {
-    "id": "nba|401910017|1q|ats|away",
-    "game": "nba|401910017",
-    "date": "2026-11-18",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-19T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Jazz @ Lakers",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 3.5,
-    "price": -113,
-    "title": "Jazz 1Q +3.5",
-    "est": 0.567,
-    "edge": 0.0365,
-    "agree": 4,
-    "sample": 15,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ATS at +3.5, last 8",
-      "7-1"
-     ],
-     [
-      "Jazz 1Q ATS at +3.5 on the road",
-      "6-1"
-     ],
-     [
-      "Jazz 1Q ATS at +3.5, season",
-      "11-4"
-     ],
-     [
-      "Lakers\u2019s opponents 1Q ATS at +3.5, Lakers at home",
-      "4-3"
-     ]
-    ],
-    "info": "Jazz avg 1Q margin on the road: -0.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
-   },
-   {
     "id": "nba|401910017|1h|total|over",
     "game": "nba|401910017",
     "date": "2026-11-18",
@@ -9749,6 +9698,52 @@
      ]
     ],
     "info": "Avg 1H total in their games: Lakers 121.3 \u00b7 Jazz 112.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
+    "id": "nba|401910017|1q|ml|away",
+    "game": "nba|401910017",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Jazz @ Lakers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 186,
+    "title": "Jazz 1Q ML",
+    "est": 0.3835,
+    "edge": 0.0338,
+    "agree": 3,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Jazz 1Q ML, last 8",
+      "4-2-2"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "8-5-2"
+     ],
+     [
+      "Jazz 1Q ML on the road",
+      "3-2-2"
+     ]
+    ],
+    "info": null,
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
