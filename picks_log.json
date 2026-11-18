@@ -9785,6 +9785,53 @@
     "streakTeamName": "Jazz"
    },
    {
+    "id": "ncaab|401925782|1h|ml|away",
+    "game": "ncaab|401925782",
+    "date": "2026-11-18",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-19T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Howard @ Duquesne",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 168,
+    "title": "Howard 1H ML",
+    "est": 0.4064,
+    "edge": 0.0333,
+    "agree": 3,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "howard-bison",
+    "angles": [
+     [
+      "Howard 1H ML, season",
+      "4-1"
+     ],
+     [
+      "Howard 1H ML, last 8",
+      "4-1"
+     ],
+     [
+      "Howard 1H ML on the road",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Howard"
+   },
+   {
     "id": "nba|401910017|1q|ml|away",
     "game": "nba|401910017",
     "date": "2026-11-18",
