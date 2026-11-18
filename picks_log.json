@@ -9616,13 +9616,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -118,
+    "price": -122,
     "title": "76ers 1H ML",
-    "est": 0.5834,
-    "edge": 0.0421,
+    "est": 0.589,
+    "edge": 0.0395,
     "agree": 4,
     "sample": 14,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Chalk Eater"
     ],
