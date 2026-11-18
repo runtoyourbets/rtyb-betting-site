@@ -9666,10 +9666,10 @@
     "market": "ats",
     "side": "away",
     "line": 3.5,
-    "price": -111,
+    "price": -113,
     "title": "Jazz 1Q +3.5",
-    "est": 0.5641,
-    "edge": 0.038,
+    "est": 0.567,
+    "edge": 0.0365,
     "agree": 4,
     "sample": 15,
     "tier": "C",
@@ -9698,6 +9698,57 @@
      ]
     ],
     "info": "Jazz avg 1Q margin on the road: -0.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
+    "id": "nba|401910017|1h|total|over",
+    "game": "nba|401910017",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Jazz @ Lakers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 111.5,
+    "price": -106,
+    "title": "1H Over 111.5",
+    "est": 0.5493,
+    "edge": 0.0347,
+    "agree": 6,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Lakers 1H overs at home (111.5)",
+      "7-0"
+     ],
+     [
+      "Lakers 1H overs, last 8 (111.5)",
+      "6-2"
+     ],
+     [
+      "Jazz 1H overs, last 8 (111.5)",
+      "6-2"
+     ],
+     [
+      "Lakers 1H overs, season (111.5)",
+      "11-4"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Lakers 121.3 \u00b7 Jazz 112.8",
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
