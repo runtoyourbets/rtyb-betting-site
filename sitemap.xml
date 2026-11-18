@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/odds/</loc></url>
@@ -520,8 +521,6 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/teams/wisconsin-badgers/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/teams/wyoming-cowboys/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/trends/</loc></url>
-  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/daily/</loc></url>
-  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/learn/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/matchups/</loc></url>
@@ -642,5 +641,6 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nhl/teams/wsh/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nhl/trends/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/odds/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/on-tap/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/trends/</loc></url>
 </urlset>
