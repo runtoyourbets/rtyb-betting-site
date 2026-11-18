@@ -9747,52 +9747,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
-   },
-   {
-    "id": "nba|401910007|1h|ats|away",
-    "game": "nba|401910007",
-    "date": "2026-11-18",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-19T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Grizzlies @ Cavaliers",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 2.5,
-    "price": -108,
-    "title": "Grizzlies 1H +2.5",
-    "est": 0.5493,
-    "edge": 0.0301,
-    "agree": 3,
-    "sample": 14,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "mem",
-    "angles": [
-     [
-      "Grizzlies 1H ATS at +2.5 on the road",
-      "6-1"
-     ],
-     [
-      "Grizzlies 1H ATS at +2.5, season",
-      "11-3"
-     ],
-     [
-      "Grizzlies 1H ATS at +2.5, last 8",
-      "5-3"
-     ]
-    ],
-    "info": "Grizzlies avg 1H margin on the road: +3.7",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Grizzlies"
    }
   ]
  }
