@@ -132,8 +132,17 @@ jobs:
         run: |
           git config user.name "rtyb-bot"
           git config user.email "actions@users.noreply.github.com"
-          # One folder per sport in scripts/sports.py -- add new sports here too.
-          git add index.html learn picks streaks picks_log.json nhl nfl nba wnba mlb college-football college-basketball schedule_data.json assets/logos assets/books assets/site.css assets/sports.json league_trends_log.json matchup_of_the_day_log.json data_seed/games data_seed/rankings trends_log data_feed content
+          # Everything this run wrote or changed, so a new page or folder can
+          # never be left out of the commit (a hand-kept list missed
+          # matchups/, odds/, daily/, privacy/, terms/, sitemap.xml and
+          # robots.txt, which 404'd). The checkout is fresh, so the only
+          # changes are the ones this job made; .gitignore keeps the raw
+          # odds caches and schedule_fresh.json out.
+          git add -A
+          # Every internal link on every committed page must point to a
+          # committed page; a broken one fails the run before anything is
+          # published (the broken links are printed above).
+          python3 scripts/check_links.py --staged
           if git diff --cached --quiet; then
             echo "No changes, skipping commit."
             exit 0

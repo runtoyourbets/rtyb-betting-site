@@ -3,7 +3,7 @@ sports and the Edges lead buckets (scripts/lead_cuts.py)."""
 import os
 import sys
 import unittest
-from datetime import date
+from datetime import date, datetime, timezone
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
 import front  # noqa: E402
@@ -88,6 +88,60 @@ class CodesTest(unittest.TestCase):
             codes = [sports.team_code(sp['key'], t['code']) for t in json.load(open(path, encoding='utf-8'))['teams']]
             self.assertTrue(all(len(c) <= sports.code_max(sp['key']) for c in codes), sp['key'])
             self.assertEqual(len(codes), len(set(codes)), sp['key'])
+
+
+def card(cid, units, games, seg='1h', mk='ml', angle='x', d='Back', n=30, rate=0.7, base=0.5):
+    return {'id': cid, 'title': cid, 'tag': '1H ML', 'seg': seg, 'mk': mk, 'angle': angle, 'dir': d,
+            'w': 20, 'l': 10, 't': 0, 'n': n, 'rate': rate, 'base': base, 'units': units,
+            'games': [{'id': i, 'side': side} for i, side in games]}
+
+
+def nba_game(gid, start='2026-11-18T00:30:00Z', state='pre'):
+    return {'id': gid, 'away': 'A', 'home': 'H', 'start': start, 'state': state,
+            'odds': {k: {'ml': {'away': 120, 'home': -140}} for k in ('1q', '1h')}}
+
+
+class HotTrendsTest(unittest.TestCase):
+    NOW = datetime(2026, 11, 17, 22, 0, tzinfo=timezone.utc)   # 5 PM ET
+
+    def hot(self, cards, games):
+        S = FakeSport('nba', {'2026-11-17': games})
+        S.trends = {'slates': {'2026-11-17': {'cards': cards}}}
+        return [c['id'] for _, c, _, _ in front.hot_cards({'nba': S}, self.NOW)]
+
+    def test_today_only_and_bar(self):
+        games = [nba_game('1'), nba_game('2', start='2026-11-19T00:30:00Z')]
+        cards = [card('today', 5, [('1', 'home')]), card('later', 9, [('2', 'home')], seg='1q'),
+                 card('few', 9, [('1', 'away')], seg='1q', n=20), card('small', 1.5, [('1', 'away')], mk='ats'),
+                 card('thin', 9, [('1', 'away')], mk='tot', rate=0.55), card('3way', 9, [('1', 'away')], mk='ml3')]
+        self.assertEqual(self.hot(cards, games), ['today'])
+
+    def test_mirror_keeps_more_units(self):
+        games = [nba_game('1'), nba_game('2')]
+        cards = [card('fade_dogs', 3, [('1', 'home')], angle='tier4', d='Fade'),
+                 card('back_favs', 6, [('1', 'home'), ('2', 'away')], angle='tier1')]
+        self.assertEqual(self.hot(cards, games), ['back_favs'])
+
+    def test_same_bets_as_a_card_above_are_skipped_and_top3_vary(self):
+        games = [nba_game(str(i)) for i in range(5)]
+        cards = [card('a', 9, [('0', 'home'), ('1', 'home')], angle='a'),
+                 card('dup', 8, [('1', 'home')], angle='b'),
+                 card('same_mk', 7, [('2', 'home')], angle='c'),
+                 card('other_mk', 6, [('3', 'home')], seg='1q', angle='d'),
+                 card('third', 5, [('4', 'home')], mk='ats', angle='e')]
+        self.assertEqual(self.hot(cards, games), ['a', 'other_mk', 'third', 'same_mk'])
+
+
+class LinkCheckTest(unittest.TestCase):
+    def test_targets(self):
+        import check_links
+        page = os.path.join(check_links.ROOT, 'nba', 'index.html')
+        pre = check_links.site_prefixes()
+        self.assertEqual(check_links.target(page, '/daily/', pre), os.path.join(check_links.ROOT, 'daily', 'index.html'))
+        self.assertEqual(check_links.target(page, '../odds/?d=1#x', pre), os.path.join(check_links.ROOT, 'odds', 'index.html'))
+        self.assertIsNone(check_links.target(page, 'https://example.com/a', pre))
+        self.assertIsNone(check_links.target(page, 'mailto:a@b.c', pre))
+        self.assertIsNone(check_links.target(page, '#top', pre))
 
 
 class SeasonTest(unittest.TestCase):

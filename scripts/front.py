@@ -39,6 +39,9 @@ SLATE_BUFFER = 12      # per sport, so games can drop off between builds
 TRENDS_SHOWN = 3       # trend cards before "Show more"
 TRENDS_MORE = 6        # ... and after it
 TREND_ROWS = 5         # game rows per trend card
+TREND_MIN_N = 25       # Hottest Trends: games behind the record,
+TREND_MIN_EDGE = 0.08  # ... points over the league rate,
+TREND_MIN_UNITS = 2.0  # ... and units won, to qualify
 BEST_MIN = 3          # Yesterday's Best: decided games before a record ranks first
 ML_CAP = 2000          # moneylines past -2000 / +2000 show a dash
 FLIP = {'W': 'L', 'L': 'W'}
@@ -652,8 +655,40 @@ def trend_row(sport, c, x, g, root, now):
             f'<span class="tr-bet">{bet}</span></div>')
 
 
-def trend_card(sport, c, by_id, root, now, show_sport, hidden=False):
-    xs = [x for x in c.get('games') or [] if str(x['id']) in by_id and game_lined(sport, by_id[str(x['id'])], c['seg'])]
+def today_game(g, today, now):
+    """Starts today (ET) or is live now."""
+    t = parse(g.get('start')) if g.get('start') else None
+    live = g.get('state') != 'final' and started(g, now)
+    return live or bool(t) and t.astimezone(ET).date().isoformat() == today
+
+
+# "Fade X" makes the same bets as "Back the opposite of X"
+OPPOSITE = {'tier1': 'tier4', 'tier2': 'tier3', 'home_fav': 'road_dog', 'road_fav': 'home_dog', 'rested': 'tired'}
+OPPOSITE.update({v: k for k, v in list(OPPOSITE.items())})
+
+
+def mirror_key(sport, c):
+    """Cards with the same key are mirrors: Fade X and Back the opposite of X."""
+    a = c.get('angle')
+    if c.get('dir') == 'Fade' and a in OPPOSITE:
+        return (sport.key, c['seg'], c['mk'], 'Back', OPPOSITE[a])
+    return (sport.key, c['seg'], c['mk'], c.get('dir'), a)
+
+
+def bet_key(sport, c, x):
+    """The bet a trend row makes: the same key means the same bet."""
+    return (sport.key, str(x['id']), c['seg'], c['mk'], x.get('side') or x.get('bet'))
+
+
+def today_rows(sport, c, by_id, today, now):
+    """The card's rows for today's games that have a line."""
+    return [x for x in c.get('games') or [] if str(x['id']) in by_id
+            and today_game(by_id[str(x['id'])], today, now) and game_lined(sport, by_id[str(x['id'])], c['seg'])]
+
+
+def trend_card(sport, c, by_id, root, now, show_sport, hidden=False, xs=None):
+    if xs is None:
+        xs = [x for x in c.get('games') or [] if str(x['id']) in by_id and game_lined(sport, by_id[str(x['id'])], c['seg'])]
     # up to TREND_ROWS rows, games still to play first (football weeks run long)
     xs = sorted(xs, key=lambda x: by_id[str(x['id'])].get('state') == 'final')[:TREND_ROWS]
     rows = ''.join(trend_row(sport, c, x, by_id[str(x['id'])], root, now) for x in xs)
@@ -669,10 +704,13 @@ def trend_card(sport, c, by_id, root, now, show_sport, hidden=False):
             f'<div class="tr-rows">{rows}</div></div>')
 
 
-def hottest_trends(S, now_utc, root='', hub=False, locked_html=None):
-    """Every sport's trend cards for today's slate, biggest edge over the
-    league rate first: 3, "Show more" up to 6, then All trends; the rest
-    behind the newsletter box (locked_html(n, rows_html))."""
+def hot_cards(S, now_utc):
+    """[(sport, card, by_id, rows)] for Hottest Trends, in order: cards with
+    a game today (ET) or live now, rows for today's games only; 25+ games,
+    8+ points over the league rate and +2.0u or better; no 3-way ML; ranked
+    by units. A mirror (Fade X / Back the other side: the same bets) keeps
+    the one with more units, and a card whose rows are all bets already
+    shown above it is skipped. The first 3 never repeat a sport + market."""
     today = now_utc.astimezone(ET).date().isoformat()
     found = []
     for sport in S.values():
@@ -680,21 +718,50 @@ def hottest_trends(S, now_utc, root='', hub=False, locked_html=None):
         cards = (((sport.trends.get('slates') or {}).get(key) or {}).get('cards')) or []
         by_id = {str(g['id']): g for _, g in sport.all_games()}
         for c in cards:
-            found.append(((c.get('rate') or 0) - (c.get('base') or 0), sport, c, by_id))
-    found.sort(key=lambda x: -x[0])
+            if c.get('mk') == 'ml3' or (c.get('n') or 0) < TREND_MIN_N or (c.get('units') or 0) < TREND_MIN_UNITS \
+                    or (c.get('rate') or 0) - (c.get('base') or 0) < TREND_MIN_EDGE - 1e-9:
+                continue
+            xs = today_rows(sport, c, by_id, today, now_utc)
+            if xs:
+                found.append((sport, c, by_id, xs))
+    found.sort(key=lambda f: (-f[1]['units'], -(f[1]['rate'] - f[1]['base']), f[1]['id']))
+    kept, shown, mirrors = [], set(), set()
+    for f in found:
+        bets = {bet_key(f[0], f[1], x) for x in f[3]}
+        m = mirror_key(f[0], f[1])
+        if m in mirrors or bets <= shown:
+            continue   # its mirror, or cards above it, already show these bets
+        shown |= bets
+        mirrors.add(m)
+        kept.append(f)
+    # variety: the first 3 never share a sport + market; the next card moves up
+    top, rest = [], []
+    for f in kept:
+        mk = (f[0].key, f[1]['seg'], f[1]['mk'])
+        if len(top) < TRENDS_SHOWN and mk not in {(t[0].key, t[1]['seg'], t[1]['mk']) for t in top}:
+            top.append(f)
+        else:
+            rest.append(f)
+    return top + rest
+
+
+def hottest_trends(S, now_utc, root='', hub=False, locked_html=None):
+    """Today's hottest trend cards (hot_cards): 3, "Show more" up to 6, then
+    All trends; the rest behind the newsletter box (locked_html(n, rows_html)).
+    Hidden when nothing qualifies."""
     html_cards = []
-    for edge, sport, c, by_id in found:
-        h = trend_card(sport, c, by_id, root, now_utc, not hub, hidden=len(html_cards) >= TRENDS_SHOWN)
+    for sport, c, by_id, xs in hot_cards(S, now_utc):
+        h = trend_card(sport, c, by_id, root, now_utc, not hub, hidden=len(html_cards) >= TRENDS_SHOWN, xs=xs)
         if h:
-            html_cards.append((sport, h, c, by_id))
+            html_cards.append((sport, h, c, by_id, xs))
     if not html_cards:
         return ''
     top = html_cards[0][0]
-    shown = ''.join(h for _, h, _, _ in html_cards[:TRENDS_MORE])
+    shown = ''.join(h for _, h, _, _, _ in html_cards[:TRENDS_MORE])
     more = (f'<button type="button" class="tr-more" data-trends-more>Show more trends ({min(len(html_cards), TRENDS_MORE) - TRENDS_SHOWN})</button>'
             if len(html_cards) > TRENDS_SHOWN else '')
     rest = html_cards[TRENDS_MORE:]
-    locked = locked_html(len(rest), ''.join(trend_card(s, c, b, root, now_utc, not hub) for s, _, c, b in rest)) if rest and locked_html else ''
+    locked = locked_html(len(rest), ''.join(trend_card(s, c, b, root, now_utc, not hub, xs=xs) for s, _, c, b, xs in rest)) if rest and locked_html else ''
     return (f'<section class="fr-sec" id="trends"><div class="fr-head"><h2>Hottest Trends</h2></div>'
             f'<div class="tr-cards">{shown}</div>{more}<div class="fr-links">{more_link(root + top.trends_page, "All trends")}</div>{locked}</section>')
 
