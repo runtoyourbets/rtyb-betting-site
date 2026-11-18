@@ -293,6 +293,9 @@
 "espn-2019": {
 "dark": false
 },
+"espn-2022": {
+"dark": false
+},
 "espn-2025": {
 "dark": false
 },
@@ -625,6 +628,9 @@
 },
 "espn-2951": {
 "dark": false
+},
+"espn-2963": {
+"dark": true
 },
 "espn-2964": {
 "dark": false
