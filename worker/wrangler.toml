@@ -11,3 +11,8 @@ compatibility_date = "2024-09-01"
 # Settings > Triggers > Cron Triggers.
 [triggers]
 crons = ["*/10 * * * *"]
+
+# Keep Worker logs on (Cloudflare dashboard > the Worker > Logs); a deploy
+# without this turns them off.
+[observability]
+enabled = true
