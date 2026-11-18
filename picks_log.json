@@ -9518,48 +9518,6 @@
     "streakTeamName": "Boston"
    },
    {
-    "id": "nba|401910014|1h|ml|away",
-    "game": "nba|401910014",
-    "date": "2026-11-18",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-19T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Hawks @ Thunder",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 164,
-    "title": "Hawks 1H ML",
-    "est": 0.4259,
-    "edge": 0.0471,
-    "agree": 2,
-    "sample": 14,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "atl",
-    "angles": [
-     [
-      "Hawks 1H ML on the road",
-      "6-2"
-     ],
-     [
-      "Hawks 1H ML, season",
-      "8-6"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Hawks"
-   },
-   {
     "id": "nba|401910007|1h|ml|away",
     "game": "nba|401910007",
     "date": "2026-11-18",
@@ -9600,6 +9558,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
+   },
+   {
+    "id": "nba|401910014|1h|ml|away",
+    "game": "nba|401910014",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Hawks @ Thunder",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 152,
+    "title": "Hawks 1H ML",
+    "est": 0.4382,
+    "edge": 0.0414,
+    "agree": 2,
+    "sample": 14,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "atl",
+    "angles": [
+     [
+      "Hawks 1H ML on the road",
+      "6-2"
+     ],
+     [
+      "Hawks 1H ML, season",
+      "8-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Hawks"
    },
    {
     "id": "nba|401910010|1h|ml|away",
