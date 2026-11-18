@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin/
+
+Sitemap: https://runtoyourbets.github.io/rtyb-betting-site/sitemap.xml
