@@ -519,6 +519,7 @@
 
   .page-head { margin-bottom: 18px; }
   .page-head h1 { font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); }
+  .page-head .page-sub { margin-top: 2px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .page-title { display: flex; align-items: center; gap: 12px; }
   /* Team logos for the non-NHL sports (assets/logos/{sport}/): the dark
      version, when a team has one, replaces the standard one on dark themes */
@@ -1988,34 +1989,6 @@
   @media (max-width: 600px) { .hp { padding: 14px 16px 32px; } }
   .hp h1, .hp h2 { text-transform: uppercase; }
 
-  .hs-wrap { position: relative; margin-bottom: 18px; }
-  .hs-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; scroll-snap-type: x proximity; }
-  .hs-row > * { scroll-snap-align: start; }
-  /* edge fades + arrows when the chips overflow (phones, narrow windows) */
-  .hs-wrap::before, .hs-wrap::after { content: ''; position: absolute; top: 0; bottom: 4px; width: 56px; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 1; }
-  .hs-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
-  .hs-wrap::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
-  .hs-wrap.fade-l::before, .hs-wrap.fade-r::after { opacity: 1; }
-  .hs-arrow {
-    position: absolute; top: 50%; transform: translateY(calc(-50% - 2px)); z-index: 2; width: 44px; height: 44px;
-    border-radius: 50%; border: 1px solid var(--border); background: var(--panel-2); color: var(--text);
-    font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 14px var(--shadow);
-  }
-  .hs-arrow[hidden] { display: none; }
-  .hs-arrow.prev { left: -4px; }
-  .hs-arrow.next { right: -4px; }
-  .hs-row::-webkit-scrollbar { display: none; }
-  .hs-chip {
-    flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; min-height: 52px; min-width: 104px; padding: 6px 14px;
-    background: var(--panel); border: 1px solid var(--border-soft); border-radius: 12px; text-decoration: none; color: var(--text);
-  }
-  .hs-chip:hover { border-color: var(--accent); }
-  .hs-name { display: flex; align-items: center; gap: 7px; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); letter-spacing: 0.04em; }
-  .hs-name .sport-icon { width: 22px; height: 22px; }
-  .hs-count { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); white-space: nowrap; }
-  .hs-chip.live .hs-count { color: var(--accent); font-weight: var(--fw-price); }
-
   .hh { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; align-items: center; padding: 18px 0 30px; }
   .hh h1 { font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); line-height: 0.98; letter-spacing: 0.01em; margin: 0 0 14px; }
   /* Hero colors follow the logo: RTY's color (gold on dark, black on light), then the purple */
@@ -2145,19 +2118,19 @@
   .fr-trow { cursor: default; grid-template-columns: minmax(62px, auto) minmax(0, 1fr) auto; column-gap: 10px; }
   .hh .yb { align-self: start; padding: 0; }
   /* Home v2 (scripts/front.py sections, home and every hub). Phones: one
-     column in reading order; desktop regroups them in 2/3 + 1/3 rows. */
-  .fv { display: flex; flex-direction: column; }
-  .fv-top, .fv-side, .fv-mid, .fv-pair, .fv-bottom { display: contents; }
-  .fv-slogan { order: 1; } .fv-hero { order: 2; } .fv-yb { order: 3; } .fv-slate { order: 4; } .fv-motd { order: 5; }
-  .fv-trends { order: 6; } .fv-team { order: 7; } .fv-move { order: 8; } .fv-tab { order: 9; } .fv-results { order: 10; } .fv-learn { order: 11; }
+     column in the HTML's order (reading order); desktop places them by
+     area in 2/3 + 1/3 rows. The Running Tab's row is the one flexible row,
+     so it sits right under Yesterday's Best however tall the hero is. */
   @media (min-width: 900px) {
-    .fv { display: block; }
-    .fv-top, .fv-mid, .fv-bottom { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 0 24px; align-items: start; }
-    .fv-hero, .fv-motd, .fv-results { grid-column: 1; grid-row: 1; }
-    .fv-side, .fv-pair { display: block; grid-column: 2; grid-row: 1; }
-    .fv-learn { grid-column: 2; grid-row: 1; }
+    .fv { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); column-gap: 24px; align-items: start;
+      grid-template-rows: auto auto 1fr auto auto auto auto;
+      grid-template-areas: "slogan slogan" "hero yb" "hero tab" "slate slate" "motd pair" "trends trends" "results learn"; }
+    .fv-slogan { grid-area: slogan; } .fv-hero { grid-area: hero; } .fv-yb { grid-area: yb; } .fv-tab { grid-area: tab; }
+    .fv-slate { grid-area: slate; } .fv-motd { grid-area: motd; } .fv-pair { grid-area: pair; } .fv-trends { grid-area: trends; }
+    .fv-results { grid-area: results; } .fv-learn { grid-area: learn; }
     .fv-slate .sl-cards, .fv-trends .ht-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .fv-learn .hl-grid { grid-template-columns: 1fr; }
+    .fv-yb .fr-sec, .fv-tab .fr-sec, .fv-pair .fr-sec { padding-top: 20px; }
   }
   .fr-slogan { margin: 14px 0 0; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .ot-card { display: flex; flex-direction: column; gap: 8px; background: var(--title-bg); border: 1px solid var(--card-border); border-radius: var(--card-radius); padding: 22px var(--card-pad-x); color: var(--text); text-decoration: none; }
@@ -2168,7 +2141,6 @@
   .ot-sum, .yb-more { margin: 0; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
   .ot-more { color: var(--accent); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .yb-big { display: flex; flex-direction: column; gap: 8px; padding: 22px var(--card-pad-x); }
-  .fv-side .fr-sec, .fv-pair .fr-sec { padding-top: 20px; }
   .sl-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
   .sl-next { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .sl-next[hidden] { display: none; }
