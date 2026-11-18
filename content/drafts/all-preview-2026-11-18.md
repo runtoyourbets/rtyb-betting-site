@@ -1,0 +1,25 @@
+---
+title: "On Tap: Today's First Period, Quarter and Half Betting Preview — Nov 18, 2026"
+sport: all
+kind: preview
+date: 2026-11-18
+written: 2026-11-18T13:09Z
+model: claude-opus-5-5
+check: ["10", "00", "30"]
+sports: ["nhl", "nba", "ncaab"]
+---
+**NHL, NBA and NCAAB all hit the board tonight, and a few matchups come loaded with early-game history.**
+
+The busiest spot on the whole slate is Phoenix Suns at Sacramento Kings (10:00 PM ET), with 6 of our trends landing on it. The streaks lean hard one way: "SAC lost the 1H 6 straight," "SAC failed to cover the 1H 6 straight" and "SAC lost the 1Q 5 straight." From the visitors, it's "PHX Under in the 1Q 5 straight." It's a late tip with plenty to sort through.
+
+Houston Rockets at Indiana Pacers (7:00 PM ET) carries 4 trends, and the home side brings "IND covered the 1Q 4 straight" and "IND covered the 1H 4 straight."
+
+The longest run in the packet belongs to Milwaukee Bucks at Miami Heat (7:00 PM ET): "MIL Under in the 1Q 10 straight." Stack "MIL Under in the 1H 8 straight" and "MIL lost the 1H 5 straight" on top of it.
+
+On the ice, Boston Bruins at Detroit Red Wings (7:30 PM ET) has 3 trends on it, with "BOS lost the 1st period 3 straight" and "BOS no BTTS in the 1P 3 straight."
+
+College hoops runs 71 games deep. Incarnate Word Cardinals at Texas State Bobcats (8:00 PM ET) sets "TXST won the 1H 5 straight" against "UIW lost the 1H 4 straight" and "UIW failed to cover the 1H 3 straight."
+
+Streaks are history, not promises, so do your own homework before the puck drops or the ball goes up.
+
+For every trend across all three sports, head to the [Trends page](/trends/) for the full picture.

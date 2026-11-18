@@ -9514,50 +9514,6 @@
     "streakTeamName": "Morehead State"
    },
    {
-    "id": "nhl|2026020344|1p|ml|away",
-    "game": "nhl|2026020344",
-    "date": "2026-11-18",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-19T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Boston @ Detroit",
-    "href": "nhl/matchups/?date=2026-11-18",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -108,
-    "title": "Boston 1P ML",
-    "est": 0.5716,
-    "edge": 0.0523,
-    "agree": 3,
-    "sample": 16,
-    "tier": "B",
-    "tags": [],
-    "streak": -3,
-    "streakTeam": "BOS",
-    "angles": [
-     [
-      "Detroit\u2019s opponents 1P ML, Detroit at home",
-      "4-1-5"
-     ],
-     [
-      "Boston 1P ML on the road",
-      "5-2-2"
-     ],
-     [
-      "Boston 1P ML, season",
-      "10-6-5"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Boston"
-   },
-   {
     "id": "ncaab|401920682|1h|ml|away",
     "game": "ncaab|401920682",
     "date": "2026-11-18",
@@ -9598,6 +9554,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Siena"
+   },
+   {
+    "id": "nhl|2026020344|1p|ml|away",
+    "game": "nhl|2026020344",
+    "date": "2026-11-18",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-19T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Boston @ Detroit",
+    "href": "nhl/matchups/?date=2026-11-18",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -110,
+    "title": "Boston 1P ML",
+    "est": 0.5745,
+    "edge": 0.0507,
+    "agree": 3,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -3,
+    "streakTeam": "BOS",
+    "angles": [
+     [
+      "Detroit\u2019s opponents 1P ML, Detroit at home",
+      "4-1-5"
+     ],
+     [
+      "Boston 1P ML on the road",
+      "5-2-2"
+     ],
+     [
+      "Boston 1P ML, season",
+      "10-6-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Boston"
    },
    {
     "id": "ncaab|401909516|1h|ml|away",
@@ -9656,10 +9658,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 134,
+    "price": 135,
     "title": "Grizzlies 1H ML",
-    "est": 0.4721,
-    "edge": 0.0447,
+    "est": 0.4708,
+    "edge": 0.0453,
     "agree": 2,
     "sample": 13,
     "tier": "B",
@@ -9740,13 +9742,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -122,
+    "price": -120,
     "title": "76ers 1H ML",
-    "est": 0.589,
-    "edge": 0.0395,
+    "est": 0.5862,
+    "edge": 0.0408,
     "agree": 4,
     "sample": 14,
-    "tier": "C",
+    "tier": "B",
     "tags": [
      "Chalk Eater"
     ],

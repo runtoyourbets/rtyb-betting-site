@@ -1,0 +1,129 @@
+{
+ "sport": "NBA",
+ "segments": "1st quarter and 1st half",
+ "date": "2026-11-18",
+ "games_on_the_slate": 12,
+ "games": [
+  {
+   "matchup": "Memphis Grizzlies at Cleveland Cavaliers",
+   "start": "7:00 PM ET",
+   "trends_on_this_game": 2,
+   "streaks": [
+    "CLE won the 1H 4 straight",
+    "CLE covered the 1H 4 straight",
+    "MEM Over in the 1Q 4 straight",
+    "MEM Over in the 1H 4 straight"
+   ]
+  },
+  {
+   "matchup": "Houston Rockets at Indiana Pacers",
+   "start": "7:00 PM ET",
+   "trends_on_this_game": 4,
+   "streaks": [
+    "IND covered the 1Q 4 straight",
+    "IND covered the 1H 4 straight"
+   ]
+  },
+  {
+   "matchup": "Milwaukee Bucks at Miami Heat",
+   "start": "7:00 PM ET",
+   "trends_on_this_game": 2,
+   "streaks": [
+    "MIL Under in the 1Q 10 straight",
+    "MIL Under in the 1H 8 straight",
+    "MIL lost the 1H 5 straight"
+   ]
+  },
+  {
+   "matchup": "Philadelphia 76ers at Orlando Magic",
+   "start": "7:00 PM ET",
+   "trends_on_this_game": 2,
+   "streaks": [
+    "PHI Over in the 1H 5 straight",
+    "ORL won the 1H 4 straight",
+    "ORL covered the 1H 4 straight",
+    "PHI Over in the 1Q 3 straight"
+   ]
+  },
+  {
+   "matchup": "Chicago Bulls at Brooklyn Nets",
+   "start": "7:30 PM ET",
+   "trends_on_this_game": 1,
+   "streaks": [
+    "BKN Over in the 1Q 5 straight",
+    "CHI covered the 1Q 5 straight",
+    "CHI won the 1Q 4 straight",
+    "BKN Over in the 1H 3 straight"
+   ]
+  },
+  {
+   "matchup": "Washington Wizards at Toronto Raptors",
+   "start": "7:30 PM ET",
+   "trends_on_this_game": 2,
+   "streaks": [
+    "WSH Over in the 1Q 3 straight",
+    "WSH Over in the 1H 3 straight"
+   ]
+  },
+  {
+   "matchup": "Detroit Pistons at New Orleans Pelicans",
+   "start": "8:00 PM ET",
+   "trends_on_this_game": 3,
+   "streaks": [
+    "DET Over in the 1Q 4 straight"
+   ]
+  },
+  {
+   "matchup": "Atlanta Hawks at Oklahoma City Thunder",
+   "start": "8:00 PM ET",
+   "trends_on_this_game": 2,
+   "streaks": [
+    "ATL lost the 1Q 5 straight",
+    "ATL failed to cover the 1Q 5 straight",
+    "ATL failed to cover the 1H 4 straight",
+    "ATL Under in the 1Q 3 straight"
+   ]
+  },
+  {
+   "matchup": "Golden State Warriors at Dallas Mavericks",
+   "start": "8:00 PM ET",
+   "trends_on_this_game": 2,
+   "streaks": [
+    "GS Under in the 1H 7 straight",
+    "DAL failed to cover the 1Q 4 straight",
+    "DAL lost the 1H 4 straight",
+    "DAL failed to cover the 1H 4 straight"
+   ]
+  },
+  {
+   "matchup": "Boston Celtics at Denver Nuggets",
+   "start": "9:30 PM ET",
+   "trends_on_this_game": 2,
+   "streaks": [
+    "DEN won the 1Q 3 straight",
+    "DEN covered the 1Q 3 straight"
+   ]
+  },
+  {
+   "matchup": "Utah Jazz at Los Angeles Lakers",
+   "start": "10:00 PM ET",
+   "trends_on_this_game": 1,
+   "streaks": [
+    "UTA lost the 1H 6 straight",
+    "UTA covered the 1Q 4 straight"
+   ]
+  },
+  {
+   "matchup": "Phoenix Suns at Sacramento Kings",
+   "start": "10:00 PM ET",
+   "trends_on_this_game": 6,
+   "streaks": [
+    "SAC lost the 1H 6 straight",
+    "SAC failed to cover the 1H 6 straight",
+    "PHX Under in the 1Q 5 straight",
+    "SAC lost the 1Q 5 straight"
+   ]
+  }
+ ],
+ "trends_page": "/nba/trends/"
+}
