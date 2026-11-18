@@ -2134,8 +2134,10 @@
     if (!o.games.length) html += '<div class="no-games-note">No ' + esc(D.label) + ' games ' + esc(o.none) + '.</div>';
     else if (!cards.length) html += '<div class="no-games-note">No trends meet our bar ' + esc(o.none) + '.' + (o.today ? ' Check back tomorrow.' : '') + '</div>';
     else {
-      html += '<div class="tr-cards">' + cards.map(function(c, i) { return trendCard(c, i >= TR.shown); }).join('') + '</div>';
-      if (cards.length > TR.shown) html += '<button type="button" class="tr-more" id="trMore">Show more trends (' + (cards.length - TR.shown) + ')</button>';
+      // the first TR_OPEN cards are open; the rest unlock with the Running Tab
+      // (the signup box is at the bottom of the page: front.running_tab)
+      html += '<div class="tr-cards">' + cards.slice(0, TR_OPEN).map(function(c) { return trendCard(c, false); }).join('') + '</div>';
+      if (cards.length > TR_OPEN) html += lockedTrends(cards.slice(TR_OPEN));
     }
     html += '</section>';
     var games = o.games.filter(function(g) { return lined(g, k); }).sort(function(a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; });
@@ -2145,6 +2147,15 @@
     html += streakSection(o.games, k, o.before, o.onWord);
     html += '<p class="odds-note">' + esc(TR.tips.footer || '') + '</p>';
     return html;
+  }
+  var TR_OPEN = 3;
+  function lockedTrends(rest) {
+    var n = rest.length;
+    return '<div class="ht-locked"><div class="ht-blur"' + (document.documentElement.classList.contains('rt-subbed') ? '' : ' aria-hidden="true"') + '><div class="tr-cards">' +
+      rest.map(function(c) { return trendCard(c, false); }).join('') + '</div></div>' +
+      '<div class="ht-overlay"><div class="ht-lock-card"><div class="ht-lock-title">' + n + ' more trend' + (n === 1 ? '' : 's') + '</div>' +
+      '<p>Free with the Running Tab, our newsletter. Sign up once and they unlock on this device.</p>' +
+      '<a class="btn-primary" href="#signup-tab">Get the Tab</a></div></div></div>';
   }
   function wireSlate(draw) {
     var ps = document.getElementById('pageSeg');
@@ -2621,15 +2632,11 @@
   // Yesterday's Results) is in the page's HTML above #sportApp
   // (scripts/front.py, shared with the home page)
   function renderHub() {
-    Promise.all([
-      fetch(ROOT + SPORT_SLUG + '/hub.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
-      fetch(ROOT + SPORT_SLUG + '/trends.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
-    ]).then(function(res) {
-      var H = res[0] || {};
-      TR = res[1] || { slates: {}, tips: {}, markets: [] };
-      var segName = D.segments.map(function(s) { return s.label.toLowerCase(); }).join(' and '), num = hubNumber();
-      app.innerHTML = hubSec('The Number', hubLink(num.href, num.go), num.html) +
-        '<section class="hub-sec hub-learn"><a href="' + ROOT + String(H.learn || '/learn/').replace(/^\//, '') + '">New to ' + esc(segName) + ' betting? Read the guide &rarr;</a></section>';
+    fetch(ROOT + SPORT_SLUG + '/trends.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }).then(function(tr) {
+      TR = tr || { slates: {}, tips: {}, markets: [] };
+      var num = hubNumber();
+      // the sport's Betting Guides block follows in the page's HTML (scripts/guides.py)
+      app.innerHTML = hubSec('The Number', hubLink(num.href, num.go), num.html);
     });
   }
 

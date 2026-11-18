@@ -1,5 +1,5 @@
 """
-The Daily's drafts, written by Claude from the site's own numbers:
+On Tap's drafts, written by Claude from the site's own numbers:
 
   recap    The Morning Run: last night's results, from 8 AM ET
   preview  On Tap: today's slate, from 11 AM ET
@@ -459,7 +459,7 @@ def builder(kind, key):
 
 # --------------------------------------------------------------- writing
 
-SYSTEM = """You write The Daily for Run to Your Bets (RTYB), a site of first-period, first-quarter and first-half betting stats. Your voice: a fun, confident bettor who knows the numbers cold, talking to other bettors.
+SYSTEM = """You write On Tap, the daily preview, for Run to Your Bets (RTYB), a site of first-period, first-quarter and first-half betting stats. Your voice: a fun, confident bettor who knows the numbers cold, talking to other bettors.
 
 Rules, all of them strict:
 - Use only facts in the data packet. Every team, score, price, record, unit figure and streak you mention must appear in the packet exactly as given. If something isn't in the packet, leave it out.
@@ -547,7 +547,10 @@ def save(kind, sport, day, body, model, packet):
     check = unchecked_numbers(body, packet)
     front = ['---', f'title: {json.dumps(title(kind, sport, day, packet), ensure_ascii=False)}', f'sport: {sport}', f'kind: {kind}',
              f'date: {day}', f"written: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%MZ')}", f'model: {model}',
-             f'check: {json.dumps(check)}', '---', '']
+             f'check: {json.dumps(check)}']
+    if sport == daily.ALL:   # the sports it covers, for the page title (daily.py)
+        front.append(f"sports: {json.dumps([sp['key'] for sp in sports.SPORTS if sp['label'] in (packet.get('sports') or {})])}")
+    front += ['---', '']
     with open(draft_path(kind, sport, day), 'w', encoding='utf-8') as f:
         f.write('\n'.join(front) + body + '\n')
     # the packet beside the draft, so the editor can check every number

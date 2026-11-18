@@ -8,8 +8,8 @@ Search and sharing, run last in the build (build_site.py):
     (finish), plus Beehiiv's attribution script and the signup handler
     (signup.py), whose boxes finish also fills in. The block sits between <!--seo--> markers, so re-running
     replaces it.
-  - sitemap.xml (home, /matchups/, /odds/, /trends/, every sport in season, The Daily and Learn pages that aren't
-    noindex) and robots.txt.
+  - sitemap.xml (home, /matchups/, /odds/, /trends/, every sport in season (its Betting Guide
+    included), On Tap and the Betting Guides pages that aren't noindex) and robots.txt.
 
 SITE_URL comes from the CNAME file once the domain is set up (Prompt 17),
 else the GitHub Pages address. content/analytics.html holds the analytics snippet:
@@ -31,7 +31,7 @@ PAGES_URL = 'https://runtoyourbets.github.io/rtyb-betting-site/'
 ANALYTICS_FILE = os.path.join(ROOT, 'content', 'analytics.html')
 SKIP_DIRS = {'.git', 'admin', 'worker', 'tests', 'content', 'scripts', 'data_admin', 'data_feed', 'data_seed', 'trends_log', '__pycache__'}
 # first path segment: the home-style pages, the index pages and every sport on the site
-SITEMAP_TOP = ('', 'daily', 'column', 'learn', 'matchups', 'odds', 'trends') + tuple(sp['slug'] for sp in sports.LAUNCHED)
+SITEMAP_TOP = ('', 'on-tap', 'column', 'betting-guides', 'matchups', 'odds', 'trends') + tuple(sp['slug'] for sp in sports.LAUNCHED)
 SHARE = {'nhl': 'nhl', 'nba': 'nba'}                          # first segment -> image
 
 

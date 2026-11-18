@@ -1189,7 +1189,7 @@ def build(sp, teams_list, now_utc=None):
                           'res': g.get('res') if g.get('state') in ('in', 'final', 'post') else None} for g in day]
                      for d, day in by_date.items()}
     write_odds_page(sp, slug_dir, now_utc, odds_schedule, weeks=doc.get('weeks'))
-    import hub   # the Arena hub (/{slug}/): Matchup of the Day and The Daily, after the odds files it prices from
+    import hub   # the Arena hub (/{slug}/): Matchup of the Day and On Tap, after the odds files it prices from
     hub.build(sp, doc, trends_doc, slug_dir, now_utc)
     today = now_utc.astimezone(ET).date().isoformat()
     return {'season': current, 'seasonLabel': doc['seasonLabel'], 'games': len(games), 'graded': sum(1 for g in games if g.get('final')),

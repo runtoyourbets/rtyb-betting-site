@@ -28,7 +28,7 @@ Inputs (all relative to repo root, where this runs from in CI):
 
 Output (all static files -- no server, GitHub Pages "deploy from branch,
 root" compatible):
-  index.html, learn/       -- home page and Learn page (scripts/home.py)
+  index.html, betting-guides/ -- home page and Betting Guides (scripts/home.py, guides.py)
   nhl/data.json             -- the full merged data blob (summary/streaks/
                               gamelog/schedule/divisions for all teams),
                               written ONCE and fetched by every generated
@@ -56,11 +56,11 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import account  # noqa: E402
+import guides  # noqa: E402
 import league_trends  # noqa: E402
 import periods  # noqa: E402
 import picks  # noqa: E402
 import seo  # noqa: E402
-import streaks as streaks_page  # noqa: E402
 import daily  # noqa: E402
 import home  # noqa: E402
 import front  # noqa: E402
@@ -338,6 +338,17 @@ LOGO_SVG = (
     '</svg>')
 
 
+def sport_subnav(sport, section):
+    """The sport's own row under the site nav: its name (the hub), then its
+    pages in the site order (sports.page_links). Odds only once it has data."""
+    cur = ' aria-current="page"'
+    links = ''.join(f'<a class="sn-link{" gold" if sec == "picks" else ""}" href="{path}"{cur if sec == section else ""}>{label}</a>'
+                    for sec, label, path in sports.page_links(sport)
+                    if sec != 'odds' or sport_has_data(sport['key']))
+    return (f'<nav class="sn" aria-label="{sport["label"]} pages"><div class="sn-inner">'
+            f'<a class="sn-sport" href="/{sport["slug"]}/"{cur if section == "hub" else ""}>{sport["label"]}</a>{links}</div></nav>')
+
+
 def apply_sport(out, sport, section):
     """Fill the sport-specific placeholders shared by every page."""
     is_nhl = sport['key'] == 'nhl'
@@ -351,19 +362,12 @@ def apply_sport(out, sport, section):
         js = ''.join(open(os.path.join(ROOT, 'assets', p), encoding='utf-8').read() for p in ('splits/nhl.js', 'situational.js'))
         out = out.replace('__SIT_JS__', f'<script>\n{js}</script>')
     out = out.replace('__SPORT_ICON__', icons.sport_icon(sport))
-    out = out.replace('__PAGE_ICON__', icons.sport_icon(sport))
+    out = out.replace('__PAGE_ICON__', '')   # arena pages: no sport icon by the heading (team pages fill in their logo first)
     out = out.replace('__SPORT_KEY__', sport['key'])
     out = out.replace('__SPORT_LABEL__', sport['label'])
     out = out.replace('__ACCOUNT_JS__', account.ACCOUNT_JS)
-    for sec in ('games', 'stats', 'trends', 'teams'):
-        out = out.replace(f'__NAV_HREF_{sec.upper()}__', sports.section_path(sport, sec))
-    out = out.replace('__NAV_HREF_HUB__', f"/{sport['slug']}/")
-    out = out.replace('__NAV_HUB_CURRENT__', ' aria-current="page"' if section == 'hub' else '')
-    odds_link = ''
-    if 'odds' in sport['sections'] and sport_has_data(sport['key']):
-        cur = ' aria-current="page"' if section == 'odds' else ''
-        odds_link = f'<a class="sn-link" href="{sports.section_path(sport, "odds")}"{cur}>Odds</a>'
-    out = out.replace('__NAV_ODDS_LINK__', odds_link)
+    out = out.replace('__SPORT_SUBNAV__', sport_subnav(sport, section))
+    out = out.replace('__GUIDES_BLOCK__', guides.sport_block(sport, '/'))
     if is_nhl:
         footer = NHL_FOOTER
     elif sport_has_data(sport['key']):
@@ -464,15 +468,13 @@ def render_page(template, page_key, teams_menu_html, meta=None, team_code='', sp
     out = out.replace('__PAGE_TITLE__', meta['title'])
     out = out.replace('__PAGE_H1__', meta['h1'])
     out = out.replace('__PAGE_DESC__', meta['desc'])
-    for tab, sec in (('GAMES', 'games'), ('HITRATES', 'stats'), ('TRENDS', 'trends'), ('TEAMS', 'teams')):
-        out = out.replace(f'__NAV_{tab}_CURRENT__', 'aria-current="page"' if section == sec else '')
     out = out.replace('__TEAMS_MENU_ITEMS__', teams_menu_html)
     out = out.replace('__PAGE_TEAM_CODE__', team_code)
     return out
 
 
 
-def redirect_page_html(relative_target, keep_query=False):
+def redirect_page_html(relative_target, keep_query=False, canonical=None):
     """A tiny redirect stub for a URL that moved -- e.g. the old
     /nhl/hit-rates/ now living at /nhl/1st-period-stats/. `relative_target`
     is relative to the redirect page's own folder (both pages sit one level
@@ -485,7 +487,7 @@ def redirect_page_html(relative_target, keep_query=False):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="0; url={relative_target}">
-<link rel="canonical" href="{relative_target}">
+<link rel="canonical" href="{canonical or relative_target}">
 <title>RTYB</title>
 <script>location.replace('{relative_target}'{" + location.search + location.hash" if keep_query else ""});</script>
 </head>
@@ -767,7 +769,8 @@ def sport_app_body(sp, section):
     """A section page's body: the app assets/sport.js draws into, then the
     How to read box where the page type has one."""
     return (f'<div id="sportApp" data-section="{section}"><div class="no-games-note">Loading&hellip;</div>'
-            f'<noscript>This page needs JavaScript.</noscript></div>' + how_to_read_html(sp, section))
+            f'<noscript>This page needs JavaScript.</noscript></div>' + how_to_read_html(sp, section)
+            + (front.running_tab() if section == 'trends' else ''))   # the Get the Tab lock's signup box
 
 
 # The Stats pages: (data-section, folder under /{slug}/stats/, tab name, line under it)
@@ -849,6 +852,45 @@ def write_hub(template, sp, teams_menu_html=''):
     else:
         html = render_page(template, 'empty', teams_menu_html, meta=meta, sport=sp, empty_html=empty_state_html(sp, 'games'))
     write_light(html, sp['slug'])
+
+
+NOINDEX = '<meta name="robots" content="noindex">'
+
+
+def write_sport_extras(template):
+    """Every sport's Betting Guide (/{slug}/betting-guide/, scripts/guides.py)
+    and its Picks page (/{slug}/picks/: the Premium shell while
+    sports.PICKS_LIVE is False, noindexed)."""
+    bare = template.replace('__GUIDES_BLOCK__', '')   # the guide lists its own "More guides"
+    for sp in sports.SPORTS:
+        meta, body, noindex = guides.sport_page(sp)
+        html = render_page(bare, 'sport', '', meta=meta, sport=sp, sport_body=body)
+        if noindex and NOINDEX not in html:
+            html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
+        write_light(html, sports.guide_path(sp).strip('/'))
+        if not sports.PICKS_LIVE:
+            meta = {'title': f"{sp['label']} Picks | RTYB", 'h1': f"{sp['label']} Picks", 'section': 'picks',
+                    'desc': 'Picks are coming with Premium.'}
+            html = render_page(template, 'sport', '', meta=meta, sport=sp, sport_body='')
+            if NOINDEX not in html:
+                html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
+            write_light(html, sports.picks_path(sp).strip('/'))
+
+
+# old addresses -> where they live now (a stub that forwards, with a canonical)
+MOVED = {'daily': 'on-tap/', 'learn': 'betting-guides/', 'streaks': 'trends/'}
+
+
+def write_moved():
+    for old, new in MOVED.items():
+        path = os.path.join(ROOT, old)
+        for d, dirs, files in os.walk(path, topdown=False):   # old pages under it go too
+            for f in files:
+                if f == 'index.html' and d != path:
+                    os.remove(os.path.join(d, f))
+        os.makedirs(path, exist_ok=True)
+        with open(os.path.join(path, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(redirect_page_html('../' + new, keep_query=True, canonical=seo.site_url() + new))
 
 
 def write_light(template_html_page, page_dir):
@@ -1170,12 +1212,12 @@ def main():
     nhl_doc = json.load(open(os.path.join(nhl_dir, 'sport.json'), encoding='utf-8'))
     nhl_trends = trends.page_doc(nhl, nhl_doc, datetime.now(timezone.utc))
     sport_build.write_json(os.path.join(nhl_dir, 'trends.json'), nhl_trends)
-    hub.build(nhl, nhl_doc, nhl_trends, nhl_dir)   # /nhl/'s Matchup of the Day and The Daily (nhl/hub.json)
+    hub.build(nhl, nhl_doc, nhl_trends, nhl_dir)   # /nhl/'s Matchup of the Day and On Tap (nhl/hub.json)
     trends_meta = {'title': section_title(nhl, 'trends'), 'h1': 'NHL Trends to Watch', 'section': 'trends',
                    'desc': SECTION_DESC['trends'].format(label='NHL', segs='1st Period')}
     write_light(render_page(template, 'sport', teams_menu_html, meta=trends_meta, sport=nhl,
                             sport_body='<div id="sportApp" data-section="trends"><div class="no-games-note">Loading&hellip;</div>'
-                                       '<noscript>This page needs JavaScript.</noscript></div>'), 'nhl/trends')
+                                       '<noscript>This page needs JavaScript.</noscript></div>' + front.running_tab()), 'nhl/trends')
     # /nhl/teams/ and /nhl/teams/<code>/: the shared Teams list and team
     # pages (assets/sport.js), from nhl/sport.json like every sport's
     nhl_teams = sorted(({'slug': team_slug(code), 'code': code, 'name': t['name'], 'short': t['short'], 'color': t.get('color'),
@@ -1200,13 +1242,14 @@ def main():
     # Today's Picks: after every data.json is written (picks.py reads them)
     picks_body, picks_info = picks.build(full_data, TEAM_CITY)
     home.write_picks(template, full_data, LOGO_SVG, picks_body)
-    streaks_page.write(template, full_data, LOGO_SVG)
-    # The Daily's latest recap and preview at the top of each Matchups page
+    write_sport_extras(template)
+    write_moved()   # /daily/ -> /on-tap/, /learn/ -> /betting-guides/, /streaks/ -> /trends/
+    # On Tap's latest preview at the top of each Matchups page
     daily.inject_arena({sp['key']: sports.section_path(sp, 'games').strip('/') for sp in sports.SPORTS}, datetime.now(sport_build.ET).date().isoformat())
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()
 
-    print(f"wrote index.html (home: {home_info['today']} games today, {home_info['trends']} trends), picks/ ({picks_info['plays']} plays today), learn/, nhl/data.json ({len(data_json)} bytes), "
+    print(f"wrote index.html (home: {home_info['today']} games today, {home_info['trends']} trends), picks/ ({picks_info['plays']} plays logged), betting-guides/, nhl/data.json ({len(data_json)} bytes), "
           f"nhl/matchups/index.html ({len(games_html)} bytes), "
           f"nhl/stats/index.html, nhl/sport.json, "
           f"nhl/1st-period-stats/ + nhl/hit-rates/ (redirect stubs), "

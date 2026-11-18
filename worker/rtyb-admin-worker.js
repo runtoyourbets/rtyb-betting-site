@@ -129,7 +129,7 @@ async function commitJsonFile(env, filePath, message, mutate) {
   return { ok: false, status: putResp.status, detail: `PUT ${filePath}: ${text.slice(0, 300)}` };
 }
 
-// --- The Daily: drafts and columns (Markdown) -------------------------------
+// --- On Tap: drafts and columns (Markdown) ----------------------------------
 // Drafts are written by scripts/daily_content.py into content/drafts/;
 // columns are hand-written into content/columns/. Publishing moves a file
 // to content/published/, which the next refresh turns into its page.

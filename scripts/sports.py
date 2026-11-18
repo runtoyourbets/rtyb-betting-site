@@ -43,6 +43,12 @@ def footer_on(is_home=False):
     return FOOTER == 'everywhere' or is_home
 
 
+# Picks (/picks/ and /{sport}/picks/). False: the pages are noindexed
+# "Picks are coming with Premium" shells and no Picks link appears anywhere
+# (menus, top bar, pills). True turns every Picks link on at once.
+PICKS_LIVE = False
+
+
 # in nav order (menus, pills): NHL, NBA, NCAAB, NFL, NCAAF, then WNBA and MLB
 SPORTS = [
     {
@@ -114,6 +120,10 @@ SPORTS = [
 DEFAULT_SECTIONS = {'games': 'matchups', 'stats': 'stats', 'trends': 'trends', 'odds': 'odds', 'teams': 'teams'}
 SECTION_LABELS = {'games': 'Matchups', 'stats': 'Stats', 'trends': 'Trends', 'odds': 'Odds', 'teams': 'Teams'}
 OLD_SECTION_DIRS = {'games': 'games'}   # moved sections: old folder -> a forwarding stub
+# Every sport's pages, in the order they're listed everywhere (menus, pills,
+# the sport bar): Picks · Matchups · Odds · Trends · Stats · Teams. Picks
+# only while PICKS_LIVE.
+SITE_SECTIONS = ['picks', 'games', 'odds', 'trends', 'stats', 'teams']
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
           'August', 'September', 'October', 'November', 'December']
 
@@ -234,6 +244,31 @@ def section_path(sport, section):
     """Root-relative URL for a sport's section, e.g. ('nfl', 'stats') -> /nfl/stats/."""
     s = BY_KEY[sport] if isinstance(sport, str) else sport
     return f"/{s['slug']}/{s['sections'][section]}/"
+
+
+def page_links(sport):
+    """[(section, label, root-relative path)] for the sport's pages in the
+    site order (SITE_SECTIONS); Picks only while PICKS_LIVE."""
+    s = BY_KEY[sport] if isinstance(sport, str) else sport
+    out = []
+    for sec in SITE_SECTIONS:
+        if sec == 'picks':
+            if PICKS_LIVE:
+                out.append(('picks', 'Picks', picks_path(s)))
+        elif sec in s['sections']:
+            out.append((sec, SECTION_LABELS[sec], section_path(s, sec)))
+    return out
+
+
+def picks_path(sport):
+    s = BY_KEY[sport] if isinstance(sport, str) else sport
+    return f"/{s['slug']}/picks/"
+
+
+def guide_path(sport):
+    """The sport's Betting Guide, /{slug}/betting-guide/."""
+    s = BY_KEY[sport] if isinstance(sport, str) else sport
+    return f"/{s['slug']}/betting-guide/"
 
 
 def segment_summary(sport):

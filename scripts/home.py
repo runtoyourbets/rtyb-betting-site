@@ -1,5 +1,6 @@
 """
-Home page (index.html) and Learn page (learn/index.html), generated at
+Home page (index.html), the index pages and the Betting Guides
+(scripts/guides.py), generated at
 build time from the same data every sport page uses: NHL's merged data
 (build_site.py) and each other sport's {slug}/data.json (sport_build.py).
 Static -- the refresh job rebuilds them every run.
@@ -8,10 +9,10 @@ Sections, top to bottom: nav, sport chips, then the shared front sections
 (scripts/front.py sections, also on every Arena hub): the slogan line, On
 Tap (or Yesterday's Best, large), Yesterday's Best, The Slate, Matchup of
 the Day, Hottest Trends, Team to Watch, Biggest Line Move, Get the Running
-Tab, Yesterday's Results, then Learn (3 guides); footer. Every list of
-sports comes from sports.LAUNCHED (in season). Also writes /matchups/,
-/odds/ and /trends/ (the trends past each sport's first 3 behind the
-newsletter unlock).
+Tab, Yesterday's Results, then Betting Guides (3 guides); footer. Every
+list of sports comes from sports.LAUNCHED (in season). Also writes
+/matchups/, /odds/ and /trends/ (scripts/front.py index pages) and /picks/
+(the Premium shell while sports.PICKS_LIVE is False).
 
 Colors are the site tokens from assets/site.css (template.html :root).
 """
@@ -25,6 +26,7 @@ from zoneinfo import ZoneInfo
 import account
 import daily
 import front
+import guides
 import icons
 import seo
 import signup
@@ -176,9 +178,10 @@ def locked_trends(n, cards):
             f'<a class="btn-primary" href="#signup-tab">Get the Tab</a></div></div></div>')
 
 
-def nav_html(status, depth=''):
-    """The shared site nav (scripts/nav.py). status: [(sport, chip, live, short)]."""
-    return nav.header(depth, [(sp, live, short) for sp, chip, live, short in status])
+def nav_html(status, depth='', current=None):
+    """The shared site nav (scripts/nav.py). status: [(sport, chip, live, short)];
+    current: the index page shown ('matchups', 'odds', 'trends', 'on-tap')."""
+    return nav.header(depth, [(sp, live, short) for sp, chip, live, short in status], current=current)
 
 
 FOOTER = '''
@@ -189,7 +192,7 @@ FOOTER = '''
     <p class="hf-small">RTYB &mdash; Run to Your Bets is for information and entertainment. Not affiliated with any league or sportsbook.
     Records and units are for tracking only; past results don&rsquo;t predict future ones.</p>
     <p class="hf-small">RTYB may earn a commission from sportsbook links.</p>
-    <p class="hf-small hf-legal"><a href="__ROOT__privacy/">Privacy</a> &middot; <a href="__ROOT__terms/">Terms</a> &middot; <a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p>
+    <p class="hf-small hf-legal"><a href="__ROOT__betting-guides/">Betting Guides</a> &middot; <a href="__ROOT__privacy/">Privacy</a> &middot; <a href="__ROOT__terms/">Terms</a> &middot; <a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p>
   </div>
 </footer>'''
 
@@ -232,8 +235,8 @@ PAGE_JS = '''
 </script>'''
 
 
-def page(title, desc, body, status, depth='', noindex=False, is_home=False):
-    """noindex: reachable by URL but kept out of search (Picks, Streaks).
+def page(title, desc, body, status, depth='', noindex=False, is_home=False, current=None):
+    """noindex: reachable by URL but kept out of search (Picks, unwritten guides).
     The footer follows sports.FOOTER (the home page passes is_home)."""
     css = f'<link rel="stylesheet" href="{depth}assets/site.css">'
     robots = '<meta name="robots" content="noindex">' if noindex else ''
@@ -241,7 +244,7 @@ def page(title, desc, body, status, depth='', noindex=False, is_home=False):
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title>'
             f'<meta name="description" content="{esc(desc)}">{robots}{FONTS}{css}</head>'
-            f'<body class="home">{nav_html(status, depth)}<main class="hp">{body}</main>{footer}{PAGE_JS}{account.ACCOUNT_JS}</body></html>')
+            f'<body class="home">{nav_html(status, depth, current)}<main class="hp">{body}</main>{footer}{PAGE_JS}{account.ACCOUNT_JS}</body></html>')
 
 
 # ------------------------------------------------------------------- build
@@ -320,9 +323,9 @@ def build(template, nhl_data, logo_svg, now_utc=None):
 
     # every section is shared with the hubs (scripts/front.py), every sport in season
     S = front.load(now_utc)
-    learn = ''.join(f'<a class="hl-card" href="learn/#{a}"><b>{esc(t)}</b><span>{esc(d)}</span></a>' for a, t, d in LEARN_LINKS[:LEARN_SHOWN])
-    learn_html = (f'<section class="fr-sec" id="learn"><div class="fr-head"><h2>Learn</h2></div>'
-                  f'<div class="hl-grid">{learn}</div><div class="fr-links">{front.more_link("learn/", "All guides")}</div></section>')
+    learn = ''.join(guides.card(f'{guides.INDEX_DIR}/{slug}/', t, d) for slug, t, d in guides.GENERAL[:LEARN_SHOWN])
+    learn_html = (f'<section class="fr-sec" id="learn"><div class="fr-head"><h2>Betting Guides</h2></div>'
+                  f'<div class="hl-grid">{learn}</div><div class="fr-links">{front.more_link(guides.INDEX_DIR + "/", "All guides")}</div></section>')
     front_html = front.sections(S, now_utc, learn=learn_html)
     pieces = daily.load()
 
@@ -339,34 +342,27 @@ def build(template, nhl_data, logo_svg, now_utc=None):
     # /matchups/, /odds/ and /trends/: every sport's games (trends) today;
     # the All tab is in the HTML, the pills filter it in place
     for kind, x in front.INDEX.items():
-        main = (front.trends_index_body(S, now_utc, locked_trends) if kind == 'trends' else front.index_body(S, now_utc, kind))
+        main = (front.trends_index_body(S, now_utc) if kind == 'trends' else front.index_body(S, now_utc, kind))
         out = page(x['title'], x['desc'].format(sports=sports.sport_names()), main + front.FRONT_JS,
-                   status, depth='../').replace('__LOGO_SVG__', logo_svg)
+                   status, depth='../', current=kind).replace('__LOGO_SVG__', logo_svg)
         os.makedirs(os.path.join(ROOT, kind), exist_ok=True)
         with open(os.path.join(ROOT, kind, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(out)
 
-    learn_page = page('Learn: How 1st Period, Quarter and Half Bets Work | RTYB', 'How first-segment bets work: spreads, moneylines, totals, NRFI, First Five and units.',
-                      LEARN_BODY, status, depth='../').replace('__LOGO_SVG__', logo_svg)
-    os.makedirs(os.path.join(ROOT, 'learn'), exist_ok=True)
-    with open(os.path.join(ROOT, 'learn', 'index.html'), 'w', encoding='utf-8') as f:
-        f.write(learn_page)
-    daily.write_pages(page, status, logo_svg, pieces)
+    guides.write(page, status, logo_svg)
+    daily.write_pages(page, status, logo_svg, pieces, pills=front.pills, script=front.FRONT_JS)
     seo.write_legal(page, status, logo_svg)
     today_n = sum(1 for sp in S.values() for g in sp.games(today) if front.game_lined(sp, g))
     return {'today': today_n, 'trends': front_html.count('ht-card')}
 
 
+def picks_shell(label):
+    """/picks/ and /{sport}/picks/ while sports.PICKS_LIVE is False."""
+    return (f'<section class="hp-sec hd-soon pk-shell"><h1>{esc(label)} Picks</h1>'
+            '<p class="lead">Picks are coming with Premium.</p></section>')
+
+
 LEARN_SHOWN = 3   # guides on the home page, then "All guides"
-LEARN_LINKS = [
-    ('segments', 'First-segment bets', 'Why the 1st period, quarter, half and inning.'),
-    ('ats', 'Spread (ATS)', 'Covering, pushes and the -110 price.'),
-    ('su', 'Moneyline and SU', 'Straight-up records, ties and prices.'),
-    ('totals', 'Totals (O/U)', 'Overs, unders and whole-number pushes.'),
-    ('nrfi', 'NRFI / YRFI and F5', 'Baseball’s first inning and first five.'),
-    ('units', 'Units', 'How RTYB counts profit and loss.'),
-    ('confidence', 'How confidence works', 'How Today’s Picks are scored, tiered and graded.'),
-]
 
 
 def write_picks(template, nhl_data, logo_svg, body, now_utc=None):
@@ -375,54 +371,11 @@ def write_picks(template, nhl_data, logo_svg, body, now_utc=None):
     today = now_utc.astimezone(ET).date().isoformat()
     by_sport, _ = collect(template, nhl_data)
     status = [(sp,) + sport_status(sp, by_sport.get(sp['key'], {}), today) for sp in sports.LAUNCHED]
+    if not sports.PICKS_LIVE:   # the Premium shell; picks.build still keeps the log
+        body = picks_shell('All Sports')
     html = page('Today’s Picks | RTYB', 'Trend-based plays for the first quarter, half, period and inning, ranked by confidence, with every tier’s record public.',
                 body, status, depth='../', noindex=True).replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, 'picks'), exist_ok=True)
     with open(os.path.join(ROOT, 'picks', 'index.html'), 'w', encoding='utf-8') as f:
         f.write(html)
 
-LEARN_BODY = '''
-<section class="hp-sec learn">
-  <h1>Learn</h1>
-  <p class="lead">RTYB tracks the opening segment of every game. Here&rsquo;s what each market means and how we grade it.</p>
-  <h2 id="segments">First-segment bets</h2>
-  <p>Instead of the whole game, these bets settle on the first piece of it: the 1st period in the NHL, the 1st quarter or
-  1st half in football and basketball, and the 1st inning or first five innings in baseball. They settle fast and
-  depend on how teams start, which is what RTYB&rsquo;s records and trends measure.</p>
-  <h2 id="ats">Spread (ATS)</h2>
-  <p>The favorite gives points and the underdog gets them: &ldquo;Lakers &minus;1.5&rdquo; wins if the Lakers win the
-  segment by 2 or more. Records are W-L-P &mdash; a push (P) is when the margin lands exactly on the line, and the bet is
-  refunded. Spreads are usually priced at &minus;110 (risk $110 to win $100) unless another price is listed.</p>
-  <h2 id="su">Moneyline and SU</h2>
-  <p>A moneyline bet is on who wins the segment outright. RTYB shows these records as SU (straight up), W-L-T. A tie
-  in the segment is a push for the bet (0 units). Prices: &minus;150 means risk $150 to win $100; +130 means risk $100 to
-  win $130.</p>
-  <h2 id="totals">Totals (Over / Under)</h2>
-  <p>A bet on combined points, goals or runs in the segment. Records are O-U-P. A half-point line (44.5) can&rsquo;t push;
-  a whole-number line (44) pushes when the total lands on it exactly.</p>
-  <h2 id="nrfi">NRFI / YRFI and First Five (F5)</h2>
-  <p>NRFI is &ldquo;no run first inning&rdquo; &mdash; neither team scores in the 1st. YRFI is the opposite. There are no
-  pushes; if the 1st inning isn&rsquo;t finished, it&rsquo;s No Action. First Five bets settle on the score after five
-  innings: the F5 spread is always 0.5 runs (a tie goes to the +0.5 side), an F5 moneyline tie is a push, and fewer than
-  five innings played means No Action.</p>
-  <h2 id="units">Units</h2>
-  <p>1 unit = $100 risked on every game in a category at the listed price. A loss is &minus;1 unit; a win pays by the
-  price (+0.91u at &minus;110). Pushes, ties and No Action are 0. Records that need odds &mdash; spreads, totals,
-  favorites and units &mdash; only count games with saved odds, and say how many (&ldquo;based on N games with
-  odds&rdquo;).</p>
-  <h2 id="confidence">How confidence works (Today&rsquo;s Picks)</h2>
-  <p>Every play on <a href="../picks/">Today&rsquo;s Picks</a> starts from a saved line: a moneyline price, a spread or a
-  total. For each side, RTYB collects angles from this season&rsquo;s graded games played before it, at <em>today&rsquo;s</em>
-  line: the team&rsquo;s record this season, over its last 8 and at this venue, and the opponent&rsquo;s record at its venue
-  (for totals, both teams&rsquo; games). Each angle&rsquo;s hit rate is pulled toward 50% by 8 imaginary games, so small samples
-  move less, and the angles are averaged by sample size. The <b>edge</b> is that estimate minus the chance the price
-  implies (&minus;110 when no price was saved).</p>
-  <p>A play needs at least two angles that agree and an edge of 3% or more. <b>A-tier</b>: edge 6%+ on a sample of 15+ with a
-  saved price. <b>B-tier</b>: edge 4%+ on 10+. Everything else is <b>C</b>, and a sample under 10 can&rsquo;t rank above C.
-  Personalities tag the style of each play (Chalk Eater, Dog Hunter, Streak Rider, Contrarian, Over Lover, Under Grinder,
-  Early Bird).</p>
-  <p>Plays lock when the game starts and are graded on the saved line and price: wins at the price, losses &minus;1u, pushes
-  and tied moneyline segments 0u. Records start from the first day Picks went live; nothing is backfilled.</p>
-  <h2 id="responsible">Bet responsibly</h2>
-  <p>Only bet what you can afford to lose. If gambling stops being fun, call 1-800-GAMBLER for free, confidential help.</p>
-</section>'''

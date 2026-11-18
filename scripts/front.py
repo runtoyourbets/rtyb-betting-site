@@ -43,7 +43,6 @@ TREND_MIN_N = 20       # Hottest Trends: games behind the record,
 TREND_MIN_EDGE = 0.05  # ... and points over the league rate, to qualify
 HOT_SHOWN = 3          # Hottest Trends: exactly this many cards,
 HOT_ROWS = 3           # ... with up to this many game rows each
-INDEX_OPEN = 3         # /trends/: open cards per sport before the unlock
 PREVIEW_HOUR = 11      # On Tap shows from 11 AM ET to the next day's 11 AM
 MOTD_TRENDS = 4        # agreeing trends listed on Matchup of the Day
 BEST_MIN = 3           # Yesterday's Best: decided games a record needs
@@ -631,13 +630,19 @@ def markets_html(sport, d, g, odds=False, root=''):
     return spread_rows(sport, d, g, odds, root)
 
 
-def when_txt(sport, d, g, today, now):
+def when_txt(sport, d, g, today, now, full=False):
     """The title bar: the start time, with the day when it isn't today
-    (football always: "THU 8:15 PM ET"); LIVE or FINAL once it starts."""
+    (football always: "THU 8:15 PM ET"); LIVE or FINAL once it starts.
+    full (the index pages): "LIVE · 4th · TOR 83-80", "FINAL · 1Q TOR 29-23"."""
     if g.get('state') == 'final':
-        return 'FINAL'
+        return 'FINAL' + (f' · {final_seg(sport, g)}' if full and final_seg(sport, g) else '')
     if started(g, now):
-        return 'LIVE'
+        if not full:
+            return 'LIVE'
+        detail = str(g.get('detail') or '')
+        period = detail.split(' - ')[-1].strip() if detail else ''
+        lead = lead_txt(sport, g, g.get('as'), g.get('hs'))
+        return ' · '.join(x for x in ('LIVE', period, lead) if x)
     t = parse(g.get('start'))
     if not t:
         return 'TBD'
@@ -646,7 +651,25 @@ def when_txt(sport, d, g, today, now):
     return day + t.strftime('%-I:%M %p ET')
 
 
-def slate_card(sport, d, g, today, now, root, odds=False, show_sport=True):
+def lead_txt(sport, g, a, h):
+    """'TOR 83-80': the leader first; level: '1-1'."""
+    if a is None or h is None:
+        return ''
+    if a == h:
+        return f'{a}-{h}'
+    return f'{sport.code(g["away"])} {a}-{h}' if a > h else f'{sport.code(g["home"])} {h}-{a}'
+
+
+def final_seg(sport, g):
+    """'1Q TOR 29-23': the opening segment's score (the first one graded)."""
+    for k in sport.seg_keys():
+        sc = (((g.get('res') or {}).get(k)) or {}).get('sc')
+        if sc and len(sc) == 2:
+            return f'{seg_tag(sport, k)} {lead_txt(sport, g, sc[0], sc[1])}'
+    return ''
+
+
+def slate_card(sport, d, g, today, now, root, odds=False, show_sport=True, full=False):
     def side(slug, sc):
         return (f'<span class="sl-tm">{sport.badge(slug, 22, root)}<span class="sl-code">{esc(sport.code(slug))}</span>'
                 + (f'<span class="sl-sc">{esc(sc)}</span>' if sc is not None else '') + '</span>')
@@ -656,7 +679,7 @@ def slate_card(sport, d, g, today, now, root, odds=False, show_sport=True):
     sp_lbl = f'<span class="sl-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</span>' if show_sport else ''
     return (f'<a class="st-card sl-card" href="{esc(href)}" data-sport="{sport.key}" data-day="{d}" data-start="{esc(g.get("start") or "")}"'
             f' data-state="{esc(g.get("state") or "pre")}"{" data-weekly" if sport.weekly else ""}>'
-            f'<div class="st-head"><h4><span class="sl-when">{esc(when_txt(sport, d, g, today, now))}</span>{sp_lbl}</h4></div>'
+            f'<div class="st-head"><h4><span class="sl-when">{esc(when_txt(sport, d, g, today, now, full))}</span>{sp_lbl}</h4></div>'
             f'<div class="sl-teams">{side(g["away"], a_sc)}<span class="sl-at">@</span>{side(g["home"], h_sc)}</div>'
             f'{markets_html(sport, d, g, odds, root)}</a>')
 
@@ -1018,28 +1041,70 @@ def running_tab():
             f'{signup.box("tab")}</div></section>')
 
 
-# ----------------------------------------------------------- /trends/
-def trends_index_body(S, now_utc, locked_html, root='../'):
-    """Today's trends, every sport in season: pills (All | each sport), cards
-    grouped by sport under All. Each sport's first 3 cards are open; the
-    rest sit behind the newsletter unlock (locked_html(n, cards_html))."""
-    today = now_utc.astimezone(ET).date().isoformat()
-    groups, opts = '', [('all', 'All')]
+# ------------------------------------------------------- index pages
+# /matchups/, /odds/ and /trends/: title + date, pills (All + each sport,
+# tapping one scrolls to its section), then one section per sport in
+# season, always listed, in nav order: up to 3 cards and "More NHL
+# Matchups". Everything is in the HTML.
+INDEX_CARDS = 3
+ROLLOVER_HOUR = 6   # the index pages' day runs 6 AM to 6 AM ET
+
+
+def index_day(now_utc):
+    return (now_utc.astimezone(ET) - timedelta(hours=ROLLOVER_HOUR)).date().isoformat()
+
+
+def index_games(sport, now_utc):
+    """[(date, game)], up to INDEX_CARDS. Daily sports: the day's first 3 by
+    start time, kept all day (live and final too); none that day: the next
+    game day's first 3. Weekly sports: the week's next 3 still to start."""
+    day = index_day(now_utc)
+    if sport.weekly:
+        return upcoming(sport, day, now_utc)[:INDEX_CARDS]
+    for d in sorted(x for x in (sport.doc.get('games') or {}) if x >= day):
+        games = sorted((g for g in sport.games(d) if game_lined(sport, g)), key=lambda g: (g.get('start') or '', g['away']))
+        if games:
+            return [(d, g) for g in games[:INDEX_CARDS]]
+    return []
+
+
+def week_label(games):
+    """'Week 11' from the shown games' week key ('2-11')."""
+    wk = next((str(g.get('wk')) for _, g in games if g.get('wk')), '')
+    n = wk.split('-')[-1]
+    return f'Week {n}' if n.isdigit() else ''
+
+
+def index_pills(S):
+    links = '<a class="seg-btn" href="#ix-top">All</a>' + ''.join(
+        f'<a class="seg-btn" href="#ix-{sport.key}">{esc(sport.label)}</a>' for sport in S.values())
+    return f'<nav class="fr-pills ix-pills" aria-label="Sports">{links}</nav>'
+
+
+def index_section(sport, inner, more_href, more_text, heading_extra=''):
+    extra = f' <span class="ix-week">&middot; {esc(heading_extra)}</span>' if heading_extra else ''
+    return (f'<section class="ix-group" id="ix-{sport.key}"><h2 class="ix-sport">{esc(sport.label)}{extra}</h2>'
+            f'{inner}<div class="fr-links">{more_link(more_href, more_text)}</div></section>')
+
+
+def index_page(kind, day, sections_html, S):
+    return (f'<div class="ix" id="ix-top"><div class="ix-head"><h1>{INDEX[kind]["h1"]}</h1><span class="sl-date">{esc(day_label(day))}</span></div>'
+            f'{index_pills(S)}{sections_html}</div>')
+
+
+def trends_index_body(S, now_utc, root='../'):
+    """/trends/: per sport, the top 3 trends for its games (ranked by season
+    units), Hottest Trends cards with the "i", up to 3 rows each. Fully open:
+    the newsletter lock is on each sport's own Trends page."""
+    out = ''
     for sport in S.values():
-        opts.append((sport.key, sport.label))
-        cards = [h for h in (hot_card(sp, c, b, xs, root, now_utc, False) for sp, c, b, xs in hot_cards({sport.key: sport}, now_utc, bar=False)) if h]
-        link = more_link(f'{root}{sport.trends_page}', f'{esc(sport.label)} Trends')
-        head = f'<h2 class="ix-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</h2>'
-        if cards:
-            rest = cards[INDEX_OPEN:]
-            locked = locked_html(len(rest), ''.join(rest)) if rest else ''
-            groups += (f'<section class="ix-group" data-pane="{sport.key}">{head}<div class="tr-cards ht-cards">{"".join(cards[:INDEX_OPEN])}</div>'
-                       f'{locked}<div class="fr-links">{link}</div></section>')
-        else:
-            groups += (f'<section class="ix-group ix-none" data-pane="{sport.key}" data-only>{head}'
-                       f'<p class="fr-empty">No {esc(sport.label)} trends with games today.</p><div class="fr-links">{link}</div></section>')
-    return (f'<div class="ix" data-tabs data-index><div class="ix-head"><h1>{INDEX["trends"]["h1"]}</h1><span class="sl-date">{esc(day_label(today))}</span></div>'
-            f'{pills("Sport", opts)}{groups}</div>{running_tab()}')
+        found = sorted(hot_cards({sport.key: sport}, now_utc, bar=False), key=lambda f: -f[1]['units'])
+        cards = [h for h in (hot_card(sp, c, b, xs, root, now_utc, False) for sp, c, b, xs in found) if h][:INDEX_CARDS]
+        inner = (f'<div class="tr-cards ht-cards">{"".join(cards)}</div>' if cards
+                 else f'<p class="fr-empty">No {esc(sport.label)} trends with games today.</p>')
+        out += index_section(sport, inner, f'{root}{sport.trends_page}', f'More {esc(sport.label)} Trends',
+                             week_label(index_games(sport, now_utc)) if sport.weekly else '')
+    return index_page('trends', index_day(now_utc), out, S) + running_tab()
 
 
 # ---------------------------------------------------- Yesterday's Results
@@ -1071,40 +1136,31 @@ def yesterdays_results(S, yday, root='', hub=False):
 
 # --------------------------------------------------------- index pages
 INDEX = {
-    'matchups': {'title': 'Matchups Today: First Period, First Quarter & First Half Odds | RTYB', 'h1': 'Matchups Today',
+    'matchups': {'title': 'Matchups Today: First Period, First Quarter & First Half | RTYB', 'h1': 'Matchups Today',
                  'desc': 'Every game today with first period, first quarter and first half odds: the favorite, spread, moneyline and total for {sports}.',
                  'link': 'Matchups'},
-    'odds': {'title': 'Odds Today: First Period, First Quarter & First Half Lines | RTYB', 'h1': 'Odds Today',
+    'odds': {'title': 'Odds Today: First Period, First Quarter & First Half | RTYB', 'h1': 'Odds Today',
              'desc': 'The best first period, first quarter and first half price at every sportsbook today, for {sports}.',
              'link': 'Odds'},
-    'trends': {'title': 'Trends Today: First Period, First Quarter & First Half Betting Trends | RTYB', 'h1': 'Trends Today',
+    'trends': {'title': 'Betting Trends Today: First Period, First Quarter & First Half | RTYB', 'h1': 'Betting Trends Today',
                'desc': 'Every first period, first quarter and first half betting trend with a game today, for {sports}.',
                'link': 'Trends'},
 }
 
 
 def index_body(S, now_utc, kind, root='../'):
-    """/matchups/ and /odds/: every sport's games today with a line, live
-    first, then upcoming, finals last; grouped by sport under All."""
-    now = now_utc
-    today = now.astimezone(ET).date().isoformat()
+    """/matchups/ (Slate cards) and /odds/ (the best price per market, with
+    the book): index_games for every sport in season."""
     odds = kind == 'odds'
-    rank = {'in': 0, 'pre': 1, 'final': 2}
-    groups, opts = '', [('all', 'All')]
+    day = index_day(now_utc)
+    out = ''
     for sport in S.values():
-        opts.append((sport.key, sport.label))
-        games = [g for g in sport.games(today) if game_lined(sport, g)]
-        games.sort(key=lambda g: (rank.get('in' if g.get('state') == 'pre' and started(g, now) else g.get('state'), 3), g.get('start') or ''))
-        link = more_link(f'{root}{sport.odds_page if odds else sport.matchups}', f'{esc(sport.label)} {INDEX[kind]["link"]}')
-        if games:
-            body = ''.join(slate_card(sport, today, g, today, now, root, odds=odds, show_sport=False) for g in games)
-            groups += (f'<section class="ix-group" data-pane="{sport.key}"><h2 class="ix-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</h2>'
-                       f'<div class="sl-cards">{body}</div><div class="fr-links">{link}</div></section>')
-        else:
-            groups += (f'<section class="ix-group ix-none" data-pane="{sport.key}" data-only><h2 class="ix-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</h2>'
-                       f'<p class="fr-empty">No {esc(sport.label)} games with {"lines" if odds else "odds"} today.</p><div class="fr-links">{link}</div></section>')
-    return (f'<div class="ix" data-tabs data-index><div class="ix-head"><h1>{INDEX[kind]["h1"]}</h1><span class="sl-date">{esc(day_label(today))}</span></div>'
-            f'{pills("Sport", opts)}{groups}</div>')
+        games = index_games(sport, now_utc)
+        inner = (f'<div class="sl-cards">{"".join(slate_card(sport, d, g, day, now_utc, root, odds=odds, show_sport=False, full=True) for d, g in games)}</div>'
+                 if games else f'<p class="fr-empty">No {esc(sport.label)} games with {"lines" if odds else "odds"} coming up.</p>')
+        out += index_section(sport, inner, f'{root}{sport.odds_page if odds else sport.matchups}',
+                             f'More {esc(sport.label)} {INDEX[kind]["link"]}', week_label(games) if sport.weekly else '')
+    return index_page(kind, day, out, S)
 
 
 # ------------------------------------------------------------ the script
@@ -1167,7 +1223,6 @@ FRONT_JS = '''
       });
     });
   });
-  document.querySelectorAll('[data-index] [data-only]').forEach(function(el) { el.hidden = true; });
   document.querySelectorAll('[data-trends-more]').forEach(function(b) {
     b.addEventListener('click', function() {
       b.parentNode.querySelectorAll('.tr-card[data-more]').forEach(function(c) { c.hidden = false; });

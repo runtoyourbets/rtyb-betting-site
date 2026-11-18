@@ -22,6 +22,7 @@ from datetime import date, datetime, timedelta, timezone
 
 import daily
 import sport_build
+import sports
 from sport_build import read_json, write_json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,7 +34,7 @@ HIT = {'ml': 'W', 'ats': 'W', 'total': 'O', 'btts': 'Y', 'rfi': 'Y'}
 MISS = {'ml': 'L', 'ats': 'L', 'total': 'U', 'btts': 'N', 'rfi': 'N'}
 GAME_PICK = {'O': 'over', 'U': 'under', 'Y': 'yes', 'N': 'no'}
 FLIP = {'W': 'L', 'L': 'W'}
-# when each piece of The Daily is drafted (ET), for the "Coming at" cards
+# when each On Tap piece is drafted (ET), for the "Coming at" cards
 DAILY_TIME = {'recap': '8 AM', 'preview': '11 AM'}
 WEEKLY_TIME = {'recap': 'Monday at 8 AM', 'preview': 'Thursday at 9 AM'}
 
@@ -397,6 +398,6 @@ def build(sp, doc, trends_doc, slug_dir, now_utc=None):
            'motdRecord': {'last': {k: last.get(k) for k in ('bet', 'result', 'score')} if last and last.get('result') else None,
                           'season': [sum(1 for e in graded if e['result'] == 'W'), sum(1 for e in graded if e['result'] == 'L')]},
            'daily': daily_cards(sp, today, weekly),
-           'learn': f"/learn/{sp['slug']}/" if os.path.exists(os.path.join(ROOT, 'learn', sp['slug'], 'index.html')) else '/learn/'}
+           'learn': sports.guide_path(sp)}
     write_json(os.path.join(slug_dir, 'hub.json'), hub)
     return hub['motd']
