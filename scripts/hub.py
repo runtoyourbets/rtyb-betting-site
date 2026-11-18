@@ -314,7 +314,7 @@ def pick_matchup(doc, trends_doc, slug_dir, key, games, before):
     day = next((d for d, x in all_games(doc) if x is g), None)
     price = best_price(slug_dir, day, g, k, m, pick)
     return {'id': g['id'], 'date': day, 'start': g.get('start'), 'away': g['away'], 'home': g['home'], 'seg': k, 'mk': m, 'pick': pick,
-            'bet': bet_words(doc, g, k, m, pick), 'n': len(ts), 'label': matchup_label(doc, g, k, seqs_by_seg.get(k) or {}),
+            'bet': bet_words(doc, g, k, m, pick), 'n': len(ts), 'edge': round(best[0][1], 4), 'label': matchup_label(doc, g, k, seqs_by_seg.get(k) or {}),
             'trends': [{'kind': t['kind'], 'text': t['text'], 'rec': t['rec']} for t in ts],
             'price': {'price': price[0], 'line': price[1], 'book': price[2]} if price else None}
 

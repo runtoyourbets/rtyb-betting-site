@@ -31,6 +31,7 @@ from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import daily  # noqa: E402
 import grading  # noqa: E402
 import sports  # noqa: E402
 
@@ -38,12 +39,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ET = ZoneInfo('America/New_York')
 DRAFTS = os.path.join(ROOT, 'content', 'drafts')
 PUBLISHED = os.path.join(ROOT, 'content', 'published')
-SPORTS = tuple(sp['key'] for sp in sports.SPORTS)   # a sport with no games that day gets no draft
+SPORTS = tuple(sp['key'] for sp in sports.SPORTS)   # a sport with no games that day (or out of season) gets no draft
 # kind -> (weekday, first ET hour, last ET hour) a scheduled run may write
 # it; weekday None is every day. Football's pieces are weekly: the Weekend
-# Recap on Monday, the Week Preview on Thursday.
-WINDOWS = {'recap': (None, 8, 14), 'preview': (None, 11, 18)}
-WEEKLY_WINDOWS = {'recap': (0, 8, 14), 'preview': (3, 9, 18)}
+# Recap on Monday, the Week Preview on Thursday. On Tap is drafted from
+# 8 AM so it's waiting in the admin Drafts tab by 10 AM; it shows from
+# 11 AM once approved. The recap runs only while daily.RECAP is on.
+WINDOWS = {'recap': (None, 8, 14), 'preview': (None, 8, 18)}
+WEEKLY_WINDOWS = {'recap': (0, 8, 14), 'preview': (3, 8, 18)}
 MODEL = 'claude-opus-5-5'
 STREAK_MIN = 3   # runs this long are worth a mention
 
@@ -382,6 +385,24 @@ def sport_preview(key, day):
             'trends_page': f"/{sp['slug']}/trends/"}
 
 
+def all_preview(day):
+    """The home page's On Tap: every in-season sport's preview packet with
+    games that day (football: its week preview on Thursday), in one."""
+    d = date.fromisoformat(day)
+    parts, on = {}, []
+    for sp in sports.shown(d):
+        if weekly(sp['key']) and d.weekday() != WEEKLY_WINDOWS['preview'][0]:
+            continue
+        x = builder('preview', sp['key'])(day)
+        if x:
+            parts[sp['label']] = x
+            on.append(sp)
+    if not parts:
+        return None
+    return {'sport': sports.sport_names(on),
+            'segments': 'first period, first quarter and first half', 'date': day, 'sports': parts, 'trends_page': '/trends/'}
+
+
 def week_of(D, day):
     """The week `day` falls in, else the next one."""
     weeks = D.get('weeks') or []
@@ -427,6 +448,8 @@ def week_preview(key, day):
 
 
 def builder(kind, key):
+    if key == daily.ALL:
+        return all_preview
     if key == 'nhl':
         return nhl_recap if kind == 'recap' else nhl_preview
     if sports.BY_KEY[key].get('schedule') == 'week':
@@ -453,16 +476,20 @@ PREVIEW = (" It's a tease, not a tip sheet: name games, start times and streaks 
 TASK = {
     'recap': "Write The Morning Run, today's recap of last night's {sport} {seg} betting results, from this packet. Cover the biggest results, how RTYB's league trends did, the night's best and worst results, and the streaks that were extended or snapped. End with what carries into today (the 'carries_into_today' part).",
     'preview': "Write On Tap, today's {sport} {seg} betting preview, from this packet." + PREVIEW,
+    'all_preview': "Write On Tap, today's betting preview across every sport on the slate ({sport}), for the {seg}, from this packet. "
+                   "Pick the few games with the most going on across all of them." + PREVIEW,
     'week_recap': "Write the Weekend Recap, the {sport} {seg} betting results of {week} so far, from this packet. Cover the biggest results, how RTYB's league trends did, the weekend's best and worst results, and the streaks that were extended or snapped.",
     'week_preview': "Write the {week} Preview, this week's {sport} {seg} betting preview, from this packet." + PREVIEW,
 }
 
 
 def weekly(sport):
-    return sports.BY_KEY[sport].get('schedule') == 'week'
+    return sport != daily.ALL and sports.BY_KEY[sport].get('schedule') == 'week'
 
 
 def title(kind, sport, day, packet=None):
+    if sport == daily.ALL:
+        return f"On Tap: Today's First Period, Quarter and Half Betting Preview — {date.fromisoformat(day).strftime('%b %-d, %Y')}"
     sp = sports.BY_KEY[sport]
     seg = ' and '.join(s['label'].replace('1st ', 'First ') for s in sp['segments'])
     when = date.fromisoformat(day).strftime('%b %-d, %Y')
@@ -493,7 +520,7 @@ def write_piece(kind, sport, day, packet):
     import anthropic   # only the scheduled run needs the SDK
     client = anthropic.Anthropic()
     seg = packet.get('segment') or packet.get('segments')
-    task = TASK[('week_' if weekly(sport) else '') + kind]
+    task = TASK['all_preview' if sport == daily.ALL else ('week_' if weekly(sport) else '') + kind]
     prompt = task.format(sport=packet['sport'], seg=seg, week=packet.get('week')) + '\n\n<packet>\n' + json.dumps(packet, indent=1, ensure_ascii=False) + '\n</packet>'
     # A declined request falls back server-side to Anthropic's recommended model
     response = client.beta.messages.create(
@@ -548,8 +575,11 @@ def scheduled(now=None):
         print('ANTHROPIC_API_KEY not set; no drafts written')
         return
     day = now.date().isoformat()
+    on = {sp['key'] for sp in sports.shown(now.date())}
     for kind in WINDOWS:
-        for sport in SPORTS:
+        if kind == 'recap' and not daily.RECAP:
+            continue
+        for sport in [s for s in SPORTS if s in on] + ([daily.ALL] if kind == 'preview' else []):
             wday, start, end = (WEEKLY_WINDOWS if weekly(sport) else WINDOWS)[kind]
             if (wday is not None and now.weekday() != wday) or not start <= now.hour <= end:
                 continue

@@ -40,7 +40,7 @@ class EverySportTest(unittest.TestCase):
 
     def test_football_is_weekly(self):
         self.assertEqual(dc.WEEKLY_WINDOWS['recap'][0], 0)     # Monday
-        self.assertEqual(dc.WEEKLY_WINDOWS['preview'][:2], (3, 9))   # Thursday 9 AM ET
+        self.assertEqual(dc.WEEKLY_WINDOWS['preview'][:2], (3, 8))   # Thursday from 8 AM ET (ready by 10)
         self.assertTrue(dc.weekly('nfl') and dc.weekly('ncaaf') and not dc.weekly('nba'))
 
     def test_big_slates_keep_the_busiest_games_in_order(self):

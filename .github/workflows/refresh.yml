@@ -114,8 +114,8 @@ jobs:
       - name: Build site
         run: python3 scripts/build_site.py
 
-      - name: The Daily drafts (recap from 8 AM ET, preview from 11 AM ET)
-        # Claude writes each sport's recap / preview once a day, as a draft
+      - name: The Daily drafts (On Tap previews from 8 AM ET; the recap is switched off)
+        # Claude writes each sport's On Tap preview (and one for the home page) once a day, as a draft
         # in content/drafts/ for someone to approve; nothing is published
         # automatically. Skipped until the ANTHROPIC_API_KEY secret is set,
         # and a failure never stops the refresh (the next run retries).

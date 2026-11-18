@@ -64,6 +64,29 @@ class BestTest(unittest.TestCase):
         self.assertEqual(front.yesterdays_best(S, '2026-11-15'), '')
 
 
+    def test_needs_three_decided_games(self):
+        S = {'nhl': FakeSport('nhl', {'2026-11-15': [nhl_game(1, [1, 1])]})}
+        self.assertEqual(front.yesterdays_best(S, '2026-11-15'), '')
+
+
+class OnTapTest(unittest.TestCase):
+    def test_shows_from_11am_to_next_11am(self):
+        import daily
+        old = daily.load
+        daily.load = lambda: [{'kind': 'preview', 'sport': 'all', 'date': '2026-11-17', 'path': 'daily/on-tap/2026-11-17/',
+                               'title': 'T', 'hook': 'Hook', 'teaser': 'One. Two.'}]
+        try:
+            S = {'nhl': FakeSport('nhl', {})}
+            at = lambda h, d=17: datetime(2026, 11, d, h, 0, tzinfo=timezone.utc)   # UTC; ET is 5 hours behind
+            self.assertIsNone(front.on_tap_piece(S, at(15), 'all'))        # 10 AM ET
+            self.assertIsNotNone(front.on_tap_piece(S, at(16), 'all'))     # 11 AM ET
+            self.assertIsNotNone(front.on_tap_piece(S, at(15, 18), 'all')) # next day, 10 AM ET
+            self.assertIsNone(front.on_tap_piece(S, at(16, 18), 'all'))    # next day, 11 AM ET
+            self.assertIn('On Tap &middot; Tuesday, Nov 17', front.on_tap_hero(front.on_tap_piece(S, at(16), 'all'), ''))
+        finally:
+            daily.load = old
+
+
 class PriceTest(unittest.TestCase):
     def test_moneylines_past_2000_are_a_dash(self):
         self.assertEqual(front.price_txt(-2700), '&mdash;')
@@ -112,8 +135,8 @@ class HotTrendsTest(unittest.TestCase):
     def test_today_only_and_bar(self):
         games = [nba_game('1'), nba_game('2', start='2026-11-19T00:30:00Z')]
         cards = [card('today', 5, [('1', 'home')]), card('later', 9, [('2', 'home')], seg='1q'),
-                 card('few', 9, [('1', 'away')], seg='1q', n=20), card('small', 1.5, [('1', 'away')], mk='ats'),
-                 card('thin', 9, [('1', 'away')], mk='tot', rate=0.55), card('3way', 9, [('1', 'away')], mk='ml3')]
+                 card('few', 9, [('1', 'away')], seg='1q', n=19), card('losing', -1.5, [('1', 'away')], mk='ats'),
+                 card('thin', 9, [('1', 'away')], mk='tot', rate=0.54), card('3way', 9, [('1', 'away')], mk='ml3')]
         self.assertEqual(self.hot(cards, games), ['today'])
 
     def test_mirror_keeps_more_units(self):
@@ -130,6 +153,20 @@ class HotTrendsTest(unittest.TestCase):
                  card('other_mk', 6, [('3', 'home')], seg='1q', angle='d'),
                  card('third', 5, [('4', 'home')], mk='ats', angle='e')]
         self.assertEqual(self.hot(cards, games), ['a', 'other_mk', 'third', 'same_mk'])
+
+
+class LineMoveTest(unittest.TestCase):
+    def test_biggest_move_not_started(self):
+        now = datetime(2026, 11, 17, 22, 0, tzinfo=timezone.utc)
+        games = [nba_game('1'), nba_game('2'), nba_game('3', start='2026-11-17T21:00:00Z')]
+        S = FakeSport('nba', {'2026-11-17': games})
+        moves = {'1': ({'away': 100, 'home': -120}, {'away': -118, 'home': -105}),
+                 '2': ({'away': 120, 'home': -140}, {'away': 125, 'home': -150}),
+                 '3': ({'away': 300, 'home': -400}, {'away': -200, 'home': 170})}   # started: left out
+        S.odds_game = lambda d, g: {'open': {'1h': {'ml': moves[g['id']][0]}}, 'best': {'1h': {'ml': moves[g['id']][1]}}}
+        html = front.line_move({'nba': S}, now)
+        self.assertIn('1H moneyline opened <span class="mono">+100</span>, now <span class="mono">-118</span>', html)
+        self.assertEqual(front.line_move({'nba': FakeSport('nba', {})}, now), '')
 
 
 class LinkCheckTest(unittest.TestCase):

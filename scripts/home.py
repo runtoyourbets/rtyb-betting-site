@@ -4,11 +4,14 @@ build time from the same data every sport page uses: NHL's merged data
 (build_site.py) and each other sport's {slug}/data.json (sport_build.py).
 Static -- the refresh job rebuilds them every run.
 
-Sections, top to bottom: nav, sport chips, hero (with Yesterday's Best),
-then the shared front sections (scripts/front.py, also on every Arena hub):
-The Slate, Hottest Trends (the rest behind the newsletter box) and
-Yesterday's Results; then The Daily, Premium + email signup, Learn links,
-footer. Every list of sports comes from sports.LAUNCHED (in season).
+Sections, top to bottom: nav, sport chips, then the shared front sections
+(scripts/front.py sections, also on every Arena hub): the slogan line, On
+Tap (or Yesterday's Best, large), Yesterday's Best, The Slate, Matchup of
+the Day, Hottest Trends, Team to Watch, Biggest Line Move, Get the Running
+Tab, Yesterday's Results, then Learn (3 guides); footer. Every list of
+sports comes from sports.LAUNCHED (in season). Also writes /matchups/,
+/odds/ and /trends/ (the trends past each sport's first 3 behind the
+newsletter unlock).
 
 Colors are the site tokens from assets/site.css (template.html :root).
 """
@@ -315,56 +318,29 @@ def build(template, nhl_data, logo_svg, now_utc=None):
         f'<span class="hs-name">{icons.sport_icon(sp)}{esc(sp["label"])}</span><span class="hs-count">{esc(chip)}</span></a>'
         for sp, chip, live, short in status)
 
-    # Yesterday's Best, The Slate, Hottest Trends and Yesterday's Results:
-    # the shared sections (scripts/front.py), every sport in season
+    # every section is shared with the hubs (scripts/front.py), every sport in season
     S = front.load(now_utc)
-    yday = front.yesterday(now_utc)
-    best = front.yesterdays_best(S, yday)
-    hero = (f'<section class="hh"><div class="hh-copy"><h1><span class="hh-a">The first</span> <span class="hh-b">period.</span><br><span class="hh-a">The first</span> <span class="hh-b">quarter.</span><br><span class="hh-a">The first</span> <span class="hh-b">half.</span></h1>'
-            f'<p>Early bets settle fast. Run to yours with the numbers! Odds, stats and trends for every {esc(sports.sport_names())} game.</p>'
-            f'<div class="hh-cta"><a class="btn-primary" href="#trends">Today&rsquo;s trends</a>'
-            f'<a class="btn-ghost" href="#premium">Get the daily email</a></div></div>{best}</section>')
-    front_html = (front.slate(S, now_utc) + front.hottest_trends(S, now_utc, locked_html=locked_trends)
-                  + front.yesterdays_results(S, yday) + front.FRONT_JS)
-
+    learn = ''.join(f'<a class="hl-card" href="learn/#{a}"><b>{esc(t)}</b><span>{esc(d)}</span></a>' for a, t, d in LEARN_LINKS[:LEARN_SHOWN])
+    learn_html = (f'<section class="fr-sec" id="learn"><div class="fr-head"><h2>Learn</h2></div>'
+                  f'<div class="hl-grid">{learn}</div><div class="fr-links">{front.more_link("learn/", "All guides")}</div></section>')
+    front_html = front.sections(S, now_utc, learn=learn_html)
     pieces = daily.load()
-    # the newest recap, preview and column; a placeholder for any not published yet
-    slots = {'recap': '<div class="hd-card"><span class="hd-kicker">The Morning Run &middot; recap</span><b>Yesterday&rsquo;s recap lands here each morning.</b><span class="muted">Starting launch week.</span></div>',
-             'preview': '<div class="hd-card"><span class="hd-kicker">On Tap &middot; today&rsquo;s preview</span><b>Today&rsquo;s preview lands here before the first game.</b><span class="muted">Starting launch week.</span></div>',
-             'column': '<div class="hd-card"><span class="hd-kicker">Running Tab &middot; weekly column</span><b>The first column is on the way.</b><span class="muted">Coming soon.</span></div>'}
-    for kind in slots:
-        p = daily.latest(pieces, kind)
-        if p:
-            slots[kind] = daily.card(p, p['path'])
-    daily_html = ('<section class="hp-sec" id="daily"><div class="hp-head"><h2>The Daily</h2>'
-                  '<span class="muted">Recaps, previews and the weekly column.</span><a class="hp-head-link" href="daily/">Everything in The Daily &rarr;</a></div>'
-                  '<div class="hd-grid">' + ''.join(slots.values()) + '</div></section>')
-
-    premium = (f'<section class="hpp" id="premium"><div class="hpp-inner"><div>'
-               f'<span class="hpp-kicker">RTYB Premium &middot; coming soon</span><h2>Premium is coming. Get on the list.</h2>'
-               f'<ul><li>Plays where several trends point the same way</li><li>Situational splits: rest, back-to-backs, bounce-backs</li>'
-               f'<li>Every pick graded in public</li></ul></div>'
-               f'<div class="hpp-form"><p class="hpp-label">Get the Running Tab, our free newsletter. '
-               f'You&rsquo;ll hear first when Premium launches.</p>{signup.box("tab")}</div></div></section>')
-
-    learn = ''.join(f'<a class="hl-card" href="learn/#{a}"><b>{esc(t)}</b><span>{esc(d)}</span></a>' for a, t, d in LEARN_LINKS)
-    learn_html = (f'<section class="hp-sec" id="learn"><div class="hp-head"><h2>Learn</h2></div>'
-                  f'<div class="hl-grid">{learn}</div></section>')
 
     chip_row = (f'<div class="hs-wrap" id="hsWrap">'
                 f'<button class="hs-arrow prev" type="button" aria-label="Scroll leagues left" hidden>&lsaquo;</button>'
                 f'<div class="hs-row" id="hsRow">{chips}</div>'
                 f'<button class="hs-arrow next" type="button" aria-label="Scroll leagues right" hidden>&rsaquo;</button></div>')
-    body = (f'{chip_row}{hero}{front_html}{daily_html}{premium}{learn_html}')
+    body = f'{chip_row}{front_html}'
     home = page('RTYB — Run to Your Bets', f'First period, first quarter and first half betting odds, stats and trends for every {sports.sport_names()} game.',
                 body, status, is_home=True).replace('__LOGO_SVG__', logo_svg)
     with open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(home)
 
-    # /matchups/ and /odds/: every sport's games today, the Slate card (front.py);
+    # /matchups/, /odds/ and /trends/: every sport's games (trends) today;
     # the All tab is in the HTML, the pills filter it in place
     for kind, x in front.INDEX.items():
-        out = page(x['title'], x['desc'].format(sports=sports.sport_names()), front.index_body(S, now_utc, kind) + front.FRONT_JS,
+        main = (front.trends_index_body(S, now_utc, locked_trends) if kind == 'trends' else front.index_body(S, now_utc, kind))
+        out = page(x['title'], x['desc'].format(sports=sports.sport_names()), main + front.FRONT_JS,
                    status, depth='../').replace('__LOGO_SVG__', logo_svg)
         os.makedirs(os.path.join(ROOT, kind), exist_ok=True)
         with open(os.path.join(ROOT, kind, 'index.html'), 'w', encoding='utf-8') as f:
@@ -378,9 +354,10 @@ def build(template, nhl_data, logo_svg, now_utc=None):
     daily.write_pages(page, status, logo_svg, pieces)
     seo.write_legal(page, status, logo_svg)
     today_n = sum(1 for sp in S.values() for g in sp.games(today) if front.game_lined(sp, g))
-    return {'today': today_n, 'trends': front_html.count('class="tr-card"')}
+    return {'today': today_n, 'trends': front_html.count('ht-card')}
 
 
+LEARN_SHOWN = 3   # guides on the home page, then "All guides"
 LEARN_LINKS = [
     ('segments', 'First-segment bets', 'Why the 1st period, quarter, half and inning.'),
     ('ats', 'Spread (ATS)', 'Covering, pushes and the -110 price.'),

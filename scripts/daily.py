@@ -31,6 +31,9 @@ import sports
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLISHED = os.path.join(ROOT, 'content', 'published')
+# The Morning Run (recap) is off: it isn't drafted or shown. True brings it back.
+RECAP = False
+ALL = 'all'   # the home page's On Tap: one preview across every sport
 KIND = {'recap': ('The Morning Run', 'recap'), 'preview': ('On Tap', 'preview'), 'column': ('Running Tab', 'column')}
 WEEKLY_KIND = {'recap': 'Weekend Recap', 'preview': 'Week Preview'}
 FOOT = '<p class="dp-21">21+ only. Gambling problem? Call 1-800-GAMBLER.</p>'
@@ -112,16 +115,17 @@ def load():
         with open(os.path.join(PUBLISHED, name), encoding='utf-8') as f:
             meta, body = parse(f.read())
         kind = meta.get('kind') or ('column' if name.startswith('column-') else None)
-        if kind not in KIND:
+        if kind not in KIND or (kind == 'recap' and not RECAP):
             continue
         day = str(meta.get('date') or '')
         if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', day):
             continue
         sport = meta.get('sport') if kind != 'column' else None
-        if kind != 'column' and sport not in sports.BY_KEY:
+        if kind != 'column' and sport not in sports.BY_KEY and not (sport == ALL and kind == 'preview'):
             continue
         slug = re.sub(r'[^a-z0-9-]+', '-', str(meta.get('slug') or name[:-3].replace('column-', '')).lower()).strip('-')
-        path = f'column/{slug}/' if kind == 'column' else f"{sports.BY_KEY[sport]['slug']}/{kind}/{day}/"
+        path = (f'column/{slug}/' if kind == 'column' else f'daily/on-tap/{day}/' if sport == ALL
+                else f"{sports.BY_KEY[sport]['slug']}/{kind}/{day}/")
         hook, teaser = hook_and_teaser(body)
         out.append({'kind': kind, 'sport': sport, 'date': day, 'slug': slug, 'path': path, 'body': body,
                     'title': meta.get('title') or hook or name[:-3], 'hook': hook, 'teaser': teaser})
@@ -134,7 +138,7 @@ def nice_date(day):
 
 
 def kicker(p):
-    if not p['sport']:
+    if not p['sport'] or p['sport'] == ALL:
         return KIND[p['kind']][0]
     sp = sports.BY_KEY[p['sport']]
     name = WEEKLY_KIND[p['kind']] if sp.get('schedule') == 'week' else KIND[p['kind']][0]

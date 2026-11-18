@@ -2578,94 +2578,10 @@
   // linking to its full page, from data.json (NHL: sport.json), trends.json
   // and hub.json (scripts/hub.py: Matchup of the Day and its record, The
   // Daily, the Learn link). Football says "this week" where others say "today".
-  function hubSlate() {
-    if (D.schedule === 'week') { var wk = (D.weeks || []).length ? currentWeek(D.weeks) : null; return { key: wk, games: wk ? weekGames(wk) : [] }; }
-    return { key: todayET(), games: (D.games[todayET()] || []).slice() };
-  }
   function hubSec(title, link, body, id) {
     return '<section class="hub-sec"' + (id ? ' id="' + id + '"' : '') + '><div class="hub-head"><h2>' + title + '</h2>' + (link || '') + '</div>' + body + '</section>';
   }
   function hubLink(href, txt) { return '<a class="hub-more" href="' + href + '">' + txt + ' &rarr;</a>'; }
-  function hubPriceTxt(m) {
-    var p = m.price, ln = p.line == null ? '' : m.mk === 'total' ? (m.pick === 'under' ? 'U ' : 'O ') + p.line + ' ' : m.mk === 'ats' ? signed(p.line) + ' ' : '';
-    return ln + signed(p.price);
-  }
-  function hubMotd(H, slate) {
-    var m = H.motd, wk = D.schedule === 'week', rec = H.motdRecord || {}, out;
-    if (!m) out = '<p class="hub-none">No standout matchup ' + (wk ? 'this week' : 'today') + '.</p>';
-    else {
-      var g = findGame(m.id) || m, href = ROOT + SPORT_SLUG + '/trends/?' + (wk ? 'week=' + slate.key : 'date=' + m.date) + '&seg=' + m.seg + '#mt-' + m.id;
-      out = '<div class="hub-motd"><div class="hub-motd-top"><span class="tr-time">' + esc(trTime(g.start)) + '</span>' +
-        (m.label ? '<span class="mt-label">' + esc(m.label) + '</span>' : '') + '</div>' +
-        '<div class="hub-motd-teams">' + badge(m.away, 26) + nameHtml(m.away) + '<span class="hub-at">@</span>' + badge(m.home, 26) + nameHtml(m.home) + '</div>' +
-        '<p class="hub-motd-bet"><b>' + m.n + ' trends agree:</b> ' + esc(m.bet) +
-        (m.price ? ' <span class="hub-price">Best price <b class="mono">' + esc(hubPriceTxt(m)) + '</b> at ' + esc(m.price.book) + '</span>' : '') + '</p>' +
-        '<ul class="hub-motd-list">' + m.trends.map(function(t) { return '<li><span>' + esc(t.text) + '</span>' + (t.kind === 'streak' ? '' : '<b class="mono">' + esc(t.rec) + '</b>') + '</li>'; }).join('') + '</ul>' +
-        hubLink(href, 'See the full matchup') + '</div>';
-    }
-    var last = rec.last, season = rec.season || [0, 0];
-    var foot = (last ? '<span>' + (wk ? 'Last week' : 'Yesterday') + ': ' + ({ W: '✓', L: '✗', P: '–' }[last.result] || '') + ' ' + esc(last.bet) + (last.score ? ' (' + esc(last.score) + ')' : '') + '</span>' : '') +
-      (season[0] + season[1] ? '<span>Season: <b class="mono">' + season[0] + '–' + season[1] + '</b></span>' : '');
-    return out + (foot ? '<div class="hub-motd-rec">' + foot + '</div>' : '');
-  }
-  function hubDaily(H) {
-    var wk = D.schedule === 'week', dl = H.daily || {};
-    var names = wk ? { recap: 'Weekend Recap', preview: 'Week ' + ((((D.weeks || []).filter(function(w) { return w.key === hubSlate().key; })[0] || {}).label || '').replace(/^Week /, '')) + ' Preview' }
-      : { recap: 'The Morning Run', preview: 'On Tap' };
-    return '<div class="hub-daily">' + ['recap', 'preview'].map(function(kind) {
-      var p = dl[kind] || {};
-      if (p.path) return '<a class="dp-card hub-dcard" href="' + ROOT + p.path + '"><span class="hd-kicker">' + esc(names[kind]) + '</span><b>' + esc(p.title) + '</b><span class="muted">' + esc(p.teaser) + '</span><span class="dp-more">Read it &rarr;</span></a>';
-      return '<div class="dp-card hub-dcard soon"><span class="hd-kicker">' + esc(names[kind]) + '</span><b>Coming ' + (wk ? p.due : 'at ' + p.due) + ' ET</b></div>';
-    }).join('') + '</div>';
-  }
-  // the longest run (3+) among teams playing, preferring an opponent on the opposite run
-  function hubStreak(slate) {
-    var before = D.schedule === 'week' ? ((D.weeks || []).filter(function(w) { return w.key === slate.key; })[0] || {}).start : todayET(), best = null;
-    D.segments.forEach(function(s) {
-      var seqs = teamSeqs(before, s.key);
-      (D.markets || []).filter(function(x) { return x[0] === s.key && HIT[x[1]]; }).forEach(function(x) {
-        var m = x[1];
-        slate.games.filter(function(g) { return g.state !== 'final'; }).forEach(function(g) {
-          ['away', 'home'].forEach(function(side) {
-            var me = g[side], opp = g[side === 'away' ? 'home' : 'away'];
-            var st = streakOf(((seqs[me] || {})[m]) || []), os = streakOf(((seqs[opp] || {})[m]) || []);
-            if (!st || st.n < 3) return;
-            var pair = os && os.n >= 3 && os.kind !== st.kind && (m === 'ml' || m === 'ats') ? os : null;
-            var score = [pair ? 1 : 0, st.n, pair ? pair.n : 0];
-            if (!best || score[0] > best.score[0] || (score[0] === best.score[0] && (score[1] > best.score[1] || (score[1] === best.score[1] && score[2] > best.score[2]))))
-              best = { score: score, me: me, opp: opp, m: m, k: s.key, st: st, os: pair };
-          });
-        });
-      });
-    });
-    if (!best) return '<p class="hub-none">No team playing ' + (D.schedule === 'week' ? 'this week' : 'today') + ' is on a run of 3 or more.</p>';
-    var txt = streakWords(best.me, best.m, best.st, best.k) + '. ' + (D.schedule === 'week' ? 'This week' : 'Tonight') + ' vs ' + tcode(best.opp);
-    if (best.os) {
-      var w = best.m === 'ml' ? (best.os.kind === 'W' ? 'won' : 'lost') : (best.os.kind === 'W' ? 'covered' : 'failed to cover');
-      txt += ', who have ' + w + ' ' + best.os.n + ' straight';
-    }
-    return '<div class="hub-line">' + badge(best.me, 26) + '<p>' + esc(txt) + '.</p></div>';
-  }
-  // the team with the most of its next game's situations in its favor
-  function hubTeam(slate) {
-    var e = sitEngine();
-    if (!e || !e.spots) return '<p class="hub-none">Situational results aren&rsquo;t set up for ' + esc(D.label) + ' yet.</p>';
-    var k = D.segments[0].key, mk = (e.markets[0] || {}).id, best = null;
-    slate.games.filter(function(g) { return g.state !== 'final'; }).forEach(function(g) {
-      ['away', 'home'].forEach(function(side) {
-        var sp = e.spots(k, g[side], g.id, mk), win = sp.filter(function(x) { return x.edge > 0; });
-        if (!win.length) return;
-        if (!best || win.length > best.win.length || (win.length === best.win.length && sp.length < best.all.length)) best = { slug: g[side], win: win, all: sp };
-      });
-    });
-    if (!best) return '<p class="hub-none">No team has a situation in its favor ' + (D.schedule === 'week' ? 'this week' : 'tonight') + '.</p>';
-    var mkLabel = (e.markets.filter(function(x) { return x.id === mk; })[0] || {}).label || '', rank = edgeRank(best.slug);
-    return '<div class="hub-team">' + badge(best.slug, 30) + '<div><b class="hub-team-name">' + nameHtml(best.slug) + '</b>' +
-      '<p class="muted">' + best.all.length + ' spot' + (best.all.length === 1 ? '' : 's') + ', ' + best.win.length + ' winning (' + esc(seg(k).tag + ' ' + mkLabel) + ')</p>' +
-      '<ul class="hub-spots">' + best.win.map(function(x) { return '<li>' + esc(x.label) + ' <b class="mono">' + esc(x.rec) + '</b></li>'; }).join('') + '</ul>' +
-      (rank ? '<p class="hub-rank"><a href="' + statsUrl('edges') + '">' + esc(edgeRankWords(rank)) + '</a></p>' : '') +
-      (teamUrl(best.slug) ? hubLink(teamUrl(best.slug), 'See the team') : '') + '</div></div>';
-  }
   // one stat a day (the same for everyone that day), from all three Stats
   // pages: Season Results, the Splits standout, the Edges rows; links to its page
   function hubNumber() {
@@ -2700,10 +2616,11 @@
     var day = Math.floor(Date.parse(todayET() + 'T12:00:00Z') / 864e5), x = out[day % out.length];
     return { html: '<p class="hub-number"><b class="mono">' + x.pct + '%</b> ' + x.txt.replace(/&(?![a-z]+;)/g, '&amp;') + '.</p>', href: x.href, go: x.go };
   }
-  // Yesterday's Best, The Slate, Hottest Trends and Yesterday's Results are
-  // in the page's HTML above #sportApp (scripts/front.py, shared with the home page)
+  // Everything above The Number (On Tap, The Slate, Matchup of the Day,
+  // Hottest Trends, Team to Watch, Biggest Line Move, the Running Tab,
+  // Yesterday's Results) is in the page's HTML above #sportApp
+  // (scripts/front.py, shared with the home page)
   function renderHub() {
-    var slate = hubSlate(), wk = D.schedule === 'week';
     Promise.all([
       fetch(ROOT + SPORT_SLUG + '/hub.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
       fetch(ROOT + SPORT_SLUG + '/trends.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
@@ -2711,11 +2628,7 @@
       var H = res[0] || {};
       TR = res[1] || { slates: {}, tips: {}, markets: [] };
       var segName = D.segments.map(function(s) { return s.label.toLowerCase(); }).join(' and '), num = hubNumber();
-      app.innerHTML = hubSec(wk ? 'Matchup of the Week' : 'Matchup of the Day', '', hubMotd(H, slate)) +
-        hubSec('The Daily', hubLink(ROOT + 'daily/', 'All of The Daily'), hubDaily(H)) +
-        hubSec('Streak to Watch', hubLink(ROOT + SPORT_SLUG + '/trends/#streaks', 'See streaks'), hubStreak(slate)) +
-        hubSec('Team to Watch', '', hubTeam(slate)) +
-        hubSec('The Number', hubLink(num.href, num.go), num.html) +
+      app.innerHTML = hubSec('The Number', hubLink(num.href, num.go), num.html) +
         '<section class="hub-sec hub-learn"><a href="' + ROOT + String(H.learn || '/learn/').replace(/^\//, '') + '">New to ' + esc(segName) + ' betting? Read the guide &rarr;</a></section>';
     });
   }

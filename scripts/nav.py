@@ -38,12 +38,11 @@ def _sport_items(base, status, section, badges=True):
 
 
 def links(base):
-    """[(label, href)] after the Sports menu. Matchups and Odds open the
-    every-sport index pages (/matchups/, /odds/); Trends opens NHL's for now."""
-    nhl = sports.BY_KEY['nhl']
+    """[(label, href)] after the Sports menu. Matchups, Odds and Trends open
+    the every-sport index pages (/matchups/, /odds/, /trends/)."""
     return [('Matchups', base + 'matchups/'),
             ('Odds', base + 'odds/'),
-            ('Trends', base + sports.section_path(nhl, 'trends').lstrip('/')),
+            ('Trends', base + 'trends/'),
             ('The Daily', base + 'daily/'),
             ('Learn', base + 'learn/')]
 
