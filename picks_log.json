@@ -9518,6 +9518,56 @@
     "streakTeamName": "Portland"
    },
    {
+    "id": "nba|401910010|1h|ml|away",
+    "game": "nba|401910010",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "76ers @ Magic",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 110,
+    "title": "76ers 1H ML",
+    "est": 0.539,
+    "edge": 0.0628,
+    "agree": 4,
+    "sample": 14,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "phi",
+    "angles": [
+     [
+      "Magic\u2019s opponents 1H ML, Magic at home",
+      "4-1"
+     ],
+     [
+      "76ers 1H ML, last 8",
+      "5-2-1"
+     ],
+     [
+      "76ers 1H ML on the road",
+      "5-2"
+     ],
+     [
+      "76ers 1H ML, season",
+      "9-5-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "76ers"
+   },
+   {
     "id": "ncaab|401920963|1h|ml|away",
     "game": "ncaab|401920963",
     "date": "2026-11-18",
@@ -9774,54 +9824,6 @@
     "streakTeamName": "Grizzlies"
    },
    {
-    "id": "nba|401910010|1h|ml|away",
-    "game": "nba|401910010",
-    "date": "2026-11-18",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-19T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "76ers @ Magic",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -110,
-    "title": "76ers 1H ML",
-    "est": 0.5715,
-    "edge": 0.0476,
-    "agree": 4,
-    "sample": 14,
-    "tier": "B",
-    "tags": [],
-    "streak": 2,
-    "streakTeam": "phi",
-    "angles": [
-     [
-      "Magic\u2019s opponents 1H ML, Magic at home",
-      "4-1"
-     ],
-     [
-      "76ers 1H ML, last 8",
-      "5-2-1"
-     ],
-     [
-      "76ers 1H ML on the road",
-      "5-2"
-     ],
-     [
-      "76ers 1H ML, season",
-      "9-5-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "76ers"
-   },
-   {
     "id": "nba|401910014|1h|ml|away",
     "game": "nba|401910014",
     "date": "2026-11-18",
@@ -9961,46 +9963,54 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "nhl|2026020346|1p|btts|yes",
-    "game": "nhl|2026020346",
+    "id": "nba|401910007|1h|total|under",
+    "game": "nba|401910007",
     "date": "2026-11-18",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-19T03:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Colorado @ Utah",
-    "href": "nhl/matchups/?date=2026-11-18",
-    "market": "btts",
-    "side": "yes",
-    "line": null,
-    "price": 160,
-    "title": "1P BTTS Yes",
-    "est": 0.4275,
-    "edge": 0.0429,
-    "agree": 2,
-    "sample": 22,
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Grizzlies @ Cavaliers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 122.5,
+    "price": -106,
+    "title": "1H Under 122.5",
+    "est": 0.5582,
+    "edge": 0.0436,
+    "agree": 6,
+    "sample": 15,
     "tier": "B",
     "tags": [
-     "Over Lover"
+     "Under Grinder"
     ],
-    "streak": -2,
-    "streakTeam": "COL",
+    "streak": -3,
+    "streakTeam": "mem",
     "angles": [
      [
-      "Utah 1P BTTS, last 8",
-      "5-3"
+      "Cavaliers 1H unders, last 8 (122.5)",
+      "7-1"
      ],
      [
-      "Colorado 1P BTTS on the road",
-      "6-5"
+      "Cavaliers 1H unders, season (122.5)",
+      "13-2"
+     ],
+     [
+      "Cavaliers 1H unders at home (122.5)",
+      "6-2"
+     ],
+     [
+      "Grizzlies 1H unders, season (122.5)",
+      "10-4"
      ]
     ],
-    "info": null,
+    "info": "Avg 1H total in their games: Cavaliers 113.3 \u00b7 Grizzlies 118.6",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Colorado"
+    "streakTeamName": "Grizzlies"
    }
   ]
  }
