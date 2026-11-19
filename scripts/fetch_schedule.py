@@ -137,6 +137,10 @@ def main():
                 'home': home,
                 'startTimeUTC': g.get('startTimeUTC'),
                 'state': state,
+                # Preview's game lines: the arena, and the US national networks (else the teams' own)
+                'venue': (g.get('venue') or {}).get('default'),
+                'tv': ([b['network'] for b in g.get('tvBroadcasts') or [] if b.get('market') == 'N' and b.get('countryCode') == 'US']
+                       or [b['network'] for b in g.get('tvBroadcasts') or [] if b.get('market') in ('H', 'A')]),
             }
             if state in ('FINAL', 'OFF', 'LIVE', 'CRIT'):
                 away_final = g.get('awayTeam', {}).get('score')

@@ -27,7 +27,9 @@ Saved game:
    "conf_game", "neutral", "note", "country" (venue country, e.g. "USA" /
    "England"), "away_rank", "home_rank" (college: the AP / CFP rank ESPN
    shows for the game, i.e. at kickoff; None when unranked), "national_tv"
-   (on a national broadcast), "tv" (those networks)}
+   (on a national broadcast), "tv" (those networks), "venue" ("Rocket
+   Arena, Cleveland, OH"), "tv_any" (the national networks, else the local
+   ones: Preview's game lines)}
 
 Football and basketball finals also get "fg_spread" (the home team's
 closing full-game spread; negative = home favored), "fg_total" and
@@ -168,6 +170,10 @@ def parse_event(sport, ev, team_slugs, labels=None):
     notes = [n.get('headline') for n in comp.get('notes') or [] if n.get('headline')]
     week = (ev.get('week') or {}).get('number')
     national = sorted({n for b in comp.get('broadcasts') or [] if b.get('market') == 'national' for n in b.get('names') or []})
+    regional = [n for b in comp.get('broadcasts') or [] if b.get('market') != 'national' for n in b.get('names') or []]
+    ven = comp.get('venue') or {}
+    addr = ven.get('address') or {}
+    place = ', '.join(x for x in (addr.get('city'), addr.get('state')) if x)
     ranks = {}
     for c in comp['competitors']:
         r = (c.get('curatedRank') or {}).get('current')
@@ -195,6 +201,8 @@ def parse_event(sport, ev, team_slugs, labels=None):
         'away_rank': ranks.get('away'), 'home_rank': ranks.get('home'),
         'national_tv': bool(national),
         'tv': national,
+        'venue': ', '.join(x for x in (ven.get('fullName'), place) if x) or None,
+        'tv_any': national or list(dict.fromkeys(regional)),
     }
 
 

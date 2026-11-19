@@ -18,8 +18,12 @@ sports.PREVIEW_LIVE is False, it does nothing.
 The packet sent to Claude holds every fact the piece may use: per game the
 full team names and codes, the start, each trend's season record and rate
 (10+ games), the streaks, the lines (open, now, best price and its book),
-and which game is the Matchup of the Day and which the lead game
-(scripts/preview.py). After writing, every number in the draft is checked
+and which game is the Matchup of the Day and which the lead game; per team
+every segment market's season rate (overall, home / road, favorite /
+underdog); the league trends that fit tonight; the Edge plays; and the three
+boxes already picked (scripts/preview.py). Every preview's instructions
+carry content/preview_writing_guide.md in full; the drafter's STAT / TREND /
+EDGE sentences go into the draft's front matter with their boxes. After writing, every number in the draft is checked
 against the packet (times and dates aside); any that isn't there is listed
 in the draft's `check:` line for the editor.
 
@@ -339,7 +343,9 @@ def preview_packet(key, day):
     lead = next((g['matchup'] for g in rows if g['lead_game']), None)
     motd = next((g['matchup'] for g in rows if g['matchup_of_the_day']), None)
     out = {'sport': sports.seo_name(key), 'segments': seg_words(key), 'date': day, 'games_on_the_slate': len(games),
-           'lead_game': lead, 'matchup_of_the_day': motd, 'games': rows, 'trends_page': f"/{sp['slug']}/trends/"}
+           'lead_game': lead, 'matchup_of_the_day': motd, 'games': rows, 'trends_page': f"/{sp['slug']}/trends/",
+           **pv.more_data(key, day, {g['id'] for g in rows}),
+           'boxes': pv.boxes(key, day)}
     wk = pv.week_of(sport, day) if sport.weekly else None
     if wk:
         out['week'] = wk['label']
@@ -370,13 +376,15 @@ def all_preview(day):
                 g['matchup_of_the_day'] = bool(motd and tuple(motd) == (sp['key'], g['id']))
             x.pop('lead_game', None)
             x.pop('matchup_of_the_day', None)
+            x.pop('boxes', None)   # the home page picks its own, across sports
             parts[sports.seo_name(sp)] = x
             on.append(sp)
     if not parts:
         return None
     find = lambda flag: next((f"{n}: {g['matchup']}" for n, x in parts.items() for g in x['games'] if g[flag]), None)
     return {'sport': sports.sport_names(on), 'segments': 'first period, first quarter and first half', 'date': day,
-            'lead_game': find('lead_game'), 'matchup_of_the_day': find('matchup_of_the_day'), 'sports': parts, 'trends_page': '/trends/'}
+            'lead_game': find('lead_game'), 'matchup_of_the_day': find('matchup_of_the_day'), 'sports': parts, 'trends_page': '/trends/',
+            'boxes': pv.boxes(daily.ALL, day, [sp['key'] for sp in on])}
 
 
 def week_of(D, day):
@@ -425,7 +433,7 @@ def builder(kind, key):
 
 # --------------------------------------------------------------- writing
 
-SYSTEM = """You write Preview, the daily preview, for Run to Your Bets (RTYB), a site of first-period, first-quarter and first-half betting stats. Your voice: a fun, confident bettor who knows the numbers cold, talking to other bettors.
+SYSTEM = """You write for Run to Your Bets (RTYB), a site of first-period, first-quarter and first-half betting stats. Your voice: a fun, confident bettor who knows the numbers cold, talking to other bettors.
 
 Rules, all of them strict:
 - Use only facts in the data packet. Every team, score, price, record, rate, line and streak you mention must appear in the packet exactly as given. If something isn't in the packet, leave it out.
@@ -434,23 +442,26 @@ Rules, all of them strict:
 - Odds are American (-125, +150).
 - Teams: the full name from the packet in the text (Milwaukee Bucks); the team code (MIL) only inside a bet or a stat.
 - Don't add disclaimer lines; the site has its own.
+- Markdown: short paragraphs, no bullet lists, no tables."""
 
-Format, Markdown, exactly in this order:
-# The headline (about the lead game: the packet's lead_game)
-> The dek: one sentence under the headline.
-!! NUMBER | One line on what that number is (the piece's one big-number callout: a number from the packet).
-Then the body: short paragraphs, no bullet lists, no tables."""
+GUIDE = os.path.join(ROOT, 'content', 'preview_writing_guide.md')
 
-PREVIEW = (" Lead with the lead game (lead_game: true). The Matchup of the Day (matchup_of_the_day: true) gets its usual place, not the lead. "
-           "Body: one subhead per game you cover, '### Away Team at Home Team · 7:00 PM ET' (short team names, the packet's start), "
-           "in start-time order, each followed by a short paragraph. Give no specific bets or picks.")
+
+def system_for(kind):
+    """The recap: SYSTEM. Every preview (all-sports and each sport): SYSTEM
+    plus the full writing guide (content/preview_writing_guide.md)."""
+    if kind != 'preview':
+        return SYSTEM
+    with open(GUIDE, encoding='utf-8') as f:
+        return SYSTEM + '\n\nFollow this writing guide exactly:\n\n<writing_guide>\n' + f.read().strip() + '\n</writing_guide>'
+
+
+PREVIEW = " Follow the writing guide: the STAT / TREND / EDGE lines for the packet's boxes, the headline and dek, then the body with one '###' subhead per game."
 TASK = {
     'recap': "Write The Morning Run, today's recap of last night's {sport} {seg} betting results, from this packet. Cover the biggest results, how RTYB's league trends did, the night's best and worst results, and the streaks that were extended or snapped. End with what carries into today (the 'carries_into_today' part).",
     'preview': "Write Preview, today's {sport} {seg} betting preview, from this packet." + PREVIEW,
     'all_preview': "Write Preview, today's betting preview across every sport on the slate ({sport}), for the {seg}, from this packet. "
-                   "Lead with the lead game (lead_game: true; the Matchup of the Day is never the lead). "
-                   "Body: one subhead per sport, '## NBA: Bucks at Heat leads a 12-game night' (the sport's name as in the packet, then a short line), "
-                   "each followed by a paragraph or two on its few games with the most going on. Give no specific bets or picks.",
+                   "Follow the writing guide: the STAT / TREND / EDGE lines for the packet's boxes, the headline and dek, the intro, then one '##' section per sport with two paragraphs each.",
     'week_recap': "Write the Weekend Recap, the {sport} {seg} betting results of {week} so far, from this packet. Cover the biggest results, how RTYB's league trends did, the weekend's best and worst results, and the streaks that were extended or snapped.",
     'week_preview': "Write the {week} Preview, this week's {sport} {seg} betting preview, from this packet." + PREVIEW,
 }
@@ -506,7 +517,7 @@ def write_piece(kind, sport, day, packet):
         model=MODEL, max_tokens=16000,
         betas=['server-side-fallback-2026-07-01'], fallbacks='default',
         output_config={'effort': 'medium'},
-        system=SYSTEM,
+        system=system_for(kind),
         messages=[{'role': 'user', 'content': prompt}],
     )
     if response.stop_reason == 'refusal':
@@ -521,9 +532,29 @@ def draft_path(kind, sport, day):
     return os.path.join(DRAFTS, f'{sport}-{kind}-{day}.md')
 
 
+BOX_LINES = {'STAT': 'stat_of_night', 'TREND': 'league_trend', 'EDGE': 'edge_play'}
+
+
+def box_front(body, packet):
+    """(body without its STAT / TREND / EDGE lines, front matter lines): each
+    box from the packet's pick, with the drafter's sentence when it wrote one."""
+    said, keep = {}, []
+    for line in body.split('\n'):
+        m = re.match(r'\s*(STAT|TREND|EDGE):\s*(.+)$', line)
+        if m and BOX_LINES[m.group(1)] not in said:
+            said[BOX_LINES[m.group(1)]] = m.group(2).strip()
+        else:
+            keep.append(line)
+    front = []
+    for key, box in (packet.get('boxes') or {}).items():
+        front.append(f'{key}: ' + json.dumps(dict(box, text=said.get(key) or box.get('text')), ensure_ascii=False))
+    return '\n'.join(keep).strip(), front
+
+
 def save(kind, sport, day, body, model, packet):
     os.makedirs(DRAFTS, exist_ok=True)
-    check = unchecked_numbers(body, packet)
+    check = unchecked_numbers(body, packet)   # the box sentences too
+    body, boxes = box_front(body, packet) if kind == 'preview' else (body, [])
     front = ['---', f'title: {json.dumps(title(kind, sport, day, packet), ensure_ascii=False)}', f'sport: {sport}', f'kind: {kind}',
              f'date: {day}', f"written: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%MZ')}", f'model: {model}',
              f'check: {json.dumps(check)}']
@@ -535,7 +566,7 @@ def save(kind, sport, day, body, model, packet):
             front.append(f"lead: {lead['sport']}:{lead['id']}")
         if motd:
             front.append(f'motd: {motd[0]}:{motd[1]}')
-    front += ['---', '']
+    front += boxes + ['---', '']
     with open(draft_path(kind, sport, day), 'w', encoding='utf-8') as f:
         f.write('\n'.join(front) + body + '\n')
     # the packet beside the draft, so the editor can check every number

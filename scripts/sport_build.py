@@ -1015,6 +1015,7 @@ def game_out(g):
         # closing full-game line (home team's spread; negative = home favored)
         'fs': g.get('fg_spread'), 'ft': g.get('fg_total'), 'fml': g.get('fg_ml'),
         'tvn': g.get('national_tv'),
+        'ven': g.get('venue'), 'tv': g.get('tv_any') or None,   # Preview's game lines
     }
 
 

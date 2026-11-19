@@ -49,9 +49,11 @@ class EverySportTest(unittest.TestCase):
 
     def test_preview_has_its_format_and_no_disclaimer(self):
         for kind in ('preview', 'week_preview', 'all_preview'):
-            self.assertIn('lead game', dc.TASK[kind])
-        self.assertIn('# The headline', dc.SYSTEM)
-        self.assertIn('!! NUMBER |', dc.SYSTEM)
+            self.assertIn('STAT / TREND / EDGE', dc.TASK[kind])
+        guide = open(dc.GUIDE, encoding='utf-8').read().strip()
+        self.assertIn(guide, dc.system_for('preview'))   # the full writing guide, every preview
+        self.assertNotIn('writing_guide', dc.system_for('recap'))
+        self.assertNotIn('!!', dc.system_for('preview'))
         self.assertNotIn('not promises', dc.SYSTEM + ''.join(dc.TASK.values()))
         self.assertNotIn('On Tap', dc.SYSTEM + ''.join(dc.TASK.values()))
 

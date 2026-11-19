@@ -37,6 +37,7 @@ def game(g, date):
            'as': g.get('awayFinal'), 'hs': g.get('homeFinal'), 'ot': g.get('ot') or '',
            'firstGoal': g.get('firstGoal'), 'ag': g.get('awayGoalie'), 'hg': g.get('homeGoalie'),
            'fml': g.get('fgMl'), 'detail': g.get('detail') or '',
+           'ven': g.get('venue'), 'tv': g.get('tv') or None,   # Preview's game lines
            # postseason: the NHL's game id carries the type (2025030111: 03 = playoffs)
            'post': str(g.get('id') or '')[4:6] == '03'}
     periods = [(g.get(f'awayP{i}'), g.get(f'homeP{i}')) for i in (1, 2, 3)]

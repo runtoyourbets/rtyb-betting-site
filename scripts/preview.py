@@ -15,17 +15,21 @@ Pages (every one indexed and in the sitemap):
 A sport with no games that day has no page for it.
 
 The article: a yellow label, the H1 (the draft's headline), the dek, a
-byline, the image card, then the body (all-sports: an H2 per sport ending
-"Read the full [sport] preview"; a sport: a yellow H3 per game), the
-big-number callout, a muted line of the games with no trends (sports with
-no games), and "Past previews". Desktop adds a right column: Tonight's
+byline, the image card, then the body: the intro, the three boxes (Stat of the Night, League Trend,
+Edge Play of the Night, from the draft's front matter), then all-sports:
+an H2 per sport with its icon and game line, two paragraphs, "Also with
+trends:" and "Read the full [sport] preview"; a sport: "The Matchups", a
+yellow H3 per game with both logos and its venue / TV line. Then the
+"more league trends" line, a muted line of the games with no trends
+(sports with no games), and "Past previews". Desktop adds a right column: Tonight's
 games and the Running Tab signup.
 
 The draft's Markdown (daily_content.SYSTEM):
   # Headline
   > The dek, one sentence.
-  !! 10 | The callout's line.
-  Body paragraphs, ## / ### subheads.
+  Body paragraphs, ## / ### subheads (content/preview_writing_guide.md).
+  Front matter: stat_of_night, league_trend, edge_play (each a JSON
+  {sport, number, line, text}), picked by boxes() before drafting.
 Older drafts (a bold first line) still work: the bold line is the headline,
 the first short paragraph the dek.
 
@@ -57,6 +61,7 @@ import front
 import hub
 import icons
 import sports
+import trends as tr
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ET = front.ET
@@ -367,6 +372,256 @@ def parse(iso):
     return front.parse(iso) if iso else None
 
 
+# ------------------------------------------- the morning packet: more data
+SPLIT_WORDS = {'season': 'this season', 'home': 'at home', 'road': 'on the road', 'favorite': 'as favorites', 'underdog': 'as underdogs'}
+TIERS = {'A': 0, 'B': 1, 'C': 2}
+START_WORD = {'nhl': 'puck drop', 'mlb': 'pitch', 'nfl': 'kickoff', 'ncaaf': 'kickoff'}   # else "tip"
+
+
+def team_bets(sport):
+    """[(segment, market, kind, bet, yes words, no words)] a team's rates
+    are read in: won / covered / Over / both scored / a run. No 3-way."""
+    out = []
+    for s in sport.segments:
+        k, tag = s['key'], s['tag']
+        for m, kind, bet in tr.bets_for(sport.sp, k):
+            if m == 'ml':
+                out.append((k, m, kind, None, f'won the {tag}', f'lost the {tag}'))
+            elif m == 'ats':
+                out.append((k, m, kind, None, f'covered the {tag} spread', f'failed to cover the {tag} spread'))
+            elif m == 'total' and bet == 'over':
+                out.append((k, m, kind, bet, f'went Over the {tag} total', f'went Under the {tag} total'))
+            elif m == 'btts' and bet == 'yes':
+                out.append((k, m, kind, bet, f'had both teams score in the {tag}', f'had a team held scoreless in the {tag}'))
+            elif m == 'rfi' and bet == 'yes':
+                out.append((k, m, kind, bet, 'had a run in the 1st inning', 'had no run in the 1st inning'))
+    return out
+
+
+_PREP = {}
+
+
+def prepared(sport):
+    if sport.key not in _PREP:
+        _PREP[sport.key] = tr.prepare(sport.sp, sport.doc)
+    return _PREP[sport.key]
+
+
+def split_rec(w, l):
+    n = w + l
+    return {'record': f'{w}–{l}', 'pct': f'{round(100 * w / n)}%', 'games': n, '_w': w, '_l': l} if n >= RATE_MIN else None
+
+
+def team_rates(sport, day, slugs):
+    """{slug: [rate]}: every segment market's season rate for these teams,
+    overall and split home / road and favorite / underdog, each with its
+    game count. Only splits of 10+ games."""
+    tally = {}
+    for G in prepared(sport):
+        if G['date'] >= day:
+            break
+        g = G['g']
+        for side in ('away', 'home'):
+            slug = g[side]
+            if slug not in slugs:
+                continue
+            for k, m, kind, bet, _, _ in team_bets(sport):
+                r = tr.side_result(g, k, m, side) if kind == 'side' else tr.game_result(g, k, m, bet)
+                if not r or r[0] not in ('W', 'L'):
+                    continue
+                fav = tr.favorite((g.get('odds') or {}).get(k))
+                splits = ['season', 'home' if side == 'home' else 'road'] + ([('favorite' if fav == side else 'underdog')] if fav else [])
+                for sp_ in splits:
+                    t = tally.setdefault(slug, {}).setdefault((k, m), {}).setdefault(sp_, [0, 0])
+                    t[0 if r[0] == 'W' else 1] += 1
+    out = {}
+    for slug in slugs:
+        rows = []
+        for k, m, kind, bet, yes, no in team_bets(sport):
+            got = {sp_: split_rec(*wl) for sp_, wl in ((tally.get(slug) or {}).get((k, m)) or {}).items()}
+            got = {sp_: v for sp_, v in got.items() if v}
+            if got:
+                rows.append({'seg': k, 'mk': m, 'yes': yes, 'no': no, 'splits': got})
+        out[slug] = rows
+    return out
+
+
+def public(rows):
+    """The packet's view of team_rates: no private keys."""
+    return [{'rate': r['yes'], **{SPLIT_WORDS[k]: {x: v[x] for x in ('record', 'pct', 'games')} for k, v in r['splits'].items()}} for r in rows]
+
+
+def league_cards(sport, day, games):
+    """The Trends page's league cards for the slate (10+ games) with the
+    games tonight that fit each."""
+    key = slate(sport, day)[0]
+    ids = {str(g['id']): g for g in games}
+    out = []
+    for c in (((sport.trends.get('slates') or {}).get(key) or {}).get('cards')) or []:
+        n = c['w'] + c['l']
+        fit = [ids[str(x['id'])] for x in c.get('games') or [] if str(x['id']) in ids]
+        if n >= RATE_MIN and fit and c.get('mk') != 'ml3':
+            out.append({'card': c, 'n': n, 'fit': fit})
+    return out
+
+
+def edge_plays(sport, day, games):
+    """Today's Edge plays for these games (picks_log.json), best first."""
+    import picks
+    ids = {str(g['id']): g for g in games}
+    plays = [p for p in ((read_json(picks.LOG_PATH, {}) or {}).get(day) or {}).get('plays') or []
+             if p.get('sport') == sport.key and str(p.get('game', '')).split('|')[-1] in ids]
+    plays.sort(key=lambda p: (TIERS.get(p.get('tier'), 9), -(p.get('edge') or 0)))
+    return [(p, ids[str(p['game']).split('|')[-1]]) for p in plays]
+
+
+def best_bet(sport, day, g, k, m, side):
+    """(line, price, book) at the best price now (the Odds page)."""
+    og = sport.odds_game(day, g)
+    b = ((og.get('best') or {}).get(k) or {}).get(m) or {}
+    if m == 'ats':
+        x = b.get(side) or {}
+        line, price = x.get('line'), x.get('price')
+    elif m == 'total':
+        line, price = b.get('line'), b.get(side)
+    else:
+        line, price = None, b.get(side)
+    book = front.book_of(sport, og, k, m, side, price, line if m in ('ats', 'total') else None) if isinstance(price, (int, float)) else None
+    return line, price, book_name(sport, book)
+
+
+def fmt_line(x):
+    return f'{x:+g}' if isinstance(x, (int, float)) else ''
+
+
+def fmt_price(x):
+    return f'{x:+d}' if isinstance(x, int) else (f'{x:+g}' if isinstance(x, float) else '')
+
+
+def play_info(sport, day, p, g):
+    """An Edge play as the box and packet show it: the bet, line, best price and book."""
+    k, m, side = p['seg'], p['market'], p['side']
+    tag = next((s['tag'] for s in sport.segments if s['key'] == k), k.upper())
+    line, price, book = best_bet(sport, day, g, k, m, side)
+    line = line if line is not None else p.get('line')
+    price = price if price is not None else p.get('price')
+    if m in ('ml', 'ats'):
+        code = sport.code(g[side])
+        bet = f'{code} {tag} ML' if m == 'ml' else f'{code} {tag} {fmt_line(line)}'
+        big = fmt_price(price) if m == 'ml' else fmt_line(line)
+    elif m == 'total':
+        bet = f'{tag} {side.title()} {line:g}' if isinstance(line, (int, float)) else f'{tag} {side.title()}'
+        big = f"{'O' if side == 'over' else 'U'} {line:g}" if isinstance(line, (int, float)) else side.title()
+    elif m == 'rfi':
+        bet = big = 'YRFI' if side == 'yes' else 'NRFI'
+    else:
+        bet = f'{tag} BTTS {side.title()}'
+        big = f'BTTS {side.title()}'
+    best = f'best {fmt_price(price)}' + (f' at {book}' if book else '') if isinstance(price, (int, float)) else ''
+    return {'game': f"{sport.full_name(g['away'])} at {sport.full_name(g['home'])}", 'bet': bet, 'line': line, 'best_price': fmt_price(price) or None,
+            'book': book, 'tier': p.get('tier'), 'rates_behind_it': [f'{a[0]}: {a[1]}' for a in p.get('angles') or []],
+            '_big': big, '_small': ' · '.join(x for x in (bet, best) if x), '_score': p.get('est') or 0}
+
+
+# ----------------------------------------------------- the three boxes
+def stat_pick(sport, day, games):
+    """Stat of the Night: tonight's strongest team rate (10+ games), in the
+    split that fits tonight (home / road, favorite / underdog) or the season."""
+    slugs = {g[s] for g in games for s in ('away', 'home')}
+    rates = team_rates(sport, day, slugs)
+    best = None
+    for g in games:
+        for side in ('away', 'home'):
+            for r in rates.get(g[side]) or []:
+                fav = tr.favorite((g.get('odds') or {}).get(r['seg']))
+                fits = ['season', 'home' if side == 'home' else 'road'] + ([('favorite' if fav == side else 'underdog')] if fav else [])
+                for sp_ in fits:
+                    v = r['splits'].get(sp_)
+                    if not v:
+                        continue
+                    w, l = v['_w'], v['_l']
+                    hi = w >= l
+                    score = (max(w, l) / (w + l), w + l)
+                    if best is None or score > best[0]:
+                        best = (score, g, side, r, sp_, (w, l) if hi else (l, w), r['yes'] if hi else r['no'])
+    if not best:
+        return None
+    (pct, n), g, side, r, sp_, (w, l), words = best
+    code, name = sport.code(g[side]), sport.full_name(g[side])
+    tail = '' if sp_ == 'season' else f' {SPLIT_WORDS[sp_]}'
+    return {'sport': sport.key, 'number': f'{round(pct * 100)}%', 'line': f"{code} {words.replace('went ', '')} · {w}–{l}{tail}",
+            'text': f'The {name} {words} in {w} of {n} games{tail or " this season"}.', '_score': pct}
+
+
+def trend_pick(sport, day, games):
+    """League Trend: the league card with the best record that fits tonight."""
+    cards = league_cards(sport, day, games)
+    if not cards:
+        return None
+    x = max(cards, key=lambda x: (x['card']['rate'], x['n']))
+    c = x['card']
+    names = [f"{sport.full_name(g['away'])} at {sport.full_name(g['home'])}" for g in x['fit']]
+    tonight = names[0] if len(names) == 1 else f'{names[0]} and {len(names) - 1} more game{"s" if len(names) > 2 else ""}'
+    return {'sport': sport.key, 'number': f"{round(c['rate'] * 100)}%", 'line': f"{c['title']} · {c['tag']} · {c['w']}–{c['l']}",
+            'text': f"{c['title']} {c['w']}–{c['l']} this season; tonight it fits {tonight}.", 'id': c['id'], '_score': c['rate']}
+
+
+def edge_pick(sport, day, games):
+    """Edge Play of the Night: today's top Edge play."""
+    plays = edge_plays(sport, day, games)
+    if not plays:
+        return None
+    info = play_info(sport, day, *plays[0])
+    return {'sport': sport.key, 'number': info['_big'], 'line': info['_small'],
+            'text': f"{info['game']}: the top Edge play is {info['bet']}" + (f" at {info['best_price']}." if info['best_price'] else '.'), '_score': info['_score']}
+
+
+BOX_KEYS = (('stat_of_night', stat_pick), ('league_trend', trend_pick), ('edge_play', edge_pick))
+
+
+def box_games(sport, key, day):
+    return day_games(sport, day) if key == ALL else slate(sport, day)[1]
+
+
+def boxes(key, day, keys=None):
+    """{stat_of_night, league_trend, edge_play}: each {sport, number, line,
+    text}. A sport page: all three from it. All sports (keys: the sports
+    it covers): three different sports when 3+ play, two when two do
+    (split 2 and 1), else one."""
+    keys = (keys or covers(day)) if key == ALL else [key]
+    cand = {k: {b: f(sport_of(k), day, box_games(sport_of(k), key, day)) for b, f in BOX_KEYS} for k in keys}
+    import itertools
+    best = None
+    opts = [[k for k in keys if cand[k][b]] or [None] for b, _ in BOX_KEYS]
+    for combo in itertools.product(*opts):
+        used = {k for k in combo if k}
+        score = (len(used), sum(cand[k][b]['_score'] for k, (b, _) in zip(combo, BOX_KEYS) if k))
+        if best is None or score > best[0]:
+            best = (score, combo)
+    out = {}
+    for k, (b, _) in zip(best[1] if best else (), BOX_KEYS):
+        if k:
+            out[b] = {x: v for x, v in cand[k][b].items() if not x.startswith('_')}
+    return out
+
+
+def more_data(key, day, ids=None):
+    """The packet's added data for one sport (ids: its packet's games): team
+    rates, league trends and Edge plays (10+ games for every rate)."""
+    sport = sport_of(key)
+    games = [g for g in slate(sport, day)[1] if ids is None or str(g['id']) in ids]
+    slugs = {g[s] for g in games for s in ('away', 'home')}
+    rates = team_rates(sport, day, slugs)
+    return {
+        'teams': {sport.code(s): {'name': sport.full_name(s), 'rates': public(rates.get(s) or [])} for s in sorted(slugs)},
+        'league_trends': [{'trend': x['card']['title'], 'market': x['card']['tag'], 'record': f"{x['card']['w']}–{x['card']['l']}",
+                           'pct': f"{round(x['card']['rate'] * 100)}%", 'games': x['n'],
+                           'fits_tonight': [f"{sport.full_name(g['away'])} at {sport.full_name(g['home'])}" for g in x['fit']]}
+                          for x in league_cards(sport, day, games)],
+        'edge_plays': [{k: v for k, v in play_info(sport, day, p, g).items() if not k.startswith('_')} for p, g in edge_plays(sport, day, games)],
+    }
+
+
 # ------------------------------------------------------------ the pieces
 def visible(now_utc):
     """Published previews to show: today's only from 11 AM ET."""
@@ -391,10 +646,9 @@ def drafts(day):
 
 
 def split(body):
-    """(headline, dek, (number, line) or None, body Markdown)."""
+    """(headline, dek, body Markdown). A "!!" line (the old callout) is dropped."""
     lines = body.strip().split('\n')
     head = dek = None
-    callout = None
     rest = []
     for ln in lines:
         s = ln.strip()
@@ -402,10 +656,8 @@ def split(body):
             head = s[2:].strip()
         elif dek is None and s.startswith('> '):
             dek = s[2:].strip()
-        elif callout is None and s.startswith('!!'):
-            num, _, line = s[2:].partition('|')
-            callout = (num.strip(), line.strip())
-            rest.append('<<callout>>')
+        elif s.startswith('!!'):
+            continue
         else:
             rest.append(ln)
     md = '\n'.join(rest).strip()
@@ -417,7 +669,7 @@ def split(body):
             first, _, more = md.partition('\n\n')
             if first and len(daily.plain(first)) <= 220 and more:
                 dek, md = daily.plain(first), more.strip()
-    return head or '', dek or '', callout, md
+    return head or '', dek or '', md
 
 
 def page_dir(key, day=None):
@@ -499,25 +751,149 @@ def sport_by_heading(text):
     return None
 
 
-def game_heads(body_html, sp, day, root):
-    """A sport page's game subheads ("Bucks at Heat · 7:00 PM ET") link to
-    the game on its Matchups page."""
-    href = f"{root}{sports.section_path(sp, 'games').lstrip('/')}?date={day}"
-    return re.sub(r'<h3>(.*?)</h3>', lambda m: f'<h3><a href="{esc(href)}">{m.group(1)}</a></h3>', body_html)
+NUM_WORDS = {2: 'both', 3: 'all three', 4: 'all four', 5: 'all five', 6: 'all six', 7: 'all seven'}
 
 
-def sport_links(body_html, day, root, have):
-    """All-sports: each sport's section ends with "Read the full [sport] preview"."""
+def names_of(sport, slug):
+    t = sport.team(slug)
+    return {x for x in (sport.full_name(slug), t.get('short'), t.get('name')) if x}
+
+
+def game_in(sport, text, games):
+    """The game whose two teams the text names ("Bucks at Heat")."""
+    for g in games:
+        if all(any(n in text for n in names_of(sport, g[s])) for s in ('away', 'home')):
+            return g
+    return None
+
+
+def venue_line(sport, g):
+    """'Rocket Arena, Cleveland, OH · TV: ESPN' (no TV: the venue only)."""
+    ven = g.get('ven')
+    if ven and ',' not in ven:   # NHL: the arena; its city from the home team's name
+        t = sport.team(g['home'])
+        city = (t.get('name') or '')[:-len(t.get('short') or '')].strip() if t.get('short') and (t.get('name') or '').endswith(t['short']) else ''
+        ven = f'{ven}, {city}' if city else ven
+    tv = ', '.join(g.get('tv') or [])
+    return ' &middot; '.join(x for x in (esc(ven) if ven else '', f'TV: {esc(tv)}' if tv else '') if x)
+
+
+def mentioned(text, titles):
+    low = text.lower()
+    return {t for t in titles if t.lower() in low}
+
+
+def more_trends(key, day, body_text, box_id, keys):
+    """League trends that fit the night's games and aren't in the article."""
+    n = 0
+    for k in keys:
+        sport = sport_of(k)
+        for x in league_cards(sport, day, box_games(sport, key, day)):
+            c = x['card']
+            if c['id'] != box_id and c['title'].lower() not in body_text.lower():
+                n += 1
+    return n
+
+
+def matchup_heads(body_html, key, day, root):
+    """A sport page: "The Matchups" before the first game; each game's
+    subhead gets both logos and, under it, the venue and TV."""
+    sport = sport_of(key)
+    games = slate(sport, day)[1]
+    href = f"{root}{sport.matchups}?date={day}"
+
+    def head(m):
+        text = m.group(1)
+        g = game_in(sport, re.sub(r'<[^>]+>', '', html.unescape(text)), games)
+        if not g:
+            return f'<h3><a href="{esc(href)}">{text}</a></h3>'
+        logos = sport.badge(g['away'], 22, root) + sport.badge(g['home'], 22, root)
+        line = venue_line(sport, g)
+        return (f'<h3 class="pv-gh"><a href="{esc(href)}"><span class="pv-logos">{logos}</span><span>{text}</span></a></h3>'
+                + (f'<p class="pv-ven">{line}</p>' if line else ''))
+    body_html, n = re.subn(r'<h3>(.*?)</h3>', head, body_html)
+    if n:
+        body_html = re.sub(r'(<h3 )', '<h2 class="pv-mh">The Matchups</h2>\\1', body_html, count=1)
+    return body_html
+
+
+def sport_sections(body_html, day, root, have):
+    """All sports: each "## NBA" gets its icon and a line ("12 games · first
+    tip 7:00 PM ET · 6 with trends"), then after its paragraphs "Also with
+    trends:" (its other games with 2+ trends) and "Read the full preview"."""
     parts = re.split(r'(?=<h2>)', body_html)
     out = []
     for part in parts:
         m = re.match(r'<h2>(.*?)</h2>', part)
         sp = sport_by_heading(re.sub(r'<[^>]+>', '', m.group(1))) if m else None
-        if sp:
-            target = page_dir(sp['key'], day) if (sp['key'], day) in have else page_dir(sp['key'])
-            part += (f'<p class="pv-more"><a href="{root}{target}">Read the full {esc(sports.seo_name(sp))} preview &rarr;</a></p>')
-        out.append(part)
+        if not sp:
+            out.append(part)
+            continue
+        sport = sport_of(sp['key'])
+        games = day_games(sport, day)
+        on = trends_on(sport, day)
+        first = min((g['start'] for g in games if g.get('start')), default=None)
+        withs = sum(1 for g in games if on.get(str(g['id'])))
+        meta = ' &middot; '.join(x for x in (f'{len(games)} game{"s" if len(games) != 1 else ""}',
+                                              f"first {START_WORD.get(sp['key'], 'tip')} {esc(front.time_et(first))}" if first else '',
+                                              f'{withs} with trends') if x)
+        rest = part[m.end():]
+        text = html.unescape(re.sub(r'<[^>]+>', '', rest))
+        also = [g for g in sorted(games, key=lambda g: g.get('start') or '')
+                if len(on.get(str(g['id'])) or []) >= MIN_TRENDS and not any(n in text for s in ('away', 'home') for n in names_of(sport, g[s]))][:6]
+        href = f"{root}{sport.matchups}?date={day}"
+        also_html = (f'<p class="pv-also">Also with trends: ' + ' &middot; '.join(
+            f'<a href="{esc(href)}">{sport.name_html(g["away"])} at {sport.name_html(g["home"])}</a>'
+            for g in also) + '</p>') if also else ''
+        target = page_dir(sp['key'], day) if (sp['key'], day) in have else page_dir(sp['key'])
+        out.append(f'<h2 class="pv-sh">{icons.sport_icon(sp)}<span>{esc(sports.seo_name(sp))}</span></h2><p class="pv-smeta">{meta}</p>'
+                   f'{rest}{also_html}<p class="pv-more"><a href="{root}{target}">Read the full {esc(sports.seo_name(sp))} preview &rarr;</a></p>')
     return ''.join(out)
+
+
+BOX_LABELS = (('stat_of_night', 'Stat of the Night', 'stat'), ('league_trend', 'League Trend', 'trend'), ('edge_play', 'Edge Play of the Night', 'edge'))
+
+
+def boxes_html(p, root):
+    """The three boxes (the draft's front matter): the sport's icon and the
+    label, the big number, the record or bet line, the sentence."""
+    out = ''
+    for key, words, cls in BOX_LABELS:
+        b = (p.get('boxes') or {}).get(key)
+        if not isinstance(b, dict) or b.get('sport') not in sports.BY_KEY:
+            continue
+        text = link_teams(f'<p class="pv-box-text">{esc(b.get("text") or "")}</p>', [b['sport']], root, p['date'])
+        out += (f'<div class="pv-box pv-box-{cls}"><p class="pv-box-h">{icons.sport_icon(b["sport"])}<span>{words}</span></p>'
+                f'<p class="pv-box-num">{esc(b.get("number") or "")}</p><p class="pv-box-line">{esc(b.get("line") or "")}</p>{text}</div>')
+    return f'<div class="pv-boxes">{out}</div>' if out else ''
+
+
+def more_line(key, day, root, body_html, box_id, keys):
+    n = more_trends(key, day, html.unescape(re.sub(r'<[^>]+>', '', body_html)), box_id, keys)
+    if not n:
+        return ''
+    when = "this week&rsquo;s" if key != ALL and sport_of(key).weekly else "tonight&rsquo;s"
+    if key == ALL:
+        k = len(keys)
+        across = f' across {NUM_WORDS[k]} sports' if k in NUM_WORDS else ''
+        return (f'<p class="pv-mt">{n} more league trend{"s" if n != 1 else ""} fit{"s" if n == 1 else ""} {when} games{across}. '
+                f'<a class="pv-go" href="{root}trends/">All trends &rarr;</a></p>')
+    sp = sports.BY_KEY[key]
+    name = esc(sports.seo_name(sp))
+    return (f'<p class="pv-mt">{n} more {name} league trend{"s" if n != 1 else ""} fit{"s" if n == 1 else ""} {when} games. '
+            f'<a class="pv-go" href="{root}{sports.section_path(sp, "trends").lstrip("/")}">All {name} trends &rarr;</a></p>')
+
+
+def place_boxes(body_html, boxes, before):
+    """The boxes after the intro: before the first `before` tag, else after
+    the first paragraph."""
+    if not boxes:
+        return body_html
+    i = body_html.find(before)
+    if i < 0:
+        j = body_html.find('</p>')
+        i = j + 4 if j >= 0 else len(body_html)
+    return body_html[:i] + boxes + body_html[i:]
 
 
 def tonight(key, day, root):
@@ -530,7 +906,7 @@ def tonight(key, day, root):
             games = day_games(sp, day)
             first = min((g.get('start') for g in games if g.get('start')), default=None)
             when = front.time_et(first) if first else ''
-            rows += (f'<a class="pv-trow" href="{root}{sp.matchups}?date={day}"><span>{esc(sp.label)}</span>'
+            rows += (f'<a class="pv-trow" href="{root}{sp.matchups}?date={day}"><span class="pv-tsp">{icons.sport_icon(sp.sp)}{esc(sp.label)}</span>'
                      f'<span class="pv-tmeta">{len(games)} game{"s" if len(games) != 1 else ""} &middot; {esc(when)}</span></a>')
         return f'<section class="pv-side-card"><h2 class="pv-side-h">Tonight</h2>{rows}</section>' if rows else ''
     sp = sport_of(key)
@@ -564,19 +940,17 @@ def past_line(key, day, days, root):
 def article(p, root, days, have):
     """The article page's body: the reading column and the right column."""
     key, day = p['sport'], p['date']
-    head, dek, callout, md = split(p['body'])
+    head, dek, md = split(p['body'])
     body = daily.to_html(md)
-    if callout:
-        num, line = callout
-        box = f'<aside class="pv-callout"><span class="pv-num">{esc(num)}</span><i class="pv-cline">{esc(line)}</i></aside>'
-        body = re.sub(r'<p>&lt;&lt;callout&gt;&gt;</p>', box, body, count=1)
-    body = body.replace('<p>&lt;&lt;callout&gt;&gt;</p>', '')
-    keys = covers(day) if key == ALL else [key]
+    keys = [k for k in (p.get('covers') or covers(day)) if k in sports.BY_KEY] if key == ALL else [key]
+    box_id = ((p.get('boxes') or {}).get('league_trend') or {}).get('id')
     if key == ALL:
-        body = sport_links(body, day, root, have)
+        body = sport_sections(body, day, root, have)
     else:
-        body = game_heads(body, sports.BY_KEY[key], day, root)
+        body = matchup_heads(body, key, day, root)
     body = link_teams(body, keys, root, day)
+    body = place_boxes(body, boxes_html(p, root), '<h2' if key == ALL else '<h2 class="pv-mh"')
+    body += more_line(key, day, root, body, box_id, keys)
     if key == ALL:
         what = names_list([sports.BY_KEY[k]['label'] for k in keys])
     else:
@@ -625,7 +999,7 @@ def pages(now_utc):
         mine = sorted(by_key.get(key) or [], key=lambda p: p['date'], reverse=True)
         days = [p['date'] for p in mine]
         for i, p in enumerate(mine):
-            head, dek, _, _ = split(p['body'])
+            head, dek, _ = split(p['body'])
             img = card_path(key, p['date']) if has_card(key, p['date']) else None
             for d, canon in ((page_dir(key, p['date']), None),) + (((page_dir(key), page_dir(key, p['date'])),) if i == 0 else ()):
                 out.append((key, d, title(key, head), dek or head,
@@ -687,7 +1061,7 @@ def hero(now_utc, root=''):
     p = todays(ALL, now_utc)
     if not p:
         return ''
-    head, dek, _, _ = split(p['body'])
+    head, dek, _ = split(p['body'])
     img = (f'<img class="pv-hero-img" src="{root}{card_path(ALL, p["date"])}" width="1200" height="630" alt="">'
            if has_card(ALL, p['date']) else '')
     return (f'<section class="fr-sec pv-hero" id="preview">{img}<div class="pv-hero-copy"><p class="pv-label">{label(ALL, p["date"])}</p>'
@@ -701,7 +1075,7 @@ def hub_section(key, now_utc, root=''):
     p = todays(key, now_utc)
     if not p:
         return ''
-    head, dek, _, md = split(p['body'])
+    head, dek, md = split(p['body'])
     first = next((b for b in re.split(r'\n\s*\n', md) if b.strip() and not b.strip().startswith(('#', '<<'))), '')
     img = (f'<img class="pv-img" src="{root}{card_path(key, p["date"])}" width="1200" height="630" alt="">'
            if has_card(key, p['date']) else '')

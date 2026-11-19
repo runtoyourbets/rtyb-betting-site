@@ -129,7 +129,8 @@ def load():
         covers = meta.get('sports') if isinstance(meta.get('sports'), list) else None
         hook, teaser = hook_and_teaser(body)
         out.append({'kind': kind, 'sport': sport, 'date': day, 'slug': slug, 'path': path, 'body': body, 'covers': covers,
-                    'title': meta.get('title') or hook or name[:-3], 'hook': hook, 'teaser': teaser, 'lead': meta.get('lead')})
+                    'title': meta.get('title') or hook or name[:-3], 'hook': hook, 'teaser': teaser, 'lead': meta.get('lead'),
+                    'boxes': {k: meta[k] for k in ('stat_of_night', 'league_trend', 'edge_play') if isinstance(meta.get(k), dict)}})
     out.sort(key=lambda p: (p['date'], {'column': 2, 'preview': 1, 'recap': 0}[p['kind']]), reverse=True)
     return out
 

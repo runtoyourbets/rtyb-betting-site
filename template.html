@@ -113,11 +113,12 @@ __THEME_HEAD__
     --ball-puck-top: #2A2E36;
     --ball-puck-side: #16181D;
     --ball-puck-grip: #3D434E;
-    --ball-puck-rim: #8B93A3;
+    --ball-puck-rim: #D5DCE5;   /* dark: a light outline so the puck shows on the page */
+    --ball-puck-rim-w: 1.6;
     --ball-shine: rgba(255, 255, 255, 0.16);
     --ball-leather: #8A4B22;
     --ball-leather-edge: #4E2610;
-    --ball-leather-rim: var(--ball-puck-rim);
+    --ball-leather-rim: #8B93A3;
     --ball-lace: #F4EFE6;
     --ball-orange: #E8772E;
     --ball-orange-edge: #7A3510;
@@ -175,6 +176,7 @@ __THEME_HEAD__
     --logo-tag: #5B6674;
     --logo-bets: #6D4AD4;
     --ball-puck-rim: #16181D;
+    --ball-puck-rim-w: 1;
     --ball-white-edge: #8A919C;
     --ball-leather-rim: transparent;
     color-scheme: light;
@@ -226,6 +228,7 @@ __THEME_HEAD__
       --logo-tag: #5B6674;
       --logo-bets: #6D4AD4;
       --ball-puck-rim: #16181D;
+      --ball-puck-rim-w: 1;
       --ball-white-edge: #8A919C;
       --ball-leather-rim: transparent;
       color-scheme: light;
@@ -559,10 +562,10 @@ __THEME_HEAD__
   .sport-icon { display: inline-block; width: 1.3em; height: 1.3em; flex-shrink: 0; vertical-align: -0.28em; }
   .page-title .sport-icon { width: 1.5em; height: 1.5em; vertical-align: middle; }
   .sport-icon .bi-puck-side { fill: var(--ball-puck-side); }
-  .sport-icon .bi-puck-top { fill: var(--ball-puck-top); stroke: var(--ball-puck-rim); stroke-width: 1; }
+  .sport-icon .bi-puck-top { fill: var(--ball-puck-top); stroke: var(--ball-puck-rim); stroke-width: var(--ball-puck-rim-w); }
   .sport-icon .bi-puck-grip { stroke: var(--ball-puck-grip); }
   .sport-icon .bi-puck-shine { fill: var(--ball-shine); }
-  .sport-icon .bi-rim { stroke: var(--ball-puck-rim); }
+  .sport-icon .bi-rim { stroke: var(--ball-puck-rim); stroke-width: var(--ball-puck-rim-w); }
   .sport-icon .bi-leather { fill: var(--ball-leather); stroke: var(--ball-leather-edge); }
   .sport-icon .bi-leather-rim { stroke: var(--ball-leather-rim); }
   .sport-icon .bi-stripe, .sport-icon .bi-lace { stroke: var(--ball-lace); }
@@ -2347,9 +2350,36 @@ __THEME_HEAD__
   .pv-body h3 a:hover { text-decoration: underline; }
   .pv-body a, .pv-past a, .pv-more a { color: var(--accent); text-decoration: none; }
   .pv-body a:hover, .pv-past a:hover { text-decoration: underline; }
-  .pv-callout { display: flex; flex-direction: column; gap: 4px; margin: 1.4em 0; padding: 4px 0 4px 18px; border-left: 3px solid var(--gold); }
-  .pv-num { font-family: var(--ff-display); font-size: var(--fs-hero); font-weight: var(--fw-title); line-height: 1; color: var(--gold); }
-  .pv-cline { font-family: var(--ff-read); font-size: var(--fs-read); font-weight: var(--fw-body); font-style: italic; line-height: 1.5; color: var(--text); }
+  /* the three boxes after the intro: Stat of the Night (yellow), League Trend (purple), Edge Play (green) */
+  .pv-boxes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--cell-gap); margin: 1.4em 0 1.6em; }
+  .pv-box { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: var(--card-radius); border: 1px solid var(--card-border); font-family: var(--ff-body); }
+  .pv-box-stat { background: var(--push-dim); border-color: var(--gold); }
+  .pv-box-trend { background: var(--title-bg); border-color: var(--accent); }
+  .pv-box-edge { background: var(--good-dim); border-color: var(--good); }
+  .pv .pv-body .pv-box p { margin: 0; }
+  .pv-box-h { display: flex; align-items: center; gap: 6px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); line-height: 1.3; }
+  .pv-box-h .sport-icon { width: 16px; height: 16px; flex: none; }
+  .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num { color: var(--gold); }
+  .pv-box-trend .pv-box-h, .pv-box-trend .pv-box-num { color: var(--title-text); }
+  .pv-box-edge .pv-box-h, .pv-box-edge .pv-box-num { color: var(--good); }
+  .pv-box-num { font-family: var(--ff-display); font-size: var(--fs-hero); font-weight: var(--fw-title); line-height: 1; }
+  .pv-box-line { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-team); line-height: 1.35; color: var(--text); }
+  .pv-box-text { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); line-height: 1.5; color: var(--text-muted); }
+  .pv-box-text a.pv-team { color: var(--text); }
+  @media (max-width: 640px) { .pv-boxes { grid-template-columns: minmax(0, 1fr); } }
+  /* a sport page's games; the all-sports page's sections */
+  .pv .pv-body h2.pv-mh { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .pv .pv-body h3.pv-gh { margin-bottom: 2px; }
+  .pv-gh a { display: inline-flex; align-items: center; gap: 10px; }
+  .pv-logos { display: inline-flex; align-items: center; gap: 4px; flex: none; }
+  .pv .pv-body .pv-ven, .pv .pv-body .pv-smeta { margin: 0 0 0.7em; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .pv .pv-body h2.pv-sh { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .pv-sh .sport-icon { width: 22px; height: 22px; flex: none; }
+  .pv .pv-body .pv-also { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
+  .pv .pv-body .pv-mt { margin-top: 1.6em; padding-top: 14px; border-top: 1px solid var(--border-soft); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
+  .pv-mt .pv-go { margin-left: 6px; white-space: nowrap; }
+  .pv-tsp { display: inline-flex; align-items: center; gap: 6px; }
+  .pv-tsp .sport-icon { width: 16px; height: 16px; }
   .pv-more { margin: 0 0 1.2em; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
   .pv-quiet, .pv-past { margin: 18px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .pv-past { padding-top: 14px; border-top: 1px solid var(--border-soft); }
