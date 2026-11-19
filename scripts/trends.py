@@ -45,6 +45,7 @@ RULES = {
     'shown': 8,           # cards before "Show more trends" (the page reads this)
     'backfill_days': 21,  # past slates generated on a first run, counted back from the latest game
 }
+TEXT_VERSION = 2   # content/trend_tooltips.json's wording; bump to re-word frozen slates
 LOG_VERSION = 2   # 2: cards carry the tooltip's 'last' line (and 'avg' on 3-way cards), no row facts
 
 # A loss by this much or more is a "blowout" (the tooltips say 3+ goals for NHL)
@@ -52,7 +53,6 @@ BIG_LOSS = {'nhl': 3, 'nfl': 14, 'ncaaf': 17, 'nba': 10, 'wnba': 10, 'ncaab': 10
 SCORE_WORD = {'nhl': 'goals', 'mlb': 'runs'}
 MARKET_TAG = {'ml': 'ML', 'ats': 'Spread', 'total': 'O/U', 'btts': 'BTTS', 'ml3': '3-way', 'rfi': ''}
 SPREAD_WORD = {'mlb': 'run line', 'nhl': 'puck line'}
-FADE_LINE = 'Fade means bet the other side.'   # the tooltip's line on Fade cards
 DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 
@@ -308,18 +308,15 @@ def game_angles(sp):
 # ------------------------------------------------------------- the words
 
 def angle_text(sp, T, group, aid, k=None):
-    """(title, meaning, counted) from the tooltips file, with this sport's
-    blowout size, segment ({segment}, {blowout_margin}) and game types."""
+    """(title, meaning) from the tooltips file, with this sport's segment
+    ({segment}) and blowout size ({blowout_margin}: "3 goals", "10 points")."""
     t = dict(T[group][aid])
     big, word = BIG_LOSS.get(sp['key'], 10), SCORE_WORD.get(sp['key'], 'points')
-    for f in ('title', 'meaning', 'counted'):
-        t[f] = (t.get(f) or '').replace('{segment}', seg_words(sp, k) if k else 'opening segment').replace('{blowout_margin}', f'{big}+ {word}')
-        t[f] = t[f].replace('3+ goals', f'{big}+ {word}').replace('Final-score margin of 3 or more', f'Final-score margin of {big} or more')
-        if sp['key'] != 'nhl':
-            t[f] = t[f].replace('zero goals', f'zero {word}').replace('including overtime', 'including overtime' if sp['key'] != 'mlb' else 'including extra innings')
+    for f in ('title', 'meaning'):
+        t[f] = (t.get(f) or '').replace('{segment}', seg_words(sp, k) if k else 'opening segment').replace('{blowout_margin}', f'{big} {word}')
     if sp['key'] == 'mlb':
         t['title'] = {'conf': 'League games', 'nonconf': 'Interleague games'}.get(aid, t['title'])
-    return t['title'], t['meaning'], t['counted']
+    return t['title'], t['meaning']
 
 
 def tag(sp, k, market):
@@ -348,96 +345,40 @@ def seg_words(sp, k):
     return next(s for s in sp['segments'] if s['key'] == k)['label'].lower().replace('first five innings', 'first five')
 
 
-def last_fact(sp, doc, G, aid, c, k):
-    """What made the last game fit, past tense: 'SJ was +165 vs VGK'."""
-    g = G['g']
-    o = (g.get('odds') or {}).get(k) or {}
-    ml = o.get('ml') or {}
-    A, H = code(doc, g['away']), code(doc, g['home'])
-
-    def price(side):
-        p = ml.get(side)
-        return fmt_price(p) if isinstance(p, (int, float)) else None
-    if c is None and aid.endswith('_game') and aid not in ('home_fav_game', 'home_dog_game', 'b2b_game'):
-        test = {'off_loss_game': 'lost', 'off_loss3_game': 'big', 'off_shutout_game': 'shutout'}[aid]
-        c = next((x for x in G['sides'].values() if x['prev'] and x['prev'][test]), None)
-    if aid.startswith('off_') and c and c['prev']:
-        p = c['prev']
-        verb = 'a ' + ('shutout loss' if p['mine'] == 0 and aid.startswith('off_shutout') else 'loss')
-        return f"{code(doc, c['slug'])} came off {verb} ({p['mine']}–{p['theirs']} to {code(doc, p['opp'])})"
-    def home_line(word):
-        return f"{H} was {price('home')} at home vs {A}" if price('home') else f"{H} was {word} at home vs {A}"
-
-    def road_line(word):
-        return f"{A} was {price('away')} at {H}" if price('away') else f"{A} was {word} at {H}"
-    if aid in ('home_fav', 'home_fav_game'):
-        return home_line('favored')
-    if aid == 'road_dog':
-        return road_line('the underdog')
-    if aid == 'home_dog':
-        return home_line('the underdog')
-    if aid in ('road_fav', 'home_dog_game'):
-        return road_line('favored')
-    if aid.startswith('tier') and c:
-        me = code(doc, c['slug'])
-        opp = code(doc, g['home' if c['side'] == 'away' else 'away'])
-        where = 'at' if c['side'] == 'away' else 'vs'
-        return f"{me} was {price(c['side'])} {where} {opp}" if price(c['side']) else f"{me} played {where} {opp}"
-    a, h = G['sides']['away'], G['sides']['home']
-    if aid in ('b2b', 'b2b_opp', 'b2b_game'):
-        tired = a if a['rest'] == 0 else h
-        return f"{code(doc, tired['slug'])} played the day before"
-    if aid in ('rested', 'tired', 'rest_edge', 'even_rest') and a['rest'] is not None and h['rest'] is not None:
-        if a['rest'] == h['rest']:
-            return f"{A} and {H} both had {a['rest']} day{'' if a['rest'] == 1 else 's'} off"
-        return f"{A} had {a['rest']} day{'' if a['rest'] == 1 else 's'} off, {H} {h['rest']}"
-    kind = {'div': 'a division game', 'conf': 'a conference game', 'nonconf': 'an interleague game' if sp['key'] == 'mlb' else 'a non-conference game'}.get(aid)
-    return f"{A} played at {H}" + (f" in {kind}" if kind else '')
-
-
 def last_line(sp, doc, G, aid, c, k, market, kind, bet, side):
-    """The tooltip's 'Last time: Nov 8, SJ was +165 vs VGK. VGK won the 1st
-    period 2–0.'"""
-    d = Date.fromisoformat(G['date'])
-    out = outcome(sp, doc, G, k, market, kind, bet, side)
-    return f"Last time: {d.strftime('%b')} {d.day}, {last_fact(sp, doc, G, aid, c, k)}. {out[0].upper()}{out[1:]}."
-
-
-def outcome(sp, doc, G, k, market, kind, bet, side):
-    """'COL won the 1st period 1–0' for the Last time line."""
+    """The tooltip's last game that fit, in the tooltips file's formats:
+    side 'Last time: Nov 8, SJ was +165 vs VGK. VGK won the 1st period 2–0.'
+    game 'Last time: Nov 8, BOS @ DET. The 1st period ended 1–1: tied.'"""
     g = G['g']
+    d = Date.fromisoformat(G['date'])
+    day = f"{d.strftime('%b')} {d.day}"
+    a, h = g['res'][k]['sc']
+    sw = seg_words(sp, k)
+    A, H = code(doc, g['away']), code(doc, g['home'])
+    if kind == 'side':
+        me = c['side'] if c else side
+        o = (g.get('odds') or {}).get(k) or {}
+        p = ((o.get('ats') or {}).get(me) or {}).get('line') if market == 'ats' else (o.get('ml') or {}).get(me)
+        team, opp = (A, H) if me == 'away' else (H, A)
+        fact = f"{team} was {fmt_price(p)} vs {opp}" if isinstance(p, (int, float)) else f"{team} played {opp}"
+        won = f"The {sw} ended tied {a}–{h}" if a == h else f"{A if a > h else H} won the {sw} {max(a, h)}–{min(a, h)}"
+        return f"Last time: {day}, {fact}. {won}."
+    return f"Last time: {day}, {A} @ {H}. The {sw} ended {a}–{h}: {outcome(doc, g, k, market)}."
+
+
+def outcome(doc, g, k, market):
+    """The bet's plain outcome: 'Over 1.5', 'both teams scored', 'tied'."""
     r = g['res'][k]
     a, h = r['sc']
-    sw = seg_words(sp, k)
-    if kind == 'side':
-        res, _ = side_result(g, k, market, side)
-        mine, theirs = (a, h) if side == 'away' else (h, a)
-        c = code(doc, g[side])
-        if market == 'ats':
-            line = ((((g.get('odds') or {}).get(k) or {}).get('ats') or {}).get(side) or {}).get('line')
-            lt = f" {fmt_price(line)}" if isinstance(line, (int, float)) else ''
-            text = f"{c}{lt} {'covered' if res == 'W' else 'pushed' if res == 'P' else 'failed to cover'} ({mine}–{theirs})"
-        else:
-            if a == h:
-                text = f"the {sw} ended tied {a}–{h}"
-            else:
-                win = code(doc, g['away'] if a > h else g['home'])
-                text = f"{win} won the {sw} {max(a, h)}–{min(a, h)}"
-    else:
-        res, _ = game_result(g, k, market, bet)
-        if market == 'total':
-            line = (((g.get('odds') or {}).get(k) or {}).get('total') or {}).get('line')
-            tot = a + h
-            went = {'O': 'went Over', 'U': 'went Under'}.get(r.get('tot'), 'landed on')
-            text = f"the {sw} {went}" + (f" {line:g}" if isinstance(line, (int, float)) else '') + f" ({tot})"
-        elif market == 'btts':
-            text = 'both teams scored' if r.get('btts') == 'Y' else 'at least one team was held scoreless'
-            text += f" in the {sw} ({a}–{h})"
-        elif market == 'rfi':
-            text = 'a run scored in the 1st inning' if r.get('rfi') == 'Y' else 'no run scored in the 1st inning'
-        else:
-            text = f"the {sw} ended {a}–{h}" + (' (a tie)' if a == h else '')
-    return text
+    if market == 'total':
+        line = (((g.get('odds') or {}).get(k) or {}).get('total') or {}).get('line')
+        lt = f" {line:g}" if isinstance(line, (int, float)) else ''
+        return {'O': f'Over{lt}', 'U': f'Under{lt}'}.get(r.get('tot'), f'landed on{lt}' if lt else 'a push')
+    if market == 'btts':
+        return 'both teams scored' if r.get('btts') == 'Y' else 'not both teams scored'
+    if market == 'rfi':
+        return 'a run scored' if r.get('rfi') == 'Y' else 'no run scored'
+    return 'tied' if a == h else f"{code(doc, g['away'] if a > h else g['home'])} won"
 
 
 # ------------------------------------------------------------- the cards
@@ -495,7 +436,7 @@ def generate(sp, doc, G_all, slate, before_date, T):
                         card = qualify(rec, base)
                         if not card:
                             continue
-                        title, meaning, _ = angle_text(sp, T, 'side_angles', aid, k)
+                        title, meaning = angle_text(sp, T, 'side_angles', aid, k)
                         G0, c0, s0 = rec.last
                         card.update({
                             'id': f'{aid}:{k}:{market}:{direction.lower()}', 'angle': aid, 'seg': k, 'mk': market,
@@ -524,7 +465,7 @@ def generate(sp, doc, G_all, slate, before_date, T):
                     card = qualify(rec, base)
                     if not card:
                         continue
-                    title, meaning, _ = angle_text(sp, T, 'game_angles', aid, k)
+                    title, meaning = angle_text(sp, T, 'game_angles', aid, k)
                     word = game_bet_word(sp, k, market, bet)
                     G0 = rec.last
                     card.update({
@@ -606,9 +547,16 @@ def update(sp, doc, now_utc, log_path=None):
         starts = [G['g']['start'] for G in slate]
         started = d < today or now_utc >= datetime.fromisoformat(min(starts).replace('Z', '+00:00'))
         if entry is not None and not entry.get('frozen') and started:
-            entry = {'cards': entry['cards'], 'frozen': True}   # the cards that were up when it started
+            entry = {'cards': entry['cards'], 'frozen': True, 'tv': TEXT_VERSION}   # the cards that were up when it started
         elif entry is None or not entry.get('frozen'):
-            entry = {'cards': generate(sp, doc, G_all, slate, d, T), 'frozen': started}
+            entry = {'cards': generate(sp, doc, G_all, slate, d, T), 'frozen': started, 'tv': TEXT_VERSION}
+        elif entry.get('tv') != TEXT_VERSION:   # tooltip wording changed: new words, same records
+            fresh = {c['id']: c for c in generate(sp, doc, G_all, slate, d, T)}
+            for c in entry['cards']:
+                f = fresh.get(c['id'])
+                if f:
+                    c.update(title=f['title'], meaning=f['meaning'], last=f.get('last'))
+            entry['tv'] = TEXT_VERSION
         keep[key] = entry
     log['slates'] = keep
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
@@ -622,4 +570,5 @@ def page_doc(sp, doc, now_utc, log_path=None):
     T = tips()
     return {'sport': sp['key'], 'shown': RULES['shown'], 'slates': update(sp, doc, now_utc, log_path),
             'markets': [[seg, m, label] for seg, m, label, _ in sp['family_markets']],
-            'tips': {k: T[k] for k in ('matchup_labels', 'streaks') if k in T} | {'fade': T.get('fade') or FADE_LINE}}
+            'segments': {s['key']: seg_words(sp, s['key']) for s in sp['segments']},
+            'tips': {k: T[k] for k in ('matchup_labels', 'streaks', 'record_line') if k in T} | {'fade': (T.get('direction') or {}).get('Fade', '')}}

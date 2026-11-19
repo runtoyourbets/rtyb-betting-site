@@ -1951,7 +1951,7 @@
       ? 'Hit ' + c.w + ' of ' + (c.w + c.l) + ' at avg ' + priceTxt(c.avg) + ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>'
       : '<b class="mono">' + c.w + '–' + c.l + '</b> · ' + pct0(c.rate) + ' · league ' + pct0(c.base) + ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
     return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span>' + infoTip(tip, true) + '</div>' +
-      '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec">' + rec + '</div>' +
+      '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec" title="' + esc((TR.tips.record_line || {}).tooltip || '') + '">' + rec + '</div>' +
       '<div class="tr-bar" aria-hidden="true"><span style="width:' + r.toFixed(1) + '%"></span><i style="left:' + b.toFixed(1) + '%"></i></div>' +
       '<div class="tr-rows">' + rows + '</div>' + more + '</div>';
   }
@@ -2062,13 +2062,14 @@
     var cls = m === 'ml' || m === 'ats' ? (st.kind === 'W' ? 'sk-w1' : 'sk-l1') : 'sk-n1';
     return '<span class="mt-streak ' + cls + '">' + st.n + ' straight</span>';
   }
-  function mtLabel(m, x) {
+  function mtLabel(m, x, k) {
     var L = TR.tips.matchup_labels || {}, id = null;
     if (!x || !x.away || !x.home) return '';
     if (m === 'total' || m === 'btts') id = x.away !== x.home ? 'tug_of_war' : x.away === HIT[m] ? 'fireworks' : 'lockdown';
     else if (m === 'ml') id = x.away !== x.home ? 'mismatch' : x.away === 'W' ? 'heavyweights' : null;
     var l = id && L[id];
-    return l ? infoTipLabel(l.label, l.tooltip + ' ' + (L.lean_rule || '')) : '';
+    var segWords = (TR.segments || {})[k] || 'opening segment';
+    return l ? infoTipLabel(l.label, l.tooltip.replace(/\{segment\}/g, segWords) + ' ' + (L.lean_rule || '')) : '';
   }
   // null when nothing qualifies (the game goes on the "No matchup trends" line)
   function matchupBlock(g, k, before) {
@@ -2085,7 +2086,7 @@
       });
       if (!lines.length) return;
       lines.sort(function(a, b) { return b.rate - a.rate; });
-      groups += '<div class="mt-group"><div class="mt-ghead"><span class="t-label">' + esc(mktHead(k, m)) + '</span>' + mtLabel(m, leans) + '</div>' +
+      groups += '<div class="mt-group"><div class="mt-ghead"><span class="t-label">' + esc(mktHead(k, m)) + '</span>' + mtLabel(m, leans, k) + '</div>' +
         lines.slice(0, MT_MAX).map(function(x) { return x.html; }).join('') + '</div>';
     });
     if (!groups) return null;

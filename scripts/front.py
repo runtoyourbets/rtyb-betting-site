@@ -42,6 +42,8 @@ TREND_ROWS = 5         # game rows per trend card
 TREND_MIN_N = 20       # Hottest Trends: games behind the record,
 TREND_MIN_EDGE = 0.05  # ... and points over the league rate, to qualify
 TREND_MIN_RATE = 0.55  # every Hottest Trends card (home, hubs, /trends/): a 55%+ win rate
+with open(os.path.join(ROOT, 'content', 'trend_tooltips.json'), encoding='utf-8') as _f:   # the record line's hover text
+    RECORD_TIP = (json.load(_f).get('record_line') or {}).get('tooltip') or ''
 HOT_SHOWN = 3          # Hottest Trends: exactly this many cards,
 HOT_ROWS = 3           # ... with up to this many game rows each
 MOTD_TRENDS = 4        # agreeing trends listed on Matchup of the Day
@@ -806,7 +808,7 @@ def trend_card(sport, c, by_id, root, now, show_sport, hidden=False, xs=None):
     rate, base = c['rate'] * 100, c['base'] * 100
     return (f'<div class="tr-card"{" hidden data-more" if hidden else ""}><div class="tr-top">{sp}<span class="lt-tag">{esc(c["tag"].replace(" ATS", " Spread"))}</span></div>'
             f'<h3 class="tr-title">{esc(c["title"])}</h3>'
-            f'<div class="tr-rec"><b class="mono">{c["w"]}&ndash;{c["l"]}</b> &middot; {round(rate)}% &middot; league {round(base)}% &middot; '
+            f'<div class="tr-rec" title="{esc(RECORD_TIP)}"><b class="mono">{c["w"]}&ndash;{c["l"]}</b> &middot; {round(rate)}% &middot; league {round(base)}% &middot; '
             f'<span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span></div>'
             f'<div class="tr-bar" aria-hidden="true"><span style="width:{rate:.1f}%"></span><i style="left:{base:.1f}%"></i></div>'
             f'<div class="tr-rows">{rows}</div></div>')
