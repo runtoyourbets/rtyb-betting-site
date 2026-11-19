@@ -5,7 +5,7 @@ kind: preview
 date: 2026-11-19
 written: 2026-11-19T13:11Z
 model: claude-opus-5-5
-check: ["60", "10", "-190", "70", "-270", "-180", "50", "-150", "-310", "-350", "+100"]
+check: []
 lead: nfl:401873076
 motd: nfl:401873067
 stat_of_night: {"sport": "nfl", "number": "60%", "line": "IND won the 1H · 6–4", "text": "The Indianapolis Colts have won the 1H at 60% (6–4) in 10 games, and they take that to the Houston Texans on Thursday."}

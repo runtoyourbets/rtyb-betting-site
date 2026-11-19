@@ -492,16 +492,22 @@ TIME_OR_DATE = re.compile(r'\b\d{1,2}:\d{2}(?:\s*[AP]\.?M\.?)?(?:\s*ET)?|\b\d{1,
                           r'|\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}(?:,\s*\d{4})?\b', re.I)
 
 
+def key(n):
+    """A number without its sign, and without trailing zeros only after a
+    decimal point (0.80 = 0.8, but 70 stays 70)."""
+    n = n.lstrip('+-')
+    return n.rstrip('0').rstrip('.') if '.' in n else n
+
+
 def unchecked_numbers(body, packet):
     """Numbers in the draft that aren't in the packet (ignoring signs,
     trailing zeros, times and dates)."""
-    have = {n.lstrip('+-').rstrip('0').rstrip('.') for n in numbers_in(json.dumps(packet, ensure_ascii=False))}
+    have = {key(n) for n in numbers_in(json.dumps(packet, ensure_ascii=False))}
     have |= {'21', '1-800', '800', '4357'}
     out = []
     text = TIME_OR_DATE.sub(' ', re.sub(r'^---\n.*?\n---\n', '', body, flags=re.S).replace('1-800-GAMBLER', ''))
     for n in re.findall(r'[+-]?\d+(?:\.\d+)?', text):   # in reading order
-        k = n.lstrip('+-').rstrip('0').rstrip('.') if '.' in n else n.lstrip('+-')
-        if k not in have and n not in out:
+        if key(n) not in have and n not in out:
             out.append(n)
     return out
 

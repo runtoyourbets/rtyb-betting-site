@@ -5,7 +5,7 @@ kind: preview
 date: 2026-11-19
 written: 2026-11-19T13:13Z
 model: claude-opus-5-5
-check: ["+330", "10", "80", "-170", "-200", "0", "20", "60", "-340", "90", "70"]
+check: []
 sports: ["nhl", "nba", "ncaab", "nfl", "ncaaf"]
 lead: nba:401910020
 motd: nba:401910021

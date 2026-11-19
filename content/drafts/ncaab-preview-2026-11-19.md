@@ -5,7 +5,7 @@ kind: preview
 date: 2026-11-19
 written: 2026-11-19T13:10Z
 model: claude-opus-5-5
-check: ["60", "150"]
+check: []
 lead: ncaab:401920878
 motd: ncaab:401906867
 league_trend: {"sport": "ncaab", "number": "60%", "line": "Fade teams off a blowout · 1H ML · 195–128", "text": "Fading teams off a blowout on the 1H ML hits 60% (195–128) in 323 games; it fits 12 games tonight, including Little Rock at Jacksonville.", "id": "off_loss3:1h:ml:fade"}

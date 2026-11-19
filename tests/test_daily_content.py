@@ -34,6 +34,10 @@ class NumberCheckTest(unittest.TestCase):
         body = 'Suns at Kings (10:00 PM ET), Bucks at Heat at 7:30 PM and a 9 PM tip on Nov 18, 2026 (11/18).'
         self.assertEqual(dc.unchecked_numbers(body, {}), [])
 
+    def test_round_numbers_match(self):
+        packet = {'price': 330, 'pct': '70%', 'line': -170}
+        self.assertEqual(dc.unchecked_numbers('+330, 70% and -170, but 80.', packet), ['80'])
+
 
 class EverySportTest(unittest.TestCase):
     def test_titles_follow_the_sport(self):

@@ -5,7 +5,7 @@ kind: preview
 date: 2026-11-19
 written: 2026-11-19T13:12Z
 model: claude-opus-5-5
-check: ["+550", "+520", "70", "-300", "-360", "50", "10", "80", "40", "-700", "-750", "60", "30", "-210", "90"]
+check: []
 lead: ncaaf:401864543
 motd: ncaaf:401858532
 stat_of_night: {"sport": "ncaaf", "number": "100%", "line": "NIU lost the 1H · 10–0", "text": "Northern Illinois has lost every first half this season, and North Dakota State lays -14.5 at the half Saturday."}

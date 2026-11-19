@@ -5,7 +5,7 @@ kind: preview
 date: 2026-11-19
 written: 2026-11-19T13:09Z
 model: claude-opus-5-5
-check: ["100", "0", "10", "20", "-190", "-200", "+100", "80", "-170"]
+check: []
 lead: nhl:2026020348
 motd: nhl:2026020355
 stat_of_night: {"sport": "nhl", "number": "100%", "line": "EDM had a team held scoreless in the 1P · 11–0 on the road", "text": "Edmonton Oilers road 1st periods have had a team held scoreless 100% (11–0) in 11 games, and tonight they're at the Tampa Bay Lightning."}

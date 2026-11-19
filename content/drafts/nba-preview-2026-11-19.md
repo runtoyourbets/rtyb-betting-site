@@ -5,7 +5,7 @@ kind: preview
 date: 2026-11-19
 written: 2026-11-19T13:09Z
 model: claude-opus-5-5
-check: ["70", "60", "10", "40", "20"]
+check: []
 lead: nba:401910020
 motd: nba:401910021
 stat_of_night: {"sport": "nba", "number": "93%", "line": "MIL Under the 1Q total · 14–1", "text": "The Milwaukee Bucks have gone Under the 1Q total 93% (14–1) in 15 games, and the Portland Trail Blazers visit tonight."}
