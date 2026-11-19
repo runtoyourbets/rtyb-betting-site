@@ -1,5 +1,99 @@
 {
  "all": {
+  "codes": [
+   "ANH",
+   "AUB",
+   "BTLR",
+   "BUF",
+   "BUFF",
+   "CAL",
+   "CAR",
+   "CBJ",
+   "CGY",
+   "CHI",
+   "COFC",
+   "COL",
+   "DAL",
+   "DRKE",
+   "EDM",
+   "ETAM",
+   "FLA",
+   "GASO",
+   "GRAM",
+   "GS",
+   "HALL",
+   "HCU",
+   "HOU",
+   "HPU",
+   "IND",
+   "JAX",
+   "KU",
+   "LA",
+   "LAC",
+   "LOU",
+   "LR",
+   "LT",
+   "MAIN",
+   "MEM",
+   "MIL",
+   "MIN",
+   "MTL",
+   "MTST",
+   "MURR",
+   "NCSU",
+   "ND",
+   "NEU",
+   "NMSU",
+   "NY",
+   "NYI",
+   "ORE",
+   "ORST",
+   "OSU",
+   "OTT",
+   "PEPP",
+   "PHI",
+   "PIT",
+   "POR",
+   "QUIN",
+   "RICE",
+   "RMU",
+   "RUTG",
+   "SA",
+   "SAC",
+   "SBU",
+   "SCU",
+   "SEA",
+   "SEMO",
+   "STAN",
+   "STET",
+   "STL",
+   "STMN",
+   "SUU",
+   "TAMU",
+   "TARL",
+   "TB",
+   "TCU",
+   "TEM",
+   "TEX",
+   "TOL",
+   "TOR",
+   "TULN",
+   "UCSB",
+   "UMBC",
+   "UNLV",
+   "USC",
+   "USM",
+   "UTEP",
+   "UTU",
+   "VAN",
+   "VCU",
+   "VGK",
+   "WASH",
+   "WIS",
+   "WPG",
+   "WSH",
+   "WVU"
+  ],
   "games": [
    {
     "label": "NCAAB · Florida at West Virginia · 2:30 PM ET",
@@ -52,21 +146,6 @@
     "value": "ncaab:401911021"
    },
    {
-    "label": "NCAAB · Mary Baldwin Fighting Squirrels at American University · 7:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401912211"
-   },
-   {
-    "label": "NCAAB · Berea Mountaineers at Northern Kentucky · 7:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401928812"
-   },
-   {
-    "label": "NCAAB · North Park Vikings at SIU Edwardsville · 7:00 PM ET",
-    "trends": 2,
-    "value": "ncaab:401926144"
-   },
-   {
     "label": "NCAAB · Little Rock at Jacksonville · 7:00 PM ET",
     "trends": 6,
     "value": "ncaab:401920878"
@@ -107,11 +186,6 @@
     "value": "ncaab:401926814"
    },
    {
-    "label": "NCAAB · Tusculum Pioneers at North Alabama · 7:30 PM ET",
-    "trends": 0,
-    "value": "ncaab:401929373"
-   },
-   {
     "label": "NCAAB · Tulane at Louisiana Tech · 7:30 PM ET",
     "trends": 2,
     "value": "ncaab:401919005"
@@ -150,16 +224,6 @@
     "label": "NBA · Portland Trail Blazers at Milwaukee Bucks · 8:00 PM ET",
     "trends": 20,
     "value": "nba:401910020"
-   },
-   {
-    "label": "NCAAB · Eureka Red Devils at Illinois State · 8:00 PM ET",
-    "trends": 4,
-    "value": "ncaab:401927375"
-   },
-   {
-    "label": "NCAAB · Mayville State Comets at North Dakota · 8:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401929409"
    },
    {
     "label": "NCAAB · Georgia Southern at Houston Christian · 8:00 PM ET",
@@ -247,11 +311,6 @@
     "value": "ncaab:401918056"
    },
    {
-    "label": "NCAAB · Northwest Indian RedHawks at Portland State · 10:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401925916"
-   },
-   {
     "label": "NCAAB · Sacramento State at Stanford · 10:00 PM ET",
     "trends": 4,
     "value": "ncaab:401920349"
@@ -276,6 +335,16 @@
   "motd": "nba:401910021"
  },
  "nba": {
+  "codes": [
+   "GS",
+   "LAC",
+   "MEM",
+   "MIL",
+   "MIN",
+   "NY",
+   "POR",
+   "SA"
+  ],
   "games": [
    {
     "label": "Golden State Warriors at Memphis Grizzlies · 8:00 PM ET",
@@ -302,6 +371,66 @@
   "motd": "nba:401910021"
  },
  "ncaab": {
+  "codes": [
+   "AUB",
+   "BTLR",
+   "BUFF",
+   "CAL",
+   "COFC",
+   "DRKE",
+   "ETAM",
+   "FLA",
+   "GASO",
+   "GRAM",
+   "HALL",
+   "HCU",
+   "HOU",
+   "HPU",
+   "JAX",
+   "KU",
+   "LOU",
+   "LR",
+   "LT",
+   "MAIN",
+   "MTST",
+   "MURR",
+   "NCSU",
+   "ND",
+   "NEU",
+   "NMSU",
+   "ORE",
+   "ORST",
+   "OSU",
+   "PEPP",
+   "QUIN",
+   "RMU",
+   "RUTG",
+   "SAC",
+   "SBU",
+   "SCU",
+   "SEMO",
+   "STAN",
+   "STET",
+   "STMN",
+   "SUU",
+   "TAMU",
+   "TARL",
+   "TCU",
+   "TEX",
+   "TOL",
+   "TULN",
+   "UCSB",
+   "UMBC",
+   "UNLV",
+   "USC",
+   "USM",
+   "UTEP",
+   "UTU",
+   "VCU",
+   "WASH",
+   "WIS",
+   "WVU"
+  ],
   "games": [
    {
     "label": "Florida at West Virginia · 2:30 PM ET",
@@ -322,21 +451,6 @@
     "label": "Buffalo at St. Bonaventure · 7:00 PM ET",
     "trends": 2,
     "value": "ncaab:401911021"
-   },
-   {
-    "label": "Mary Baldwin Fighting Squirrels at American University · 7:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401912211"
-   },
-   {
-    "label": "Berea Mountaineers at Northern Kentucky · 7:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401928812"
-   },
-   {
-    "label": "North Park Vikings at SIU Edwardsville · 7:00 PM ET",
-    "trends": 2,
-    "value": "ncaab:401926144"
    },
    {
     "label": "Little Rock at Jacksonville · 7:00 PM ET",
@@ -374,24 +488,9 @@
     "value": "ncaab:401926814"
    },
    {
-    "label": "Tusculum Pioneers at North Alabama · 7:30 PM ET",
-    "trends": 0,
-    "value": "ncaab:401929373"
-   },
-   {
     "label": "Tulane at Louisiana Tech · 7:30 PM ET",
     "trends": 2,
     "value": "ncaab:401919005"
-   },
-   {
-    "label": "Eureka Red Devils at Illinois State · 8:00 PM ET",
-    "trends": 4,
-    "value": "ncaab:401927375"
-   },
-   {
-    "label": "Mayville State Comets at North Dakota · 8:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401929409"
    },
    {
     "label": "Georgia Southern at Houston Christian · 8:00 PM ET",
@@ -459,11 +558,6 @@
     "value": "ncaab:401918056"
    },
    {
-    "label": "Northwest Indian RedHawks at Portland State · 10:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401925916"
-   },
-   {
     "label": "Sacramento State at Stanford · 10:00 PM ET",
     "trends": 4,
     "value": "ncaab:401920349"
@@ -488,6 +582,130 @@
   "motd": "ncaab:401906867"
  },
  "ncaaf": {
+  "codes": [
+   "AFA",
+   "APP",
+   "ARIZ",
+   "ARK",
+   "ARMY",
+   "ARST",
+   "ASU",
+   "BAY",
+   "BC",
+   "BGSU",
+   "BOIS",
+   "BYU",
+   "CAL",
+   "CCU",
+   "CIN",
+   "CLEM",
+   "CLT",
+   "COLO",
+   "CONN",
+   "CSU",
+   "DEL",
+   "DUKE",
+   "ECU",
+   "FAU",
+   "FIU",
+   "FLA",
+   "FRES",
+   "FSU",
+   "GASO",
+   "GAST",
+   "GT",
+   "HAW",
+   "HOU",
+   "ILL",
+   "IOWA",
+   "ISU",
+   "IU",
+   "JXST",
+   "KENN",
+   "KSU",
+   "KU",
+   "LIB",
+   "LOU",
+   "LSU",
+   "LT",
+   "MD",
+   "MEM",
+   "MIA",
+   "MICH",
+   "MINN",
+   "MIZ",
+   "MOST",
+   "MRSH",
+   "MSU",
+   "MTSU",
+   "NAVY",
+   "NCSU",
+   "ND",
+   "NDSU",
+   "NEB",
+   "NEV",
+   "NIU",
+   "NMSU",
+   "NU",
+   "ODU",
+   "OKST",
+   "ORE",
+   "ORST",
+   "OSU",
+   "OU",
+   "PITT",
+   "PSU",
+   "PUR",
+   "RICE",
+   "RUTG",
+   "SC",
+   "SDSU",
+   "SHSU",
+   "SJSU",
+   "SMU",
+   "STAN",
+   "SYR",
+   "TAMU",
+   "TCU",
+   "TEM",
+   "TENN",
+   "TEX",
+   "TLSA",
+   "TOL",
+   "TROY",
+   "TTU",
+   "TULN",
+   "TXST",
+   "UAB",
+   "UCF",
+   "UCLA",
+   "UGA",
+   "UK",
+   "UL",
+   "ULM",
+   "UNC",
+   "UNLV",
+   "UNM",
+   "UNT",
+   "USA",
+   "USC",
+   "USF",
+   "USM",
+   "USU",
+   "UTAH",
+   "UTEP",
+   "UTSA",
+   "UVA",
+   "VAN",
+   "VT",
+   "WAKE",
+   "WASH",
+   "WIS",
+   "WKU",
+   "WSU",
+   "WVU",
+   "WYO"
+  ],
   "games": [
    {
     "label": "Rice at Temple · 7:30 PM ET",
@@ -528,11 +746,6 @@
     "label": "Vanderbilt at Florida · 12:00 PM ET",
     "trends": 18,
     "value": "ncaaf:401856748"
-   },
-   {
-    "label": "Wofford Terriers at Ole Miss · 12:00 PM ET",
-    "trends": 6,
-    "value": "ncaaf:401856749"
    },
    {
     "label": "BYU at Kansas · 12:00 PM ET",
@@ -590,11 +803,6 @@
     "value": "ncaaf:401858305"
    },
    {
-    "label": "Tennessee Tech Golden Eagles at Mississippi State · 1:00 PM ET",
-    "trends": 9,
-    "value": "ncaaf:401856750"
-   },
-   {
     "label": "Houston at West Virginia · 1:00 PM ET",
     "trends": 15,
     "value": "ncaaf:401856868"
@@ -603,11 +811,6 @@
     "label": "Western Kentucky at Liberty · 1:00 PM ET",
     "trends": 13,
     "value": "ncaaf:401871080"
-   },
-   {
-    "label": "Chattanooga Mocs at Alabama · 2:00 PM ET",
-    "trends": 1,
-    "value": "ncaaf:401856746"
    },
    {
     "label": "Charlotte at Tulsa · 2:00 PM ET",
@@ -653,11 +856,6 @@
     "label": "Florida International at Kennesaw State · 3:00 PM ET",
     "trends": 8,
     "value": "ncaaf:401871078"
-   },
-   {
-    "label": "Samford Bulldogs at Auburn · 3:30 PM ET",
-    "trends": 4,
-    "value": "ncaaf:401856747"
    },
    {
     "label": "LSU at Tennessee · 3:30 PM ET",
@@ -820,6 +1018,34 @@
   "week": 12
  },
  "nfl": {
+  "codes": [
+   "ARI",
+   "BAL",
+   "BUF",
+   "CAR",
+   "CHI",
+   "CIN",
+   "DAL",
+   "DEN",
+   "DET",
+   "HOU",
+   "IND",
+   "JAX",
+   "KC",
+   "LAC",
+   "LV",
+   "MIA",
+   "MIN",
+   "NO",
+   "NYG",
+   "NYJ",
+   "PHI",
+   "PIT",
+   "SF",
+   "TB",
+   "TEN",
+   "WSH"
+  ],
   "games": [
    {
     "label": "Indianapolis Colts at Houston Texans · 8:15 PM ET",
@@ -892,6 +1118,32 @@
   "week": 11
  },
  "nhl": {
+  "codes": [
+   "ANH",
+   "BUF",
+   "CAR",
+   "CBJ",
+   "CGY",
+   "CHI",
+   "COL",
+   "DAL",
+   "EDM",
+   "LA",
+   "MIN",
+   "MTL",
+   "NYI",
+   "OTT",
+   "PHI",
+   "PIT",
+   "SEA",
+   "STL",
+   "TB",
+   "TOR",
+   "VAN",
+   "VGK",
+   "WPG",
+   "WSH"
+  ],
   "games": [
    {
     "label": "Buffalo Sabres at Washington Capitals · 7:00 PM ET",

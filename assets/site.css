@@ -2466,6 +2466,8 @@
   .pv-more { margin: 0 0 1.2em; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
   .pv-quiet, .pv-past { margin: 18px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .pv-past { padding-top: 14px; border-top: 1px solid var(--border-soft); }
+  /* ad slots (preview.ad_slot, Site settings ADS_ON): invisible until something fills them */
+  .ad-slot:empty { display: none; }
   .pv-side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 96px; align-self: start; }
   .pv-side-card { background: var(--panel); border: 1px solid var(--card-border); border-radius: var(--card-radius); padding: var(--card-pad); }
   .pv .pv-side-h { margin: 0 0 10px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--gold); }
