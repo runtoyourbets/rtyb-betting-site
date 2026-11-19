@@ -10273,56 +10273,6 @@
     "streakTeamName": "Bucks"
    },
    {
-    "id": "nfl|401873066|1h|ml|away",
-    "game": "nfl|401873066",
-    "date": "2026-11-19",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-20T01:15Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Colts @ Texans",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 333,
-    "title": "Colts 1H ML",
-    "est": 0.3035,
-    "edge": 0.0726,
-    "agree": 4,
-    "sample": 10,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Texans\u2019s opponents 1H ML, Texans at home",
-      "2-1-1"
-     ],
-     [
-      "Colts 1H ML, last 8",
-      "5-3"
-     ],
-     [
-      "Colts 1H ML, season",
-      "6-4"
-     ],
-     [
-      "Colts 1H ML on the road",
-      "3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Colts"
-   },
-   {
     "id": "nhl|2026020354|1p|ml|away",
     "game": "nhl|2026020354",
     "date": "2026-11-19",
@@ -10371,6 +10321,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "NY Islanders"
+   },
+   {
+    "id": "nfl|401873066|1h|ml|away",
+    "game": "nfl|401873066",
+    "date": "2026-11-19",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-20T01:15Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Colts @ Texans",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 320,
+    "title": "Colts 1H ML",
+    "est": 0.3089,
+    "edge": 0.0708,
+    "agree": 4,
+    "sample": 10,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Texans\u2019s opponents 1H ML, Texans at home",
+      "2-1-1"
+     ],
+     [
+      "Colts 1H ML, last 8",
+      "5-3"
+     ],
+     [
+      "Colts 1H ML, season",
+      "6-4"
+     ],
+     [
+      "Colts 1H ML on the road",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Colts"
    },
    {
     "id": "ncaab|401926773|1h|ml|away",
@@ -10664,10 +10664,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 100,
+    "price": -102,
     "title": "Timberwolves 1H ML",
-    "est": 0.5461,
-    "edge": 0.0461,
+    "est": 0.5495,
+    "edge": 0.0446,
     "agree": 4,
     "sample": 14,
     "tier": "B",
