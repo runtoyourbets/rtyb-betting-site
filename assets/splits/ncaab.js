@@ -80,6 +80,10 @@
     { id: 'tlow', label: cutLabel('Low 1H total', 0), short: 'Low total', group: 'size', def: cutDef(0), test: function(c) { return third(c, 0); } },
     { id: 'tmid', label: cutLabel('Middle 1H total', 1), short: 'Mid total', group: 'size', def: cutDef(1), test: function(c) { return third(c, 1); } },
     { id: 'thigh', label: cutLabel('High 1H total', 2), short: 'High total', group: 'size', def: cutDef(2), test: function(c) { return third(c, 2); } },
+    { id: 'vo500', label: 'Vs. teams over .500', short: 'vs >.500', group: 'opp', own: true, def: 'The opponent was over .500 going into the game (this season).',
+      test: function(c) { return c.oppW > c.oppL; } },
+    { id: 'vu500', label: 'Vs. teams under .500', short: 'vs <.500', group: 'opp', own: true, def: 'The opponent was under .500 going into the game.',
+      test: function(c) { return c.oppW < c.oppL; } },
   ];
   window.RTYB_SPLITS = window.RTYB_SPLITS || {};
   window.RTYB_SPLITS.ncaab = { config: C, groups: groups, rows: rows, markets: [{ id: 'ats' }, { id: 'tot' }], favBy: 'fg-spread', periods: 2,

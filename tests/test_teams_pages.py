@@ -31,7 +31,7 @@ class TeamMetaTest(unittest.TestCase):
         meta = build_site.sport_team_meta(sports.BY_KEY['nba'], team, '2026–27')
         self.assertEqual(meta['title'], 'Boston Celtics First Quarter & First Half Stats & Record | RTYB')
         self.assertEqual(meta['h1'], 'Boston Celtics First Quarter &amp; First Half Stats &amp; Record')
-        self.assertEqual(meta['desc'], 'Atlantic · Eastern Conference')
+        self.assertEqual(meta['desc'], 'First quarter &amp; first half stats &amp; record')   # no division line (Nov 19 spec)
 
     def test_nhl_title_and_logo(self):
         team = {'slug': 'tor', 'code': 'TOR', 'name': 'Toronto Maple Leafs', 'division': 'Atlantic Division', 'conference': 'Eastern Conference'}

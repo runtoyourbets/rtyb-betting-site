@@ -464,7 +464,7 @@ def render_page(template, page_key, teams_menu_html, meta=None, team_code='', sp
     meta = meta or PAGE_META[page_key]
     out = out.replace('__PAGE_TITLE__', meta['title'])
     out = out.replace('__PAGE_H1__', meta['h1'])
-    out = out.replace('__PAGE_SUB__', f'<p class="page-sub">{meta["sub"]}</p>' if meta.get('sub') else '')
+    out = out.replace('__PAGE_SUB__', meta.get('sub_html') or (f'<p class="page-sub">{meta["sub"]}</p>' if meta.get('sub') else ''))
     out = out.replace('__PAGE_DESC__', meta['desc'])
     out = out.replace('__TEAMS_MENU_ITEMS__', teams_menu_html)
     out = out.replace('__PAGE_TEAM_CODE__', team_code)
@@ -634,28 +634,57 @@ def teams_index_html(sport, teams):
     return controls + body + TEAM_FILTER_JS
 
 
+def season_info(sport):
+    """(state, the season's data) for the team pages: scripts/seasons.py's
+    state and the season the pages show (data.json; NHL: sport.json)."""
+    import seasons
+    doc = load(seasons.doc_path(sport), None) or {}
+    return seasons.of(sport, doc), doc
+
+
 def team_detail_html(sport, team):
-    """The team page body; the header (logo + name as the one h1, division
-    and conference) is the page head (sport_team_meta)."""
-    tags = ''.join(f'<span>{esc(seg["tag"])}</span>' for seg in sport['segments'])
+    """The team page body; the header (logo + name as the one h1, the
+    champion's badge, one muted line) is the page head (sport_team_meta).
+    #sportApp carries the season state for assets/sport.js: data-season
+    (off = between seasons, early = the first 21 days), data-season-year,
+    data-opening (Site settings' OPENING_DAY)."""
+    st, doc = season_info(sport)
+    state = 'off' if st['layout'] == 'off' else 'early' if st['key'] == 'early' else ''
     def section(title, msg):
         return f'<h2 class="team-section-title">{title}</h2><div class="section-empty">{msg}</div>'
     no_games = f'No {esc(sport["label"])} games tracked yet.'
     return (f'<a class="sport-team-back" href="/{sport["slug"]}/teams/">&larr; All {esc(sport["label"])} teams</a>'
             # assets/sport.js fills these in from data.json once games exist
-            + f'<div id="sportApp" data-section="team" data-team="{esc(team.get("code") if sport["key"] == "nhl" else team["slug"])}">'
+            + f'<div id="sportApp" data-section="team" data-team="{esc(team.get("code") if sport["key"] == "nhl" else team["slug"])}"'
+            + f' data-season="{state}" data-season-year="{esc(str(doc.get("seasonLabel") or ""))}" data-opening="{esc(st.get("opening") or "")}">'
             + section('Next Game', 'No upcoming game scheduled yet.')
             + section('Last Game', no_games)
-            + section('Season Markets', f'Records and units will appear here once games are graded.<span class="empty-tags">{tags}</span>')
+            + section('Season Markets', 'Records and units will appear here once games are graded.')
             + section('Game Log', no_games)
             + '</div>')
 
 
+def champion_badge(sport, team):
+    """Between seasons, the title winner's gold badge under its name:
+    "🏆 2026 World Series Champions →", to the hub's Champions card."""
+    import seasons
+    from offseason import TITLE
+    st, doc = season_info(sport)
+    if st['layout'] != 'off':
+        return ''
+    ch = seasons.champion(doc)
+    if not ch or str(ch['team']).lower() != str(team.get('code') if sport['key'] == 'nhl' else team['slug']).lower():
+        return ''
+    return (f'<p class="tp-champ"><a href="/{sport["slug"]}/#champions"><span aria-hidden="true">\U0001F3C6</span> '
+            f'{esc(ch["date"][:4])} {esc(TITLE[sport["key"]])} &rarr;</a></p>')
+
+
 def sport_team_meta(sport, team, season_label):
-    """Team page title, h1 (logo + name) and the line under it."""
+    """Team page title, h1 (logo + name), the champion's badge and one muted line."""
     heading = f"{team['name']} {sports.seg_words(sport)} Stats & Record"
+    words = sports.seg_words(sport).lower()
     return {'title': sports.page_title(heading), 'h1': esc(heading), 'icon': badge_html(team, 44, sport['key']),
-            'desc': esc(' · '.join(filter(None, [short_group(team.get('division')), team.get('conference')]))),
+            'sub_html': champion_badge(sport, team), 'desc': esc(words[:1].upper() + words[1:] + ' stats & record'),
             'section': 'teams'}
 
 

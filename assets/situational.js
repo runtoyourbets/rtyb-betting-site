@@ -85,11 +85,20 @@
     ats: { label: 'Spread', url: 'spread', head: 'W-L-P', pctHead: 'Cover %' },
     tot: { label: 'O/U', url: 'total', head: 'W-L-P', pctHead: 'Over %', pair: ['O', 'U'] },
     btts: { label: 'BTTS', url: 'btts', head: 'W-L', pctHead: 'Yes %', pair: ['Y', 'N'] },
+    rfi: { label: 'NRFI', url: 'nrfi', head: 'N-Y', pctHead: 'NRFI %', pair: ['N', 'Y'] },
   };
 
   function create(src) {
     var REG = (window.RTYB_SPLITS || {})[src.sport];
     if (!REG) return null;
+    // groups marked hidden (NHL's Goalie, until the starter / backup data is
+    // checked) stay off every page: the Stats page, team pages, game log tags
+    var HIDDEN = {};
+    REG.groups.forEach(function(G) { if (G.hidden) HIDDEN[G.id] = 1; });
+    if (Object.keys(HIDDEN).length) {
+      REG = Object.assign({}, REG, { groups: REG.groups.filter(function(G) { return !HIDDEN[G.id]; }),
+                                     rows: REG.rows.filter(function(r) { return !HIDDEN[r.group]; }) });
+    }
     var C = REG.config || {};
     var markets = (REG.markets || ['su', 'ats', 'tot']).map(function(m) {
       var id = typeof m === 'string' ? m : m.id;
@@ -242,6 +251,11 @@
               res.bttsA = u.btts ? u.btts[0] : null;
               res.bttsB = u.btts ? u.btts[1] : null;
             }
+            if (r.rfi === 'Y' || r.rfi === 'N') {   // u.rfi = [YRFI, NRFI]
+              res.rfi = r.rfi;
+              res.rfiA = u.rfi ? u.rfi[1] : null;
+              res.rfiB = u.rfi ? u.rfi[0] : null;
+            }
             out.push({ c: c, r: res });
           });
         });
@@ -261,14 +275,15 @@
       return (cache[key] = out);
     }
 
-    function agg(list) {
+    function agg(list, ms) {
+      ms = ms || markets;
       var a = { gp: 0, lined: 0, games: 0 }, seen = {};
-      markets.forEach(function(m) { a[m.id] = { a: 0, b: 0, p: 0, d: 0, n: 0, ua: 0, ub: 0, na: 0, nb: 0 }; });
+      ms.forEach(function(m) { a[m.id] = { a: 0, b: 0, p: 0, d: 0, n: 0, ua: 0, ub: 0, na: 0, nb: 0 }; });
       list.forEach(function(e) {
         var r = e.r;
         a.gp++; if (r.lined) a.lined++;
         if (!seen[e.c.g.id]) { seen[e.c.g.id] = 1; a.games++; }
-        markets.forEach(function(m) {
+        ms.forEach(function(m) {
           var x = a[m.id], v = r[m.id];
           if (v == null) return;
           x.n++;
@@ -594,7 +609,123 @@
       return '<div class="htr-gloss"><h3>Glossary</h3>' + notes.map(function(n) { return '<p>' + esc(n) + '</p>'; }).join('') +
         order.map(function(n) { return '<h4>' + esc(n) + '</h4><dl>' + by[n].join('') + '</dl>'; }).join('') + '</div>';
     }
-    return { render: render, glossary: glossary, contexts: function(k, mode) { return contexts(k, mode || 'current'); }, tags: tags, nextFits: nextFits, spots: spots, standout: standout,
+    // ---- the team page's Situational Results (Chris's Team page spec):
+    // desktop one wide table, SPLIT · GP · a column per market ("54% +1.20u
+    // (13-11)"), rows under MATCHUP · OPPONENT · SCHEDULE · BOUNCE-BACK, then
+    // the DAY OF WEEK strip; phones: market pills, one market at a time.
+    // "All splits" / "Next game" toggle: the rows the next game fits get a dot
+    // and bold text, the rest dim. view = {slug, cols: [{k, id, head, short,
+    // priced}], segs ([{key, label}] or null), onSeg(k), next ({id, label,
+    // dow} or null), note (the line under the title, e.g. "2026 season · final")}
+    var TEAM_GROUP = { ha: 'Matchup', spread: 'Matchup', size: 'Matchup', opp: 'Opponent', rank: 'Opponent',
+                       tip: 'Schedule', drop: 'Schedule', ko: 'Schedule', rest: 'Schedule', prev: 'Bounce-back' };
+    var TEAM_ORDER = ['Matchup', 'Opponent', 'Schedule', 'Bounce-back'];
+    var TEAM_SMALL = 8;   // fewer games than this: "small sample"
+    var DOW = [[1, 'Mon'], [2, 'Tue'], [3, 'Wed'], [4, 'Thu'], [5, 'Fri'], [6, 'Sat'], [0, 'Sun']];
+    var ts = { col: 0, next: false };
+    function teamView(box, view) {
+      if (!box) return;
+      var cols = view.cols.filter(function(c) { return MARKETS[c.id]; });
+      if (!cols.length) { box.innerHTML = ''; return; }
+      if (ts.col >= cols.length) ts.col = 0;
+      var ms = cols.map(function(c) { var o = {}; for (var x in MARKETS[c.id]) o[x] = MARKETS[c.id][x]; o.id = c.id; return o; });
+      // the team's games, per segment
+      var pools = {};
+      cols.forEach(function(c) {
+        if (!pools[c.k]) pools[c.k] = contexts(c.k, 'current').filter(function(e) { return e.c.team === view.slug && e.c.season === 'current'; });
+      });
+      var k0 = cols[0].k;
+      var FIT = {};
+      if (view.next) nextFits(k0, view.slug, view.next.id).forEach(function(r) { FIT[r.id] = 1; });
+      // one aggregate per column: {colIndex: x}
+      function aggRow(test) {
+        var out = { gp: 0, x: [] };
+        cols.forEach(function(c, i) {
+          var a = agg(pools[c.k].filter(test), [ms[i]]);
+          if (c.k === k0 && !out.gpSet) { out.gp = a.gp; out.gpSet = true; }
+          out.x.push(a[c.id]);
+        });
+        return out;
+      }
+      function pctOf(x) { var d = x.a + x.b; return d ? Math.round(100 * x.a / d) : null; }
+      function recOf(id, x) {
+        if (!x.n) return '&mdash;';
+        if (id === 'ml3') return x.a + '&ndash;' + (x.b - x.d) + '&ndash;' + x.d;
+        if (id === 'su' || id === 'ats') return x.a + '&ndash;' + x.b + '&ndash;' + x.p;
+        return x.a + '&ndash;' + x.b;
+      }
+      function unitsOf(c, x) {
+        if (!c.priced || !x.na) return '';
+        var r = Math.round(x.ua * 100) / 100;
+        return ' <span class="ts-u ' + (r > 0.5 ? 'pos' : r < -0.5 ? 'neg' : 'mid') + '">' + fmtU(r) + '</span>';
+      }
+      function cellHtml(c, x) {
+        var p = pctOf(x);
+        if (!x.n) return '<span class="ts-dash">&mdash;</span>';
+        return '<span class="ts-pct">' + (p == null ? '&mdash;' : p + '%') + '</span>' + unitsOf(c, x) + ' <span class="ts-rec">(' + recOf(c.id, x) + ')</span>';
+      }
+      // the rows, in the four groups
+      var groups = {};
+      REG.rows.forEach(function(row) {
+        if (row.id === 'overall') return;
+        var name = TEAM_GROUP[row.group];
+        if (!name) return;
+        if (row.applies && !row.applies(view.slug, C)) return;
+        var a = aggRow(function(e) { return !!row.test(e.c, C); });
+        if (a.gp < 5) return;   // rows under 5 games stay hidden
+        (groups[name] = groups[name] || []).push({ row: row, a: a });
+      });
+      var names = TEAM_ORDER.filter(function(n) { return groups[n]; });
+      var nextOn = ts.next && view.next;
+      function rowCls(row) { return nextOn ? (FIT[row.id] ? ' ts-fit' : ' ts-dim') : ''; }
+      function nameHtml(row, a) {
+        return '<span class="ts-name">' + (nextOn && FIT[row.id] ? '<i class="ts-dot" aria-hidden="true"></i>' : '') + esc(lab(row, k0)) + '</span>' +
+          (a.gp < TEAM_SMALL ? '<span class="ts-small">small sample</span>' : '');
+      }
+      var sel = cols[ts.col];
+      function pills(cls) {
+        return '<div class="seg-toggle ' + cls + '" role="group" aria-label="Market">' + cols.map(function(c, i) {
+          return '<button class="seg-btn" data-ts-col="' + i + '" aria-pressed="' + (i === ts.col) + '">' + esc(c.short) + '</button>'; }).join('') + '</div>';
+      }
+      var h = '';
+      var ctl = '';
+      if (view.segs && view.segs.length > 1) ctl += '<div class="seg-toggle" role="group" aria-label="Segment">' + view.segs.map(function(s) {
+        return '<button class="seg-btn" data-ts-seg="' + s.key + '" aria-pressed="' + (s.key === k0) + '">' + esc(s.label) + '</button>'; }).join('') + '</div>';
+      if (view.next) ctl += '<div class="seg-toggle" role="group" aria-label="Which splits"><button class="seg-btn" data-ts-next="0" aria-pressed="' + !nextOn + '">All splits</button>' +
+        '<button class="seg-btn" data-ts-next="1" aria-pressed="' + !!nextOn + '">' + esc(view.next.label) + '</button></div>';
+      if (ctl) h += '<div class="ts-ctl">' + ctl + '</div>';
+      h += pills('ts-pills-phone');
+      if (!names.length) h += '<p class="ts-none">No splits with 5 or more games yet.</p>';
+      // desktop: one wide table
+      var thead = '<tr><th class="ts-l">Split</th><th class="num">GP</th>' + cols.map(function(c) { return '<th class="num">' + esc(c.head) + '</th>'; }).join('') + '</tr>';
+      var body = names.map(function(n) {
+        return '<tr class="ts-grp"><th colspan="' + (cols.length + 2) + '"><span class="ts-gl">' + esc(n) + '</span></th></tr>' + groups[n].map(function(x) {
+          return '<tr class="ts-row' + rowCls(x.row) + '"><td class="ts-l">' + nameHtml(x.row, x.a) + '</td><td class="num">' + x.a.gp + '</td>' +
+            cols.map(function(c, i) { return '<td class="num">' + cellHtml(c, x.a.x[i]) + '</td>'; }).join('') + '</tr>';
+        }).join('');
+      }).join('');
+      if (names.length) h += '<div class="ts-desk"><table class="ts-table"><thead>' + thead + '</thead><tbody>' + body + '</tbody></table></div>';
+      // phones: the selected market only
+      if (names.length) h += '<div class="ts-mob">' + names.map(function(n) {
+        return '<p class="ts-gl">' + esc(n) + '</p><ul class="ts-list">' + groups[n].map(function(x) {
+          return '<li class="ts-row' + rowCls(x.row) + '"><span class="ts-lcell">' + nameHtml(x.row, x.a) + '</span><span class="ts-gp">' + x.a.gp + ' GP</span>' +
+            '<span class="ts-val">' + cellHtml(sel, x.a.x[ts.col]) + '</span></li>';
+        }).join('') + '</ul>';
+      }).join('') + '</div>';
+      // DAY OF WEEK: Mon-Sun, the selected market, the next game's day highlighted
+      var nd = view.next && view.next.dow != null ? view.next.dow : null;
+      var strip = DOW.map(function(d) {
+        var a = agg(pools[sel.k].filter(function(e) { return e.c.dow === d[0]; }), [ms[ts.col]]), x = a[sel.id], p = pctOf(x);
+        return '<div class="ts-day' + (d[0] === nd ? ' ts-today' : '') + '"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '&mdash;' : p + '%') + '</span>' +
+          '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
+      }).join('');
+      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.head) + '</span></div><div class="ts-strip">' + strip + '</div></div>';
+      box.innerHTML = h;
+      box.querySelectorAll('[data-ts-col]').forEach(function(b) { b.onclick = function() { ts.col = +b.getAttribute('data-ts-col'); teamView(box, view); }; });
+      box.querySelectorAll('[data-ts-next]').forEach(function(b) { b.onclick = function() { ts.next = b.getAttribute('data-ts-next') === '1'; teamView(box, view); }; });
+      box.querySelectorAll('[data-ts-seg]').forEach(function(b) { b.onclick = function() { if (view.onSeg) view.onSeg(b.getAttribute('data-ts-seg')); }; });
+    }
+    return { render: render, team: teamView, glossary: glossary, contexts: function(k, mode) { return contexts(k, mode || 'current'); }, tags: tags, nextFits: nextFits, spots: spots, standout: standout,
              markets: markets, reg: REG, state: st };
   }
   window.RTYBSit = { create: create, etParts: etParts };

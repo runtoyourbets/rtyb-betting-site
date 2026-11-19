@@ -604,7 +604,7 @@
     root.querySelectorAll('[data-tm-pill]').forEach(function(b) { b.onclick = function() { var x = b.getAttribute('data-tm-pill').split('|'); st.k = x[0]; st.m = x[1]; draw(); }; });
   }
   function tmMarketNote(m) {
-    return { ml: tieSport() ? 'Win % counts ties as games played' : 'A tied segment is a push: in the record, not the %',
+    return { ml: tieSport() ? 'Win % leaves ties out (a tie is in the record, not the %)' : 'A tied segment is a push: in the record, not the %',
              ml3: '3-way: a tied segment loses a team bet; Tie % is how often the segment was tied' }[m] || (tmNoPush(m) ? 'This market can’t push' : 'Pushes count in the record but not the %');
   }
 
@@ -738,182 +738,350 @@
   }
 
   // ------------------------------------------------------------ team page
-  // Next game, last game, season markets, home / away splits, current
-  // streaks, line history, results history, Situational Results, game log.
-  function tmSection(title, body, id) { return '<section class="tm-sec"' + (id ? ' id="' + id + '"' : '') + '><h2 class="team-section-title">' + title + '</h2>' + body + '</section>'; }
+  // Chris's Team page spec (Nov 19), every sport, its own segment and
+  // markets: Header (static) · Next game · Last game · Season markets ·
+  // Current streaks · Game log · Home / Away · Situational results · Line
+  // history · Results history. The build marks the sport's season state on
+  // #sportApp (scripts/seasons.py): data-season "off" = between seasons
+  // (Next game becomes "[YEAR] SEASON · FINAL", Current streaks the season's
+  // longest, every stats section says "[YEAR] season · final"); "early" =
+  // the first 21 days (each section gets This season / Last season, and
+  // under 10 games says "Small sample").
+  function tmSection(title, body, id, note) {
+    return '<section class="tm-sec"' + (id ? ' id="' + id + '"' : '') + '><div class="tph"><h2 class="team-section-title">' + title + '</h2>' +
+      (note || '') + tpSeasonToggle() + '</div>' + body + '</section>';
+  }
   function scoreWord() { return D.sport === 'nhl' ? 'goals' : D.sport === 'mlb' ? 'runs' : 'points'; }
-  function ucFirst(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   function num1(x) { var r = Math.round(x * 10) / 10; return String(r); }
   function signedLine(x) { var r = Math.round(x * 10) / 10; return (r > 0 ? '+' : '') + r; }
   function priceTxt(p) { return typeof p === 'number' ? (p > 0 ? '+' : '') + Math.round(p) : '&mdash;'; }
   function shortDate(g) { return g.start ? new Date(g.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' }) : ''; }
-  function vsTxt(g, slug) { return (g.home === slug ? 'vs ' : '@ ') + tcode(g.home === slug ? g.away : g.home); }
-  // the team's lines for one segment of a game, or '' when none are posted
-  function tmLines(g, k, slug) {
-    var o = (g.odds || {})[k] || {}, side = g.home === slug ? 'home' : 'away', opp = side === 'home' ? 'away' : 'home', out = [];
-    tmMarkets(k).forEach(function(p) {
-      var m = p.m;
-      if (m === 'ml' && o.ml && typeof o.ml[side] === 'number') out.push('Moneyline ' + priceTxt(o.ml[side]));
-      if (m === 'ats' && o.ats && o.ats[side] && typeof o.ats[side].line === 'number') out.push(esc(p.label.replace(/^F5 /, '')) + ' ' + signedLine(o.ats[side].line) + (o.ats[side].price != null ? ' (' + priceTxt(o.ats[side].price) + ')' : ''));
-      if (m === 'total' && o.total && typeof o.total.line === 'number') out.push(D.sport === 'nhl' ? 'Over 1.5 ' + priceTxt(o.total.over) : 'Total ' + num1(o.total.line));
-      if (m === 'btts' && o.btts && o.btts.yes != null) out.push('BTTS Yes ' + priceTxt(o.btts.yes) + ' / No ' + priceTxt(o.btts.no));
-      if (m === 'rfi' && o.nrfi_yrfi && o.nrfi_yrfi.nrfi != null) out.push('NRFI ' + priceTxt(o.nrfi_yrfi.nrfi) + ' / YRFI ' + priceTxt(o.nrfi_yrfi.yrfi));
-      if (m === 'ml3' && o.ml3 && o.ml3[side] != null) out.push('3-way ' + esc(tcode(g[side])) + ' ' + priceTxt(o.ml3[side]) + ' &middot; Tie ' + priceTxt(o.ml3.draw) + ' &middot; ' + esc(tcode(g[opp])) + ' ' + priceTxt(o.ml3[opp]));
-    });
-    return out.join(' &middot; ');
-  }
-  // a market's result for the team, in words, with its icon
-  function tmResultWord(g, k, m, slug) {
-    var b = tmBet(g, k, m, slug);
-    if (!b) return null;
-    var o = (g.odds || {})[k] || {}, side = g.home === slug ? 'home' : 'away', w;
-    if (m === 'ml' || m === 'ml3') w = (m === 'ml3' ? '3-way: ' : 'Moneyline: ') + (b.r === 'W' ? 'Won' : b.r === 'L' ? 'Lost' : m === 'ml' && !tieSport() ? 'Push' : 'Tied');
-    else if (m === 'ats') { var ln = (o.ats || {})[side] || {}; w = (D.sportType === 'baseball' ? 'Run line' : 'Spread') + (typeof ln.line === 'number' ? ' ' + signedLine(ln.line) : '') + ': ' + (b.r === 'W' ? 'Covered' : b.r === 'L' ? 'Didn’t cover' : 'Push'); }
-    else if (m === 'total') w = (D.sport === 'nhl' ? 'Over 1.5' : 'Total' + (o.total && typeof o.total.line === 'number' ? ' ' + num1(o.total.line) : '')) + ': ' + (b.r === 'W' ? 'Over' : b.r === 'L' ? 'Under' : 'Push');
-    else if (m === 'btts') w = 'BTTS: ' + (b.r === 'W' ? 'Yes' : 'No');
-    else w = (b.r === 'W' ? 'NRFI' : 'YRFI');
-    var ic = b.r === 'W' ? ['✓', 'tr-w'] : b.r === 'L' ? ['✗', 'tr-l'] : ['–', 'tr-p'];
-    return '<span class="tm-res">' + esc(w) + ' <span class="tr-st ' + ic[1] + '">' + ic[0] + '</span></span>';
-  }
+  function wdDate(g) { return g.start ? new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'America/New_York' }) : ''; }
   function tmScore(g, k, slug) {
     var r = (g.res || {})[k];
     if (!r || !r.sc) return null;
     return g.home === slug ? r.sc[1] + '–' + r.sc[0] : r.sc[0] + '–' + r.sc[1];
   }
-  function tmLogLink(g, text) { return '<a href="#g-' + esc(String(g.id)) + '" data-glog="' + esc(String(g.id)) + '">' + text + '</a>'; }
-
-  // this team's lines from the Trends page's Matchup Trends (lean 60%+ over 10+ games, or a run of 3+)
-  function tmMatchupLines(g, slug) {
-    var before = gameDay(g) || todayET(), out = [];
-    D.segments.forEach(function(s) {
-      var seqs = teamSeqs(before, s.key), done = {};
-      tmMarkets(s.key).forEach(function(p) {
-        var m = p.m === 'ml3' ? 'ml' : p.m;
-        if (done[m] || !HIT[m]) return;
-        done[m] = 1;
-        var seq = ((seqs[slug] || {})[m]) || [], ln = leanOf(m, seq), st = streakOf(seq);
-        var kind = ln ? ln.kind : st && st.n >= 3 ? st.kind : null;
-        if (!kind) return;
-        var c = countOf(m, seq, kind);
-        out.push('<div class="mt-line"><span><b>' + esc(tcode(slug)) + '</b> ' + esc(lineWords(m, kind, s.key)) + ' in ' + c.x + ' of ' + c.y + ' &middot; ' + pct0(c.y ? c.x / c.y : 0) +
-          (st && st.n >= 3 && st.kind === kind ? ' &middot; ' + st.n + ' straight' : '') + '</span>' + dots(seq, kind) + '</div>');
-      });
-    });
-    return out;
+  // the segment the team's headline numbers use: MLB's First Five, else the first
+  function tpSeg() { return D.sportType === 'baseball' ? 'f5' : D.segments[0].key; }
+  // "1P ML", "1P Over 1.5", "F5 Run Line", "NRFI", "1Q Spread"
+  function tpName(p) {
+    if (D.sportType === 'baseball') return { rfi: 'NRFI', ml: 'F5 ML', ats: 'F5 Run Line', total: 'F5 Total' }[p.m];
+    return seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', ats: 'Spread', total: D.sport === 'nhl' ? 'Over 1.5' : 'Total', btts: 'BTTS' }[p.m];
   }
+  // the sides a record lists, first side = the %: "W–L–T", "O–U", "Y–N", "N–Y"
+  function tpSides(m) { return { ml: tieSport() ? 'W–L–T' : 'W–L–P', ml3: 'W–L–T', ats: 'W–L–P', total: 'O–U', btts: 'Y–N', rfi: 'N–Y' }[m]; }
+  // Home / Away and Situational headers: "1P ML (W–L–T)", "O/U 1.5 (O–U)", "BTTS (Y–N)", "1Q TOTAL (O–U)"
+  function tpHead(p) {
+    var n = D.sport === 'nhl' ? { ml: '1P ML', total: 'O/U 1.5', btts: 'BTTS', ml3: '3-Way' }[p.m] : tpName(p);
+    return n + ' (' + tpSides(p.m) + ')';
+  }
+  function tpRec(a, m) { return !a.gp ? '&mdash;' : a.w + '–' + a.l + (m === 'ml' || m === 'ml3' || m === 'ats' ? '–' + a.t : ''); }
+  // what each market's % means (2-way ML leaves ties out; 3-way counts them)
+  function tpNote(m) {
+    return { ml: tieSport() ? 'ML: win % leaves ties out' : 'ML: win % leaves pushes out',
+             ml3: '3-Way: win % counts ties (a tied segment loses the bet)', ats: (D.sportType === 'baseball' ? 'Run line' : 'Spread') + ': pushes count in the record, not the %',
+             total: D.sport === 'nhl' ? 'Over 1.5 can’t push' : 'Total: pushes leave the record and the %',
+             btts: 'BTTS can’t push', rfi: 'NRFI can’t push' }[m];
+  }
+  var TP_SMALL = 10;   // early season: fewer games than this says "Small sample"
+  function tpSmall(n) { return TP.state === 'early' && n && n < TP_SMALL ? '<span class="tp-small">Small sample</span>' : ''; }
+  // every market, oldest-first games per team (the league's top 5 per market)
+  var TP_TOP = {};
+  function tpTop5(p) {
+    var key = p.k + '|' + p.m;
+    if (TP_TOP[key]) return TP_TOP[key];
+    var by = {};
+    allDates().forEach(function(d) { D.games[d].forEach(function(g) { if (g.state === 'final' && g.res) { (by[g.away] = by[g.away] || []).push(g); (by[g.home] = by[g.home] || []).push(g); } }); });
+    var rows = Object.keys(by).filter(function(s) { return D.teams[s]; }).map(function(s) { return { s: s, a: tmAgg(s, p.k, p.m, 'all', by[s]) }; })
+      .filter(function(x) { return x.a.pct != null && x.a.gp >= 5; });
+    rows.sort(function(a, b) { return b.a.pct - a.a.pct; });
+    var top = {};
+    // a top 5 needs a league to rank: 10+ teams with 5+ games in the market
+    if (rows.length >= 10) rows.slice(0, 5).forEach(function(x) { top[x.s] = 1; });
+    return (TP_TOP[key] = top);
+  }
+  // one market's result for the team, as the Matchups cell shows it: the
+  // outcome in the cell; w = the team's side happened (green), p = tie or
+  // push (gold), n = their side didn't (gray). Game markets (O/U, BTTS,
+  // NRFI) show what happened, in green.
+  function tpResult(g, k, m, slug) {
+    var b = tmBet(g, k, m, slug);
+    if (!b) return null;
+    var home = g.home === slug, me = tcode(slug), opp = tcode(home ? g.away : g.home), o = (g.odds || {})[k] || {};
+    var cls = b.r === 'T' ? 'p' : b.r === 'W' ? 'w' : 'n', txt, short = null;
+    if (m === 'ml' || m === 'ml3') txt = b.r === 'T' ? 'Tie' : b.r === 'W' ? me : opp;
+    else if (m === 'ats') { var ln = ((o.ats || {})[home ? 'home' : 'away'] || {}).line; txt = me + (typeof ln === 'number' ? ' ' + signedLine(ln) : ''); short = typeof ln === 'number' ? signedLine(ln) : me; }
+    else if (m === 'total') { txt = b.r === 'T' ? 'Push' : b.r === 'W' ? 'Over' : 'Under'; cls = b.r === 'T' ? 'p' : 'w'; }
+    else if (m === 'btts') { txt = b.r === 'W' ? 'Yes' : 'No'; cls = 'w'; }
+    else { txt = b.r === 'W' ? 'NRFI' : 'YRFI'; cls = 'w'; }
+    return { cls: cls, txt: txt, short: short };
+  }
+  function tpResCell(g, p, slug, label) {
+    var x = tpResult(g, p.k, p.m, slug);
+    return '<div class="tp-res">' + (label ? '<span class="tp-gl">' + esc(tpName(p)) + '</span>' : '') +
+      '<span class="cell tp-rc' + (x ? ' tp-rc-' + x.cls : '') + '">' + (x ? '<span class="ob-ln">' + (x.short && !label ? '<span class="tn-full">' + esc(x.txt) + '</span><span class="tn-short">' + esc(x.short) + '</span>' : esc(x.txt)) + '</span>' : '<span class="mc-dash">&ndash;</span>') + '</span></div>';
+  }
+  // "Next game: @ TB, Thu" (the Situational toggle)
+  function tpNextLabel(g, slug) {
+    return 'Next game: ' + (g.home === slug ? 'vs ' : '@ ') + tcode(g.home === slug ? g.away : g.home) + ', ' +
+      new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' });
+  }
+  // the season state from the build, and the early season's Last season data
+  var TP = { state: app.getAttribute('data-season') || '', year: app.getAttribute('data-season-year') || '', opening: app.getAttribute('data-opening') || '',
+             which: 'this', cur: null, prev: null, prevTried: false, log: 5, sitK: null, haCol: 0 };
+  function tpSeasonToggle() {
+    if (TP.state !== 'early') return '';
+    return '<div class="seg-toggle tp-season" role="group" aria-label="Season"><button class="seg-btn" data-tp-season="this" aria-pressed="' + (TP.which === 'this') + '">This season</button>' +
+      '<button class="seg-btn" data-tp-season="last" aria-pressed="' + (TP.which === 'last') + '">Last season</button></div>';
+  }
+  function tpFinalNote() { return TP.state === 'off' ? '<p class="tp-final">' + esc(TP.year || D.seasonLabel || '') + ' season &middot; final</p>' : ''; }
 
-  var tm = { k: null, m: null, logK: null, logAll: false };
   function renderTeam() {
-    var slug = TEAM, games = teamGames(slug);
-    if (!games.length) return;   // keep the server-rendered empty sections
+    var slug = TEAM;
+    if (!TP.cur) TP.cur = D.games;
+    var games = teamGames(slug);
+    if (!games.length && TP.which === 'this') return;   // keep the server-rendered empty sections
     var finals = games.filter(function(g) { return g.state === 'final'; });
     var graded = finals.filter(function(g) { return g.res; });
-    var next = games.filter(function(g) { return g.state === 'pre' || g.state === 'in'; })[0];
+    var off = TP.state === 'off';
+    var next = off || TP.which === 'last' ? null : games.filter(function(g) { return g.state === 'pre' || g.state === 'in'; })[0];
     var last = finals[finals.length - 1];
-    var name = shortName(slug);
-    if (!tm.k) tm.k = getSeg();
-    if (!tm.logK) tm.logK = D.segments[0].key;
+    var all = tmMarkets();
+    var sname = function(s) { return esc(shortName(s)); };
 
-    function nextLabel(g) {
-      var vs = (g.home === slug ? 'vs ' : '@ ') + tcode(g.home === slug ? g.away : g.home);
-      if (D.schedule === 'week') return (D.weeks && g.wk === currentWeek(D.weeks) ? 'This week ' : 'Next game: ' + new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }) + ' ') + vs;
-      return gameDay(g) === todayET() ? 'Tonight ' + vs : 'Next game: ' + new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }) + ' ' + vs;
-    }
+    // NEXT GAME: title bar, both teams, venue + TV, the best price per market
     function nextHtml() {
+      if (off) return finalHtml();
       if (!next) return tmSection('Next Game', emptyNote('No upcoming game scheduled.'));
-      var g = next, home = g.home === slug, opp = home ? g.away : g.home, day = gameDay(g);
-      var when = D.schedule === 'week' ? timeET(g.start) : dateLabel(day) + ' &middot; ' + esc(timeET(g.start));
-      var h = '<div class="tm-card"><div class="tm-ng-head"><span class="tm-when">' + when + '</span>' +
-        (g.state === 'in' ? '<span class="tr-st tr-live"><i></i>' + esc(liveText(g)) + '</span>' : '') +
-        '<span class="tm-opp">' + (home ? 'vs' : '@') + ' ' + badge(opp, 24) + teamLink(opp, esc(team(opp).name)) + '</span></div>';
-      h += D.segments.map(function(s) {
-        var lines = tmLines(g, s.key, slug), live = g.state === 'in' ? tmScore(g, s.key, slug) : null;
-        return '<div class="tm-seg-line"><b>' + esc(s.label) + '</b><span>' + (live ? '<span class="tm-live">' + esc(tcode(slug)) + ' ' + live + ' ' + esc(tcode(opp)) + '</span> &middot; ' : '') +
-          (lines || '<span class="tm-muted">Lines not posted yet</span>') + '</span></div>';
-      }).join('');
-      var mt = tmMatchupLines(g, slug);
-      var trUrl = ROOT + SPORT_SLUG + '/trends/' + (D.schedule === 'week' ? '?week=' + encodeURIComponent(g.wk || '') : '?date=' + day);
-      h += '<div class="tm-mt"><div class="tm-mt-head"><b>Matchup trends</b><a href="' + trUrl + '">See all Trends &rarr;</a></div>' +
-        (mt.length ? mt.join('') : '<p class="mt-none">No matchup trends for this game.</p>') + '</div></div>';
-      return tmSection('Next Game', h);
+      var g = next, day = gameDay(g);
+      var when = day === todayET() ? 'Today' : wdDate(g);
+      var where = [g.ven, (g.tv || []).join(', ')].filter(Boolean).map(esc).join(' &middot; ');
+      var teams = '<div class="tp-teams">' + [g.away, g.home].map(function(s, i) {
+        return (i ? '<span class="tp-at">@</span>' : '') + '<span class="tp-team">' + badge(s, 32) + teamLink(s, '<span class="tn-full">' + sname(s) + '</span><span class="tn-short">' + esc(tcode(s)) + '</span>') + '</span>';
+      }).join('') + '</div>';
+      var href = ROOT + SPORT_SLUG + '/odds/' + (D.schedule === 'week' && g.wk ? '?week=' + encodeURIComponent(g.wk) : '?date=' + day) + '#og-' + g.away + '-' + g.home;
+      return tmSection('Next Game', '<div class="st-card tp-card"><div class="st-head"><h4>Next game &middot; ' + esc(when) + ' ' +
+        esc(new Date(g.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })) + ' ET</h4></div>' +
+        '<div class="tp-ng">' + teams + (where ? '<p class="tp-where">' + where + '</p>' : '') + '</div>' +
+        '<div id="tpOdds">' + oddsBlocks(g, null, null) + '</div>' +
+        '<div class="fr-links"><a class="fr-more" href="' + href + '">All odds for this game &rarr;</a></div></div>');
     }
+    // the team's side in a market: its own (ML, spread, 3-way), else the
+    // side its season leans to (Over / Under, BTTS Yes / No, NRFI / YRFI)
+    function oddsSide(p) {
+      var home = next.home === slug, side = home ? 'home' : 'away';
+      if (p.m === 'ml' || p.m === 'ats' || p.m === 'ml3') return { key: side, label: tpName(p) + ' · ' + tcode(slug) };
+      var a = tmAgg(slug, p.k, p.m, 'all', graded), first = a.pct == null || a.pct >= 0.5;
+      if (p.m === 'total') return { key: first ? 'over' : 'under', label: (D.sportType === 'baseball' ? 'F5' : seg(p.k).tag) + ' ' + (first ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '') };
+      if (p.m === 'btts') return { key: first ? 'yes' : 'no', label: 'BTTS ' + (first ? 'Yes' : 'No') };
+      return { key: first ? 'nrfi' : 'yrfi', label: first ? 'NRFI' : 'YRFI' };
+    }
+    function oddsBlocks(g, og, sources) {
+      var any = false;
+      var html = all.map(function(p) {
+        var s = oddsSide(p), mk = p.m === 'rfi' ? 'nrfi_yrfi' : p.m;
+        var best = og ? ((og.best || {})[p.k] || {})[mk] : null, mine = ((g.odds || {})[p.k] || {})[mk];
+        var o = best || mine, top = null, sub = null, line = null;
+        if (o) {
+          if (p.m === 'ats') { var a = o[s.key] || {}; if (typeof a.line === 'number') { top = signedLine(a.line); sub = priceTxt(a.price); line = a.line; } }
+          else if (p.m === 'total') { if (o[s.key] != null) { top = (s.key === 'over' ? 'o' : 'u') + (o.line != null ? num1(o.line) : ''); sub = priceTxt(o[s.key]); line = o.line; } }
+          else if (o[s.key] != null) top = priceTxt(o[s.key]);
+        }
+        var book = '';
+        if (best && og && sources && top) {
+          var price = p.m === 'ats' ? (o[s.key] || {}).price : o[s.key], rows = (((og.books || {})[p.k] || {})[mk]) || {}, id = null;
+          // sportsbooks, then exchanges, then the Consensus price (a market only it prices)
+          ['book', 'exch', 'consensus'].forEach(function(pass) {
+            Object.keys(rows).forEach(function(b) {
+              if (id || b === '60' || (b === 'consensus') !== (pass === 'consensus')) return;
+              if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
+              var r = rows[b], v = r && r[s.key], vp = v && typeof v === 'object' ? v.price : v;
+              if (vp !== price) return;
+              if (p.m === 'ats' && v.line !== line) return;
+              if (p.m === 'total' && r.line !== line) return;
+              id = b;
+            });
+          });
+          var src = id ? sources[id] || {} : null;
+          if (src) book = src.logo ? '<img class="sl-book" src="' + ROOT + esc(src.logo) + '" alt="' + esc(src.name || id) + '" title="' + esc(src.name || id) + '" loading="lazy">' : '<span class="sl-bname">' + esc(src.name || id) + '</span>';
+        }
+        if (top) any = true;
+        var cell = top ? '<span class="cell tp-best"><span class="ob-ln">' + esc(top) + '</span>' + (sub ? '<span class="ob-pr">' + esc(sub) + '</span>' : '') + '</span>'
+          : '<span class="cell"><span class="mc-dash">&ndash;</span></span>';
+        return '<div class="tp-ob"><span class="tp-gl">' + esc(s.label) + '</span><span class="tp-ob-row"><span class="tp-book">' + book + '</span>' + cell + '</span></div>';
+      }).join('');
+      return any ? '<div class="tp-odds">' + html + '</div>' : '<p class="tp-none">Lines not posted yet.</p>';
+    }
+    function loadOdds() {
+      if (!next) return;
+      var day = gameDay(next);
+      Promise.all([fetch(ROOT + SPORT_SLUG + '/odds.json').then(function(r) { return r.ok ? r.json() : {}; }),
+                   fetch(ROOT + SPORT_SLUG + '/odds/' + day + '.json').then(function(r) { return r.ok ? r.json() : { games: [] }; })]).then(function(x) {
+        var og = (x[1].games || []).filter(function(o) { return o.away === next.away && o.home === next.home; })[0], box = document.getElementById('tpOdds');
+        if (og && box) box.innerHTML = oddsBlocks(next, og, x[0].sources || {});
+      }).catch(function() {});
+    }
+    // between seasons: "[YEAR] SEASON · FINAL" with the final record per market
+    function finalHtml() {
+      var right = 'Next season starts ';
+      if (TP.opening) {
+        var d = new Date(TP.opening + 'T12:00:00Z'), n = Math.max(0, Math.round((d - new Date(todayET() + 'T12:00:00Z')) / 864e5));
+        right += d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }) + ' &middot; ' + n + ' day' + (n === 1 ? '' : 's');
+      } else right += 'date TBA';
+      return tmSection(esc(TP.year || D.seasonLabel || '') + ' Season &middot; Final', '<div class="st-card tp-card"><div class="st-head tp-split"><h4>' + esc(TP.year || D.seasonLabel || '') +
+        ' season &middot; final</h4><span class="tp-hr">' + right + '</span></div>' + marketCards() + '</div>');
+    }
+    // LAST GAME: the segment's result pill, "EDM 2 @ FLA 0 · Final 5–2", a result cell per market
     function lastHtml() {
       if (!last) return tmSection('Last Game', emptyNote('No games played yet.'));
-      var g = last, home = g.home === slug, opp = home ? g.away : g.home;
-      var fin = g.as != null && g.hs != null ? (home ? g.hs + '–' + g.as : g.as + '–' + g.hs) : '';
-      var h = '<div class="tm-card"><div class="tm-ng-head"><span class="tm-when">' + esc(shortDate(g)) + '</span><span class="tm-opp">' + (home ? 'vs' : '@') + ' ' + badge(opp, 24) + teamLink(opp, esc(team(opp).name)) + '</span>' +
-        (fin ? '<span class="tm-final">Final <b class="mono">' + fin + '</b>' + (g.ot ? ' ' + esc(g.ot) : '') + '</span>' : '') + '</div>';
-      h += D.segments.map(function(s) {
-        var sc = tmScore(g, s.key, slug);
-        var res = tmMarkets(s.key).map(function(p) { return tmResultWord(g, s.key, p.m, slug); }).filter(Boolean);
-        return '<div class="tm-seg-line"><b>' + esc(s.label) + '</b><span>' + (sc ? '<b class="mono">' + sc + '</b>' : '<span class="tm-muted">No score</span>') +
-          (res.length ? ' &middot; ' + res.join(' ') : '') + '</span></div>';
+      var g = last, k = tpSeg(), r = (g.res || {})[k], home = g.home === slug;
+      var title = 'Last game &middot; ' + esc(wdDate(g));
+      if (g.post && g.note) title = esc(String(g.note).replace(/\s*-\s*/, ' ')) + ' &middot; ' + esc(shortDate(g));
+      var pill = '';
+      if (r && r.sc) {
+        var mine = home ? r.sc[1] : r.sc[0], theirs = home ? r.sc[0] : r.sc[1], tag = seg(k).tag;
+        var w = mine > theirs ? ['won', 'tp-pill-w'] : mine < theirs ? ['lost', 'tp-pill-l'] : ['tied', 'tp-pill-t'];
+        pill = '<span class="tp-pill ' + w[1] + '">' + esc(tag) + ' ' + w[0] + ' ' + mine + '–' + theirs + '</span>';
+      }
+      var line = r && r.sc ? esc(tcode(g.away)) + ' ' + r.sc[0] + ' @ ' + esc(tcode(g.home)) + ' ' + r.sc[1] : esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home));
+      if (g.as != null && g.hs != null) line += ' &middot; Final ' + g.as + '–' + g.hs + (g.ot ? ' ' + esc(g.ot) : '');
+      return tmSection('Last Game', '<div class="st-card tp-card"><div class="st-head tp-split"><h4>' + title + '</h4>' + pill + '</div>' +
+        '<p class="tp-line">' + line + '</p><div class="tp-cells">' + all.map(function(p) { return tpResCell(g, p, slug, true); }).join('') + '</div></div>');
+    }
+    // SEASON MARKETS: one card per market (green border: top 5 in the league)
+    function marketCards() {
+      var notes = [];
+      var cards = all.map(function(p) {
+        var a = tmAgg(slug, p.k, p.m, 'all', graded), top = a.gp && tpTop5(p)[slug];
+        var n = tpNote(p.m);
+        if (n && notes.indexOf(n) === -1) notes.push(n);
+        return '<div class="tp-mk' + (top ? ' tp-top' : '') + '"><span class="tp-gl">' + esc(tpName(p)) + '</span><span class="tp-big">' + tmPct(a.pct) + '</span>' +
+          '<span class="tp-rec">' + tpRec(a, p.m) + '</span>' + tpSmall(a.gp) + (p.m === 'ml' || p.m === 'ml3' || p.m === 'ats' || a.priced ? tmUnits(a) : '') + '</div>';
       }).join('');
-      return tmSection('Last Game', h + '</div>');
+      return '<div class="tp-mks">' + cards + '</div><p class="tp-foot">' + esc(notes.join(' · ')) + '. Green border: top 5 in ' + esc(leagueIn()) + '.</p>';
     }
-    // 4 + 5: season markets and home / away splits, following the pills
-    function marketsHtml() {
-      var pills = tmPills(tm.k), p = tmPick(tm, pills), k = p.k, m = p.m, a = tmAgg(slug, k, m, 'all', graded);
-      var card = '<div class="tm-mk-card"><div><span class="tm-mk-label">' + esc(tmRecHead(m)) + '</span><b class="mono">' + tmRecTxt(a, m) + '</b></div>' +
-        '<div><span class="tm-mk-label">' + esc(TM_INFO[m].pct) + '</span><b class="mono">' + tmPct(a.pct) + '</b></div>' +
-        (m === 'ml3' ? '<div><span class="tm-mk-label">Tie %</span><b class="mono">' + tmPct(a.tiePct) + '</b></div>' : '') +
-        '<div><span class="tm-mk-label">Units</span><b class="mono">' + tmUnits(a) + '</b></div></div>';
-      var ms = tmMarkets(k);
-      var split = '<div class="table-scroll"><table class="gamelog tm-split"><thead><tr><th></th><th class="num">GP</th>' + ms.map(function(x) {
-        return '<th class="num' + (x.m === m ? ' sit-hl' : '') + '">' + esc(x.label) + ' <small>' + esc(tmRecHead(x.m)) + '</small></th>'; }).join('') + '</tr></thead><tbody>' +
-        [['all', 'All'], ['home', 'Home'], ['away', 'Away']].map(function(sd) {
-          var gp = graded.filter(function(g) { return ((g.res || {})[k] || {}).sc && (sd[0] === 'all' || (sd[0] === 'home') === (g.home === slug)); }).length;
-          return '<tr><th>' + sd[1] + '</th><td class="num mono">' + gp + '</td>' + ms.map(function(x) {
-            var b = tmAgg(slug, k, x.m, sd[0], graded);
-            return '<td class="num mono' + (x.m === m ? ' sit-hl' : '') + '">' + tmRecTxt(b, x.m) + (b.gp ? ' <small>' + tmPct(b.pct) + '</small>' : '') + '</td>';
-          }).join('') + '</tr>';
-        }).join('') + '</tbody></table></div>';
-      return tmSection('Season Markets', '<div class="controls tm-controls">' + tmControls(tm, pills, 'tmPills') + '</div>' + card + '<p class="tl-note">' + esc(seg(k).label) + ' &middot; ' + esc(D.seasonLabel || '') + ' season &middot; ' + tmMarketNote(m) + '</p>') +
-        tmSection('Home / Away Splits', split);
+    function marketsHtml() { return tmSection('Season Markets', marketCards(), 'tpMarkets', tpFinalNote()); }
+    // CURRENT STREAKS: chips, 3+ only; between seasons, the season's longest per market
+    function streakText(m, kind, k) {
+      var tag = D.sportType === 'baseball' ? (m === 'rfi' ? '' : 'F5 ') : seg(k).tag + ' ';
+      if (m === 'ml') return tag + (kind === 'W' ? 'wins' : 'losses');
+      if (m === 'ats') return tag + (kind === 'W' ? 'covers' : 'non-covers');
+      if (m === 'total') return tag + (kind === 'O' ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '');
+      if (m === 'btts') return 'BTTS ' + (kind === 'Y' ? 'Yes' : 'No');
+      return kind === 'Y' ? 'YRFI' : 'NRFI';
     }
-    function streakWord(m, kind, k) {
-      var s = segWord(k), sw = ucFirst(segWords(k));
-      if (m === 'ml') return (kind === 'W' ? 'Won' : 'Lost') + ' the ' + s;
-      if (m === 'ats') return (kind === 'W' ? 'Covered' : 'Failed to cover') + ' the ' + s + ' spread';
-      if (m === 'total') return sw + ' have gone ' + (kind === 'O' ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '');
-      if (m === 'btts') return sw + ' have gone BTTS ' + (kind === 'Y' ? 'Yes' : 'No');
-      return sw + ' have gone ' + (kind === 'Y' ? 'YRFI' : 'NRFI');
+    function chip(n, m, kind, k, dates) {
+      var win = (m === 'ml' || m === 'ats') && kind === 'W';
+      return '<div class="tp-chip"><span class="tp-cn' + (win ? ' tp-cn-w' : '') + '">' + n + '</span><span class="tp-ct">' + n + ' straight ' + esc(streakText(m, kind, k)) +
+        (dates ? '<small>' + dates + '</small>' : '') + '</span></div>';
     }
-    function streaksHtml() {
-      var rows = [];
+    function eachSeq(fn) {
       D.segments.forEach(function(s) {
         var seqs = teamSeqs('9999-12-31', s.key), done = {};
         tmMarkets(s.key).forEach(function(p) {
           var m = p.m === 'ml3' ? 'ml' : p.m;
           if (done[m] || !HIT[m]) return;
           done[m] = 1;
-          var st = streakOf(((seqs[slug] || {})[m]) || []);
-          if (!st || st.n < 3) return;
-          var yn = m === 'total' || m === 'btts' || m === 'rfi';
-          var cls = (yn ? 'sk-n' : st.kind === 'W' ? 'sk-w' : 'sk-l') + (st.n >= 7 ? '3' : st.n >= 5 ? '2' : '1');
-          rows.push({ n: st.n, html: '<div class="sk-row"><span class="sk-len ' + cls + '">' + st.n + '</span><span class="sk-text">' + esc(streakWord(m, st.kind, s.key)) + ' ' + st.n + ' straight</span></div>' });
+          fn(((seqs[slug] || {})[m]) || [], m, s.key);
         });
       });
-      rows.sort(function(a, b) { return b.n - a.n; });
-      return tmSection('Current Streaks', rows.length ? '<div class="sk-list">' + rows.map(function(r) { return r.html; }).join('') + '</div>' : emptyNote('No current streaks.'));
     }
-    // 7: average lines (home / away), season highs and lows, lines vs results
-    function lineDefs(k) {
-      return tmMarkets(k).filter(function(p) { return p.m !== 'ml3' && !(p.m === 'ml' && !tieSport()); }).map(function(p) {
-        var m = p.m, isLine = m === 'ats' || (m === 'total' && D.sport !== 'nhl');
-        var name = m === 'ats' ? (D.sportType === 'baseball' ? 'run line' : 'spread') : m === 'total' ? (D.sport === 'nhl' ? 'Over 1.5 price' : 'total') :
-          m === 'ml' ? 'moneyline' : m === 'btts' ? 'BTTS Yes price' : 'NRFI price';
-        return { m: m, name: name, line: isLine, val: function(g) {
-          var o = (g.odds || {})[k] || {}, side = g.home === slug ? 'home' : 'away';
-          if (m === 'ats') return ((o.ats || {})[side] || {}).line;
-          if (m === 'total') return D.sport === 'nhl' ? (o.total || {}).over : (o.total || {}).line;
-          if (m === 'ml') return (o.ml || {})[side];
-          if (m === 'btts') return (o.btts || {}).yes;
-          return (o.nrfi_yrfi || {}).nrfi;
-        } };
+    function streaksHtml() {
+      var rows = [];
+      if (off) {
+        // the longest run of either side in each market, with its dates
+        var seen = {};
+        all.forEach(function(p) {
+          var m = p.m === 'ml3' ? 'ml' : p.m;
+          if (seen[p.k + m]) return;
+          seen[p.k + m] = 1;
+          var best = null, cur = null;
+          graded.forEach(function(g) {
+            var b = tmBet(g, p.k, m, slug);
+            if (!b) return;
+            if (b.r === 'T') { cur = null; return; }
+            cur = cur && cur.r === b.r ? { r: b.r, n: cur.n + 1, a: cur.a, b: g } : { r: b.r, n: 1, a: g, b: g };
+            if (!best || cur.n > best.n) best = cur;
+          });
+          if (!best || best.n < 2) return;
+          var kind = best.r === 'W' ? HIT[m] : MISS[m];
+          if (m === 'rfi') kind = best.r === 'W' ? 'N' : 'Y';   // tmBet: W = NRFI
+          rows.push({ n: best.n, html: chip(best.n, m, kind, p.k, esc(shortDate(best.a)) + ' – ' + esc(shortDate(best.b))) });
+        });
+        rows.sort(function(a, b) { return b.n - a.n; });
+        return tmSection('Longest Streaks of ' + esc(TP.year || D.seasonLabel || ''), rows.length ? '<div class="tp-chips">' + rows.map(function(r) { return r.html; }).join('') + '</div>' :
+          '<p class="tp-none">No streaks of 2 or more.</p>');
+      }
+      eachSeq(function(seq, m, k) {
+        var st = streakOf(seq);
+        if (st && st.n >= 3) rows.push({ n: st.n, html: chip(st.n, m, st.kind, k) });
       });
+      rows.sort(function(a, b) { return b.n - a.n; });
+      return tmSection('Current Streaks', rows.length ? '<div class="tp-chips">' + rows.map(function(r) { return r.html; }).join('') + '</div>' :
+        '<p class="tp-none">No active streaks of 3 or more.</p>');
     }
-    function fmtVal(d, v) { return d.m === 'ats' ? signedLine(v) : d.line ? num1(v) : priceTxt(v); }
+    // GAME LOG: Date · Opponent · segment score · a result cell per market · Final
+    function logHtml() {
+      var k = tm.logK && seg(tm.logK) ? tm.logK : D.segments[0].key;
+      var ms = periodFamily() ? all : tmMarkets(k), sk = periodFamily() ? tpSeg() : k;
+      var list = finals.slice().reverse(), shown = list.slice(0, TP.log);
+      var rows = shown.map(function(g) {
+        var home = g.home === slug, opp = home ? g.away : g.home;
+        var fin = g.as != null && g.hs != null ? (home ? g.hs + '–' + g.as : g.as + '–' + g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '&mdash;';
+        var oppHtml = '<span class="tp-vs">' + (home ? 'vs' : '@') + '</span>' + badge(opp, 20) + '<span class="tp-oc">' + esc(tcode(opp)) + '</span>';
+        return '<tr><td class="tp-d">' + esc(shortDate(g)) + '</td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) + '</td>' +
+          '<td class="num">' + (tmScore(g, sk, slug) || '&mdash;') + '</td>' + ms.map(function(p) { return '<td class="tp-lc">' + tpResCell(g, p, slug, false) + '</td>'; }).join('') +
+          '<td class="num tp-fin">' + fin + '</td></tr>';
+      }).join('');
+      var more = list.length > shown.length ? '<button class="seg-btn tp-more" id="tpLogMore" type="button">' + (TP.log === 5 ? 'Show 10 more' : 'Load more') + '</button>' : '';
+      var segBtns = !periodFamily() && D.segments.length > 1 ? '<div class="seg-toggle" id="tmLogSeg">' + D.segments.map(function(s) {
+        return '<button class="seg-btn" data-log-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>'; }).join('') + '</div>' : '';
+      var head = '<tr><th>Date</th><th>Opp</th><th class="num">' + esc(seg(sk).tag) + '</th>' + ms.map(function(p) {
+        var short = { ml: 'ML', ml3: '3-Way', ats: D.sportType === 'baseball' ? 'RL' : 'Spread', total: 'O/U', btts: 'BTTS', rfi: 'NRFI' }[p.m];
+        return '<th class="tp-lc"><span class="tn-full">' + esc(tpName(p)) + '</span><span class="tn-short">' + esc(short) + '</span></th>'; }).join('') +
+        '<th class="num tp-fin">Final</th></tr>';
+      return tmSection('Game Log', segBtns + (list.length ? '<div class="st-card tp-card tp-log"><table class="tp-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>' + more
+        : emptyNote('No games played yet.')), 'tmLog', tpFinalNote());
+    }
+    // HOME / AWAY: desktop every market side by side; phones one market (pills)
+    function homeAwayHtml() {
+      var cols = all;
+      if (TP.haCol >= cols.length) TP.haCol = 0;
+      function cellOf(p, side) {
+        var a = tmAgg(slug, p.k, p.m, side, graded);
+        return a.gp ? '<span class="tp-hp">' + tmPct(a.pct) + '</span> <span class="tp-hr2">(' + tpRec(a, p.m) + ')</span>' : '&mdash;';
+      }
+      var pills = '<div class="seg-toggle tp-pills-phone" role="group" aria-label="Market">' + cols.map(function(p, i) {
+        return '<button class="seg-btn" data-ha-col="' + i + '" aria-pressed="' + (i === TP.haCol) + '">' + esc(tpName(p)) + '</button>'; }).join('') + '</div>';
+      var body = [['home', 'Home'], ['away', 'Away']].map(function(sd) {
+        return '<tr><th>' + sd[1] + '</th>' + cols.map(function(p, i) { return '<td class="num' + (i === TP.haCol ? ' tp-on' : '') + '">' + cellOf(p, sd[0]) + '</td>'; }).join('') + '</tr>';
+      }).join('');
+      return tmSection('Home / Away', pills + '<div class="st-card tp-card tp-ha"><table class="tp-table"><thead><tr><th></th>' +
+        cols.map(function(p, i) { return '<th class="num' + (i === TP.haCol ? ' tp-on' : '') + '">' + esc(tpHead(p)) + '</th>'; }).join('') + '</tr></thead><tbody>' + body + '</tbody></table></div>',
+        'tpHA', tpFinalNote());
+    }
+    // SITUATIONAL RESULTS (assets/situational.js team view)
+    var SID = { ml: 'su', ml3: 'ml3', ats: 'ats', total: 'tot', btts: 'btts', rfi: 'rfi' };
+    function sitHtml() {
+      if (!splitReg()) return tmSection('Situational Results', emptyNote('Situational Results aren’t set up for ' + esc(D.label) + ' yet.'));
+      return tmSection('Situational Results', '<div id="teamSit" class="tp-sit"></div>', 'tpSit', tpFinalNote());
+    }
+    function drawSit() {
+      var e = sitEngine(), box = document.getElementById('teamSit');
+      if (!e || !box) return;
+      var k = TP.sitK && seg(TP.sitK) ? TP.sitK : D.segments[0].key;
+      var cols = (periodFamily() ? all : tmMarkets(k)).map(function(p) {
+        return { k: p.k, id: SID[p.m], head: tpHead(p), short: tpName(p), priced: p.m === 'ml' || p.m === 'ml3' || p.m === 'ats' };
+      });
+      var nx = next ? { id: next.id, label: tpNextLabel(next, slug), dow: window.RTYBSit.etParts(next.start).dow } : null;
+      e.team(box, { slug: slug, cols: cols, segs: periodFamily() ? null : D.segments, next: nx,
+        onSeg: function(x) { TP.sitK = x; drawSit(); } });
+    }
+    // LINE HISTORY + RESULTS HISTORY: tiles (label strip, one big value, one muted line)
+    function tile(label, big, sub) {
+      return '<div class="tp-tile"><span class="tp-tl">' + esc(label) + '</span><span class="tp-tv">' + big + '</span><span class="tp-ts">' + (sub || '&nbsp;') + '</span></div>';
+    }
     function avg(xs) { return xs.reduce(function(a, b) { return a + b; }, 0) / xs.length; }
     // prices average through their implied probability (-150 and +130 don't average to -10)
     function avgPrice(xs) {
@@ -921,159 +1089,107 @@
       return p >= 0.5 ? -100 * p / (1 - p) : 100 * (1 - p) / p;
     }
     function linesHtml() {
-      var parts = [];
-      ['home', 'away'].forEach(function(sd) {
-        var segs = D.segments.map(function(s) {
-          var bits = lineDefs(s.key).map(function(d) {
-            var xs = finals.filter(function(g) { return (g.home === slug) === (sd === 'home'); }).map(d.val).filter(function(v) { return typeof v === 'number'; });
-            if (!xs.length) return null;
-            return (d.m === 'ats' ? '' : d.name.replace(' price', '') + ' ') + fmtVal(d, d.line || d.m === 'ats' ? avg(xs) : avgPrice(xs));
-          }).filter(Boolean);
-          return bits.length ? esc(s.tag) + ' ' + bits.join(', ') : null;
-        }).filter(Boolean);
-        if (segs.length) parts.push('<p><b>' + (sd === 'home' ? 'At home' : 'On the road') + ':</b> ' + segs.join(' &middot; ') + '</p>');
-      });
-      var hl = [], vs = [];
-      D.segments.forEach(function(s) {
-        lineDefs(s.key).forEach(function(d) {
-          var xs = finals.filter(function(g) { return typeof d.val(g) === 'number'; });
-          if (xs.length < 2) return;
-          var hi = xs.reduce(function(a, g) { return d.val(g) > d.val(a) ? g : a; }), lo = xs.reduce(function(a, g) { return d.val(g) < d.val(a) ? g : a; });
-          [['Highest', hi], ['Lowest', lo]].forEach(function(x) {
-            hl.push('<li>' + x[0] + ' ' + esc(s.tag) + ' ' + esc(d.name) + ': ' + tmLogLink(x[1], '<b class="mono">' + fmtVal(d, d.val(x[1])) + '</b> ' + esc(vsTxt(x[1], slug)) + ', ' + esc(shortDate(x[1]))) + '</li>');
-          });
-        });
-        var tg = finals.filter(function(g) { var o = (g.odds || {})[s.key] || {}, r = (g.res || {})[s.key] || {}; return o.total && typeof o.total.line === 'number' && r.sc; });
-        if (tg.length >= 2) {
-          var al = avg(tg.map(function(g) { return g.odds[s.key].total.line; })), aa = avg(tg.map(function(g) { return g.res[s.key].sc[0] + g.res[s.key].sc[1]; })), df = aa - al;
-          vs.push('<p><b>' + esc(s.label) + ':</b> average total ' + num1(al) + ', average actual ' + num1(aa) + ' ' + scoreWord() + '. Their games ' +
-            (Math.abs(df) < 0.05 ? 'landed right on the ' + esc(segWord(s.key)) + ' total on average.' : (df > 0 ? 'beat' : 'fell short of') + ' the ' + esc(segWord(s.key)) + ' total by ' + num1(Math.abs(df)) + ' on average.') + '</p>');
-        }
-      });
-      if (!parts.length && !hl.length) return tmSection('Line History', emptyNote('No closing lines saved for this team yet.'));
-      return tmSection('Line History', '<div class="tm-card">' + (parts.length ? '<h3 class="tm-sub">Average lines</h3>' + parts.join('') : '') +
-        (hl.length ? '<h3 class="tm-sub">Season highs and lows</h3><ul class="tm-list">' + hl.join('') + '</ul>' : '') +
-        (vs.length ? '<h3 class="tm-sub">Lines vs results</h3>' + vs.join('') : '') + '</div>');
+      var k = tpSeg(), tag = D.sportType === 'baseball' ? 'F5' : seg(k).tag;
+      function side(g) { return g.home === slug ? 'home' : 'away'; }
+      function o(g) { return (g.odds || {})[k] || {}; }
+      var useMl = hasMl(k);
+      // 1: the segment's moneyline (spread sports without one: the spread)
+      function mlv(g) { return useMl ? (o(g).ml || {})[side(g)] : ((o(g).ats || {})[side(g)] || {}).line; }
+      function fmt1(v) { return useMl ? priceTxt(v) : signedLine(v); }
+      function avgOf(where, f, isPrice) {
+        var xs = finals.filter(function(g) { return (g.home === slug) === (where === 'home'); }).map(f).filter(function(v) { return typeof v === 'number'; });
+        return xs.length ? (isPrice ? avgPrice(xs) : avg(xs)) : null;
+      }
+      var mh = avgOf('home', mlv, useMl), ma = avgOf('away', mlv, useMl);
+      var t1 = tile('Avg ' + tag + (useMl ? ' ML' : ' spread'), mh == null ? '&mdash;' : fmt1(mh), ma == null ? 'Road: —' : 'Road: ' + fmt1(ma));
+      // 2: the O/U price (NHL's Over 1.5) or the total line
+      var nhl = D.sport === 'nhl';
+      function tv(g) { var t = o(g).total || {}; return nhl ? t.over : t.line; }
+      var th = avgOf('home', tv, nhl), ta = avgOf('away', tv, nhl);
+      var t2 = tile(nhl ? 'Avg O/U price' : 'Avg ' + tag + ' total', th == null ? '&mdash;' : nhl ? priceTxt(th) : num1(th), ta == null ? 'Road: —' : 'Road: ' + (nhl ? priceTxt(ta) : num1(ta)));
+      // 3: the range, with the opponents
+      var xs = finals.filter(function(g) { return typeof mlv(g) === 'number'; });
+      var t3;
+      if (xs.length >= 2) {
+        var lo = xs.reduce(function(a, g) { return mlv(g) < mlv(a) ? g : a; }), hi = xs.reduce(function(a, g) { return mlv(g) > mlv(a) ? g : a; });
+        function vs(g) { return (g.home === slug ? 'vs ' : '@ ') + tcode(g.home === slug ? g.away : g.home); }
+        t3 = tile(tag + (useMl ? ' ML' : ' spread') + ' range', fmt1(mlv(lo)) + ' to ' + fmt1(mlv(hi)), esc(vs(lo)) + ' &middot; ' + esc(vs(hi)));
+      } else t3 = tile(tag + (useMl ? ' ML' : ' spread') + ' range', '&mdash;', 'Not enough lines yet');
+      // 4: lines vs results: the average actual vs the average total
+      var tg = finals.filter(function(g) { var r = (g.res || {})[k]; return r && r.sc && (nhl || (o(g).total && typeof o(g).total.line === 'number')); });
+      var t4;
+      if (tg.length) {
+        var al = nhl ? 1.5 : avg(tg.map(function(g) { return o(g).total.line; })), aa = avg(tg.map(function(g) { return g.res[k].sc[0] + g.res[k].sc[1]; }));
+        t4 = tile('Lines vs results', num1(aa) + ' vs ' + num1(al), 'Actual vs total, ' + esc(tag) + ' ' + scoreWord());
+      } else t4 = tile('Lines vs results', '&mdash;', 'No totals saved yet');
+      return '<section class="tm-sec tp-hist"><div class="tph"><h2 class="team-section-title">Line History</h2>' + tpSeasonToggle() + '</div><div class="tp-tiles">' + t1 + t2 + t3 + t4 + '</div></section>';
     }
-    // 8: streaks, best and worst, margins, scoring, per segment
     function resultsHtml() {
-      var cards = D.segments.map(function(s) {
-        var k = s.key, gs = finals.filter(function(g) { return ((g.res || {})[k] || {}).sc; });
-        if (!gs.length) return '';
-        var rows = gs.map(function(g) {
-          var sc = g.res[k].sc, mine = g.home === slug ? sc[1] : sc[0], theirs = g.home === slug ? sc[0] : sc[1];
-          return { g: g, mine: mine, theirs: theirs, mg: mine - theirs, r: mine > theirs ? 'W' : mine < theirs ? 'L' : 'T' };
-        });
-        function longest(r) {
-          var best = null, cur = null;
-          rows.forEach(function(x) {
-            if (x.r === r) { cur = cur ? { n: cur.n + 1, a: cur.a, b: x.g } : { n: 1, a: x.g, b: x.g }; if (!best || cur.n > best.n) best = cur; }
-            else cur = null;
-          });
-          return best ? best.n + ' (' + esc(shortDate(best.a)) + (best.n > 1 ? ' – ' + esc(shortDate(best.b)) : '') + ')' : 'None';
-        }
-        var wins = rows.filter(function(x) { return x.r === 'W'; }), losses = rows.filter(function(x) { return x.r === 'L'; });
-        var bw = wins.length ? wins.reduce(function(a, x) { return x.mg > a.mg ? x : a; }) : null;
-        var wl = losses.length ? losses.reduce(function(a, x) { return x.mg < a.mg ? x : a; }) : null;
-        function gameTxt(x) { return tmLogLink(x.g, '<b class="mono">' + x.mine + '–' + x.theirs + '</b> ' + esc(vsTxt(x.g, slug)) + ', ' + esc(shortDate(x.g))); }
-        var aw = wins.length ? avg(wins.map(function(x) { return x.mg; })) : null, al = losses.length ? avg(losses.map(function(x) { return -x.mg; })) : null;
-        var plain = '';
-        if (aw != null && al != null && Math.max(aw, al) >= 1.3 * Math.min(aw, al) && Math.max(aw, al) - Math.min(aw, al) >= 0.5) {
-          plain = al > aw
-            ? 'When the ' + esc(name) + ' lose the ' + esc(segWord(k)) + ', they lose it big: by ' + num1(al) + ' on average, vs +' + num1(aw) + ' in wins.'
-            : 'When the ' + esc(name) + ' win the ' + esc(segWord(k)) + ', they win it big: by ' + num1(aw) + ' on average, vs −' + num1(al) + ' in losses.';
-        }
-        var most = rows.reduce(function(a, x) { return x.mine > a.mine ? x : a; }), fewest = rows.reduce(function(a, x) { return x.mine < a.mine ? x : a; });
-        var w = scoreWord();
-        return '<div class="tm-card"><h3 class="tm-sub">' + esc(s.label) + ' <small>' + rows.length + ' games</small></h3><ul class="tm-list">' +
-          '<li>Longest win streak: ' + longest('W') + '</li><li>Longest losing streak: ' + longest('L') + '</li>' +
-          (bw ? '<li>Best win: ' + gameTxt(bw) + '</li>' : '') + (wl ? '<li>Worst loss: ' + gameTxt(wl) + '</li>' : '') +
-          '<li>Average margin: ' + (aw != null ? '+' + num1(aw) + ' in wins' : 'no wins') + ', ' + (al != null ? '−' + num1(al) + ' in losses' : 'no losses') + '</li>' +
-          (plain ? '<li class="tm-plain">' + plain + '</li>' : '') +
-          '<li>Most ' + w + ' scored: ' + gameTxt(most) + '</li><li>Fewest ' + w + ' scored: ' + gameTxt(fewest) + '</li>' +
-          '<li>Average: ' + num1(avg(rows.map(function(x) { return x.mine; }))) + ' for, ' + num1(avg(rows.map(function(x) { return x.theirs; }))) + ' against</li></ul></div>';
-      }).join('');
-      return tmSection('Results History', cards || emptyNote('No games played yet.'));
-    }
-    function sitHtml() {
-      if (!splitReg()) return tmSection('Situational Results', emptyNote('Situational Results aren’t set up for ' + esc(D.label) + ' yet.'));
-      return '<div id="teamSit" class="team-sit tm-sec"></div>';
-    }
-    // 10: every game this season, newest first: the last 10, then Show all
-    function logHtml() {
-      var k = seg(tm.logK) ? tm.logK : D.segments[0].key, ms = tmMarkets(k).filter(function(p) { return p.m !== 'ml3'; });
-      var eng = sitEngine(), ctx = {};
-      if (eng) eng.contexts(k).forEach(function(e) { if (e.c.team === slug) ctx[e.c.g.id] = e.c; });
-      var list = finals.slice().reverse(), shown = tm.logAll ? list : list.slice(0, 10);
-      function tags(g) {
-        var home = g.home === slug, out = [home ? 'Home' : 'Away'];
-        if (eng && ctx[g.id]) out = out.concat(eng.tags(ctx[g.id]));
-        else {
-          var f = favSide((g.odds || {})[k]);
-          if (f) out.push(f === (home ? 'home' : 'away') ? 'Fav' : 'Dog');
-          var t = D.teams[slug] || {}, o = D.teams[home ? g.away : g.home] || {};
-          if (t.division && t.division === o.division) out.push('Div');
-        }
-        return out.map(function(x) { return '<span class="sit-tag">' + esc(x) + '</span>'; }).join('');
-      }
-      function pill(g, m) {
-        var b = tmBet(g, k, m, slug);
-        return b ? '<span class="result-pill ' + (b.r === 'W' ? 'W' : b.r === 'L' ? 'L' : 'T') + '">' + tmLetter(b.r, m) + '</span>' : '<span class="result-pill T">&ndash;</span>';
-      }
-      var rows = shown.map(function(g) {
-        var home = g.home === slug, opp = home ? g.away : g.home;
-        var oppHtml = (home ? 'vs ' : '@ ') + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + esc(shortName(opp)) + '</a>' : esc(shortName(opp)));
-        var fin = g.as != null && g.hs != null ? (home ? g.hs + '–' + g.as : g.as + '–' + g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '&mdash;';
-        var per = D.segments.map(function(s) { return '<td class="num mono' + (s.key === k ? ' sit-hl' : '') + '">' + (tmScore(g, s.key, slug) || '&mdash;') + '</td>'; }).join('');
-        var res = ms.map(function(p) { return '<td class="num">' + pill(g, p.m) + '</td>'; }).join('');
-        return { desk: '<tr id="g-' + esc(String(g.id)) + '"><td>' + esc(shortDate(g)) + '</td><td>' + oppHtml + '</td><td class="sit-tags">' + tags(g) + '</td>' + per + res + '<td class="num mono">' + fin + '</td></tr>',
-          mob: '<div class="sit-gcard" id="gm-' + esc(String(g.id)) + '"><div class="sit-gl1"><span>' + esc(shortDate(g)) + '</span><span>' + oppHtml + '</span><span class="mono">' + (tmScore(g, k, slug) || '') + ' &middot; ' + fin + '</span></div>' +
-            '<div class="sit-gl2"><span class="sit-tags">' + tags(g) + '</span><span class="sit-gb">' + ms.map(function(p) { return pill(g, p.m); }).join('') + '</span></div></div>' };
+      var k = tpSeg(), tag = D.sportType === 'baseball' ? 'F5' : seg(k).tag;
+      var rows = finals.filter(function(g) { return ((g.res || {})[k] || {}).sc; }).map(function(g) {
+        var sc = g.res[k].sc, mine = g.home === slug ? sc[1] : sc[0], theirs = g.home === slug ? sc[0] : sc[1];
+        return { g: g, mine: mine, theirs: theirs, mg: mine - theirs, r: mine > theirs ? 'W' : mine < theirs ? 'L' : 'T' };
       });
-      var more = list.length > 10 ? '<button class="seg-btn sit-more" id="tmLogMore" type="button">' + (tm.logAll ? 'Show the last 10 games' : 'Show all ' + list.length + ' games') + '</button>' : '';
-      var segBtns = D.segments.length > 1 ? '<div class="seg-toggle" id="tmLogSeg">' + D.segments.map(function(s) {
-        return '<button class="seg-btn" data-log-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>'; }).join('') + '</div>' : '';
-      return tmSection('Game Log', segBtns + (list.length ? '<div class="sit-desk"><div class="gamelog-scroll"><table class="gamelog sit-log"><thead><tr><th>Date</th><th>Opp</th><th>Situations</th>' +
-        D.segments.map(function(s) { return '<th class="num' + (s.key === k ? ' sit-hl' : '') + '">' + esc(s.tag) + '</th>'; }).join('') +
-        ms.map(function(p) { return '<th class="num">' + esc(p.label.replace(/^F5 /, '')) + '</th>'; }).join('') + '<th class="num">Final</th></tr></thead><tbody>' +
-        rows.map(function(x) { return x.desk; }).join('') + '</tbody></table></div></div><div class="sit-mob">' + rows.map(function(x) { return x.mob; }).join('') + '</div>' + more
-        : emptyNote('No games played yet.')), 'tmLog');
+      function vs(g) { return (g.home === slug ? 'vs ' : '@ ') + tcode(g.home === slug ? g.away : g.home); }
+      var best = null, cur = null;
+      rows.forEach(function(x) {
+        if (x.r === 'W') { cur = cur ? { n: cur.n + 1, a: cur.a, b: x.g } : { n: 1, a: x.g, b: x.g }; if (!best || cur.n > best.n) best = cur; }
+        else cur = null;
+      });
+      var wins = rows.filter(function(x) { return x.r === 'W'; }), losses = rows.filter(function(x) { return x.r === 'L'; });
+      var bw = wins.length ? wins.reduce(function(a, x) { return x.mg > a.mg ? x : a; }) : null;
+      var aw = wins.length ? avg(wins.map(function(x) { return x.mg; })) : null, al = losses.length ? avg(losses.map(function(x) { return -x.mg; })) : null;
+      var t1 = tile('Longest ' + tag + ' win run', best ? String(best.n) : '0', best ? esc(shortDate(best.a)) + (best.n > 1 ? ' – ' + esc(shortDate(best.b)) : '') : 'No ' + esc(tag) + ' wins yet');
+      var t2 = tile('Best ' + tag + ' win', bw ? bw.mine + '–' + bw.theirs : '&mdash;', bw ? esc(vs(bw.g)) + ' &middot; ' + esc(shortDate(bw.g)) : 'No ' + esc(tag) + ' wins yet');
+      var t3 = tile('Avg margin', aw != null ? '+' + num1(aw) : '&mdash;', 'Losses: ' + (al != null ? '−' + num1(al) : '—'));
+      var t4 = tile('Avg ' + tag + ' ' + scoreWord(), rows.length ? num1(avg(rows.map(function(x) { return x.mine; }))) : '&mdash;',
+        'Against: ' + (rows.length ? num1(avg(rows.map(function(x) { return x.theirs; }))) : '—'));
+      return '<section class="tm-sec tp-hist"><div class="tph"><h2 class="team-section-title">Results History</h2>' + tpSeasonToggle() + '</div><div class="tp-tiles">' + t1 + t2 + t3 + t4 + '</div></section>';
     }
-    function drawMarkets() {
-      var box = document.getElementById('tmMarkets');
-      box.innerHTML = marketsHtml();
-      wireTmControls(box, tm, drawMarkets);
-    }
+
     function drawLog() {
       var box = document.getElementById('tmLogBox');
       box.innerHTML = logHtml();
-      var mb = document.getElementById('tmLogMore');
-      if (mb) mb.onclick = function() { tm.logAll = !tm.logAll; drawLog(); };
+      var mb = document.getElementById('tpLogMore');
+      if (mb) mb.onclick = function() { TP.log += 10; drawLog(); };
       box.querySelectorAll('[data-log-seg]').forEach(function(b) { b.onclick = function() { tm.logK = b.getAttribute('data-log-seg'); drawLog(); }; });
+      wireSeason(box);
     }
-    // one header line for a top-5 closer or fader, linking to Edges
-    var er = edgeRank(slug), head = document.querySelector('.page-head');
-    if (er && head && !head.querySelector('.tm-edge-rank')) head.insertAdjacentHTML('beforeend', '<p class="tm-edge-rank"><a href="' + statsUrl('edges') + '">' + esc(edgeRankWords(er)) + ' &rarr;</a></p>');
-    app.innerHTML = nextHtml() + lastHtml() + '<div id="tmMarkets"></div>' + streaksHtml() + linesHtml() + resultsHtml() + sitHtml() + '<div id="tmLogBox"></div>';
-    drawMarkets();
+    function drawHA() {
+      var box = document.getElementById('tpHABox');
+      box.innerHTML = homeAwayHtml();
+      box.querySelectorAll('[data-ha-col]').forEach(function(b) { b.onclick = function() { TP.haCol = +b.getAttribute('data-ha-col'); drawHA(); }; });
+      wireSeason(box);
+    }
+    function wireSeason(root) {
+      root.querySelectorAll('[data-tp-season]').forEach(function(b) { b.onclick = function() { tpUse(b.getAttribute('data-tp-season')); }; });
+    }
+    app.innerHTML = nextHtml() + lastHtml() + marketsHtml() + streaksHtml() + '<div id="tmLogBox"></div><div id="tpHABox"></div>' + sitHtml() +
+      '<div class="tp-hists">' + linesHtml() + resultsHtml() + '</div>';
     drawLog();
-    if (splitReg()) renderSit('teamSit', { mode: 'team', slug: slug, next: next ? { id: next.id, label: nextLabel(next) } : null,
-      after: function(box) { stickBelowNav(box.querySelector('.sit-stick')); } });
-    // a high / low / best / worst link opens the full log and scrolls to the game
-    app.addEventListener('click', function(e) {
-      var a = e.target.closest ? e.target.closest('[data-glog]') : null;
-      if (!a) return;
-      e.preventDefault();
-      var id = a.getAttribute('data-glog');
-      if (!document.getElementById('g-' + id)) { tm.logAll = true; drawLog(); }
-      var row = document.getElementById('g-' + id), card = document.getElementById('gm-' + id);
-      var el = card && card.offsetParent ? card : row;
-      if (!el) return;
-      el.classList.add('tm-flash');
-      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      setTimeout(function() { el.classList.remove('tm-flash'); }, 2000);
-    });
+    drawHA();
+    drawSit();
+    wireSeason(app);
+    loadOdds();
   }
+  // early season: every section switches between this season and last
+  // (history.json, the same shape); last season has no Next game
+  function tpUse(which) {
+    if (which === TP.which) return;
+    function go(games) {
+      TP.which = which;
+      D.games = games;
+      TEAM_SEQ = {}; TP_TOP = {}; SIT = null; TP.log = 5;
+      renderTeam();
+    }
+    if (which === 'this') { go(TP.cur); return; }
+    if (TP.prev) { go(TP.prev); return; }
+    fetch(ROOT + SPORT_SLUG + '/history.json').then(function(r) { return r.ok ? r.json() : {}; }).then(function(h) {
+      if (h && h.games && !Array.isArray(h.games) && Object.keys(h.games).length) { TP.prev = h.games; go(TP.prev); }
+      else document.querySelectorAll('.tp-season').forEach(function(t) { t.insertAdjacentHTML('afterend', '<p class="tp-none">Not tracked last season.</p>'); t.remove(); });
+    }).catch(function() {});
+  }
+  var tm = { logK: null };
 
   // Stats for any set of graded games, in the same shape as the build's
   function favSide(o) {
@@ -1706,25 +1822,6 @@
       worst: teams.slice().sort(function(a, b) { return b.q - a.q || a.avg - b.avg || (a.t < b.t ? -1 : 1); })
     };
   }
-  // a team's spot in the top 5 of either board: {k, kind 'best' | 'worst', rank}
-  function edgeRank(slug) {
-    var out = null;
-    ['best', 'worst'].forEach(function(kind) {
-      edgeSegs().forEach(function(s) {
-        if (out) return;
-        var i = closerBoards(s.key)[kind].slice(0, 5).map(function(e) { return e.t; }).indexOf(slug);
-        if (i !== -1) out = { k: s.key, kind: kind, rank: i + 1 };
-      });
-    });
-    return out;
-  }
-  function ordinal(n) { return n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][n % 10] || 'th'); }
-  // "3rd-best closer in the NHL" / "Biggest fader: 2nd" (with the segment's tag when the sport has two)
-  function edgeRankWords(x) {
-    var tag = edgeSegs().length > 1 ? seg(x.k).tag + ' ' : '';
-    if (x.kind === 'best') return (x.rank === 1 ? 'Best ' : ordinal(x.rank) + '-best ') + tag + 'closer in ' + leagueIn();
-    return 'Biggest ' + tag + 'fader' + (x.rank === 1 ? ' in ' + leagueIn() : ': ' + ordinal(x.rank));
-  }
   // the games on tonight's slate (football: this week's)
   function slateGames() {
     if (D.schedule === 'week') return (D.weeks || []).length ? weekGames(currentWeek(D.weeks)) : [];
@@ -1789,7 +1886,7 @@
     var keep = anchor ? { id: anchor.id, top: anchor.getBoundingClientRect().top } : null;
     return function() { if (keep) { var el = document.getElementById(keep.id); if (el) window.scrollBy(0, el.getBoundingClientRect().top - keep.top); } };
   }
-  function splitsStandout(k) { var e = sitEngine(); return e && e.standout ? e.standout(k) : null; }
+  function splitsStandout(k) { var e = leagueSit(); return e && e.standout ? e.standout(k) : null; }
   // /stats/: Season Results, Money Board, Scoring
   function renderStats() {
     if (!D.season || !allDates().length) { noStats(); return; }
@@ -1817,7 +1914,7 @@
   // /stats/splits/: Situational Results, league-wide
   function renderSplits() {
     if (!D.season || !allDates().length) { noStats(); return; }
-    var eng = sitEngine();
+    var eng = leagueSit();
     if (!eng) { app.innerHTML = emptyNote('Situational Results aren&rsquo;t set up for ' + esc(D.label) + ' yet.'); return; }
     // premium: one filter at a time (the time range here; View as and conference in situational.js)
     function comboOk() { return !(premiumLocked('splitCombine') && tf.mode !== 'all' && (eng.state.persp !== 'home' || eng.state.conf)); }
@@ -2140,7 +2237,7 @@
         '<span class="sk-text"><span>' + text + '</span>' +
         (opp ? '<small>Plays ' + codeLink(opp) + ' ' + esc(onWord(x.g)) + '</small>' : '') + '</span></div>';
     }
-    return '<section class="trends-page-section" id="streak-trends"><div class="tp-head"><div><h2>Streak Trends</h2>' +
+    return '<section class="trends-page-section" id="streak-trends"><div class="tph"><div><h2>Streak Trends</h2>' +
       '<p class="tp-sub">' + esc((TR.tips.streaks || {}).section || '') + ' ' + esc((TR.tips.streaks || {}).colors || '') + '</p></div></div>' +
       (list.length ? '<div class="sk-list">' + on.concat(rest).map(row).join('') + '</div>' : '<div class="no-games-note">No team is on a run of 3 or more.</div>') + '</section>';
   }
@@ -2157,7 +2254,7 @@
       '<div class="seg-toggle" id="trMkt"><button class="seg-btn" data-mkt="all" aria-pressed="' + (TR_MKT === 'all') + '">All</button>' + ms.map(function(x) {
         return '<button class="seg-btn" data-mkt="' + x[1] + '" aria-pressed="' + (x[1] === TR_MKT) + '">' + esc(x[2].replace('Total', 'O/U')) + '</button>';
       }).join('') + '</div></div>';
-    html += '<section class="trends-page-section"><div class="tp-head"><div><h2>League Trends</h2></div></div>';
+    html += '<section class="trends-page-section"><div class="tph"><div><h2>League Trends</h2></div></div>';
     if (!o.games.length) html += '<div class="no-games-note">No ' + esc(D.label) + ' games ' + esc(o.none) + '.</div>';
     else if (!cards.length) html += '<div class="no-games-note">No trends meet our bar ' + esc(o.none) + '.' + (o.today ? ' Check back tomorrow.' : '') + '</div>';
     else {
@@ -2174,7 +2271,7 @@
       var b = matchupBlock(g, k, o.before);
       if (b) blocks.push(b); else none.push(tcode(g.away) + '–' + tcode(g.home));
     });
-    html += '<section class="trends-page-section"><div class="tp-head"><div><h2>Matchup Trends</h2>' +
+    html += '<section class="trends-page-section"><div class="tph"><div><h2>Matchup Trends</h2>' +
       '<p class="tp-sub">' + esc((TR.tips.matchup_labels || {}).lean_rule || '') + '</p></div></div>' +
       (games.length ? '<div class="mt-grid">' + blocks.join('') + '</div>' + (none.length ? '<p class="mt-none">No matchup trends: ' + esc(none.join(', ')) + '</p>' : '')
         : '<div class="no-games-note">No games ' + esc(o.none) + '.</div>') + '</section>';
@@ -2288,6 +2385,8 @@
       locked: function() { return !IS_PREMIUM; }, lockHtml: function() { return LOCK_HTML; } });
     return SIT;
   }
+  // the league tables (Stats Splits, the Number): not for a team-pages-only registry (MLB)
+  function leagueSit() { var e = sitEngine(); return e && !e.reg.teamOnly ? e : null; }
   // view = {mode: 'league'} or {mode: 'team', slug}
   function renderSit(boxId, view) {
     var e = sitEngine();

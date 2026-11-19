@@ -126,6 +126,12 @@
       test: function(c) { return c.prev && c.prev.res === 'L' && margin(c.prev) >= -C.oneScore; } },
     { id: 'pot', label: 'After overtime game', short: 'Off OT', group: 'prev', def: 'The team’s previous game went to overtime.',
       test: function(c) { return c.prev && c.prev.ot; } },
+    { id: 'vo500', label: 'Vs. teams over .500', short: 'vs >.500', group: 'opp', own: true, def: 'The opponent was over .500 going into the game (this season).',
+      test: function(c) { return c.oppW > c.oppL; } },
+    { id: 'vu500', label: 'Vs. teams under .500', short: 'vs <.500', group: 'opp', own: true, def: 'The opponent was under .500 going into the game.',
+      test: function(c) { return c.oppW < c.oppL; } },
+    { id: 'pl14', label: 'After a loss by 14+', short: 'Off L by 14+', group: 'prev', own: true, def: 'Lost its previous game by 14 or more points.',
+      test: function(c) { return c.prev && c.prev.pa - c.prev.pf >= 14; } },
   ];
 
   window.RTYB_SPLITS = window.RTYB_SPLITS || {};

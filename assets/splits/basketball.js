@@ -53,8 +53,8 @@
         test: function(c) { return c.ti && c.oi && c.ti.conference === c.oi.conference; } },
       o.eastWest ? { id: 'ew', label: 'East vs. West', short: 'E vs W', group: 'opp', def: 'Against the other conference.',
         test: function(c) { return c.ti && c.oi && c.ti.conference !== c.oi.conference; } } : null,
-      { id: 'v500', label: 'Vs. teams at .500 or better', short: 'vs .500+', group: 'opp', def: 'The opponent was .500 or better going into the game (this season).',
-        test: function(c) { return c.oppW + c.oppL > 0 && c.oppW >= c.oppL; } },
+      { id: 'v500', label: 'Vs. teams over .500', short: 'vs >.500', group: 'opp', def: 'The opponent was over .500 going into the game (this season).',
+        test: function(c) { return c.oppW > c.oppL; } },
       { id: 'vsub', label: 'Vs. teams under .500', short: 'vs <.500', group: 'opp', def: 'The opponent was under .500 going into the game.',
         test: function(c) { return c.oppW + c.oppL > 0 && c.oppW < c.oppL; } },
 
@@ -65,6 +65,7 @@
       o.cup ? { id: 'cup', label: o.cup.label, short: o.cup.short, group: 'tip', def: o.cup.def, test: function(c) { return o.cup.re.test(c.note); } } : null,
 
       { id: 'b2b1', label: 'Back-to-back, 1st leg', short: 'B2B 1st leg', group: 'rest', own: true, def: 'The team plays again tomorrow.', test: function(c) { return c.b2bFirst; } },
+      { id: 'nb2b', label: 'Not on a back-to-back', short: 'No B2B', group: 'rest', own: true, def: 'The team didn’t play yesterday.', test: function(c) { return c.rest != null && !c.b2b; } },
       { id: 'b2b2', label: 'Back-to-back, 2nd leg', short: 'B2B 2nd leg', group: 'rest', own: true, def: 'The team played yesterday.', test: function(c) { return c.b2b; } },
       { id: 'ob2b', label: 'Opponent on 2nd leg of back-to-back', short: 'Opp on B2B', group: 'rest', own: true, def: 'The opponent played yesterday.', test: function(c) { return c.oppB2b; } },
       { id: 'three', label: '3 games in 4 nights', short: '3 in 4', group: 'rest', own: true, def: 'The team’s 3rd game within 4 days.', test: function(c) { return c.threeIn4; } },

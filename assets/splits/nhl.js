@@ -13,7 +13,7 @@
     { id: 'ha', label: 'Home / Away / Favorite / Underdog',
       note: 'Away and Underdog rows are the mirror of Home and Favorite (W and L swapped). Favorite / underdog by the closing 1st-period moneyline (the full-game one when there’s no 1P price); a pick’em is neither.' },
     { id: 'opp', label: 'Opponent' }, { id: 'drop', label: 'Puck Drop Window' }, { id: 'rest', label: 'Rest & Schedule' },
-    { id: 'prev', label: 'Previous Game' }, { id: 'goalie', label: 'Goalie' },
+    { id: 'prev', label: 'Previous Game' }, { id: 'goalie', label: 'Goalie', hidden: true },
   ];
   function lost(p) { return p && p.res === 'L'; }
   var rows = [
@@ -60,6 +60,14 @@
 
     { id: 'starter', label: 'Starter', short: 'Starter', group: 'goalie', own: true, def: 'Started the team’s most-used goalie this season (to date).', test: function(c) { return c.starter === true; } },
     { id: 'backup', label: 'Backup', short: 'Backup', group: 'goalie', own: true, def: 'Started anyone else.', test: function(c) { return c.starter === false; } },
+    { id: 'vo500', label: 'Vs. teams over .500', short: 'vs >.500', group: 'opp', own: true, def: 'The opponent was over .500 going into the game (this season).',
+      test: function(c) { return c.oppW > c.oppL; } },
+    { id: 'vu500', label: 'Vs. teams under .500', short: 'vs <.500', group: 'opp', own: true, def: 'The opponent was under .500 going into the game.',
+      test: function(c) { return c.oppW < c.oppL; } },
+    { id: 'tb2b', label: 'Back-to-back', short: 'B2B', group: 'rest', own: true, def: 'The team played yesterday.', test: function(c) { return c.b2b; } },
+    { id: 'nb2b', label: 'Not on a back-to-back', short: 'No B2B', group: 'rest', own: true, def: 'The team didn’t play yesterday.', test: function(c) { return c.rest != null && !c.b2b; } },
+    { id: 'pl3', label: 'After a loss by 3+', short: 'Off L by 3+', group: 'prev', own: true, def: 'Lost its previous game by 3 or more goals.',
+      test: function(c) { return c.prev && c.prev.pa - c.prev.pf >= 3; } },
   ];
   window.RTYB_SPLITS = window.RTYB_SPLITS || {};
   window.RTYB_SPLITS.nhl = { config: C, groups: groups, rows: rows, favBy: 'seg-ml', periods: 3, smallSample: 10, pairUnits: 'both',
