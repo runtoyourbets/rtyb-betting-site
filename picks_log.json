@@ -10600,6 +10600,56 @@
     "streakTeamName": "Southern Utah"
    },
    {
+    "id": "nba|401910021|1h|ats|home",
+    "game": "nba|401910021",
+    "date": "2026-11-19",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-20T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Knicks @ Timberwolves",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 0.5,
+    "price": -110,
+    "title": "Timberwolves 1H +0.5",
+    "est": 0.5727,
+    "edge": 0.0488,
+    "agree": 4,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1H ATS at +0.5, last 8",
+      "7-1"
+     ],
+     [
+      "Timberwolves 1H ATS at +0.5, season",
+      "13-2"
+     ],
+     [
+      "Timberwolves 1H ATS at +0.5 at home",
+      "7-2"
+     ],
+     [
+      "Knicks\u2019s opponents 1H ATS at +0.5, Knicks on the road",
+      "4-3"
+     ]
+    ],
+    "info": "Timberwolves avg 1H margin at home: +2.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
+   },
+   {
     "id": "nhl|2026020347|1p|ml|away",
     "game": "nhl|2026020347",
     "date": "2026-11-19",
@@ -10644,56 +10694,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Los Angeles"
-   },
-   {
-    "id": "nba|401910021|1h|ats|home",
-    "game": "nba|401910021",
-    "date": "2026-11-19",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-20T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Knicks @ Timberwolves",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 0.5,
-    "price": -114,
-    "title": "Timberwolves 1H +0.5",
-    "est": 0.5786,
-    "edge": 0.0459,
-    "agree": 4,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "min",
-    "angles": [
-     [
-      "Timberwolves 1H ATS at +0.5, last 8",
-      "7-1"
-     ],
-     [
-      "Timberwolves 1H ATS at +0.5, season",
-      "13-2"
-     ],
-     [
-      "Timberwolves 1H ATS at +0.5 at home",
-      "7-2"
-     ],
-     [
-      "Knicks\u2019s opponents 1H ATS at +0.5, Knicks on the road",
-      "4-3"
-     ]
-    ],
-    "info": "Timberwolves avg 1H margin at home: +2.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Timberwolves"
    },
    {
     "id": "nba|401910021|1h|ml|home",
