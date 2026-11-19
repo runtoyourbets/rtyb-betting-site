@@ -10323,6 +10323,48 @@
     "streakTeamName": "Bucks"
    },
    {
+    "id": "ncaab|401926773|1h|ml|away",
+    "game": "ncaab|401926773",
+    "date": "2026-11-19",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-20T04:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Tarleton State @ USC",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 1600,
+    "title": "Tarleton State 1H ML",
+    "est": 0.129,
+    "edge": 0.0701,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "tarleton-state-texans",
+    "angles": [
+     [
+      "Tarleton State 1H ML, season",
+      "4-1"
+     ],
+     [
+      "Tarleton State 1H ML, last 8",
+      "4-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Tarleton State"
+   },
+   {
     "id": "nhl|2026020354|1p|ml|away",
     "game": "nhl|2026020354",
     "date": "2026-11-19",
