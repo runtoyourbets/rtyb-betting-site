@@ -2640,7 +2640,7 @@
     var day = Math.floor(Date.parse(todayET() + 'T12:00:00Z') / 864e5), x = out[day % out.length];
     return { html: '<p class="hub-number"><b class="mono">' + x.pct + '%</b> ' + x.txt.replace(/&(?![a-z]+;)/g, '&amp;') + '.</p>', href: x.href, go: x.go };
   }
-  // Everything above The Number (On Tap, The Slate, Matchup of the Day,
+  // Everything above The Number (Preview, The Slate, Matchup of the Day,
   // Hottest Trends, Team to Watch, Biggest Line Move, the Running Tab,
   // Yesterday's Results) is in the page's HTML above #sportApp
   // (scripts/front.py, shared with the home page)

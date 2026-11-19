@@ -30,7 +30,7 @@ shown all year, off-season sports showing last season; "in_season" = shown
 between season_start and season_end; "off" = hidden: its data is still
 fetched, graded and built and its pages load by URL, noindexed, but nothing
 links to them), each sport's page links, the phone bottom bar, and the
-ON_TAP_LIVE / PICKS_LIVE / FOOTER switches. Every menu reads from here.
+PREVIEW_LIVE / PICKS_LIVE / FOOTER switches. Every menu reads from here.
 """
 import json
 import os
@@ -43,7 +43,7 @@ DEFAULT_SETTINGS = {
     'sport_pages': [{'key': 'picks', 'label': 'Picks'}, {'key': 'games', 'label': 'Matchups'}, {'key': 'odds', 'label': 'Odds'},
                     {'key': 'trends', 'label': 'Trends'}, {'key': 'stats', 'label': 'Stats'}, {'key': 'teams', 'label': 'Teams'}],
     'bottom_bar': [{'key': k, 'label': k.title()} for k in ('matchups', 'odds', 'trends', 'stats')],
-    'switches': {'ON_TAP_LIVE': False, 'PICKS_LIVE': False, 'FOOTER': 'home-only'},
+    'switches': {'PREVIEW_LIVE': True, 'PICKS_LIVE': False, 'FOOTER': 'home-only'},
 }
 
 
@@ -58,6 +58,10 @@ def load_settings(path=SETTINGS_PATH):
         got = {}
     for k, v in (got or {}).items():
         if k == 'switches' and isinstance(v, dict):
+            v = dict(v)
+            if 'ON_TAP_LIVE' in v:   # the old name (On Tap became Preview, 2026-11-18)
+                v.setdefault('PREVIEW_LIVE', v['ON_TAP_LIVE'])
+                del v['ON_TAP_LIVE']
             out['switches'].update(v)
         elif k in out and isinstance(v, list) and v:
             out[k] = v
@@ -67,7 +71,10 @@ def load_settings(path=SETTINGS_PATH):
 SETTINGS = load_settings()
 SWITCHES = SETTINGS['switches']
 # the every-sport pages behind the main menu: key -> folder
-INDEX_FOLDERS = {'matchups': 'matchups/', 'odds': 'odds/', 'trends': 'trends/', 'stats': 'stats/', 'picks': 'picks/'}
+# (while PICKS_LIVE is False, Picks links open the Preview pages)
+PICKS_LIVE = bool(SWITCHES.get('PICKS_LIVE'))
+INDEX_FOLDERS = {'matchups': 'matchups/', 'odds': 'odds/', 'trends': 'trends/', 'stats': 'stats/',
+                 'picks': 'picks/' if PICKS_LIVE else 'preview/', 'preview': 'preview/'}
 MAIN_MENU = [(m['key'], m.get('label') or m['key'].title()) for m in SETTINGS['main_menu']
              if m.get('key') == 'sports' or m.get('key') in INDEX_FOLDERS]
 BOTTOM_BAR = [(m['key'], m.get('label') or m['key'].title()) for m in SETTINGS['bottom_bar'] if m.get('key') in INDEX_FOLDERS][:4]
@@ -86,14 +93,15 @@ def footer_on(is_home=False):
 
 
 # Picks (/picks/ and /{sport}/picks/). Picks links show in every menu (gold)
-# either way. False: the pages are noindexed "Picks are coming with Premium"
-# pages, out of the sitemap; True swaps in the real Picks pages.
-PICKS_LIVE = bool(SWITCHES.get('PICKS_LIVE'))
+# either way. False: they open the Preview pages (/preview/, /{sport}/preview/)
+# and the Picks pages forward there, out of the sitemap; True swaps in the
+# real Picks pages. (PICKS_LIVE is read above, with INDEX_FOLDERS.)
 
-# On Tap (/on-tap/). False: out of every menu, the bottom bar, the footer and
-# internal links; its pages are noindexed and out of the sitemap; the home and
-# hub heroes use Yesterday's Best; no previews are drafted (no API calls).
-ON_TAP_LIVE = bool(SWITCHES.get('ON_TAP_LIVE'))
+# Preview (/preview/, /{sport}/preview/; was On Tap). True: drafted from
+# 8 AM ET, shown from 11 AM ET once published (the home hero, each hub's
+# Preview section). False: no drafts (no API calls) and Yesterday's Best is
+# the hero.
+PREVIEW_LIVE = bool(SWITCHES.get('PREVIEW_LIVE', True))
 
 
 # in nav order (menus, pills): NHL, NBA, NCAAB, NFL, NCAAF, then WNBA and MLB
@@ -335,16 +343,22 @@ def section_path(sport, section):
 def page_links(sport):
     """[(section, label, root-relative path)] for the sport's pages in the
     settings' order and labels (sport_pages): Picks · Matchups · Odds ·
-    Trends · Stats · Teams."""
+    Trends · Stats · Teams. Picks opens the Preview while PICKS_LIVE is False."""
     s = BY_KEY[sport] if isinstance(sport, str) else sport
     out = []
     for x in SETTINGS['sport_pages']:
         sec = x.get('key')
         if sec == 'picks':
-            out.append(('picks', x.get('label') or 'Picks', picks_path(s)))
+            out.append(('picks', x.get('label') or 'Picks', picks_path(s) if PICKS_LIVE else preview_path(s)))
         elif sec in s['sections']:
             out.append((sec, x.get('label') or SECTION_LABELS[sec], section_path(s, sec)))
     return out
+
+
+def preview_path(sport):
+    """The sport's Preview, /{slug}/preview/."""
+    s = BY_KEY[sport] if isinstance(sport, str) else sport
+    return f"/{s['slug']}/preview/"
 
 
 def picks_path(sport):

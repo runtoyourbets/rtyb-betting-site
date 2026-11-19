@@ -7,12 +7,13 @@ Static -- the refresh job rebuilds them every run.
 
 Sections, top to bottom: nav, then the shared front sections
 (scripts/front.py sections, also on every Arena hub): the brand H1 (hubs:
-the slogan line), On Tap (or Yesterday's Best, large), Yesterday's Best, The Slate, Matchup of
-the Day, Hottest Trends, Streak to Watch, Biggest Line Move, Get the Running
-Tab (hubs only), Yesterday's Results, then Betting Guides (3 guides); footer. Every
+the slogan line), the all-sports Preview from 11 AM ET (else Yesterday's
+Best, large), Yesterday's Best, The Slate, Matchup of the Day, Hottest
+Trends, Streak to Watch, Biggest Line Move, Get the Running Tab (hubs
+only), Yesterday's Results, then Betting Guides (3 guides); footer. Every
 list of sports comes from sports.LAUNCHED (in season). Also writes
 /matchups/, /odds/ and /trends/ (scripts/front.py index pages) and /picks/
-(the Premium shell while sports.PICKS_LIVE is False).
+(forwarded to /preview/ while sports.PICKS_LIVE is False: build_site).
 
 Colors are the site tokens from assets/site.css (template.html :root).
 """
@@ -181,14 +182,14 @@ def locked_trends(n, cards):
 
 def nav_html(status, depth='', current=None):
     """The shared site nav (scripts/nav.py). status: [(sport, chip, live, short)];
-    current: the index page shown ('matchups', 'odds', 'trends', 'on-tap')."""
+    current: the index page shown ('matchups', 'odds', 'trends', 'stats', 'preview')."""
     return nav.header(depth, [(sp, live, short) for sp, chip, live, short in status], current=current)
 
 
 FOOTER = '''
 <footer class="hf">
   <div class="hf-inner">
-    <div class="ft-signup" id="premium"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and what&rsquo;s on tap.</p><!--signup:footer--></div>
+    <div class="ft-signup" id="premium"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and the day&rsquo;s preview.</p><!--signup:footer--></div>
     <p class="hf-rg"><b>21+ only.</b> Gambling problem? Call <a href="tel:18004262537">1-800-GAMBLER</a>. Please bet responsibly.</p>
     <p class="hf-small">RTYB &mdash; Run to Your Bets is for information and entertainment. Not affiliated with any league or sportsbook.
     Records and units are for tracking only; past results don&rsquo;t predict future ones.</p>
@@ -323,7 +324,7 @@ def build(template, nhl_data, logo_svg, now_utc=None):
 
     stats_index.write(page, status, logo_svg)
     guides.write(page, status, logo_svg)
-    daily.write_pages(page, status, logo_svg, pieces, pills=front.pills, script=front.FRONT_JS)
+    daily.write_pages(page, status, logo_svg, pieces)   # columns (previews: build_site.write_previews)
     seo.write_legal(page, status, logo_svg)
     today_n = sum(1 for sp in S.values() for g in sp.games(today) if front.game_lined(sp, g))
     return {'today': today_n, 'trends': front_html.count('ht-card')}

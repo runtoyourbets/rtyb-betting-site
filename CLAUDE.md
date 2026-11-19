@@ -63,6 +63,11 @@ badges (logo stand-ins) are the one exception.
 Type: two families. Barlow Condensed (bold) for page titles and section
 headings, Source Sans 3 for everything else, numbers included, with tabular
 figures on the body. No mono font. No bold numbers: emphasis is color and fill.
+One exception: Preview's article text (scripts/preview.py `.pv-body`) uses the
+serif reading stack `--ff-read` (Georgia) at `--fs-read` (19px, 17px phone),
+line-height `--lh-read` (1.7); its dek is `--fs-dek`. The 1200×630 image
+cards (`.pc-*`) use `--pc-grad`, `--pc-text`, `--pc-muted`, `--fs-pc-name`
+and `--fs-pc-at`.
 
 | Token | Use | Font | Weight | Size |
 |---|---|---|---|---|

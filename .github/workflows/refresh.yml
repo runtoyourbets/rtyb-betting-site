@@ -18,7 +18,7 @@ on:
       - 'data_admin/odds_overrides.json'
       - 'data_admin/results_overrides.json'
       - 'data_admin/odds/**'
-      # On Tap: a piece the admin just published goes live on this run
+      # Preview: a piece the admin just published goes live on this run
       - 'content/published/**'
 
 permissions:
@@ -114,8 +114,8 @@ jobs:
       - name: Build site
         run: python3 scripts/build_site.py
 
-      - name: On Tap drafts (previews from 8 AM ET; the recap is switched off)
-        # Claude writes each sport's On Tap preview (and one for the home page) once a day, as a draft
+      - name: Preview drafts (from 8 AM ET; the recap is switched off)
+        # Claude writes each sport's Preview (and the all-sports one for the home page) once a day, as a draft
         # in content/drafts/ for someone to approve; nothing is published
         # automatically. Skipped until the ANTHROPIC_API_KEY secret is set,
         # and a failure never stops the refresh (the next run retries).

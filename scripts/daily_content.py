@@ -1,27 +1,30 @@
 """
-On Tap's drafts, written by Claude from the site's own numbers:
+Preview's drafts (was On Tap), written by Claude from the site's own numbers:
 
-  recap    The Morning Run: last night's results, from 8 AM ET
-  preview  On Tap: today's slate, from 11 AM ET
+  preview  Preview: today's slate, drafted from 8 AM ET, shown from 11 AM ET
+  recap    The Morning Run: last night's results (off: daily.RECAP)
 
-for every sport with games that day (scripts/sports.py). Football is
-weekly: the Weekend Recap on Monday from 8 AM ET and the Week Preview on
-Thursday from 9 AM ET. Previews tease (games, start times, streaks, where
-our trends stack up) with no records, hit rates, prices or picks, and end
-with a link to the sport's Trends page.
+for every sport with games that day (scripts/sports.py), plus one across
+every sport for the home page. Football is weekly: the Week Preview on
+Thursday from 8 AM ET (and the Weekend Recap on Monday, while recaps are on).
 
 Each run of the refresh workflow calls this (no arguments). A draft is
 written once per sport and day, on the first run inside its window, to
 content/drafts/{sport}-{kind}-{date}.md; nothing is published until
-someone approves it. A draft already written (or published) is never
-redone. Without the ANTHROPIC_API_KEY secret it does nothing.
+someone approves it in the admin's Preview tab. A draft already written (or
+published) is never redone. Without the ANTHROPIC_API_KEY secret, or while
+sports.PREVIEW_LIVE is False, it does nothing.
 
-The packet sent to Claude holds every fact the piece may use. After
-writing, every number in the draft is checked against the packet; any
-that isn't there is listed in the draft's `check:` line for the editor.
+The packet sent to Claude holds every fact the piece may use: per game the
+full team names and codes, the start, each trend's season record and rate
+(10+ games), the streaks, the lines (open, now, best price and its book),
+and which game is the Matchup of the Day and which the lead game
+(scripts/preview.py). After writing, every number in the draft is checked
+against the packet (times and dates aside); any that isn't there is listed
+in the draft's `check:` line for the editor.
 
   python3 scripts/daily_content.py                     # the scheduled run
-  python3 scripts/daily_content.py recap nba 2026-11-10 --dry-run   # print the packet
+  python3 scripts/daily_content.py preview nba 2026-11-18 --dry-run   # print the packet
 """
 import json
 import os
@@ -33,6 +36,7 @@ from zoneinfo import ZoneInfo
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import daily  # noqa: E402
 import grading  # noqa: E402
+import preview as pv  # noqa: E402
 import sports  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,8 +46,8 @@ PUBLISHED = os.path.join(ROOT, 'content', 'published')
 SPORTS = tuple(sp['key'] for sp in sports.SPORTS)   # a sport with no games that day (or out of season) gets no draft
 # kind -> (weekday, first ET hour, last ET hour) a scheduled run may write
 # it; weekday None is every day. Football's pieces are weekly: the Weekend
-# Recap on Monday, the Week Preview on Thursday. On Tap is drafted from
-# 8 AM so it's waiting in the admin Drafts tab by 10 AM; it shows from
+# Recap on Monday, the Week Preview on Thursday. Preview is drafted from
+# 8 AM so it's waiting in the admin's Preview tab by 10 AM; it shows from
 # 11 AM once approved. The recap runs only while daily.RECAP is on.
 WINDOWS = {'recap': (None, 8, 14), 'preview': (None, 8, 18)}
 WEEKLY_WINDOWS = {'recap': (0, 8, 14), 'preview': (3, 8, 18)}
@@ -199,25 +203,9 @@ def nhl_recap(day):
 
 
 def nhl_preview(day):
-    D = read_json(os.path.join(ROOT, 'nhl', 'data.json'), {})
-    slate = (D.get('schedule', {}).get('games') or {}).get(day, [])
-    if not slate:
+    if not pv.slate(pv.sport_of('nhl'), day)[1]:
         return None
-    # a tease (teaser_games): start, how many trends land on it, streaks
-    log = read_json(os.path.join(ROOT, 'league_trends_log.json'), {})
-    on = {}
-    for t in (log.get(day) or {}).get('trends') or []:
-        if t.get('kind') and t.get('strength') != 'weak':
-            for p in t['games']:
-                on[p['key']] = on.get(p['key'], 0) + 1
-    seqs = nhl_seqs(D, (date.fromisoformat(day) - timedelta(days=1)).isoformat())
-    games = []
-    for g in slate:
-        a, h = g['away'], g['home']
-        games.append({'matchup': f'{nhl_name(D, a)} at {nhl_name(D, h)}', 'start': et_time(g.get('startTimeUTC')),
-                      'trends_on_this_game': on.get(f'{day}|{a}|{h}', 0),
-                      'streaks': [f"{x['team']} {x['streak']}" for x in active_streaks(seqs, {a, h}, NHL_LABELS)][:4]})
-    return {'sport': 'NHL', 'segment': '1st period', 'date': day, 'games': games, 'trends_page': '/nhl/trends/'}
+    return preview_packet('nhl', day)
 
 
 # ------------------------------------------------- every other sport
@@ -342,65 +330,53 @@ def sport_recap(key, day):
                                        seqs, {team_of(D, g[s])[1] for g in tonight for s in ('away', 'home')}, labels)[:8]}}
 
 
-def teaser_games(key, D, slate, log_entry, through):
-    """Previews tease: each game's start, how many of our trends land on it
-    and the teams' active streaks -- no records, hit rates, prices or picks."""
-    on = {}
-    for t in (log_entry or {}).get('trends') or []:
-        if t.get('kind') and t.get('strength') != 'weak':
-            for p in t.get('games') or []:
-                on[p.get('key')] = on.get(p.get('key'), 0) + 1
-    seqs, labels = seqs_of(D, through), labels_of(D)
-    weekly = D.get('schedule') == 'week'
-    out = []
-    for g in slate:
-        (an, ac), (hn, hc) = team_of(D, g['away']), team_of(D, g['home'])
-        start = g.get('start')
-        when = (datetime.fromisoformat(start.replace('Z', '+00:00')).astimezone(ET).strftime('%A %-I:%M %p ET') if weekly and start
-                else et_time(start))
-        out.append({'matchup': f'{an} at {hn}', 'start': when, 'trends_on_this_game': on.get(g['id'], 0),
-                    'streaks': [f"{x['team']} {x['streak']}" for x in active_streaks(seqs, {ac, hc}, labels)][:4]})
-    return busiest(out)
-
-
-PREVIEW_MAX = 15   # a college slate can run 60+ games: tease the ones with the most going on
-
-
-def busiest(games):
-    if len(games) <= PREVIEW_MAX:
-        return games
-    keep = sorted(range(len(games)), key=lambda i: (-games[i]['trends_on_this_game'], -len(games[i]['streaks']), i))[:PREVIEW_MAX]
-    return [games[i] for i in sorted(keep)]
+def preview_packet(key, day):
+    """A sport's Preview packet (scripts/preview.py packet_games)."""
+    sp = sports.BY_KEY[key]
+    sport = pv.sport_of(key)
+    games = pv.slate(sport, day)[1]
+    rows = pv.packet_games(key, day)
+    lead = next((g['matchup'] for g in rows if g['lead_game']), None)
+    motd = next((g['matchup'] for g in rows if g['matchup_of_the_day']), None)
+    out = {'sport': sports.seo_name(key), 'segments': seg_words(key), 'date': day, 'games_on_the_slate': len(games),
+           'lead_game': lead, 'matchup_of_the_day': motd, 'games': rows, 'trends_page': f"/{sp['slug']}/trends/"}
+    wk = pv.week_of(sport, day) if sport.weekly else None
+    if wk:
+        out['week'] = wk['label']
+    return out
 
 
 def sport_preview(key, day):
-    D = doc_of(key)
-    slate = (D.get('games') or {}).get(day, [])
-    if not slate:
+    if not (doc_of(key).get('games') or {}).get(day):
         return None
-    log = read_json(os.path.join(ROOT, 'trends_log', f'{key}.json'), {})
-    sp = sports.BY_KEY[key]
-    return {'sport': sp['label'], 'segments': seg_words(key), 'date': day, 'games_on_the_slate': len(slate),
-            'games': teaser_games(key, D, slate, log.get(day), (date.fromisoformat(day) - timedelta(days=1)).isoformat()),
-            'trends_page': f"/{sp['slug']}/trends/"}
+    return preview_packet(key, day)
 
 
 def all_preview(day):
-    """The home page's On Tap: every in-season sport's preview packet with
-    games that day (football: its week preview on Thursday), in one."""
+    """The home page's Preview: every in-season sport's preview packet with
+    games that day (football: its week preview on Thursday), in one, with
+    the site's lead game and Matchup of the Day."""
     d = date.fromisoformat(day)
     parts, on = {}, []
+    lead = pv.lead_of(daily.ALL, day)
+    motd = pv.motd_of(daily.ALL, day)
     for sp in sports.shown(d):
         if weekly(sp['key']) and d.weekday() != WEEKLY_WINDOWS['preview'][0]:
             continue
         x = builder('preview', sp['key'])(day)
         if x:
-            parts[sp['label']] = x
+            for g in x['games']:   # the home page's own lead and Matchup of the Day
+                g['lead_game'] = bool(lead and (lead['sport'], lead['id']) == (sp['key'], g['id']))
+                g['matchup_of_the_day'] = bool(motd and tuple(motd) == (sp['key'], g['id']))
+            x.pop('lead_game', None)
+            x.pop('matchup_of_the_day', None)
+            parts[sports.seo_name(sp)] = x
             on.append(sp)
     if not parts:
         return None
-    return {'sport': sports.sport_names(on),
-            'segments': 'first period, first quarter and first half', 'date': day, 'sports': parts, 'trends_page': '/trends/'}
+    find = lambda flag: next((f"{n}: {g['matchup']}" for n, x in parts.items() for g in x['games'] if g[flag]), None)
+    return {'sport': sports.sport_names(on), 'segments': 'first period, first quarter and first half', 'date': day,
+            'lead_game': find('lead_game'), 'matchup_of_the_day': find('matchup_of_the_day'), 'sports': parts, 'trends_page': '/trends/'}
 
 
 def week_of(D, day):
@@ -432,19 +408,9 @@ def week_recap(key, day):
 
 def week_preview(key, day):
     """Football, Thursday: the week's games still to play."""
-    D = doc_of(key)
-    wk = week_of(D, day)
-    if not wk:
+    if not pv.slate(pv.sport_of(key), day)[1]:
         return None
-    slate = sorted((g for d in sorted(D.get('games') or {}) for g in D['games'][d]
-                    if g.get('wk') == wk['key'] and g.get('state') not in ('final', 'post')), key=lambda g: g.get('start') or '')
-    if not slate:
-        return None
-    log = read_json(os.path.join(ROOT, 'trends_log', f'{key}.json'), {})
-    sp = sports.BY_KEY[key]
-    return {'sport': sp['label'], 'segments': seg_words(key), 'week': wk['label'], 'games_on_the_slate': len(slate),
-            'games': teaser_games(key, D, slate, log.get(wk['key']), (date.fromisoformat(wk['start']) - timedelta(days=1)).isoformat()),
-            'trends_page': f"/{sp['slug']}/trends/"}
+    return preview_packet(key, day)
 
 
 def builder(kind, key):
@@ -459,25 +425,32 @@ def builder(kind, key):
 
 # --------------------------------------------------------------- writing
 
-SYSTEM = """You write On Tap, the daily preview, for Run to Your Bets (RTYB), a site of first-period, first-quarter and first-half betting stats. Your voice: a fun, confident bettor who knows the numbers cold, talking to other bettors.
+SYSTEM = """You write Preview, the daily preview, for Run to Your Bets (RTYB), a site of first-period, first-quarter and first-half betting stats. Your voice: a fun, confident bettor who knows the numbers cold, talking to other bettors.
 
 Rules, all of them strict:
-- Use only facts in the data packet. Every team, score, price, record, unit figure and streak you mention must appear in the packet exactly as given. If something isn't in the packet, leave it out.
-- Never invent plays, goals, players, injuries, quotes or game moments. The packet has scores and results, not play-by-play, so don't describe how a goal or basket happened.
-- No guarantees. Never write 'lock', 'chase it', 'can't lose', 'free money', 'sure thing' or anything like them. Trends are history, not promises.
-- Odds are American (-125, +150). Units are profit on a 1-unit bet.
-- 150 to 250 words of body text in Markdown: short paragraphs, no headings, no bullet lists, no tables.
-- Start with one bold line that works as a hook, then the body.
-- Finish with one sentence that ends on '21+. Gambling problem? Call 1-800-GAMBLER.' only if you have room; the site adds that line anyway, so it's optional."""
+- Use only facts in the data packet. Every team, score, price, record, rate, line and streak you mention must appear in the packet exactly as given. If something isn't in the packet, leave it out.
+- Never invent plays, goals, players, injuries, quotes or game moments.
+- No guarantees. Never write 'lock', 'chase it', 'can't lose', 'free money', 'sure thing' or anything like them.
+- Odds are American (-125, +150).
+- Teams: the full name from the packet in the text (Milwaukee Bucks); the team code (MIL) only inside a bet or a stat.
+- Don't add disclaimer lines; the site has its own.
 
-PREVIEW = (" It's a tease, not a tip sheet: name games, start times and streaks as given, and say where several of our trends land on one game, "
-           "but give no records, hit rates, percentages, prices or specific bets. End with one sentence sending readers to the Trends page "
-           "for the full picture, as a Markdown link to the packet's trends_page.")
+Format, Markdown, exactly in this order:
+# The headline (about the lead game: the packet's lead_game)
+> The dek: one sentence under the headline.
+!! NUMBER | One line on what that number is (the piece's one big-number callout: a number from the packet).
+Then the body: short paragraphs, no bullet lists, no tables."""
+
+PREVIEW = (" Lead with the lead game (lead_game: true). The Matchup of the Day (matchup_of_the_day: true) gets its usual place, not the lead. "
+           "Body: one subhead per game you cover, '### Away Team at Home Team · 7:00 PM ET' (short team names, the packet's start), "
+           "in start-time order, each followed by a short paragraph. Give no specific bets or picks.")
 TASK = {
     'recap': "Write The Morning Run, today's recap of last night's {sport} {seg} betting results, from this packet. Cover the biggest results, how RTYB's league trends did, the night's best and worst results, and the streaks that were extended or snapped. End with what carries into today (the 'carries_into_today' part).",
-    'preview': "Write On Tap, today's {sport} {seg} betting preview, from this packet." + PREVIEW,
-    'all_preview': "Write On Tap, today's betting preview across every sport on the slate ({sport}), for the {seg}, from this packet. "
-                   "Pick the few games with the most going on across all of them." + PREVIEW,
+    'preview': "Write Preview, today's {sport} {seg} betting preview, from this packet." + PREVIEW,
+    'all_preview': "Write Preview, today's betting preview across every sport on the slate ({sport}), for the {seg}, from this packet. "
+                   "Lead with the lead game (lead_game: true; the Matchup of the Day is never the lead). "
+                   "Body: one subhead per sport, '## NBA: Bucks at Heat leads a 12-game night' (the sport's name as in the packet, then a short line), "
+                   "each followed by a paragraph or two on its few games with the most going on. Give no specific bets or picks.",
     'week_recap': "Write the Weekend Recap, the {sport} {seg} betting results of {week} so far, from this packet. Cover the biggest results, how RTYB's league trends did, the weekend's best and worst results, and the streaks that were extended or snapped.",
     'week_preview': "Write the {week} Preview, this week's {sport} {seg} betting preview, from this packet." + PREVIEW,
 }
@@ -489,7 +462,7 @@ def weekly(sport):
 
 def title(kind, sport, day, packet=None):
     if sport == daily.ALL:
-        return f"On Tap: Today's First Period, Quarter and Half Betting Preview — {date.fromisoformat(day).strftime('%b %-d, %Y')}"
+        return f"First Period, Quarter & Half Betting Preview — {date.fromisoformat(day).strftime('%b %-d, %Y')}"
     sp = sports.BY_KEY[sport]
     seg = ' and '.join(s['label'].replace('1st ', 'First ') for s in sp['segments'])
     when = date.fromisoformat(day).strftime('%b %-d, %Y')
@@ -503,13 +476,19 @@ def numbers_in(text):
     return set(re.findall(r'[+-]?\d+(?:\.\d+)?', text))
 
 
+# times ("7:30 PM", "10:00") and dates ("Nov 18", "11/18", "2026-11-18") aren't checked
+TIME_OR_DATE = re.compile(r'\b\d{1,2}:\d{2}(?:\s*[AP]\.?M\.?)?(?:\s*ET)?|\b\d{1,2}\s*[AP]\.?M\.?\b|\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}/\d{1,2}(?:/\d{2,4})?\b'
+                          r'|\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}(?:,\s*\d{4})?\b', re.I)
+
+
 def unchecked_numbers(body, packet):
     """Numbers in the draft that aren't in the packet (ignoring signs,
-    trailing zeros and small counting words like 3 games)."""
+    trailing zeros, times and dates)."""
     have = {n.lstrip('+-').rstrip('0').rstrip('.') for n in numbers_in(json.dumps(packet, ensure_ascii=False))}
     have |= {'21', '1-800', '800', '4357'}
     out = []
-    for n in re.findall(r'[+-]?\d+(?:\.\d+)?', body.replace('1-800-GAMBLER', '')):   # in reading order
+    text = TIME_OR_DATE.sub(' ', re.sub(r'^---\n.*?\n---\n', '', body, flags=re.S).replace('1-800-GAMBLER', ''))
+    for n in re.findall(r'[+-]?\d+(?:\.\d+)?', text):   # in reading order
         k = n.lstrip('+-').rstrip('0').rstrip('.') if '.' in n else n.lstrip('+-')
         if k not in have and n not in out:
             out.append(n)
@@ -548,8 +527,14 @@ def save(kind, sport, day, body, model, packet):
     front = ['---', f'title: {json.dumps(title(kind, sport, day, packet), ensure_ascii=False)}', f'sport: {sport}', f'kind: {kind}',
              f'date: {day}', f"written: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%MZ')}", f'model: {model}',
              f'check: {json.dumps(check)}']
-    if sport == daily.ALL:   # the sports it covers, for the page title (daily.py)
-        front.append(f"sports: {json.dumps([sp['key'] for sp in sports.SPORTS if sp['label'] in (packet.get('sports') or {})])}")
+    if sport == daily.ALL:   # the sports it covers
+        front.append(f"sports: {json.dumps([sp['key'] for sp in sports.SPORTS if sports.seo_name(sp) in (packet.get('sports') or {})])}")
+    if kind == 'preview':   # the lead game (the admin's dropdown changes it) and the Matchup of the Day
+        lead, motd = pv.lead_of(sport, day), pv.motd_of(sport, day)
+        if lead:
+            front.append(f"lead: {lead['sport']}:{lead['id']}")
+        if motd:
+            front.append(f'motd: {motd[0]}:{motd[1]}')
     front += ['---', '']
     with open(draft_path(kind, sport, day), 'w', encoding='utf-8') as f:
         f.write('\n'.join(front) + body + '\n')
@@ -574,8 +559,8 @@ def packet_for(kind, sport, day):
 
 def scheduled(now=None):
     now = (now or datetime.now(timezone.utc)).astimezone(ET)
-    if not sports.ON_TAP_LIVE:   # content/site_settings.json switches On Tap off: no drafts, no API calls
-        print('On Tap is off (ON_TAP_LIVE); no drafts written')
+    if not sports.PREVIEW_LIVE:   # content/site_settings.json switches Preview off: no drafts, no API calls
+        print('Preview is off (PREVIEW_LIVE); no drafts written')
         return
     if not os.environ.get('ANTHROPIC_API_KEY'):
         print('ANTHROPIC_API_KEY not set; no drafts written')

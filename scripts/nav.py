@@ -22,7 +22,8 @@ GO PREMIUM; free: GO PREMIUM · avatar; Premium: PICKS · avatar), row 2 as
 on desktop (the index sports row keeps only the sports in season), a fixed
 bottom bar (sports.BOTTOM_BAR) and the ☰ menu: SPORTS (a name opens the
 hub, "+" its pages as pills, two rows of three) and MORE (Betting Guides,
-The Running Tab). On Tap shows nowhere while sports.ON_TAP_LIVE is False.
+The Running Tab). While sports.PICKS_LIVE is False every Picks link opens the
+Preview pages (/preview/, /{sport}/preview/), which light up Picks.
 The avatar menu is scripts/account.py.
 
 Styles live with the rest of the site's in template.html's <style> (the .hn,
@@ -38,10 +39,10 @@ import icons
 import sports
 
 # a sport page's section -> the main-menu item it lights up
-SECTION_TAB = {'games': 'matchups', 'odds': 'odds', 'trends': 'trends', 'stats': 'stats', 'picks': 'picks',
+SECTION_TAB = {'games': 'matchups', 'odds': 'odds', 'trends': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'picks',
                'hub': 'sports', 'teams': 'sports', 'guide': 'sports'}
 # the sport page each index page's sports row opens
-INDEX_SECTION = {'matchups': 'games', 'odds': 'odds', 'trends': 'trends', 'stats': 'stats', 'picks': 'picks'}
+INDEX_SECTION = {'matchups': 'games', 'odds': 'odds', 'trends': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'preview'}
 
 # simple stroke icons for the bottom bar, all on a 24px grid
 TAB_ICON = {
@@ -70,7 +71,10 @@ def sport_href(base, sp, sec):
     """The sport's page for a section ('hub' = /{slug}/)."""
     if sec == 'hub':
         return f"{base}{sp['slug']}/"
-    path = sports.picks_path(sp) if sec == 'picks' else sports.section_path(sp, sec)
+    if sec == 'preview' or sec == 'picks' and not sports.PICKS_LIVE:
+        path = sports.preview_path(sp)
+    else:
+        path = sports.picks_path(sp) if sec == 'picks' else sports.section_path(sp, sec)
     return base + path.lstrip('/')
 
 
@@ -123,7 +127,7 @@ def index_row(base, key, sps):
 
 def sport_row(base, sp, section):
     """Row 2 on a sport page: the sport (its hub), then its pages."""
-    links = ''.join(f'<a class="hr2-link{" gold" if sec == "picks" else ""}" href="{href}"{CUR if sec == section else ""}>{esc(label)}</a>'
+    links = ''.join(f'<a class="hr2-link{" gold" if sec == "picks" else ""}" href="{href}"{CUR if sec == section or (sec, section) == ("picks", "preview") else ""}>{esc(label)}</a>'
                     for sec, label, href in _pages(base, sp))
     return (f'<div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="{base}{sp["slug"]}/">{icons.sport_icon(sp)}{_names(sp)}</a>'
             f'<nav class="hr2-links hr2-pages" aria-label="{esc(sp["menu_label"])} pages">{links}</nav></div></div>')
@@ -136,7 +140,7 @@ def header(base, status, sport=None, section=None, home_href=None, current=None)
     'stats', 'picks')."""
     home_href = home_href or base or './'
     sps = [x[0] for x in status]
-    tab = current or (SECTION_TAB.get(section) if sport else None)
+    tab = SECTION_TAB.get(current, current) if current else (SECTION_TAB.get(section) if sport else None)
     desk = ''
     for key, label in sports.MAIN_MENU:
         if key == 'sports':
@@ -147,7 +151,6 @@ def header(base, status, sport=None, section=None, home_href=None, current=None)
     phone = ''.join(_phone_sport(base, sp, i) for i, sp in enumerate(sps))
     premium = f'{base}#premium'
     row2 = sport_row(base, sport, section) if sport else index_row(base, current, sps) if current in INDEX_SECTION else ''
-    on_tap = f'<a class="hm-item" href="{base}on-tap/">On Tap</a>' if sports.ON_TAP_LIVE else ''
     return f'''
 <header class="hn">
   <div class="hn-inner">
@@ -159,7 +162,7 @@ def header(base, status, sport=None, section=None, home_href=None, current=None)
       <button class="hn-theme" type="button" aria-label="Switch to light mode">{SUN}{MOON}</button>
       <a class="hn-signin" href="{premium}">Sign in</a>
       <a class="hn-premium" href="{premium}">Go Premium</a>
-      <a class="hn-picks-pill" href="{base}picks/">Picks</a>
+      <a class="hn-picks-pill" href="{index_href(base, 'picks')}">Picks</a>
       {account.account_html(base)}
     </div>
   </div>
@@ -170,7 +173,7 @@ def header(base, status, sport=None, section=None, home_href=None, current=None)
     {phone}
     <p class="hm-label">More</p>
     <a class="hm-item" href="{base}betting-guides/">Betting Guides</a>
-    <a class="hm-item" href="{premium}">The Running Tab</a>{on_tap}
+    <a class="hm-item" href="{premium}">The Running Tab</a>
   </div>
 </div>
 {bottom_bar(base, tab)}{JS}'''

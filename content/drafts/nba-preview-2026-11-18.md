@@ -5,7 +5,9 @@ kind: preview
 date: 2026-11-18
 written: 2026-11-18T13:08Z
 model: claude-opus-5-5
-check: ["10", "00"]
+check: ["10"]
+lead: nba:401910009
+motd: nba:401910018
 ---
 **Twelve games, a pile of early-game streaks, and one late tip where our trends stack up.**
 
@@ -17,6 +19,6 @@ At 7:00 PM ET, the Houston Rockets at the Indiana Pacers carries four trends, an
 
 The Detroit Pistons at the New Orleans Pelicans (8:00 PM ET) has three trends attached, with Detroit Over in the 1Q 4 straight. Also at 8:00 PM ET, the Golden State Warriors at the Dallas Mavericks features Golden State Under in the 1H 7 straight and Dallas losing the 1H 4 straight.
 
-Night owls also get the Utah Jazz at the Los Angeles Lakers at 10:00 PM ET. Utah lost the 1H 6 straight but covered the 1Q 4 straight. Streaks are history, not promises, but they're a good place to start digging.
+Night owls also get the Utah Jazz at the Los Angeles Lakers at 10:00 PM ET. Utah lost the 1H 6 straight but covered the 1Q 4 straight.
 
 For every angle on all 12 games, see the full picture on the [Trends page](/nba/trends/).

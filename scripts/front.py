@@ -44,7 +44,6 @@ TREND_MIN_EDGE = 0.05  # ... and points over the league rate, to qualify
 TREND_MIN_RATE = 0.55  # every Hottest Trends card (home, hubs, /trends/): a 55%+ win rate
 HOT_SHOWN = 3          # Hottest Trends: exactly this many cards,
 HOT_ROWS = 3           # ... with up to this many game rows each
-PREVIEW_HOUR = 11      # On Tap shows from 11 AM ET to the next day's 11 AM
 MOTD_TRENDS = 4        # agreeing trends listed on Matchup of the Day
 BEST_MIN = 3           # Yesterday's Best: decided games a record needs
 ML_CAP = 2000          # moneylines past -2000 / +2000 show a dash
@@ -455,7 +454,7 @@ def yesterdays_best(S, yday):
 
 
 def best_hero(S, yday, hub=False):
-    """The hero when there's no On Tap: Yesterday's Best, large, with the
+    """The hero when there's no Preview: Yesterday's Best, large, with the
     next-best positive results from two other sports (a hub: from its own
     other markets) on one line. Built from the numbers; nothing to approve."""
     cand = best_cands(S, yday)
@@ -472,35 +471,6 @@ def best_hero(S, yday, hub=False):
     return (f'<section class="fr-sec yb yb-hero" id="best"><div class="yb-box yb-big">'
             f'<span class="yb-kicker">Yesterday&rsquo;s Best &middot; {esc(day_label(yday))}</span>'
             f'<h2 class="yb-headline">{best_what(*top)}</h2>{line}</div></section>')
-
-
-# ------------------------------------------------------------- On Tap
-def on_tap_piece(S, now_utc, key):
-    """The published On Tap preview showing now: dated D, from D 11 AM ET to
-    D+1 11 AM ET (key 'all': the home page's). On a football-only day the
-    home page takes football's Week Preview."""
-    import daily
-    now = now_utc.astimezone(ET)
-    d = now.date() if now.hour >= PREVIEW_HOUR else now.date() - timedelta(days=1)
-    day = d.isoformat()
-    pieces = [p for p in daily.load() if p['kind'] == 'preview' and p['date'] == day]
-    p = next((p for p in pieces if p['sport'] == key), None)
-    if p or key != daily.ALL:
-        return p
-    playing = [sp for sp in S.values() if any(game_lined(sp, g) for g in sp.games(day))]
-    if playing and all(sp.weekly for sp in playing):
-        return next((p for sp in playing for p in pieces if p['sport'] == sp.key), None)
-    return None
-
-
-def on_tap_hero(p, root):
-    d = Date.fromisoformat(p['date'])
-    summary = (p['teaser'] or '').split('. ')[0].rstrip('.') + '.' if p.get('teaser') else ''
-    return (f'<section class="fr-sec ot" id="on-tap"><a class="ot-card" href="{esc(root + p["path"])}">'
-            f'<span class="ot-label">On Tap &middot; {d.strftime("%A")}, {d.strftime("%b")} {d.day}</span>'
-            f'<h2 class="ot-title">{esc(p["hook"] or p["title"])}</h2>'
-            + (f'<p class="ot-sum">{esc(summary)}</p>' if summary else '') +
-            '<span class="ot-more">Read the preview &rarr;</span></a></section>')
 
 
 HOME_H1 = 'Run to Your Bets: First Period, Quarter & Half Betting'
@@ -1406,24 +1376,27 @@ def yesterday(now_utc):
 
 def sections(S, now_utc, root='', hub=False, learn=''):
     """The front page, home and every hub (a hub: that sport only). Phone
-    order: slogan, hero (On Tap, else Yesterday's Best large), Yesterday's
-    Best (not when the hero shows it), The Slate, Matchup of the Day,
-    Hottest Trends, Streak to Watch, Biggest Line Move, Get the Running Tab
-    (hubs; home: the footer's signup), Yesterday's Results, Learn (home).
-    Desktop regroups them in rows (template.html .fv-*): hero | Yesterday's
-    Best + Running Tab (home: the hero full width); Matchup of the Day |
-    Streak to Watch + Line Move; Results | Learn."""
-    import daily
+    order: slogan, hero (home: the all-sports Preview once it's up at 11 AM
+    ET, else Yesterday's Best large), Yesterday's Best (not when the hero
+    shows it), the sport's Preview (hubs, when it has one today), The Slate,
+    Matchup of the Day, Hottest Trends, Streak to Watch, Biggest Line Move,
+    Get the Running Tab (hubs; home: the footer's signup), Yesterday's
+    Results, Learn (home). Desktop regroups them in rows (template.html
+    .fv-*): hero | Yesterday's Best + Running Tab (home: the hero full
+    width); the Preview; Matchup of the Day | Streak to Watch + Line Move;
+    Results | Learn."""
+    import preview
     yday = yesterday(now_utc)
-    p = on_tap_piece(S, now_utc, next(iter(S)) if hub else daily.ALL) if sports.ON_TAP_LIVE else None
-    hero = on_tap_hero(p, root) if p else best_hero(S, yday, hub)
+    p = preview.hero(now_utc, root) if sports.PREVIEW_LIVE and not hub else ''
+    hero = p or best_hero(S, yday, hub)
     best = yesterdays_best(S, yday) if p else ''
+    pv = preview.hub_section(next(iter(S)), now_utc, root) if sports.PREVIEW_LIVE and hub and S else ''
 
     def box(cls, html):
         return f'<div class="{cls}">{html}</div>' if html else ''
     # in phone reading order; desktop places them by grid area (template.html .fv)
     pair = box('fv-pair', box('fv-team', team_watch(S, now_utc, root, hub)) + box('fv-move', line_move(S, now_utc, root, hub)))
-    return (f'<div class="fv{"" if hub else " fv-home"}">' + box('fv-slogan', slogan(S, hub)) + box('fv-hero', hero) + box('fv-yb', best)
+    return (f'<div class="fv{"" if hub else " fv-home"}">' + box('fv-slogan', slogan(S, hub)) + box('fv-hero', hero) + box('fv-yb', best) + box('fv-pv', pv)
             + box('fv-slate', slate(S, now_utc, root, hub)) + box('fv-motd', motd(S, now_utc, root, hub))
             + box('fv-trends', hottest_trends(S, now_utc, root, hub)) + pair + (box('fv-tab', running_tab()) if hub else '')
             + box('fv-results', yesterdays_results(S, yday, root, hub)) + box('fv-learn', learn) + f'</div>{FRONT_JS}')

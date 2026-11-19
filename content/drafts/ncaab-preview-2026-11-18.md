@@ -5,7 +5,9 @@ kind: preview
 date: 2026-11-18
 written: 2026-11-18T13:09Z
 model: claude-opus-5-5
-check: ["20", "00", "10"]
+check: ["20"]
+lead: ncaab:401922055
+motd: ncaab:401929201
 ---
 **Seventy-one games on the NCAAB board, and the first half is where our trends are piling up.**
 
@@ -20,7 +22,5 @@ At 8:00 PM ET, Incarnate Word Cardinals at Texas State Bobcats has streaks point
 At 9:00 PM ET, BYU won the 1H 3 straight heading into Northern Colorado Bears at BYU Cougars. Late night, UNLV Rebels at Auburn Tigers (10:00 PM ET) pairs Auburn failing to cover the 1H 3 straight with UNLV Over in the 1H 3 straight.
 
 Quieter but still flagged with two trends: Morehead State Eagles at Ohio Bobcats, Boston University Terriers at Merrimack Warriors, Alcorn State Braves at Missouri Tigers, and Louisiana Ragin' Cajuns at San Francisco Dons.
-
-Streaks are history, not promises, so do your homework.
 
 For every trend on the slate, check out the full picture on the [Trends page](/college-basketball/trends/).

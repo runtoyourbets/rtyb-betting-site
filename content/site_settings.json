@@ -31,7 +31,7 @@
     {"key": "stats", "label": "Stats"}
   ],
   "switches": {
-    "ON_TAP_LIVE": false,
+    "PREVIEW_LIVE": true,
     "PICKS_LIVE": false,
     "FOOTER": "home-only"
   }

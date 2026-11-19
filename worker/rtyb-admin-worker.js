@@ -132,7 +132,7 @@ async function commitJsonFile(env, filePath, message, mutate) {
   return { ok: false, status: putResp.status, detail: `PUT ${filePath}: ${text.slice(0, 300)}` };
 }
 
-// --- On Tap: drafts and columns (Markdown) ----------------------------------
+// --- Preview: drafts and columns (Markdown) ---------------------------------
 // Drafts are written by scripts/daily_content.py into content/drafts/;
 // columns are hand-written into content/columns/. Publishing moves a file
 // to content/published/, which the next refresh turns into its page.
@@ -198,9 +198,10 @@ function validateSite(b) {
   }
   if (out.bottom_bar.length !== 4) return "bottom_bar needs exactly 4 tabs";
   const sw = b.switches || {};
-  if (typeof sw.ON_TAP_LIVE !== "boolean" || typeof sw.PICKS_LIVE !== "boolean") return "switches: ON_TAP_LIVE and PICKS_LIVE must be true or false";
+  const preview = typeof sw.PREVIEW_LIVE === "boolean" ? sw.PREVIEW_LIVE : sw.ON_TAP_LIVE;   // ON_TAP_LIVE: the old name
+  if (typeof preview !== "boolean" || typeof sw.PICKS_LIVE !== "boolean") return "switches: PREVIEW_LIVE and PICKS_LIVE must be true or false";
   if (!["home-only", "everywhere"].includes(sw.FOOTER)) return "switches: FOOTER must be home-only or everywhere";
-  out.switches = { ON_TAP_LIVE: sw.ON_TAP_LIVE, PICKS_LIVE: sw.PICKS_LIVE, FOOTER: sw.FOOTER };
+  out.switches = { PREVIEW_LIVE: preview, PICKS_LIVE: sw.PICKS_LIVE, FOOTER: sw.FOOTER };
   return out;
 }
 

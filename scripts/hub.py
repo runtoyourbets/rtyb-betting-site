@@ -3,7 +3,7 @@ The Arena hubs (/{sport}/): each sport's front page, drawn by assets/sport.js
 (renderHub) from the sport's data.json (NHL: sport.json), trends.json and the
 {slug}/hub.json written here:
 
-  {slate, weekly, motd, motdRecord: {last, season}, daily: {recap, preview}, learn}
+  {slate, weekly, motd, motdRecord: {last, season}, learn}
 
 Matchup of the Day (football: of the Week) is the game on the slate with the
 most trends pointing at the same bet, by the Trends page's rules:
@@ -20,7 +20,6 @@ season record.
 import os
 from datetime import date, datetime, timedelta, timezone
 
-import daily
 import sport_build
 import sports
 from sport_build import read_json, write_json
@@ -34,9 +33,6 @@ HIT = {'ml': 'W', 'ats': 'W', 'total': 'O', 'btts': 'Y', 'rfi': 'Y'}
 MISS = {'ml': 'L', 'ats': 'L', 'total': 'U', 'btts': 'N', 'rfi': 'N'}
 GAME_PICK = {'O': 'over', 'U': 'under', 'Y': 'yes', 'N': 'no'}
 FLIP = {'W': 'L', 'L': 'W'}
-# when each On Tap piece is drafted (ET), for the "Coming at" cards
-DAILY_TIME = {'recap': '8 AM', 'preview': '11 AM'}
-WEEKLY_TIME = {'recap': 'Monday at 8 AM', 'preview': 'Thursday at 9 AM'}
 
 
 # ------------------------------------------------------------- the slate
@@ -359,26 +355,6 @@ def update_log(sp, doc, trends_doc, slug_dir, now_utc, today):
     return key, mine
 
 
-def daily_cards(sp, today, weekly):
-    """The latest recap and preview for the sport, or when they're due."""
-    pieces = daily.load()
-    out = {}
-    for kind in ('recap', 'preview'):
-        p = daily.latest(pieces, kind, sp['key'])
-        if weekly:
-            # this week's piece: since Monday (recap) / Thursday (preview)
-            d = date.fromisoformat(today)
-            since = (d - timedelta(days=d.weekday() if kind == 'recap' else (d.weekday() - 3) % 7)).isoformat()
-            fresh = p and p['date'] >= since
-            due = WEEKLY_TIME[kind]
-        else:
-            fresh = p and p['date'] == today
-            due = DAILY_TIME[kind]
-        out[kind] = ({'title': p['hook'] or p['title'], 'teaser': p['teaser'], 'path': p['path']} if fresh
-                     else {'due': due})
-    return out
-
-
 def build(sp, doc, trends_doc, slug_dir, now_utc=None):
     """Writes {slug}/hub.json; returns today's Matchup of the Day (or None)."""
     now_utc = now_utc or datetime.now(timezone.utc)
@@ -397,7 +373,6 @@ def build(sp, doc, trends_doc, slug_dir, now_utc=None):
     hub = {'h1': h1, 'slate': key, 'weekly': weekly, 'motd': mine.get(key) if key else None,
            'motdRecord': {'last': {k: last.get(k) for k in ('bet', 'result', 'score')} if last and last.get('result') else None,
                           'season': [sum(1 for e in graded if e['result'] == 'W'), sum(1 for e in graded if e['result'] == 'L')]},
-           'daily': daily_cards(sp, today, weekly) if sports.ON_TAP_LIVE else {},
            'learn': sports.guide_path(sp)}
     write_json(os.path.join(slug_dir, 'hub.json'), hub)
     return hub['motd']

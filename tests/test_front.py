@@ -69,20 +69,19 @@ class BestTest(unittest.TestCase):
         self.assertEqual(front.yesterdays_best(S, '2026-11-15'), '')
 
 
-class OnTapTest(unittest.TestCase):
-    def test_shows_from_11am_to_next_11am(self):
+class PreviewHeroTest(unittest.TestCase):
+    def test_shows_from_11am(self):
         import daily
+        import preview
         old = daily.load
-        daily.load = lambda: [{'kind': 'preview', 'sport': 'all', 'date': '2026-11-17', 'path': 'daily/on-tap/2026-11-17/',
-                               'title': 'T', 'hook': 'Hook', 'teaser': 'One. Two.'}]
+        daily.load = lambda: [{'kind': 'preview', 'sport': 'all', 'date': '2026-11-17', 'path': 'preview/2026-11-17/',
+                               'title': 'T', 'body': '# Suns at Kings tops the night\n> One line.\n\nBody.'}]
         try:
-            S = {'nhl': FakeSport('nhl', {})}
             at = lambda h, d=17: datetime(2026, 11, d, h, 0, tzinfo=timezone.utc)   # UTC; ET is 5 hours behind
-            self.assertIsNone(front.on_tap_piece(S, at(15), 'all'))        # 10 AM ET
-            self.assertIsNotNone(front.on_tap_piece(S, at(16), 'all'))     # 11 AM ET
-            self.assertIsNotNone(front.on_tap_piece(S, at(15, 18), 'all')) # next day, 10 AM ET
-            self.assertIsNone(front.on_tap_piece(S, at(16, 18), 'all'))    # next day, 11 AM ET
-            self.assertIn('On Tap &middot; Tuesday, Nov 17', front.on_tap_hero(front.on_tap_piece(S, at(16), 'all'), ''))
+            self.assertEqual(preview.hero(at(15)), '')                   # 10 AM ET: Yesterday's Best stays the hero
+            self.assertIn('Suns at Kings tops the night', preview.hero(at(16)))   # 11 AM ET
+            self.assertIn('Preview &middot; Tuesday, Nov 17, 2026', preview.hero(at(16)))
+            self.assertEqual(preview.hero(at(16, 18)), '')               # the next day: not today's
         finally:
             daily.load = old
 

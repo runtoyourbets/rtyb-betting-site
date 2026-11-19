@@ -118,6 +118,14 @@
   .draft-head b { font-size: 0.95rem; }
   .draft-head code { color: var(--text-muted); }
   .draft-check { font-size: 0.8rem; color: var(--bad); margin: 6px 0 0; }
+  .draft-pv { display: grid; grid-template-columns: 240px 1fr; gap: 12px 16px; align-items: start; margin-top: 10px; }
+  .draft-pv img { width: 240px; aspect-ratio: 1200 / 630; border-radius: 8px; border: 1px solid var(--border); background: var(--panel-2, #1A212B); object-fit: cover; }
+  .draft-pv .h { font-size: 1.05rem; font-weight: 700; margin: 0 0 6px; }
+  .draft-pv p { margin: 0 0 4px; font-size: 0.85rem; }
+  .draft-pv .muted { color: var(--text-muted); }
+  .draft-pv select { max-width: 100%; margin-top: 4px; }
+  .draft-warn { color: var(--bad); font-size: 0.8rem; }
+  @media (max-width: 640px) { .draft-pv { grid-template-columns: 1fr; } .draft-pv img { width: 100%; } }
   .draft textarea { min-height: 260px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.5; }
 </style>
 </head>
@@ -135,7 +143,7 @@
 
   <div id="main" hidden>
     <h1>RTYB — Admin</h1>
-    <p class="sub">Matchups Tool, Results Tool, On Tap&rsquo;s drafts and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
+    <p class="sub">Matchups Tool, Results Tool, Preview&rsquo;s drafts and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
     <div class="seg-tabs" id="viewTabs" style="margin-bottom:14px">
       <button type="button" data-view="tools" aria-pressed="true">Odds &amp; results</button>
       <button type="button" data-view="drafts" aria-pressed="false">Drafts</button>
@@ -154,8 +162,8 @@
 
     <div id="draftsView" hidden>
       <div class="card">
-        <h2>On Tap &mdash; drafts and columns</h2>
-        <p class="sub" style="margin-bottom:0">On Tap previews are drafted from the site&rsquo;s numbers from 8 AM ET (one per sport, plus the all-sports one for the home page) and show from 11 AM ET. Check the yellow numbers against the packet, edit the text, then Publish: it goes live on /on-tap/, its own dated page, the home page or the sport&rsquo;s hub, and the top of its Matchups page on the next refresh (within about 10 minutes). Columns are Markdown files in <code>content/columns/</code> and publish the same way.</p>
+        <h2>Preview &mdash; drafts and columns</h2>
+        <p class="sub" style="margin-bottom:0">Preview is drafted from the site&rsquo;s numbers from 8 AM ET (one per sport with games, plus the all-sports one for the home page) and shows from 11 AM ET. Each card shows the headline, the image card, the lead game and the sport&rsquo;s Matchup of the Day. Pick a different lead game from the list if you like (the image card is rebuilt on the next refresh), check the yellow numbers against the packet, edit the text, then Publish: it goes live on /preview/ (or the sport&rsquo;s /preview/), its own dated page, the home page hero (all-sports) or the sport hub&rsquo;s Preview section on the next refresh (within about 10 minutes). Columns are Markdown files in <code>content/columns/</code> and publish the same way.</p>
         <div class="actions"><button class="save" id="draftsReload" type="button">Reload</button></div>
         <p class="status" id="draftsStatus"></p>
         <div id="draftsList"></div>
@@ -1541,7 +1549,7 @@
     link.click();
   });
 
-  // ---- On Tap: drafts and columns (worker /content/*) ----
+  // ---- Preview: drafts and columns (worker /content/*) ----
   function draftMeta(text) {
     var m = /^---\n([\s\S]*?)\n---/.exec(text), meta = {};
     if (m) m[1].split('\n').forEach(function(line) {
@@ -1551,13 +1559,62 @@
     return meta;
   }
   function escHtml(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+  // the headline: the "# " line (older drafts: the bold first line)
+  function draftHeadline(text) {
+    var body = text.replace(/^---\n[\s\S]*?\n---\n?/, ''), m = /^# (.+)$/m.exec(body) || /^\*\*(.+?)\*\*/m.exec(body.trim());
+    return m ? m[1].trim() : '';
+  }
+  // sets (or adds) the front matter's "lead:" line
+  function setLead(text, value) {
+    var m = /^---\n([\s\S]*?)\n---/.exec(text);
+    if (!m) return text;
+    var lines = m[1].split('\n').filter(function(l) { return !/^lead:/.test(l); });
+    if (value) lines.push('lead: ' + value);
+    return '---\n' + lines.join('\n') + '\n---' + text.slice(m[0].length);
+  }
+  var GAMES = {};   // assets/preview/{date}/games.json (the build writes it): {key: {lead, motd, games}}
+  function loadGames(day) {
+    if (GAMES[day]) return GAMES[day];
+    GAMES[day] = fetch('../assets/preview/' + day + '/games.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; });
+    return GAMES[day];
+  }
+  function gameLabel(info, value) {
+    var g = (info.games || []).filter(function(x) { return x.value === value; })[0];
+    return g ? g.label : (value || 'none');
+  }
+  function fillPreview(el, i, meta) {
+    var box = el.querySelector('.draft-pv');
+    if (!box) return;
+    loadGames(meta.date).then(function(all) {
+      var info = all[meta.sport] || { games: [] }, ta = document.getElementById('draftText' + i);
+      var lead = meta.lead || info.lead, motd = meta.motd || info.motd;
+      var opts = (info.games || []).map(function(g) {
+        return '<option value="' + escHtml(g.value) + '"' + (g.value === lead ? ' selected' : '') + '>' + escHtml(g.label) +
+          (g.value === motd ? ' (Matchup of the Day)' : '') + ' &middot; ' + g.trends + ' trend' + (g.trends === 1 ? '' : 's') + '</option>';
+      }).join('');
+      box.querySelector('.pv-meta').innerHTML =
+        '<p><span class="muted">Lead game:</span> ' + escHtml(gameLabel(info, lead)) + '</p>' +
+        '<p><span class="muted">' + (meta.sport === 'all' ? 'Site' : 'Sport') + '&rsquo;s Matchup of the Day:</span> ' + escHtml(motd ? gameLabel(info, motd) : 'none today') + '</p>' +
+        (opts ? '<label>Lead game <select data-lead>' + opts + '</select></label>' : '<p class="muted">The day&rsquo;s game list shows after the next refresh.</p>') +
+        '<p class="draft-warn" data-warn' + (lead && lead === motd ? '' : ' hidden') + '>That&rsquo;s the Matchup of the Day. Allowed, but the lead is usually a different game.</p>';
+      var sel = box.querySelector('[data-lead]');
+      if (sel) sel.addEventListener('change', function() {
+        ta.value = setLead(ta.value, sel.value);
+        box.querySelector('.pv-meta p').innerHTML = '<span class="muted">Lead game:</span> ' + escHtml(gameLabel(info, sel.value)) + ' <span class="muted">(Save edits; the image card is rebuilt on the next refresh)</span>';
+        box.querySelector('[data-warn]').hidden = sel.value !== motd;
+      });
+    });
+  }
   function renderDrafts(files) {
     var box = document.getElementById('draftsList');
     if (!files.length) { box.innerHTML = '<p class="empty">No drafts or columns waiting.</p>'; return; }
     box.innerHTML = files.map(function(f, i) {
       var meta = draftMeta(f.text), check = [];
       try { check = JSON.parse(meta.check || '[]'); } catch (e) {}
-      return '<div class="draft" data-i="' + i + '"><div class="draft-head"><b>' + escHtml(meta.title || f.path.split('/').pop()) + '</b><code>' + escHtml(f.path) + '</code></div>' +
+      var pv = meta.kind === 'preview' && meta.date && meta.sport;
+      return '<div class="draft" data-i="' + i + '"><div class="draft-head"><b>' + escHtml((pv && draftHeadline(f.text)) || meta.title || f.path.split('/').pop()) + '</b><code>' + escHtml(f.path) + '</code></div>' +
+        (pv ? '<div class="draft-pv"><img src="../assets/preview/' + escHtml(meta.date) + '/' + escHtml(meta.sport) + '.png?t=' + Date.now() + '" alt="Image card" onerror="this.alt=\'Image card: drawn on the next refresh\'"><div class="pv-meta"><p class="muted">Loading the day&rsquo;s games&hellip;</p></div></div>' : '') +
         (check.length ? '<p class="draft-check">Check these numbers against the results (not found in the data the draft was written from): ' + escHtml(check.join(', ')) + '</p>' : '') +
         '<textarea id="draftText' + i + '">' + escHtml(f.text) + '</textarea>' +
         '<div class="actions"><button class="save" type="button" data-act="save">Save edits</button><button class="publish" type="button" data-act="publish">Publish</button></div>' +
@@ -1565,6 +1622,7 @@
     }).join('');
     box.querySelectorAll('.draft').forEach(function(el) {
       var i = +el.getAttribute('data-i'), f = files[i];
+      fillPreview(el, i, draftMeta(f.text));
       el.querySelectorAll('button[data-act]').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var act = btn.getAttribute('data-act'), text = document.getElementById('draftText' + i).value;
@@ -1609,8 +1667,8 @@
         (st[g[0]] || []).map(function(x) { return siteItem(g[0], x); }).join('') + '</ul></div>';
     }).join('') +
       '<div class="ss-group"><h3>Switches</h3><div class="ss-switches">' +
-      '<label><input type="checkbox" id="ssOnTap"' + (sw.ON_TAP_LIVE ? ' checked' : '') + '> On Tap live (previews drafted, in the menus and search)</label>' +
-      '<label><input type="checkbox" id="ssPicks"' + (sw.PICKS_LIVE ? ' checked' : '') + '> Picks live (off: coming-soon pages)</label>' +
+      '<label><input type="checkbox" id="ssPreview"' + (sw.PREVIEW_LIVE !== false && sw.ON_TAP_LIVE !== false ? ' checked' : '') + '> Preview live (drafted daily, on the home page, hubs and menus)</label>' +
+      '<label><input type="checkbox" id="ssPicks"' + (sw.PICKS_LIVE ? ' checked' : '') + '> Picks live (off: Picks links go to Preview)</label>' +
       '<label>Footer <select id="ssFooter"><option value="home-only"' + (sw.FOOTER !== 'everywhere' ? ' selected' : '') + '>Home page only</option>' +
       '<option value="everywhere"' + (sw.FOOTER === 'everywhere' ? ' selected' : '') + '>Every page</option></select></label></div></div>';
     document.querySelectorAll('#siteForm .ss-list').forEach(function(list) {
@@ -1643,7 +1701,8 @@
         return x;
       });
     });
-    out.switches = { ON_TAP_LIVE: document.getElementById('ssOnTap').checked, PICKS_LIVE: document.getElementById('ssPicks').checked,
+    var pvOn = document.getElementById('ssPreview').checked;   // ON_TAP_LIVE too, for a Worker not yet redeployed (sports.py reads either)
+    out.switches = { PREVIEW_LIVE: pvOn, ON_TAP_LIVE: pvOn, PICKS_LIVE: document.getElementById('ssPicks').checked,
                      FOOTER: document.getElementById('ssFooter').value };
     return out;
   }

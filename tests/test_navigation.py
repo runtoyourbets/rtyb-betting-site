@@ -1,6 +1,6 @@
 """
-The site nav, the index pages' day, Betting Guides anchors and On Tap's
-page titles (scripts/nav.py, front.py, guides.py, daily.py).
+The site nav, the index pages' day, Betting Guides anchors and Preview's
+page titles (scripts/nav.py, front.py, guides.py, preview.py).
 """
 import os
 import re
@@ -22,10 +22,12 @@ def status():
 
 class NavTest(unittest.TestCase):
     def test_picks_link_everywhere(self):
-        # Picks shows (gold) in every menu whether or not PICKS_LIVE
+        # Picks shows (gold) in every menu; while PICKS_LIVE is off it goes to Preview
+        self.assertFalse(sports.PICKS_LIVE)
         html = nav.header('', status())
-        self.assertIn('class="hn-link hn-gold" href="picks/"', html)
-        self.assertIn('class="hm-pill gold" href="nhl/picks/"', html)
+        self.assertIn('class="hn-link hn-gold" href="preview/">Picks', html)
+        self.assertIn('class="hm-pill gold" href="nhl/preview/">Picks', html)
+        self.assertIn('class="hn-picks-pill" href="preview/"', html)
 
     def test_page_order(self):
         self.assertEqual([s for s, _, _ in sports.page_links('nba')], ['picks', 'games', 'odds', 'trends', 'stats', 'teams'])
@@ -33,8 +35,8 @@ class NavTest(unittest.TestCase):
     def test_main_menu(self):
         self.assertEqual([k for k, _ in sports.MAIN_MENU], ['sports', 'matchups', 'odds', 'trends', 'stats', 'picks'])
 
-    def test_no_on_tap_while_off(self):
-        self.assertFalse(sports.ON_TAP_LIVE)
+    def test_no_on_tap(self):
+        self.assertTrue(sports.PREVIEW_LIVE)
         html = nav.header('', status(), current='matchups')
         self.assertNotIn('on-tap', html)
         self.assertNotIn('On Tap', re.sub(r'<script\b.*?</script>', '', html, flags=re.S))
@@ -137,14 +139,30 @@ class GuidesTest(unittest.TestCase):
         self.assertIn(guides.COMING, _)
 
 
-class OnTapTitleTest(unittest.TestCase):
-    def test_all_preview_title(self):
-        p = {'kind': 'preview', 'sport': daily.ALL, 'date': '2026-11-17', 'covers': ['nba', 'nhl'], 'title': 'x'}
-        self.assertEqual(daily.page_title(p), 'On Tap, Tue Nov 17: NBA First Quarter & NHL First Period Preview | RTYB')
+class PreviewTitleTest(unittest.TestCase):
+    def test_titles(self):
+        import preview
+        self.assertEqual(preview.title('all', 'Suns at Kings'), 'First Period, Quarter & Half Betting Preview: Suns at Kings | RTYB')
+        self.assertEqual(preview.title('nba', 'X'), 'NBA First Quarter & First Half Betting Preview: X | RTYB')
+        self.assertEqual(preview.title('nhl', 'X'), 'NHL First Period Betting Preview: X | RTYB')
+        self.assertEqual(preview.title('ncaab', 'X'), 'College Basketball First Half Betting Preview: X | RTYB')
+        self.assertEqual(preview.title('ncaaf', 'X'), 'College Football First Quarter & First Half Betting Preview: X | RTYB')
+        self.assertEqual(preview.title('mlb', 'X'), 'MLB First Inning & First Five Betting Preview: X | RTYB')
 
     def test_paths(self):
-        self.assertEqual(daily.INDEX, 'on-tap')
+        import preview
+        self.assertEqual(preview.page_dir('all', '2026-11-18'), 'preview/2026-11-18/')
+        self.assertEqual(preview.page_dir('ncaab'), 'college-basketball/preview/')
+        self.assertEqual(sports.preview_path(sports.BY_KEY['nba']), '/nba/preview/')
 
+    def test_old_switch_name_still_reads(self):
+        import tempfile
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f:
+            f.write('{"switches": {"ON_TAP_LIVE": false}}')
+        sw = sports.load_settings(f.name)['switches']
+        os.remove(f.name)
+        self.assertFalse(sw['PREVIEW_LIVE'])
+        self.assertNotIn('ON_TAP_LIVE', sw)
 
 if __name__ == '__main__':
     unittest.main()

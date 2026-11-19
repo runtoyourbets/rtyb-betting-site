@@ -62,6 +62,7 @@ import periods  # noqa: E402
 import picks  # noqa: E402
 import seo  # noqa: E402
 import daily  # noqa: E402
+import preview  # noqa: E402
 import home  # noqa: E402
 import front  # noqa: E402
 import hub  # noqa: E402
@@ -837,9 +838,9 @@ NOINDEX = '<meta name="robots" content="noindex">'
 
 
 def write_sport_extras(template):
-    """Every sport's Betting Guide (/{slug}/betting-guide/, scripts/guides.py)
-    and its Picks page (/{slug}/picks/: the Premium shell while
-    sports.PICKS_LIVE is False, noindexed)."""
+    """Every sport's Betting Guide (/{slug}/betting-guide/, scripts/guides.py).
+    Its Picks page forwards to its Preview while sports.PICKS_LIVE is False
+    (write_previews)."""
     bare = template.replace('__GUIDES_BLOCK__', '')   # the guide lists its own "More guides"
     for sp in sports.SPORTS:
         meta, body, noindex = guides.sport_page(sp)
@@ -847,17 +848,10 @@ def write_sport_extras(template):
         if noindex and NOINDEX not in html:
             html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
         write_light(html, sports.guide_path(sp).strip('/'))
-        if not sports.PICKS_LIVE:
-            meta = {'title': sports.sport_title(sp, 'picks'), 'h1': sports.h1(sp, 'picks'), 'section': 'picks',
-                    'desc': 'Picks are coming with Premium.'}
-            html = render_page(template, 'sport', '', meta=meta, sport=sp, sport_body=home.picks_soon())
-            if NOINDEX not in html:
-                html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
-            write_light(html, sports.picks_path(sp).strip('/'))
 
 
 # old addresses -> where they live now (a stub that forwards, with a canonical)
-MOVED = {'daily': 'on-tap/', 'learn': 'betting-guides/', 'streaks': 'trends/'}
+MOVED = {'daily': 'preview/', 'on-tap': 'preview/', 'learn': 'betting-guides/', 'streaks': 'trends/'}
 
 
 # team pages whose code changed: old folder -> new (Montreal: MON -> MTL, 2026-11-18)
@@ -878,6 +872,41 @@ def write_moved():
         os.makedirs(path, exist_ok=True)
         with open(os.path.join(path, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(redirect_page_html('../' + new, keep_query=True, canonical=seo.site_url() + new))
+
+
+def write_stub(old_dir, new_dir):
+    """A forward from old_dir to new_dir (both relative to the site root)."""
+    up = '../' * len([x for x in old_dir.strip('/').split('/') if x])
+    os.makedirs(os.path.join(ROOT, old_dir), exist_ok=True)
+    with open(os.path.join(ROOT, old_dir, 'index.html'), 'w', encoding='utf-8') as f:
+        f.write(redirect_page_html(up + new_dir, keep_query=True, canonical=seo.site_url() + new_dir))
+
+
+def write_previews(template, now_utc):
+    """Preview's pages (scripts/preview.py), the old On Tap addresses
+    forwarding to them, and, while sports.PICKS_LIVE is False, the Picks
+    pages forwarding to them too."""
+    bare = template.replace('__GUIDES_BLOCK__', '')
+
+    def render_sport(sp, title, desc, body, page_dir, noindex):
+        meta = {'title': html_lib.escape(title), 'h1': '', 'section': 'preview', 'desc': html_lib.escape(desc)}
+        out = render_page(bare, 'sport', '', meta=meta, sport=sp, sport_body=body)
+        out = re.sub(r'\s*<div class="page-head">.*?</div>\n', '\n', out, count=1, flags=re.S)   # the article has its own H1
+        if noindex and NOINDEX not in out:
+            out = out.replace('</title>', '</title>\n' + NOINDEX, 1)
+        return lighten(out, page_dir)
+    status = [(sp, '', True, '') for sp in sports.LAUNCHED]   # the nav reads only the sports
+    preview.write_all(home.page, status, LOGO_SVG, now_utc, render_sport)
+    for key, day in preview.dated_keys():   # /on-tap/{date}/ and /on-tap/{date}/{sport}/ were the old pages
+        old = f'on-tap/{day}/' + ('' if key == daily.ALL else sports.BY_KEY[key]['slug'] + '/') if key == daily.ALL or key in sports.BY_KEY else None
+        if old:
+            write_stub(old, preview.page_dir(key, day))
+    for sp in sports.SPORTS:
+        write_stub(f"{sp['slug']}/on-tap/", preview.page_dir(sp['key']))
+        if not sports.PICKS_LIVE:
+            write_stub(sports.picks_path(sp).strip('/') + '/', preview.page_dir(sp['key']))
+    if not sports.PICKS_LIVE:
+        write_stub('picks/', preview.page_dir(daily.ALL))
 
 
 def write_light(template_html_page, page_dir):
@@ -1199,7 +1228,7 @@ def main():
     nhl_doc = json.load(open(os.path.join(nhl_dir, 'sport.json'), encoding='utf-8'))
     nhl_trends = trends.page_doc(nhl, nhl_doc, datetime.now(timezone.utc))
     sport_build.write_json(os.path.join(nhl_dir, 'trends.json'), nhl_trends)
-    hub.build(nhl, nhl_doc, nhl_trends, nhl_dir)   # /nhl/'s Matchup of the Day and On Tap (nhl/hub.json)
+    hub.build(nhl, nhl_doc, nhl_trends, nhl_dir)   # /nhl/'s Matchup of the Day (nhl/hub.json)
     trends_meta = {'title': section_title(nhl, 'trends'), 'h1': sports.h1(nhl, 'trends'), 'section': 'trends',
                    'desc': SECTION_DESC['trends'].format(label='NHL', segs='1st Period')}
     write_light(render_page(template, 'sport', teams_menu_html, meta=trends_meta, sport=nhl,
@@ -1224,20 +1253,21 @@ def main():
 
     write_hub(template, nhl, teams_menu_html)
     other = build_other_sports(template)
-    # Home page + Learn, last: they read every sport's data.json.
+    # Preview's image cards (the home hero and hubs show them), then the
+    # home page + Learn, last: they read every sport's data.json.
+    now_utc = datetime.now(timezone.utc)
+    cards = preview.build_cards(now_utc, LOGO_SVG)
     home_info = home.build(template, full_data, LOGO_SVG)
     # Today's Picks: after every data.json is written (picks.py reads them)
     picks_body, picks_info = picks.build(full_data, TEAM_CITY)
     home.write_picks(template, full_data, LOGO_SVG, picks_body)
     write_sport_extras(template)
-    write_moved()   # /daily/ -> /on-tap/, /learn/ -> /betting-guides/, /streaks/ -> /trends/
-    # On Tap's latest preview at the top of each Matchups page
-    if sports.ON_TAP_LIVE:
-        daily.inject_arena({sp['key']: sports.section_path(sp, 'games').strip('/') for sp in sports.SPORTS}, datetime.now(sport_build.ET).date().isoformat())
+    write_moved()   # /daily/, /on-tap/ -> /preview/, /learn/ -> /betting-guides/, /streaks/ -> /trends/
+    write_previews(template, now_utc)
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()
 
-    print(f"wrote index.html (home: {home_info['today']} games today, {home_info['trends']} trends), picks/ ({picks_info['plays']} plays logged), betting-guides/, nhl/data.json ({len(data_json)} bytes), "
+    print(f"wrote index.html (home: {home_info['today']} games today, {home_info['trends']} trends), preview/ ({cards} image cards drawn), picks/ ({picks_info['plays']} plays logged), betting-guides/, nhl/data.json ({len(data_json)} bytes), "
           f"nhl/matchups/index.html ({len(games_html)} bytes), "
           f"nhl/stats/index.html, nhl/sport.json, "
           f"nhl/1st-period-stats/ + nhl/hit-rates/ (redirect stubs), "

@@ -1,5 +1,5 @@
 """
-The Daily's drafts (scripts/daily_content.py): streaks extended or snapped
+Preview's drafts (scripts/daily_content.py): streaks extended or snapped
 by last night's game, and the check that flags any number in a draft that
 isn't in the packet Claude was given.
 """
@@ -30,6 +30,10 @@ class NumberCheckTest(unittest.TestCase):
         body = 'Boston won at -125 for +0.80u, 3 straight now, and trends went 9-4. 21+. Call 1-800-GAMBLER.'
         self.assertEqual(dc.unchecked_numbers(body, packet), ['9', '-4'])
 
+    def test_times_and_dates_are_not_numbers(self):
+        body = 'Suns at Kings (10:00 PM ET), Bucks at Heat at 7:30 PM and a 9 PM tip on Nov 18, 2026 (11/18).'
+        self.assertEqual(dc.unchecked_numbers(body, {}), [])
+
 
 class EverySportTest(unittest.TestCase):
     def test_titles_follow_the_sport(self):
@@ -43,17 +47,16 @@ class EverySportTest(unittest.TestCase):
         self.assertEqual(dc.WEEKLY_WINDOWS['preview'][:2], (3, 8))   # Thursday from 8 AM ET (ready by 10)
         self.assertTrue(dc.weekly('nfl') and dc.weekly('ncaaf') and not dc.weekly('nba'))
 
-    def test_big_slates_keep_the_busiest_games_in_order(self):
-        games = [{'trends_on_this_game': i % 4, 'streaks': []} for i in range(40)]
-        got = dc.busiest(games)
-        self.assertEqual(len(got), dc.PREVIEW_MAX)
-        self.assertTrue(all(g['trends_on_this_game'] >= 2 for g in got))
-        self.assertEqual(got, [g for g in games if any(g is x for x in got)])
+    def test_preview_has_its_format_and_no_disclaimer(self):
+        for kind in ('preview', 'week_preview', 'all_preview'):
+            self.assertIn('lead game', dc.TASK[kind])
+        self.assertIn('# The headline', dc.SYSTEM)
+        self.assertIn('!! NUMBER |', dc.SYSTEM)
+        self.assertNotIn('not promises', dc.SYSTEM + ''.join(dc.TASK.values()))
+        self.assertNotIn('On Tap', dc.SYSTEM + ''.join(dc.TASK.values()))
 
-    def test_preview_tease_has_no_records_or_prices(self):
-        for kind in ('preview', 'week_preview'):
-            self.assertIn('no records, hit rates, percentages, prices or specific bets', dc.TASK[kind])
-
+    def test_all_preview_title(self):
+        self.assertEqual(dc.title('preview', 'all', '2026-11-18'), 'First Period, Quarter & Half Betting Preview — Nov 18, 2026')
 
 if __name__ == '__main__':
     unittest.main()
