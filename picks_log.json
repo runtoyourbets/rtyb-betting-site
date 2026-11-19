@@ -10696,54 +10696,50 @@
     "streakTeamName": "Los Angeles"
    },
    {
-    "id": "nba|401910021|1h|ml|home",
-    "game": "nba|401910021",
+    "id": "nhl|2026020349|1p|ml|away",
+    "game": "nhl|2026020349",
     "date": "2026-11-19",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-20T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Knicks @ Timberwolves",
-    "href": "nba/matchups/",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-20T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Edmonton @ Tampa Bay",
+    "href": "nhl/matchups/?date=2026-11-19",
     "market": "ml",
-    "side": "home",
+    "side": "away",
     "line": null,
-    "price": -105,
-    "title": "Timberwolves 1H ML",
-    "est": 0.5545,
-    "edge": 0.0423,
-    "agree": 4,
-    "sample": 14,
+    "price": 120,
+    "title": "Edmonton 1P ML",
+    "est": 0.4985,
+    "edge": 0.044,
+    "agree": 3,
+    "sample": 15,
     "tier": "B",
     "tags": [
      "Dog Hunter"
     ],
     "streak": 2,
-    "streakTeam": "min",
+    "streakTeam": "EDM",
     "angles": [
      [
-      "Timberwolves 1H ML, season",
-      "12-2-1"
+      "Edmonton 1P ML, last 8",
+      "4-0-4"
      ],
      [
-      "Timberwolves 1H ML, last 8",
-      "6-1-1"
+      "Edmonton 1P ML on the road",
+      "8-1-2"
      ],
      [
-      "Timberwolves 1H ML at home",
-      "7-2"
-     ],
-     [
-      "Knicks\u2019s opponents 1H ML, Knicks on the road",
-      "4-3"
+      "Edmonton 1P ML, season",
+      "12-3-8"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Timberwolves"
+    "streakTeamName": "Edmonton"
    }
   ]
  }
