@@ -10231,6 +10231,48 @@
     "streakTeamName": "Clippers"
    },
    {
+    "id": "nba|401910020|1q|ml|home",
+    "game": "nba|401910020",
+    "date": "2026-11-19",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-20T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Trail Blazers @ Bucks",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 184,
+    "title": "Bucks 1Q ML",
+    "est": 0.4247,
+    "edge": 0.0726,
+    "agree": 2,
+    "sample": 15,
+    "tier": "A",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q ML at home",
+      "6-2"
+     ],
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers on the road",
+      "5-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
     "id": "nfl|401873066|1h|ml|away",
     "game": "nfl|401873066",
     "date": "2026-11-19",
@@ -10321,48 +10363,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Tarleton State"
-   },
-   {
-    "id": "nba|401910020|1q|ml|home",
-    "game": "nba|401910020",
-    "date": "2026-11-19",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-20T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Trail Blazers @ Bucks",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 180,
-    "title": "Bucks 1Q ML",
-    "est": 0.4281,
-    "edge": 0.0709,
-    "agree": 2,
-    "sample": 15,
-    "tier": "A",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q ML at home",
-      "6-2"
-     ],
-     [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers on the road",
-      "5-3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
    },
    {
     "id": "nhl|2026020354|1p|ml|away",
