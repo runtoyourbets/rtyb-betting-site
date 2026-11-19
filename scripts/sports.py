@@ -43,7 +43,7 @@ DEFAULT_SETTINGS = {
     'sport_pages': [{'key': 'picks', 'label': 'Picks'}, {'key': 'games', 'label': 'Matchups'}, {'key': 'odds', 'label': 'Odds'},
                     {'key': 'trends', 'label': 'Trends'}, {'key': 'stats', 'label': 'Stats'}, {'key': 'teams', 'label': 'Teams'}],
     'bottom_bar': [{'key': k, 'label': k.title()} for k in ('matchups', 'odds', 'trends', 'stats')],
-    'switches': {'PREVIEW_LIVE': True, 'PICKS_LIVE': False, 'FOOTER': 'home-only'},
+    'switches': {'PREVIEW_LIVE': True, 'PICKS_LIVE': False, 'FOOTER': 'home-only', 'ADS_ON': False},
     # Preview drafting (admin Site settings): the earliest time the refresh
     # job drafts (ET), the weekly sports' draft day, and each sport's mode
     # (missing: NFL and College Football weekly, the rest daily)
@@ -108,6 +108,10 @@ def footer_on(is_home=False):
 # Preview section). False: no drafts (no API calls) and Yesterday's Best is
 # the hero.
 PREVIEW_LIVE = bool(SWITCHES.get('PREVIEW_LIVE', True))
+
+# Ad slots (admin Site settings): False (the default) renders nothing; True
+# writes the empty, invisible slots into the Preview pages (preview.ad_slot)
+ADS_ON = bool(SWITCHES.get('ADS_ON', False))
 
 # Drafting (content/site_settings.json "drafts"): the refresh job drafts at
 # or after DRAFT_TIME_ET; weekly sports on WEEKLY_DRAFT_DAY.

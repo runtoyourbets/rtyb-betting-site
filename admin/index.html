@@ -118,20 +118,63 @@
   .draft-head b { font-size: 0.95rem; }
   .draft-head code { color: var(--text-muted); }
   .draft-live { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--good); background: var(--good-dim); border-radius: 4px; padding: 1px 6px; }
-  #draftsAll { display: contents; }
-  #draftsAll[hidden] { display: none; }
   .draft-check { font-size: 0.8rem; color: var(--bad); margin: 6px 0 0; }
-  #draftsNow .actions { flex-wrap: wrap; }
-  #draftsNow p { font-size: 0.85rem; color: var(--text-muted); margin: 10px 0 4px; }
-  .draft-pv { display: grid; grid-template-columns: 240px 1fr; gap: 12px 16px; align-items: start; margin-top: 10px; }
-  .draft-pv img { width: 240px; aspect-ratio: 1200 / 630; border-radius: 8px; border: 1px solid var(--border); background: var(--panel-2, #1A212B); object-fit: cover; }
-  .draft-pv .h { font-size: 1.05rem; font-weight: 700; margin: 0 0 6px; }
-  .draft-pv p { margin: 0 0 4px; font-size: 0.85rem; }
-  .draft-pv .muted { color: var(--text-muted); }
-  .draft-pv select { max-width: 100%; margin-top: 4px; }
   .draft-warn { color: var(--bad); font-size: 0.8rem; }
-  @media (max-width: 640px) { .draft-pv { grid-template-columns: 1fr; } .draft-pv img { width: 100%; } }
   .draft textarea { min-height: 260px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.5; }
+  /* Preview tab: selector, one card, one button bar */
+  .wrap.wide { max-width: 1240px; }
+  .pv-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+  .pv-top h2 { margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+  .pv-topb { display: flex; gap: 8px; }
+  .pv-confirm ul { margin: 6px 0; padding-left: 18px; font-size: 0.88rem; }
+  .pv-pills { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 14px; }
+  .pv-pick { display: inline-flex; align-items: center; gap: 7px; background: var(--panel-2); color: var(--text); border: 1px solid var(--border); padding: 7px 12px; border-radius: 999px; font-size: 0.85rem; }
+  .pv-pick[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .pv-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .dot-live { background: #33D17A; } .dot-draft { background: #FACC15; } .dot-drafting { background: #A78BFA; } .dot-none { background: #6B7684; }
+  .pv-warn { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--bad-dim); border: 1px solid var(--bad); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.88rem; }
+  .pv-chead { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--border-soft); margin-bottom: 16px; }
+  .pv-ctitle { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .pv-ctitle b { text-transform: uppercase; letter-spacing: 0.04em; }
+  .pv-ctitle .sport-icon { width: 20px; height: 20px; color: var(--text); }
+  .pv-status { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; border-radius: 999px; padding: 2px 8px; }
+  .st-live { color: #33D17A; background: rgba(51, 209, 122, 0.14); } .st-draft { color: #FACC15; background: rgba(250, 204, 21, 0.14); }
+  .st-drafting { color: #A78BFA; background: rgba(167, 139, 250, 0.16); } .st-none { color: var(--text-muted); background: var(--panel-3); }
+  .pv-when { color: var(--text-muted); font-size: 0.85rem; }
+  .pv-hist { display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.04em; color: var(--text-muted); }
+  .pv-hist select { width: auto; }
+  .pv-cols { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 20px; align-items: start; }
+  .pv-left .pv-img { width: 100%; aspect-ratio: 1200 / 630; border-radius: 8px; border: 1px solid var(--border); object-fit: cover; background: var(--panel-2); }
+  .pv-left p { margin: 0 0 6px; font-size: 0.86rem; }
+  .pv-left select { max-width: 100%; margin-bottom: 8px; }
+  .pv-l { margin-top: 14px !important; font-size: 0.72rem !important; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); }
+  .pv-ok { color: var(--good); } .pv-bad { color: var(--bad); }
+  .pv-tabs { margin: 0 0 14px; }
+  .pv-f { display: block; margin: 0 0 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); }
+  .pv-f input, .pv-f textarea { display: block; width: 100%; margin-top: 5px; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--text); }
+  .pv-f input, .pv-f textarea { font-family: inherit; font-size: 0.9rem; line-height: 1.5; }
+  #pvBody { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; min-height: 420px; }
+  #pvHead { font-size: 1.05rem; font-weight: 600; }
+  .pv-count { float: right; text-transform: none; letter-spacing: 0; font-weight: 400; }
+  .pv-boxes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .pv-box { background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px 12px; }
+  .pv-bh { display: flex; justify-content: space-between; align-items: center; margin: 0 0 8px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--accent); }
+  .pv-show { display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted); text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 0.8rem; }
+  .pv-show input { width: auto; margin: 0; }
+  .pv-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pv-flags { list-style: none; margin: -4px 0 0; padding: 0; display: grid; gap: 6px; font-size: 0.84rem; }
+  .pv-flags li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 2px 10px; background: var(--bad-dim); border-radius: 8px; padding: 7px 10px; }
+  .pv-flags .pv-ln { grid-row: span 2; color: var(--bad); font-weight: 700; }
+  .pv-flags .muted { color: var(--text-muted); }
+  .pv-frame-wrap { background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; display: flex; justify-content: center; }
+  .pv-frame { border: 0; border-radius: 6px; background: #fff; height: 1100px; }
+  .pv-frame.frame-desktop { width: 100%; }
+  .pv-frame.frame-phone { width: 375px; height: 812px; }
+  #pvFrameTabs { margin: 0 0 8px; }
+  .pv-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--border-soft); margin-top: 16px; padding-top: 14px; }
+  .pv-bar > span { display: flex; gap: 10px; }
+  #pvColumns summary { cursor: pointer; font-weight: 600; }
+  @media (max-width: 900px) { .pv-cols { grid-template-columns: 1fr; } .pv-boxes { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -151,7 +194,7 @@
     <p class="sub">Matchups Tool, Results Tool, Preview&rsquo;s drafts and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
     <div class="seg-tabs" id="viewTabs" style="margin-bottom:14px">
       <button type="button" data-view="tools" aria-pressed="true">Odds &amp; results</button>
-      <button type="button" data-view="drafts" aria-pressed="false">Drafts</button>
+      <button type="button" data-view="drafts" aria-pressed="false">Preview</button>
       <button type="button" data-view="site" aria-pressed="false">Site settings</button>
     </div>
 
@@ -166,14 +209,13 @@
     </div>
 
     <div id="draftsView" hidden>
-      <div class="card">
-        <h2>Preview &mdash; drafts and columns</h2>
-        <p class="sub" style="margin-bottom:0">Preview is drafted from the site&rsquo;s numbers at the draft time in Site settings (8 AM ET unless changed; NFL and College Football once a week, on the weekly draft day), one per sport with games plus the all-sports one for the home page, and shows from 11 AM ET. Each card shows the headline, the image card, the lead game and the sport&rsquo;s Matchup of the Day. Pick a different lead game from the list if you like (the image card is rebuilt on the next refresh), check the yellow numbers against the packet, edit the text, then Publish: it goes live on /preview/ (or the sport&rsquo;s /preview/), its own dated page, the home page hero (all-sports) or the sport hub&rsquo;s Preview section on the next refresh (within about 10 minutes). Save all edits and Publish all do every card at once. Published previews from the last 3 days stay here marked Live: edit and Save edits, and the live page updates on the next refresh. Redraft writes a card again from the current numbers and writing guide (about 2 minutes); a sport with no draft yet shows Draft now. A published preview can&rsquo;t be redrafted. Columns are Markdown files in <code>content/columns/</code> and publish the same way.</p>
-        <div class="actions"><button class="save" id="draftsReload" type="button">Reload</button><span id="draftsAll" hidden><button class="save" id="draftsSaveAll" type="button">Save all edits</button><button class="publish" id="draftsPublishAll" type="button">Publish all</button></span></div>
-        <p class="status" id="draftsStatus"></p>
-        <div id="draftsNow"></div>
-        <div id="draftsList"></div>
-      </div>
+      <div class="pv-top"><h2 id="pvTitle">Preview</h2><span class="pv-topb"><button class="save" id="draftsReload" type="button">Reload</button><button class="publish" id="pvPublishAll" type="button">Publish all drafts</button></span></div>
+      <div class="card pv-confirm" id="pvConfirm" hidden></div>
+      <p class="status" id="draftsStatus"></p>
+      <div class="pv-pills" id="pvPills" role="group" aria-label="Preview"></div>
+      <div class="pv-warn" id="pvWarn" hidden></div>
+      <div class="card pv-card" id="pvCard"><p class="empty">Loading&hellip;</p></div>
+      <details class="card" id="pvColumns" hidden><summary>Columns</summary><div id="pvColumnList"></div></details>
     </div>
 
     <div id="toolsView">
@@ -1555,7 +1597,14 @@
     link.click();
   });
 
-  // ---- Preview: drafts and columns (worker /content/*) ----
+  // ---- Preview: one preview at a time (worker /content/*) ----
+  // The selector (Home, then each sport in the site settings' order, with a
+  // status dot), one card (header with History, the left column, Edit /
+  // Preview) and one button bar. Data: /content/list (drafts, columns,
+  // live previews from the last 3 days), assets/preview/admin.json (History
+  // and each piece's built page, scripts/preview.py admin_pages),
+  // assets/preview/{date}/games.json (lead games, Matchup of the Day, team
+  // codes) and the writing guide (the banned phrases).
   function draftMeta(text) {
     var m = /^---\n([\s\S]*?)\n---/.exec(text), meta = {};
     if (m) m[1].split('\n').forEach(function(line) {
@@ -1565,20 +1614,32 @@
     return meta;
   }
   function escHtml(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
-  // the headline: the "# " line (older drafts: the bold first line)
-  function draftHeadline(text) {
-    var body = text.replace(/^---\n[\s\S]*?\n---\n?/, ''), m = /^# (.+)$/m.exec(body) || /^\*\*(.+?)\*\*/m.exec(body.trim());
-    return m ? m[1].trim() : '';
-  }
-  // sets (or adds) the front matter's "lead:" line
-  function setLead(text, value) {
+  // sets (or adds, or with null removes) one front matter line
+  function fmSet(text, key, value) {
     var m = /^---\n([\s\S]*?)\n---/.exec(text);
     if (!m) return text;
-    var lines = m[1].split('\n').filter(function(l) { return !/^lead:/.test(l); });
-    if (value) lines.push('lead: ' + value);
+    var re = new RegExp('^' + key + ':'), lines = m[1].split('\n'), i = lines.findIndex(function(l) { return re.test(l); });
+    if (value == null) { if (i >= 0) lines.splice(i, 1); }
+    else if (i >= 0) lines[i] = key + ': ' + value;
+    else lines.push(key + ': ' + value);
     return '---\n' + lines.join('\n') + '\n---' + text.slice(m[0].length);
   }
-  var GAMES = {};   // assets/preview/{date}/games.json (the build writes it): {key: {lead, motd, games}}
+  // {fm, head, dek, article}: the front matter, the "# " headline, the "> "
+  // dek and the article (the lines after them; the phrase check counts from its first)
+  function splitDoc(text) {
+    var m = /^---\n[\s\S]*?\n---\n?/.exec(text), fm = m ? m[0].replace(/\n?$/, '\n') : '', lines = text.slice(m ? m[0].length : 0).split('\n');
+    var head = '', dek = '', i = 0;
+    while (i < lines.length && (!lines[i].trim() || /^# /.test(lines[i]) || /^> /.test(lines[i]))) {
+      if (/^# /.test(lines[i]) && !head) head = lines[i].slice(2).trim();
+      else if (/^> /.test(lines[i]) && !dek) dek = lines[i].slice(2).trim();
+      i++;
+    }
+    return { fm: fm, head: head, dek: dek, article: lines.slice(i).join('\n').replace(/\s+$/, '') };
+  }
+  function joinDoc(d) {
+    return d.fm + (d.head ? '# ' + d.head + '\n\n' : '') + (d.dek ? '> ' + d.dek + '\n\n' : '') + d.article.replace(/\s+$/, '') + '\n';
+  }
+  var GAMES = {};   // assets/preview/{date}/games.json (the build writes it): {key: {lead, motd, codes, week, games}}
   function loadGames(day) {
     if (GAMES[day]) return GAMES[day];
     GAMES[day] = fetch('../assets/preview/' + day + '/games.json?t=' + Date.now(), { cache: 'no-store' })
@@ -1589,31 +1650,8 @@
     var g = (info.games || []).filter(function(x) { return x.value === value; })[0];
     return g ? g.label : (value || 'none');
   }
-  function fillPreview(el, i, meta) {
-    var box = el.querySelector('.draft-pv');
-    if (!box) return;
-    loadGames(meta.date).then(function(all) {
-      var info = all[meta.sport] || { games: [] }, ta = document.getElementById('draftText' + i);
-      var lead = meta.lead || info.lead, motd = meta.motd || info.motd;
-      var opts = (info.games || []).map(function(g) {
-        return '<option value="' + escHtml(g.value) + '"' + (g.value === lead ? ' selected' : '') + '>' + escHtml(g.label) +
-          (g.value === motd ? ' (Matchup of the Day)' : '') + ' &middot; ' + g.trends + ' trend' + (g.trends === 1 ? '' : 's') + '</option>';
-      }).join('');
-      box.querySelector('.pv-meta').innerHTML =
-        '<p><span class="muted">Lead game:</span> ' + escHtml(gameLabel(info, lead)) + '</p>' +
-        '<p><span class="muted">' + (meta.sport === 'all' ? 'Site' : 'Sport') + '&rsquo;s Matchup of the Day:</span> ' + escHtml(motd ? gameLabel(info, motd) : 'none today') + '</p>' +
-        (opts ? '<label>Lead game <select data-lead>' + opts + '</select></label>' : '<p class="muted">The day&rsquo;s game list shows after the next refresh.</p>') +
-        '<p class="draft-warn" data-warn' + (lead && lead === motd ? '' : ' hidden') + '>That&rsquo;s the Matchup of the Day. Allowed, but the lead is usually a different game.</p>';
-      var sel = box.querySelector('[data-lead]');
-      if (sel) sel.addEventListener('change', function() {
-        ta.value = setLead(ta.value, sel.value);
-        box.querySelector('.pv-meta p').innerHTML = '<span class="muted">Lead game:</span> ' + escHtml(gameLabel(info, sel.value)) + ' <span class="muted">(Save edits; the image card is rebuilt on the next refresh)</span>';
-        box.querySelector('[data-warn]').hidden = sel.value !== motd;
-      });
-    });
-  }
-  // Publish asks on the page (a second click within 5 seconds), not with
-  // confirm(): a blocked browser dialog silently answers "no".
+  // Publish, Redraft and Publish all ask on the page (a second click within
+  // 5 seconds), not with confirm(): a blocked browser dialog silently answers "no".
   function armed(btn, label) {
     if (btn.getAttribute('data-armed')) return true;
     var was = btn.textContent;
@@ -1626,95 +1664,333 @@
     var name = path.split('/').pop();
     return 'content/published/' + (path.indexOf('content/columns/') === 0 && name.indexOf('column-') !== 0 ? 'column-' + name : name);
   }
-  var DRAFTS = [];
-  function renderDrafts(files) {
-    DRAFTS = files;
-    var box = document.getElementById('draftsList');
-    document.getElementById('draftsAll').hidden = !files.length;
-    if (!files.length) { box.innerHTML = '<p class="empty">No drafts, columns or recent previews.</p>'; return; }
-    box.innerHTML = files.map(function(f, i) {
-      var meta = draftMeta(f.text), check = [];
-      try { check = JSON.parse(meta.check || '[]'); } catch (e) {}
-      var pv = meta.kind === 'preview' && meta.date && meta.sport;
-      return '<div class="draft" data-i="' + i + '"><div class="draft-head"><span class="draft-live" data-live' + (f.live ? '' : ' hidden') + '>Live</span><b>' + escHtml((pv && draftHeadline(f.text)) || meta.title || f.path.split('/').pop()) + '</b><code data-path>' + escHtml(f.path) + '</code></div>' +
-        (pv ? '<div class="draft-pv"><img src="../assets/preview/' + escHtml(meta.date) + '/' + escHtml(meta.sport) + '.png?t=' + Date.now() + '" alt="Image card" onerror="this.alt=\'Image card: drawn on the next refresh\'"><div class="pv-meta"><p class="muted">Loading the day&rsquo;s games&hellip;</p></div></div>' : '') +
-        (check.length ? '<p class="draft-check">Check these numbers against the results (not found in the data the draft was written from): ' + escHtml(check.join(', ')) + '</p>' : '') +
-        '<textarea id="draftText' + i + '">' + escHtml(f.text) + '</textarea>' +
-        '<div class="actions"><button class="save" type="button" data-act="save">Save edits</button><button class="publish" type="button" data-act="publish"' + (f.live ? ' hidden' : '') + '>Publish</button>' +
-        (pv && !f.live ? '<button class="save" type="button" data-act="redraft">Redraft</button>' : '') + '</div>' +
-        '<p class="status" id="draftStatus' + i + '"></p></div>';
+  function sportName(key) { return key === 'all' ? 'all-sports' : key.toUpperCase(); }
+
+  // ---- the phrase check (the same rules as scripts/daily_content.py phrase_flags) ----
+  var BANNED = [];
+  function loadBanned() {
+    return fetch('../content/preview_writing_guide.md?t=' + Date.now(), { cache: 'no-store' }).then(function(r) { return r.ok ? r.text() : ''; })
+      .then(function(t) {
+        var m = /^## Banned phrases\n([\s\S]*?)(?=^## )/m.exec(t);
+        BANNED = m ? (m[1].match(/^- .+$/gm) || []).map(function(x) { return x.slice(2).trim(); }) : [];
+      }).catch(function() {});
+  }
+  function reEsc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function sentencesOf(t) { return t.trim().split(/(?<=[.!?])\s+/).filter(Boolean); }
+  // [{line, what, text}]: banned phrases, "where the numbers", a closing
+  // sentence used twice, 1Q / 1H / 1P / F5 or a team code in a body sentence
+  function phraseFlags(article, codes) {
+    var lines = article.split('\n'), out = [], closing = {};
+    var cs = (codes || []).filter(function(c) { return c.length >= 2 && c.length <= 4; }).sort(function(a, b) { return b.length - a.length; });
+    var codeRe = cs.length ? new RegExp('(?<![\\w-])(' + cs.map(reEsc).join('|') + ')(?![\\w-])', 'g') : null;
+    lines.forEach(function(line, i) {
+      var t = line.trim(), n = i + 1, m;
+      if (!t || t.charAt(0) === '#') return;
+      var low = t.toLowerCase().replace(/’/g, "'");
+      BANNED.forEach(function(b) {
+        if (new RegExp('(?<![\\w])' + reEsc(b.toLowerCase()) + '(?![\\w])').test(low)) out.push({ line: n, what: 'Banned phrase: “' + b + '”', text: t });
+      });
+      if (low.indexOf('where the numbers') >= 0) out.push({ line: n, what: '“where the numbers”', text: t });
+      var seg = /(?<![\w-])(1Q|1H|1P|F5)(?![\w-])/g;
+      while ((m = seg.exec(t))) out.push({ line: n, what: m[1] + ' in a sentence', text: t });
+      if (codeRe) { codeRe.lastIndex = 0; while ((m = codeRe.exec(t))) out.push({ line: n, what: 'Team code ' + m[1] + ' in a sentence', text: t }); }
+      var s = sentencesOf(t);
+      if (s.length) closing[n] = s[s.length - 1];
+    });
+    var ends = [], cur = null, seen = {};
+    lines.forEach(function(line, i) {
+      var t = line.trim();
+      if (t.charAt(0) === '#') { if (cur) ends.push(cur); cur = null; }
+      else if (t && closing[i + 1]) cur = [i + 1, closing[i + 1]];
+    });
+    if (cur) ends.push(cur);
+    ends.forEach(function(e) {
+      var k = e[1].toLowerCase().replace(/\W+/g, ' ').trim();
+      if (seen[k]) out.push({ line: e[0], what: 'Same closing sentence as line ' + seen[k], text: e[1] });
+      else seen[k] = e[0];
+    });
+    return out.sort(function(a, b) { return a.line - b.line; });
+  }
+  // the numbers check (the draft's `check:`), each with the article lines it's on
+  function numberFlags(article, check) {
+    var out = [];
+    article.split('\n').forEach(function(line, i) {
+      check.forEach(function(n) {
+        if (new RegExp('(?<![\\d.])' + reEsc(n) + '(?![\\d])').test(line)) out.push({ line: i + 1, what: 'Check the number ' + n, text: line.trim() });
+      });
+    });
+    return out;
+  }
+
+  // ---- state ----
+  var PV = { files: [], index: {}, icons: {}, order: [], labels: {}, today: null, key: 'all', open: null, dirty: false, tab: 'edit', frame: 'desktop' };
+  var DRAFTING = {};   // key -> start time (ms), while a Redraft / Draft now runs
+  try { DRAFTING = JSON.parse(localStorage.getItem('rtyb-drafting') || '{}'); } catch (e) {}
+  function drafting(key) { return DRAFTING[key] && Date.now() - DRAFTING[key] < 12 * 60000; }
+  function setDrafting(key, on) {
+    if (on) DRAFTING[key] = Date.now(); else delete DRAFTING[key];
+    try { localStorage.setItem('rtyb-drafting', JSON.stringify(DRAFTING)); } catch (e) {}
+  }
+  var HOME_ICON = '<svg class="sport-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z" fill="currentColor"/></svg>';
+  function etTime(iso, withDay) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    var o = { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' };
+    if (withDay) { o.weekday = 'short'; o.month = 'short'; o.day = 'numeric'; }
+    return d.toLocaleString('en-US', o);
+  }
+  function dayLabel(d) { return new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }); }
+  function isPreview(f) { return /^content\/(drafts|published)\/[a-z]+-preview-\d{4}-\d{2}-\d{2}\.md$/.test(f.path); }
+  function keyOf(path) { return /([a-z]+)-preview-(\d{4}-\d{2}-\d{2})\.md$/.exec(path); }
+  function weekOf(key) { return ((PV.games || {})[key] || {}).week; }
+  // the key's preview for today (weekly sports: this week's), from /content/list
+  function currentFile(key) {
+    var wk = weekOf(key);
+    var mine = PV.files.filter(function(f) { var m = isPreview(f) && keyOf(f.path); return m && m[1] === key; });
+    mine.sort(function(a, b) { return (b.live ? 1 : 0) - (a.live ? 1 : 0); });   // a draft and its published copy: the published one
+    return mine.filter(function(f) {
+      var day = keyOf(f.path)[2], meta = draftMeta(f.text);
+      return wk ? String(meta.week) === String(wk) : day === PV.today;
+    })[0] || null;
+  }
+  function statusOf(key) {
+    var f = currentFile(key);
+    if (drafting(key)) return ['drafting', 'Drafting…'];
+    if (!f) return ['none', 'Not drafted'];
+    return f.live ? ['live', 'Live'] : ['draft', 'Draft'];
+  }
+  function pillLabel(key) {
+    var wk = weekOf(key), name = key === 'all' ? 'Home' : (PV.labels[key] || key.toUpperCase());
+    return name + (wk ? ' · Week ' + wk : '');
+  }
+  function renderPills() {
+    document.getElementById('pvTitle').textContent = 'Preview · ' + dayLabel(PV.today);
+    document.getElementById('pvPills').innerHTML = PV.order.map(function(k) {
+      var st = statusOf(k);
+      return '<button type="button" class="pv-pick" data-key="' + k + '" aria-pressed="' + (k === PV.key) + '"><span class="pv-dot dot-' + st[0] + '" title="' + st[1] + '"></span>' + escHtml(pillLabel(k)) + '</button>';
     }).join('');
-    box.querySelectorAll('.draft').forEach(function(el) {
-      var i = +el.getAttribute('data-i');
-      fillPreview(el, i, draftMeta(files[i].text));
-      el.querySelectorAll('button[data-act]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var act = btn.getAttribute('data-act');
-          if (act === 'publish' && !armed(btn, 'Click again to publish')) return;
-          if (act === 'redraft') {   // unsaved edits: ask first (a second click)
-            if (document.getElementById('draftText' + i).value !== DRAFTS[i].text && !armed(btn, 'Unsaved edits will be lost: click again')) return;
-            var m = draftMeta(DRAFTS[i].text);
-            startDraft(m.sport, m.date, DRAFTS[i].path, m.written, btn, document.getElementById('draftStatus' + i));
-            return;
-          }
-          sendDraft(i, act).catch(function() {});
-        });
+  }
+
+  // ---- unsaved edits: ask before leaving the card ----
+  function guard(go) {
+    if (!PV.dirty) { go(); return; }
+    var w = document.getElementById('pvWarn');
+    w.hidden = false;
+    w.innerHTML = '<span>You have unsaved edits.</span><button type="button" class="save" data-w="stay">Keep editing</button><button type="button" class="publish" data-w="go">Discard and switch</button>';
+    w.onclick = function(e) {
+      var b = e.target.closest('[data-w]'); if (!b) return;
+      w.hidden = true;
+      if (b.getAttribute('data-w') === 'go') { PV.dirty = false; go(); }
+    };
+  }
+
+  // ---- the card ----
+  function openKey(key) {
+    PV.key = key;
+    renderPills();
+    var f = currentFile(key);
+    if (!f) { PV.open = null; renderCard(); return; }
+    var m = keyOf(f.path);
+    openPiece({ key: key, date: m[2], path: f.path, live: !!f.live, text: f.text, current: true });
+  }
+  function openPiece(p) {
+    PV.open = p; PV.dirty = false;
+    p.saved = p.text;
+    renderCard();
+  }
+  function histRows(key) { return ((PV.index || {})[key] || []); }
+  function entryOf(p) { return histRows(p.key).filter(function(x) { return x.date === p.date; })[0] || {}; }
+  function whenLine(p) {
+    var meta = draftMeta(p.text), e = entryOf(p), past = p.date !== PV.today && !p.current;
+    if (p.live) return 'Published ' + etTime(meta.published || e.published, past);
+    return 'Drafted ' + etTime(meta.written || e.written, past) + ' · not published';
+  }
+  function boxField(cls, label, value, key, f, area) {
+    return '<label class="pv-f ' + cls + '">' + label + (area ? '<textarea data-box="' + key + '" data-f="' + f + '" rows="4">' + escHtml(value) + '</textarea>'
+      : '<input type="text" data-box="' + key + '" data-f="' + f + '" value="' + escHtml(value) + '">') + '</label>';
+  }
+  var BOXES = [['stat_of_night', 'Stat of the Night'], ['league_trend', 'League Trend'], ['edge_play', 'Edge Play']];
+  function boxObj(text, key) { try { return JSON.parse(draftMeta(text)[key] || 'null'); } catch (e) { return null; } }
+  function renderCard() {
+    var card = document.getElementById('pvCard'), key = PV.key, p = PV.open;
+    var icon = key === 'all' ? HOME_ICON : (PV.icons[key] || ''), name = key === 'all' ? 'Home · All sports' : pillLabel(key);
+    var st = p ? (p.live ? ['live', 'Live'] : drafting(key) && p.current ? ['drafting', 'Drafting…'] : ['draft', 'Draft']) : statusOf(key);
+    var hist = histRows(key).map(function(x) {
+      var lab = x.week ? 'Week ' + x.week + ' · ' + dayLabel(x.date) : dayLabel(x.date);
+      return '<option value="' + x.date + '"' + (p && p.date === x.date ? ' selected' : '') + '>' + escHtml(lab) + (x.live ? ' · Live' : ' · Draft') + '</option>';
+    });
+    if (p && !histRows(key).some(function(x) { return x.date === p.date; })) hist.unshift('<option value="' + p.date + '" selected>' + escHtml(dayLabel(p.date)) + '</option>');
+    var head = '<div class="pv-chead"><div class="pv-ctitle">' + icon + '<b>' + escHtml(name) + '</b><span class="pv-status st-' + st[0] + '">' + st[1] + '</span>' +
+      '<span class="pv-when">' + (p ? escHtml(whenLine(p)) : '') + '</span></div>' +
+      (hist.length ? '<label class="pv-hist">History <select id="pvHist">' + (p ? '' : '<option value="">Today</option>') + hist.join('') + '</select></label>' : '') + '</div>';
+    if (!p) {
+      card.innerHTML = head + '<p class="empty">' + (drafting(key) ? 'Drafting… it takes about 2 minutes; this checks every 20 seconds.' : 'No preview ' + (weekOf(key) ? 'this week' : 'today') + ' yet.') + '</p>' +
+        '<div class="pv-bar"><span></span><button class="save" type="button" id="pvDraftNow"' + (drafting(key) ? ' disabled' : '') + '>Draft now</button></div><p class="status" id="pvStatus"></p>';
+      wireHist();
+      var dn = document.getElementById('pvDraftNow');
+      dn.addEventListener('click', function() { runDraft(key, PV.today, 'content/drafts/' + key + '-preview-' + PV.today + '.md', undefined, dn); });
+      return;
+    }
+    var doc = splitDoc(p.text), meta = draftMeta(p.text);
+    var boxes = BOXES.map(function(b) {
+      var o = boxObj(p.text, b[0]);
+      if (!o) return '<div class="pv-box"><p class="pv-bh">' + b[1] + '</p><p class="empty">None in this draft.</p></div>';
+      var edge = b[0] === 'edge_play' && o.bet;
+      return '<div class="pv-box"><div class="pv-bh"><span>' + b[1] + '</span><label class="pv-show"><input type="checkbox" data-box="' + b[0] + '" data-f="show"' + (o.show === false ? '' : ' checked') + '> Show</label></div>' +
+        (edge ? boxField('', 'Bet', o.bet, b[0], 'bet') + '<div class="pv-two">' + boxField('', 'Price', o.price, b[0], 'price') + boxField('', 'Book', o.book, b[0], 'book') + '</div>'
+          : boxField('', 'Number', o.number, b[0], 'number') + boxField('', 'Line', o.line, b[0], 'line')) +
+        boxField('', 'Text', o.text, b[0], 'text', true) + '</div>';
+    }).join('');
+    var page = entryOf(p).page;
+    card.innerHTML = head +
+      '<div class="pv-cols"><div class="pv-left">' +
+        '<img class="pv-img" src="../assets/preview/' + p.date + '/' + key + '.png?t=' + Date.now() + '" alt="Image card" onerror="this.replaceWith(Object.assign(document.createElement(\'p\'),{className:\'empty\',textContent:\'Image card: drawn on the next refresh.\'}))">' +
+        '<div id="pvLead"><p class="empty">Loading the day&rsquo;s games&hellip;</p></div>' +
+        '<div id="pvChecks"></div>' +
+      '</div><div class="pv-right">' +
+        '<div class="seg-tabs pv-tabs" id="pvTabs"><button type="button" data-tab="edit" aria-pressed="' + (PV.tab === 'edit') + '">Edit</button><button type="button" data-tab="preview" aria-pressed="' + (PV.tab === 'preview') + '">Preview</button></div>' +
+        '<div id="pvEdit"' + (PV.tab === 'edit' ? '' : ' hidden') + '>' +
+          '<label class="pv-f">Headline <span class="pv-count" id="pvCount"></span><input type="text" id="pvHead" value="' + escHtml(doc.head) + '"></label>' +
+          '<label class="pv-f">Dek<input type="text" id="pvDek" value="' + escHtml(doc.dek) + '"></label>' +
+          '<div class="pv-boxes">' + boxes + '</div>' +
+          '<label class="pv-f">Article<textarea id="pvBody" rows="22">' + escHtml(doc.article) + '</textarea></label>' +
+          '<div id="pvFlags"></div>' +
+        '</div>' +
+        '<div id="pvPreview"' + (PV.tab === 'preview' ? '' : ' hidden') + '>' +
+          '<div class="seg-tabs" id="pvFrameTabs"><button type="button" data-frame="desktop" aria-pressed="' + (PV.frame === 'desktop') + '">Desktop</button><button type="button" data-frame="phone" aria-pressed="' + (PV.frame === 'phone') + '">Phone</button></div>' +
+          (page ? '<p class="note" id="pvFrameNote">The page as it will publish (the live template and CSS), from the last saved version: Save, and it updates on the next refresh (within about 10 minutes).</p>' +
+            '<div class="pv-frame-wrap"><iframe id="pvFrame" class="pv-frame frame-' + PV.frame + '" title="Preview" src="../' + page + '?t=' + Date.now() + '"></iframe></div>'
+            : '<p class="empty">This preview&rsquo;s page is built on the next refresh (within about 10 minutes).</p>') +
+        '</div>' +
+      '</div></div>' +
+      '<div class="pv-bar"><span><button class="save" type="button" id="pvSave">Save</button>' + (p.live ? '' : '<button class="publish" type="button" id="pvPublish">Publish</button>') + '</span>' +
+        (p.live ? '<span class="note">Live: Save updates the page on the next refresh.</span>' : '<button class="save" type="button" id="pvRedraft"' + (drafting(key) ? ' disabled' : '') + '>Redraft</button>') + '</div>' +
+      '<p class="status" id="pvStatus"></p>';
+    wireHist();
+    wireCard(p);
+  }
+  function wireHist() {
+    var h = document.getElementById('pvHist');
+    if (!h) return;
+    h.addEventListener('change', function() {
+      var day = h.value, key = PV.key, was = PV.open ? PV.open.date : '';
+      guard(function() {
+        if (!day) { openKey(key); return; }
+        var e = histRows(key).filter(function(x) { return x.date === day; })[0];
+        var f = PV.files.filter(function(x) { return e && x.path === e.path; })[0];
+        var cur = currentFile(key), isCur = cur && keyOf(cur.path)[2] === day;
+        if (f) { openPiece({ key: key, date: day, path: f.path, live: !!f.live, text: f.text, current: isCur }); return; }
+        if (!e) return;
+        // older than the Worker's list: read the file the site serves (Save writes it back)
+        fetch('../' + e.path + '?t=' + Date.now(), { cache: 'no-store' }).then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+          .then(function(text) { openPiece({ key: key, date: day, path: e.path, live: e.live, text: text, current: isCur }); })
+          .catch(function() { var s = document.getElementById('pvStatus'); s.className = 'status err'; s.textContent = 'Couldn’t load that preview.'; });
       });
+      if (PV.dirty) h.value = was;   // until the switch is confirmed
     });
   }
-  // Save or publish one card. A published card turns into a live one: same
-  // text box, Save edits writes content/published/ (the page updates on the
-  // next refresh).
-  function sendDraft(i, act) {
-    var f = DRAFTS[i], el = document.querySelector('.draft[data-i="' + i + '"]');
-    var btn = el.querySelector('button[data-act="' + act + '"]'), text = document.getElementById('draftText' + i).value;
-    return callWorker('/content/' + act, { path: f.path, text: text }, document.getElementById('draftStatus' + i), btn,
-      act === 'publish' ? 'Publishing' : 'Saving',
+  // the form -> the file's text
+  function formText(p) {
+    var d = splitDoc(p.text);
+    d.head = document.getElementById('pvHead').value.trim();
+    d.dek = document.getElementById('pvDek').value.trim();
+    d.article = document.getElementById('pvBody').value;
+    var text = joinDoc(d);
+    BOXES.forEach(function(b) {
+      var o = boxObj(p.text, b[0]);
+      if (!o) return;
+      document.querySelectorAll('#pvCard [data-box="' + b[0] + '"]').forEach(function(el) {
+        var f = el.getAttribute('data-f');
+        if (f === 'show') { if (el.checked) delete o.show; else o.show = false; }
+        else o[f] = el.value;
+      });
+      if (o.bet !== undefined) o.line = o.bet + (o.price ? ' · best ' + o.price + (o.book ? ' at ' + o.book : '') : '');
+      text = fmSet(text, b[0], JSON.stringify(o));
+    });
+    var lead = document.querySelector('#pvLead [data-lead]');
+    if (lead) text = fmSet(text, 'lead', lead.value || null);
+    return text;
+  }
+  function refreshFlags(p) {
+    var body = document.getElementById('pvBody').value, words = document.getElementById('pvHead').value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('pvCount').textContent = words + ' word' + (words === 1 ? '' : 's');
+    var check = []; try { check = JSON.parse(draftMeta(p.text).check || '[]'); } catch (e) {}
+    loadGames(p.date).then(function(all) {
+      var info = all[p.key] || {}, nums = numberFlags(body, check), notes = phraseFlags(body, info.codes || []);
+      var list = nums.concat(notes).sort(function(a, b) { return a.line - b.line; });
+      document.getElementById('pvFlags').innerHTML = list.length ? '<ul class="pv-flags">' + list.map(function(x) {
+        return '<li><span class="pv-ln">Line ' + x.line + '</span><b>' + escHtml(x.what) + '</b><span class="muted">' + escHtml(x.text.length > 120 ? x.text.slice(0, 117) + '…' : x.text) + '</span></li>';
+      }).join('') + '</ul>' : '';
+      document.getElementById('pvChecks').innerHTML = '<p class="pv-l">Numbers check</p>' +
+        (check.length ? '<p class="pv-bad">Not found in the data: ' + escHtml(check.join(', ')) + '</p>' : '<p class="pv-ok">&#10003; All numbers found</p>') +
+        '<p class="' + (notes.length ? 'pv-bad' : 'pv-ok') + '">' + (notes.length ? notes.length + ' note' + (notes.length === 1 ? '' : 's') + ' from the phrase check (under the article)' : '&#10003; No phrase notes') + '</p>';
+    });
+  }
+  function wireCard(p) {
+    var card = document.getElementById('pvCard');
+    loadGames(p.date).then(function(all) {
+      var info = all[p.key] || { games: [] }, meta = draftMeta(p.text);
+      var lead = meta.lead || info.lead, motd = meta.motd || info.motd;
+      var opts = (info.games || []).map(function(g) {
+        return '<option value="' + escHtml(g.value) + '"' + (g.value === lead ? ' selected' : '') + '>' + escHtml(g.label) + ' &middot; ' + g.trends + ' trend' + (g.trends === 1 ? '' : 's') + '</option>';
+      }).join('');
+      document.getElementById('pvLead').innerHTML =
+        '<p class="pv-l">Lead game</p>' + (opts ? '<select data-lead>' + opts + '</select>' : '<p class="empty">' + escHtml(gameLabel(info, lead)) + '</p>') +
+        '<p class="draft-warn" data-warn' + (lead && lead === motd ? '' : ' hidden') + '>That&rsquo;s the Matchup of the Day. Allowed, but the lead is usually a different game.</p>' +
+        '<p class="pv-l">' + (p.key === 'all' ? 'Site&rsquo;s' : 'Sport&rsquo;s') + ' Matchup of the Day</p><p>' + escHtml(motd ? gameLabel(info, motd) : 'None') + '</p>';
+      var sel = document.querySelector('#pvLead [data-lead]');
+      if (sel) sel.addEventListener('change', function() { PV.dirty = true; document.querySelector('#pvLead [data-warn]').hidden = sel.value !== motd; });
+    });
+    card.querySelectorAll('#pvEdit input, #pvEdit textarea').forEach(function(el) {
+      el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', function() { PV.dirty = true; if (el.id === 'pvBody' || el.id === 'pvHead') refreshFlags(p); });
+    });
+    refreshFlags(p);
+    document.getElementById('pvTabs').addEventListener('click', function(e) {
+      var b = e.target.closest('[data-tab]'); if (!b) return;
+      PV.tab = b.getAttribute('data-tab');
+      card.querySelectorAll('#pvTabs [data-tab]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
+      document.getElementById('pvEdit').hidden = PV.tab !== 'edit';
+      document.getElementById('pvPreview').hidden = PV.tab !== 'preview';
+    });
+    document.getElementById('pvFrameTabs').addEventListener('click', function(e) {
+      var b = e.target.closest('[data-frame]'); if (!b) return;
+      PV.frame = b.getAttribute('data-frame');
+      card.querySelectorAll('#pvFrameTabs [data-frame]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
+      var fr = document.getElementById('pvFrame');
+      if (fr) fr.className = 'pv-frame frame-' + PV.frame;
+    });
+    var st = document.getElementById('pvStatus');
+    document.getElementById('pvSave').addEventListener('click', function() { save(p, this, 'save'); });
+    var pub = document.getElementById('pvPublish');
+    if (pub) pub.addEventListener('click', function() { if (armed(pub, 'Click again to publish')) save(p, pub, 'publish'); });
+    var rd = document.getElementById('pvRedraft');
+    if (rd) rd.addEventListener('click', function() {
+      if (!armed(rd, PV.dirty ? 'Unsaved edits will be lost: click again' : 'Click again to redraft')) return;
+      runDraft(p.key, p.date, p.path, draftMeta(p.saved).written, rd);
+    });
+  }
+  function save(p, btn, act) {
+    var text = formText(p), st = document.getElementById('pvStatus');
+    return callWorker('/content/' + act, { path: p.path, text: text }, st, btn, act === 'publish' ? 'Publishing' : 'Saving',
       act === 'publish' ? 'Published. It goes live on the next refresh, within about 10 minutes. You can keep editing it here.'
-        : f.live ? 'Saved. The live page updates on the next refresh, within about 10 minutes.' : 'Saved.')
-      .then(function(res) {
-        f.text = text;   // saved: no longer "unsaved edits" for Redraft
-        if (act === 'publish') {
-          f.path = livePath(f.path); f.live = true;
-          el.querySelector('[data-path]').textContent = f.path;
-          el.querySelector('[data-live]').hidden = false;
-          btn.hidden = true;
-        }
-        return res;
-      });
-  }
-  // Save all / Publish all: one card at a time, top to bottom.
-  function sendAll(act, btn) {
-    var todo = DRAFTS.map(function(f, i) { return i; }).filter(function(i) { return act === 'save' || !DRAFTS[i].live; });
-    var st = document.getElementById('draftsStatus');
-    if (!todo.length) { st.className = 'status'; st.textContent = 'Nothing waiting to publish.'; return; }
-    var failed = 0;
-    btn.disabled = true;
-    todo.reduce(function(p, i) {
-      return p.then(function() { return sendDraft(i, act).catch(function() { failed++; }); });
-    }, Promise.resolve()).then(function() {
-      btn.disabled = false;
-      st.className = failed ? 'status err' : 'status ok';
-      st.textContent = (act === 'publish' ? 'Published ' : 'Saved ') + (todo.length - failed) + ' of ' + todo.length +
-        (failed ? '. See the red lines below.' : act === 'publish' ? '. They go live on the next refresh, within about 10 minutes.' : '.');
-    });
-  }
-  document.getElementById('draftsSaveAll').addEventListener('click', function() { sendAll('save', this); });
-  document.getElementById('draftsPublishAll').addEventListener('click', function() {
-    if (armed(this, 'Click again to publish all')) sendAll('publish', this);
-  });
-  function loadDrafts() {
-    var btn = document.getElementById('draftsReload');
-    callWorker('/content/list', {}, document.getElementById('draftsStatus'), btn, 'Loading drafts', '')
-      .then(function(res) { renderDrafts(res.body.files || []); renderDraftNow(res.body.files || []); })
-      .catch(function() {});
+        : p.live ? 'Saved. The live page updates on the next refresh, within about 10 minutes.' : 'Saved.')
+      .then(function() {
+        var f = PV.files.filter(function(x) { return x.path === p.path; })[0];
+        p.text = p.saved = text; PV.dirty = false;
+        if (act === 'publish') { p.path = livePath(p.path); p.live = true; }
+        if (f) { f.text = text; f.path = p.path; f.live = p.live; } else PV.files.push({ path: p.path, text: text, live: p.live });
+        var msg = st.textContent, cls = st.className;
+        renderPills(); renderCard();
+        var s2 = document.getElementById('pvStatus'); s2.textContent = msg; s2.className = cls;
+      }).catch(function() {});
   }
   // Redraft / Draft now: the Worker starts the drafting job (about 2
   // minutes); this checks every 20 seconds until the draft is back.
-  function startDraft(sport, day, path, written, btn, st) {
-    callWorker('/content/redraft', { sport: sport, date: day }, st, btn, 'Starting', written === undefined ? 'Drafting…' : 'Redrafting…')
+  function runDraft(key, day, path, written, btn) {
+    var st = document.getElementById('pvStatus');
+    callWorker('/content/redraft', { sport: key, date: day }, st, btn, 'Starting', written === undefined ? 'Drafting…' : 'Redrafting…')
       .then(function() {
-        btn.disabled = true;
+        setDrafting(key, true); renderPills(); btn.disabled = true;
         var tries = 0;
         (function check() {
           setTimeout(function() {
@@ -1724,41 +2000,104 @@
               .then(function(j) {
                 var f = (j.files || []).filter(function(x) { return x.path === path; })[0];
                 if (f && draftMeta(f.text).written !== written) {
-                  renderDrafts(j.files); renderDraftNow(j.files);
-                  var s2 = document.getElementById('draftsStatus');
-                  s2.className = 'status ok'; s2.textContent = 'The ' + sportName(sport) + ' draft is back.';
+                  setDrafting(key, false);
+                  PV.files = j.files || [];
+                  var s0 = document.getElementById('draftsStatus');
+                  s0.className = 'status ok'; s0.textContent = 'The ' + sportName(key) + ' draft is back.';
+                  renderPills();
+                  if (PV.key === key && !PV.dirty) openKey(key);
                   return;
                 }
-                if (tries >= 30) { btn.disabled = false; st.className = 'status err'; st.textContent = 'Still not back after 10 minutes. Reload in a bit, or check the Actions tab (Draft a Preview).'; return; }
+                if (tries >= 30) {
+                  setDrafting(key, false); renderPills(); btn.disabled = false;
+                  var s1 = document.getElementById('draftsStatus');
+                  s1.className = 'status err'; s1.textContent = 'The ' + sportName(key) + ' draft isn’t back after 10 minutes. Reload in a bit, or check the Actions tab (Draft a Preview).';
+                  return;
+                }
                 check();
               }).catch(check);
           }, 20000);
         })();
       }).catch(function() {});
   }
-  function sportName(key) { return key === 'all' ? 'all-sports' : key.toUpperCase(); }
-  // "Draft now": today's sports (weekly sports: this week's) with no draft or live preview yet
-  function renderDraftNow(files) {
-    var box = document.getElementById('draftsNow'), day = todayET();
-    loadGames(day).then(function(info) {
-      var metas = files.map(function(f) { return draftMeta(f.text); });
-      var missing = Object.keys(info).filter(function(k) {
-        return !metas.some(function(m) {
-          return m.kind === 'preview' && m.sport === k && (m.date === day || (info[k].week && String(m.week) === String(info[k].week)));
+
+  // ---- Publish all drafts: lists what it will publish, then a second click ----
+  function waiting() { return PV.order.map(currentFile).filter(function(f) { return f && !f.live; }); }
+  document.getElementById('pvPublishAll').addEventListener('click', function() {
+    var box = document.getElementById('pvConfirm'), todo = waiting();
+    box.hidden = false;
+    if (!todo.length) { box.innerHTML = '<p>Nothing waiting to publish.</p><div class="actions"><button type="button" class="save" data-c="no">OK</button></div>'; }
+    else box.innerHTML = '<p>' + (todo.length === 1 ? 'Publish this draft?' : 'Publish these ' + todo.length + ' drafts?') + '</p><ul>' + todo.map(function(f) {
+      var k = keyOf(f.path)[1]; return '<li><b>' + escHtml(pillLabel(k)) + '</b> &middot; ' + escHtml(splitDoc(f.text).head || f.path) + '</li>';
+    }).join('') + '</ul>' + (PV.dirty ? '<p class="draft-warn">The open card&rsquo;s unsaved edits aren&rsquo;t included: Save it first.</p>' : '') +
+      '<div class="actions"><button type="button" class="publish" data-c="yes">Publish ' + todo.length + '</button><button type="button" class="save" data-c="no">Cancel</button></div>';
+    box.onclick = function(e) {
+      var b = e.target.closest('[data-c]'); if (!b) return;
+      if (b.getAttribute('data-c') === 'no') { box.hidden = true; return; }
+      b.disabled = true;
+      var st = document.getElementById('draftsStatus'), failed = 0;
+      todo.reduce(function(p, f) {
+        return p.then(function() {
+          return callWorker('/content/publish', { path: f.path, text: f.text }, st, b, 'Publishing ' + sportName(keyOf(f.path)[1]), '')
+            .then(function() { f.path = livePath(f.path); f.live = true; }).catch(function() { failed++; });
         });
+      }, Promise.resolve()).then(function() {
+        box.hidden = true;
+        st.className = failed ? 'status err' : 'status ok';
+        st.textContent = 'Published ' + (todo.length - failed) + ' of ' + todo.length + (failed ? '.' : '. They go live on the next refresh, within about 10 minutes.');
+        renderPills();
+        if (!PV.dirty) openKey(PV.key);
       });
-      box.innerHTML = missing.length ? '<p>No draft yet:</p><div class="actions">' + missing.map(function(k) {
-        return '<button class="save" type="button" data-now="' + escHtml(k) + '">Draft now: ' + escHtml(sportName(k)) + (info[k].week ? ' Week ' + escHtml(info[k].week) : '') + '</button>';
-      }).join('') + '</div><p class="status" id="draftsNowStatus"></p>' : '';
-      box.querySelectorAll('[data-now]').forEach(function(b) {
-        b.addEventListener('click', function() {
-          var k = b.getAttribute('data-now');
-          startDraft(k, day, 'content/drafts/' + k + '-preview-' + day + '.md', undefined, b, document.getElementById('draftsNowStatus'));
+    };
+  });
+  document.getElementById('pvPills').addEventListener('click', function(e) {
+    var b = e.target.closest('[data-key]'); if (!b) return;
+    var k = b.getAttribute('data-key');
+    guard(function() { openKey(k); });
+  });
+
+  // ---- columns (content/columns/): Save and Publish, below the card ----
+  function renderColumns() {
+    var cols = PV.files.filter(function(f) { return f.path.indexOf('content/columns/') === 0; }), box = document.getElementById('pvColumns');
+    box.hidden = !cols.length;
+    document.getElementById('pvColumnList').innerHTML = cols.map(function(f, i) {
+      return '<div class="draft" data-col="' + i + '"><div class="draft-head"><b>' + escHtml(draftMeta(f.text).title || f.path.split('/').pop()) + '</b><code>' + escHtml(f.path) + '</code></div>' +
+        '<textarea>' + escHtml(f.text) + '</textarea><div class="actions"><button class="save" type="button" data-act="save">Save</button><button class="publish" type="button" data-act="publish">Publish</button></div><p class="status"></p></div>';
+    }).join('');
+    document.querySelectorAll('#pvColumnList [data-col]').forEach(function(el) {
+      var f = cols[+el.getAttribute('data-col')];
+      el.querySelectorAll('[data-act]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var act = btn.getAttribute('data-act');
+          if (act === 'publish' && !armed(btn, 'Click again to publish')) return;
+          callWorker('/content/' + act, { path: f.path, text: el.querySelector('textarea').value }, el.querySelector('.status'), btn,
+            act === 'publish' ? 'Publishing' : 'Saving', act === 'publish' ? 'Published. It goes live on the next refresh.' : 'Saved.').catch(function() {});
         });
       });
     });
   }
-  document.getElementById('draftsReload').addEventListener('click', loadDrafts);
+
+  function loadDrafts() {
+    var btn = document.getElementById('draftsReload');
+    PV.today = todayET();
+    Promise.all([
+      callWorker('/content/list', {}, document.getElementById('draftsStatus'), btn, 'Loading drafts', ''),
+      fetch('../assets/preview/admin.json?t=' + Date.now(), { cache: 'no-store' }).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
+      fetch('../content/site_settings.json?t=' + Date.now(), { cache: 'no-store' }).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
+      loadGames(PV.today), loadBanned()
+    ]).then(function(r) {
+      PV.files = r[0].body.files || [];
+      PV.index = (r[1] && r[1].pieces) || {}; PV.icons = (r[1] && r[1].icons) || {};
+      var sp = (r[2] && r[2].sports) || [];
+      PV.order = ['all'].concat(sp.length ? sp.map(function(x) { return x.key; }) : ['nhl', 'nba', 'wnba', 'mlb', 'ncaab', 'nfl', 'ncaaf']);
+      sp.forEach(function(x) { PV.labels[x.key] = x.label; });
+      PV.games = r[3] || {};
+      openKey(PV.key);
+      renderColumns();
+    }).catch(function() {});
+  }
+  document.getElementById('draftsReload').addEventListener('click', function() { guard(loadDrafts); });
+  window.addEventListener('beforeunload', function(e) { if (PV.dirty) { e.preventDefault(); e.returnValue = ''; } });
   var draftsLoaded = false;
 
   // ---- Site settings (worker /site/get, /site/save; scripts/sports.py reads the file) ----
@@ -1786,7 +2125,8 @@
       '<label><input type="checkbox" id="ssPreview"' + (sw.PREVIEW_LIVE !== false && sw.ON_TAP_LIVE !== false ? ' checked' : '') + '> Preview live (drafted daily, on the home page, hubs and menus)</label>' +
       '<label><input type="checkbox" id="ssPicks"' + (sw.PICKS_LIVE ? ' checked' : '') + '> Picks live (off: Picks links go to Preview)</label>' +
       '<label>Footer <select id="ssFooter"><option value="home-only"' + (sw.FOOTER !== 'everywhere' ? ' selected' : '') + '>Home page only</option>' +
-      '<option value="everywhere"' + (sw.FOOTER === 'everywhere' ? ' selected' : '') + '>Every page</option></select></label></div></div>' +
+      '<option value="everywhere"' + (sw.FOOTER === 'everywhere' ? ' selected' : '') + '>Every page</option></select></label>' +
+      '<label><input type="checkbox" id="ssAds"' + (sw.ADS_ON ? ' checked' : '') + '> Ad slots on (empty, invisible slots on Preview pages; off: nothing renders)</label></div></div>' +
       draftSettings(st);
     document.querySelectorAll('#siteForm .ss-list').forEach(function(list) {
       var dragged = null;
@@ -1834,7 +2174,7 @@
     });
     var pvOn = document.getElementById('ssPreview').checked;   // ON_TAP_LIVE too, for a Worker not yet redeployed (sports.py reads either)
     out.switches = { PREVIEW_LIVE: pvOn, ON_TAP_LIVE: pvOn, PICKS_LIVE: document.getElementById('ssPicks').checked,
-                     FOOTER: document.getElementById('ssFooter').value };
+                     FOOTER: document.getElementById('ssFooter').value, ADS_ON: document.getElementById('ssAds').checked };
     var mode = {};
     document.querySelectorAll('#siteForm [data-mode]').forEach(function(sel) { mode[sel.getAttribute('data-mode')] = sel.value; });
     out.drafts = { DRAFT_TIME_ET: document.getElementById('ssDraftTime').value || '08:00',
@@ -1859,6 +2199,7 @@
     document.querySelectorAll('#viewTabs [data-view]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
     document.getElementById('toolsView').hidden = v !== 'tools';
     document.getElementById('draftsView').hidden = v !== 'drafts';
+    document.querySelector('.wrap').classList.toggle('wide', v === 'drafts');
     document.getElementById('siteView').hidden = v !== 'site';
     if (v === 'drafts' && !draftsLoaded) { draftsLoaded = true; loadDrafts(); }
     if (v === 'site' && !siteLoaded) { siteLoaded = true; loadSite(); }

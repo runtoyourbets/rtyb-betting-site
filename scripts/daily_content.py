@@ -526,6 +526,80 @@ def unchecked_numbers(body, packet):
     return out
 
 
+# ---------------------------------------------------------- phrase check
+# The admin flags these in a draft's article (admin/index.html phraseFlags,
+# the same rules); they never block publishing. Line numbers count from the
+# article's first line (after the headline and dek).
+SEG_CODES = re.compile(r'(?<![\w-])(1Q|1H|1P|F5)(?![\w-])')
+
+
+def banned_phrases(guide=None):
+    """The writing guide's "Banned phrases" list."""
+    if guide is None:
+        with open(GUIDE, encoding='utf-8') as f:
+            guide = f.read()
+    m = re.search(r'^## Banned phrases\n(.*?)(?=^## )', guide, re.M | re.S)
+    return [x.strip() for x in re.findall(r'^- (.+)$', m.group(1), re.M)] if m else []
+
+
+def article_lines(md):
+    """The article's lines: the body after the "# " headline and "> " dek."""
+    lines = re.sub(r'^---\n.*?\n---\n?', '', md, flags=re.S).split('\n')
+    i = 0
+    while i < len(lines) and (not lines[i].strip() or lines[i].startswith('# ') or lines[i].startswith('> ')):
+        i += 1
+    return lines[i:]
+
+
+def sentences(text):
+    return [x.strip() for x in re.split(r'(?<=[.!?])\s+', text.strip()) if x.strip()]
+
+
+def phrase_flags(lines, codes, banned):
+    """[(line number, what, text)] for: a banned phrase, "where the numbers",
+    a closing sentence used twice, 1Q / 1H / 1P / F5 or a team code inside a
+    body sentence (subheads are left alone)."""
+    out, closing = [], {}
+    code_re = re.compile(r'(?<![\w-])(' + '|'.join(sorted({re.escape(c) for c in codes if 2 <= len(c) <= 4}, key=len, reverse=True)) + r')(?![\w-])') if codes else None
+    for i, line in enumerate(lines, 1):
+        text = line.strip()
+        if not text:
+            continue
+        if text.startswith('#'):
+            continue
+        low = text.lower()
+        for b in banned:
+            if re.search(r'(?<![\w])' + re.escape(b.lower()) + r'(?![\w])', low.replace('\u2019', "'")):
+                out.append((i, f'Banned phrase: "{b}"', text))
+        if 'where the numbers' in low:
+            out.append((i, '"where the numbers"', text))
+        for m in SEG_CODES.finditer(text):
+            out.append((i, f'{m.group(1)} in a sentence', text))
+        for m in (code_re.finditer(text) if code_re else ()):
+            out.append((i, f'Team code {m.group(1)} in a sentence', text))
+        closing[i] = sentences(text)[-1]
+    # a section's closing sentence: its last paragraph's last sentence
+    ends, cur = [], None
+    for i, line in enumerate(lines, 1):
+        t = line.strip()
+        if t.startswith('#'):
+            if cur:
+                ends.append(cur)
+            cur = None
+        elif t and i in closing:
+            cur = (i, closing[i])
+    if cur:
+        ends.append(cur)
+    seen = {}
+    for i, sent in ends:
+        k = re.sub(r'\W+', ' ', sent.lower()).strip()
+        if k in seen:
+            out.append((i, f'Same closing sentence as line {seen[k]}', sent))
+        else:
+            seen[k] = i
+    return sorted(out)
+
+
 def write_piece(kind, sport, day, packet):
     import anthropic   # only the scheduled run needs the SDK
     client = anthropic.Anthropic()

@@ -365,7 +365,10 @@ def pick_matchup(doc, trends_doc, slug_dir, key, games, before):
     cards = ((trends_doc.get('slates') or {}).get(key) or {}).get('cards') or []
     seqs_by_seg = {k: team_seqs(doc, before, k) for k in {x[0] for x in market_keys(doc)}}
     best = None
+    teams = doc.get('teams') or {}
     for g in games:
+        if doc.get('sport') in sports.COLLEGE and not (g['away'] in teams and g['home'] in teams):
+            continue   # a school outside Division I (College Football: FBS) is never the pick
         for (k, m, pick), ts in game_trends(doc, g, cards, seqs_by_seg).items():
             if len(ts) < MIN_AGREE:
                 continue

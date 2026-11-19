@@ -146,18 +146,28 @@ def on_day(g, day):
     return bool(t) and t.astimezone(ET).date().isoformat() == day
 
 
+def in_league(sport, g):
+    """College: both teams in the league (Division I; College Football:
+    FBS). A game against a school outside it is never the lead, the
+    Matchup of the Day, a box, a game section or counted (it still shows on
+    Matchups and Odds)."""
+    teams = sport.doc.get('teams') or {}
+    return sport.key not in sports.COLLEGE or (g['away'] in teams and g['home'] in teams)
+
+
 def slate(sport, day):
     """(trends key, games, before): the day's games; football: the week's
-    games from that day on (a weekly preview), or that day's (daily)."""
+    games from that day on (a weekly preview), or that day's (daily).
+    College: games inside the league only (in_league)."""
     if sport.weekly:
         w = week_of(sport, day)
         if not w:
             return None, [], day
-        games = [g for d, g in sport.all_games() if g.get('wk') == w['key'] and d >= day]
+        games = [g for d, g in sport.all_games() if g.get('wk') == w['key'] and d >= day and in_league(sport, g)]
         if not weekly(sport):
             games = [g for g in games if on_day(g, day)]
         return w['key'], sorted(games, key=lambda g: g.get('start') or ''), w['start']
-    return day, sorted(sport.games(day), key=lambda g: (g.get('start') or '', g['away'])), day
+    return day, sorted((g for g in sport.games(day) if in_league(sport, g)), key=lambda g: (g.get('start') or '', g['away'])), day
 
 
 def rate_of(t):
@@ -1028,11 +1038,12 @@ def edge_head(b, root):
 
 def boxes_html(p, root):
     """The three boxes (the draft's front matter): the sport's icon and the
-    label, the big number, the record or bet line, the sentence."""
+    label, the big number, the record or bet line, the sentence. A box with
+    "show": false (the admin's Show switch) is left out."""
     out = ''
     for key, words, cls in BOX_LABELS:
         b = (p.get('boxes') or {}).get(key)
-        if not isinstance(b, dict) or b.get('sport') not in sports.BY_KEY:
+        if not isinstance(b, dict) or b.get('sport') not in sports.BY_KEY or b.get('show') is False:   # admin's Show switch off
             continue
         text = link_teams(f'<p class="pv-box-text">{esc(b.get("text") or "")}</p>', [b['sport']], root, p['date'])
         num, small = esc(b.get('number') or ''), esc(b.get('line') or '')
@@ -1057,6 +1068,31 @@ def more_line(key, day, root, body_html, box_id, keys):
     name = esc(sports.seo_name(sp))
     return (f'<p class="pv-mt">{n} more {name} league trend{"s" if n != 1 else ""} fit{"s" if n == 1 else ""} {when} games. '
             f'<a class="pv-go" href="{root}{sports.section_path(sp, "trends").lstrip("/")}">All {name} trends &rarr;</a></p>')
+
+
+AD_AFTER_SECTION = 3   # the in-article slot: after this many game sections
+
+
+def ad_slot(name):
+    """An empty, invisible ad slot (Site settings ADS_ON); nothing while it's off."""
+    return f'<div class="ad-slot" data-ad="{name}" aria-hidden="true"></div>' if sports.ADS_ON else ''
+
+
+GAME_HEAD = r'(?:<h2 class="pv-win">[^<]*</h2>\s*)?<h3 class="pv-gh"'   # a weekly game keeps its window line
+
+
+def place_ad(body_html, before):
+    """The in-article slot after the 3rd game section (before the 4th's
+    heading; 3 sections: at the end). `before` is a regex for a section's
+    heading."""
+    slot = ad_slot('article')
+    if not slot:
+        return body_html
+    at = [m.start() for m in re.finditer(before, body_html)]
+    if len(at) < AD_AFTER_SECTION:
+        return body_html
+    i = at[AD_AFTER_SECTION] if len(at) > AD_AFTER_SECTION else len(body_html)
+    return body_html[:i] + slot + body_html[i:]
 
 
 def place_boxes(body_html, boxes, before):
@@ -1125,7 +1161,10 @@ def article(p, root, days, have):
     else:
         body = matchup_heads(body, key, day, root)
     body = link_teams(body, keys, root, day)
-    body = place_boxes(body, boxes_html(p, root), '<h2' if key == ALL else '<h2 class="pv-mh"')
+    section = '<h2' if key == ALL else '<h2 class="pv-mh"'
+    body = place_ad(body, '<h2' if key == ALL else GAME_HEAD)
+    bx = boxes_html(p, root)
+    body = place_boxes(body, bx + (ad_slot('boxes') if bx else ''), section)
     body += more_line(key, day, root, body, box_id, keys)
     if key == ALL:
         what = names_list([sports.BY_KEY[k]['label'] for k in keys])
@@ -1134,7 +1173,7 @@ def article(p, root, days, have):
         what = f'{n} game{"s" if n != 1 else ""}'
     img = (f'<img class="pv-img" src="{root}{card_path(key, day)}" width="1200" height="630" alt="{esc(head)}">'
            if has_card(key, day) else '')
-    side = (tonight(key, day, root) + '<section class="pv-side-card pv-tab"><h2 class="pv-side-h">Picks are coming with Premium</h2>'
+    side = (tonight(key, day, root) + ad_slot('side') + '<section class="pv-side-card pv-tab"><h2 class="pv-side-h">Picks are coming with Premium</h2>'
             '<p>Get on the list and you&rsquo;ll hear first.</p><!--signup:tab--></section>')
     return (f'<div class="pv"><article class="pv-main"><p class="pv-label">{label(key, day, piece_week(p))}</p>'
             f'<h1 class="pv-h1">{esc(head)}</h1>' + (f'<p class="pv-dek">{esc(dek)}</p>' if dek else '') +
@@ -1211,6 +1250,79 @@ def write_all(page, status, logo_svg, now_utc, render_sport):
             f.write(out)
         n += 1
     return n
+
+
+# ------------------------------------------------------ the admin's Preview tab
+ADMIN_DAYS, ADMIN_WEEKS = 7, 4   # History: the last 7 days (weekly sports: the last 4 weeks)
+ADMIN_DIR = 'admin/preview'      # each piece as it will publish (the Preview tab's frame)
+
+
+def admin_pieces(now_utc):
+    """[piece] for the admin: every preview draft and published preview in
+    the History window, newest first (a draft and its published copy: the
+    published one)."""
+    today = today_et(now_utc)
+    since = (date.fromisoformat(today) - timedelta(days=ADMIN_WEEKS * 7)).isoformat()
+    stamps = dict(read_json(daily.PUBLISHED_AT, {}) or {})   # publish times from before the Worker stamped them
+    out = {}
+    for folder, live in (('drafts', False), ('published', True)):
+        d = os.path.join(ROOT, 'content', folder)
+        for name in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            m = re.fullmatch(r'([a-z]+)-preview-(\d{4}-\d{2}-\d{2})\.md', name)
+            if not m or m.group(2) < since or (m.group(1) != ALL and m.group(1) not in sports.BY_KEY):
+                continue
+            with open(os.path.join(d, name), encoding='utf-8') as f:
+                meta, body = daily.parse(f.read())
+            out[(m.group(1), m.group(2))] = {
+                'kind': 'preview', 'sport': m.group(1), 'date': m.group(2), 'body': body, 'live': live,
+                'path': f'content/{folder}/{name}', 'lead': meta.get('lead'), 'week': meta.get('week'),
+                'covers': meta.get('sports') if isinstance(meta.get('sports'), list) else None,
+                'boxes': {k: meta[k] for k in ('stat_of_night', 'league_trend', 'edge_play') if isinstance(meta.get(k), dict)},
+                'published': daily.published_at(name, meta, stamps) if live else None, 'written': meta.get('written')}
+    keep = []
+    for (key, day), p in sorted(out.items(), key=lambda x: x[0][1], reverse=True):
+        weekly_key = key != ALL and weekly(sport_of(key))
+        if weekly_key:
+            weeks = sorted({q['date'] for (k, _), q in out.items() if k == key}, reverse=True)
+            if day not in weeks[:ADMIN_WEEKS]:
+                continue
+        elif day < (date.fromisoformat(today) - timedelta(days=ADMIN_DAYS - 1)).isoformat():
+            continue
+        keep.append(p)
+    return keep
+
+
+def admin_dir(p):
+    return f"{ADMIN_DIR}/{p['sport']}-{p['date']}/"
+
+
+def admin_pages(page, status, logo_svg, now_utc, render_sport):
+    """The admin's Preview tab: assets/preview/admin.json ({pieces: {key:
+    [History rows]}, icons: {sport: svg}}) and every piece's page as it will publish, with the
+    live page's template and CSS, at admin/preview/{key}-{date}/ (noindex;
+    the admin folder is disallowed in robots.txt)."""
+    pieces = admin_pieces(now_utc)
+    have = {(p['sport'], p['date']) for p in visible(now_utc)}
+    index = {}
+    for p in pieces:
+        head, dek, _ = split(p['body'])
+        d = admin_dir(p)
+        if p['sport'] == ALL:
+            depth = '../' * d.count('/')
+            out = page(title(ALL, head, p['date']), (dek or head)[:300], article(p, depth, {}, have), status,
+                       depth=depth, noindex=True, current='preview').replace('__LOGO_SVG__', logo_svg)
+        else:
+            out = render_sport(sports.BY_KEY[p['sport']], title(p['sport'], head, p['date'], piece_week(p)), (dek or head)[:300],
+                               article(p, '__ROOT__/', {}, have), d, True)
+        os.makedirs(os.path.join(ROOT, d), exist_ok=True)
+        with open(os.path.join(ROOT, d, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(out)
+        index.setdefault(p['sport'], []).append({
+            'date': p['date'], 'week': piece_week(p), 'path': p['path'], 'live': p['live'], 'page': d,
+            'published': p['published'], 'written': p['written'], 'headline': head})
+    icon = {sp['key']: icons.sport_icon(sp) for sp in sports.SPORTS}
+    write_json(os.path.join(ROOT, CARD_DIR, 'admin.json'), {'pieces': index, 'icons': icon})
+    return len(pieces)
 
 
 def seo_url():
@@ -1424,7 +1536,9 @@ def admin_games(day, keys, now_utc):
             when = t.astimezone(ET).strftime('%-I:%M %p ET') if t else ''
             games.append({'value': f"{sp.key}:{g['id']}", 'trends': len(items),
                           'label': (f'{sp.label} · ' if key == ALL else '') + f"{sp.full_name(g['away'])} at {sp.full_name(g['home'])}" + (f' · {when}' if when else '')})
-        out[key] = {'lead': f"{lead['sport']}:{lead['id']}" if lead else None,
+        codes = sorted({sp.code(g[s]) for sp, g, _ in candidates(key, day) for s in ('away', 'home')})
+        out[key] = {'codes': codes,   # the phrase check's team codes
+                    'lead': f"{lead['sport']}:{lead['id']}" if lead else None,
                     'motd': f'{motd[0]}:{motd[1]}' if motd else None, 'games': games}
         if key != ALL and weekly(sport_of(key)):   # the admin's "Draft now": one draft per week
             out[key]['week'] = week_num(sport_of(key), day)

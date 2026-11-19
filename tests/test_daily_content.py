@@ -76,5 +76,35 @@ class EverySportTest(unittest.TestCase):
     def test_all_preview_title(self):
         self.assertEqual(dc.title('preview', 'all', '2026-11-18'), 'First Period, Quarter & Half Betting Preview — Nov 18, 2026')
 
+class PhraseCheckTest(unittest.TestCase):
+    BANNED = ['headliner', 'fits that one', "let's dive in"]
+
+    def flags(self, md, codes=('LR', 'HOU')):
+        return [(i, what) for i, what, _ in dc.phrase_flags(dc.article_lines(md), codes, self.BANNED)]
+
+    def test_banned_list_from_the_guide(self):
+        got = dc.banned_phrases('## Voice\n- x\n\n## Banned phrases\n\nNever:\n\n- lock\n- night owls\n\n## Facts\n- y\n')
+        self.assertEqual(got, ['lock', 'night owls'])
+        self.assertIn('headliner', dc.banned_phrases())
+
+    def test_lines_start_after_headline_and_dek(self):
+        self.assertEqual(dc.article_lines('---\nsport: nba\n---\n# Head\n> Dek\n\nFirst.\nSecond.'), ['First.', 'Second.'])
+
+    def test_rules(self):
+        md = ('# H\n> D\n\n'
+              'The headliner is here. Let\u2019s dive in.\n\n'
+              '### Little Rock at Jacksonville \u00b7 1H\n\n'
+              'LR won the 1H twice. That is where the numbers stack.\n\n'
+              '### Houston at Texas\n\n'
+              'Houston lost. That is where the numbers stack.')
+        self.assertEqual(self.flags(md), [
+            (1, 'Banned phrase: "headliner"'), (1, 'Banned phrase: "let\'s dive in"'),
+            (5, '"where the numbers"'), (5, '1H in a sentence'), (5, 'Team code LR in a sentence'),
+            (9, '"where the numbers"'), (9, 'Same closing sentence as line 5')])
+
+    def test_clean_article(self):
+        self.assertEqual(self.flags('# H\n> D\n\nLittle Rock won the first half at HOUSE.\n\n### LR at HOU\n\nThe total stayed low.'), [])
+
+
 if __name__ == '__main__':
     unittest.main()

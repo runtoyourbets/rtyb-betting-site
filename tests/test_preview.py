@@ -93,5 +93,50 @@ class BoxTest(unittest.TestCase):
         self.assertIn('"text": "The Bucks keep going Under."', front[0])
 
 
+class Sport:
+    def __init__(self, key, teams):
+        self.key, self.doc = key, {'teams': {t: {} for t in teams}}
+
+
+class LeagueTest(unittest.TestCase):
+    def test_college_needs_both_teams_in_the_league(self):
+        sp = Sport('ncaab', ['UK', 'ARIZ'])
+        self.assertTrue(preview.in_league(sp, {'away': 'UK', 'home': 'ARIZ'}))
+        self.assertFalse(preview.in_league(sp, {'away': 'UK', 'home': 'BERE'}))
+
+    def test_pro_games_always_count(self):
+        self.assertTrue(preview.in_league(Sport('nba', []), {'away': 'BOS', 'home': 'NY'}))
+
+
+class BoxesAndAdsTest(unittest.TestCase):
+    def piece(self, show):
+        box = {'sport': 'nba', 'number': '86%', 'line': 'Under 1H', 'text': 'Low starts.'}
+        if show is not None:
+            box['show'] = show
+        return {'date': '2026-11-19', 'boxes': {'stat_of_night': box}}
+
+    def test_show_switch_hides_a_box(self):
+        self.assertIn('86%', preview.boxes_html(self.piece(None), '../'))
+        self.assertIn('86%', preview.boxes_html(self.piece(True), '../'))
+        self.assertEqual(preview.boxes_html(self.piece(False), '../'), '')
+
+    def test_ads_render_nothing_while_off(self):
+        body = ''.join(f'<h3 class="pv-gh">G{i}</h3><p>x</p>' for i in range(5))
+        old = preview.sports.ADS_ON
+        try:
+            preview.sports.ADS_ON = False
+            self.assertEqual(preview.ad_slot('side'), '')
+            self.assertEqual(preview.place_ad(body, preview.GAME_HEAD), body)
+            preview.sports.ADS_ON = True
+            got = preview.place_ad(body, preview.GAME_HEAD)
+            self.assertLess(got.index('data-ad="article"'), got.index('G3'))
+            self.assertGreater(got.index('data-ad="article"'), got.index('G2'))
+            win = '<h3 class="pv-gh">A</h3><h3 class="pv-gh">B</h3><h3 class="pv-gh">C</h3><h2 class="pv-win">Sunday</h2><h3 class="pv-gh">D</h3>'
+            got = preview.place_ad(win, preview.GAME_HEAD)
+            self.assertLess(got.index('data-ad="article"'), got.index('Sunday'))
+        finally:
+            preview.sports.ADS_ON = old
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -208,7 +208,8 @@ function validateSite(b) {
   const preview = typeof sw.PREVIEW_LIVE === "boolean" ? sw.PREVIEW_LIVE : sw.ON_TAP_LIVE;   // ON_TAP_LIVE: the old name
   if (typeof preview !== "boolean" || typeof sw.PICKS_LIVE !== "boolean") return "switches: PREVIEW_LIVE and PICKS_LIVE must be true or false";
   if (!["home-only", "everywhere"].includes(sw.FOOTER)) return "switches: FOOTER must be home-only or everywhere";
-  out.switches = { PREVIEW_LIVE: preview, PICKS_LIVE: sw.PICKS_LIVE, FOOTER: sw.FOOTER };
+  if (sw.ADS_ON !== undefined && typeof sw.ADS_ON !== "boolean") return "switches: ADS_ON must be true or false";
+  out.switches = { PREVIEW_LIVE: preview, PICKS_LIVE: sw.PICKS_LIVE, FOOTER: sw.FOOTER, ADS_ON: sw.ADS_ON === true };
   // Preview drafting: the earliest draft time (ET), the weekly sports' day,
   // and each sport's mode (weekly only where the schedule has weeks)
   const dr = b.drafts || {};

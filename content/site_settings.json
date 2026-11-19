@@ -109,7 +109,8 @@
   "switches": {
     "PREVIEW_LIVE": true,
     "PICKS_LIVE": false,
-    "FOOTER": "home-only"
+    "FOOTER": "home-only",
+    "ADS_ON": false
   },
   "drafts": {
     "DRAFT_TIME_ET": "08:00",
