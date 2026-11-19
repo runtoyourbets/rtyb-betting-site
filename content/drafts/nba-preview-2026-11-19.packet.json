@@ -125,12 +125,12 @@
      "moneyline": {
       "GS": {
        "open": 164,
-       "now": 136,
-       "best_book": "DraftKings"
+       "now": 140,
+       "best_book": "Caesars"
       },
       "MEM": {
        "open": -162,
-       "now": -162,
+       "now": -155,
        "best_book": "DraftKings"
       }
      },
@@ -138,13 +138,13 @@
       "GS": {
        "open": 2.5,
        "now": 1.5,
-       "price": 100,
+       "price": -102,
        "best_book": "DraftKings"
       },
       "MEM": {
        "open": -2.5,
        "now": -1.5,
-       "price": -120,
+       "price": -118,
        "best_book": "DraftKings"
       }
      },
@@ -165,7 +165,7 @@
       },
       "MEM": {
        "open": -190,
-       "now": -172,
+       "now": -176,
        "best_book": "FanDuel"
       }
      },
@@ -310,14 +310,14 @@
       "LAC": {
        "open": 9.5,
        "now": 9.5,
-       "price": -115,
+       "price": -112,
        "best_book": "DraftKings"
       },
       "SA": {
        "open": -9.5,
        "now": -9.5,
        "price": -105,
-       "best_book": "DraftKings"
+       "best_book": "BetMGM"
       }
      },
      "total": {
@@ -437,12 +437,12 @@
      "moneyline": {
       "NY": {
        "open": -118,
-       "now": -115,
-       "best_book": "DraftKings"
+       "now": -114,
+       "best_book": "FanDuel"
       },
       "MIN": {
        "open": 100,
-       "now": -105,
+       "now": -102,
        "best_book": "DraftKings"
       }
      },
@@ -478,7 +478,7 @@
       "MIN": {
        "open": 100,
        "now": 100,
-       "best_book": "FanDuel"
+       "best_book": "Caesars"
       }
      },
      "spread": {
@@ -625,13 +625,13 @@
       "POR": {
        "open": -3.5,
        "now": -3.5,
-       "price": -105,
+       "price": -102,
        "best_book": "DraftKings"
       },
       "MIL": {
        "open": 3.5,
        "now": 3.5,
-       "price": -115,
+       "price": -118,
        "best_book": "DraftKings"
       }
      },
@@ -652,7 +652,7 @@
       },
       "MIL": {
        "open": 210,
-       "now": 225,
+       "now": 230,
        "best_book": "DraftKings"
       }
      },
@@ -666,7 +666,7 @@
       "MIL": {
        "open": 5.5,
        "now": 5.5,
-       "price": -108,
+       "price": -105,
        "best_book": "DraftKings"
       }
      },
@@ -1483,7 +1483,7 @@
    "bet": "MIN 1H ML",
    "line": null,
    "best_price": "+100",
-   "book": "FanDuel",
+   "book": "Caesars",
    "tier": "B",
    "why": "The Timberwolves have won the first half 86% (12–2); the Knicks have won it 64% (9–5)."
   }
