@@ -9782,6 +9782,48 @@
     "streakTeamName": "Navy"
    },
    {
+    "id": "nba|401910014|1h|ml|away",
+    "game": "nba|401910014",
+    "date": "2026-11-18",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-19T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Hawks @ Thunder",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 168,
+    "title": "Hawks 1H ML",
+    "est": 0.422,
+    "edge": 0.0489,
+    "agree": 2,
+    "sample": 14,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "atl",
+    "angles": [
+     [
+      "Hawks 1H ML on the road",
+      "6-2"
+     ],
+     [
+      "Hawks 1H ML, season",
+      "8-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Hawks"
+   },
+   {
     "id": "nba|401910007|1h|ml|away",
     "game": "nba|401910007",
     "date": "2026-11-18",
@@ -9822,48 +9864,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
-   },
-   {
-    "id": "nba|401910014|1h|ml|away",
-    "game": "nba|401910014",
-    "date": "2026-11-18",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-19T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Hawks @ Thunder",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 164,
-    "title": "Hawks 1H ML",
-    "est": 0.4259,
-    "edge": 0.0471,
-    "agree": 2,
-    "sample": 14,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "atl",
-    "angles": [
-     [
-      "Hawks 1H ML on the road",
-      "6-2"
-     ],
-     [
-      "Hawks 1H ML, season",
-      "8-6"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Hawks"
    },
    {
     "id": "nba|401910017|1q|ml|away",
@@ -10053,6 +10053,136 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
+   },
+   {
+    "id": "ncaab|401927357|1h|ml|away",
+    "game": "ncaab|401927357",
+    "date": "2026-11-18",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-19T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Purdue Fort Wayne @ Bradley",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 160,
+    "title": "Purdue Fort Wayne 1H ML",
+    "est": 0.4179,
+    "edge": 0.0333,
+    "agree": 3,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "purdue-fort-wayne-mastodons",
+    "angles": [
+     [
+      "Purdue Fort Wayne 1H ML, season",
+      "3-1"
+     ],
+     [
+      "Purdue Fort Wayne 1H ML, last 8",
+      "3-1"
+     ],
+     [
+      "Bradley\u2019s opponents 1H ML, Bradley at home",
+      "2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Purdue Fort Wayne"
+   },
+   {
+    "id": "ncaab|401921134|1h|ml|away",
+    "game": "ncaab|401921134",
+    "date": "2026-11-18",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-19T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "LSU New Orleans @ Texas Tech",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 4000,
+    "title": "LSU New Orleans 1H ML",
+    "est": 0.0563,
+    "edge": 0.0319,
+    "agree": 2,
+    "sample": 3,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "lsu-new-orleans-privateers",
+    "angles": [
+     [
+      "LSU New Orleans 1H ML, season",
+      "2-1"
+     ],
+     [
+      "LSU New Orleans 1H ML, last 8",
+      "2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "LSU New Orleans"
+   },
+   {
+    "id": "ncaab|401920158|1h|ml|away",
+    "game": "ncaab|401920158",
+    "date": "2026-11-18",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-19T03:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Cal State Fullerton @ UCLA",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 2500,
+    "title": "Cal State Fullerton 1H ML",
+    "est": 0.0691,
+    "edge": 0.0306,
+    "agree": 2,
+    "sample": 3,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "cal-state-fullerton-titans",
+    "angles": [
+     [
+      "Cal State Fullerton 1H ML, season",
+      "2-1"
+     ],
+     [
+      "Cal State Fullerton 1H ML, last 8",
+      "2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Cal State Fullerton"
    }
   ]
  }
