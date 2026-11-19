@@ -12,8 +12,8 @@
     --fs-label: 11px;   --fw-label: 600;  --ls-label: 0.6px;
     --fs-hero: 40px;    /* the home page's brand H1 (Barlow Condensed, --fw-title) */
     /* Preview's article text (scripts/preview.py): a serif reading stack, the dek and the callout */
-    --ff-read: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
-    --fs-read: 19px;    --lh-read: 1.7;
+    --ff-read: var(--ff-body);   /* Preview's article text: the site font */
+    --fs-read: 18px;    --lh-read: 1.65;
     --fs-dek: 20px;
     --fs-lede: 17px;    /* the home page's product line under the H1 */
     --fs-row-label: 16px;   /* the sport row's label above its links (Barlow Condensed) */
@@ -2392,7 +2392,7 @@
   .pv-body a, .pv-past a, .pv-more a { color: var(--accent); text-decoration: none; }
   .pv-body a:hover, .pv-past a:hover { text-decoration: underline; }
   /* the three boxes after the intro: Stat of the Night (yellow), League Trend (purple), Edge Play (green) */
-  .pv-boxes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--cell-gap); margin: 1.4em 0 1.6em; }
+  .pv-boxes { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cell-gap); margin: 1.4em 0 1.6em; }   /* one per row, phones too */
   .pv-box { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: var(--card-radius); border: 1px solid var(--card-border); font-family: var(--ff-body); }
   .pv-box-stat { background: var(--push-dim); border-color: var(--gold); }
   .pv-box-trend { background: var(--title-bg); border-color: var(--accent); }
@@ -2407,7 +2407,8 @@
   .pv-box-line { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-team); line-height: 1.35; color: var(--text); }
   .pv-box-text { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); line-height: 1.5; color: var(--text-muted); }
   .pv-box-text a.pv-team { color: var(--text); }
-  @media (max-width: 640px) { .pv-boxes { grid-template-columns: minmax(0, 1fr); } }
+  .pv-book { display: inline-flex; vertical-align: middle; }
+  .pv-book .sl-book { height: 18px; max-width: 72px; }
   /* a sport page's games; the all-sports page's sections */
   .pv .pv-body h2.pv-mh { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); letter-spacing: var(--ls-label); color: var(--text-muted); }
   .pv .pv-body h3.pv-gh { margin-bottom: 2px; }
