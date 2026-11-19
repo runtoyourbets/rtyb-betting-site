@@ -1,0 +1,2965 @@
+{
+ "sport": "College Football",
+ "segments": "1st quarter and 1st half",
+ "date": "2026-11-19",
+ "games_on_the_slate": 65,
+ "lead_game": "Northern Illinois at North Dakota State",
+ "matchup_of_the_day": "Rutgers at Penn State",
+ "games": [
+  {
+   "id": "401858529",
+   "matchup": "Oregon at Michigan State",
+   "away": {
+    "code": "ORE",
+    "name": "Oregon"
+   },
+   "home": {
+    "code": "MSU",
+    "name": "Michigan State"
+   },
+   "start": "Friday 8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "ORE has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Michigan State have covered the 1st half spread 3 straight",
+    "Oregon 1st halves have gone Over 3 straight",
+    "Michigan State have covered the 1st quarter spread 3 straight",
+    "Oregon 1st quarters have gone Over 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "ORE": {
+       "open": -300,
+       "now": -360,
+       "best_book": "FanDuel"
+      },
+      "MSU": {
+       "open": 260,
+       "now": 290,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "ORE": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -120,
+       "best_book": "DraftKings"
+      },
+      "MSU": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -102,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -125,
+      "under": 104,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "ORE": {
+       "open": -425,
+       "now": -520,
+       "best_book": "DraftKings"
+      },
+      "MSU": {
+       "open": 360,
+       "now": 425,
+       "best_book": "BetMGM"
+      }
+     },
+     "spread": {
+      "ORE": {
+       "open": -7.5,
+       "now": -9.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "MSU": {
+       "open": 7.5,
+       "now": 9.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 23.5,
+      "now": 23.5,
+      "over": -110,
+      "under": -108,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401864542",
+   "matchup": "New Mexico at Wyoming",
+   "away": {
+    "code": "UNM",
+    "name": "New Mexico"
+   },
+   "home": {
+    "code": "WYO",
+    "name": "Wyoming"
+   },
+   "start": "Friday 9:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "UNM has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "UNM has won the 1st half",
+     "season_record": "8–2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "New Mexico have won the 1st half 4 straight",
+    "Wyoming have covered the 1st half spread 3 straight",
+    "Wyoming 1st halves have gone Over 3 straight",
+    "Wyoming have covered the 1st quarter spread 3 straight",
+    "Wyoming have won the 1st quarter 5 straight",
+    "Wyoming have won the 1st half 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "UNM": {
+       "open": -205,
+       "now": -190,
+       "best_book": "TheScore US"
+      },
+      "WYO": {
+       "open": 174,
+       "now": 164,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "UNM": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 100,
+       "best_book": "TheScore US"
+      },
+      "WYO": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -125,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 140,
+      "under": -172,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "UNM": {
+       "open": -245,
+       "now": -235,
+       "best_book": "BetMGM"
+      },
+      "WYO": {
+       "open": 210,
+       "now": 200,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "UNM": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": 102,
+       "best_book": "FanDuel"
+      },
+      "WYO": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": -120,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 18.5,
+      "now": 18.5,
+      "over": -108,
+      "under": -110,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401856748",
+   "matchup": "Vanderbilt at Florida",
+   "away": {
+    "code": "VAN",
+    "name": "Vanderbilt"
+   },
+   "home": {
+    "code": "FLA",
+    "name": "Florida"
+   },
+   "start": "Saturday 12:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "VAN has lost the 1st half",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "FLA has lost the 1st half",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Vanderbilt have covered the 1st half spread 3 straight",
+    "Florida have failed to cover the 1st half spread 3 straight",
+    "Vanderbilt have covered the 1st quarter spread 3 straight",
+    "Florida have failed to cover the 1st quarter spread 3 straight",
+    "Vanderbilt 1st quarters have gone Under 3 straight",
+    "Florida 1st quarters have gone Under 3 straight",
+    "Florida have lost the 1st quarter 4 straight",
+    "Vanderbilt 1st halves have gone Under 3 straight",
+    "Florida 1st halves have gone Under 3 straight",
+    "Florida have lost the 1st half 6 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "VAN": {
+       "open": 220,
+       "now": 225,
+       "best_book": "TheScore US"
+      },
+      "FLA": {
+       "open": -270,
+       "now": -270,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "VAN": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -118,
+       "best_book": "FanDuel"
+      },
+      "FLA": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": 100,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -125,
+      "under": 112,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "VAN": {
+       "open": 300,
+       "now": 300,
+       "best_book": "FanDuel"
+      },
+      "FLA": {
+       "open": -375,
+       "now": -375,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "VAN": {
+       "open": 7.5,
+       "now": 7.5,
+       "price": -120,
+       "best_book": "BetMGM"
+      },
+      "FLA": {
+       "open": -7.5,
+       "now": -7.5,
+       "price": 104,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 23.5,
+      "now": 23.5,
+      "over": -115,
+      "under": 100,
+      "best_book_over": "BetMGM"
+     }
+    }
+   }
+  },
+  {
+   "id": "401856866",
+   "matchup": "BYU at Kansas",
+   "away": {
+    "code": "BYU",
+    "name": "BYU"
+   },
+   "home": {
+    "code": "KU",
+    "name": "Kansas"
+   },
+   "start": "Saturday 12:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "BYU has won the 1st quarter",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "BYU has won the 1st half",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Back small underdogs (1Q Spread)",
+     "season_record": "58–45",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "KU has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "BYU have won the 1st half 3 straight",
+    "Kansas have covered the 1st quarter spread 4 straight",
+    "Kansas have won the 1st quarter 3 straight",
+    "BYU have covered the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "BYU": {
+       "open": -158,
+       "now": -156,
+       "best_book": "FanDuel"
+      },
+      "KU": {
+       "open": 135,
+       "now": 140,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "BYU": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 105,
+       "best_book": "TheScore US"
+      },
+      "KU": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -125,
+       "best_book": "BetMGM"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -130,
+      "under": 114,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "BYU": {
+       "open": -175,
+       "now": -175,
+       "best_book": "BetMGM"
+      },
+      "KU": {
+       "open": 160,
+       "now": 164,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "BYU": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      },
+      "KU": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 24.5,
+      "now": 23.5,
+      "over": -130,
+      "under": 110,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401858310",
+   "matchup": "Wake Forest at Georgia Tech",
+   "away": {
+    "code": "WAKE",
+    "name": "Wake Forest"
+   },
+   "home": {
+    "code": "GT",
+    "name": "Georgia Tech"
+   },
+   "start": "Saturday 12:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "WAKE has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "WAKE has won the 1st half",
+     "season_record": "8–2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "GT has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "GT has won the 1st half",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Wake Forest have won the 1st quarter 4 straight",
+    "Wake Forest have won the 1st half 4 straight",
+    "Wake Forest have covered the 1st quarter spread 3 straight",
+    "Georgia Tech 1st quarters have gone Under 4 straight",
+    "Wake Forest have covered the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "WAKE": {
+       "open": -475,
+       "now": -425,
+       "best_book": "DraftKings"
+      },
+      "GT": {
+       "open": 380,
+       "now": 360,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "WAKE": {
+       "open": -6.5,
+       "now": -5.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "GT": {
+       "open": 6.5,
+       "now": 5.5,
+       "price": -110,
+       "best_book": "TheScore US"
+      }
+     },
+     "total": {
+      "open": 13.5,
+      "now": 13.5,
+      "over": -110,
+      "under": 100,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "WAKE": {
+       "open": -700,
+       "now": -750,
+       "best_book": "BetMGM"
+      },
+      "GT": {
+       "open": 610,
+       "now": 560,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "WAKE": {
+       "open": -12.5,
+       "now": -11.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      },
+      "GT": {
+       "open": 12.5,
+       "now": 11.5,
+       "price": -108,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 29.5,
+      "now": 29.5,
+      "over": -112,
+      "under": -104,
+      "best_book_over": "BetMGM"
+     }
+    }
+   }
+  },
+  {
+   "id": "401862835",
+   "matchup": "North Texas at Tulane",
+   "away": {
+    "code": "UNT",
+    "name": "North Texas"
+   },
+   "home": {
+    "code": "TULN",
+    "name": "Tulane"
+   },
+   "start": "Saturday 12:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "UNT has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "TULN has lost the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "TULN has lost the 1st half",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Tulane have lost the 1st half 4 straight",
+    "North Texas have failed to cover the 1st half spread 3 straight",
+    "North Texas 1st quarters have gone Under 3 straight",
+    "Tulane 1st quarters have gone Under 3 straight",
+    "Tulane have failed to cover the 1st half spread 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "UNT": {
+       "open": -194,
+       "now": -174,
+       "best_book": "FanDuel"
+      },
+      "TULN": {
+       "open": 162,
+       "now": 148,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "UNT": {
+       "open": -2.5,
+       "now": -0.5,
+       "price": -105,
+       "best_book": "TheScore US"
+      },
+      "TULN": {
+       "open": 2.5,
+       "now": 0.5,
+       "price": -118,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 13.5,
+      "now": 12.5,
+      "over": -118,
+      "under": -104,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "UNT": {
+       "open": -210,
+       "now": -175,
+       "best_book": "BetMGM"
+      },
+      "TULN": {
+       "open": 180,
+       "now": 160,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "UNT": {
+       "open": -4.5,
+       "now": -3.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      },
+      "TULN": {
+       "open": 4.5,
+       "now": 3.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 29.5,
+      "now": 28.5,
+      "over": -102,
+      "under": -115,
+      "best_book_over": "BetMGM"
+     }
+    }
+   }
+  },
+  {
+   "id": "401856868",
+   "matchup": "Houston at West Virginia",
+   "away": {
+    "code": "HOU",
+    "name": "Houston"
+   },
+   "home": {
+    "code": "WVU",
+    "name": "West Virginia"
+   },
+   "start": "Saturday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "HOU has won the 1st quarter",
+     "season_record": "8–2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "HOU has won the 1st half",
+     "season_record": "8–2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Houston have covered the 1st quarter spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "HOU": {
+       "open": -186,
+       "now": -210,
+       "best_book": "FanDuel"
+      },
+      "WVU": {
+       "open": 170,
+       "now": 176,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "HOU": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -114,
+       "best_book": "FanDuel"
+      },
+      "WVU": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 14.5,
+      "now": 14.5,
+      "over": 112,
+      "under": -136,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "HOU": {
+       "open": -225,
+       "now": -235,
+       "best_book": "BetMGM"
+      },
+      "WVU": {
+       "open": 200,
+       "now": 210,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "HOU": {
+       "open": -5.5,
+       "now": -6.5,
+       "price": -108,
+       "best_book": "FanDuel"
+      },
+      "WVU": {
+       "open": 5.5,
+       "now": 6.5,
+       "price": -112,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 35.5,
+      "now": 35.5,
+      "over": -102,
+      "under": -115,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401858527",
+   "matchup": "Iowa at Illinois",
+   "away": {
+    "code": "IOWA",
+    "name": "Iowa"
+   },
+   "home": {
+    "code": "ILL",
+    "name": "Illinois"
+   },
+   "start": "Saturday 2:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "IOWA has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "IOWA has won the 1st half",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Iowa have won the 1st quarter 3 straight",
+    "Iowa have won the 1st half 3 straight",
+    "Iowa have covered the 1st quarter spread 3 straight",
+    "Illinois 1st quarters have gone Under 4 straight",
+    "Iowa have covered the 1st half spread 3 straight",
+    "Illinois 1st halves have gone Under 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "IOWA": {
+       "open": -210,
+       "now": -215,
+       "best_book": "DraftKings"
+      },
+      "ILL": {
+       "open": 178,
+       "now": 215,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "IOWA": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -120,
+       "best_book": "BetMGM"
+      },
+      "ILL": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": 104,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 102,
+      "under": -125,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "IOWA": {
+       "open": -230,
+       "now": -250,
+       "best_book": "BetMGM"
+      },
+      "ILL": {
+       "open": 210,
+       "now": 240,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "IOWA": {
+       "open": -4.5,
+       "now": -5.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      },
+      "ILL": {
+       "open": 4.5,
+       "now": 5.5,
+       "price": -106,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 21.5,
+      "now": 21.5,
+      "over": -102,
+      "under": -118,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401858532",
+   "matchup": "Rutgers at Penn State",
+   "away": {
+    "code": "RUTG",
+    "name": "Rutgers"
+   },
+   "home": {
+    "code": "PSU",
+    "name": "Penn State"
+   },
+   "start": "Saturday 3:30 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "RUTG has lost the 1st quarter",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "PSU has won the 1st quarter",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade teams off a shutout (1H ML)",
+     "season_record": "16–6",
+     "season_pct": "73%"
+    },
+    {
+     "trend": "RUTG has lost the 1st half",
+     "season_record": "9–1",
+     "season_pct": "90%"
+    },
+    {
+     "trend": "PSU has won the 1st half",
+     "season_record": "8–2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Rutgers have lost the 1st quarter 4 straight",
+    "Penn State have won the 1st quarter 4 straight",
+    "Rutgers have lost the 1st half 6 straight",
+    "Penn State have won the 1st half 4 straight",
+    "Penn State have covered the 1st quarter spread 3 straight",
+    "Penn State 1st quarters have gone Over 3 straight",
+    "Penn State have covered the 1st half spread 3 straight",
+    "Penn State 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "RUTG": {
+       "open": 550,
+       "now": 520,
+       "best_book": "FanDuel"
+      },
+      "PSU": {
+       "open": -720,
+       "now": -660,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "RUTG": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": 118,
+       "best_book": "FanDuel"
+      },
+      "PSU": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": -140,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 10.5,
+      "now": 10.5,
+      "over": 105,
+      "under": -114,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "RUTG": {
+       "open": 980,
+       "now": 900,
+       "best_book": "FanDuel"
+      },
+      "PSU": {
+       "open": -1450,
+       "now": -1450,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "RUTG": {
+       "open": 13.5,
+       "now": 14.5,
+       "price": -125,
+       "best_book": "DraftKings"
+      },
+      "PSU": {
+       "open": -13.5,
+       "now": -14.5,
+       "price": 105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 26.5,
+      "now": 27.5,
+      "over": 105,
+      "under": -118,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401864543",
+   "matchup": "Northern Illinois at North Dakota State",
+   "away": {
+    "code": "NIU",
+    "name": "Northern Illinois"
+   },
+   "home": {
+    "code": "NDSU",
+    "name": "North Dakota State"
+   },
+   "start": "Saturday 4:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "NIU has lost the 1st quarter",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "NIU has lost the 1st half",
+     "season_record": "10–0",
+     "season_pct": "100%"
+    },
+    {
+     "trend": "NDSU has won the 1st half",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    }
+   ],
+   "streaks": [
+    "North Dakota State have failed to cover the 1st half spread 3 straight",
+    "North Dakota State 1st halves have gone Under 3 straight",
+    "Northern Illinois have lost the 1st half 10 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "NIU": {
+       "open": 600,
+       "now": 550,
+       "best_book": "FanDuel"
+      },
+      "NDSU": {
+       "open": -700,
+       "now": -650,
+       "best_book": "BetMGM"
+      }
+     },
+     "spread": {
+      "NIU": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": 112,
+       "best_book": "FanDuel"
+      },
+      "NDSU": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": -135,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -120,
+      "under": 106,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "NIU": {
+       "open": 1120,
+       "now": 1060,
+       "best_book": "FanDuel"
+      },
+      "NDSU": {
+       "open": -1600,
+       "now": -1450,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "NIU": {
+       "open": 14.5,
+       "now": 14.5,
+       "price": -125,
+       "best_book": "BetMGM"
+      },
+      "NDSU": {
+       "open": -14.5,
+       "now": -14.5,
+       "price": 110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 24.5,
+      "now": 23.5,
+      "over": -112,
+      "under": 100,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401869953",
+   "matchup": "Georgia Southern at Troy",
+   "away": {
+    "code": "GASO",
+    "name": "Georgia Southern"
+   },
+   "home": {
+    "code": "TROY",
+    "name": "Troy"
+   },
+   "start": "Saturday 4:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "GASO has won the 1st half",
+     "season_record": "8–2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Georgia Southern have won the 1st half 6 straight",
+    "Troy have lost the 1st half 3 straight",
+    "Troy 1st quarters have gone Over 3 straight",
+    "Georgia Southern have covered the 1st half spread 3 straight",
+    "Troy have failed to cover the 1st half spread 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "GASO": {
+       "open": -215,
+       "now": -215,
+       "best_book": "DraftKings"
+      },
+      "TROY": {
+       "open": 196,
+       "now": 186,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "GASO": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "TROY": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": 100,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -145,
+      "under": 120,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "GASO": {
+       "open": -250,
+       "now": -250,
+       "best_book": "BetMGM"
+      },
+      "TROY": {
+       "open": 225,
+       "now": 230,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "GASO": {
+       "open": -5.5,
+       "now": -5.5,
+       "price": -112,
+       "best_book": "FanDuel"
+      },
+      "TROY": {
+       "open": 5.5,
+       "now": 5.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 24.5,
+      "now": 24.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401864544",
+   "matchup": "UNLV at San José State",
+   "away": {
+    "code": "UNLV",
+    "name": "UNLV"
+   },
+   "home": {
+    "code": "SJSU",
+    "name": "San José State"
+   },
+   "start": "Saturday 7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "UNLV has won the 1st half",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "UNLV have failed to cover the 1st quarter spread 3 straight",
+    "San José State have covered the 1st quarter spread 3 straight",
+    "San José State 1st quarters have gone Under 4 straight",
+    "UNLV have lost the 1st quarter 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "UNLV": {
+       "open": -172,
+       "now": -180,
+       "best_book": "FanDuel"
+      },
+      "SJSU": {
+       "open": 160,
+       "now": 154,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "UNLV": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "SJSU": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -118,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -128,
+      "under": 106,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "UNLV": {
+       "open": -205,
+       "now": -210,
+       "best_book": "BetMGM"
+      },
+      "SJSU": {
+       "open": 185,
+       "now": 180,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "UNLV": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -120,
+       "best_book": "DraftKings"
+      },
+      "SJSU": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": 100,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 23.5,
+      "now": 23.5,
+      "over": -110,
+      "under": -108,
+      "best_book_over": "BetMGM"
+     }
+    }
+   }
+  },
+  {
+   "id": "401856753",
+   "matchup": "Georgia at South Carolina",
+   "away": {
+    "code": "UGA",
+    "name": "Georgia"
+   },
+   "home": {
+    "code": "SC",
+    "name": "South Carolina"
+   },
+   "start": "Saturday 7:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "UGA has won the 1st quarter",
+     "season_record": "9–1",
+     "season_pct": "90%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "UGA has won the 1st half",
+     "season_record": "8–2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "SC has won the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "SC has won the 1st half",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    }
+   ],
+   "streaks": [
+    "Georgia have won the 1st quarter 5 straight",
+    "Georgia have won the 1st half 3 straight",
+    "Georgia have covered the 1st quarter spread 3 straight",
+    "South Carolina 1st quarters have gone Under 3 straight",
+    "Georgia have covered the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "UGA": {
+       "open": -285,
+       "now": -285,
+       "best_book": "BetMGM"
+      },
+      "SC": {
+       "open": 250,
+       "now": 250,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "UGA": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      },
+      "SC": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 10.5,
+      "now": 10.5,
+      "over": 105,
+      "under": -122,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "UGA": {
+       "open": -475,
+       "now": -450,
+       "best_book": "BetMGM"
+      },
+      "SC": {
+       "open": 390,
+       "now": 380,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "UGA": {
+       "open": -9.5,
+       "now": -8.5,
+       "price": -110,
+       "best_book": "BetMGM"
+      },
+      "SC": {
+       "open": 9.5,
+       "now": 8.5,
+       "price": -108,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 26.5,
+      "now": 26.5,
+      "over": -120,
+      "under": 102,
+      "best_book_over": "BetMGM"
+     }
+    }
+   }
+  },
+  {
+   "id": "401860918",
+   "matchup": "Colorado State at Fresno State",
+   "away": {
+    "code": "CSU",
+    "name": "Colorado State"
+   },
+   "home": {
+    "code": "FRES",
+    "name": "Fresno State"
+   },
+   "start": "Saturday 7:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1Q ML)",
+     "season_record": "88–25",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "104–35",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "CSU has lost the 1st quarter",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade big underdogs (1Q Spread)",
+     "season_record": "76–51",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q Spread)",
+     "season_record": "92–65",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Back big underdogs (1H Spread)",
+     "season_record": "82–65",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade big favorites (1H Spread)",
+     "season_record": "99–80",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "FRES has lost the 1st quarter",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "CSU has lost the 1st half",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "FRES has lost the 1st half",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Colorado State have lost the 1st quarter 3 straight",
+    "Colorado State have failed to cover the 1st quarter spread 3 straight",
+    "Colorado State have failed to cover the 1st half spread 3 straight",
+    "Colorado State have lost the 1st half 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "CSU": {
+       "open": 425,
+       "now": 410,
+       "best_book": "FanDuel"
+      },
+      "FRES": {
+       "open": -475,
+       "now": -475,
+       "best_book": "BetMGM"
+      }
+     },
+     "spread": {
+      "CSU": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": 112,
+       "best_book": "FanDuel"
+      },
+      "FRES": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": -125,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 14.5,
+      "now": 14.5,
+      "over": 130,
+      "under": -146,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "CSU": {
+       "open": 600,
+       "now": 625,
+       "best_book": "DraftKings"
+      },
+      "FRES": {
+       "open": -750,
+       "now": -700,
+       "best_book": "BetMGM"
+      }
+     },
+     "spread": {
+      "CSU": {
+       "open": 13.5,
+       "now": 12.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      },
+      "FRES": {
+       "open": -13.5,
+       "now": -12.5,
+       "price": -108,
+       "best_book": "BetMGM"
+      }
+     },
+     "total": {
+      "open": 34.5,
+      "now": 34.5,
+      "over": -114,
+      "under": -102,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401856870",
+   "matchup": "Oklahoma State at Arizona State",
+   "away": {
+    "code": "OKST",
+    "name": "Oklahoma State"
+   },
+   "home": {
+    "code": "ASU",
+    "name": "Arizona State"
+   },
+   "start": "Saturday 10:15 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "53–24",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "24–16",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back road favorites (1Q ML)",
+     "season_record": "53–26",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "Fade small favorites (1Q Spread)",
+     "season_record": "44–29",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q Spread)",
+     "season_record": "34–26",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Back small underdogs (1Q Spread)",
+     "season_record": "58–45",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back home underdogs (1H Spread)",
+     "season_record": "53–38",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "49–42",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "40–30",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "OKST has lost the 1st quarter",
+     "season_record": "7–3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "OKST has lost the 1st half",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "ASU has won the 1st half",
+     "season_record": "6–4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Oklahoma State 1st halves have gone Over 4 straight",
+    "Arizona State 1st halves have gone Under 4 straight",
+    "Oklahoma State 1st quarters have gone Over 4 straight",
+    "Arizona State 1st quarters have gone Under 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "OKST": {
+       "open": -144,
+       "now": -130,
+       "best_book": "TheScore US"
+      },
+      "ASU": {
+       "open": 122,
+       "now": 118,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "OKST": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 115,
+       "best_book": "TheScore US"
+      },
+      "ASU": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -143,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 13.5,
+      "now": 13.5,
+      "over": -118,
+      "under": 114,
+      "best_book_over": "BetMGM"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "OKST": {
+       "open": -145,
+       "now": -130,
+       "best_book": "TheScore US"
+      },
+      "ASU": {
+       "open": 136,
+       "now": 122,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "OKST": {
+       "open": -2.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "ASU": {
+       "open": 2.5,
+       "now": 0.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 31.5,
+      "now": 30.5,
+      "over": -112,
+      "under": -105,
+      "best_book_over": "BetMGM"
+     }
+    }
+   }
+  }
+ ],
+ "trends_page": "/college-football/trends/",
+ "teams": {
+  "ASU": {
+   "name": "Arizona State",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6–4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "BYU": {
+   "name": "BYU",
+   "rates": []
+  },
+  "CSU": {
+   "name": "Colorado State",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "3–7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "FLA": {
+   "name": "Florida",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "4–6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "FRES": {
+   "name": "Fresno State",
+   "rates": []
+  },
+  "UGA": {
+   "name": "Georgia",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8–2",
+      "pct": "80%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "GASO": {
+   "name": "Georgia Southern",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8–2",
+      "pct": "80%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "GT": {
+   "name": "Georgia Tech",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6–4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "HOU": {
+   "name": "Houston",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8–2",
+      "pct": "80%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "ILL": {
+   "name": "Illinois",
+   "rates": []
+  },
+  "IOWA": {
+   "name": "Iowa",
+   "rates": []
+  },
+  "KU": {
+   "name": "Kansas",
+   "rates": []
+  },
+  "MSU": {
+   "name": "Michigan State",
+   "rates": []
+  },
+  "UNM": {
+   "name": "New Mexico",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8–2",
+      "pct": "80%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "NDSU": {
+   "name": "North Dakota State",
+   "rates": []
+  },
+  "UNT": {
+   "name": "North Texas",
+   "rates": [
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "6–4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "NIU": {
+   "name": "Northern Illinois",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "0–10",
+      "pct": "0%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "OKST": {
+   "name": "Oklahoma State",
+   "rates": [
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "3–7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "ORE": {
+   "name": "Oregon",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "5–5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "PSU": {
+   "name": "Penn State",
+   "rates": []
+  },
+  "RUTG": {
+   "name": "Rutgers",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "1–9",
+      "pct": "10%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "SJSU": {
+   "name": "San José State",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6–5",
+      "pct": "55%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "SC": {
+   "name": "South Carolina",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "7–3",
+      "pct": "70%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "TROY": {
+   "name": "Troy",
+   "rates": []
+  },
+  "TULN": {
+   "name": "Tulane",
+   "rates": []
+  },
+  "UNLV": {
+   "name": "UNLV",
+   "rates": []
+  },
+  "VAN": {
+   "name": "Vanderbilt",
+   "rates": []
+  },
+  "WAKE": {
+   "name": "Wake Forest",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8–2",
+      "pct": "80%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "WVU": {
+   "name": "West Virginia",
+   "rates": []
+  },
+  "WYO": {
+   "name": "Wyoming",
+   "rates": [
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "5–5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade big underdogs",
+   "market": "1Q ML",
+   "record": "88–25",
+   "pct": "78%",
+   "games": 113,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "Vanderbilt at Florida",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State"
+   ]
+  },
+  {
+   "trend": "Back big favorites",
+   "market": "1Q ML",
+   "record": "104–35",
+   "pct": "75%",
+   "games": 139,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "Vanderbilt at Florida",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State"
+   ]
+  },
+  {
+   "trend": "Fade teams off a shutout",
+   "market": "1H ML",
+   "record": "16–6",
+   "pct": "73%",
+   "games": 22,
+   "fits_tonight": [
+    "Rutgers at Penn State"
+   ]
+  },
+  {
+   "trend": "Back road favorites",
+   "market": "1H ML",
+   "record": "53–24",
+   "pct": "69%",
+   "games": 77,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Back road favorites",
+   "market": "1Q ML",
+   "record": "53–26",
+   "pct": "67%",
+   "games": 79,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Fade small favorites",
+   "market": "1Q Spread",
+   "record": "44–29",
+   "pct": "60%",
+   "games": 73,
+   "fits_tonight": [
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Back small favorites",
+   "market": "1H ML",
+   "record": "24–16",
+   "pct": "60%",
+   "games": 40,
+   "fits_tonight": [
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Fade big underdogs",
+   "market": "1Q Spread",
+   "record": "76–51",
+   "pct": "60%",
+   "games": 127,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "Vanderbilt at Florida",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State"
+   ]
+  },
+  {
+   "trend": "Back big favorites",
+   "market": "1Q Spread",
+   "record": "92–65",
+   "pct": "59%",
+   "games": 157,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "Vanderbilt at Florida",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State"
+   ]
+  },
+  {
+   "trend": "Back home underdogs",
+   "market": "1H Spread",
+   "record": "53–38",
+   "pct": "58%",
+   "games": 91,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1Q Spread",
+   "record": "34–26",
+   "pct": "57%",
+   "games": 60,
+   "fits_tonight": [
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State",
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Back small underdogs",
+   "market": "1Q Spread",
+   "record": "58–45",
+   "pct": "56%",
+   "games": 103,
+   "fits_tonight": [
+    "BYU at Kansas",
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Back big underdogs",
+   "market": "1H Spread",
+   "record": "82–65",
+   "pct": "56%",
+   "games": 147,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "Vanderbilt at Florida",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State"
+   ]
+  },
+  {
+   "trend": "Over: home underdog games",
+   "market": "1H O/U",
+   "record": "49–42",
+   "pct": "54%",
+   "games": 91,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Under: team off a blowout",
+   "market": "1H O/U",
+   "record": "40–30",
+   "pct": "57%",
+   "games": 70,
+   "fits_tonight": [
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State",
+    "Oklahoma State at Arizona State"
+   ]
+  },
+  {
+   "trend": "Fade big favorites",
+   "market": "1H Spread",
+   "record": "99–80",
+   "pct": "55%",
+   "games": 179,
+   "fits_tonight": [
+    "Oregon at Michigan State",
+    "New Mexico at Wyoming",
+    "Vanderbilt at Florida",
+    "BYU at Kansas",
+    "Wake Forest at Georgia Tech",
+    "North Texas at Tulane",
+    "Houston at West Virginia",
+    "Iowa at Illinois",
+    "Rutgers at Penn State",
+    "Northern Illinois at North Dakota State",
+    "Georgia Southern at Troy",
+    "UNLV at San José State",
+    "Georgia at South Carolina",
+    "Colorado State at Fresno State"
+   ]
+  }
+ ],
+ "edge_plays": [],
+ "boxes": {
+  "stat_of_night": {
+   "sport": "ncaaf",
+   "number": "100%",
+   "line": "NIU lost the 1H · 10–0",
+   "text": "The Northern Illinois lost the 1H in 10 of 10 games this season."
+  },
+  "league_trend": {
+   "sport": "ncaaf",
+   "number": "78%",
+   "line": "Fade big underdogs · 1Q ML · 88–25",
+   "text": "Fade big underdogs 88–25 this season; tonight it fits Clemson at Duke and 34 more games.",
+   "id": "tier4:1q:ml:fade"
+  }
+ },
+ "week": "Week 12"
+}

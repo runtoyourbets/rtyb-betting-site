@@ -36,5 +36,61 @@
    "start": "2026-11-19T00:30:00Z",
    "trend": "MTL has gone Over 1.5"
   }
+ },
+ "2026-11-19": {
+  "all": {
+   "away": "por",
+   "chip": "MIL UNDER 1Q TOTAL · 14 OF 15",
+   "home": "mil",
+   "id": "401910020",
+   "sport": "nba",
+   "start": "2026-11-20T01:00Z",
+   "trend": "MIL has gone Under the 1st quarter total"
+  },
+  "nba": {
+   "away": "por",
+   "chip": "MIL UNDER 1Q TOTAL · 14 OF 15",
+   "home": "mil",
+   "id": "401910020",
+   "sport": "nba",
+   "start": "2026-11-20T01:00Z",
+   "trend": "MIL has gone Under the 1st quarter total"
+  },
+  "ncaab": {
+   "away": "little-rock-trojans",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 60% (195–128)",
+   "home": "jacksonville-dolphins",
+   "id": "401920878",
+   "sport": "ncaab",
+   "start": "2026-11-20T00:00Z",
+   "trend": "Fade teams off a blowout (1H ML)"
+  },
+  "ncaaf": {
+   "away": "northern-illinois-huskies",
+   "chip": "NIU LOST 1H · 10 OF 10",
+   "home": "north-dakota-state-bison",
+   "id": "401864543",
+   "sport": "ncaaf",
+   "start": "2026-11-21T21:00Z",
+   "trend": "NIU has lost the 1st half"
+  },
+  "nfl": {
+   "away": "pit",
+   "chip": "FADE BIG UNDERDOGS · 1H ML · 79% (23–6)",
+   "home": "phi",
+   "id": "401873076",
+   "sport": "nfl",
+   "start": "2026-11-22T18:00Z",
+   "trend": "Fade big underdogs (1H ML)"
+  },
+  "nhl": {
+   "away": "PHI",
+   "chip": "PHI BTTS NO 1P · 20 OF 24",
+   "home": "OTT",
+   "id": "2026020348",
+   "sport": "nhl",
+   "start": "2026-11-20T00:00:00Z",
+   "trend": "PHI has gone BTTS No"
+  }
  }
 }

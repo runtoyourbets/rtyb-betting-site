@@ -1,0 +1,1074 @@
+{
+ "sport": "College Basketball",
+ "segments": "1st half",
+ "date": "2026-11-19",
+ "games_on_the_slate": 36,
+ "lead_game": "Little Rock at Jacksonville",
+ "matchup_of_the_day": "Southern Utah at Texas",
+ "games": [
+  {
+   "id": "401920517",
+   "matchup": "Florida at West Virginia",
+   "away": {
+    "code": "FLA",
+    "name": "Florida"
+   },
+   "home": {
+    "code": "WVU",
+    "name": "West Virginia"
+   },
+   "start": "2:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "West Virginia have won the 1st half 5 straight",
+    "Florida 1st halves have gone Over 3 straight",
+    "Florida have won the 1st half 6 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "FLA": {
+       "open": -265,
+       "now": -292,
+       "best_book": "Caesars"
+      },
+      "WVU": {
+       "open": 240,
+       "now": 235,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "FLA": {
+       "open": -5.5,
+       "now": -5.5,
+       "price": -102,
+       "best_book": "FanDuel"
+      },
+      "WVU": {
+       "open": 5.5,
+       "now": 5.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401918959",
+   "matchup": "NC State at Murray State",
+   "away": {
+    "code": "NCSU",
+    "name": "NC State"
+   },
+   "home": {
+    "code": "MURR",
+    "name": "Murray State"
+   },
+   "start": "6:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "NC State 1st halves have gone Under 3 straight",
+    "Murray State 1st halves have gone Over 3 straight",
+    "Murray State have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "NCSU": {
+       "open": -158,
+       "now": -158,
+       "best_book": "FanDuel"
+      },
+      "MURR": {
+       "open": 135,
+       "now": 135,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "NCSU": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -120,
+       "best_book": "FanDuel"
+      },
+      "MURR": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": 100,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 76.5,
+      "now": 76.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401912211",
+   "matchup": "Mary Baldwin Fighting Squirrels at American University",
+   "away": {
+    "code": "MARY",
+    "name": "Mary Baldwin Fighting Squirrels"
+   },
+   "home": {
+    "code": "AMER",
+    "name": "American University"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [],
+   "lines": {}
+  },
+  {
+   "id": "401928812",
+   "matchup": "Berea Mountaineers at Northern Kentucky",
+   "away": {
+    "code": "BERE",
+    "name": "Berea Mountaineers"
+   },
+   "home": {
+    "code": "NKU",
+    "name": "Northern Kentucky"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [],
+   "lines": {}
+  },
+  {
+   "id": "401920878",
+   "matchup": "Little Rock at Jacksonville",
+   "away": {
+    "code": "LR",
+    "name": "Little Rock"
+   },
+   "home": {
+    "code": "JAX",
+    "name": "Jacksonville"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Little Rock have failed to cover the 1st half spread 3 straight",
+    "Little Rock 1st halves have gone Over 3 straight",
+    "Little Rock have lost the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920413",
+   "matchup": "Montana State at High Point",
+   "away": {
+    "code": "MTST",
+    "name": "Montana State"
+   },
+   "home": {
+    "code": "HPU",
+    "name": "High Point"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "High Point have won the 1st half 5 straight",
+    "Montana State 1st halves have gone Under 3 straight",
+    "High Point 1st halves have gone Under 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "MTST": {
+       "open": 310,
+       "now": 310,
+       "best_book": "DraftKings"
+      },
+      "HPU": {
+       "open": -445,
+       "now": -445,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "MTST": {
+       "open": 7.5,
+       "now": 7.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      },
+      "HPU": {
+       "open": -7.5,
+       "now": -7.5,
+       "price": -105,
+       "best_book": "TheScore US"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401927375",
+   "matchup": "Eureka Red Devils at Illinois State",
+   "away": {
+    "code": "EURE",
+    "name": "Eureka Red Devils"
+   },
+   "home": {
+    "code": "ILST",
+    "name": "Illinois State"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Illinois State 1st halves have gone Under 3 straight"
+   ],
+   "lines": {}
+  },
+  {
+   "id": "401929409",
+   "matchup": "Mayville State Comets at North Dakota",
+   "away": {
+    "code": "MAYV",
+    "name": "Mayville State Comets"
+   },
+   "home": {
+    "code": "UND",
+    "name": "North Dakota"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "North Dakota have won the 1st half 3 straight",
+    "North Dakota have covered the 1st half spread 4 straight"
+   ],
+   "lines": {}
+  },
+  {
+   "id": "401921028",
+   "matchup": "Georgia Southern at Houston Christian",
+   "away": {
+    "code": "GASO",
+    "name": "Georgia Southern"
+   },
+   "home": {
+    "code": "HCU",
+    "name": "Houston Christian"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Georgia Southern have covered the 1st half spread 3 straight",
+    "Houston Christian have won the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "GASO": {
+       "open": 124,
+       "now": 124,
+       "best_book": "DraftKings"
+      },
+      "HCU": {
+       "open": -160,
+       "now": -160,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "GASO": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -105,
+       "best_book": "Caesars"
+      },
+      "HCU": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401906867",
+   "matchup": "Southern Utah at Texas",
+   "away": {
+    "code": "SUU",
+    "name": "Southern Utah"
+   },
+   "home": {
+    "code": "TEX",
+    "name": "Texas"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Texas have won the 1st half 4 straight",
+    "Texas have covered the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "SUU": {
+       "open": 4000,
+       "now": 4000,
+       "best_book": "DraftKings"
+      },
+      "TEX": {
+       "open": -100000,
+       "now": -100000,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "SUU": {
+       "open": 21.5,
+       "now": 21.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      },
+      "TEX": {
+       "open": -21.5,
+       "now": -21.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 76.5,
+      "now": 76.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401918950",
+   "matchup": "Stetson at Louisville",
+   "away": {
+    "code": "STET",
+    "name": "Stetson"
+   },
+   "home": {
+    "code": "LOU",
+    "name": "Louisville"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Louisville have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "STET": {
+       "open": 3000,
+       "now": 3000,
+       "best_book": "DraftKings"
+      },
+      "LOU": {
+       "open": -20000,
+       "now": -20000,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "STET": {
+       "open": 19.5,
+       "now": 20.5,
+       "price": -120,
+       "best_book": "TheScore US"
+      },
+      "LOU": {
+       "open": -19.5,
+       "now": -20.5,
+       "price": -102,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 74.5,
+      "now": 74.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401930884",
+   "matchup": "Oregon State at Oregon",
+   "away": {
+    "code": "ORST",
+    "name": "Oregon State"
+   },
+   "home": {
+    "code": "ORE",
+    "name": "Oregon"
+   },
+   "start": "9:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Oregon State 1st halves have gone Over 4 straight",
+    "Oregon State have won the 1st half 5 straight",
+    "Oregon have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "ORST": {
+       "open": 100,
+       "now": 100,
+       "best_book": "DraftKings"
+      },
+      "ORE": {
+       "open": -130,
+       "now": -130,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "ORST": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -105,
+       "best_book": "Caesars"
+      },
+      "ORE": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 76.5,
+      "now": 76.5,
+      "over": -115,
+      "under": -115,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401911534",
+   "matchup": "UTEP at New Mexico State",
+   "away": {
+    "code": "UTEP",
+    "name": "UTEP"
+   },
+   "home": {
+    "code": "NMSU",
+    "name": "New Mexico State"
+   },
+   "start": "9:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "New Mexico State have covered the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "UTEP": {
+       "open": 105,
+       "now": 105,
+       "best_book": "DraftKings"
+      },
+      "NMSU": {
+       "open": -135,
+       "now": -135,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "UTEP": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -105,
+       "best_book": "Caesars"
+      },
+      "NMSU": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 64.5,
+      "now": 63.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401918056",
+   "matchup": "East Texas A&M at California",
+   "away": {
+    "code": "ETAM",
+    "name": "East Texas A&M"
+   },
+   "home": {
+    "code": "CAL",
+    "name": "California"
+   },
+   "start": "10:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "East Texas A&M have failed to cover the 1st half spread 3 straight",
+    "California have failed to cover the 1st half spread 4 straight",
+    "California have lost the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "ETAM": {
+       "open": 340,
+       "now": 340,
+       "best_book": "DraftKings"
+      },
+      "CAL": {
+       "open": -500,
+       "now": -500,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "ETAM": {
+       "open": 7.5,
+       "now": 7.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "CAL": {
+       "open": -7.5,
+       "now": -7.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 69.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920349",
+   "matchup": "Sacramento State at Stanford",
+   "away": {
+    "code": "SAC",
+    "name": "Sacramento State"
+   },
+   "home": {
+    "code": "STAN",
+    "name": "Stanford"
+   },
+   "start": "10:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "195–128",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "150–111",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "117–89",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Stanford 1st halves have gone Over 3 straight"
+   ],
+   "lines": {}
+  }
+ ],
+ "trends_page": "/college-basketball/trends/",
+ "teams": {
+  "AMER": {
+   "name": "American University",
+   "rates": []
+  },
+  "CAL": {
+   "name": "California",
+   "rates": []
+  },
+  "ETAM": {
+   "name": "East Texas A&M",
+   "rates": []
+  },
+  "EURE": {
+   "name": "Eureka Red Devils",
+   "rates": []
+  },
+  "MARY": {
+   "name": "Mary Baldwin Fighting Squirrels",
+   "rates": []
+  },
+  "BERE": {
+   "name": "Berea Mountaineers",
+   "rates": []
+  },
+  "MAYV": {
+   "name": "Mayville State Comets",
+   "rates": []
+  },
+  "FLA": {
+   "name": "Florida",
+   "rates": []
+  },
+  "GASO": {
+   "name": "Georgia Southern",
+   "rates": []
+  },
+  "HPU": {
+   "name": "High Point",
+   "rates": []
+  },
+  "HCU": {
+   "name": "Houston Christian",
+   "rates": []
+  },
+  "ILST": {
+   "name": "Illinois State",
+   "rates": []
+  },
+  "JAX": {
+   "name": "Jacksonville",
+   "rates": []
+  },
+  "LR": {
+   "name": "Little Rock",
+   "rates": []
+  },
+  "LOU": {
+   "name": "Louisville",
+   "rates": []
+  },
+  "MTST": {
+   "name": "Montana State",
+   "rates": []
+  },
+  "MURR": {
+   "name": "Murray State",
+   "rates": []
+  },
+  "NCSU": {
+   "name": "NC State",
+   "rates": []
+  },
+  "NMSU": {
+   "name": "New Mexico State",
+   "rates": []
+  },
+  "UND": {
+   "name": "North Dakota",
+   "rates": []
+  },
+  "NKU": {
+   "name": "Northern Kentucky",
+   "rates": []
+  },
+  "ORE": {
+   "name": "Oregon",
+   "rates": []
+  },
+  "ORST": {
+   "name": "Oregon State",
+   "rates": []
+  },
+  "SAC": {
+   "name": "Sacramento State",
+   "rates": []
+  },
+  "SUU": {
+   "name": "Southern Utah",
+   "rates": []
+  },
+  "STAN": {
+   "name": "Stanford",
+   "rates": []
+  },
+  "STET": {
+   "name": "Stetson",
+   "rates": []
+  },
+  "TEX": {
+   "name": "Texas",
+   "rates": []
+  },
+  "UTEP": {
+   "name": "UTEP",
+   "rates": []
+  },
+  "WVU": {
+   "name": "West Virginia",
+   "rates": []
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H ML",
+   "record": "195–128",
+   "pct": "60%",
+   "games": 323,
+   "fits_tonight": [
+    "Florida at West Virginia",
+    "Mary Baldwin Fighting Squirrels at American University",
+    "Montana State at High Point",
+    "Little Rock at Jacksonville",
+    "Berea Mountaineers at Northern Kentucky",
+    "Southern Utah at Texas",
+    "Stetson at Louisville",
+    "Eureka Red Devils at Illinois State",
+    "Mayville State Comets at North Dakota",
+    "UTEP at New Mexico State",
+    "East Texas A&M at California",
+    "Sacramento State at Stanford"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "1H Spread",
+   "record": "150–111",
+   "pct": "57%",
+   "games": 261,
+   "fits_tonight": [
+    "Mary Baldwin Fighting Squirrels at American University",
+    "Montana State at High Point",
+    "Little Rock at Jacksonville",
+    "Berea Mountaineers at Northern Kentucky",
+    "Southern Utah at Texas",
+    "Stetson at Louisville",
+    "Georgia Southern at Houston Christian",
+    "Eureka Red Devils at Illinois State",
+    "Mayville State Comets at North Dakota",
+    "UTEP at New Mexico State",
+    "East Texas A&M at California",
+    "Sacramento State at Stanford"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H Spread",
+   "record": "117–89",
+   "pct": "57%",
+   "games": 206,
+   "fits_tonight": [
+    "Florida at West Virginia",
+    "Mary Baldwin Fighting Squirrels at American University",
+    "Montana State at High Point",
+    "Little Rock at Jacksonville",
+    "Berea Mountaineers at Northern Kentucky",
+    "Southern Utah at Texas",
+    "Stetson at Louisville",
+    "Eureka Red Devils at Illinois State",
+    "Mayville State Comets at North Dakota",
+    "UTEP at New Mexico State",
+    "East Texas A&M at California",
+    "Sacramento State at Stanford"
+   ]
+  }
+ ],
+ "edge_plays": [
+  {
+   "game": "Southern Utah at Texas",
+   "bet": "SUU 1H ML",
+   "line": null,
+   "best_price": "+4000",
+   "book": "DraftKings",
+   "tier": "C",
+   "rates_behind_it": []
+  },
+  {
+   "game": "East Texas A&M at California",
+   "bet": "ETAM 1H ML",
+   "line": null,
+   "best_price": "+340",
+   "book": "DraftKings",
+   "tier": "C",
+   "rates_behind_it": []
+  }
+ ],
+ "boxes": {
+  "league_trend": {
+   "sport": "ncaab",
+   "number": "60%",
+   "line": "Fade teams off a blowout · 1H ML · 195–128",
+   "text": "Fade teams off a blowout 195–128 this season; tonight it fits Florida at West Virginia and 12 more games.",
+   "id": "off_loss3:1h:ml:fade"
+  },
+  "edge_play": {
+   "sport": "ncaab",
+   "number": "TARL 1H ML",
+   "bet": "TARL 1H ML",
+   "price": "+1600",
+   "book": "FanDuel",
+   "line": "TARL 1H ML · best +1600 at FanDuel",
+   "text": "Tarleton State at USC: the top Edge play is TARL 1H ML."
+  }
+ }
+}
