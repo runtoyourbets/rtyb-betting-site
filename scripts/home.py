@@ -6,10 +6,10 @@ build time from the same data every sport page uses: NHL's merged data
 Static -- the refresh job rebuilds them every run.
 
 Sections, top to bottom: nav, then the shared front sections
-(scripts/front.py sections, also on every Arena hub): the slogan line, On
-Tap (or Yesterday's Best, large), Yesterday's Best, The Slate, Matchup of
-the Day, Hottest Trends, Team to Watch, Biggest Line Move, Get the Running
-Tab, Yesterday's Results, then Betting Guides (3 guides); footer. Every
+(scripts/front.py sections, also on every Arena hub): the brand H1 (hubs:
+the slogan line), On Tap (or Yesterday's Best, large), Yesterday's Best, The Slate, Matchup of
+the Day, Hottest Trends, Streak to Watch, Biggest Line Move, Get the Running
+Tab (hubs only), Yesterday's Results, then Betting Guides (3 guides); footer. Every
 list of sports comes from sports.LAUNCHED (in season). Also writes
 /matchups/, /odds/ and /trends/ (scripts/front.py index pages) and /picks/
 (the Premium shell while sports.PICKS_LIVE is False).
@@ -188,7 +188,7 @@ def nav_html(status, depth='', current=None):
 FOOTER = '''
 <footer class="hf">
   <div class="hf-inner">
-    <div class="ft-signup"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and what&rsquo;s on tap.</p><!--signup:footer--></div>
+    <div class="ft-signup" id="premium"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and what&rsquo;s on tap.</p><!--signup:footer--></div>
     <p class="hf-rg"><b>21+ only.</b> Gambling problem? Call <a href="tel:18004262537">1-800-GAMBLER</a>. Please bet responsibly.</p>
     <p class="hf-small">RTYB &mdash; Run to Your Bets is for information and entertainment. Not affiliated with any league or sportsbook.
     Records and units are for tracking only; past results don&rsquo;t predict future ones.</p>

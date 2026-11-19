@@ -66,6 +66,7 @@ figures on the body. No mono font. No bold numbers: emphasis is color and fill.
 
 | Token | Use | Font | Weight | Size |
 |---|---|---|---|---|
+| hero | Home page brand H1 only | Barlow Condensed | 700 | 40px (30px phone) |
 | title | Page title | Barlow Condensed | 700 | 32px (26px phone) |
 | section | Section heading | Barlow Condensed | 700 | 20px (18px phone) |
 | team | Card title, team names, segment scores next to teams | Source Sans 3 | 600 | 15px |

@@ -154,6 +154,13 @@ class HotTrendsTest(unittest.TestCase):
                  card('third', 5, [('4', 'home')], mk='ats', angle='e')]
         self.assertEqual(self.hot(cards, games), ['a', 'other_mk', 'third', 'same_mk'])
 
+    def test_left_drops_started_games(self):
+        # Hottest Trends on home and hubs: only games still to start
+        games = [nba_game('1', start='2026-11-17T21:00:00Z'), nba_game('2')]
+        S = FakeSport('nba', {'2026-11-17': games})
+        S.trends = {'slates': {'2026-11-17': {'cards': [card('gone', 9, [('1', 'home')]), card('left', 5, [('2', 'home')], seg='1q')]}}}
+        self.assertEqual([c['id'] for _, c, _, _ in front.hot_cards({'nba': S}, self.NOW, left=True)], ['left'])
+
 
 class LineMoveTest(unittest.TestCase):
     def test_biggest_move_not_started(self):
@@ -165,7 +172,10 @@ class LineMoveTest(unittest.TestCase):
                  '3': ({'away': 300, 'home': -400}, {'away': -200, 'home': 170})}   # started: left out
         S.odds_game = lambda d, g: {'open': {'1h': {'ml': moves[g['id']][0]}}, 'best': {'1h': {'ml': moves[g['id']][1]}}}
         html = front.line_move({'nba': S}, now)
-        self.assertIn('1H moneyline opened <span class="mono">+100</span>, now <span class="mono">-118</span>', html)
+        self.assertIn('1H moneyline opened <span class="mono">+100</span>, now <span class="mono">-118</span>, moving toward A', html)
+        self.assertIn('See all odds', html)
+        # the next-biggest move waits, hidden, to take over when game 1 starts
+        self.assertEqual(html.count('data-move="today"'), 2)
         self.assertEqual(front.line_move({'nba': FakeSport('nba', {})}, now), '')
 
 

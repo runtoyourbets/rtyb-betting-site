@@ -21,6 +21,9 @@ __THEME_HEAD__
     --fs-num: 14px;     --fw-num: 500;
     --fs-price: 13px;   --fw-price: 400;
     --fs-label: 11px;   --fw-label: 600;  --ls-label: 0.6px;
+    --fs-hero: 40px;    /* the home page's brand H1 (Barlow Condensed, --fw-title) */
+    /* solid unit pills (Yesterday's Results): the same in both themes, dark text */
+    --pill-good: #4ADE80; --pill-bad: #F87171; --pill-push: #FACC15; --pill-ink: #0B0F15;
     --cell-gap: 8px;
     --cell-min-h: 48px;
     --cell-pad: 4px 6px;
@@ -35,7 +38,7 @@ __THEME_HEAD__
     --card-radius: 14px;
     --section-gap: 24px;   /* phones: between home and hub sections, the hero and the Slate included */
   }
-  @media (max-width: 640px) { :root { --fs-title: 26px; --fs-section: 18px; } }
+  @media (max-width: 640px) { :root { --fs-title: 26px; --fs-section: 18px; --fs-hero: 30px; } }
   .t-title { font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); }
   .t-section { font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); }
   .t-team { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
@@ -2116,6 +2119,14 @@ __THEME_HEAD__
   /* The Slate: header, date, pills, then cards (the Stats card and its title bar) */
   .sl-headline { display: grid; gap: 2px; margin-bottom: 12px; }
   .sl-headline h2 { margin: 0; }
+  /* The Slate's header: the title is the biggest text, the date under it;
+     the live chip "Next up · 14 min" at the right end of the title line */
+  .sl-headline .sl-date { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); text-transform: none; color: var(--text-muted); }
+  .sl-headline .sl-title { justify-content: space-between; align-items: center; flex-wrap: nowrap; }
+  .sl-next { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; padding: 3px 10px; border: 1px solid var(--card-border); border-radius: 999px; background: var(--panel); white-space: nowrap; }
+  .sl-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); animation: sl-pulse 1.6s ease-in-out infinite; }
+  @keyframes sl-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.75); } }
+  @media (prefers-reduced-motion: reduce) { .sl-dot { animation: none; } }
   .sl-date { font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); text-transform: uppercase; line-height: 1.05; color: var(--text); }
   .sl-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
   .sl-card { color: var(--text); text-decoration: none; }
@@ -2161,6 +2172,8 @@ __THEME_HEAD__
     .fv { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); column-gap: 24px; align-items: start;
       grid-template-rows: auto auto 1fr auto auto auto auto;
       grid-template-areas: "slogan slogan" "hero yb" "hero tab" "slate slate" "motd pair" "trends trends" "results learn"; }
+    /* home: no Running Tab card, the hero takes its row */
+    .fv.fv-home { grid-template-rows: none; grid-template-areas: "slogan slogan" "hero hero" "yb yb" "slate slate" "motd pair" "trends trends" "results learn"; }
     .fv-slogan { grid-area: slogan; } .fv-hero { grid-area: hero; } .fv-yb { grid-area: yb; } .fv-tab { grid-area: tab; }
     .fv-slate { grid-area: slate; } .fv-motd { grid-area: motd; } .fv-pair { grid-area: pair; } .fv-trends { grid-area: trends; }
     .fv-results { grid-area: results; } .fv-learn { grid-area: learn; }
@@ -2168,6 +2181,12 @@ __THEME_HEAD__
     .fv-learn .hl-grid { grid-template-columns: 1fr; }
     .fv-yb .fr-sec, .fv-tab .fr-sec, .fv-pair .fr-sec { padding-top: 20px; }
   }
+  /* the home page's H1: "RUN TO YOUR BETS" above three brand lines */
+  .fr-kicker { margin: 14px 0 4px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .fr-big { margin: 0; font-family: var(--ff-display); font-size: var(--fs-hero); font-weight: var(--fw-title); line-height: 0.98; letter-spacing: 0.01em; color: var(--text); }
+  .fr-line { display: block; }
+  .fr-b1 { color: var(--accent); }
+  .fr-b2 { color: var(--gold); }
   .fr-slogan { margin: 14px 0 0; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .ot-card { display: flex; flex-direction: column; gap: 8px; background: var(--title-bg); border: 1px solid var(--card-border); border-radius: var(--card-radius); padding: 22px var(--card-pad-x); color: var(--text); text-decoration: none; }
   .ot-card:hover { border-color: var(--accent); }
@@ -2178,7 +2197,7 @@ __THEME_HEAD__
   .ot-more { color: var(--accent); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .yb-big { display: flex; flex-direction: column; gap: 8px; padding: 22px var(--card-pad-x); }
   .sl-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .sl-next { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .sl-next { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text); }
   .sl-next[hidden] { display: none; }
   .ht-card .st-head h4 { justify-content: space-between; flex-wrap: nowrap; }
   .ht-card .info-tip .tip-bubble { width: 280px; text-transform: none; letter-spacing: 0; }
@@ -2194,6 +2213,31 @@ __THEME_HEAD__
   .mo-list { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 4px; }
   .mo-list li { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border-soft); padding-top: 5px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .tw-main { display: flex; align-items: center; gap: 16px; }
+  .mo-name, .tw-name, .tw-opp { text-decoration: none; }
+  .mo-name, .tw-name { display: block; }
+  a.mo-name:hover, a.tw-name:hover, a.tw-opp:hover, .lm-card h4 a:hover { color: var(--accent); }
+  .tw-opp, .lm-card h4 a { color: inherit; text-decoration: none; }
+  .tw-logo, .mo-logo { display: inline-flex; }
+  .mo-recs { margin: 0 0 10px; text-align: center; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .mo-chip { display: inline-block; margin: 0 0 8px; padding: 2px 9px; border-radius: 999px; background: var(--title-bg); color: var(--title-text); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
+  .mo-left .sl-grid, .mo-left .sl-rows { margin-top: 4px; }
+  @media (min-width: 900px) {
+    .mo-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    .mo-right { border-left: 1px solid var(--border-soft); padding-left: 24px; }
+  }
+  /* Hottest Trends: units green / red / yellow (CLAUDE.md color rule); the date under the title */
+  .ht-rec .pos { color: var(--good); }
+  .ht-rec .neg { color: var(--bad); }
+  .ht-rec .mid { color: var(--push); }
+  .fr-stack { display: grid; gap: 2px; }
+  .ht-card[hidden], .tr-row[hidden], [data-hot][hidden], [data-moves][hidden], .lm-card[hidden] { display: none; }
+  /* Yesterday's Results: solid unit pills, labels in the main text color */
+  .fr-res .ds-label { color: var(--text); }
+  .fr-res .u-pill { color: var(--pill-ink); }
+  .fr-res .u-pos1, .fr-res .u-pos2 { background: var(--pill-good); }
+  .fr-res .u-neg1, .fr-res .u-neg2 { background: var(--pill-bad); }
+  .fr-res .u-mid, .fr-res .u-zero { background: var(--pill-push); }
+  .fr-res .u-none { background: none; color: var(--text-muted); }
   .tw-copy { min-width: 0; }
   .tw-next .fr-more { font-size: var(--fs-price); }
   .lm-line .tlogo, .lm-line .team-badge { vertical-align: middle; margin-right: 4px; }
