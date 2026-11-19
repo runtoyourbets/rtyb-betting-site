@@ -201,7 +201,7 @@
   
 
   
-  <div class="hub-front"><div class="fv"><div class="fv-slogan"><p class="fr-slogan">The first inning &middot; The first five innings</p></div><div class="fv-slate"><section class="fr-sec sl" id="slate" data-slate data-tab="mlb" data-today="2026-11-18" data-shown="3"><div class="sl-headline"><div class="sl-title"><h2>The Slate</h2><span class="sl-next" data-next hidden></span></div><span class="sl-date">Wed, Nov 18</span></div><div class="sl-cards"></div><p class="fr-empty" data-empty hidden>No more games on the board today.</p><div class="fr-links"><a class="fr-more" href="../mlb/matchups/" data-tab="mlb">MLB Matchups &rarr;</a></div></section></div><div class="fv-trends"><section class="fr-sec" id="trends"><div class="fr-head"><h2>Hottest Trends</h2></div><p class="fr-empty">No trends with games today.</p><div class="fr-links"><a class="fr-more" href="../mlb/trends/">More trends &rarr;</a></div></section></div><div class="fv-tab"><section class="fr-sec rt" id="premium"><div class="st-card rt-card"><h2>Get the Running Tab</h2><p class="rt-line">Free newsletter: last night&rsquo;s results, tonight&rsquo;s spots. Readers hear first when Premium launches.</p><div class="rt-signup" id="signup-tab"><div class="rt-form"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="b098ab61-d396-49f3-b728-65bdf6b509d0"></script></div><p class="rt-done" role="status">You&rsquo;re on the Running Tab list. New signup? Check your inbox to confirm.</p></div></div></section></div></div>
+  <div class="hub-front"><div class="fv"><div class="fv-slogan"><p class="fr-slogan">The first inning &middot; The first five innings</p></div><div class="fv-slate"><section class="fr-sec sl" id="slate" data-slate data-tab="mlb" data-today="2026-11-18" data-shown="3"><div class="sl-headline"><div class="sl-title"><h2>The Slate</h2><span class="sl-next" data-next hidden><i class="sl-dot" aria-hidden="true"></i><span data-next-text></span></span></div><span class="sl-date">Wed, Nov 18</span></div><div class="sl-cards"></div><p class="fr-empty" data-empty hidden>No more games on the board today.</p><div class="fr-links"><a class="fr-more" href="../mlb/matchups/" data-tab="mlb">MLB Matchups &rarr;</a></div></section></div><div class="fv-tab"><section class="fr-sec rt" id="premium"><div class="st-card rt-card"><h2>Get the Running Tab</h2><p class="rt-line">Free newsletter: last night&rsquo;s results, tonight&rsquo;s spots. Readers hear first when Premium launches.</p><div class="rt-signup" id="signup-tab"><div class="rt-form"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="b098ab61-d396-49f3-b728-65bdf6b509d0"></script></div><p class="rt-done" role="status">You&rsquo;re on the Running Tab list. New signup? Check your inbox to confirm.</p></div></div></section></div></div>
 <script>
 (function() {
   'use strict';
@@ -222,13 +222,13 @@
     var empty = sec.querySelector('[data-empty]');
     if (empty) empty.hidden = keep.length > 0;
     sec.querySelectorAll('.fr-links [data-tab]').forEach(function(a) { a.hidden = a.getAttribute('data-tab') !== tab; });
-    // "Next up in 1h 40m": the tab's next start today; hidden when none is left today
+    // the live chip "Next up · 14 min": the tab's next start today; hidden when none is left today
     var next = sec.querySelector('[data-next]'), left = mine.filter(function(c) { return c.getAttribute('data-day') === today; });
     if (next) {
       var t = left.length ? Math.min.apply(null, left.map(function(c) { return Date.parse(c.getAttribute('data-start')); })) : NaN;
       var mins = Math.max(1, Math.ceil((t - now()) / 60000));
       next.hidden = isNaN(t);
-      if (!isNaN(t)) next.textContent = 'Next up in ' + (mins >= 60 ? Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm' : mins + 'm');
+      if (!isNaN(t)) next.querySelector('[data-next-text]').textContent = 'Next up \u00b7 ' + (mins >= 60 ? Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm' : mins + ' min');
     }
   }
   function pick(group, v) {
@@ -278,6 +278,39 @@
   }
   rows();
   setInterval(rows, 60000);
+  // Hottest Trends: rows only for games still to start; a trend whose games
+  // have all started drops off and the next moves up; none left today: the
+  // next game day's (data-group 1), dated that day
+  function hot(sec) {
+    var n = +sec.getAttribute('data-shown') || 3, r = +sec.getAttribute('data-rows') || 3;
+    var cards = [].slice.call(sec.querySelectorAll('.ht-card'));
+    var alive = cards.filter(function(c) {
+      var all = [].slice.call(c.querySelectorAll('.fr-trow')), left = all.filter(function(x) { return !isOn(x); }).slice(0, r);
+      all.forEach(function(x) { x.hidden = left.indexOf(x) === -1; });
+      return left.length > 0;
+    });
+    var g = alive.some(function(c) { return c.getAttribute('data-group') === '0'; }) ? '0' : '1';
+    var keep = alive.filter(function(c) { return c.getAttribute('data-group') === g; }).slice(0, n);
+    cards.forEach(function(c) { c.hidden = keep.indexOf(c) === -1; });
+    sec.hidden = !keep.length;
+    var d = sec.querySelector('[data-hot-date]');
+    if (d && keep.length) d.textContent = keep.map(function(c) { return c.getAttribute('data-label'); }).filter(function(l) { return l !== 'This week'; })[0] || 'This week';
+  }
+  // Biggest Line Move: the biggest move among games still to start; once it
+  // starts, the next; tomorrow's only when every game today has started
+  function move(sec) {
+    var last = Date.parse(sec.getAttribute('data-last') || '');
+    var items = [].slice.call(sec.querySelectorAll('[data-move]'));
+    var keep = items.filter(function(c) { return !isOn(c) && (c.getAttribute('data-move') === 'today' || isNaN(last) || last <= now()); })[0];
+    items.forEach(function(c) { c.hidden = c !== keep; });
+    sec.hidden = !keep;
+  }
+  function live() {
+    document.querySelectorAll('[data-hot]').forEach(hot);
+    document.querySelectorAll('[data-moves]').forEach(move);
+  }
+  live();
+  setInterval(live, 60000);
 })();
 </script></div><div id="sportApp" data-section="hub"><div class="no-games-note">Loading&hellip;</div><noscript>This page needs JavaScript.</noscript></div>
   
