@@ -1712,7 +1712,7 @@
   // Redraft / Draft now: the Worker starts the drafting job (about 2
   // minutes); this checks every 20 seconds until the draft is back.
   function startDraft(sport, day, path, written, btn, st) {
-    callWorker('/content/redraft', { sport: sport, date: day }, st, btn, 'Starting', 'Redrafting…')
+    callWorker('/content/redraft', { sport: sport, date: day }, st, btn, 'Starting', written === undefined ? 'Drafting…' : 'Redrafting…')
       .then(function() {
         btn.disabled = true;
         var tries = 0;
