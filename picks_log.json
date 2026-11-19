@@ -9870,8 +9870,8 @@
      ]
     ],
     "info": "Jazz avg 1Q margin on the road: -0.6",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Jazz"
    },
    {
@@ -9958,8 +9958,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Jazz"
    },
    {
