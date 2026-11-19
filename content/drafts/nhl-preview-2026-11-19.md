@@ -3,67 +3,67 @@ title: "NHL First Period Betting Preview — Nov 19, 2026"
 sport: nhl
 kind: preview
 date: 2026-11-19
-written: 2026-11-19T13:09Z
+written: 2026-11-19T14:55Z
 model: claude-opus-5-5
-check: []
+check: ["72"]
 lead: nhl:2026020348
 motd: nhl:2026020355
-stat_of_night: {"sport": "nhl", "number": "100%", "line": "EDM had a team held scoreless in the 1P · 11–0 on the road", "text": "Edmonton Oilers road 1st periods have had a team held scoreless 100% (11–0) in 11 games, and tonight they're at the Tampa Bay Lightning."}
-league_trend: {"sport": "nhl", "number": "78%", "line": "Fade big underdogs · 1P ML · 18–5", "text": "Fading big 1st-period underdogs is 78% (18–5) in 23 games, and it fits Montreal Canadiens at Carolina Hurricanes and Minnesota Wild at Calgary Flames.", "id": "tier4:1p:ml:fade"}
-edge_play: {"sport": "nhl", "number": "NYI 1P ML", "bet": "NYI 1P ML", "price": "-106", "book": "Caesars", "line": "NYI 1P ML · best -106 at Caesars", "text": "The New York Islanders have won the 1st period 62% (10–6) in 16 games, while the Winnipeg Jets have won it just 23% (3–10) in 13."}
+stat_of_night: {"sport": "nhl", "number": "100%", "line": "EDM had a team held scoreless in the 1P · 11–0 on the road", "text": "The Edmonton Oilers have had a team held scoreless in the first period in all 11 road games, and they visit the Tampa Bay Lightning tonight."}
+league_trend: {"sport": "nhl", "number": "78%", "line": "Fade big underdogs · 1P ML · 18–5", "text": "Fading big first-period underdogs has cashed 78% (18–5); it fits Montreal Canadiens at Carolina Hurricanes and Minnesota Wild at Calgary Flames.", "id": "tier4:1p:ml:fade"}
+edge_play: {"sport": "nhl", "number": "NYI 1P ML", "bet": "NYI 1P ML", "price": "-106", "book": "Caesars", "line": "NYI 1P ML · best -106 at Caesars", "text": "The New York Islanders have won the first period 62% (10–6); the Winnipeg Jets have lost it 77% (10–3)."}
 ---
-# Flyers at Senators: Two Teams That Rarely Both Score Early
+# Philadelphia Flyers, Ottawa Senators Rarely Both Score in the First Period
 
-> The Philadelphia Flyers and Ottawa Senators bring some of the slate's quietest 1st periods to a 7:00 PM ET start.
+> Both teams to score (BTTS) No has been the Flyers' first-period story, and the Senators fit the same mold.
 
-The night starts in Ottawa. The Philadelphia Flyers have had both teams score in the 1st period just 17% (4–20) in 24 games. The Ottawa Senators sit at 27% (6–16) in 22 games. Senators 1st periods have gone BTTS No 4 straight.
+The NHL has 12 games tonight, and Philadelphia Flyers at Ottawa Senators sets the tone. The Flyers have gone BTTS No in the first period 83% (20–4). That's the stingiest opener on the board.
 
-There are 12 games on the NHL slate, and the BTTS No numbers show up everywhere. The Minnesota Wild 1st periods have gone BTTS No 8 straight. The Carolina Hurricanes are on 7 straight.
+The same theme runs through the slate. BTTS No streaks show up from Carolina to Dallas. The Minnesota Wild at Calgary Flames is the Matchup of the Day, and the Wild come in hot.
 
 ### Sabres at Capitals · 7:00 PM ET
 
-This one leans the other way. The Washington Capitals have gone Over the 1P total 74% (14–5) in 19 games, and 75% (9–3) in 12 at home. Capitals 1st periods have gone Over 1.5 3 straight and BTTS Yes 3 straight. The Buffalo Sabres have had both teams score 64% (7–4) in 11 road games. The Over 1.5 is -152 at Caesars.
+The Washington Capitals have gone Over 1.5 in the first period at home 75% (9–3). The Buffalo Sabres have done it on the road 64% (7–4). Capitals first periods have gone Over 1.5 3 straight. The Over is where the numbers stack.
 
 ### Kings at Maple Leafs · 7:00 PM ET
 
-The Toronto Maple Leafs have won the 1st period at home only 27% (3–8) in 11 games. Maple Leafs 1st periods have gone Under 1.5 3 straight and BTTS No 3 straight. The Los Angeles Kings have had both teams score just 32% (6–13) in 19 games. The Kings moved from -104 to -108, and the Leafs drifted from -115 to -107.
+The Los Angeles Kings have gone BTTS No in the first period 68% (13–6). The Toronto Maple Leafs have gone BTTS No at home 71% (10–4). Leafs first periods have gone BTTS No 3 straight. BTTS No is where the numbers stack.
 
 ### Canadiens at Hurricanes · 7:00 PM ET
 
-The Carolina Hurricanes have won the 1st period 4 straight. Their 1st periods have gone Over 1.5 4 straight and BTTS No 7 straight. Carolina has had both teams score just 24% (5–16) in 21 games. The Montreal Canadiens have gone Over 73% (8–3) in 11 road games. Carolina climbed from -190 to -200.
+The Carolina Hurricanes have gone BTTS No in the first period 76% (16–5). They've done it 7 straight. They've also won the first period 4 straight. BTTS No is where the numbers point, with Carolina on the side.
 
 ### Islanders at Jets · 7:00 PM ET
 
-The New York Islanders have won the 1st period 3 straight. Jets 1st periods have gone BTTS No 5 straight. The Winnipeg Jets have had both teams score only 23% (5–17) in 22 games. The Islanders moved from +100 to -106. Fading teams off a loss is 59% (67–47) in 114 games, and it fits here.
+The Winnipeg Jets have gone BTTS No in the first period 77% (17–5). The New York Islanders sit at 70% (14–6). Jets first periods have gone BTTS No 5 straight. BTTS No is where the numbers stack.
 
 ### Flyers at Senators · 7:00 PM ET
 
-The Philadelphia Flyers have lost the 1st period 3 straight. They've won it just 23% (3–10) in 13 games as underdogs. Backing big 1P favorites is 66% (53–27) in 80 games, with the Ottawa Senators at -154. The Flyers have gone Over 25% (3–9) in 12 road games. The Under 1.5 is +104.
+The Ottawa Senators have gone BTTS No in the first period 73% (16–6). They've done it 4 straight. The Philadelphia Flyers have lost the first period as underdogs 77% (10–3). BTTS No is where the numbers stack, with Ottawa the side.
 
 ### Blues at Penguins · 7:00 PM ET
 
-Penguins 1st periods have gone Under 1.5 3 straight and BTTS No 3 straight. The St. Louis Blues have had both teams score only 29% (6–15) in 21 games. The Pittsburgh Penguins have won the 1st period 38% (6–10) in 16 games. Backing road favorites is 57% (44–33) in 77 games, and the Blues are -112.
+The St. Louis Blues have gone BTTS No in the first period 71% (15–6). The Pittsburgh Penguins have gone BTTS No 60% (12–8). Penguins first periods have gone BTTS No 3 straight. BTTS No is where the numbers point.
 
 ### Oilers at Lightning · 7:30 PM ET
 
-The Edmonton Oilers have won the 1st period 80% (12–3) in 15 games. They've had both teams score just 22% (5–18) in 23. Oilers 1st periods have gone BTTS No 5 straight. The Tampa Bay Lightning have gone Over 81% (17–4) in 21 games. As favorites, Tampa Bay has had both teams score 28% (5–13) in 18.
+The Tampa Bay Lightning have gone Over 1.5 in the first period 81% (17–4). The Edmonton Oilers have gone BTTS No 78% (18–5). As favorites, the Lightning have gone BTTS No 72% (13–5). The numbers point to goals from one side: Over 1.5 and BTTS No both line up.
 
 ### Blue Jackets at Blackhawks · 8:00 PM ET
 
-The Chicago Blackhawks have won the 1st period 29% (5–12) in 17 games. They've also gone Over 67% (14–7) in 21. The Columbus Blue Jackets have gone Over 63% (12–7) in 19. Three ML trends fit this game, with Columbus at -137.
+The Chicago Blackhawks have lost the first period 71% (12–5). They've gone Over 1.5 67% (14–7). The Columbus Blue Jackets have gone Over 1.5 63% (12–7). Columbus on the side and the Over are where the numbers stack.
 
-### Wild at Flames · 8:00 PM ET
+### Wild at Flames · 8:00 PM ET · Matchup of the Day
 
-The Minnesota Wild have won the 1st period 83% (10–2) in 12 games as favorites. They've won it 3 straight. On the road, Minnesota has had both teams score just 20% (3–12) in 15 games. The Calgary Flames have gone Over 73% (8–3) in 11 home games. The Wild moved from -162 to -170.
+The Minnesota Wild have won the first period as favorites 83% (10–2). On the road, they've gone BTTS No 80% (12–3). Wild first periods have gone BTTS No 8 straight. Minnesota and BTTS No are where the numbers stack.
 
 ### Ducks at Avalanche · 9:00 PM ET
 
-The Anaheim Ducks have gone Over 73% (8–3) in 11 road games. The Colorado Avalanche have gone Over 68% (15–7) in 22. Avalanche 1st periods have gone BTTS No 3 straight. Colorado has won the 1st period only 45% (5–6) in 11 games as favorites. The Avalanche slid from -136 to -129. The Over 1.5 is -145 at DraftKings.
+The Anaheim Ducks have gone Over 1.5 in the first period on the road 73% (8–3). The Colorado Avalanche have gone Over 1.5 68% (15–7). The Over is where the numbers point.
 
 ### Canucks at Kraken · 9:40 PM ET
 
-The Seattle Kraken have lost the 1st period 4 straight. They've still gone Over 78% (14–4) in 18 games. Kraken 1st periods have gone Over 1.5 3 straight and BTTS No 4 straight. The Vancouver Canucks have won the 1st period 31% (5–11) in 16 games. They've gone Over 69% (9–4) in 13 road games.
+The Seattle Kraken have gone Over 1.5 in the first period 78% (14–4). The Vancouver Canucks have done it on the road 69% (9–4). Kraken first periods have gone Over 1.5 3 straight. The Over is where the numbers stack.
 
 ### Stars at Golden Knights · 10:00 PM ET
 
-The Dallas Stars have gone Over just 33% (7–14) in 21 games. They've had both teams score 24% (5–16) in 21. Stars 1st periods have gone Under 1.5 3 straight and BTTS No 4 straight. The Vegas Golden Knights have gone Over 69% (9–4) in 13 home games. The Under 1.5 is +100.
+The Dallas Stars have gone BTTS No in the first period 76% (16–5). The Vegas Golden Knights have gone BTTS No 65% (15–8). Stars first periods have gone BTTS No 4 straight. BTTS No is where the numbers stack.

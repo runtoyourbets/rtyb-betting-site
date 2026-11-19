@@ -59,7 +59,7 @@
       "open": 1.5,
       "now": 1.5,
       "over": -152,
-      "under": 134,
+      "under": 130,
       "best_book_over": "Caesars"
      }
     }
@@ -115,7 +115,7 @@
      "moneyline": {
       "LA": {
        "open": -104,
-       "now": -108,
+       "now": -110,
        "best_book": "FanDuel"
       },
       "TOR": {
@@ -128,7 +128,7 @@
       "open": 1.5,
       "now": 1.5,
       "over": -132,
-      "under": 110,
+      "under": 107,
       "best_book_over": "Caesars"
      }
     }
@@ -180,8 +180,8 @@
      "moneyline": {
       "MTL": {
        "open": 172,
-       "now": 172,
-       "best_book": "FanDuel"
+       "now": 180,
+       "best_book": "TheScore US"
       },
       "CAR": {
        "open": -190,
@@ -249,15 +249,15 @@
       },
       "WPG": {
        "open": -113,
-       "now": -113,
-       "best_book": "Caesars"
+       "now": -108,
+       "best_book": "FanDuel"
       }
      },
      "total": {
       "open": 1.5,
       "now": 1.5,
       "over": -122,
-      "under": 104,
+      "under": 110,
       "best_book_over": "Caesars"
      }
     }
@@ -373,19 +373,19 @@
       "STL": {
        "open": -110,
        "now": -112,
-       "best_book": "Caesars"
+       "best_book": "FanDuel"
       },
       "PIT": {
        "open": -107,
-       "now": -107,
-       "best_book": "Caesars"
+       "now": -105,
+       "best_book": "DraftKings"
       }
      },
      "total": {
       "open": 1.5,
       "now": 1.5,
       "over": -134,
-      "under": 116,
+      "under": 114,
       "best_book_over": "Caesars"
      }
     }
@@ -443,7 +443,7 @@
       "open": 1.5,
       "now": 1.5,
       "over": -139,
-      "under": 118,
+      "under": 114,
       "best_book_over": "Caesars"
      }
     }
@@ -638,15 +638,15 @@
       },
       "COL": {
        "open": -136,
-       "now": -129,
-       "best_book": "Caesars"
+       "now": -125,
+       "best_book": "DraftKings"
       }
      },
      "total": {
       "open": 1.5,
       "now": 1.5,
       "over": -145,
-      "under": 132,
+      "under": 130,
       "best_book_over": "DraftKings"
      }
     }
@@ -716,7 +716,7 @@
       "open": 1.5,
       "now": 1.5,
       "over": -143,
-      "under": 124,
+      "under": 126,
       "best_book_over": "Caesars"
      }
     }
@@ -778,14 +778,14 @@
       "VGK": {
        "open": -118,
        "now": -118,
-       "best_book": "Caesars"
+       "best_book": "FanDuel"
       }
      },
      "total": {
       "open": 1.5,
       "now": 1.5,
       "over": -120,
-      "under": 100,
+      "under": -102,
       "best_book_over": "Caesars"
      }
     }
@@ -2275,32 +2275,25 @@
    "best_price": "-106",
    "book": "Caesars",
    "tier": "A",
-   "rates_behind_it": [
-    "NY Islanders 1P ML, season: 62% (10–6)"
-   ]
+   "why": "The Islanders have won the first period 62% (10–6); the Jets have won it 23% (3–10)."
+  },
+  {
+   "game": "Buffalo Sabres at Washington Capitals",
+   "bet": "1P BTTS Yes",
+   "line": null,
+   "best_price": "+145",
+   "book": "Consensus",
+   "tier": "B",
+   "why": "Washington 1P BTTS at home: 67% (8–4); Buffalo 1P BTTS on the road: 64% (7–4)."
   },
   {
    "game": "Los Angeles Kings at Toronto Maple Leafs",
    "bet": "LA 1P ML",
    "line": null,
-   "best_price": "-108",
+   "best_price": "-110",
    "book": "FanDuel",
    "tier": "B",
-   "rates_behind_it": [
-    "Toronto’s opponents 1P ML, Toronto at home: 73% (8–3)",
-    "Los Angeles 1P ML, season: 57% (8–6)"
-   ]
-  },
-  {
-   "game": "Edmonton Oilers at Tampa Bay Lightning",
-   "bet": "EDM 1P ML",
-   "line": null,
-   "best_price": "+109",
-   "book": "Caesars",
-   "tier": "C",
-   "rates_behind_it": [
-    "Edmonton 1P ML, season: 80% (12–3)"
-   ]
+   "why": "The Kings have won the first period 57% (8–6); the Maple Leafs have won it 35% (6–11)."
   }
  ],
  "boxes": {
@@ -2324,7 +2317,7 @@
    "price": "-106",
    "book": "Caesars",
    "line": "NYI 1P ML · best -106 at Caesars",
-   "text": "New York Islanders at Winnipeg Jets: NY Islanders 1P ML, season: 62% (10–6)."
+   "text": "The Islanders have won the first period 62% (10–6); the Jets have won it 23% (3–10)."
   }
  }
 }
