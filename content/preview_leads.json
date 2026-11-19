@@ -2,39 +2,39 @@
  "2026-11-18": {
   "all": {
    "away": "mil",
-   "chip": "MIL UNDER 1Q TOTAL · 13 OF 14",
+   "chip": "OVER: REST EDGE GAMES · 1H O/U · 53% (48–43)",
    "home": "mia",
    "id": "401910009",
    "sport": "nba",
    "start": "2026-11-19T00:00Z",
-   "trend": "MIL has gone Under the 1st quarter total in 13 of 14"
+   "trend": "Over: rest edge games (1H O/U)"
   },
   "nba": {
    "away": "mil",
-   "chip": "MIL UNDER 1Q TOTAL · 13 OF 14",
+   "chip": "OVER: REST EDGE GAMES · 1H O/U · 53% (48–43)",
    "home": "mia",
    "id": "401910009",
    "sport": "nba",
    "start": "2026-11-19T00:00Z",
-   "trend": "MIL has gone Under the 1st quarter total in 13 of 14"
+   "trend": "Over: rest edge games (1H O/U)"
   },
   "ncaab": {
    "away": "furman-paladins",
-   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 182–123",
+   "chip": "FADE TEAMS OFF A LOSS · 1H SPREAD · 56% (137–106)",
    "home": "radford-highlanders",
    "id": "401922055",
    "sport": "ncaab",
    "start": "2026-11-19T00:00Z",
-   "trend": "Fade teams off a blowout (1H ML)"
+   "trend": "Fade teams off a loss (1H Spread)"
   },
   "nhl": {
    "away": "MTL",
-   "chip": "MTL OVER 1.5 1P · 15 OF 21",
+   "chip": "FADE TEAMS OFF A LOSS · 1P ML · 58% (66–47)",
    "home": "NJ",
    "id": "2026020345",
    "sport": "nhl",
    "start": "2026-11-19T00:30:00Z",
-   "trend": "MTL has gone Over 1.5 in 15 of 21"
+   "trend": "Fade teams off a loss (1P ML)"
   }
  }
 }

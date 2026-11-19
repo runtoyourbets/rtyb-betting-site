@@ -201,13 +201,14 @@
   
 
   
-  <div class="hub-front"><div class="fv"><div class="fv-slogan"><p class="fr-slogan">The first quarter &middot; The first half</p></div><div class="fv-slate"><section class="fr-sec sl" id="slate" data-slate data-tab="wnba" data-today="2026-11-18" data-shown="3"><div class="sl-headline"><div class="sl-title"><h2>The Slate</h2><span class="sl-next" data-next hidden><i class="sl-dot" aria-hidden="true"></i><span data-next-text></span></span></div><span class="sl-date">Wed, Nov 18</span></div><div class="sl-cards"></div><p class="fr-empty" data-empty hidden>No more games on the board today.</p><div class="fr-links"><a class="fr-more" href="../wnba/matchups/" data-tab="wnba">WNBA Matchups &rarr;</a></div></section></div><div class="fv-tab"><section class="fr-sec rt" id="premium"><div class="st-card rt-card"><h2>Get the Running Tab</h2><p class="rt-line">Free newsletter: last night&rsquo;s results, tonight&rsquo;s spots. Readers hear first when Premium launches.</p><div class="rt-signup" id="signup-tab"><div class="rt-form"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="b098ab61-d396-49f3-b728-65bdf6b509d0"></script></div><p class="rt-done" role="status">You&rsquo;re on the Running Tab list. New signup? Check your inbox to confirm.</p></div></div></section></div></div>
+  <div class="hub-front"><div class="fv"><div class="fv-slogan"><p class="fr-slogan">The first quarter &middot; The first half</p></div><div class="fv-slate"><section class="fr-sec sl" id="slate" data-slate data-tab="wnba" data-today="2026-11-18" data-shown="3" data-ends='{}'><div class="sl-headline"><div class="sl-title"><h2>The Slate</h2><span class="sl-next" data-next hidden><i class="sl-dot" aria-hidden="true"></i><span data-next-text></span></span></div><span class="sl-date">Wed, Nov 18</span></div><p class="sl-over" data-over hidden><span data-over-text>Tonight&rsquo;s games are underway.</span> Follow them live on <a class="fr-more" href="../wnba/matchups/">Matchups &rarr;</a></p><div class="sl-cards"></div><p class="fr-empty" data-empty hidden>No more games on the board today.</p><div class="fr-links"><a class="fr-more" href="../wnba/matchups/" data-tab="wnba">WNBA Matchups &rarr;</a></div></section></div><div class="fv-tab"><section class="fr-sec rt" id="premium"><div class="st-card rt-card"><h2>Get the Running Tab</h2><p class="rt-line">Free newsletter: last night&rsquo;s results, tonight&rsquo;s spots. Readers hear first when Premium launches.</p><div class="rt-signup" id="signup-tab"><div class="rt-form"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="b098ab61-d396-49f3-b728-65bdf6b509d0"></script></div><p class="rt-done" role="status">You&rsquo;re on the Running Tab list. New signup? Check your inbox to confirm.</p></div></div></section></div></div>
 <script>
 (function() {
   'use strict';
   function now() { return Date.now(); }
   function isOn(el) { var s = el.getAttribute('data-start'); return el.getAttribute('data-state') !== 'pre' || (s && Date.parse(s) <= now()); }
   function etDay(t) { return new Date(t).toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); }
+  function dayLabel(d) { return new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }); }
   function slate(sec) {
     var tab = sec.getAttribute('data-tab'), n = +sec.getAttribute('data-shown') || 3, today = etDay(now());
     var cards = [].slice.call(sec.querySelectorAll('.sl-card'));
@@ -219,16 +220,32 @@
     var keep = (weekly ? mine : mine.filter(function(c) { return c.getAttribute('data-day') === day; })).slice(0, n);
     cards.forEach(function(c) { c.hidden = keep.indexOf(c) === -1; });
     sec.classList.toggle('sl-all', tab === 'all');
+    // every game today has started (the tab's sports): the next game day's
+    // cards under "Tonight's games are underway", or the line alone
+    var ends = {}; try { ends = JSON.parse(sec.getAttribute('data-ends') || '{}'); } catch (e) {}
+    var last = Object.keys(ends).filter(function(k) { return tab === 'all' || k === tab; }).map(function(k) { return Date.parse(ends[k]); });
+    var over = last.length > 0 && Math.max.apply(null, last) <= now() && !keep.some(function(c) { return c.getAttribute('data-day') === today; });
+    var ov = sec.querySelector('[data-over]');
+    if (ov) {
+      ov.hidden = !over;
+      ov.querySelector('[data-over-text]').textContent = keep.length ? 'Tonight’s games are underway.' : 'All of today’s games have started.';
+    }
+    var shown = keep.length ? keep[0].getAttribute('data-day') : today, dl = sec.querySelector('.sl-date');
+    if (dl && shown) dl.textContent = dayLabel(shown);
     var empty = sec.querySelector('[data-empty]');
-    if (empty) empty.hidden = keep.length > 0;
+    if (empty) empty.hidden = keep.length > 0 || over;
     sec.querySelectorAll('.fr-links [data-tab]').forEach(function(a) { a.hidden = a.getAttribute('data-tab') !== tab; });
-    // the live chip "Next up · 14 min": the tab's next start today; hidden when none is left today
-    var next = sec.querySelector('[data-next]'), left = mine.filter(function(c) { return c.getAttribute('data-day') === today; });
+    // the live chip: "Next up · 14 min" today; another day's "Next up · Thu 7:00 PM"
+    var next = sec.querySelector('[data-next]');
     if (next) {
-      var t = left.length ? Math.min.apply(null, left.map(function(c) { return Date.parse(c.getAttribute('data-start')); })) : NaN;
-      var mins = Math.max(1, Math.ceil((t - now()) / 60000));
+      var t = keep.length ? Math.min.apply(null, keep.map(function(c) { return Date.parse(c.getAttribute('data-start')); })) : NaN;
       next.hidden = isNaN(t);
-      if (!isNaN(t)) next.querySelector('[data-next-text]').textContent = 'Next up \u00b7 ' + (mins >= 60 ? Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm' : mins + ' min');
+      if (!isNaN(t)) {
+        var mins = Math.max(1, Math.ceil((t - now()) / 60000)), when;
+        if (etDay(t) === today) when = mins >= 60 ? Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm' : mins + ' min';
+        else when = new Date(t).toLocaleString('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }).replace(',', '');
+        next.querySelector('[data-next-text]').textContent = 'Next up \u00b7 ' + when;
+      }
     }
   }
   function pick(group, v) {
@@ -269,6 +286,24 @@
     document.querySelectorAll('.info-tip.open').forEach(function(t) { if (t !== tip) t.classList.remove('open'); });
     if (tip) tip.classList.toggle('open');
   });
+  // a trend row's "Last time" line: a click or tap opens it under the row
+  // (one at a time; again closes it); desktop also shows it on hover (CSS)
+  // (assets/sport.js has the same handler; window.__lastRows: one of them)
+  function lastRow(r) {
+    var open = r.getAttribute('aria-expanded') !== 'true';
+    document.querySelectorAll('.tr-has-last[aria-expanded="true"]').forEach(function(x) { x.setAttribute('aria-expanded', 'false'); });
+    r.setAttribute('aria-expanded', String(open));
+  }
+  if (!window.__lastRows) {
+    window.__lastRows = true;
+    document.addEventListener('click', function(e) {
+      var r = e.target.closest ? e.target.closest('.tr-has-last') : null;
+      if (r && !e.target.closest('a, button')) lastRow(r);
+    });
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('tr-has-last')) { e.preventDefault(); lastRow(e.target); }
+    });
+  }
   function rows() {
     document.querySelectorAll('.fr-trow[data-state="pre"]').forEach(function(r) {
       if (!isOn(r)) return;
@@ -296,7 +331,7 @@
     var d = sec.querySelector('[data-hot-date]');
     if (d && keep.length) d.textContent = keep.map(function(c) { return c.getAttribute('data-label'); }).filter(function(l) { return l !== 'This week'; })[0] || 'This week';
   }
-  // Biggest Line Move: the biggest move among games still to start; once it
+  // Line Mover: the biggest move among games still to start; once it
   // starts, the next; tomorrow's only when every game today has started
   function move(sec) {
     var last = Date.parse(sec.getAttribute('data-last') || '');
