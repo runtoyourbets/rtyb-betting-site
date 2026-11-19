@@ -10415,6 +10415,56 @@
     "streakTeamName": "NY Islanders"
    },
    {
+    "id": "nhl|2026020351|1p|btts|yes",
+    "game": "nhl|2026020351",
+    "date": "2026-11-19",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-20T00:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Buffalo @ Washington",
+    "href": "nhl/matchups/?date=2026-11-19",
+    "market": "btts",
+    "side": "yes",
+    "line": null,
+    "price": 145,
+    "title": "1P BTTS Yes",
+    "est": 0.4615,
+    "edge": 0.0534,
+    "agree": 5,
+    "sample": 21,
+    "tier": "B",
+    "tags": [
+     "Over Lover"
+    ],
+    "streak": 3,
+    "streakTeam": "WSH",
+    "angles": [
+     [
+      "Washington 1P BTTS at home",
+      "8-4"
+     ],
+     [
+      "Buffalo 1P BTTS on the road",
+      "7-4"
+     ],
+     [
+      "Washington 1P BTTS, last 8",
+      "5-3"
+     ],
+     [
+      "Washington 1P BTTS, season",
+      "11-8"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Washington"
+   },
+   {
     "id": "nba|401910021|1h|ats|home",
     "game": "nba|401910021",
     "date": "2026-11-19",
@@ -10694,52 +10744,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Los Angeles"
-   },
-   {
-    "id": "nhl|2026020349|1p|ml|away",
-    "game": "nhl|2026020349",
-    "date": "2026-11-19",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-20T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Edmonton @ Tampa Bay",
-    "href": "nhl/matchups/?date=2026-11-19",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 109,
-    "title": "Edmonton 1P ML",
-    "est": 0.5145,
-    "edge": 0.036,
-    "agree": 3,
-    "sample": 15,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "EDM",
-    "angles": [
-     [
-      "Edmonton 1P ML, last 8",
-      "4-0-4"
-     ],
-     [
-      "Edmonton 1P ML on the road",
-      "8-1-2"
-     ],
-     [
-      "Edmonton 1P ML, season",
-      "12-3-8"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Edmonton"
    }
   ]
  }
