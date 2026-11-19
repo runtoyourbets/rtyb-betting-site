@@ -1,0 +1,896 @@
+{
+ "all": {
+  "games": [
+   {
+    "label": "NCAAB · Jackson State at Baylor · 12:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401909753"
+   },
+   {
+    "label": "NCAAB · Rutgers at Notre Dame · 2:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920513"
+   },
+   {
+    "label": "NCAAB · Houston at Florida · 4:48 PM ET",
+    "trends": 5,
+    "value": "ncaab:401920514"
+   },
+   {
+    "label": "NCAAB · Chattanooga at Winthrop · 6:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920974"
+   },
+   {
+    "label": "NCAAB · Detroit Mercy at Eastern Michigan · 6:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920947"
+   },
+   {
+    "label": "NCAAB · IU Indianapolis at Penn State · 6:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401917181"
+   },
+   {
+    "label": "NCAAB · Navy at Georgetown · 6:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401909516"
+   },
+   {
+    "label": "NCAAB · Tennessee Tech at UNC Asheville · 6:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401922292"
+   },
+   {
+    "label": "NBA · Houston Rockets at Indiana Pacers · 7:00 PM ET",
+    "trends": 16,
+    "value": "nba:401910008"
+   },
+   {
+    "label": "NBA · Memphis Grizzlies at Cleveland Cavaliers · 7:00 PM ET",
+    "trends": 11,
+    "value": "nba:401910007"
+   },
+   {
+    "label": "NBA · Milwaukee Bucks at Miami Heat · 7:00 PM ET",
+    "trends": 12,
+    "value": "nba:401910009"
+   },
+   {
+    "label": "NBA · Philadelphia 76ers at Orlando Magic · 7:00 PM ET",
+    "trends": 12,
+    "value": "nba:401910010"
+   },
+   {
+    "label": "NCAAB · Binghamton at Lafayette · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401911277"
+   },
+   {
+    "label": "NCAAB · Boston University at Merrimack · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401923401"
+   },
+   {
+    "label": "NCAAB · Brown at Holy Cross · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401911309"
+   },
+   {
+    "label": "NCAAB · Chicago State at UIC · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401919735"
+   },
+   {
+    "label": "NCAAB · Coppin State at La Salle · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401925632"
+   },
+   {
+    "label": "NCAAB · Elon at South Carolina · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921141"
+   },
+   {
+    "label": "NCAAB · Columbia (SC) Fighting Koalas at West Georgia · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401917902"
+   },
+   {
+    "label": "NCAAB · Defiance Yellow Jackets at Miami (OH) · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401928843"
+   },
+   {
+    "label": "NCAAB · St. Joseph's Brooklyn Bears at Fairfield · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401924763"
+   },
+   {
+    "label": "NCAAB · MCLA Mohawks at New Haven · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401929014"
+   },
+   {
+    "label": "NCAAB · Utica Pioneers at Colgate · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920772"
+   },
+   {
+    "label": "NCAAB · Florida Gulf Coast at Florida Atlantic · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401922212"
+   },
+   {
+    "label": "NCAAB · Furman at Radford · 7:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401922055"
+   },
+   {
+    "label": "NCAAB · Howard at Duquesne · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401925782"
+   },
+   {
+    "label": "NCAAB · James Madison at Towson · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401926838"
+   },
+   {
+    "label": "NCAAB · Mercer at Presbyterian · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401928347"
+   },
+   {
+    "label": "NCAAB · Morehead State at Ohio · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920963"
+   },
+   {
+    "label": "NCAAB · Morgan State at North Carolina A&T · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401921156"
+   },
+   {
+    "label": "NCAAB · NJIT at Fairleigh Dickinson · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401919760"
+   },
+   {
+    "label": "NCAAB · North Carolina Central at George Mason · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920075"
+   },
+   {
+    "label": "NCAAB · Siena at St. John's · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401920682"
+   },
+   {
+    "label": "NCAAB · UNC Wilmington at Long Island University · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401919808"
+   },
+   {
+    "label": "NCAAB · Vermont at Yale · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401920694"
+   },
+   {
+    "label": "NCAAB · VMI at Longwood · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401922047"
+   },
+   {
+    "label": "NCAAB · Wofford at Charleston Southern · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401911377"
+   },
+   {
+    "label": "NCAAF · Akron at Massachusetts · 7:00 PM ET",
+    "trends": 12,
+    "value": "ncaaf:401866467"
+   },
+   {
+    "label": "NHL · Boston Bruins at Detroit Red Wings · 7:30 PM ET",
+    "trends": 10,
+    "value": "nhl:2026020344"
+   },
+   {
+    "label": "NHL · Montreal Canadiens at New Jersey Devils · 7:30 PM ET",
+    "trends": 4,
+    "value": "nhl:2026020345"
+   },
+   {
+    "label": "NBA · Chicago Bulls at Brooklyn Nets · 7:30 PM ET",
+    "trends": 14,
+    "value": "nba:401910011"
+   },
+   {
+    "label": "NBA · Washington Wizards at Toronto Raptors · 7:30 PM ET",
+    "trends": 12,
+    "value": "nba:401910012"
+   },
+   {
+    "label": "NCAAB · College of Biblical Studies Ambassadors at UT Rio Grande Valley · 7:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401925109"
+   },
+   {
+    "label": "NCAAB · Union Commonwealth (KY) Bulldogs at Belmont · 7:30 PM ET",
+    "trends": 0,
+    "value": "ncaab:401920761"
+   },
+   {
+    "label": "NCAAB · Malone Pioneers at Wright State · 7:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401928829"
+   },
+   {
+    "label": "NCAAB · Kansas at West Virginia · 7:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920515"
+   },
+   {
+    "label": "NCAAB · LSU New Orleans at Texas Tech · 7:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401921134"
+   },
+   {
+    "label": "NCAAB · Northern Illinois at Marquette · 7:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401909526"
+   },
+   {
+    "label": "NCAAB · Youngstown State at Cincinnati · 7:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401920751"
+   },
+   {
+    "label": "NCAAF · Central Michigan at Buffalo · 7:30 PM ET",
+    "trends": 7,
+    "value": "ncaaf:401866469"
+   },
+   {
+    "label": "NBA · Atlanta Hawks at Oklahoma City Thunder · 8:00 PM ET",
+    "trends": 13,
+    "value": "nba:401910014"
+   },
+   {
+    "label": "NBA · Detroit Pistons at New Orleans Pelicans · 8:00 PM ET",
+    "trends": 15,
+    "value": "nba:401910013"
+   },
+   {
+    "label": "NBA · Golden State Warriors at Dallas Mavericks · 8:00 PM ET",
+    "trends": 19,
+    "value": "nba:401910016"
+   },
+   {
+    "label": "NCAAB · Arkansas-Pine Bluff at Arkansas State · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401928398"
+   },
+   {
+    "label": "NCAAB · Boston College at Harvard · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401909555"
+   },
+   {
+    "label": "NCAAB · Campbell at Oklahoma · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401906805"
+   },
+   {
+    "label": "NCAAB · Cornell at Syracuse · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401924721"
+   },
+   {
+    "label": "NCAAB · Lindsey Wilson Blue Raiders at Southern Indiana · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401923394"
+   },
+   {
+    "label": "NCAAB · Florida A&M at UTSA · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401929420"
+   },
+   {
+    "label": "NCAAB · Incarnate Word at Texas State · 8:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401929201"
+   },
+   {
+    "label": "NCAAB · New Hampshire at Stonehill · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401919848"
+   },
+   {
+    "label": "NCAAB · Purdue Fort Wayne at Bradley · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401927357"
+   },
+   {
+    "label": "NCAAB · Samford at South Carolina Upstate · 8:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401922283"
+   },
+   {
+    "label": "NCAAB · UL Monroe at LSU · 8:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401917982"
+   },
+   {
+    "label": "NCAAB · UNC Greensboro at Gardner-Webb · 8:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401911393"
+   },
+   {
+    "label": "NCAAB · Wichita State at Loyola Chicago · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401911232"
+   },
+   {
+    "label": "NCAAB · South Dakota at Nebraska · 8:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401926064"
+   },
+   {
+    "label": "NCAAB · Alcorn State at Missouri · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921816"
+   },
+   {
+    "label": "NCAAB · Bethune-Cookman at Creighton · 9:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401909494"
+   },
+   {
+    "label": "NCAAB · McMurry War Hawks at Abilene Christian · 9:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401917965"
+   },
+   {
+    "label": "NCAAB · Fresno State at San José State · 9:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401911473"
+   },
+   {
+    "label": "NCAAB · North Dakota State at Colorado State · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401929176"
+   },
+   {
+    "label": "NCAAB · Northern Colorado at BYU · 9:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401921742"
+   },
+   {
+    "label": "NCAAB · Oakland at Arizona State · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921734"
+   },
+   {
+    "label": "NCAAB · Portland at Colorado · 9:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401909762"
+   },
+   {
+    "label": "NCAAB · UConn at Arizona · 9:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401909742"
+   },
+   {
+    "label": "NCAAB · Weber State at Utah State · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401925949"
+   },
+   {
+    "label": "NBA · Boston Celtics at Denver Nuggets · 9:30 PM ET",
+    "trends": 14,
+    "value": "nba:401910015"
+   },
+   {
+    "label": "NCAAB · UC Riverside at San Diego · 9:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401917535"
+   },
+   {
+    "label": "NHL · Colorado Avalanche at Utah Mammoth · 10:00 PM ET",
+    "trends": 4,
+    "value": "nhl:2026020346"
+   },
+   {
+    "label": "NBA · Phoenix Suns at Sacramento Kings · 10:00 PM ET",
+    "trends": 25,
+    "value": "nba:401910018"
+   },
+   {
+    "label": "NBA · Utah Jazz at Los Angeles Lakers · 10:00 PM ET",
+    "trends": 12,
+    "value": "nba:401910017"
+   },
+   {
+    "label": "NCAAB · Idaho at Nevada · 10:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401911456"
+   },
+   {
+    "label": "NCAAB · Louisiana at San Francisco · 10:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921064"
+   },
+   {
+    "label": "NCAAB · Texas Southern at San Diego State · 10:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401929146"
+   },
+   {
+    "label": "NCAAB · UNLV at Auburn · 10:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920516"
+   },
+   {
+    "label": "NCAAB · Washington State at Hawai'i · 10:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401929004"
+   },
+   {
+    "label": "NCAAB · Cal State Fullerton at UCLA · 10:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920158"
+   }
+  ],
+  "lead": "nba:401910009",
+  "motd": "nba:401910018"
+ },
+ "nba": {
+  "games": [
+   {
+    "label": "Houston Rockets at Indiana Pacers · 7:00 PM ET",
+    "trends": 16,
+    "value": "nba:401910008"
+   },
+   {
+    "label": "Memphis Grizzlies at Cleveland Cavaliers · 7:00 PM ET",
+    "trends": 11,
+    "value": "nba:401910007"
+   },
+   {
+    "label": "Milwaukee Bucks at Miami Heat · 7:00 PM ET",
+    "trends": 12,
+    "value": "nba:401910009"
+   },
+   {
+    "label": "Philadelphia 76ers at Orlando Magic · 7:00 PM ET",
+    "trends": 12,
+    "value": "nba:401910010"
+   },
+   {
+    "label": "Chicago Bulls at Brooklyn Nets · 7:30 PM ET",
+    "trends": 14,
+    "value": "nba:401910011"
+   },
+   {
+    "label": "Washington Wizards at Toronto Raptors · 7:30 PM ET",
+    "trends": 12,
+    "value": "nba:401910012"
+   },
+   {
+    "label": "Atlanta Hawks at Oklahoma City Thunder · 8:00 PM ET",
+    "trends": 13,
+    "value": "nba:401910014"
+   },
+   {
+    "label": "Detroit Pistons at New Orleans Pelicans · 8:00 PM ET",
+    "trends": 15,
+    "value": "nba:401910013"
+   },
+   {
+    "label": "Golden State Warriors at Dallas Mavericks · 8:00 PM ET",
+    "trends": 19,
+    "value": "nba:401910016"
+   },
+   {
+    "label": "Boston Celtics at Denver Nuggets · 9:30 PM ET",
+    "trends": 14,
+    "value": "nba:401910015"
+   },
+   {
+    "label": "Phoenix Suns at Sacramento Kings · 10:00 PM ET",
+    "trends": 25,
+    "value": "nba:401910018"
+   },
+   {
+    "label": "Utah Jazz at Los Angeles Lakers · 10:00 PM ET",
+    "trends": 12,
+    "value": "nba:401910017"
+   }
+  ],
+  "lead": "nba:401910009",
+  "motd": "nba:401910018"
+ },
+ "ncaab": {
+  "games": [
+   {
+    "label": "Jackson State at Baylor · 12:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401909753"
+   },
+   {
+    "label": "Rutgers at Notre Dame · 2:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920513"
+   },
+   {
+    "label": "Houston at Florida · 4:48 PM ET",
+    "trends": 5,
+    "value": "ncaab:401920514"
+   },
+   {
+    "label": "Chattanooga at Winthrop · 6:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920974"
+   },
+   {
+    "label": "Detroit Mercy at Eastern Michigan · 6:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920947"
+   },
+   {
+    "label": "IU Indianapolis at Penn State · 6:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401917181"
+   },
+   {
+    "label": "Navy at Georgetown · 6:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401909516"
+   },
+   {
+    "label": "Tennessee Tech at UNC Asheville · 6:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401922292"
+   },
+   {
+    "label": "Binghamton at Lafayette · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401911277"
+   },
+   {
+    "label": "Boston University at Merrimack · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401923401"
+   },
+   {
+    "label": "Brown at Holy Cross · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401911309"
+   },
+   {
+    "label": "Chicago State at UIC · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401919735"
+   },
+   {
+    "label": "Coppin State at La Salle · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401925632"
+   },
+   {
+    "label": "Elon at South Carolina · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921141"
+   },
+   {
+    "label": "Columbia (SC) Fighting Koalas at West Georgia · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401917902"
+   },
+   {
+    "label": "Defiance Yellow Jackets at Miami (OH) · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401928843"
+   },
+   {
+    "label": "St. Joseph's Brooklyn Bears at Fairfield · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401924763"
+   },
+   {
+    "label": "MCLA Mohawks at New Haven · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401929014"
+   },
+   {
+    "label": "Utica Pioneers at Colgate · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920772"
+   },
+   {
+    "label": "Florida Gulf Coast at Florida Atlantic · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401922212"
+   },
+   {
+    "label": "Furman at Radford · 7:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401922055"
+   },
+   {
+    "label": "Howard at Duquesne · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401925782"
+   },
+   {
+    "label": "James Madison at Towson · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401926838"
+   },
+   {
+    "label": "Mercer at Presbyterian · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401928347"
+   },
+   {
+    "label": "Morehead State at Ohio · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920963"
+   },
+   {
+    "label": "Morgan State at North Carolina A&T · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401921156"
+   },
+   {
+    "label": "NJIT at Fairleigh Dickinson · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401919760"
+   },
+   {
+    "label": "North Carolina Central at George Mason · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920075"
+   },
+   {
+    "label": "Siena at St. John's · 7:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401920682"
+   },
+   {
+    "label": "UNC Wilmington at Long Island University · 7:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401919808"
+   },
+   {
+    "label": "Vermont at Yale · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401920694"
+   },
+   {
+    "label": "VMI at Longwood · 7:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401922047"
+   },
+   {
+    "label": "Wofford at Charleston Southern · 7:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401911377"
+   },
+   {
+    "label": "College of Biblical Studies Ambassadors at UT Rio Grande Valley · 7:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401925109"
+   },
+   {
+    "label": "Union Commonwealth (KY) Bulldogs at Belmont · 7:30 PM ET",
+    "trends": 0,
+    "value": "ncaab:401920761"
+   },
+   {
+    "label": "Malone Pioneers at Wright State · 7:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401928829"
+   },
+   {
+    "label": "Kansas at West Virginia · 7:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920515"
+   },
+   {
+    "label": "LSU New Orleans at Texas Tech · 7:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401921134"
+   },
+   {
+    "label": "Northern Illinois at Marquette · 7:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401909526"
+   },
+   {
+    "label": "Youngstown State at Cincinnati · 7:30 PM ET",
+    "trends": 1,
+    "value": "ncaab:401920751"
+   },
+   {
+    "label": "Arkansas-Pine Bluff at Arkansas State · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401928398"
+   },
+   {
+    "label": "Boston College at Harvard · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401909555"
+   },
+   {
+    "label": "Campbell at Oklahoma · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401906805"
+   },
+   {
+    "label": "Cornell at Syracuse · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401924721"
+   },
+   {
+    "label": "Lindsey Wilson Blue Raiders at Southern Indiana · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401923394"
+   },
+   {
+    "label": "Florida A&M at UTSA · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401929420"
+   },
+   {
+    "label": "Incarnate Word at Texas State · 8:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401929201"
+   },
+   {
+    "label": "New Hampshire at Stonehill · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401919848"
+   },
+   {
+    "label": "Purdue Fort Wayne at Bradley · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401927357"
+   },
+   {
+    "label": "Samford at South Carolina Upstate · 8:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401922283"
+   },
+   {
+    "label": "UL Monroe at LSU · 8:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401917982"
+   },
+   {
+    "label": "UNC Greensboro at Gardner-Webb · 8:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401911393"
+   },
+   {
+    "label": "Wichita State at Loyola Chicago · 8:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401911232"
+   },
+   {
+    "label": "South Dakota at Nebraska · 8:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401926064"
+   },
+   {
+    "label": "Alcorn State at Missouri · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921816"
+   },
+   {
+    "label": "Bethune-Cookman at Creighton · 9:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401909494"
+   },
+   {
+    "label": "McMurry War Hawks at Abilene Christian · 9:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401917965"
+   },
+   {
+    "label": "Fresno State at San José State · 9:00 PM ET",
+    "trends": 1,
+    "value": "ncaab:401911473"
+   },
+   {
+    "label": "North Dakota State at Colorado State · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401929176"
+   },
+   {
+    "label": "Northern Colorado at BYU · 9:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401921742"
+   },
+   {
+    "label": "Oakland at Arizona State · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921734"
+   },
+   {
+    "label": "Portland at Colorado · 9:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401909762"
+   },
+   {
+    "label": "UConn at Arizona · 9:00 PM ET",
+    "trends": 4,
+    "value": "ncaab:401909742"
+   },
+   {
+    "label": "Weber State at Utah State · 9:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401925949"
+   },
+   {
+    "label": "UC Riverside at San Diego · 9:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401917535"
+   },
+   {
+    "label": "Idaho at Nevada · 10:00 PM ET",
+    "trends": 0,
+    "value": "ncaab:401911456"
+   },
+   {
+    "label": "Louisiana at San Francisco · 10:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401921064"
+   },
+   {
+    "label": "Texas Southern at San Diego State · 10:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401929146"
+   },
+   {
+    "label": "UNLV at Auburn · 10:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920516"
+   },
+   {
+    "label": "Washington State at Hawai'i · 10:00 PM ET",
+    "trends": 2,
+    "value": "ncaab:401929004"
+   },
+   {
+    "label": "Cal State Fullerton at UCLA · 10:30 PM ET",
+    "trends": 2,
+    "value": "ncaab:401920158"
+   }
+  ],
+  "lead": "ncaab:401922055",
+  "motd": "ncaab:401929201"
+ },
+ "nhl": {
+  "games": [
+   {
+    "label": "Boston Bruins at Detroit Red Wings · 7:30 PM ET",
+    "trends": 10,
+    "value": "nhl:2026020344"
+   },
+   {
+    "label": "Montreal Canadiens at New Jersey Devils · 7:30 PM ET",
+    "trends": 4,
+    "value": "nhl:2026020345"
+   },
+   {
+    "label": "Colorado Avalanche at Utah Mammoth · 10:00 PM ET",
+    "trends": 4,
+    "value": "nhl:2026020346"
+   }
+  ],
+  "lead": "nhl:2026020345",
+  "motd": "nhl:2026020344"
+ }
+}
