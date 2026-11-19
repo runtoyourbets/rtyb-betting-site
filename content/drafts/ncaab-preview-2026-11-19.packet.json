@@ -55,22 +55,22 @@
       "FLA": {
        "open": -5.5,
        "now": -5.5,
-       "price": -102,
-       "best_book": "FanDuel"
+       "price": 100,
+       "best_book": "Caesars"
       },
       "WVU": {
        "open": 5.5,
        "now": 5.5,
-       "price": -110,
-       "best_book": "Fanatics"
+       "price": -120,
+       "best_book": "DraftKings"
       }
      },
      "total": {
       "open": 70.5,
       "now": 70.5,
       "over": -110,
-      "under": -110,
-      "best_book_over": "Fanatics"
+      "under": -105,
+      "best_book_over": "DraftKings"
      }
     }
    }
@@ -100,13 +100,13 @@
      "moneyline": {
       "NCSU": {
        "open": -158,
-       "now": -158,
-       "best_book": "FanDuel"
+       "now": -155,
+       "best_book": "Caesars"
       },
       "MURR": {
        "open": 135,
-       "now": 135,
-       "best_book": "Caesars"
+       "now": 130,
+       "best_book": "DraftKings"
       }
      },
      "spread": {
@@ -120,14 +120,14 @@
        "open": 1.5,
        "now": 1.5,
        "price": 100,
-       "best_book": "Caesars"
+       "best_book": "Fanatics"
       }
      },
      "total": {
       "open": 76.5,
-      "now": 76.5,
-      "over": -110,
-      "under": -110,
+      "now": 77.5,
+      "over": -105,
+      "under": -115,
       "best_book_over": "Fanatics"
      }
     }
@@ -242,8 +242,8 @@
      "total": {
       "open": 68.5,
       "now": 68.5,
-      "over": -115,
-      "under": -105,
+      "over": -110,
+      "under": -110,
       "best_book_over": "Fanatics"
      }
     }
@@ -289,35 +289,35 @@
     "1H": {
      "moneyline": {
       "MTST": {
-       "open": 310,
-       "now": 310,
-       "best_book": "DraftKings"
+       "open": 335,
+       "now": 335,
+       "best_book": "Caesars"
       },
       "HPU": {
-       "open": -445,
-       "now": -445,
-       "best_book": "DraftKings"
+       "open": -440,
+       "now": -440,
+       "best_book": "Caesars"
       }
      },
      "spread": {
       "MTST": {
        "open": 7.5,
        "now": 7.5,
-       "price": -115,
+       "price": -110,
        "best_book": "Fanatics"
       },
       "HPU": {
        "open": -7.5,
        "now": -7.5,
-       "price": -105,
-       "best_book": "TheScore US"
+       "price": 100,
+       "best_book": "Caesars"
       }
      },
      "total": {
       "open": 68.5,
-      "now": 68.5,
-      "over": -115,
-      "under": -105,
+      "now": 69.5,
+      "over": -105,
+      "under": -115,
       "best_book_over": "Fanatics"
      }
     }
@@ -425,14 +425,14 @@
     "1H": {
      "moneyline": {
       "GASO": {
-       "open": 124,
-       "now": 124,
-       "best_book": "DraftKings"
+       "open": 130,
+       "now": 125,
+       "best_book": "TheScore US"
       },
       "HCU": {
-       "open": -160,
-       "now": -160,
-       "best_book": "DraftKings"
+       "open": -155,
+       "now": -145,
+       "best_book": "Caesars"
       }
      },
      "spread": {
@@ -445,8 +445,8 @@
       "HCU": {
        "open": -1.5,
        "now": -1.5,
-       "price": -115,
-       "best_book": "Caesars"
+       "price": 100,
+       "best_book": "Fanatics"
       }
      },
      "total": {
@@ -513,7 +513,7 @@
        "open": 21.5,
        "now": 21.5,
        "price": -115,
-       "best_book": "Fanatics"
+       "best_book": "BetMGM"
       },
       "TEX": {
        "open": -21.5,
@@ -523,11 +523,11 @@
       }
      },
      "total": {
-      "open": 76.5,
-      "now": 76.5,
-      "over": -105,
-      "under": -115,
-      "best_book_over": "Fanatics"
+      "open": 75.5,
+      "now": 75.5,
+      "over": -120,
+      "under": 100,
+      "best_book_over": "BetMGM"
      }
     }
    }
@@ -583,23 +583,23 @@
      "spread": {
       "STET": {
        "open": 19.5,
-       "now": 20.5,
-       "price": -120,
-       "best_book": "TheScore US"
+       "now": 19.5,
+       "price": -110,
+       "best_book": "DraftKings"
       },
       "LOU": {
        "open": -19.5,
-       "now": -20.5,
-       "price": -102,
+       "now": -19.5,
+       "price": -112,
        "best_book": "FanDuel"
       }
      },
      "total": {
       "open": 74.5,
       "now": 74.5,
-      "over": -115,
-      "under": -105,
-      "best_book_over": "DraftKings"
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
      }
     }
    }
@@ -628,13 +628,13 @@
     "1H": {
      "moneyline": {
       "ORST": {
-       "open": 100,
-       "now": 100,
-       "best_book": "DraftKings"
+       "open": 105,
+       "now": 105,
+       "best_book": "Caesars"
       },
       "ORE": {
-       "open": -130,
-       "now": -130,
+       "open": -125,
+       "now": -125,
        "best_book": "DraftKings"
       }
      },
@@ -655,8 +655,8 @@
      "total": {
       "open": 76.5,
       "now": 76.5,
-      "over": -115,
-      "under": -115,
+      "over": -110,
+      "under": -120,
       "best_book_over": "DraftKings"
      }
     }
@@ -701,35 +701,35 @@
      "moneyline": {
       "UTEP": {
        "open": 105,
-       "now": 105,
-       "best_book": "DraftKings"
+       "now": 100,
+       "best_book": "Caesars"
       },
       "NMSU": {
-       "open": -135,
-       "now": -135,
-       "best_book": "DraftKings"
+       "open": -125,
+       "now": -120,
+       "best_book": "Caesars"
       }
      },
      "spread": {
       "UTEP": {
        "open": 0.5,
        "now": 0.5,
-       "price": -105,
+       "price": -110,
        "best_book": "Caesars"
       },
       "NMSU": {
        "open": -0.5,
        "now": -0.5,
-       "price": -115,
+       "price": -110,
        "best_book": "Caesars"
       }
      },
      "total": {
-      "open": 64.5,
-      "now": 63.5,
-      "over": -110,
-      "under": -110,
-      "best_book_over": "Fanatics"
+      "open": 63.5,
+      "now": 61.5,
+      "over": -120,
+      "under": -105,
+      "best_book_over": "BetMGM"
      }
     }
    }
@@ -774,14 +774,14 @@
     "1H": {
      "moneyline": {
       "ETAM": {
-       "open": 340,
-       "now": 340,
-       "best_book": "DraftKings"
+       "open": 400,
+       "now": 400,
+       "best_book": "Caesars"
       },
       "CAL": {
        "open": -500,
-       "now": -500,
-       "best_book": "DraftKings"
+       "now": -550,
+       "best_book": "Caesars"
       }
      },
      "spread": {
@@ -789,13 +789,13 @@
        "open": 7.5,
        "now": 7.5,
        "price": -105,
-       "best_book": "Fanatics"
+       "best_book": "Caesars"
       },
       "CAL": {
        "open": -7.5,
        "now": -7.5,
        "price": -115,
-       "best_book": "Fanatics"
+       "best_book": "Caesars"
       }
      },
      "total": {
@@ -842,7 +842,43 @@
    "streaks": [
     "Stanford 1st halves have gone Over 3 straight"
    ],
-   "lines": {}
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "SAC": {
+       "open": 600,
+       "now": 600,
+       "best_book": "Caesars"
+      },
+      "STAN": {
+       "open": -900,
+       "now": -900,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "SAC": {
+       "open": 10.5,
+       "now": 10.5,
+       "price": -120,
+       "best_book": "BetMGM"
+      },
+      "STAN": {
+       "open": -10.5,
+       "now": -10.5,
+       "price": -110,
+       "best_book": "BetMGM"
+      }
+     },
+     "total": {
+      "open": 73.5,
+      "now": 73.5,
+      "over": -115,
+      "under": -115,
+      "best_book_over": "BetMGM"
+     }
+    }
+   }
   }
  ],
  "trends_page": "/college-basketball/trends/",
@@ -1033,26 +1069,7 @@
    ]
   }
  ],
- "edge_plays": [
-  {
-   "game": "Southern Utah at Texas",
-   "bet": "SUU 1H ML",
-   "line": null,
-   "best_price": "+4000",
-   "book": "DraftKings",
-   "tier": "C",
-   "rates_behind_it": []
-  },
-  {
-   "game": "East Texas A&M at California",
-   "bet": "ETAM 1H ML",
-   "line": null,
-   "best_price": "+340",
-   "book": "DraftKings",
-   "tier": "C",
-   "rates_behind_it": []
-  }
- ],
+ "edge_plays": [],
  "boxes": {
   "league_trend": {
    "sport": "ncaab",
@@ -1060,15 +1077,6 @@
    "line": "Fade teams off a blowout · 1H ML · 195–128",
    "text": "Fade teams off a blowout 195–128 this season; tonight it fits Florida at West Virginia and 12 more games.",
    "id": "off_loss3:1h:ml:fade"
-  },
-  "edge_play": {
-   "sport": "ncaab",
-   "number": "TARL 1H ML",
-   "bet": "TARL 1H ML",
-   "price": "+1600",
-   "book": "FanDuel",
-   "line": "TARL 1H ML · best +1600 at FanDuel",
-   "text": "Tarleton State at USC: the top Edge play is TARL 1H ML."
   }
  }
 }
