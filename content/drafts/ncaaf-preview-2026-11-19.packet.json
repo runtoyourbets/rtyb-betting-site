@@ -154,7 +154,8 @@
       "best_book_over": "FanDuel"
      }
     }
-   }
+   },
+   "window": "Friday"
   },
   {
    "id": "401864542",
@@ -311,7 +312,8 @@
       "best_book_over": "DraftKings"
      }
     }
-   }
+   },
+   "window": "Friday"
   },
   {
    "id": "401856748",
@@ -452,7 +454,8 @@
       "best_book_over": "BetMGM"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401856866",
@@ -560,8 +563,8 @@
       "KU": {
        "open": 0.5,
        "now": 0.5,
-       "price": -125,
-       "best_book": "BetMGM"
+       "price": -130,
+       "best_book": "DraftKings"
       }
      },
      "total": {
@@ -576,7 +579,7 @@
      "moneyline": {
       "BYU": {
        "open": -175,
-       "now": -175,
+       "now": -185,
        "best_book": "BetMGM"
       },
       "KU": {
@@ -595,8 +598,8 @@
       "KU": {
        "open": 3.5,
        "now": 3.5,
-       "price": -115,
-       "best_book": "DraftKings"
+       "price": -110,
+       "best_book": "BetMGM"
       }
      },
      "total": {
@@ -607,7 +610,8 @@
       "best_book_over": "DraftKings"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401858310",
@@ -733,9 +737,9 @@
      "total": {
       "open": 13.5,
       "now": 13.5,
-      "over": -110,
-      "under": 100,
-      "best_book_over": "DraftKings"
+      "over": -105,
+      "under": -102,
+      "best_book_over": "Fanatics"
      }
     },
     "1H": {
@@ -755,7 +759,7 @@
       "WAKE": {
        "open": -12.5,
        "now": -11.5,
-       "price": -110,
+       "price": -104,
        "best_book": "FanDuel"
       },
       "GT": {
@@ -769,11 +773,12 @@
       "open": 29.5,
       "now": 29.5,
       "over": -112,
-      "under": -104,
+      "under": -105,
       "best_book_over": "BetMGM"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401862835",
@@ -878,12 +883,12 @@
      "moneyline": {
       "UNT": {
        "open": -194,
-       "now": -174,
+       "now": -178,
        "best_book": "FanDuel"
       },
       "TULN": {
        "open": 162,
-       "now": 148,
+       "now": 150,
        "best_book": "FanDuel"
       }
      },
@@ -918,8 +923,8 @@
       },
       "TULN": {
        "open": 180,
-       "now": 160,
-       "best_book": "DraftKings"
+       "now": 162,
+       "best_book": "FanDuel"
       }
      },
      "spread": {
@@ -932,7 +937,7 @@
       "TULN": {
        "open": 4.5,
        "now": 3.5,
-       "price": -110,
+       "price": -106,
        "best_book": "FanDuel"
       }
      },
@@ -944,7 +949,8 @@
       "best_book_over": "BetMGM"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401856868",
@@ -1106,7 +1112,8 @@
       "best_book_over": "FanDuel"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401858527",
@@ -1202,7 +1209,7 @@
       },
       "ILL": {
        "open": 178,
-       "now": 215,
+       "now": 220,
        "best_book": "FanDuel"
       }
      },
@@ -1216,7 +1223,7 @@
       "ILL": {
        "open": 2.5,
        "now": 2.5,
-       "price": 104,
+       "price": 108,
        "best_book": "FanDuel"
       }
      },
@@ -1237,7 +1244,7 @@
       },
       "ILL": {
        "open": 210,
-       "now": 240,
+       "now": 245,
        "best_book": "FanDuel"
       }
      },
@@ -1251,7 +1258,7 @@
       "ILL": {
        "open": 4.5,
        "now": 5.5,
-       "price": -106,
+       "price": -104,
        "best_book": "FanDuel"
       }
      },
@@ -1263,7 +1270,8 @@
       "best_book_over": "DraftKings"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401858532",
@@ -1427,7 +1435,8 @@
       "best_book_over": "DraftKings"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401864543",
@@ -1515,7 +1524,7 @@
       },
       "NDSU": {
        "open": -700,
-       "now": -650,
+       "now": -700,
        "best_book": "BetMGM"
       }
      },
@@ -1558,8 +1567,8 @@
       "NIU": {
        "open": 14.5,
        "now": 14.5,
-       "price": -125,
-       "best_book": "BetMGM"
+       "price": -130,
+       "best_book": "DraftKings"
       },
       "NDSU": {
        "open": -14.5,
@@ -1572,11 +1581,12 @@
       "open": 24.5,
       "now": 23.5,
       "over": -112,
-      "under": 100,
+      "under": -102,
       "best_book_over": "FanDuel"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401869953",
@@ -1661,8 +1671,8 @@
      "moneyline": {
       "GASO": {
        "open": -215,
-       "now": -215,
-       "best_book": "DraftKings"
+       "now": -210,
+       "best_book": "BetMGM"
       },
       "TROY": {
        "open": 196,
@@ -1727,7 +1737,8 @@
       "best_book_over": "DraftKings"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401864544",
@@ -1887,7 +1898,8 @@
       "best_book_over": "BetMGM"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401856753",
@@ -2063,7 +2075,8 @@
       "best_book_over": "BetMGM"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401860918",
@@ -2218,7 +2231,8 @@
       "best_book_over": "FanDuel"
      }
     }
-   }
+   },
+   "window": "Saturday"
   },
   {
    "id": "401856870",
@@ -2307,12 +2321,12 @@
      "moneyline": {
       "OKST": {
        "open": -144,
-       "now": -130,
+       "now": -135,
        "best_book": "TheScore US"
       },
       "ASU": {
        "open": 122,
-       "now": 118,
+       "now": 120,
        "best_book": "FanDuel"
       }
      },
@@ -2342,12 +2356,12 @@
      "moneyline": {
       "OKST": {
        "open": -145,
-       "now": -130,
+       "now": -135,
        "best_book": "TheScore US"
       },
       "ASU": {
        "open": 136,
-       "now": 122,
+       "now": 124,
        "best_book": "FanDuel"
       }
      },
@@ -2373,7 +2387,8 @@
       "best_book_over": "BetMGM"
      }
     }
-   }
+   },
+   "window": "Saturday"
   }
  ],
  "trends_page": "/college-football/trends/",
@@ -2949,9 +2964,9 @@
  "boxes": {
   "stat_of_night": {
    "sport": "ncaaf",
-   "number": "100%",
-   "line": "NIU lost the 1H · 10–0",
-   "text": "The Northern Illinois lost the 1H in 10 of 10 games this season."
+   "number": "90%",
+   "line": "UTEP lost the 1H · 9–1",
+   "text": "The UTEP lost the 1H in 9 of 10 games this season."
   },
   "league_trend": {
    "sport": "ncaaf",
