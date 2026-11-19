@@ -852,6 +852,17 @@ def write_hub(template, sp, teams_menu_html=''):
     meta = {'title': sports.sport_title(sp, 'hub'), 'h1': esc(sports.h1(sp, 'hub')), 'sub': esc(sub), 'section': 'hub',
             'desc': (f"{sp['label']} {sports.segment_summary(sp)} betting {when.lower()}: the games, our Matchup of the "
                      f"{'Week' if weekly else 'Day'}, the trends and streaks to watch, and the best price at every sportsbook.")}
+    st, doc = season_info(sp)
+    if st['layout'] == 'off':
+        # between seasons: the season just played, and when the next one starts
+        import offseason
+        year = offseason.season_label(offseason.season_doc(front.Sport(sp))) or str(doc.get('seasonLabel') or '')
+        nxt = 'date TBA'
+        if st.get('opening'):
+            d = datetime.fromisoformat(st['opening']).date()
+            nxt = f"{d.strftime('%b')} {d.day}, {d.year}"
+        meta['sub'] = esc(f'{year} season in review · next season {nxt}')
+        meta['desc'] = esc(f'The {year} {sp["label"]} season: the champions, the best bets and the RTYB Awards.')
     if sport_has_data(sp['key']):
         # Yesterday's Best, The Slate, Hottest Trends, Yesterday's Results: the
         # home page's sections (scripts/front.py) for this sport, in the HTML;

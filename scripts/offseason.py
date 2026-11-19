@@ -14,9 +14,10 @@ history.json) and the Site settings' dates:
                      the team's season record and units
   Best Bet of last season   the season's best trend by units (55%+, 50+ games)
   Season in Review   the season's top 5 trends, one line each
-  The RTYB Awards    market pills; per market Best team, Worst team, Best
-                     underdog, Worst favorite (totals, BTTS, NRFI: the two
-                     outcomes), 20+ games per team
+  The RTYB Awards    every market's pill; per market Best team, Worst team,
+                     Best underdog, Worst favorite (totals, BTTS, NRFI: the
+                     two outcomes), 20+ games per team, else "Not enough
+                     lines tracked" (the Champions cells too)
 
 Records count the games graded in the market; units only the priced ones.
 A season without saved prices (MLB and WNBA 2026 have F5 / 1Q lines for a
@@ -159,11 +160,6 @@ def units_html(t):
     return f'<span class="os-u {front.unit_tone(t.units)}">{front.fmt_units(t.units)}</span>'
 
 
-def rec_html(t):
-    small = '<span class="os-small">Small sample</span>' if t.n < SMALL else ''
-    return f'<span class="os-rec">{esc(pct_rec(t.w, t.l))}</span>{small}'
-
-
 # ------------------------------------------------------------ Countdown
 def opening_at(day):
     """Opening day's midnight in New York, as an ISO time with its offset."""
@@ -206,14 +202,28 @@ def result_line(sport, ch):
     return f'Beat {the}{opp} {w}–{l}'
 
 
+def big_html(t):
+    """The big Barlow %, the record under it, the units under that."""
+    pct = round(100 * t.w / t.n) if t.n else 0
+    small = '<span class="os-small">Small sample</span>' if t.n < SMALL else ''
+    return (f'<span class="os-big">{pct}%</span><span class="os-rec">{t.w}–{t.l}</span>{small}'
+            f'{units_html(t).replace("os-u", "os-u os-ub", 1)}')
+
+
+NOT_ENOUGH = '<span class="os-none">Not enough lines tracked</span>'
+
+
 def cell(label, side, t):
-    return (f'<div class="os-cell"><span class="os-cl">{esc(label)}</span><span class="os-side">{esc(side)}</span>'
-            f'{rec_html(t)}{units_html(t)}</div>')
+    """One market: fewer than AWARD_MIN tracked games says so instead."""
+    body = big_html(t) if t and t.n >= AWARD_MIN else NOT_ENOUGH
+    side = f'<span class="os-side">{esc(side)}</span>' if t and t.n >= AWARD_MIN else ''
+    return f'<div class="os-cell"><span class="os-cl">{esc(label)}</span>{side}{body}</div>'
 
 
 def champ_cells(sport, doc, team):
-    """{split: html}: one cell per market with the champion's record there."""
-    out = {}
+    """{split: html}: one cell per market with the champion's record there
+    (every market, every split with at least one market tracked)."""
+    out, live = {}, set()
     for k, m, _, label in markets(sport):
         tal = (team_tallies(sport, doc, k, m).get(team)) or {}
         for split, _ in SPLITS:
@@ -225,12 +235,11 @@ def champ_cells(sport, doc, team):
                 names = {'total': ('over', 'Over', 'under', 'Under'), 'btts': ('yes', 'Yes', 'no', 'No'),
                          'rfi': ('no', 'NRFI', 'yes', 'YRFI')}[m]
                 a, b = t.get(names[0]), t.get(names[2])
-                if not a and not b:
-                    continue
                 x, side = (a, names[1]) if (a.rate if a else 0) >= (b.rate if b else 0) else (b, names[3])
-            if x and x.n:
-                out[split] = out.get(split, '') + cell(label, side, x)
-    return out
+            if x and x.n >= AWARD_MIN:
+                live.add(split)
+            out[split] = out.get(split, '') + cell(label, side, x)
+    return {v: h for v, h in out.items() if v in live}
 
 
 def champions(sport, doc, root):
@@ -318,10 +327,13 @@ def review(sport, doc, cards, root):
 
 # ----------------------------------------------------------- the Awards
 def award_card(sport, emoji, label, team, t, root):
+    if not team:
+        return (f'<div class="st-card aw-card aw-empty"><p class="aw-l"><span aria-hidden="true">{emoji}</span> {esc(label)}</p>'
+                f'{NOT_ENOUGH}</div>')
     return (f'<div class="st-card aw-card"><p class="aw-l"><span aria-hidden="true">{emoji}</span> {esc(label)}</p>'
             f'<div class="aw-team">{sport.link(team, sport.badge(team, 40, root), root, "aw-logo")}'
             f'{sport.link(team, esc(sport.full_name(team)), root, "aw-name")}</div>'
-            f'<p class="aw-rec">{rec_html(t)}{units_html(t)}</p></div>')
+            f'<p class="aw-rec">{big_html(t)}</p></div>')
 
 
 def ranked(cands, priced, worst=False):
@@ -331,6 +343,7 @@ def ranked(cands, priced, worst=False):
 
 
 def award_cards(sport, doc, k, m, root):
+    """Every card of the market; one no team has 20+ games for says so."""
     tal = team_tallies(sport, doc, k, m)
     out = ''
     if m in ('ml', 'ats', 'ml3'):
@@ -338,35 +351,28 @@ def award_cards(sport, doc, k, m, root):
             split = {'best': 'all', 'worst': 'all', 'dog': 'dog', 'fav': 'fav'}[kind]
             cands = [(team, (x.get(split) or {}).get('side')) for team, x in tal.items()]
             cands = [(team, t) for team, t in cands if t and t.n >= AWARD_MIN]
-            if not cands:
-                continue
-            priced = all(t.all_priced for _, t in cands)
-            team, t = ranked(cands, priced, worst=kind in ('worst', 'fav'))[0]
+            team, t = ranked(cands, all(t.all_priced for _, t in cands), worst=kind in ('worst', 'fav'))[0] if cands else (None, None)
             out += award_card(sport, emoji, label, team, t, root)
     else:
         for outcome, emoji, label in GAME_AWARDS[m]:
             cands = [(team, (x.get('all') or {}).get(outcome)) for team, x in tal.items()]
             cands = [(team, t) for team, t in cands if t and t.n >= AWARD_MIN]
-            if not cands:
-                continue
-            team, t = ranked(cands, all(t.all_priced for _, t in cands))[0]
+            team, t = ranked(cands, all(t.all_priced for _, t in cands))[0] if cands else (None, None)
             out += award_card(sport, emoji, label, team, t, root)
     return out
 
 
 def awards(sport, doc, root):
-    panes = []
-    for k, m, pill, _ in markets(sport):
-        html = award_cards(sport, doc, k, m, root)
-        if html:   # a market only shows where there's data for it
-            panes.append((f'{k}-{m}', pill, html))
-    if not panes:
+    """Every market's pill, even one without a team at 20+ games."""
+    if not any(g.get('state') in ('final', 'post') for gs in (doc.get('games') or {}).values() for g in gs):
         return ''
-    body = ''.join(f'<div class="aw-cards" data-pane="{v}"{"" if i == 0 else " hidden"}>{h}</div>' for i, (v, _, h) in enumerate(panes))
+    panes = [(f'{k}-{m}', pill, award_cards(sport, doc, k, m, root)) for k, m, pill, _ in markets(sport)]
+    first = next((v for v, _, h in panes if 'aw-team' in h), panes[0][0])   # open on a market with a winner
+    body = ''.join(f'<div class="aw-cards" data-pane="{v}"{"" if v == first else " hidden"}>{h}</div>' for v, _, h in panes)
     link = front.more_link(f'{root}{sport.sp["slug"]}/{sport.sp["sections"]["stats"]}/', f'Full {esc(season_label(doc))} {esc(sport.label)} stats')
     return (f'<section class="fr-sec aw" id="awards" data-tabs><div class="fr-head"><h2>The RTYB Awards</h2>'
             f'<span class="fr-date">{esc(season_label(doc))} season</span></div>'
-            f'{front.pills("Market", [(v, p) for v, p, _ in panes], panes[0][0])}{body}<div class="fr-links">{link}</div></section>')
+            f'{front.pills("Market", [(v, p) for v, p, _ in panes], first)}{body}<div class="fr-links">{link}</div></section>')
 
 
 # ------------------------------------------------- Learn + the Running Tab

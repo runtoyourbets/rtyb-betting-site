@@ -1346,31 +1346,45 @@ def trends_index_body(S, now_utc, root='../'):
 
 
 # ---------------------------------------------------- Yesterday's Results
-def yesterdays_results(S, yday, root='', hub=False):
+def last_week(sport, today):
+    """Football: the latest week whose games are all final ("Week 10")."""
+    done = None
+    for w in sport.doc.get('weeks') or []:
+        games = [g for _, g in sport.all_games() if g.get('wk') == w['key']]
+        if games and w['start'] <= today and all(g.get('state') in ('final', 'post') for g in games):
+            done = w
+    return done
+
+
+def yesterdays_results(S, yday, root='', hub=False, week=None):
     """Pills per sport that played yesterday (home), then that sport's
     segment pills; each pane is the Matchups page's Results box. yday can be
     an earlier day (a hub with no games today: its last game day), titled
-    "[Weekday]'s Results"."""
+    "[Weekday]'s Results". A football hub passes its last finished week:
+    "Last Week's Results · Week 10"."""
     panes, sport_opts = '', []
     for sport in S.values():
-        games = sport.games(yday)
+        games = [g for _, g in sport.all_games() if g.get('wk') == week['key']] if week else sport.games(yday)
         segs = []
         for k in result_segments(sport):
             rows = result_rows(sport, games, k)
             if rows:
-                segs.append((k, results_box(rows, results_title(yday))))
+                segs.append((k, results_box(rows, f"{week['label']} Results" if week else results_title(yday))))
         if not segs:
             continue
         sport_opts.append((sport.key, sport.label))
         tags = [(k, 'NRFI · F5' if k == 'f5' and sport.doc.get('sportType') == 'baseball' else seg_tag(sport, k)) for k, _ in segs]
         inner = pills(f'{sport.label} segment', tags, segs[0][0])
         inner += ''.join(f'<div data-pane="{k}"{"" if i == 0 else " hidden"}>{box}</div>' for i, (k, box) in enumerate(segs))
-        inner += f'<div class="fr-links">{more_link(f"{root}{sport.matchups}?date={yday}", esc(sport.label) + " Results")}</div>'
+        q = f"week={week['key']}" if week else f"date={yday}"
+        inner += f'<div class="fr-links">{more_link(f"{root}{sport.matchups}?{q}", esc(sport.label) + " Results")}</div>'
         panes += f'<div class="fr-res" data-pane="{sport.key}"{"" if not panes else " hidden"} data-sub>{inner}</div>'
     if not panes:
         return ''
     named = 'Yesterday' if yday >= (datetime.now(ET).date() - timedelta(days=1)).isoformat() else Date.fromisoformat(yday).strftime('%A')
-    head = (f'<div class="fr-head"><h2>{named}&rsquo;s Results</h2><span class="fr-date">{esc(day_label(yday))}</span></div>'
+    if week:
+        named = 'Last Week'
+    head = (f'<div class="fr-head"><h2>{named}&rsquo;s Results</h2><span class="fr-date">{esc(week["label"] if week else day_label(yday))}</span></div>'
             + (pills('Sport', sport_opts, sport_opts[0][0]) if not hub else ''))
     return f'<section class="fr-sec" id="results" data-tabs>{head}{panes}</section>'
 
@@ -1671,6 +1685,9 @@ def sections(S, now_utc, root='', hub=False, learn=''):
         hero = p or best_hero(S, yday, hub)
         best = yesterdays_best(S, yday) if p else ''
     res_day = st['last'] if no_games and st.get('last') else yday
+    res_week = None
+    if hub and S and next(iter(S.values())).weekly:
+        res_week = last_week(next(iter(S.values())), now_utc.astimezone(ET).date().isoformat())
 
     def box(cls, html):
         return f'<div class="{cls}">{html}</div>' if html else ''
@@ -1679,5 +1696,5 @@ def sections(S, now_utc, root='', hub=False, learn=''):
             + box('fv-slate', slate(S, now_utc, root, hub)) + box('fv-motd', motd(S, now_utc, root, hub))
             + box('fv-pair', streaks_watch(S, now_utc, root, hub)) + box('fv-bn', bignums.section(S, now_utc, root, hub))
             + box('fv-trends', hottest_trends(S, now_utc, root, hub, early=bool(st) and st['key'] == 'early'))
-            + box('fv-results', yesterdays_results(S, res_day, root, hub)) + box('fv-learn', learn) + (f'<div class="fv-ad">{ad}</div>' if ad else '')
+            + box('fv-results', yesterdays_results(S, res_day, root, hub, week=res_week)) + box('fv-learn', learn) + (f'<div class="fv-ad">{ad}</div>' if ad else '')
             + f'</div>{FRONT_JS}')

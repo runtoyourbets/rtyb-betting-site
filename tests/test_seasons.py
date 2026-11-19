@@ -116,6 +116,41 @@ class OffSeasonTest(unittest.TestCase):
         self.assertEqual(offseason.result_line(sport, {'opp': 'tb', 'wins': 4, 'losses': 1, 'score': [4, 1]}), 'Beat the Tampa Bay Rays 4–1')
 
 
+class HubFollowUpTest(unittest.TestCase):
+    """Hubs follow-up fixes (Nov 19 afternoon)."""
+
+    def test_awards_show_every_market_and_card(self):
+        sport = front.Sport(sports.BY_KEY['mlb'])
+        doc = offseason.season_doc(sport)
+        html = offseason.awards(sport, doc, '../')
+        if not html:
+            self.skipTest('no MLB season data')
+        for pill in ('F5 Moneyline', 'F5 Run Line', 'F5 Total', '1st Inning'):
+            self.assertIn(pill, html)
+        self.assertEqual(html.count('class="st-card aw-card'), 4 + 4 + 2 + 2)
+        self.assertIn('Not enough lines tracked', html)   # MLB 2026 saved F5 lines for a handful of games
+
+    def test_champion_cell_under_20_games(self):
+        t = offseason.Tally()
+        for _ in range(5):
+            t.add('W', 1.0)
+        self.assertIn('Not enough lines tracked', offseason.cell('F5 Total', 'Over', t))
+        for _ in range(20):
+            t.add('L', -1.0)
+        html = offseason.cell('F5 ML', 'Win', t)
+        self.assertIn('<span class="os-big">20%</span><span class="os-rec">5–20</span>', html)
+        self.assertIn('os-ub', html)
+
+    def test_football_hub_shows_last_week(self):
+        sport = front.Sport(sports.BY_KEY['nfl'])
+        week = {'key': 'x', 'label': 'Week 10'}
+        sport.doc = {'weeks': [dict(week, start='2026-11-12', end='2026-11-16')],
+                     'games': {'2026-11-16': [dict(game(1, 'a', 'b', '2026-11-16T18:00Z', 'final', a=1, h=2), wk='x')]}}
+        self.assertEqual(front.last_week(sport, '2026-11-19'), sport.doc['weeks'][0])
+        sport.doc['games']['2026-11-16'][0]['state'] = 'pre'
+        self.assertIsNone(front.last_week(sport, '2026-11-19'))
+
+
 class StreaksTest(unittest.TestCase):
     def test_title_rows_and_lead_team(self):
         S = front.load(NOON, keys=['nba'])
