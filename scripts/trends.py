@@ -251,6 +251,13 @@ class Rec:
 
 # --------------------------------------------------------------- angles
 
+def show_last_ids(T):
+    """The trends whose "Last time" line shows (each angle's show_last
+    switch in the tooltips file, off by default; the line is still built)."""
+    return sorted(aid for grp in ('side_angles', 'game_angles') for aid, x in (T.get(grp) or {}).items()
+                  if isinstance(x, dict) and x.get('show_last'))
+
+
 def side_angles(sp):
     """[(id, test(G, c, fav, price))] -- c is one side's context."""
     def rest_edge(G):
@@ -484,7 +491,7 @@ def generate(sp, doc, G_all, slate, before_date, T, bar=None):
                     cards.append(card)
     # Mirror angles make the same bet on the same games ("Back home
     # favorites" = "Fade road underdogs"): keep one, worded as Back
-    cards.sort(key=lambda c: (-(c['rate'] - c['base']), -c['units'], c['dir'] != 'Back', c['id']))
+    cards.sort(key=lambda c: (-(c['rate'] - c['base']), -(c['units'] or 0), c['dir'] != 'Back', c['id']))
     seen, out = set(), []
     for c in cards:
         sig = (c['seg'], c['mk'], c['w'], c['l'], c['t'], c['units'],
@@ -568,10 +575,31 @@ def update(sp, doc, now_utc, log_path=None):
     return keep
 
 
+LAST_SEASON_MAX = 24   # last season's strongest cards on the Trends page's "See last season's trends"
+
+
+def last_season(sp, hist):
+    """Last season's League Trends (history.json, the shared shape): the
+    strongest cards over the whole season, without game rows, for the
+    Trends page when nothing qualifies yet. None without a history."""
+    if not isinstance((hist or {}).get('games'), dict):
+        return None
+    G = prepare(sp, hist)
+    def bar(rec, base):   # the usual bar, but history.json has no prices: units only when every game had one
+        if rec.n < RULES['min_games'] or rec.rate is None or rec.rate < base + RULES['min_edge'] - 1e-9:
+            return None
+        return {'w': rec.w, 'l': rec.l, 't': rec.t, 'rate': round(rec.rate, 4), 'base': round(base, 4),
+                'units': round(rec.units, 2) if rec.priced >= rec.n else None, 'n': rec.n}
+    keep = ('id', 'angle', 'seg', 'mk', 'tag', 'dir', 'title', 'meaning', 'w', 'l', 't', 'rate', 'base', 'units', 'n')
+    cards = [{k: c[k] for k in keep if k in c} for c in generate(sp, hist, G, G, '9999-12-31', tips(), bar=bar)]
+    return {'label': str(hist.get('seasonLabel') or hist.get('season') or ''), 'cards': cards[:LAST_SEASON_MAX]}
+
+
 def page_doc(sp, doc, now_utc, log_path=None):
     """{slug}/trends.json: the cards per slate, the rules and the tooltips."""
     T = tips()
     return {'sport': sp['key'], 'shown': RULES['shown'], 'slates': update(sp, doc, now_utc, log_path),
             'markets': [[seg, m, label] for seg, m, label, _ in sp['family_markets']],
             'segments': {s['key']: seg_words(sp, s['key']) for s in sp['segments']},
-            'tips': {k: T[k] for k in ('matchup_labels', 'streaks', 'record_line') if k in T} | {'fade': (T.get('direction') or {}).get('Fade', '')}}
+            'tips': {k: T[k] for k in ('matchup_labels', 'streaks', 'record_line', 'team_trends') if k in T} | {'fade': (T.get('direction') or {}).get('Fade', ''),
+                                                                                                 'show_last': show_last_ids(T)}}

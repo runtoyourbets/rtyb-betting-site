@@ -26,6 +26,10 @@ refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
 - College sports (NCAAB, NCAAF): desktop shows the school name (Kentucky,
   Arizona), never the nickname; mobile shows the school abbreviation (UK, ARIZ).
 - Inside cards, odds rows and records: abbreviations on every device.
+- Exception: the Teams index (/{sport}/teams/) shows names on phones too:
+  the nickname for pro teams (Oilers), the school for college (Kentucky).
+  Names scan better than codes in that list. Desktop there: the full name
+  for pro teams (Edmonton Oilers), the school name for college.
 - Team abbreviations: one code per team, the same everywhere (badges, cards,
   tables, Slate). Pro teams use the league's standard code, 3 characters max
   (BOS, NY, GS, UTA); college teams 4 max (UCLA, IOWA, ORST). Teams outside

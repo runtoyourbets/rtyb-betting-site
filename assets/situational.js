@@ -532,7 +532,7 @@
       var tip = esc(REG.foot || 'Records count every game; units count only games with saved closing odds, 1 unit at the closing price (spreads and totals at -110 when only the line was saved).') +
         ' Small sample: under ' + (REG.smallSample || 10) + ' games; rows under 5 games stay hidden. ' +
         '&ldquo;Per team&rdquo; rows count each team&rsquo;s game, so one game can count twice. Green and red mark real edges: 60%+ (or 40% and under) over 10+ games, or more than 5 units either way.';
-      var html = '<div class="st-sec sit"><div class="st-sec-head"><h2>Situational Results <button type="button" class="info-tip tip-left" aria-label="About this table">i<span class="tip-bubble" role="tooltip">' + tip + '</span></button></h2>' +
+      var html = '<div class="st-sec sit"><div class="st-sec-head"><h2>Situational Results <button type="button" class="info-tip" aria-label="About Situational Results" data-tip-title="Situational Results">i<span class="tip-bubble" role="tooltip">' + tip + '</span></button></h2>' +
         '</div>' + bar() + (view.line || '') +
         (st.comboMsg ? '<p class="sit-combo">Combining filters is a Premium feature: one at a time for now.</p>' : '');
       if (!league && view.next) {
@@ -725,7 +725,116 @@
       box.querySelectorAll('[data-ts-next]').forEach(function(b) { b.onclick = function() { ts.next = b.getAttribute('data-ts-next') === '1'; teamView(box, view); }; });
       box.querySelectorAll('[data-ts-seg]').forEach(function(b) { b.onclick = function() { if (view.onSeg) view.onSeg(b.getAttribute('data-ts-seg')); }; });
     }
-    return { render: render, team: teamView, glossary: glossary, contexts: function(k, mode) { return contexts(k, mode || 'current'); }, tags: tags, nextFits: nextFits, spots: spots, standout: standout,
+    // ---- the Splits page (league): the team page's layout. Desktop: one wide
+    // table, every market side by side ("% (record)", units in priced
+    // columns), rows under MATCHUP · OPPONENT · START TIME · REST · PREVIOUS
+    // GAME, then the DAY OF WEEK strip; phones: market pills, GP · % (record)
+    // · units. Team rows count each team in the spot; matchup-wide rows
+    // (division game, either team off a loss...) count the home team's side.
+    // view = {range, controls, line, after(box), segs, onSeg(k)}
+    var LEAGUE_GROUP = { ha: 'Matchup', spread: 'Matchup', size: 'Matchup', opp: 'Opponent', rank: 'Opponent',
+                         tip: 'Start time', drop: 'Start time', ko: 'Start time', rest: 'Rest', prev: 'Previous game' };
+    var LEAGUE_ORDER = ['Matchup', 'Opponent', 'Start time', 'Rest', 'Previous game'];
+    // the league's side rows: Home team, Favorite, Team with more rest (their
+    // mirrors, Away / Underdog / Tired, say the same thing from the other side)
+    var LEAGUE_NAME = { home: 'Home team', fav: 'Favorite', rested: 'Team with more rest', radv: 'Team with more rest', restadv: 'Team with more rest' };
+    function leagueSkip(id) { return { away: 1, dog: 1, tired: 1, rdis: 1, restdis: 1 }[id] || /^d\d+$/.test(id); }
+    var LEAGUE_EXTRA = [
+      { id: 'better', label: 'Better record team', short: 'Better record', group: 'opp', own: true, def: 'The team with the better win % going into the game.',
+        test: function(c) { var a = c.w + c.l, b = c.oppW + c.oppL; return a && b && c.w / a > c.oppW / b; } }
+    ];
+    var lg = { col: 0 };
+    function leagueView(box, view) {
+      if (!box) return;
+      var k = st.k && src.segments.some(function(s) { return s.key === st.k; }) ? st.k : src.segments[0].key;
+      st.k = k;
+      var conf = REG.conferences ? st.conf : '';
+      var pool = contexts(k, 'current');
+      if (conf) pool = pool.filter(function(e) { return e.c.teamConf === conf; });
+      var R = view.range;
+      if (R) pool = R.none ? [] : pool.filter(function(e) {
+        return R.post != null ? !!e.c.g.post === R.post : R.wk ? e.c.g.wk === R.wk : e.c.date >= R.from && e.c.date <= R.to;
+      });
+      var ms = markets.filter(function(m) { return m.label; });
+      if (lg.col >= ms.length) lg.col = 0;
+      var priced = ms.map(function(m) { return pool.some(function(e) { return e.r[m.id + 'U'] != null || e.r[m.id + 'A'] != null; }); });
+      function pctOf(x) { var d = x.a + x.b; return d ? Math.round(100 * x.a / d) : null; }
+      function recOf(id, x) {
+        if (!x.n) return '&mdash;';
+        if (id === 'ml3') return x.a + '&ndash;' + (x.b - x.d) + '&ndash;' + x.d;
+        if (id === 'su' || id === 'ats') return x.a + '&ndash;' + x.b + '&ndash;' + x.p;
+        return x.a + '&ndash;' + x.b;
+      }
+      function unitsOf(i, x) {
+        if (!priced[i] || !x.na) return '';
+        var r = Math.round(x.ua * 100) / 100;
+        return ' <span class="ts-u ' + (r > 0.5 ? 'pos' : r < -0.5 ? 'neg' : 'mid') + '">' + fmtU(r) + '</span>';
+      }
+      function cellHtml(i, x) {
+        if (!x.n) return '<span class="ts-dash">&mdash;</span>';
+        var p = pctOf(x);
+        return '<span class="ts-pct">' + (p == null ? '&mdash;' : p + '%') + '</span>' + unitsOf(i, x) + ' <span class="ts-rec">(' + recOf(ms[i].id, x) + ')</span>';
+      }
+      var PER = false, groups = {};
+      REG.rows.concat(LEAGUE_EXTRA).forEach(function(row) {
+        if (row.id === 'overall' || row.teamOnly || leagueSkip(row.id)) return;
+        var name = LEAGUE_GROUP[row.group];
+        if (!name) return;
+        var a = agg(pool.filter(function(e) { return (row.own || e.c.home) && !!row.test(e.c, C); }), ms);
+        if (a.gp < 5) return;
+        if (a.gp > a.games) PER = true;
+        (groups[name] = groups[name] || []).push({ row: row, a: a });
+      });
+      var names = LEAGUE_ORDER.filter(function(n) { return groups[n]; });
+      function nameHtml(row, a) {
+        return '<span class="ts-name">' + esc(LEAGUE_NAME[row.id] || lab(row, k)) + (a.gp > a.games ? '<sup class="st-mark">*</sup>' : '') + '</span>' +
+          (a.gp < (REG.smallSample || 10) ? '<span class="ts-small">small sample</span>' : '');
+      }
+      function pills(cls) {
+        return '<div class="seg-toggle ' + cls + '" role="group" aria-label="Market">' + ms.map(function(m, i) {
+          return '<button class="seg-btn" data-lg-col="' + i + '" aria-pressed="' + (i === lg.col) + '">' + esc(m.label) + '</button>'; }).join('') + '</div>';
+      }
+      var ctl = '';
+      if (src.segments.length > 1) ctl += '<div class="seg-toggle" role="group" aria-label="Segment">' + src.segments.map(function(s) {
+        return '<button class="seg-btn" data-lg-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>'; }).join('') + '</div>';
+      if (REG.conferences) ctl += '<select class="conf-select" data-lg-conf aria-label="Conference"><option value="">' + esc(REG.allLabel || 'All') + '</option>' +
+        REG.conferences.map(function(c) { return '<option value="' + esc(c) + '"' + (c === conf ? ' selected' : '') + '>' + esc(((src.conf || {}).short || {})[c] || c) + '</option>'; }).join('') + '</select>';
+      var h = '<div class="st-sec sit"><div class="st-sec-head"><h2>Situational Results</h2></div>' +
+        '<div class="ob-stick sit-stick"><div class="sit-bar"><div class="sit-row1">' + ctl + '</div><div class="sit-full">' + (view.controls || '') + '</div></div></div>' + (view.line || '');
+      h += '<div class="lg-body">' + pills('ts-pills-phone');
+      if (!names.length) h += '<p class="ts-none">No splits with 5 or more games yet.</p>';
+      var thead = '<tr><th class="ts-l">Split</th><th class="num">GP</th>' + ms.map(function(m) { return '<th class="num">' + esc(m.label) + '</th>'; }).join('') + '</tr>';
+      if (names.length) h += '<div class="ts-desk"><table class="ts-table"><thead>' + thead + '</thead><tbody>' + names.map(function(n) {
+        return '<tr class="ts-grp"><th colspan="' + (ms.length + 2) + '"><span class="ts-gl">' + esc(n) + '</span></th></tr>' + groups[n].map(function(x) {
+          return '<tr class="ts-row"><td class="ts-l">' + nameHtml(x.row, x.a) + '</td><td class="num">' + x.a.gp + '</td>' +
+            ms.map(function(m, i) { return '<td class="num">' + cellHtml(i, x.a[m.id]) + '</td>'; }).join('') + '</tr>';
+        }).join('');
+      }).join('') + '</tbody></table></div>';
+      var sel = ms[lg.col];
+      if (names.length) h += '<div class="ts-mob">' + names.map(function(n) {
+        return '<p class="ts-gl">' + esc(n) + '</p><ul class="ts-list">' + groups[n].map(function(x) {
+          return '<li class="ts-row"><span class="ts-lcell">' + nameHtml(x.row, x.a) + '</span><span class="ts-gp">' + x.a.gp + ' GP</span>' +
+            '<span class="ts-val">' + cellHtml(lg.col, x.a[sel.id]) + '</span></li>';
+        }).join('') + '</ul>';
+      }).join('') + '</div>';
+      // DAY OF WEEK: Mon-Sun in the selected market (home team's side)
+      var strip = DOW.map(function(d) {
+        var x = agg(pool.filter(function(e) { return e.c.home && e.c.dow === d[0]; }), [sel])[sel.id], p = pctOf(x);
+        return '<div class="ts-day"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '&mdash;' : p + '%') + '</span>' +
+          '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
+      }).join('');
+      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.pctHead || '') + '</span></div><div class="ts-strip">' + strip + '</div></div></div>';
+      h += '<p class="st-foot">Team rows count each team in the spot' + (PER ? ' (<sup>*</sup> one game can count twice)' : '') + '; matchup-wide rows and the day strip count the home team&rsquo;s side. Units count games with a saved price.</p></div>';
+      var locked = src.locked && src.locked();
+      box.className = 'adv-section' + (locked ? ' locked' : '');
+      box.innerHTML = h + (locked && src.lockHtml ? src.lockHtml() : '');
+      box.querySelectorAll('[data-lg-col]').forEach(function(b) { b.onclick = function() { lg.col = +b.getAttribute('data-lg-col'); leagueView(box, view); }; });
+      box.querySelectorAll('[data-lg-seg]').forEach(function(b) { b.onclick = function() { st.k = b.getAttribute('data-lg-seg'); if (!(src.onSeg && src.onSeg(st.k, null) !== false)) leagueView(box, view); }; });
+      var cs = box.querySelector('[data-lg-conf]');
+      if (cs) cs.onchange = function() { st.conf = cs.value; saveUrl(); leagueView(box, view); };
+      if (view.after) view.after(box);
+    }
+    return { render: render, team: teamView, league: leagueView, glossary: glossary, contexts: function(k, mode) { return contexts(k, mode || 'current'); }, tags: tags, nextFits: nextFits, spots: spots, standout: standout,
              markets: markets, reg: REG, state: st };
   }
   window.RTYBSit = { create: create, etParts: etParts };

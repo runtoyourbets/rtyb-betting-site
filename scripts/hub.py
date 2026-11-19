@@ -292,7 +292,8 @@ def game_trends(doc, g, cards, seqs_by_seg):
 
 def matchup_label(doc, g, k, seqs):
     """Tug of war / Fireworks / Lockdown (totals, BTTS), Mismatch /
-    Heavyweights (moneyline), from both teams' leans in the segment."""
+    Heavyweights (moneyline), from both teams' leans in the segment:
+    (label, the market it came from) or (None, None)."""
     labels = (read_json(TIPS, {}).get('matchup_labels') or {})
     leans = {}
     for m in ('total', 'btts', 'ml'):
@@ -304,12 +305,12 @@ def matchup_label(doc, g, k, seqs):
         x = leans.get(m) or {}
         if x.get('away') and x.get('home'):
             key = 'tug_of_war' if x['away'] != x['home'] else 'fireworks' if x['away'] == HIT[m] else 'lockdown'
-            return (labels.get(key) or {}).get('label')
+            return (labels.get(key) or {}).get('label'), m
     x = leans.get('ml') or {}
     if x.get('away') and x.get('home'):
         key = 'mismatch' if x['away'] != x['home'] else 'heavyweights' if x['away'] == 'W' else None
-        return (labels.get(key) or {}).get('label') if key else None
-    return None
+        return ((labels.get(key) or {}).get('label'), 'ml') if key else (None, None)
+    return None, None
 
 
 def best_price(slug_dir, day, g, k, m, pick):
@@ -388,8 +389,9 @@ def pick_matchup(doc, trends_doc, slug_dir, key, games, before):
     shown = fill_trends(doc, g, k, m, pick, ts, seqs_by_seg[k])[:SHOW_MAX]
     day = next((d for d, x in all_games(doc) if x is g), None)
     price = best_price(slug_dir, day, g, k, m, pick)
+    lab = matchup_label(doc, g, k, seqs_by_seg.get(k) or {})
     return {'id': g['id'], 'date': day, 'start': g.get('start'), 'away': g['away'], 'home': g['home'], 'seg': k, 'mk': m, 'pick': pick,
-            'bet': bet_words(doc, g, k, m, pick), 'n': len(ts), 'edge': round(best[0][1], 4), 'label': matchup_label(doc, g, k, seqs_by_seg.get(k) or {}),
+            'bet': bet_words(doc, g, k, m, pick), 'n': len(ts), 'edge': round(best[0][1], 4), 'label': lab[0], 'label_mk': lab[1],
             'trends': [{'kind': t['kind'], 'text': t['text'], 'short': t['short'], 'rec': t['rec']} for t in shown],
             'price': {'price': price[0], 'line': price[1], 'book': price[2]} if price else None}
 

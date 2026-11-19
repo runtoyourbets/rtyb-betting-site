@@ -1182,6 +1182,9 @@ def build(sp, teams_list, now_utc=None):
     write_json(os.path.join(slug_dir, 'data.json'), doc)
     # the Trends page's League Trends cards (scripts/trends.py)
     trends_doc = trend_cards.page_doc(sp, doc, now_utc)
+    prior = trend_cards.last_season(sp, read_json(hist_path, None))   # "See last season's trends"
+    if prior and prior['cards']:
+        trends_doc['lastSeason'] = prior
     write_json(os.path.join(slug_dir, 'trends.json'), trends_doc)
     odds_schedule = {d: [{'away': g['away'], 'home': g['home'], 'start': g.get('start'),
                           'state': {'in': 'live', 'final': 'final', 'post': 'final'}.get(g.get('state'), 'pre'),

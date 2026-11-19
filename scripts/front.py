@@ -942,19 +942,32 @@ def hot_cards(S, now_utc, bar=True, day=None, left=False):
     return top + rest
 
 
+def tip_body(title, definition, compare=''):
+    """The "i" box's contents (template.html #tipBox): the title, a short
+    definition and, on trends only, the comparison line. Nothing else."""
+    return (f'<span class="tip-t">{esc(title)}</span><span class="tip-d">{esc(definition)}</span>'
+            + (f'<span class="tip-c">{esc(compare)}</span>' if compare else ''))
+
+
+def info_tip(label, body):
+    return f'<button type="button" class="info-tip" aria-label="About {esc(label)}">i<span class="tip-bubble" role="tooltip">{body}</span></button>'
+
+
+def trend_compare(c):
+    """"This trend: 62% (57–35). League average: 50%." """
+    return f'This trend: {round(c["rate"] * 100)}% ({c["w"]}–{c["l"]}). League average: {round(c["base"] * 100)}%.'
+
+
 def trend_tip(sport, c):
-    """The "i" circle, the same as the Trends page's: the card's title, what
-    it means, the Fade line on Fade cards and the last game that fit."""
-    fade = (sport.trends.get('tips') or {}).get('fade') or ''
-    body = (f'<b>{esc(c["title"])}</b><br>{esc(c.get("meaning"))}'
-            + (f'<br>{esc(fade)}' if c.get('dir') == 'Fade' else '')
-            + (f'<br><i>{esc(c["last"])}</i>' if c.get('last') else ''))
-    return f'<button type="button" class="info-tip" aria-label="About this trend">i<span class="tip-bubble" role="tooltip">{body}</span></button>'
+    """The "i" circle, the same as the Trends page's."""
+    return info_tip(c['title'], tip_body(c['title'], c.get('meaning') or '', trend_compare(c)))
 
 
-def last_line(c):
-    """The trend's "Last time" line (the "i" tooltip's last line)."""
-    return c.get('last') or ''
+def last_line(sport, c):
+    """The trend's "Last time" line under its rows, only when the trend's
+    show_last switch is on (content/trend_tooltips.json, off by default)."""
+    on = ((sport.trends.get('tips') or {}).get('show_last')) or []
+    return (c.get('last') or '') if c.get('angle') in on else ''
 
 
 def hot_card(sport, c, by_id, xs, root, now, show_sport=True, n_rows=HOT_ROWS, attrs='', last_recs=None):
@@ -964,7 +977,7 @@ def hot_card(sport, c, by_id, xs, root, now, show_sport=True, n_rows=HOT_ROWS, a
     the script to move up as games start). last_recs (early season): each
     trend's record last season, behind the "Last season" toggle."""
     xs = sorted(xs, key=lambda x: (by_id[str(x['id'])].get('state') == 'final', by_id[str(x['id'])].get('start') or ''))[:n_rows]
-    last = last_line(c)
+    last = last_line(sport, c)
     rows = ''.join(trend_row(sport, c, x, by_id[str(x['id'])], root, now, last).replace('<div ', '<div hidden ', 1) if i >= HOT_ROWS else
                    trend_row(sport, c, x, by_id[str(x['id'])], root, now, last) for i, x in enumerate(xs))
     if not rows:
@@ -1077,6 +1090,25 @@ def motd_watch(sport, m):
     return esc(what)
 
 
+def seg_words(sport, k):
+    """"1st period", "first five" (the words {segment} becomes)."""
+    lab = next((s['label'] for s in sport.segments if s['key'] == k), 'opening segment')
+    return lab.lower().replace('first five innings', 'first five').replace('first 5 innings', 'first five')
+
+
+def label_text(x, seg, btts=False):
+    """A matchup label's definition: {segment}s reads "1st periods" (the
+    first five stays "first five"), BTTS labels their own wording."""
+    t = (x.get('tooltip_btts') if btts else None) or x.get('tooltip') or ''
+    return t.replace('{segment}s', seg if seg == 'first five' else seg + 's').replace('{segment}', seg)
+
+
+def label_chip(label, definition, cls='mo-chip'):
+    """The label chip with its own "i" next to it."""
+    return (f'<span class="lbl-chip"><span class="{cls}">{esc(label)}</span>'
+            + info_tip(label, tip_body(label, definition)) + '</span>')
+
+
 def motd_chip(sport, m):
     """The matchup label with its "i" (content/trend_tooltips.json
     matchup_labels, the same words as the Matchups page)."""
@@ -1086,10 +1118,7 @@ def motd_chip(sport, m):
     x = next((v for v in labels.values() if isinstance(v, dict) and v.get('label') == m['label']), None)
     if not x:
         return f'<span class="mo-chip">{esc(m["label"])}</span>'
-    seg = next((s['label'] for s in sport.segments if s['key'] == m['seg']), 'opening segment')
-    tip = x['tooltip'].replace('{segment}', seg.lower()) + ' ' + (labels.get('lean_rule') or '')
-    return (f'<span class="mo-chip">{esc(m["label"])}<button type="button" class="info-tip" aria-label="About {esc(m["label"])}">i'
-            f'<span class="tip-bubble" role="tooltip">{esc(tip.strip())}</span></button></span>')
+    return label_chip(m['label'], label_text(x, seg_words(sport, m['seg']), m.get('label_mk') == 'btts'))
 
 
 def motd_odds(sport, m, root):
@@ -1518,12 +1547,6 @@ FRONT_JS = '''
       b.parentNode.querySelectorAll('.tr-card[data-more]').forEach(function(c) { c.hidden = false; });
       b.remove();
     });
-  });
-  // "i" circles open on tap (sport pages: assets/sport.js does it)
-  if (!document.getElementById('sportApp')) document.addEventListener('click', function(e) {
-    var tip = e.target.closest ? e.target.closest('.info-tip') : null;
-    document.querySelectorAll('.info-tip.open').forEach(function(t) { if (t !== tip) t.classList.remove('open'); });
-    if (tip) tip.classList.toggle('open');
   });
   // a trend row's "Last time" line: a click or tap opens it under the row
   // (one at a time; again closes it); desktop also shows it on hover (CSS)
