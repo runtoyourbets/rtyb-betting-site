@@ -10,7 +10,7 @@ lead: nhl:2026020345
 motd: nhl:2026020344
 stat_of_night: {"sport": "nhl", "number": "82%", "line": "COL Over the 1P total · 9–2 on the road", "text": "The Colorado Avalanche went Over the 1P total in 9 of 11 games on the road."}
 league_trend: {"sport": "nhl", "number": "67%", "line": "Over 1.5: team off a shutout · 1P O/U · 18–9", "text": "Over 1.5: team off a shutout 18–9 this season; tonight it fits Boston Bruins at Detroit Red Wings.", "id": "off_shutout_game:1p:total:over"}
-edge_play: {"sport": "nhl", "number": "-105", "line": "BOS 1P ML · best -105 at TheScore US", "text": "Boston Bruins at Detroit Red Wings: the top Edge play is BOS 1P ML at -105."}
+edge_play: {"sport": "nhl", "number": "BOS 1P ML", "bet": "BOS 1P ML", "price": "-105", "book": "TheScore US", "line": "BOS 1P ML · best -105 at TheScore US", "text": "Boston Bruins at Detroit Red Wings: Boston 1P ML, season: 62% (10–6)."}
 ---
 **Three NHL games, a pile of first-period streaks, and one matchup where our trends are stacking up.**
 

@@ -23,7 +23,7 @@ import html
 import json
 import os
 import re
-from datetime import date
+from datetime import date, datetime, timezone
 
 import sports
 
@@ -103,11 +103,31 @@ def hook_and_teaser(body):
     return hook, teaser
 
 
+PUBLISHED_AT = os.path.join(ROOT, 'content', 'published_at.json')
+
+
+def published_at(name, meta, stamps):
+    """When a piece was published: the `published:` time admin's Publish
+    writes into it, else the first build that saw the file (recorded in
+    content/published_at.json)."""
+    if meta.get('published'):
+        return str(meta['published'])
+    if name not in stamps:
+        stamps[name] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    return stamps[name]
+
+
 def load():
     """Published pieces, newest first."""
     out = []
     if not os.path.isdir(PUBLISHED):
         return out
+    try:
+        with open(PUBLISHED_AT, encoding='utf-8') as f:
+            stamps = json.load(f)
+    except (OSError, ValueError):
+        stamps = {}
+    before = dict(stamps)
     for name in sorted(os.listdir(PUBLISHED)):
         if not name.endswith('.md'):
             continue
@@ -130,7 +150,12 @@ def load():
         hook, teaser = hook_and_teaser(body)
         out.append({'kind': kind, 'sport': sport, 'date': day, 'slug': slug, 'path': path, 'body': body, 'covers': covers,
                     'title': meta.get('title') or hook or name[:-3], 'hook': hook, 'teaser': teaser, 'lead': meta.get('lead'),
-                    'boxes': {k: meta[k] for k in ('stat_of_night', 'league_trend', 'edge_play') if isinstance(meta.get(k), dict)}})
+                    'boxes': {k: meta[k] for k in ('stat_of_night', 'league_trend', 'edge_play') if isinstance(meta.get(k), dict)},
+                    'published': published_at(name, meta, stamps)})
+    if stamps != before:
+        with open(PUBLISHED_AT, 'w', encoding='utf-8') as f:
+            json.dump(stamps, f, indent=1, sort_keys=True)
+            f.write('\n')
     out.sort(key=lambda p: (p['date'], {'column': 2, 'preview': 1, 'recap': 0}[p['kind']]), reverse=True)
     return out
 

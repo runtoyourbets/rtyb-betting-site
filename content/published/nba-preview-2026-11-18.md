@@ -10,7 +10,7 @@ lead: nba:401910009
 motd: nba:401910018
 stat_of_night: {"sport": "nba", "number": "93%", "line": "MIL Under the 1Q total · 13–1", "text": "The Milwaukee Bucks went Under the 1Q total in 13 of 14 games this season."}
 league_trend: {"sport": "nba", "number": "68%", "line": "Back road favorites · 1H ML · 58–27", "text": "Back road favorites 58–27 this season; tonight it fits Houston Rockets at Indiana Pacers and 3 more games.", "id": "road_fav:1h:ml:back"}
-edge_play: {"sport": "nba", "number": "+126", "line": "PHI 1H ML · best +126 at Caesars", "text": "Philadelphia 76ers at Orlando Magic: the top Edge play is PHI 1H ML at +126."}
+edge_play: {"sport": "nba", "number": "PHI 1H ML", "bet": "PHI 1H ML", "price": "+126", "book": "Caesars", "line": "PHI 1H ML · best +126 at Caesars", "text": "Philadelphia 76ers at Orlando Magic: 76ers 1H ML, season: 64% (9–5)."}
 ---
 **Twelve games, a pile of early-game streaks, and one late tip where our trends stack up.**
 

@@ -248,7 +248,11 @@ async function publishContent(env, body) {
   const name = body.path.split("/").pop();
   const isColumn = body.path.startsWith("content/columns/");
   const target = `content/published/${isColumn && !name.startsWith("column-") ? "column-" + name : name}`;
-  const put = await putText(env, target, `Publish ${name} (admin)`, body.text);
+  // the real publish time, for the page's "Published 8:59 PM ET" (front matter)
+  const stamp = `published: ${new Date().toISOString().slice(0, 19)}Z`;
+  const text = body.text.startsWith("---\n") && !/^published:/m.test(body.text.split("\n---")[0])
+    ? body.text.replace("---\n", `---\n${stamp}\n`) : body.text;
+  const put = await putText(env, target, `Publish ${name} (admin)`, text);
   if (!put.ok) return put;
   const del = await deleteFile(env, body.path, `Remove ${name} after publishing (admin)`);
   if (!del.ok) return del;

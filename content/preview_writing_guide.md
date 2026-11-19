@@ -36,8 +36,10 @@ sport, number and record or bet line); you write one sentence for each.
   `EDGE: <one sentence>`
 - Each sentence explains its box's number for tonight, naming the full team
   names involved. 25 words at most.
-- EDGE: the bet, its line and the best price and book from the box. Nothing
-  about a "worth it" price and no season record for the plays.
+- EDGE: why the play: the rates behind it from the packet, percent first
+  ("Boston 1P ML on the road: 71% (5–2)"). The box already shows the bet and
+  the best price and book. Nothing about a "worth it" price and no season
+  record for the plays.
 - Don't repeat the box numbers in the body.
 
 ## The article
