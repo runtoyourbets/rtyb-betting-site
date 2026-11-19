@@ -2140,7 +2140,7 @@
         '<span class="sk-text"><span>' + text + '</span>' +
         (opp ? '<small>Plays ' + codeLink(opp) + ' ' + esc(onWord(x.g)) + '</small>' : '') + '</span></div>';
     }
-    return '<section class="trends-page-section"><div class="tp-head"><div><h2>Streak Trends</h2>' +
+    return '<section class="trends-page-section" id="streak-trends"><div class="tp-head"><div><h2>Streak Trends</h2>' +
       '<p class="tp-sub">' + esc((TR.tips.streaks || {}).section || '') + ' ' + esc((TR.tips.streaks || {}).colors || '') + '</p></div></div>' +
       (list.length ? '<div class="sk-list">' + on.concat(rest).map(row).join('') + '</div>' : '<div class="no-games-note">No team is on a run of 3 or more.</div>') + '</section>';
   }
@@ -2205,9 +2205,9 @@
     fetch(ROOT + SPORT_SLUG + '/trends.json').then(function(r) { return r.json(); }).then(function(tr) {
       TR = tr;
       if (D.schedule === 'week') renderTrendsByWeek(); else renderTrendsByDay();
-      // the hub's "See the full matchup" link: #mt-<game id>
-      var hit = /^#mt-/.test(location.hash) && document.getElementById(location.hash.slice(1));
-      if (hit) { hit.classList.add('mt-hit'); hit.scrollIntoView({ block: 'start' }); }
+      // the hub's "See the full matchup" link: #mt-<game id>; the hubs' "All streaks" link: #streak-trends
+      var hit = /^#(mt-|streak-trends$)/.test(location.hash) && document.getElementById(location.hash.slice(1));
+      if (hit) { if (/^#mt-/.test(location.hash)) hit.classList.add('mt-hit'); hit.scrollIntoView({ block: 'start' }); }
     }).catch(function(e) {
       app.innerHTML = emptyNote('Couldn&rsquo;t load the trends. Try reloading.');
       if (window.console) console.error(e);
@@ -2622,62 +2622,6 @@
     });
   }
 
-  // ------------------------------------------------------------- Arena hub
-  // /{sport}/: the sport's front page (Chris's Arena hub spec). Teasers, each
-  // linking to its full page, from data.json (NHL: sport.json), trends.json
-  // and hub.json (scripts/hub.py: Matchup of the Day and its record, The
-  // Daily, the Learn link). Football says "this week" where others say "today".
-  function hubSec(title, link, body, id) {
-    return '<section class="hub-sec"' + (id ? ' id="' + id + '"' : '') + '><div class="hub-head"><h2>' + title + '</h2>' + (link || '') + '</div>' + body + '</section>';
-  }
-  function hubLink(href, txt) { return '<a class="hub-more" href="' + href + '">' + txt + ' &rarr;</a>'; }
-  // one stat a day (the same for everyone that day), from all three Stats
-  // pages: Season Results, the Splits standout, the Edges rows; links to its page
-  function hubNumber() {
-    var out = [];
-    D.segments.forEach(function(s) {
-      var k = s.key, ws = segWords(k), list = graded(finalGames(), k), cards = seasonCards(finalGames(), k);
-      var spreads = s.tag + ' spreads', P = {
-        ml: { home: ['w', 'of ' + ws + ' are won by the home team (ties left out)'], tie: ['tie', 'of ' + ws + ' end tied'] },
-        mlfd: { fav: ['w', 'of ' + ws + ' are won by the favorite (ties left out)'] },
-        fd: { mlfav: ['w', 'of ' + ws + ' are won by the moneyline favorite (ties left out)'], spfav: ['w', 'of ' + spreads + ' are covered by the favorite'] },
-        ats: { home: ['w', 'of ' + spreads + ' are covered by the home team'] },
-        tot: { over: ['w', 'of ' + ws + ' go Over ' + (D.sport === 'nhl' ? '1.5' : 'the total')] },
-        btts: { yes: ['w', 'of ' + ws + ' see both teams score'] },
-        rfi: { YRFI: ['w', 'of games have a run in the 1st inning'] }
-      };
-      cards.forEach(function(c) {
-        var ph = P[c.id];
-        if (!ph || c.gp < 10) return;
-        Object.keys(ph).forEach(function(id) {
-          var x = ph[id][0] === 'tie' ? { p: c.tie / c.gp } : (function(r) { return r.w + r.l ? { p: r.w / (r.w + r.l) } : null; })((c.by[id] || {}).r || sRec());
-          if (x && (ph[id][0] !== 'tie' || c.tie != null)) out.push({ pct: Math.round(100 * x.p), txt: ph[id][1] + ' this season', href: statsUrl(), go: 'See stats' });
-        });
-      });
-      if (list.length < 10) return;
-      var sd = splitReg() ? splitsStandout(k) : null;
-      if (sd) out.push({ pct: sd.pct, txt: s.tag + ' ' + sd.market + ' ' + sd.pctHead.replace(' %', '').toLowerCase() + ' rate: ' + sd.label + ' (' + sd.rec + ')', href: statsUrl('splits'), go: 'See splits' });
-      if (leadCuts(k)) edgeData(k).rows.forEach(function(x) {
-        if (x.n >= 10) out.push({ pct: Math.round(100 * x.hit / x.n), txt: edgeSay(x, k), href: statsUrl('edges'), go: 'See edges' });
-      });
-    });
-    if (!out.length) return { html: '<p class="hub-none">Stats start once games are graded.</p>', href: statsUrl(), go: 'See stats' };
-    var day = Math.floor(Date.parse(todayET() + 'T12:00:00Z') / 864e5), x = out[day % out.length];
-    return { html: '<p class="hub-number"><b class="mono">' + x.pct + '%</b> ' + x.txt.replace(/&(?![a-z]+;)/g, '&amp;') + '.</p>', href: x.href, go: x.go };
-  }
-  // Everything above The Number (Preview, The Slate, Matchup of the Day,
-  // Hottest Trends, Team to Watch, Biggest Line Move, the Running Tab,
-  // Yesterday's Results) is in the page's HTML above #sportApp
-  // (scripts/front.py, shared with the home page)
-  function renderHub() {
-    fetch(ROOT + SPORT_SLUG + '/trends.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }).then(function(tr) {
-      TR = tr || { slates: {}, tips: {}, markets: [] };
-      var num = hubNumber();
-      // the sport's Betting Guides block follows in the page's HTML (scripts/guides.py)
-      app.innerHTML = hubSec('The Number', hubLink(num.href, num.go), num.html);
-    });
-  }
-
   // ---------------------------------------------------------------- boot
   // "i" tooltips open on tap (phones) as well as hover
   document.addEventListener('click', function(e) {
@@ -2686,13 +2630,13 @@
     if (tip) tip.classList.toggle('open');
   });
   // NHL's data.json is its own shape; its Matchups, Stats, Trends and Teams pages read the shared shape (nhl/sport.json)
-  var DATA_FILE = SPORT_SLUG === 'nhl' && ['hub', 'games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
-  fetch(ROOT + SPORT_SLUG + '/' + DATA_FILE).then(function(r) { return r.json(); }).then(function(data) {
+  var DATA_FILE = SPORT_SLUG === 'nhl' && ['games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
+  // the hub (/{sport}/) is all static HTML (scripts/front.py sections)
+  if (SECTION !== 'hub') fetch(ROOT + SPORT_SLUG + '/' + DATA_FILE).then(function(r) { return r.json(); }).then(function(data) {
     D = data;
     if (SECTION === 'odds') { renderOdds(); return; }   // works from odds.json alone for NHL
     if (!D.segments || !D.segments.length) return;
-    if (SECTION === 'hub') renderHub();
-    else if (SECTION === 'games') renderGames();
+    if (SECTION === 'games') renderGames();
     else if (SECTION === 'stats') renderStats();
     else if (SECTION === 'splits') renderSplits();
     else if (SECTION === 'edges') renderEdges();

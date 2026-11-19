@@ -224,8 +224,27 @@ function validateSite(b) {
     mode[k] = m;
   }
   out.drafts = { DRAFT_TIME_ET: time, WEEKLY_DRAFT_DAY: day, PREVIEW_MODE: mode };
+  // Seasons (scripts/seasons.py): each sport's OPENING_DAY ("" or a date) and
+  // up to two MILESTONES {label, date} for the hubs' off-season countdown
+  const se = b.seasons || {};
+  out.seasons = {};
+  for (const k of SITE_KEYS.sports) {
+    const x = se[k] || {};
+    const opening = String(x.OPENING_DAY || "");
+    if (opening && !ISO_DAY.test(opening)) return `seasons: ${k} OPENING_DAY must be YYYY-MM-DD`;
+    const ms = Array.isArray(x.MILESTONES) ? x.MILESTONES : [];
+    if (ms.length > 2) return `seasons: ${k} takes two milestones at most`;
+    const clean = [];
+    for (const m of ms) {
+      const label = String((m && m.label) || "").trim(), date = String((m && m.date) || "");
+      if (!label || label.length > 40 || !ISO_DAY.test(date)) return `seasons: ${k} milestones need a label (40 characters max) and a YYYY-MM-DD date`;
+      clean.push({ label, date });
+    }
+    out.seasons[k] = { OPENING_DAY: opening, MILESTONES: clean };
+  }
   return out;
 }
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const WEEKLY_SPORTS = ["nfl", "ncaaf"];   // weekly needs the schedule's weeks (ESPN)
 

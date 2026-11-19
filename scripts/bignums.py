@@ -221,7 +221,7 @@ def row_html(sport, r, k, first, root):
 
 
 def card_html(sport, r, k, first, root):
-    """A desktop card (Odds pages): the long label, large logos, the book
+    """A desktop card (Odds pages, home, hubs): the long label, large logos, the book
     and the odds cell, the time."""
     return (f'<a class="st-card bn-dcard" href="{esc(odds_href(sport, r, k, root))}"><span class="bn-label">{esc(r["long"])}</span>'
             f'{teams_html(sport, r, root, big=True)}{odds_html(sport, r, root)}'
@@ -247,12 +247,13 @@ def seg_panes(sport, games, first, root, odds_page=False):
 
 def sport_card(sport, now_utc, root):
     """Home / hub: "[icon] NBA · 1st Quarter" with the 1Q / 1H toggle, the
-    rows, "All NBA odds →"."""
+    rows, "All NBA odds →"; desktop: the Odds page's cards in a full-width
+    row (3 across, NHL 4; template.html .fv-bn)."""
     day, games = board(sport, now_utc)
     if not games:
         return '', None
     first = games[0][0]
-    body, segs = seg_panes(sport, games, first, root)
+    body, segs = seg_panes(sport, games, first, root, odds_page=True)   # desktop: the Odds page's cards, full width
     if not segs:
         return '', None
     title = f'{icons.sport_icon(sport.sp)}{esc(sport.label)}'

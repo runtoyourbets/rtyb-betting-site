@@ -364,7 +364,7 @@ def apply_sport(out, sport, section):
     out = out.replace('__SPORT_LABEL__', sport['label'])
     out = out.replace('__ACCOUNT_JS__', account.ACCOUNT_JS)
     out = out.replace('__SPORT_SUBNAV__', sport_subnav(sport, section))
-    out = out.replace('__GUIDES_BLOCK__', guides.sport_block(sport, '/'))
+    out = out.replace('__GUIDES_BLOCK__', '' if section == 'hub' else guides.sport_block(sport, '/'))   # hubs: under the results
     if is_nhl:
         footer = NHL_FOOTER
     elif sport_has_data(sport['key']):
@@ -828,9 +828,10 @@ def write_hub(template, sp, teams_menu_html=''):
         # home page's sections (scripts/front.py) for this sport, in the HTML;
         # assets/sport.js draws the rest of the hub under them
         S = {sp['key']: front.Sport(sp)}
-        body = (f'<div class="hub-front">{front.sections(S, datetime.now(timezone.utc), root="../", hub=True)}</div>'
-                '<div id="sportApp" data-section="hub"><div class="no-games-note">Loading&hellip;</div>'
-                '<noscript>This page needs JavaScript.</noscript></div>')
+        # every slot is static HTML (scripts/front.py sections, by the sport's
+        # season state); the Betting Guides block sits under the results
+        body = (f'<div class="hub-front">{front.sections(S, datetime.now(timezone.utc), root="../", hub=True, learn=guides.sport_block(sp, "../"))}</div>'
+                '<div id="sportApp" data-section="hub"></div>')
         html = render_page(template, 'sport', teams_menu_html, meta=meta, sport=sp, sport_body=body)
     else:
         html = render_page(template, 'empty', teams_menu_html, meta=meta, sport=sp, empty_html=empty_state_html(sp, 'games'))
@@ -1257,6 +1258,8 @@ def main():
 
     write_hub(template, nhl, teams_menu_html)
     other = build_other_sports(template)
+    import seasons   # every sport's season state, logged (and assets/seasons.json for the admin)
+    seasons.all_states()
     # Preview's image cards (the home hero and hubs show them), then the
     # home page + Learn, last: they read every sport's data.json.
     now_utc = datetime.now(timezone.utc)

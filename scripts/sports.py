@@ -48,6 +48,10 @@ DEFAULT_SETTINGS = {
     # job drafts (ET), the weekly sports' draft day, and each sport's mode
     # (missing: NFL and College Football weekly, the rest daily)
     'drafts': {'DRAFT_TIME_ET': '08:00', 'WEEKLY_DRAFT_DAY': 'Tuesday', 'PREVIEW_MODE': {}},
+    # the hubs' off-season dates the schedule doesn't have (admin Site
+    # settings), per sport: OPENING_DAY (YYYY-MM-DD, or '') and up to two
+    # MILESTONES [{label, date}] (scripts/seasons.py)
+    'seasons': {},
 }
 
 
@@ -69,6 +73,8 @@ def load_settings(path=SETTINGS_PATH):
             out['switches'].update(v)
         elif k == 'drafts' and isinstance(v, dict):
             out['drafts'].update({x: y for x, y in v.items() if x in out['drafts']})
+        elif k == 'seasons' and isinstance(v, dict):
+            out['seasons'] = v
         elif k in out and isinstance(v, list) and v:
             out[k] = v
     return out
@@ -116,6 +122,7 @@ ADS_ON = bool(SWITCHES.get('ADS_ON', False))
 # Drafting (content/site_settings.json "drafts"): the refresh job drafts at
 # or after DRAFT_TIME_ET; weekly sports on WEEKLY_DRAFT_DAY.
 DRAFTS = SETTINGS['drafts']
+SEASON_DATES = SETTINGS['seasons']
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 

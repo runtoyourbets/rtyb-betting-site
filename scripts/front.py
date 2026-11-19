@@ -715,6 +715,13 @@ def final_seg(sport, g):
     return ''
 
 
+def round_txt(g):
+    """Postseason: the round from the schedule's note ("Second Round · Game 3");
+    NHL's schedule has no notes."""
+    note = str(g.get('note') or '') if g.get('post') else ''
+    return ' &middot; '.join(esc(x.strip()) for x in note.split(' - ') if x.strip() and 'If Necessary' not in x) if note else ''
+
+
 def slate_card(sport, d, g, today, now, root, odds=False, show_sport=True, full=False):
     def side(slug, sc):
         return (f'<span class="sl-tm">{sport.badge(slug, 22, root)}<span class="sl-code">{esc(sport.code(slug))}</span>'
@@ -726,6 +733,7 @@ def slate_card(sport, d, g, today, now, root, odds=False, show_sport=True, full=
     return (f'<a class="st-card sl-card" href="{esc(href)}" data-sport="{sport.key}" data-day="{d}" data-start="{esc(g.get("start") or "")}"'
             f' data-state="{esc(g.get("state") or "pre")}"{" data-weekly" if sport.weekly else ""}>'
             f'<div class="st-head"><h4><span class="sl-when">{esc(when_txt(sport, d, g, today, now, full))}</span>{sp_lbl}</h4></div>'
+            + (f'<p class="sl-round">{round_txt(g)}</p>' if round_txt(g) else '') +
             f'<div class="sl-teams">{side(g["away"], a_sc)}<span class="sl-at">@</span>{side(g["home"], h_sc)}</div>'
             f'{markets_html(sport, d, g, odds, root)}</a>')
 
@@ -942,11 +950,12 @@ def last_line(c):
     return c.get('last') or ''
 
 
-def hot_card(sport, c, by_id, xs, root, now, show_sport=True, n_rows=HOT_ROWS, attrs=''):
+def hot_card(sport, c, by_id, xs, root, now, show_sport=True, n_rows=HOT_ROWS, attrs='', last_recs=None):
     """A Hottest Trends card: the market in the purple bar ("NBA · 1H ML")
     with the "i" on the right, the title, the record and units, then up to
     3 game rows (games still to play first; n_rows: more in the HTML, for
-    the script to move up as games start)."""
+    the script to move up as games start). last_recs (early season): each
+    trend's record last season, behind the "Last season" toggle."""
     xs = sorted(xs, key=lambda x: (by_id[str(x['id'])].get('state') == 'final', by_id[str(x['id'])].get('start') or ''))[:n_rows]
     last = last_line(c)
     rows = ''.join(trend_row(sport, c, x, by_id[str(x['id'])], root, now, last).replace('<div ', '<div hidden ', 1) if i >= HOT_ROWS else
@@ -955,11 +964,29 @@ def hot_card(sport, c, by_id, xs, root, now, show_sport=True, n_rows=HOT_ROWS, a
         return ''
     tag = esc(c['tag'].replace(' ATS', ' Spread'))
     rate, base = c['rate'] * 100, c['base'] * 100
+    this_attr = ' data-season="this"' if last_recs is not None else ''
     return (f'<div class="st-card tr-card ht-card"{attrs}><div class="st-head"><h4><span class="sl-sport">{icons.sport_icon(sport.sp) + esc(sport.label) + " &middot; " if show_sport else ""}{tag}</span>{trend_tip(sport, c)}</h4></div>'
             f'<h3 class="tr-title">{esc(c["title"])}</h3>'
-            f'<p class="ht-rec">{round(rate)}% ({c["w"]}&ndash;{c["l"]}) &middot; <span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span></p>'
+            f'<p class="ht-rec"{this_attr}>{round(rate)}% ({c["w"]}&ndash;{c["l"]}) &middot; <span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span>{small_sample(c["w"] + c["l"])}</p>'
+            + (last_rec_html(last_recs.get(c['id'])) if last_recs is not None else '') +
             f'<p class="ht-avg">League average {round(base)}%</p>'
             f'<div class="tr-rows">{rows}</div></div>')
+
+
+SMALL_SAMPLE = 10   # early season: a record under this many games says "Small sample"
+
+
+def small_sample(n):
+    return '<span class="os-small">Small sample</span>' if n < SMALL_SAMPLE else ''
+
+
+def last_rec_html(r):
+    """The card's record last season (the early-season toggle)."""
+    if not r or not r['w'] + r['l']:
+        return '<p class="ht-rec" data-season="last" hidden>Not tracked last season</p>'
+    u = (f' &middot; <span class="{unit_tone(r["units"])}">{fmt_units(r["units"])}</span>' if r['all_priced'] else '')
+    pct = round(100 * r['w'] / (r['w'] + r['l']))
+    return f'<p class="ht-rec" data-season="last" hidden>{pct}% ({r["w"]}&ndash;{r["l"]}){u}{small_sample(r["w"] + r["l"])}</p>'
 
 
 HOT_BUFFER = 12   # Hottest Trends: cards per day in the HTML, so the next one can move up
@@ -972,14 +999,19 @@ def next_trend_day(S, now_utc):
     return next((d for d in days if hot_cards(S, now_utc, day=d, left=True)), None)
 
 
-def hottest_trends(S, now_utc, root='', hub=False):
+def hottest_trends(S, now_utc, root='', hub=False, early=False):
     """Exactly 3 trend cards, each with a game still to start (hot_cards,
     left=True), rows only for those games. As a trend's last game starts it
     drops off and the next one moves up (FRONT_JS); when today has none left,
     the next game day's top 3, dated that day (football: "This week"). No
-    trend at all: no section. More trends: /trends/ (a hub: its Trends page)."""
+    trend at all: no section. More trends: /trends/ (a hub: its Trends page).
+    early (a hub in its first 21 days): a This season / Last season toggle."""
     today = now_utc.astimezone(ET).date().isoformat()
     nxt = next_trend_day(S, now_utc)
+    last_recs = None
+    if early and hub and S:
+        import offseason
+        last_recs = offseason.last_season_records(next(iter(S.values())))
     cards, shown = '', []
     for i, day in enumerate((today, nxt)):
         found = hot_cards(S, now_utc, day=None if day == today else day, left=True)[:HOT_BUFFER] if day else []
@@ -988,7 +1020,7 @@ def hottest_trends(S, now_utc, root='', hub=False):
             label = 'This week' if sp.weekly else day_label(day)
             show = len(shown) < HOT_SHOWN and (i == 0 or not today_cards)
             attrs = f' data-group="{i}" data-label="{esc(label)}"' + ('' if show else ' hidden')
-            html = hot_card(sp, c, b, xs, root, now_utc, not hub, n_rows=TREND_ROWS * 2, attrs=attrs)
+            html = hot_card(sp, c, b, xs, root, now_utc, not hub, n_rows=TREND_ROWS * 2, attrs=attrs, last_recs=last_recs)
             if html and show:
                 shown.append(label)
             cards += html
@@ -996,8 +1028,9 @@ def hottest_trends(S, now_utc, root='', hub=False):
         return ''
     date = next((x for x in shown if x != 'This week'), 'This week')   # the shown cards' day; football only: "This week"
     href = root + (next(iter(S.values())).trends_page if hub and S else 'trends/')
+    toggle = pills('Season', [('this', 'This season'), ('last', 'Last season')], 'this').replace('data-pills=', 'data-season-pills data-pills=', 1) if last_recs is not None else ''
     return (f'<section class="fr-sec" id="trends" data-hot data-shown="{HOT_SHOWN}" data-rows="{HOT_ROWS}">'
-            f'<div class="fr-head fr-stack"><h2>Hottest Trends</h2><span class="fr-date" data-hot-date>{esc(date)}</span></div>'
+            f'<div class="fr-head fr-stack"><h2>Hottest Trends</h2><span class="fr-date" data-hot-date>{esc(date)}</span></div>{toggle}'
             f'<div class="tr-cards ht-cards">{cards}</div><div class="fr-links">{more_link(href, "More trends")}</div></section>')
 
 
@@ -1102,6 +1135,7 @@ def motd(S, now_utc, root='', hub=False):
     return (f'<section class="fr-sec mo" id="motd"><div class="fr-head"><h2>{title}</h2></div>'
             f'<div class="st-card mo-card"><div class="st-head"><h4><span>{esc(when_txt(sport, day, g, today, now_utc))}</span>'
             f'<span class="sl-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</span></h4></div>'
+            + (f'<p class="sl-round">{round_txt(g)}</p>' if g is not m and round_txt(g) else '') +
             f'<div class="mo-cols"><div class="mo-left"><div class="mo-teams">{team(m["away"])}<span class="mo-at">@</span>{team(m["home"])}</div>'
             f'{odds}</div>'
             f'<div class="mo-right">{chip}<p class="mo-watch-l">Trend to watch</p><p class="mo-watch">{motd_watch(sport, m)}</p>{motd_odds(sport, m, root)}'
@@ -1134,46 +1168,112 @@ def preview_lead_teams(key, now_utc):
     return {(lead['sport'], lead['away']), (lead['sport'], lead['home'])} if lead else set()
 
 
-def team_watch(S, now_utc, root='', hub=False):
-    """The longest active run (3+) among teams playing today, never a team
-    from the lead game of today's published Preview (the next run instead).
-    The team (large logo, full name) and the run, large; then NEXT MATCHUP:
-    "vs Portland Trail Blazers · 8:00 PM ET" ("@" on the road)."""
-    import hub as H
+STREAK_MIN = 5          # Streaks to Watch: a run this long (football: STREAK_MIN_WEEKLY)
+STREAK_MIN_WEEKLY = 4
+STREAK_ROWS = 10        # rows under the top streak (desktop; FRONT_JS trims them to the
+STREAK_PHONE = 5        # Matchup of the Day card's height), and on phones
+
+
+def streak_day(sport, now_utc, hub=False):
+    """[(date, game)] the block covers, not started: the displayed day
+    (today's games, else the next game day's); a football hub: the week's."""
     today = now_utc.astimezone(ET).date().isoformat()
+    games = upcoming(sport, today, now_utc)
+    if hub and sport.weekly:
+        wk = week_key(sport, today)
+        return [(d, g) for d, g in games if g.get('wk') == wk] if wk else []
+    return [(d, g) for d, g in games if d == games[0][0]] if games else []
+
+
+def streaks(S, now_utc, hub=False):
+    """[{sport, game, day, side, m, k, st, rate}]: every team on the
+    displayed day with a current run of STREAK_MIN+ (football 4+), its
+    longest only; longest first, then the earlier start, then the higher
+    season rate in that market. Never a team from the lead game of today's
+    published Preview at the top (the next one moves up)."""
+    import hub as H
     skip = preview_lead_teams(next(iter(S)) if hub and S else 'all', now_utc)
-    best = None
+    out = []
     for sport in S.values():
-        games = [g for g in sport.games(today) if not started(g, now_utc) and game_lined(sport, g)]
+        games = [(d, g) for d, g in streak_day(sport, now_utc, hub) if game_lined(sport, g)]
         if not games:
             continue
-        for k in sorted({x[0] for x in H.market_keys(sport.doc)}):
-            seqs = H.team_seqs(sport.doc, today, k)
-            for k2, m in H.market_keys(sport.doc):
-                if k2 != k:
-                    continue
-                for g in games:
-                    for side in ('away', 'home'):
-                        if (sport.key, g[side]) in skip:
-                            continue
-                        st = H.streak_of(((seqs.get(g[side]) or {}).get(m)) or [])
-                        if not st or st['n'] < 3:
-                            continue
-                        score = (st['n'], -STREAK_ORDER.get(m, 9))
-                        if best is None or score > best[0]:
-                            best = (score, sport, g, side, m, st, k)
-    if not best:
-        return ''
-    _, sport, g, side, m, st, k = best
-    slug, opp = g[side], g['home' if side == 'away' else 'away']
-    head = f'<div class="st-head"><h4><span class="sl-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</span></h4></div>' if not hub else ''
+        need = STREAK_MIN_WEEKLY if sport.weekly else STREAK_MIN
+        before = min(d for d, _ in games)
+        seqs = {k: H.team_seqs(sport.doc, before, k) for k in {x[0] for x in H.market_keys(sport.doc)}}
+        for d, g in games:
+            for side in ('away', 'home'):
+                best = None
+                for k, m in H.market_keys(sport.doc):
+                    seq = ((seqs[k].get(g[side]) or {}).get(m)) or []
+                    st = H.streak_of(seq)
+                    if not st or st['n'] < need:
+                        continue
+                    dec = [x for x in seq if x in (H.HIT[m], H.MISS[m])] if m != 'ml' else seq
+                    rate = sum(1 for x in dec if x == st['kind']) / len(dec) if dec else 0
+                    score = (st['n'], -STREAK_ORDER.get(m, 9))
+                    if best is None or score > best[0]:
+                        best = (score, {'sport': sport, 'game': g, 'day': d, 'side': side, 'm': m, 'k': k, 'st': st, 'rate': rate})
+                if best:
+                    out.append(best[1])
+    out.sort(key=lambda x: (-x['st']['n'], x['game'].get('start') or '', -x['rate']))
+    for x in out:
+        x['lead'] = (x['sport'].key, x['game'][x['side']]) in skip
+    top = next((x for x in out if not x['lead']), None)
+    if top:
+        out.remove(top)
+        out.insert(0, top)
+    return out
+
+
+def next_txt(sport, x, now_utc, short=False):
+    """"vs Portland Trail Blazers · 8:00 PM ET" ("@" on the road; another
+    day: "Sun 1:00 PM ET"); short: the opponent's code."""
+    g, side = x['game'], x['side']
+    opp = g['home' if side == 'away' else 'away']
     when = parse(g.get('start'))
-    vs = f"{'@' if side == 'away' else 'vs'} {esc(sport.full_name(opp))}" + (f" &middot; {when.astimezone(ET).strftime('%-I:%M %p')} ET" if when else '')
-    return (f'<section class="fr-sec tw" id="team-watch"><div class="fr-head"><h2>Streak to Watch</h2></div>'
-            f'<div class="st-card tw-card">{head}<div class="tw-main">{sport.link(slug, sport.badge(slug, 84, root), root, "tw-logo")}<div class="tw-copy">'
-            f'{sport.link(slug, esc(sport.full_name(slug)), root, "tw-name")}<p class="tw-line">{esc(streak_line(sport, m, st, k))}</p></div></div>'
-            f'<div class="tw-next"><p class="tw-next-l">Next matchup</p><p class="tw-next-g">{sport.link(opp, sport.badge(opp, 24, root), root, "tw-opp")}'
-            f'<span>{vs}</span></p></div></div></section>')
+    t = ''
+    if when:
+        when = when.astimezone(ET)
+        t = (when.strftime('%a ') if when.date().isoformat() != now_utc.astimezone(ET).date().isoformat() else '') + when.strftime('%-I:%M %p') + ' ET'
+    name = sport.code(opp) if short else sport.full_name(opp)
+    return f"{'@' if side == 'away' else 'vs'} {esc(name)}" + (f' &middot; {t}' if t else '')
+
+
+def streak_item(x, i, now_utc, root, hub, phone_more):
+    """One streak: the big block (the top one) and its one-line row; FRONT_JS
+    picks which shows as games start."""
+    sport, g, side = x['sport'], x['game'], x['side']
+    slug, opp = g[side], g['home' if side == 'away' else 'away']
+    line = esc(streak_line(sport, x['m'], x['st'], x['k']))
+    sp_tag = '' if hub else f'<span class="sl-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</span>'
+    head = f'<div class="st-head"><h4>{sp_tag}</h4></div>' if sp_tag else ''
+    big = (f'<div class="sw-big">{head}'
+           f'<div class="tw-main">{sport.link(slug, sport.badge(slug, 84, root), root, "tw-logo")}<div class="tw-copy">'
+           f'{sport.link(slug, esc(sport.full_name(slug)), root, "tw-name")}<p class="tw-line">{line}</p></div></div>'
+           f'<div class="tw-next"><p class="tw-next-l">Next matchup</p><p class="tw-next-g">{sport.link(opp, sport.badge(opp, 24, root), root, "tw-opp")}'
+           f'<span>{next_txt(sport, x, now_utc)}</span></p></div></div>')
+    row = (f'<div class="sw-row">{"" if hub else icons.sport_icon(sport.sp)}{sport.link(slug, sport.badge(slug, 22, root), root, "sw-logo")}'
+           f'<span class="sw-code">{esc(sport.code(slug))}</span><span class="sw-line">{line}</span>'
+           f'<span class="sw-next">{next_txt(sport, x, now_utc, short=True)}</span></div>')
+    cls = 'sw-item' + (' sw-top' if i == 0 else '') + (' sw-more' if i > STREAK_PHONE else '')
+    lead = ' data-lead' if x.get('lead') else ''
+    return f'<li class="{cls}" data-start="{esc(g.get("start") or "")}" data-state="{esc(g.get("state") or "pre")}"{lead}>{big}{row}</li>'
+
+
+def streaks_watch(S, now_utc, root='', hub=False):
+    """Streak to Watch (one) / Streaks to Watch (2+): the top streak large
+    (logo, full name, the run in yellow, NEXT MATCHUP), then up to
+    STREAK_ROWS one-line rows (phones: STREAK_PHONE and "All streaks")."""
+    xs = streaks(S, now_utc, hub)[:STREAK_ROWS + 1]
+    if not xs:
+        return ''
+    top = xs[0]['sport']
+    title = 'Streak to Watch' if len(xs) == 1 else 'Streaks to Watch'
+    items = ''.join(streak_item(x, i, now_utc, root, hub, len(xs) > STREAK_PHONE + 1) for i, x in enumerate(xs))
+    link = more_link(f'{root}{top.trends_page}#streak-trends', 'All streaks')
+    return (f'<section class="fr-sec tw sw" id="team-watch" data-streaks><div class="fr-head"><h2 data-one="Streak to Watch" data-many="Streaks to Watch">{title}</h2></div>'
+            f'<div class="st-card tw-card"><ul class="sw-list">{items}</ul><div class="fr-links sw-all">{link}</div></div></section>')
 
 
 # ------------------------------------------------------ Get the Running Tab
@@ -1248,7 +1348,9 @@ def trends_index_body(S, now_utc, root='../'):
 # ---------------------------------------------------- Yesterday's Results
 def yesterdays_results(S, yday, root='', hub=False):
     """Pills per sport that played yesterday (home), then that sport's
-    segment pills; each pane is the Matchups page's Results box."""
+    segment pills; each pane is the Matchups page's Results box. yday can be
+    an earlier day (a hub with no games today: its last game day), titled
+    "[Weekday]'s Results"."""
     panes, sport_opts = '', []
     for sport in S.values():
         games = sport.games(yday)
@@ -1267,7 +1369,8 @@ def yesterdays_results(S, yday, root='', hub=False):
         panes += f'<div class="fr-res" data-pane="{sport.key}"{"" if not panes else " hidden"} data-sub>{inner}</div>'
     if not panes:
         return ''
-    head = (f'<div class="fr-head"><h2>Yesterday&rsquo;s Results</h2><span class="fr-date">{esc(day_label(yday))}</span></div>'
+    named = 'Yesterday' if yday >= (datetime.now(ET).date() - timedelta(days=1)).isoformat() else Date.fromisoformat(yday).strftime('%A')
+    head = (f'<div class="fr-head"><h2>{named}&rsquo;s Results</h2><span class="fr-date">{esc(day_label(yday))}</span></div>'
             + (pills('Sport', sport_opts, sport_opts[0][0]) if not hub else ''))
     return f'<section class="fr-sec" id="results" data-tabs>{head}{panes}</section>'
 
@@ -1328,7 +1431,10 @@ FRONT_JS = '''
     // cards under "Tonight's games are underway", or the line alone
     var ends = {}; try { ends = JSON.parse(sec.getAttribute('data-ends') || '{}'); } catch (e) {}
     var last = Object.keys(ends).filter(function(k) { return tab === 'all' || k === tab; }).map(function(k) { return Date.parse(ends[k]); });
-    var over = last.length > 0 && Math.max.apply(null, last) <= now() && !keep.some(function(c) { return c.getAttribute('data-day') === today; });
+    // only after the last game of the day it was built for has started (a
+    // page from an earlier day never says it; a sport with no games never does)
+    var over = sec.getAttribute('data-today') === today && last.length > 0 && Math.max.apply(null, last) <= now() &&
+      !keep.some(function(c) { return c.getAttribute('data-day') === today; });
     var ov = sec.querySelector('[data-over]');
     if (ov) {
       ov.hidden = !over;
@@ -1448,6 +1554,59 @@ FRONT_JS = '''
   }
   live();
   setInterval(live, 60000);
+  // Hottest Trends in a sport's first 21 days: This season / Last season
+  document.querySelectorAll('[data-season-pills]').forEach(function(g) {
+    g.addEventListener('click', function(e) {
+      var b = e.target.closest('[data-pick]'); if (!b) return;
+      var v = b.getAttribute('data-pick');
+      pick(g, v);
+      g.closest('section').querySelectorAll('[data-season]').forEach(function(p) { p.hidden = p.getAttribute('data-season') !== v; });
+    });
+  });
+  // Streaks to Watch: a streak drops off when its game starts and the next
+  // moves up (never a team from the Preview's lead game on top); phones keep
+  // 5 rows, desktop the rows that keep it no taller than Matchup of the Day
+  var wide = window.matchMedia('(min-width: 900px)');
+  function streaksFit(sec) {
+    var list = sec.querySelector('.sw-list');
+    var items = [].slice.call(list.children), alive = items.filter(function(i) { return !isOn(i); });
+    var top = alive.filter(function(i) { return !i.hasAttribute('data-lead'); })[0] || null;
+    items.forEach(function(i) { i.hidden = alive.indexOf(i) === -1; i.classList.toggle('sw-top', i === top); i.classList.remove('sw-cut'); });
+    if (top && list.firstElementChild !== top) list.insertBefore(top, list.firstElementChild);
+    var rows = alive.filter(function(i) { return i !== top; });
+    rows.forEach(function(r, n) { r.classList.toggle('sw-more', n >= 5); });
+    sec.hidden = !alive.length;
+    var h = sec.querySelector('h2');
+    if (h) h.textContent = alive.length === 1 ? h.getAttribute('data-one') : h.getAttribute('data-many');
+    var mo = document.querySelector('.fv-motd .mo-card'), grid = sec.closest('.fv');
+    if (wide.matches && mo && grid) {
+      // measure both cards at their own height (not stretched level), then level them
+      var card = sec.querySelector('.tw-card'), cut = rows.slice();
+      grid.classList.add('sw-measure');
+      while (cut.length && card.getBoundingClientRect().bottom > mo.getBoundingClientRect().bottom + 1) cut.pop().classList.add('sw-cut');
+      grid.classList.remove('sw-measure');
+    }
+  }
+  function streaksAll() { document.querySelectorAll('[data-streaks]').forEach(streaksFit); }
+  streaksAll();
+  window.addEventListener('load', streaksAll);
+  window.addEventListener('resize', streaksAll);
+  setInterval(streaksAll, 60000);
+  // the off-season countdown: days / hours / minutes to opening day, and each milestone's days left
+  function countdown() {
+    document.querySelectorAll('[data-countdown]').forEach(function(c) {
+      var left = Math.max(0, Math.floor((Date.parse(c.getAttribute('data-countdown')) - now()) / 60000));
+      var v = { d: Math.floor(left / 1440), h: Math.floor(left / 60) % 24, m: left % 60 };
+      c.querySelectorAll('[data-cd]').forEach(function(x) { x.textContent = v[x.getAttribute('data-cd')]; });
+    });
+    var today = Date.parse(etDay(now()) + 'T12:00:00Z');
+    document.querySelectorAll('[data-days]').forEach(function(x) {
+      var n = Math.round((Date.parse(x.getAttribute('data-days') + 'T12:00:00Z') - today) / 864e5);
+      x.textContent = n > 0 ? n + (n === 1 ? ' day' : ' days') : '';
+    });
+  }
+  countdown();
+  setInterval(countdown, 30000);
 })();
 </script>'''
 
@@ -1456,30 +1615,69 @@ def yesterday(now_utc):
     return (now_utc.astimezone(ET).date() - timedelta(days=1)).isoformat()
 
 
-def sections(S, now_utc, root='', hub=False, learn=''):
-    """The front page, home and every hub (a hub: that sport only). Phone
-    order: slogan, hero (home: the all-sports Preview once it's up at 11 AM
-    ET, else Yesterday's Best large), Yesterday's Best (not when the hero
-    shows it), the sport's Preview (hubs, when it has one today), The Slate,
-    Matchup of the Day, Hottest Trends, Streak to Watch, The Big Numbers,
-    Get the Running Tab (hubs; home: the footer's signup), Yesterday's
-    Results, Learn (home). Desktop regroups them in rows (template.html
-    .fv-*): hero | Yesterday's Best + Running Tab (home: the hero full
-    width); the Preview; Matchup of the Day | Streak to Watch + The Big Numbers;
-    Results + Learn | (the right column's last rows)."""
-    import preview
-    yday = yesterday(now_utc)
-    p = preview.hero(now_utc, root) if sports.PREVIEW_LIVE and not hub else ''
-    hero = p or best_hero(S, yday, hub)
-    best = yesterdays_best(S, yday) if p else ''
-    pv = preview.hub_section(next(iter(S)), now_utc, root) if sports.PREVIEW_LIVE and hub and S else ''
+def next_games(st):
+    """No games today: "Next games: Fri, Nov 21"."""
+    return f'<section class="fr-sec nx" id="next-games"><p class="nx-line">Next games: <span class="nx-day">{esc(day_label(st["next"]))}</span></p></section>' if st.get('next') else ''
+
+
+def off_sections(sport, st, now_utc, root):
+    """A hub between seasons (off-season, preseason, season just ended):
+    Countdown + Champions, Best Bet of last season + Season in Review, The
+    RTYB Awards, then the Betting Guide card + the Running Tab. Desktop:
+    template.html .fv-off."""
+    import offseason
+    b = offseason.blocks(sport, st, now_utc, root)
 
     def box(cls, html):
         return f'<div class="{cls}">{html}</div>' if html else ''
-    # in phone reading order; desktop places them by grid area (template.html .fv)
+    return ('<div class="fv fv-off">' + box('fv-cd', b['countdown']) + box('fv-champ', b['champions'])
+            + box('fv-motd', b['best']) + box('fv-pair', b['review']) + box('fv-trends', b['awards'])
+            + box('fv-results', b['guide']) + box('fv-tab', b['tab']) + f'</div>{FRONT_JS}')
+
+
+def sections(S, now_utc, root='', hub=False, learn=''):
+    """The front page, home and every hub (a hub: that sport only), six
+    slots in this order on phones; desktop places them by grid area
+    (template.html .fv): the hero full width; The Slate; Matchup of the Day
+    (2/3) | Streaks to Watch (1/3), bottoms level; The Big Numbers full
+    width; Hottest Trends; Yesterday's Results (2/3) with Betting Guides
+    under it, the ad slot to their right (nothing while ADS_ON is off).
+    Home: the H1 first, the all-sports Preview (from 11 AM ET) as the hero
+    with Yesterday's Best under it, else Yesterday's Best as the hero.
+    A hub fills the slots by its season state (scripts/seasons.py):
+      game day         the sport's Preview (Yesterday's Best before it's up),
+                       today's games
+      no games today   "Next games: [day]" + Yesterday's Best (the next game
+                       day's Preview once it shows), the next game day's
+                       games, the last game day's results
+      between seasons  off_sections"""
     import bignums
-    pair = box('fv-pair', box('fv-team', team_watch(S, now_utc, root, hub)) + box('fv-bn', bignums.section(S, now_utc, root, hub)))
-    return (f'<div class="fv{"" if hub else " fv-home"}">' + box('fv-slogan', slogan(S, hub)) + box('fv-hero', hero) + box('fv-yb', best) + box('fv-pv', pv)
+    import preview
+    import seasons
+    yday = yesterday(now_utc)
+    st = None
+    if hub and S:
+        sport = next(iter(S.values()))
+        st = seasons.of(sport.sp, sport.doc, now_utc)
+        if st['layout'] == 'off':
+            return off_sections(sport, st, now_utc, root)
+    no_games = bool(st) and st['layout'] == 'no_games'
+    if hub:
+        pv = preview.hub_section(next(iter(S)), now_utc, root, day=st['next'] if no_games else None) if sports.PREVIEW_LIVE and S else ''
+        hero = pv or ((next_games(st) if no_games else '') + best_hero(S, yday, hub))
+        best = ''
+    else:
+        p = preview.hero(now_utc, root) if sports.PREVIEW_LIVE else ''
+        hero = p or best_hero(S, yday, hub)
+        best = yesterdays_best(S, yday) if p else ''
+    res_day = st['last'] if no_games and st.get('last') else yday
+
+    def box(cls, html):
+        return f'<div class="{cls}">{html}</div>' if html else ''
+    ad = preview.ad_slot('front')
+    return (f'<div class="fv{"" if hub else " fv-home"}">' + ('' if hub else box('fv-slogan', slogan(S))) + box('fv-hero', hero) + box('fv-yb', best)
             + box('fv-slate', slate(S, now_utc, root, hub)) + box('fv-motd', motd(S, now_utc, root, hub))
-            + box('fv-trends', hottest_trends(S, now_utc, root, hub)) + pair + (box('fv-tab', running_tab()) if hub else '')
-            + box('fv-results', yesterdays_results(S, yday, root, hub)) + box('fv-learn', learn) + f'</div>{FRONT_JS}')
+            + box('fv-pair', streaks_watch(S, now_utc, root, hub)) + box('fv-bn', bignums.section(S, now_utc, root, hub))
+            + box('fv-trends', hottest_trends(S, now_utc, root, hub, early=bool(st) and st['key'] == 'early'))
+            + box('fv-results', yesterdays_results(S, res_day, root, hub)) + box('fv-learn', learn) + (f'<div class="fv-ad">{ad}</div>' if ad else '')
+            + f'</div>{FRONT_JS}')

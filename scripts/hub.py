@@ -63,13 +63,19 @@ def current_week(doc):
 
 
 def slate(doc, today):
-    """(key, games, before): today's date, or (football) this week."""
+    """(key, games, before): today's date (no games today: the next game
+    day's), or (football) this week."""
     if doc.get('schedule') == 'week':
         w = current_week(doc)
         if not w:
             return None, [], today
         return w['key'], [g for _, g in all_games(doc) if g.get('wk') == w['key']], w['start']
-    return today, list((doc.get('games') or {}).get(today) or []), today
+    games = list((doc.get('games') or {}).get(today) or [])
+    if not games:   # no games today: the next game day's (scripts/seasons.py: within 14 days)
+        nxt = next((d for d in sorted(doc.get('games') or {}) if d > today and doc['games'][d]), None)
+        if nxt and (date.fromisoformat(nxt) - date.fromisoformat(today)).days < 14:
+            return nxt, list(doc['games'][nxt]), nxt
+    return today, games, today
 
 
 def previous_key(doc, key):

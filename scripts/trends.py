@@ -383,8 +383,11 @@ def outcome(doc, g, k, market):
 
 # ------------------------------------------------------------- the cards
 
-def generate(sp, doc, G_all, slate, before_date, T):
-    """Cards for one slate (its games), from graded games before before_date."""
+def generate(sp, doc, G_all, slate, before_date, T, bar=None):
+    """Cards for one slate (its games), from graded games before before_date.
+    bar: the test a record must pass (qualify; scripts/offseason.py passes
+    its own for a whole season's records)."""
+    bar = bar or qualify
     pool = [G for G in G_all if G['date'] < before_date]
     cards = []
     for seg in sp['segments']:
@@ -433,7 +436,7 @@ def generate(sp, doc, G_all, slate, before_date, T):
                                 rec.add(*x, price=ml3_price(G['g'], k, s) if market == 'ml3' else None)
                                 rec.last = (G, c, s)
                     for direction, rec in (('Back', back), ('Fade', fade)):
-                        card = qualify(rec, base)
+                        card = bar(rec, base)
                         if not card:
                             continue
                         title, meaning = angle_text(sp, T, 'side_angles', aid, k)
@@ -462,7 +465,7 @@ def generate(sp, doc, G_all, slate, before_date, T):
                             if x:
                                 rec.add(*x, price=ml3_price(G['g'], k, 'draw') if market == 'ml3' else None)
                                 rec.last = G
-                    card = qualify(rec, base)
+                    card = bar(rec, base)
                     if not card:
                         continue
                     title, meaning = angle_text(sp, T, 'game_angles', aid, k)

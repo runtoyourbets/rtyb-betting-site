@@ -1350,9 +1350,11 @@ def dated_keys():
 
 
 # -------------------------------------------------- home and hub sections
-def todays(key, now_utc):
-    """The preview showing today for key (football: this week's), or None."""
-    today = today_et(now_utc)
+def todays(key, now_utc, day=None):
+    """The preview showing today for key (football: this week's), or None.
+    day: that day's instead (a hub with no games today: the next game day's,
+    once it shows)."""
+    today = day or today_et(now_utc)
     pieces = [p for p in visible(now_utc) if p['sport'] == key]
     if key != ALL and sports.BY_KEY[key].get('schedule') == 'week' and sports.preview_weekly(key):
         sp = sport_of(key)
@@ -1376,10 +1378,11 @@ def hero(now_utc, root=''):
             f'<a class="pv-go" href="{root}{page_dir(ALL)}">Read the full preview &rarr;</a></div></section>')
 
 
-def hub_section(key, now_utc, root=''):
+def hub_section(key, now_utc, root='', day=None):
     """A hub's "[SPORT] PREVIEW": the date, image card, headline, first
-    paragraph and the link. Nothing when the sport has no preview today."""
-    p = todays(key, now_utc)
+    paragraph and the link. Nothing when the sport has no preview today
+    (day: that day's)."""
+    p = todays(key, now_utc, day)
     if not p:
         return ''
     head, dek, md = split(p['body'])

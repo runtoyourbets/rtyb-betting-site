@@ -15,7 +15,7 @@ Row 2:
   index pages     a yellow label row with the section name, then All and
                   the sports, each to that sport's page for the section
   sport pages     a yellow row with the sport's icon and name (its hub),
-                  then its pages: Picks (gold) · Matchups · Odds · Trends ·
+                  then its pages: Picks · Matchups · Odds · Trends ·
                   Stats · Teams
 Phones: ☰ · Logo, then the account controls (guest: sun/moon · Sign in ·
 GO PREMIUM; free: GO PREMIUM · avatar; Premium: PICKS · avatar), row 2 as
@@ -127,7 +127,7 @@ def index_row(base, key, sps):
 
 def sport_row(base, sp, section):
     """Row 2 on a sport page: the sport (its hub), then its pages."""
-    links = ''.join(f'<a class="hr2-link{" gold" if sec == "picks" else ""}" href="{href}"{CUR if sec == section or (sec, section) == ("picks", "preview") else ""}>{esc(label)}</a>'
+    links = ''.join(f'<a class="hr2-link" href="{href}"{CUR if sec == section or (sec, section) == ("picks", "preview") else ""}>{esc(label)}</a>'
                     for sec, label, href in _pages(base, sp))
     return (f'<div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="{base}{sp["slug"]}/">{icons.sport_icon(sp)}{_names(sp)}</a>'
             f'<nav class="hr2-links hr2-pages" aria-label="{esc(sp["menu_label"])} pages">{links}</nav></div></div>')

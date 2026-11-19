@@ -70,7 +70,13 @@ Preview's article text (scripts/preview.py `.pv-body`) is Source Sans 3
 The home page's product line under the H1 is `--fs-lede` (17px, 16px phone);
 the sport row's label (nav) is Barlow Condensed at `--fs-row-label` (16px).
 Odds tables' segment and market labels (1Q, ATS, ML...) are the `.mk-h` chip:
-`--mkh-text` on `--mkh-bg` (yellow in dark, purple in light).
+`--mkh-text` on `--mkh-bg` (gold in dark, purple in light).
+
+One gold: `--gold` (#F5C542, both themes) for the logo, PICKS, GO PREMIUM,
+labels, chips, pills, push pills and the dark odds-header accent; no other
+gold anywhere. Light mode never puts gold text on a light background: dark
+text (`--on-gold`) on a gold chip, or dark text with a gold underline or left
+bar (template.html "One gold, light mode" rules).
 
 | Token | Use | Font | Weight | Size |
 |---|---|---|---|---|
@@ -98,8 +104,10 @@ Colors:
 | best outline | `--best` | rgba(74,222,128,0.55) | #7FCF9C |
 | units up | `--good` | #4ADE80 | #15803D |
 | units down | `--bad` | #F87171 | #B91C1C |
-| units even | `--push` | #FACC15 | #A16207 |
-| push fill | `--push-dim` | rgba(250,204,21,0.14) | #FBF3D6 |
+| units even | `--push` | #F5C542 | #F5C542 fill; the number in `--on-gold` on a gold chip |
+| push fill | `--push-dim` | rgba(245,197,66,0.14) | #FBF3D6 |
+| brand gold | `--gold` | #F5C542 | #F5C542 |
+| text on gold | `--on-gold` | #0B0F15 | #0B0F15 |
 | card title bar | `--title-bg` | rgba(167,139,250,0.14) | #EFEAFE |
 | card title text | `--title-text` | #D6CCFF | #4B2FB8 |
 

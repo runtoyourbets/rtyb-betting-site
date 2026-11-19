@@ -11,6 +11,8 @@
     --border: #263140; --border-soft: #1D2733; --text: #EAEEF3;
     --text-muted: #8B96A5; --text-faint: #5C6B7A; --accent: #A78BFA; --on-accent: #0B0F14;
     --good: #33D17A; --good-dim: #17462C; --bad: #FF4D6A; --bad-dim: #4A1620;
+    /* one gold (CLAUDE.md), the site's: gold text in dark; light mode writes dark text by gold */
+    --gold: #F5C542; --gold-text: var(--gold); --gold-chip: color-mix(in srgb, var(--gold) 14%, transparent);
     color-scheme: dark;
   }
   @media (prefers-color-scheme: light) {
@@ -19,6 +21,7 @@
       --border: #DCE2E9; --border-soft: #E7EBEF; --text: #12181F;
       --text-muted: #5B6674; --text-faint: #8891A0; --accent: #6D4AD4; --on-accent: #FFFFFF;
       --good: #158A4B; --good-dim: #E3F6EB; --bad: #D42B49; --bad-dim: #FCE7EA;
+      --gold-text: var(--text); --gold-chip: var(--gold);
       color-scheme: light;
     }
   }
@@ -105,6 +108,9 @@
   .ss-item input[type=text] { max-width: 240px; }
   .ss-item button { background: none; color: var(--text-muted); padding: 4px 8px; }
   .ss-switches { display: grid; gap: 8px; }
+  .ss-season { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-soft); }
+  .ss-sname { margin: 0 0 6px; font-size: 0.85rem; font-weight: 600; }
+  .ss-state { margin-left: 6px; font-weight: 400; color: var(--text-muted); }
   .ss-switches label { display: flex; align-items: center; gap: 8px; text-transform: none; letter-spacing: 0; font-size: 0.85rem; color: var(--text); }
   .add-game input { max-width: 240px; }
   button.remove { background: none; color: var(--text-faint); padding: 4px 8px; font-size: 1rem; }
@@ -133,14 +139,14 @@
   .pv-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
   .pv-pick { text-transform: none; letter-spacing: 0; font-weight: 600; }
   .pv-pick .sport-icon { width: 16px; height: 16px; color: var(--text); }
-  .dot-live { background: #33D17A; } .dot-draft { background: #FACC15; } .dot-drafting { background: #A78BFA; } .dot-none { background: #6B7684; }
+  .dot-live { background: #33D17A; } .dot-draft { background: var(--gold); } .dot-drafting { background: #A78BFA; } .dot-none { background: #6B7684; }
   .pv-warn { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--bad-dim); border: 1px solid var(--bad); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.88rem; }
   .pv-chead { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--border-soft); margin-bottom: 16px; }
   .pv-ctitle { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .pv-ctitle b { text-transform: uppercase; letter-spacing: 0.04em; }
   .pv-ctitle .sport-icon { width: 20px; height: 20px; color: var(--text); }
   .pv-status { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; border-radius: 999px; padding: 2px 8px; }
-  .st-live { color: #33D17A; background: rgba(51, 209, 122, 0.14); } .st-draft { color: #FACC15; background: rgba(250, 204, 21, 0.14); }
+  .st-live { color: #33D17A; background: rgba(51, 209, 122, 0.14); } .st-draft { color: var(--gold-text); background: var(--gold-chip); }
   .st-drafting { color: #A78BFA; background: rgba(167, 139, 250, 0.16); } .st-none { color: var(--text-muted); background: var(--panel-3); }
   .pv-when { color: var(--text-muted); font-size: 0.85rem; }
   .pv-hist { display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.04em; color: var(--text-muted); }
@@ -158,7 +164,7 @@
   .pv-ftabs { margin: 0 0 6px; }
   .pv-ftabs button { padding: 4px 12px; }
   .pv-note { color: var(--text-muted); }
-  button.pv-redraft { background: none; color: #FACC15; border-color: rgba(250, 204, 21, 0.5); }
+  button.pv-redraft { background: none; color: var(--gold-text); border-color: var(--gold); }
   .pv-f { display: block; margin: 0 0 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); }
   .pv-f input, .pv-f textarea { display: block; width: 100%; margin-top: 5px; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--text); }
   .pv-f input, .pv-f textarea { font-family: inherit; font-size: 0.9rem; line-height: 1.5; }
@@ -174,7 +180,8 @@
   .pv-switch:checked { background: var(--accent); border-color: var(--accent); }
   .pv-switch:checked::after { left: 15px; background: var(--on-accent); }
   .pv-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .pv-flags { list-style: none; margin: -4px 0 0; padding: 0; display: grid; gap: 4px; font-size: 0.84rem; color: #FACC15; }
+  .pv-flags { list-style: none; margin: -4px 0 0; padding: 0; display: grid; gap: 4px; font-size: 0.84rem; color: var(--gold-text); }
+  @media (prefers-color-scheme: light) { .pv-flags li { border-left: 3px solid var(--gold); padding-left: 6px; } }
   .pv-flags .muted { color: var(--text-muted); }
   .pv-frame-wrap { background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; display: flex; justify-content: center; }
   .pv-frame { border: 0; border-radius: 6px; background: #fff; height: 1100px; }
@@ -2139,7 +2146,7 @@
       '<label>Footer <select id="ssFooter"><option value="home-only"' + (sw.FOOTER !== 'everywhere' ? ' selected' : '') + '>Home page only</option>' +
       '<option value="everywhere"' + (sw.FOOTER === 'everywhere' ? ' selected' : '') + '>Every page</option></select></label>' +
       '<label><input type="checkbox" id="ssAds"' + (sw.ADS_ON ? ' checked' : '') + '> Ad slots on (empty, invisible slots on Preview pages; off: nothing renders)</label></div></div>' +
-      draftSettings(st);
+      draftSettings(st) + seasonSettings(st);
     document.querySelectorAll('#siteForm .ss-list').forEach(function(list) {
       var dragged = null;
       list.addEventListener('dragstart', function(e) { dragged = e.target.closest('.ss-item'); if (dragged) dragged.classList.add('dragging'); });
@@ -2174,6 +2181,33 @@
           (weekly ? '<option value="weekly"' + (m === 'weekly' ? ' selected' : '') + '>Weekly</option>' : '') + '</select></label>';
       }).join('') + '</div></div>';
   }
+  // Seasons: each sport's state (read-only, from the last build: assets/seasons.json,
+  // scripts/seasons.py) and the dates the schedule doesn't have: OPENING_DAY and
+  // up to two MILESTONES (label + date) for the hubs' off-season countdown
+  var SEASON_STATES = {};
+  function seasonSettings(st) {
+    var se = st.seasons || {};
+    return '<div class="ss-group"><h3>Seasons</h3><p class="note">State: worked out on every build from the schedule (read-only). Opening day and two milestones (e.g. &ldquo;Pitchers &amp; catchers report&rdquo;) fill the hub&rsquo;s countdown between seasons; no opening day shows &ldquo;date TBA&rdquo;.</p>' +
+      (st.sports || []).map(function(x) {
+        var v = se[x.key] || {}, ms = (v.MILESTONES || []).concat([{}, {}]).slice(0, 2), state = SEASON_STATES[x.key] || {};
+        return '<div class="ss-season" data-season="' + escHtml(x.key) + '"><p class="ss-sname">' + escHtml(x.label) +
+          ' <span class="ss-state">' + escHtml(state.label || '—') + (state.next ? ' &middot; next games ' + escHtml(state.next) : '') + '</span></p><div class="ss-switches">' +
+          '<label>Opening day <input type="date" data-f="opening" value="' + escHtml(v.OPENING_DAY || '') + '"></label>' +
+          ms.map(function(m, i) {
+            return '<label>Milestone ' + (i + 1) + ' <input type="text" data-f="ml' + i + '" maxlength="40" placeholder="Label" value="' + escHtml(m.label || '') + '">' +
+              '<input type="date" data-f="md' + i + '" value="' + escHtml(m.date || '') + '"></label>';
+          }).join('') + '</div></div>';
+      }).join('') + '</div>';
+  }
+  function readSeasons() {
+    var out = {};
+    document.querySelectorAll('#siteForm [data-season]').forEach(function(box) {
+      var f = function(n) { return box.querySelector('[data-f="' + n + '"]').value.trim(); }, ms = [];
+      [0, 1].forEach(function(i) { if (f('ml' + i) && f('md' + i)) ms.push({ label: f('ml' + i), date: f('md' + i) }); });
+      out[box.getAttribute('data-season')] = { OPENING_DAY: f('opening'), MILESTONES: ms };
+    });
+    return out;
+  }
   function readSite() {
     var out = {};
     SITE_GROUPS.forEach(function(g) {
@@ -2191,10 +2225,13 @@
     document.querySelectorAll('#siteForm [data-mode]').forEach(function(sel) { mode[sel.getAttribute('data-mode')] = sel.value; });
     out.drafts = { DRAFT_TIME_ET: document.getElementById('ssDraftTime').value || '08:00',
                    WEEKLY_DRAFT_DAY: document.getElementById('ssWeeklyDay').value, PREVIEW_MODE: mode };
+    out.seasons = readSeasons();
     return out;
   }
   function loadSite() {
+    var states = fetch('../assets/seasons.json?t=' + Date.now(), { cache: 'no-store' }).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; });
     callWorker('/site/get', {}, document.getElementById('siteStatus'), document.getElementById('siteReload'), 'Loading settings', '')
+      .then(function(res) { return states.then(function(x) { SEASON_STATES = (x && x.sports) || {}; return res; }); })
       .then(function(res) { SITE = res.body.settings || {}; renderSite(SITE); })
       .catch(function() {});
   }
