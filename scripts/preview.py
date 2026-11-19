@@ -1292,13 +1292,25 @@ def admin_pieces(now_utc):
     return keep
 
 
+def icon_css():
+    """The league icons' colors for the admin (which has its own stylesheet):
+    the site's dark-theme --ball-* values and its .sport-icon rules."""
+    with open(os.path.join(ROOT, 'assets', 'site.css'), encoding='utf-8') as f:
+        css = f.read()
+    ball = {}
+    for name, value in re.findall(r'(--ball-[\w-]+):\s*([^;]+);', css):
+        ball.setdefault(name, value.strip())   # the first is the default (dark) theme's
+    rules = re.findall(r'\.sport-icon \.bi-[^{]+\{[^}]*\}', css)
+    return ':root { ' + ' '.join(f'{k}: {v};' for k, v in ball.items()) + ' }\n' + '\n'.join(r.strip() for r in rules)
+
+
 def admin_dir(p):
     return f"{ADMIN_DIR}/{p['sport']}-{p['date']}/"
 
 
 def admin_pages(page, status, logo_svg, now_utc, render_sport):
     """The admin's Preview tab: assets/preview/admin.json ({pieces: {key:
-    [History rows]}, icons: {sport: svg}}) and every piece's page as it will publish, with the
+    [History rows]}, icons: {sport: svg}, iconCss}) and every piece's page as it will publish, with the
     live page's template and CSS, at admin/preview/{key}-{date}/ (noindex;
     the admin folder is disallowed in robots.txt)."""
     pieces = admin_pieces(now_utc)
@@ -1321,7 +1333,7 @@ def admin_pages(page, status, logo_svg, now_utc, render_sport):
             'date': p['date'], 'week': piece_week(p), 'path': p['path'], 'live': p['live'], 'page': d,
             'published': p['published'], 'written': p['written'], 'headline': head})
     icon = {sp['key']: icons.sport_icon(sp) for sp in sports.SPORTS}
-    write_json(os.path.join(ROOT, CARD_DIR, 'admin.json'), {'pieces': index, 'icons': icon})
+    write_json(os.path.join(ROOT, CARD_DIR, 'admin.json'), {'pieces': index, 'icons': icon, 'iconCss': icon_css()})
     return len(pieces)
 
 

@@ -130,7 +130,9 @@
   .pv-pills { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 14px; }
   .pv-pick { display: inline-flex; align-items: center; gap: 7px; background: var(--panel-2); color: var(--text); border: 1px solid var(--border); padding: 7px 12px; border-radius: 999px; font-size: 0.85rem; }
   .pv-pick[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
-  .pv-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .pv-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .pv-pick { text-transform: none; letter-spacing: 0; font-weight: 600; }
+  .pv-pick .sport-icon { width: 16px; height: 16px; color: var(--text); }
   .dot-live { background: #33D17A; } .dot-draft { background: #FACC15; } .dot-drafting { background: #A78BFA; } .dot-none { background: #6B7684; }
   .pv-warn { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--bad-dim); border: 1px solid var(--bad); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.88rem; }
   .pv-chead { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--border-soft); margin-bottom: 16px; }
@@ -149,7 +151,14 @@
   .pv-left select { max-width: 100%; margin-bottom: 8px; }
   .pv-l { margin-top: 14px !important; font-size: 0.72rem !important; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); }
   .pv-ok { color: var(--good); } .pv-bad { color: var(--bad); }
-  .pv-tabs { margin: 0 0 14px; }
+  .pv-tabrow { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; border-bottom: 1px solid var(--border-soft); margin: 0 0 14px; }
+  .pv-tabs { display: flex; gap: 4px; }
+  .pv-tabs button { background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; color: var(--text-muted); padding: 8px 12px; }
+  .pv-tabs button[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--accent); }
+  .pv-ftabs { margin: 0 0 6px; }
+  .pv-ftabs button { padding: 4px 12px; }
+  .pv-note { color: var(--text-muted); }
+  button.pv-redraft { background: none; color: #FACC15; border-color: rgba(250, 204, 21, 0.5); }
   .pv-f { display: block; margin: 0 0 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); }
   .pv-f input, .pv-f textarea { display: block; width: 100%; margin-top: 5px; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--text); }
   .pv-f input, .pv-f textarea { font-family: inherit; font-size: 0.9rem; line-height: 1.5; }
@@ -160,17 +169,18 @@
   .pv-box { background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px 12px; }
   .pv-bh { display: flex; justify-content: space-between; align-items: center; margin: 0 0 8px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--accent); }
   .pv-show { display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted); text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 0.8rem; }
-  .pv-show input { width: auto; margin: 0; }
+  .pv-switch { appearance: none; -webkit-appearance: none; width: 30px; height: 17px; margin: 0; padding: 0; border-radius: 999px; background: var(--panel-3); border: 1px solid var(--border); position: relative; cursor: pointer; flex: none; }
+  .pv-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: var(--text-muted); transition: left 0.15s; }
+  .pv-switch:checked { background: var(--accent); border-color: var(--accent); }
+  .pv-switch:checked::after { left: 15px; background: var(--on-accent); }
   .pv-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .pv-flags { list-style: none; margin: -4px 0 0; padding: 0; display: grid; gap: 6px; font-size: 0.84rem; }
-  .pv-flags li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 2px 10px; background: var(--bad-dim); border-radius: 8px; padding: 7px 10px; }
-  .pv-flags .pv-ln { grid-row: span 2; color: var(--bad); font-weight: 700; }
+  .pv-flags { list-style: none; margin: -4px 0 0; padding: 0; display: grid; gap: 4px; font-size: 0.84rem; color: #FACC15; }
   .pv-flags .muted { color: var(--text-muted); }
   .pv-frame-wrap { background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; display: flex; justify-content: center; }
   .pv-frame { border: 0; border-radius: 6px; background: #fff; height: 1100px; }
   .pv-frame.frame-desktop { width: 100%; }
   .pv-frame.frame-phone { width: 375px; height: 812px; }
-  #pvFrameTabs { margin: 0 0 8px; }
+  #pvFrameTabs { margin: 0 0 6px; } #pvFrameTabs[hidden] { display: none; }
   .pv-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--border-soft); margin-top: 16px; padding-top: 14px; }
   .pv-bar > span { display: flex; gap: 10px; }
   #pvColumns summary { cursor: pointer; font-weight: 600; }
@@ -1767,7 +1777,7 @@
     document.getElementById('pvTitle').textContent = 'Preview · ' + dayLabel(PV.today);
     document.getElementById('pvPills').innerHTML = PV.order.map(function(k) {
       var st = statusOf(k);
-      return '<button type="button" class="pv-pick" data-key="' + k + '" aria-pressed="' + (k === PV.key) + '"><span class="pv-dot dot-' + st[0] + '" title="' + st[1] + '"></span>' + escHtml(pillLabel(k)) + '</button>';
+      return '<button type="button" class="pv-pick" data-key="' + k + '" aria-pressed="' + (k === PV.key) + '">' + (k === 'all' ? HOME_ICON : (PV.icons[k] || '')) + escHtml(pillLabel(k)) + '<span class="pv-dot dot-' + st[0] + '" title="' + st[1] + '"></span></button>';
     }).join('');
   }
 
@@ -1836,7 +1846,7 @@
       var o = boxObj(p.text, b[0]);
       if (!o) return '<div class="pv-box"><p class="pv-bh">' + b[1] + '</p><p class="empty">None in this draft.</p></div>';
       var edge = b[0] === 'edge_play' && o.bet;
-      return '<div class="pv-box"><div class="pv-bh"><span>' + b[1] + '</span><label class="pv-show"><input type="checkbox" data-box="' + b[0] + '" data-f="show"' + (o.show === false ? '' : ' checked') + '> Show</label></div>' +
+      return '<div class="pv-box"><div class="pv-bh"><span>' + b[1] + '</span><label class="pv-show">Show<input type="checkbox" class="pv-switch" data-box="' + b[0] + '" data-f="show"' + (o.show === false ? '' : ' checked') + '></label></div>' +
         (edge ? boxField('', 'Bet', o.bet, b[0], 'bet') + '<div class="pv-two">' + boxField('', 'Price', o.price, b[0], 'price') + boxField('', 'Book', o.book, b[0], 'book') + '</div>'
           : boxField('', 'Number', o.number, b[0], 'number') + boxField('', 'Line', o.line, b[0], 'line')) +
         boxField('', 'Text', o.text, b[0], 'text', true) + '</div>';
@@ -1848,7 +1858,8 @@
         '<div id="pvLead"><p class="empty">Loading the day&rsquo;s games&hellip;</p></div>' +
         '<div id="pvChecks"></div>' +
       '</div><div class="pv-right">' +
-        '<div class="seg-tabs pv-tabs" id="pvTabs"><button type="button" data-tab="edit" aria-pressed="' + (PV.tab === 'edit') + '">Edit</button><button type="button" data-tab="preview" aria-pressed="' + (PV.tab === 'preview') + '">Preview</button></div>' +
+        '<div class="pv-tabrow"><div class="pv-tabs" id="pvTabs"><button type="button" data-tab="edit" aria-pressed="' + (PV.tab === 'edit') + '">Edit</button><button type="button" data-tab="preview" aria-pressed="' + (PV.tab === 'preview') + '">Preview</button></div>' +
+        '<div class="seg-tabs pv-ftabs" id="pvFrameTabs"' + (PV.tab === 'preview' ? '' : ' hidden') + '><button type="button" data-frame="desktop" aria-pressed="' + (PV.frame === 'desktop') + '">Desktop</button><button type="button" data-frame="phone" aria-pressed="' + (PV.frame === 'phone') + '">Phone</button></div></div>' +
         '<div id="pvEdit"' + (PV.tab === 'edit' ? '' : ' hidden') + '>' +
           '<label class="pv-f">Headline <span class="pv-count" id="pvCount"></span><input type="text" id="pvHead" value="' + escHtml(doc.head) + '"></label>' +
           '<label class="pv-f">Dek<input type="text" id="pvDek" value="' + escHtml(doc.dek) + '"></label>' +
@@ -1857,14 +1868,13 @@
           '<div id="pvFlags"></div>' +
         '</div>' +
         '<div id="pvPreview"' + (PV.tab === 'preview' ? '' : ' hidden') + '>' +
-          '<div class="seg-tabs" id="pvFrameTabs"><button type="button" data-frame="desktop" aria-pressed="' + (PV.frame === 'desktop') + '">Desktop</button><button type="button" data-frame="phone" aria-pressed="' + (PV.frame === 'phone') + '">Phone</button></div>' +
           (page ? '<p class="note" id="pvFrameNote">The page as it will publish (the live template and CSS), from the last saved version: Save, and it updates on the next refresh (within about 10 minutes).</p>' +
             '<div class="pv-frame-wrap"><iframe id="pvFrame" class="pv-frame frame-' + PV.frame + '" title="Preview" src="../' + page + '?t=' + Date.now() + '"></iframe></div>'
             : '<p class="empty">This preview&rsquo;s page is built on the next refresh (within about 10 minutes).</p>') +
         '</div>' +
       '</div></div>' +
       '<div class="pv-bar"><span><button class="save" type="button" id="pvSave">Save</button>' + (p.live ? '' : '<button class="publish" type="button" id="pvPublish">Publish</button>') + '</span>' +
-        (p.live ? '<span class="note">Live: Save updates the page on the next refresh.</span>' : '<button class="save" type="button" id="pvRedraft"' + (drafting(key) ? ' disabled' : '') + '>Redraft</button>') + '</div>' +
+        (p.live ? '<span class="note">Live: Save updates the page on the next refresh.</span>' : '<button class="save pv-redraft" type="button" id="pvRedraft"' + (drafting(key) ? ' disabled' : '') + '>Redraft</button>') + '</div>' +
       '<p class="status" id="pvStatus"></p>';
     wireHist();
     wireCard(p);
@@ -1919,11 +1929,11 @@
       var info = all[p.key] || {}, nums = numberFlags(body, check), notes = phraseFlags(body, info.codes || []);
       var list = nums.concat(notes).sort(function(a, b) { return a.line - b.line; });
       document.getElementById('pvFlags').innerHTML = list.length ? '<ul class="pv-flags">' + list.map(function(x) {
-        return '<li><span class="pv-ln">Line ' + x.line + '</span><b>' + escHtml(x.what) + '</b><span class="muted">' + escHtml(x.text.length > 120 ? x.text.slice(0, 117) + '…' : x.text) + '</span></li>';
+        return '<li>&#9888; Line ' + x.line + ': ' + escHtml(x.what) + ' <span class="muted">&middot; ' + escHtml(x.text.length > 120 ? x.text.slice(0, 117) + '…' : x.text) + '</span></li>';
       }).join('') + '</ul>' : '';
       document.getElementById('pvChecks').innerHTML = '<p class="pv-l">Numbers check</p>' +
-        (check.length ? '<p class="pv-bad">Not found in the data: ' + escHtml(check.join(', ')) + '</p>' : '<p class="pv-ok">&#10003; All numbers found</p>') +
-        '<p class="' + (notes.length ? 'pv-bad' : 'pv-ok') + '">' + (notes.length ? notes.length + ' note' + (notes.length === 1 ? '' : 's') + ' from the phrase check (under the article)' : '&#10003; No phrase notes') + '</p>';
+        '<p>' + (check.length ? '<span class="pv-bad">Not found in the data: ' + escHtml(check.join(', ')) + '</span>' : '<span class="pv-ok">&#10003; All numbers found</span>') +
+        (notes.length ? ' <span class="pv-note">&middot; ' + notes.length + ' note' + (notes.length === 1 ? '' : 's') + '</span>' : '') + '</p>';
     });
   }
   function wireCard(p) {
@@ -1951,6 +1961,7 @@
       card.querySelectorAll('#pvTabs [data-tab]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
       document.getElementById('pvEdit').hidden = PV.tab !== 'edit';
       document.getElementById('pvPreview').hidden = PV.tab !== 'preview';
+      document.getElementById('pvFrameTabs').hidden = PV.tab !== 'preview';
     });
     document.getElementById('pvFrameTabs').addEventListener('click', function(e) {
       var b = e.target.closest('[data-frame]'); if (!b) return;
@@ -2088,6 +2099,7 @@
     ]).then(function(r) {
       PV.files = r[0].body.files || [];
       PV.index = (r[1] && r[1].pieces) || {}; PV.icons = (r[1] && r[1].icons) || {};
+      if (r[1] && r[1].iconCss && !document.getElementById('pvIconCss')) document.head.insertAdjacentHTML('beforeend', '<style id="pvIconCss">' + r[1].iconCss + '</style>');
       var sp = (r[2] && r[2].sports) || [];
       PV.order = ['all'].concat(sp.length ? sp.map(function(x) { return x.key; }) : ['nhl', 'nba', 'wnba', 'mlb', 'ncaab', 'nfl', 'ncaaf']);
       sp.forEach(function(x) { PV.labels[x.key] = x.label; });
