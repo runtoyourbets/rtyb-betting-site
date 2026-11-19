@@ -10465,6 +10465,57 @@
     "streakTeamName": "Washington"
    },
    {
+    "id": "nba|401910020|1q|total|under",
+    "game": "nba|401910020",
+    "date": "2026-11-19",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-20T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Trail Blazers @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 59.5,
+    "price": -111,
+    "title": "1Q Under 59.5",
+    "est": 0.5789,
+    "edge": 0.0528,
+    "agree": 6,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 11,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, last 8 (59.5)",
+      "8-0"
+     ],
+     [
+      "Bucks 1Q unders, season (59.5)",
+      "14-1"
+     ],
+     [
+      "Bucks 1Q unders at home (59.5)",
+      "7-1"
+     ],
+     [
+      "Trail Blazers 1Q unders, last 8 (59.5)",
+      "6-2"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 50.5 \u00b7 Trail Blazers 53.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
     "id": "ncaab|401918056|1h|ml|away",
     "game": "ncaab|401918056",
     "date": "2026-11-19",
@@ -10505,57 +10556,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "East Texas A&M"
-   },
-   {
-    "id": "nba|401910020|1q|total|under",
-    "game": "nba|401910020",
-    "date": "2026-11-19",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-20T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Trail Blazers @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 59.5,
-    "price": -113,
-    "title": "1Q Under 59.5",
-    "est": 0.5819,
-    "edge": 0.0513,
-    "agree": 6,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 11,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, last 8 (59.5)",
-      "8-0"
-     ],
-     [
-      "Bucks 1Q unders, season (59.5)",
-      "14-1"
-     ],
-     [
-      "Bucks 1Q unders at home (59.5)",
-      "7-1"
-     ],
-     [
-      "Trail Blazers 1Q unders, last 8 (59.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 50.5 \u00b7 Trail Blazers 53.9",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
    },
    {
     "id": "ncaab|401906867|1h|ml|away",
