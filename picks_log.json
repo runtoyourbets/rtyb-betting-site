@@ -10203,10 +10203,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 370,
+    "price": 390,
     "title": "Clippers 1H ML",
-    "est": 0.2918,
-    "edge": 0.079,
+    "est": 0.2856,
+    "edge": 0.0815,
     "agree": 2,
     "sample": 12,
     "tier": "B",
@@ -10614,6 +10614,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Edmonton"
+   },
+   {
+    "id": "nhl|2026020352|1p|ml|away",
+    "game": "nhl|2026020352",
+    "date": "2026-11-19",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-20T00:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Montreal @ Carolina",
+    "href": "nhl/matchups/?date=2026-11-19",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 172,
+    "title": "Montreal 1P ML",
+    "est": 0.4,
+    "edge": 0.0323,
+    "agree": 3,
+    "sample": 7,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "MTL",
+    "angles": [
+     [
+      "Montreal 1P ML on the road",
+      "3-0-8"
+     ],
+     [
+      "Montreal 1P ML, season",
+      "6-1-15"
+     ],
+     [
+      "Montreal 1P ML, last 8",
+      "3-1-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Montreal"
    },
    {
     "id": "nfl|401873066|1h|ats|away",
