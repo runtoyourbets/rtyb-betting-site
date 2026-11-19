@@ -17,7 +17,7 @@ packet and nothing else.
 
 - Use only what's in the packet. Every team, record, rate, line, price, book
   and game count must appear in the packet exactly as given.
-- Rates come with their record and game count: "13–1 (93%) in 14 games". The
+- Rates come percent first, then the record and game count: "93% (13–1) in 14 games". The
   packet only holds rates with 10+ games; don't build your own.
 - Never invent players, injuries, quotes, goals, plays or game moments.
 - Teams: the full name in the text (Milwaukee Bucks). The code (MIL) only

@@ -182,6 +182,11 @@ def streak_words(doc, slug, m, st, k):
 
 
 # ------------------------------------------------------------- the pick
+def pct_rec(w, l):
+    """"68% (58–27)": the percent first (CLAUDE.md), then the record."""
+    return f"{round(100 * w / (w + l)) if w + l else 0}% ({w}–{l})"
+
+
 def market_keys(doc):
     """[(segment, market)] the pages show, the 3-way left to the league cards."""
     return [(x[0], x[1]) for x in doc.get('markets') or [] if x[1] in HIT]
@@ -196,7 +201,7 @@ def game_trends(doc, g, cards, seqs_by_seg):
                 continue
             pick = x.get('side') or x.get('bet')
             out.setdefault((c['seg'], c['mk'], pick), []).append({
-                'kind': 'league', 'text': f"{c['title']} ({c['tag']})", 'rec': f"{c['w']}–{c['l']}",
+                'kind': 'league', 'text': f"{c['title']} ({c['tag'].replace(' ATS', ' Spread')})", 'rec': pct_rec(c['w'], c['l']),
                 'edge': (c.get('rate') or 0) - (c.get('base') or 0)})
     for k, m in market_keys(doc):
         seqs = seqs_by_seg[k]
@@ -205,8 +210,8 @@ def game_trends(doc, g, cards, seqs_by_seg):
             found = []
             ln, st = lean_of(m, seq), streak_of(seq)
             if ln:
-                found.append((ln['kind'], {'kind': 'matchup', 'text': f"{lean_words(doc, g[side], m, ln['kind'], k)} in {ln['x']} of {ln['y']}",
-                                           'rec': f"{round(ln['rate'] * 100)}%", 'edge': ln['rate'] - league_rate(seqs, m, ln['kind'])}))
+                found.append((ln['kind'], {'kind': 'matchup', 'text': lean_words(doc, g[side], m, ln['kind'], k),
+                                           'rec': pct_rec(ln['x'], ln['y'] - ln['x']), 'edge': ln['rate'] - league_rate(seqs, m, ln['kind'])}))
             if st and st['n'] >= 3:
                 found.append((st['kind'], {'kind': 'streak', 'text': streak_words(doc, g[side], m, st, k), 'rec': f"{st['n']} straight", 'edge': None}))
             for kind, t in found:

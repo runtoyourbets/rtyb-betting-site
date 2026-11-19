@@ -251,7 +251,7 @@
       cols.map(function(c) { return c[0] === 'ml3' ? cardCell(g, k, 'ml3', 2) : '<td class="mc-cell mc-none"></td>'; }).join('') + '</tr>' : '';
     return '<div class="game-card mc" data-game="' + esc(g.id) + '" style="--mc-n:' + cols.length + '">' +
       '<table class="mc-grid"><thead><tr><th scope="col" class="mc-st">' + cardStatus(g, k) + '</th>' +
-      cols.map(function(c) { return '<th scope="col">' + esc(c[1]) + '</th>'; }).join('') + '</tr></thead>' +
+      cols.map(function(c) { return '<th scope="col"><span class="mk-h">' + esc(c[1]) + '</span></th>'; }).join('') + '</tr></thead>' +
       '<tbody>' + teamRow(g.away, 0) + teamRow(g.home, 1) + tie + '</tbody></table>' + fullGameRow(g) + '</div>';
   }
 
@@ -1926,6 +1926,22 @@
     return new Date(iso).toLocaleString('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }).replace(',', '');
   }
   function codeLink(slug) { return teamLink(slug, esc(tcode(slug))); }
+  // a trend row's "Last time" line: a click or tap opens it (one at a time)
+  if (!window.__lastRows) {
+    window.__lastRows = true;
+    var lastRow = function(r) {
+      var open = r.getAttribute('aria-expanded') !== 'true';
+      document.querySelectorAll('.tr-has-last[aria-expanded="true"]').forEach(function(x) { x.setAttribute('aria-expanded', 'false'); });
+      r.setAttribute('aria-expanded', String(open));
+    };
+    document.addEventListener('click', function(e) {
+      var r = e.target.closest ? e.target.closest('.tr-has-last') : null;
+      if (r && !e.target.closest('a, button')) lastRow(r);
+    });
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('tr-has-last')) { e.preventDefault(); lastRow(e.target); }
+    });
+  }
   var TR_ROWS = 5;   // game rows per card before "Show all N games"
   // games not started (soonest first), then live, then finished
   function rowOrder(g) { return g.state === 'final' ? 2 : started(g) ? 1 : 0; }
@@ -1940,18 +1956,21 @@
       .sort(function(a, b) { return (rowOrder(a.g) - rowOrder(b.g)) || ((a.g.start || '') < (b.g.start || '') ? -1 : 1); });
     var rows = list.map(function(o, i) {
       var g = o.g, x = o.x;
-      var bet = x.side ? 'Bet ' + badge(g[x.side], 16) + ' ' + codeLink(g[x.side]) : esc(x.label);
-      return '<div class="tr-row"' + (i >= TR_ROWS ? ' hidden data-extra' : '') + '><span class="tr-time">' + esc(rowStatus(g)) + '</span>' +
+      // the logo loads right away (a lazy one could stay blank as rows move)
+      var bet = x.side ? 'Bet ' + badge(g[x.side], 16).replace(/ loading="lazy"/g, '') + ' ' + codeLink(g[x.side]) : esc(x.label);
+      // the trend's "Last time" line under the row: hover or click (desktop), tap (phones, ▾)
+      return '<div class="tr-row' + (c.last ? ' tr-has-last' : '') + '"' + (i >= TR_ROWS ? ' hidden data-extra' : '') + (c.last ? ' tabindex="0" aria-expanded="false"' : '') + '><span class="tr-time">' + esc(rowStatus(g)) + '</span>' +
         '<span class="tr-match">' + codeLink(g.away) + ' @ ' + codeLink(g.home) + '</span>' +
-        '<span class="tr-bet">' + bet + '</span></div>';
+        '<span class="tr-bet">' + bet + '</span>' + (c.last ? '<i class="tr-caret" aria-hidden="true">&#9662;</i></div><p class="tr-last">' + esc(c.last) + '</p>' : '</div>');
     }).join('');
     var more = list.length > TR_ROWS ? '<button type="button" class="tr-more tr-all">Show all ' + list.length + ' games</button>' : '';
     var r = c.rate * 100, b = c.base * 100;
     var rec = c.mk === 'ml3' && c.avg != null
       ? 'Hit ' + c.w + ' of ' + (c.w + c.l) + ' at avg ' + priceTxt(c.avg) + ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>'
-      : '<b class="mono">' + c.w + '–' + c.l + '</b> · ' + pct0(c.rate) + ' · league ' + pct0(c.base) + ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
+      : pct0(c.rate) + ' (' + c.w + '–' + c.l + ') · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
+    var avg = c.mk === 'ml3' && c.avg != null ? '' : '<p class="ht-avg">League average ' + pct0(c.base) + '</p>';
     return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span>' + infoTip(tip, true) + '</div>' +
-      '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec" title="' + esc((TR.tips.record_line || {}).tooltip || '') + '">' + rec + '</div>' +
+      '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec" title="' + esc((TR.tips.record_line || {}).tooltip || '') + '">' + rec + '</div>' + avg +
       '<div class="tr-bar" aria-hidden="true"><span style="width:' + r.toFixed(1) + '%"></span><i style="left:' + b.toFixed(1) + '%"></i></div>' +
       '<div class="tr-rows">' + rows + '</div>' + more + '</div>';
   }

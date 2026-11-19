@@ -9,7 +9,7 @@ Sections, top to bottom: nav, then the shared front sections
 (scripts/front.py sections, also on every Arena hub): the brand H1 (hubs:
 the slogan line), the all-sports Preview from 11 AM ET (else Yesterday's
 Best, large), Yesterday's Best, The Slate, Matchup of the Day, Hottest
-Trends, Streak to Watch, Biggest Line Move, Get the Running Tab (hubs
+Trends, Streak to Watch, Line Mover, Get the Running Tab (hubs
 only), Yesterday's Results, then Betting Guides (3 guides); footer. Every
 list of sports comes from sports.LAUNCHED (in season). Also writes
 /matchups/, /odds/ and /trends/ (scripts/front.py index pages) and /picks/
@@ -189,7 +189,7 @@ def nav_html(status, depth='', current=None):
 FOOTER = '''
 <footer class="hf">
   <div class="hf-inner">
-    <div class="ft-signup" id="premium"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and the day&rsquo;s preview.</p><!--signup:footer--></div>
+    <div class="ft-signup" id="premium"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and previews.</p><!--signup:footer--></div>
     <p class="hf-rg"><b>21+ only.</b> Gambling problem? Call <a href="tel:18004262537">1-800-GAMBLER</a>. Please bet responsibly.</p>
     <p class="hf-small">RTYB &mdash; Run to Your Bets is for information and entertainment. Not affiliated with any league or sportsbook.
     Records and units are for tracking only; past results don&rsquo;t predict future ones.</p>

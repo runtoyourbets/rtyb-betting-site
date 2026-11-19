@@ -171,7 +171,11 @@ class LineMoveTest(unittest.TestCase):
                  '3': ({'away': 300, 'home': -400}, {'away': -200, 'home': 170})}   # started: left out
         S.odds_game = lambda d, g: {'open': {'1h': {'ml': moves[g['id']][0]}}, 'best': {'1h': {'ml': moves[g['id']][1]}}}
         html = front.line_move({'nba': S}, now)
-        self.assertIn('1H moneyline opened <span class="mono">+100</span>, now <span class="mono">-118</span>, moving toward A', html)
+        self.assertIn('<span class="lm-l">Open</span><span class="cell"><span class="ob-ln">+100</span></span>', html)
+        self.assertIn('<span class="lm-l">Now</span><span class="cell"><span class="ob-ln">-118</span></span>', html)
+        self.assertIn('Line moving toward A 1H ML', html)
+        # game 2's home side drifted (-140 to -150 is shorter): the cells show the team it's moving toward
+        self.assertIn('Line moving toward H 1H ML', html)
         self.assertIn('See all odds', html)
         # the next-biggest move waits, hidden, to take over when game 1 starts
         self.assertEqual(html.count('data-move="today"'), 2)
