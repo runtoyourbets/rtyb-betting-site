@@ -574,6 +574,9 @@ def packet_for(kind, sport, day):
 
 def scheduled(now=None):
     now = (now or datetime.now(timezone.utc)).astimezone(ET)
+    if not sports.ON_TAP_LIVE:   # content/site_settings.json switches On Tap off: no drafts, no API calls
+        print('On Tap is off (ON_TAP_LIVE); no drafts written')
+        return
     if not os.environ.get('ANTHROPIC_API_KEY'):
         print('ANTHROPIC_API_KEY not set; no drafts written')
         return

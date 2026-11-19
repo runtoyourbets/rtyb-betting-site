@@ -224,8 +224,11 @@ def started(g, now):
 
 
 def load(now_utc=None, keys=None):
-    """{key: Sport} for the sports on the site (or `keys`), in nav order."""
-    return {sp['key']: Sport(sp) for sp in sports.LAUNCHED if keys is None or sp['key'] in keys}
+    """{key: Sport} for the sports in season (the home and index pages' games
+    and trends), or `keys` (a hub: any sport on the site), in menu order."""
+    if keys is None:
+        return {sp['key']: Sport(sp) for sp in sports.IN_SEASON}
+    return {sp['key']: Sport(sp) for sp in sports.LAUNCHED if sp['key'] in keys}
 
 
 # ------------------------------------------------------ Results box rows
@@ -1080,12 +1083,6 @@ def week_label(games):
     return f'Week {n}' if n.isdigit() else ''
 
 
-def index_pills(S):
-    links = '<a class="seg-btn" href="#ix-top">All</a>' + ''.join(
-        f'<a class="seg-btn" href="#ix-{sport.key}">{esc(sport.label)}</a>' for sport in S.values())
-    return f'<nav class="fr-pills ix-pills" aria-label="Sports">{links}</nav>'
-
-
 def index_section(sport, inner, more_href, more_text, heading_extra=''):
     extra = f' <span class="ix-week">&middot; {esc(heading_extra)}</span>' if heading_extra else ''
     return (f'<section class="ix-group" id="ix-{sport.key}"><h2 class="ix-sport">{esc(sport.label)}{extra}</h2>'
@@ -1094,7 +1091,7 @@ def index_section(sport, inner, more_href, more_text, heading_extra=''):
 
 def index_page(kind, day, sections_html, S):
     return (f'<div class="ix" id="ix-top"><div class="ix-head"><h1>{esc(INDEX[kind]["h1"])}</h1><span class="sl-date">{esc(day_label(day))}</span></div>'
-            f'{index_pills(S)}{sections_html}</div>')
+            f'{sections_html}</div>')
 
 
 def trends_index_body(S, now_utc, root='../'):
@@ -1267,7 +1264,7 @@ def sections(S, now_utc, root='', hub=False, learn=''):
     Matchup of the Day | Team to Watch + Line Move; Results | Learn."""
     import daily
     yday = yesterday(now_utc)
-    p = on_tap_piece(S, now_utc, next(iter(S)) if hub else daily.ALL)
+    p = on_tap_piece(S, now_utc, next(iter(S)) if hub else daily.ALL) if sports.ON_TAP_LIVE else None
     hero = on_tap_hero(p, root) if p else best_hero(S, yday, hub)
     best = yesterdays_best(S, yday) if p else ''
 

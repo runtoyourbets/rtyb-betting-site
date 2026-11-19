@@ -21,37 +21,72 @@ def status():
 
 
 class NavTest(unittest.TestCase):
-    def tearDown(self):
-        sports.PICKS_LIVE = False
-
-    def test_no_picks_link_until_live(self):
-        sports.PICKS_LIVE = False
-        html = re.sub(r'<script\b.*?</script>', '', nav.header('', status()), flags=re.S)
-        self.assertNotIn('picks/', html)
-        sports.PICKS_LIVE = True
+    def test_picks_link_everywhere(self):
+        # Picks shows (gold) in every menu whether or not PICKS_LIVE
         html = nav.header('', status())
-        self.assertIn('class="hn-link hn-picks"', html)
-        self.assertIn('hm-pill gold', html)
+        self.assertIn('class="hn-link hn-gold" href="picks/"', html)
+        self.assertIn('class="hm-pill gold" href="nhl/picks/"', html)
 
     def test_page_order(self):
-        sports.PICKS_LIVE = True
         self.assertEqual([s for s, _, _ in sports.page_links('nba')], ['picks', 'games', 'odds', 'trends', 'stats', 'teams'])
-        sports.PICKS_LIVE = False
-        self.assertEqual([s for s, _, _ in sports.page_links('nba')], ['games', 'odds', 'trends', 'stats', 'teams'])
+
+    def test_main_menu(self):
+        self.assertEqual([k for k, _ in sports.MAIN_MENU], ['sports', 'matchups', 'odds', 'trends', 'stats', 'picks'])
+
+    def test_no_on_tap_while_off(self):
+        self.assertFalse(sports.ON_TAP_LIVE)
+        html = nav.header('', status(), current='matchups')
+        self.assertNotIn('on-tap', html)
+        self.assertNotIn('On Tap', re.sub(r'<script\b.*?</script>', '', html, flags=re.S))
 
     def test_bottom_bar_current(self):
         html = nav.header('../', status(), current='odds')
         bar = html[html.index('<nav class="bb"'):]
         self.assertIn('href="../odds/" aria-current="page"', bar)
         self.assertEqual(bar.count('aria-current'), 1)
-        # a sport's Trends page lights the Trends tab
-        bar = nav.bottom_bar('/', nav.SECTION_TAB.get('trends'))
-        self.assertIn('href="/trends/" aria-current="page"', bar)
+        self.assertEqual(re.findall(r'<span>(\w+)</span>', bar), ['Matchups', 'Odds', 'Trends', 'Stats'])
+        # a sport's Stats page lights the Stats tab
+        bar = nav.bottom_bar('/', nav.SECTION_TAB.get('stats'))
+        self.assertIn('href="/stats/" aria-current="page"', bar)
+
+    def test_rows(self):
+        # home: no row 2; an index page: the section, All and the sports to the same section
+        self.assertNotIn('class="hr2"', nav.header('', status()))
+        html = nav.header('../', status(), current='odds')
+        self.assertIn('<p class="hr2-label">Odds</p>', html)
+        self.assertIn('href="../nhl/odds/"', html)
+        # a sport page: its six links, the current one marked
+        row = nav.sport_row('/', sports.BY_KEY['nhl'], 'games')
+        self.assertEqual(len(re.findall(r'class="hr2-link[ "]', row)), 6)
+        self.assertIn('href="/nhl/matchups/" aria-current="page"', row)
 
     def test_menu_has_no_learn(self):
         html = nav.header('', status())
         self.assertNotIn('learn/', html)
         self.assertIn('betting-guides/', html)
+
+
+class SettingsTest(unittest.TestCase):
+    def test_defaults_and_order(self):
+        self.assertEqual([s['key'] for s in sports.SPORTS], ['nhl', 'nba', 'wnba', 'mlb', 'ncaab', 'nfl', 'ncaaf'])
+        self.assertEqual(sports.BY_KEY['ncaab']['menu_label'], 'College Basketball')
+        # every sport "on": WNBA and MLB stay on the site out of season
+        self.assertTrue(sports.is_launched('mlb'))
+
+    def test_bad_file_falls_back(self):
+        import tempfile
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f:
+            f.write('{not json')
+        self.assertEqual(sports.load_settings(f.name)['switches']['FOOTER'], 'home-only')
+        os.remove(f.name)
+
+
+class CodeTest(unittest.TestCase):
+    def test_college_list(self):
+        self.assertEqual(sports.college_code('ncaab', 'chattanooga-mocs', 'UTC'), 'CHAT')
+        self.assertEqual(sports.college_code('nba', 'utah', 'UTAH'), 'UTA')
+        sports.college_code('ncaab', 'not-a-team', 'ZZZ')
+        self.assertIn(('ncaab', 'not-a-team', 'ZZZ'), sports.COLLEGE_FALLBACKS)
 
 
 class HeadingTest(unittest.TestCase):

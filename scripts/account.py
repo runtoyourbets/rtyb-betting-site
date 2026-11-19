@@ -70,7 +70,7 @@ ACCOUNT_JS = '''<script>
     root.classList.toggle('rtyb-signed-in', signedIn);
     root.classList.toggle('rtyb-premium', !!(u && u.premium));
     box.querySelector('.acct-user').hidden = !signedIn;
-    if (!signedIn) { root.removeAttribute('data-theme'); return; }   // guests follow the device setting
+    if (!signedIn) return;   // guests switch with the sun/moon in the top bar (scripts/nav.py)
     syncDark();
     var face = document.getElementById('acctFace');
     face.innerHTML = '';

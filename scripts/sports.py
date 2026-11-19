@@ -21,14 +21,56 @@ Field reference
   sections       URL folder for each section (the same for every sport)
   schedule       "day" (default) or "week": football's Matchups page and Admin
                  go week by week (ESPN's weeks: Week 1.., Wild Card, Bowls)
-  launched       True = shown on the site (nav, home, Picks, Streaks) while
-                 it's in season (season_start..season_end); out of season it
-                 hides on its own and comes back when the season starts.
-                 False = hidden all year: its data is still fetched, graded
-                 and built, its pages still load by URL (noindexed), but
-                 nothing links to them.
+  launched       set from content/site_settings.json (below): False only
+                 when the sport's switch is "off"
+
+Site settings (content/site_settings.json, edited in admin's Site settings
+tab): the main menu, the sports' order, menu labels and switches ("on" =
+shown all year, off-season sports showing last season; "in_season" = shown
+between season_start and season_end; "off" = hidden: its data is still
+fetched, graded and built and its pages load by URL, noindexed, but nothing
+links to them), each sport's page links, the phone bottom bar, and the
+ON_TAP_LIVE / PICKS_LIVE / FOOTER switches. Every menu reads from here.
 """
+import json
+import os
 import re
+
+SETTINGS_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'content', 'site_settings.json')
+DEFAULT_SETTINGS = {
+    'main_menu': [{'key': k, 'label': k.title()} for k in ('sports', 'matchups', 'odds', 'trends', 'stats', 'picks')],
+    'sports': [],
+    'sport_pages': [{'key': 'picks', 'label': 'Picks'}, {'key': 'games', 'label': 'Matchups'}, {'key': 'odds', 'label': 'Odds'},
+                    {'key': 'trends', 'label': 'Trends'}, {'key': 'stats', 'label': 'Stats'}, {'key': 'teams', 'label': 'Teams'}],
+    'bottom_bar': [{'key': k, 'label': k.title()} for k in ('matchups', 'odds', 'trends', 'stats')],
+    'switches': {'ON_TAP_LIVE': False, 'PICKS_LIVE': False, 'FOOTER': 'home-only'},
+}
+
+
+def load_settings(path=SETTINGS_PATH):
+    """content/site_settings.json over the defaults (a missing or broken
+    file falls back to them, key by key)."""
+    out = json.loads(json.dumps(DEFAULT_SETTINGS))
+    try:
+        with open(path, encoding='utf-8') as f:
+            got = json.load(f)
+    except (OSError, ValueError):
+        got = {}
+    for k, v in (got or {}).items():
+        if k == 'switches' and isinstance(v, dict):
+            out['switches'].update(v)
+        elif k in out and isinstance(v, list) and v:
+            out[k] = v
+    return out
+
+
+SETTINGS = load_settings()
+SWITCHES = SETTINGS['switches']
+# the every-sport pages behind the main menu: key -> folder
+INDEX_FOLDERS = {'matchups': 'matchups/', 'odds': 'odds/', 'trends': 'trends/', 'stats': 'stats/', 'picks': 'picks/'}
+MAIN_MENU = [(m['key'], m.get('label') or m['key'].title()) for m in SETTINGS['main_menu']
+             if m.get('key') == 'sports' or m.get('key') in INDEX_FOLDERS]
+BOTTOM_BAR = [(m['key'], m.get('label') or m['key'].title()) for m in SETTINGS['bottom_bar'] if m.get('key') in INDEX_FOLDERS][:4]
 
 SPREAD_MARKETS = ['ATS', 'ML', 'Total']
 NO_ML_MARKETS = ['ATS', 'Total']
@@ -36,17 +78,22 @@ NO_ML_MARKETS = ['ATS', 'Total']
 # The bottom block (newsletter signup, 21+ line, about and commission lines,
 # Privacy · Terms · email) on every page's footer. 'home-only' keeps it on
 # the home page alone (until launch); 'everywhere' brings it back on every page.
-FOOTER = 'home-only'
+FOOTER = SWITCHES.get('FOOTER') or 'home-only'
 
 
 def footer_on(is_home=False):
     return FOOTER == 'everywhere' or is_home
 
 
-# Picks (/picks/ and /{sport}/picks/). False: the pages are noindexed
-# "Picks are coming with Premium" shells and no Picks link appears anywhere
-# (menus, top bar, pills). True turns every Picks link on at once.
-PICKS_LIVE = False
+# Picks (/picks/ and /{sport}/picks/). Picks links show in every menu (gold)
+# either way. False: the pages are noindexed "Picks are coming with Premium"
+# pages, out of the sitemap; True swaps in the real Picks pages.
+PICKS_LIVE = bool(SWITCHES.get('PICKS_LIVE'))
+
+# On Tap (/on-tap/). False: out of every menu, the bottom bar, the footer and
+# internal links; its pages are noindexed and out of the sitemap; the home and
+# hub heroes use Yesterday's Best; no previews are drafted (no API calls).
+ON_TAP_LIVE = bool(SWITCHES.get('ON_TAP_LIVE'))
 
 
 # in nav order (menus, pills): NHL, NBA, NCAAB, NFL, NCAAF, then WNBA and MLB
@@ -131,6 +178,17 @@ for _s in SPORTS:
     _s.setdefault('sections', dict(DEFAULT_SECTIONS))
     _s.setdefault('schedule', 'day')
 
+# order, menu labels and switches from the settings file; sports it doesn't
+# list keep their place after the listed ones, switched on
+_ORDER = {x.get('key'): i for i, x in enumerate(SETTINGS['sports'])}
+_SET = {x.get('key'): x for x in SETTINGS['sports']}
+SPORTS.sort(key=lambda s: _ORDER.get(s['key'], len(_ORDER)))
+for _s in SPORTS:
+    _x = _SET.get(_s['key']) or {}
+    _s['status'] = _x.get('status') if _x.get('status') in ('on', 'off', 'in_season') else 'on'
+    _s['menu_label'] = _x.get('label') or _s['label']
+    _s['launched'] = _s['status'] != 'off'
+
 def has_ml(seg):
     """Whether a segment tracks the moneyline (SU); one with NO_ML_MARKETS doesn't."""
     return 'ML' in (seg.get('markets') or ['ML'])
@@ -186,13 +244,16 @@ def in_season(sp, day=None):
 
 
 def shown(day=None):
-    """The sports on the site today, in nav order: launched and in season."""
-    return [s for s in SPORTS if s.get('launched') and in_season(s, day)]
+    """The sports on the site today, in menu order: switched "on", or
+    "in_season" and in season."""
+    return [s for s in SPORTS if s['status'] == 'on' or s['status'] == 'in_season' and in_season(s, day)]
 
 
-# the sports shown on the site, in nav order (menus, home, pills, hubs'
-# indexing, the sitemap): every page builds its list from this
+# the sports shown on the site, in menu order (menus, home, index pages,
+# hubs' indexing, the sitemap): every page builds its list from this
 LAUNCHED = shown()
+# ...of those, the ones in season now (the phone sports row on index pages)
+IN_SEASON = [s for s in LAUNCHED if in_season(s)]
 
 
 def is_launched(key):
@@ -225,6 +286,31 @@ def team_code(sport_key, code):
     return code[:code_max(sport_key)]
 
 
+_COLLEGE_CODES = None
+COLLEGE_FALLBACKS = []   # (sport, slug, code) for teams not in the curated list
+
+
+def college_code(sport_key, slug, code):
+    """A team's code: college teams from the curated list
+    (data_seed/college_codes.json, by slug), else their current code (logged
+    in COLLEGE_FALLBACKS); pro teams through team_code."""
+    global _COLLEGE_CODES
+    if sport_key not in COLLEGE:
+        return team_code(sport_key, code)
+    if _COLLEGE_CODES is None:
+        try:
+            with open(os.path.join(os.path.dirname(SETTINGS_PATH), '..', 'data_seed', 'college_codes.json'), encoding='utf-8') as f:
+                _COLLEGE_CODES = json.load(f)
+        except (OSError, ValueError):
+            _COLLEGE_CODES = {}
+    got = (_COLLEGE_CODES.get(sport_key) or {}).get(slug)
+    if got:
+        return team_code(sport_key, got)
+    if (sport_key, slug, code) not in COLLEGE_FALLBACKS:
+        COLLEGE_FALLBACKS.append((sport_key, slug, code))
+    return team_code(sport_key, code)
+
+
 def other_code(sport_key, name):
     """A code for a team outside the league, from its school name: the
     first word's letters ('Reinhardt' -> REIN), or the initials of a
@@ -248,15 +334,16 @@ def section_path(sport, section):
 
 def page_links(sport):
     """[(section, label, root-relative path)] for the sport's pages in the
-    site order (SITE_SECTIONS); Picks only while PICKS_LIVE."""
+    settings' order and labels (sport_pages): Picks · Matchups · Odds ·
+    Trends · Stats · Teams."""
     s = BY_KEY[sport] if isinstance(sport, str) else sport
     out = []
-    for sec in SITE_SECTIONS:
+    for x in SETTINGS['sport_pages']:
+        sec = x.get('key')
         if sec == 'picks':
-            if PICKS_LIVE:
-                out.append(('picks', 'Picks', picks_path(s)))
+            out.append(('picks', x.get('label') or 'Picks', picks_path(s)))
         elif sec in s['sections']:
-            out.append((sec, SECTION_LABELS[sec], section_path(s, sec)))
+            out.append((sec, x.get('label') or SECTION_LABELS[sec], section_path(s, sec)))
     return out
 
 

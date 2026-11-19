@@ -24,7 +24,7 @@
  * {post: true | false} (postseason / regular season) | {none}), view.noSeg (the page has its own segment toggle), view.controls /
  * view.line (HTML for the header), view.after(box) (wire them after a redraw).
  * Team view extras: view.next = {id, label} (the team's next game and how
- * to say it: "Tonight vs MON"); its rows get a Tonight tag.
+ * to say it: "Tonight vs MTL"); its rows get a Tonight tag.
  *
  * Games are in sport.js's shape: {id, start, state, away, home, as, hs,
  * als, hls, neutral, intl, note, post, wk, fs (home full-game spread),

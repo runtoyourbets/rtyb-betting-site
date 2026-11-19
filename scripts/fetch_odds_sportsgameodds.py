@@ -35,7 +35,7 @@ import urllib.error
 API_KEY = os.environ.get('SPORTSGAMEODDS_API_KEY', '').strip()
 BASE = 'https://api.sportsgameodds.com/v2/events'
 
-ABBREV_MAP = {'TBL': 'TB', 'MTL': 'MON', 'NJD': 'NJ', 'SJS': 'SJ', 'LAK': 'LA'}
+ABBREV_MAP = {'TBL': 'TB', 'NJD': 'NJ', 'SJS': 'SJ', 'LAK': 'LA'}
 
 # Case-insensitive substrings that would plausibly appear in a BTTS statID.
 BTTS_STAT_HINTS = ('bothteamsscore', 'bothtoscore', 'btts', 'bothscore')

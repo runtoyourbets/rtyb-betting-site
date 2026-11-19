@@ -397,7 +397,7 @@ def build(sp, doc, trends_doc, slug_dir, now_utc=None):
     hub = {'h1': h1, 'slate': key, 'weekly': weekly, 'motd': mine.get(key) if key else None,
            'motdRecord': {'last': {k: last.get(k) for k in ('bet', 'result', 'score')} if last and last.get('result') else None,
                           'season': [sum(1 for e in graded if e['result'] == 'W'), sum(1 for e in graded if e['result'] == 'L')]},
-           'daily': daily_cards(sp, today, weekly),
+           'daily': daily_cards(sp, today, weekly) if sports.ON_TAP_LIVE else {},
            'learn': sports.guide_path(sp)}
     write_json(os.path.join(slug_dir, 'hub.json'), hub)
     return hub['motd']

@@ -108,7 +108,7 @@ PAGE_META = {
 # carry division info and this essentially never changes mid-season (phase 2
 # spec explicitly allows this fallback).
 TEAM_DIVISIONS = {
-    'Atlantic': ['BOS', 'BUF', 'DET', 'FLA', 'MON', 'OTT', 'TB', 'TOR'],
+    'Atlantic': ['BOS', 'BUF', 'DET', 'FLA', 'MTL', 'OTT', 'TB', 'TOR'],
     'Metropolitan': ['CAR', 'CBJ', 'NJ', 'NYI', 'NYR', 'PHI', 'PIT', 'WSH'],
     'Central': ['CHI', 'COL', 'DAL', 'MIN', 'NSH', 'STL', 'UTA', 'WPG'],
     'Pacific': ['ANH', 'CGY', 'EDM', 'LA', 'SJ', 'SEA', 'VAN', 'VGK'],
@@ -126,7 +126,7 @@ TEAM_CITY = {
     'ANH': 'Anaheim', 'BOS': 'Boston', 'BUF': 'Buffalo', 'CGY': 'Calgary',
     'CAR': 'Carolina', 'CHI': 'Chicago', 'COL': 'Colorado', 'CBJ': 'Columbus',
     'DAL': 'Dallas', 'DET': 'Detroit', 'EDM': 'Edmonton', 'FLA': 'Florida',
-    'LA': 'Los Angeles', 'MIN': 'Minnesota', 'MON': 'Montreal', 'NSH': 'Nashville',
+    'LA': 'Los Angeles', 'MIN': 'Minnesota', 'MTL': 'Montreal', 'NSH': 'Nashville',
     'NJ': 'New Jersey', 'NYI': 'NY Islanders', 'NYR': 'NY Rangers', 'OTT': 'Ottawa',
     'PHI': 'Philadelphia', 'PIT': 'Pittsburgh', 'SJ': 'San Jose', 'SEA': 'Seattle',
     'STL': 'St. Louis', 'TB': 'Tampa Bay', 'TOR': 'Toronto', 'UTA': 'Utah',
@@ -339,14 +339,8 @@ LOGO_SVG = (
 
 
 def sport_subnav(sport, section):
-    """The sport's own row under the site nav: its name (the hub), then its
-    pages in the site order (sports.page_links). Odds only once it has data."""
-    cur = ' aria-current="page"'
-    links = ''.join(f'<a class="sn-link{" gold" if sec == "picks" else ""}" href="{path}"{cur if sec == section else ""}>{label}</a>'
-                    for sec, label, path in sports.page_links(sport)
-                    if sec != 'odds' or sport_has_data(sport['key']))
-    return (f'<nav class="sn" aria-label="{sport["label"]} pages"><div class="sn-inner">'
-            f'<a class="sn-sport" href="/{sport["slug"]}/"{cur if section == "hub" else ""}>{sport["label"]}</a>{links}</div></nav>')
+    """Retired: the sport's row is row 2 of the site nav (nav.sport_row)."""
+    return ''
 
 
 def apply_sport(out, sport, section):
@@ -356,6 +350,7 @@ def apply_sport(out, sport, section):
                       f'RTYB — Run to Your Bets: {sport["label"]} {sports.segment_summary(sport)} betting stats and trends.')
     out = out.replace('__SITE_NAV__', site_nav(sport, section or 'games'))
     out = out.replace('__LOGO_SVG__', LOGO_SVG)
+    out = out.replace('__THEME_HEAD__', nav.THEME_HEAD)
     if not sports.is_launched(sport['key']):   # hidden or out of season: reachable by URL, kept out of search
         out = out.replace('</title>', '</title>\n<meta name="robots" content="noindex">', 1)
     if '__SIT_JS__' in out:   # NHL Stats page: the shared split table, inlined
@@ -855,7 +850,7 @@ def write_sport_extras(template):
         if not sports.PICKS_LIVE:
             meta = {'title': sports.sport_title(sp, 'picks'), 'h1': sports.h1(sp, 'picks'), 'section': 'picks',
                     'desc': 'Picks are coming with Premium.'}
-            html = render_page(template, 'sport', '', meta=meta, sport=sp, sport_body='')
+            html = render_page(template, 'sport', '', meta=meta, sport=sp, sport_body=home.picks_soon())
             if NOINDEX not in html:
                 html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
             write_light(html, sports.picks_path(sp).strip('/'))
@@ -865,7 +860,15 @@ def write_sport_extras(template):
 MOVED = {'daily': 'on-tap/', 'learn': 'betting-guides/', 'streaks': 'trends/'}
 
 
+# team pages whose code changed: old folder -> new (Montreal: MON -> MTL, 2026-11-18)
+MOVED_TEAMS = {'nhl/teams/mon': 'nhl/teams/mtl/'}
+
+
 def write_moved():
+    for old, new in MOVED_TEAMS.items():
+        os.makedirs(os.path.join(ROOT, old), exist_ok=True)
+        with open(os.path.join(ROOT, old, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(redirect_page_html('../' + new.rstrip('/').split('/')[-1] + '/', canonical=seo.site_url() + new))
     for old, new in MOVED.items():
         path = os.path.join(ROOT, old)
         for d, dirs, files in os.walk(path, topdown=False):   # old pages under it go too
@@ -967,6 +970,8 @@ def apply_admin_overrides(merged_games, odds_overrides, results_overrides):
 
 def main():
     build_sport_data()
+    if sports.COLLEGE_FALLBACKS:   # teams missing from data_seed/college_codes.json keep their ESPN code
+        print('college codes not in the curated list: ' + ', '.join(f'{sp}/{slug} ({code})' for sp, slug, code in sports.COLLEGE_FALLBACKS))
     base = load('base_data.json', {'summary': {}, 'streaks': {}, 'gamelog': {}})
     fresh_schedule = load('schedule_fresh.json', {'gameCounts': {}, 'games': {}})
     prev_schedule = load('schedule_data.json', {'gameCounts': {}, 'games': {}})
@@ -1227,7 +1232,8 @@ def main():
     write_sport_extras(template)
     write_moved()   # /daily/ -> /on-tap/, /learn/ -> /betting-guides/, /streaks/ -> /trends/
     # On Tap's latest preview at the top of each Matchups page
-    daily.inject_arena({sp['key']: sports.section_path(sp, 'games').strip('/') for sp in sports.SPORTS}, datetime.now(sport_build.ET).date().isoformat())
+    if sports.ON_TAP_LIVE:
+        daily.inject_arena({sp['key']: sports.section_path(sp, 'games').strip('/') for sp in sports.SPORTS}, datetime.now(sport_build.ET).date().isoformat())
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()
 

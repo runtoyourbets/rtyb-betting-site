@@ -1,0 +1,38 @@
+{
+  "main_menu": [
+    {"key": "sports", "label": "Sports"},
+    {"key": "matchups", "label": "Matchups"},
+    {"key": "odds", "label": "Odds"},
+    {"key": "trends", "label": "Trends"},
+    {"key": "stats", "label": "Stats"},
+    {"key": "picks", "label": "Picks"}
+  ],
+  "sports": [
+    {"key": "nhl", "label": "NHL", "status": "on"},
+    {"key": "nba", "label": "NBA", "status": "on"},
+    {"key": "wnba", "label": "WNBA", "status": "on"},
+    {"key": "mlb", "label": "MLB", "status": "on"},
+    {"key": "ncaab", "label": "College Basketball", "status": "on"},
+    {"key": "nfl", "label": "NFL", "status": "on"},
+    {"key": "ncaaf", "label": "College Football", "status": "on"}
+  ],
+  "sport_pages": [
+    {"key": "picks", "label": "Picks"},
+    {"key": "games", "label": "Matchups"},
+    {"key": "odds", "label": "Odds"},
+    {"key": "trends", "label": "Trends"},
+    {"key": "stats", "label": "Stats"},
+    {"key": "teams", "label": "Teams"}
+  ],
+  "bottom_bar": [
+    {"key": "matchups", "label": "Matchups"},
+    {"key": "odds", "label": "Odds"},
+    {"key": "trends", "label": "Trends"},
+    {"key": "stats", "label": "Stats"}
+  ],
+  "switches": {
+    "ON_TAP_LIVE": false,
+    "PICKS_LIVE": false,
+    "FOOTER": "home-only"
+  }
+}

@@ -25,7 +25,7 @@ def espn_json(url):
     fetcher the other sports use."""
     return fetch_sport_games.fetch_json(url)[0]
 
-ESPN_CODE = {'ANA': 'ANH', 'MTL': 'MON', 'UTAH': 'UTA', 'TBL': 'TB', 'NJD': 'NJ', 'SJS': 'SJ', 'LAK': 'LA'}
+ESPN_CODE = {'ANA': 'ANH', 'UTAH': 'UTA', 'TBL': 'TB', 'NJD': 'NJ', 'SJS': 'SJ', 'LAK': 'LA'}
 ESPN = 'https://site.api.espn.com/apis/site/v2/sports/hockey/nhl'
 
 

@@ -50,6 +50,9 @@
  *   /settings/save      body: {bttsSourceBook} -- data_admin/settings.json: the sportsbook the
  *                         NHL BTTS prices are copied from ("consensus" = no book), which
  *                         labels the BTTS column on the NHL Odds page
+ *   /site/get           body: {} -- content/site_settings.json (menus, sports, switches)
+ *   /site/save          body: the whole settings object -- checked (validateSite), then
+ *                         written to content/site_settings.json; the next refresh rebuilds
  */
 
 const REPO_OWNER = "runtoyourbets"; // GitHub org that owns the repo (moved from captbosh-glitch 2026-11)
@@ -161,6 +164,44 @@ async function deleteFile(env, filePath, message) {
   });
   if (resp.status === 200) return { ok: true };
   return { ok: false, status: resp.status, detail: `DELETE ${filePath}: ${(await resp.text()).slice(0, 300)}` };
+}
+
+// content/site_settings.json (admin's Site settings tab; scripts/sports.py reads it)
+const SITE_SETTINGS = "content/site_settings.json";
+const SITE_KEYS = {
+  main_menu: ["sports", "matchups", "odds", "trends", "stats", "picks"],
+  sports: ["nhl", "nba", "wnba", "mlb", "ncaab", "nfl", "ncaaf"],
+  sport_pages: ["picks", "games", "odds", "trends", "stats", "teams"],
+  bottom_bar: ["matchups", "odds", "trends", "stats", "picks"],
+};
+// the settings object, cleaned, or a string saying what's wrong
+function validateSite(b) {
+  if (!b || typeof b !== "object") return "settings must be an object";
+  const out = {};
+  for (const [list, keys] of Object.entries(SITE_KEYS)) {
+    const items = b[list];
+    if (!Array.isArray(items) || !items.length) return `${list} must be a list`;
+    const seen = new Set();
+    out[list] = [];
+    for (const x of items) {
+      if (!x || !keys.includes(x.key) || seen.has(x.key)) return `${list}: unknown or repeated item ${x && x.key}`;
+      seen.add(x.key);
+      const label = String(x.label || "").trim();
+      if (!label || label.length > 30) return `${list}: ${x.key} needs a label (30 characters max)`;
+      const item = { key: x.key, label };
+      if (list === "sports") {
+        if (!["on", "off", "in_season"].includes(x.status)) return `sports: ${x.key} status must be on, off or in_season`;
+        item.status = x.status;
+      }
+      out[list].push(item);
+    }
+  }
+  if (out.bottom_bar.length !== 4) return "bottom_bar needs exactly 4 tabs";
+  const sw = b.switches || {};
+  if (typeof sw.ON_TAP_LIVE !== "boolean" || typeof sw.PICKS_LIVE !== "boolean") return "switches: ON_TAP_LIVE and PICKS_LIVE must be true or false";
+  if (!["home-only", "everywhere"].includes(sw.FOOTER)) return "switches: FOOTER must be home-only or everywhere";
+  out.switches = { ON_TAP_LIVE: sw.ON_TAP_LIVE, PICKS_LIVE: sw.PICKS_LIVE, FOOTER: sw.FOOTER };
+  return out;
 }
 
 // Every draft and column, with its text: {ok, files: [{path, text}]}
@@ -686,6 +727,17 @@ export default {
         }
         result = await commitJsonFile(env, "data_admin/settings.json", `Admin: BTTS source book ${body.bttsSourceBook}`,
           (current) => ({ ...current, bttsSourceBook: body.bttsSourceBook }));
+        break;
+      }
+      case "/site/get": {
+        const got = await getFile(env, SITE_SETTINGS);
+        if (!got.ok) { result = got; break; }
+        try { return json({ ok: true, settings: JSON.parse(got.text) }); } catch { return json({ ok: false, error: "site_settings.json isn't valid JSON" }, 500); }
+      }
+      case "/site/save": {
+        const clean = validateSite(body);
+        if (typeof clean === "string") return json({ ok: false, error: clean }, 400);
+        result = await putText(env, SITE_SETTINGS, "Admin: site settings", JSON.stringify(clean, null, 2) + "\n");
         break;
       }
       case "/content/list": {

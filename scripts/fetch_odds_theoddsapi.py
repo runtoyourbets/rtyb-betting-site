@@ -33,13 +33,13 @@ SPORT = 'icehockey_nhl'
 EVENTS_URL = f'https://api.the-odds-api.com/v4/sports/{SPORT}/events'
 EVENT_ODDS_URL = f'https://api.the-odds-api.com/v4/sports/{SPORT}/events/{{event_id}}/odds'
 
-ABBREV_MAP = {'TBL': 'TB', 'MTL': 'MON', 'NJD': 'NJ', 'SJS': 'SJ', 'LAK': 'LA'}
+ABBREV_MAP = {'TBL': 'TB', 'NJD': 'NJ', 'SJS': 'SJ', 'LAK': 'LA'}
 TEAM_NAME_TO_ABBREV = {
     'Anaheim Ducks': 'ANH', 'Boston Bruins': 'BOS', 'Buffalo Sabres': 'BUF',
     'Calgary Flames': 'CGY', 'Carolina Hurricanes': 'CAR', 'Chicago Blackhawks': 'CHI',
     'Colorado Avalanche': 'COL', 'Columbus Blue Jackets': 'CBJ', 'Dallas Stars': 'DAL',
     'Detroit Red Wings': 'DET', 'Edmonton Oilers': 'EDM', 'Florida Panthers': 'FLA',
-    'Los Angeles Kings': 'LA', 'Minnesota Wild': 'MIN', 'Montreal Canadiens': 'MON',
+    'Los Angeles Kings': 'LA', 'Minnesota Wild': 'MIN', 'Montreal Canadiens': 'MTL',
     'Nashville Predators': 'NSH', 'New Jersey Devils': 'NJ', 'New York Islanders': 'NYI',
     'New York Rangers': 'NYR', 'Ottawa Senators': 'OTT', 'Philadelphia Flyers': 'PHI',
     'Pittsburgh Penguins': 'PIT', 'San Jose Sharks': 'SJ', 'Seattle Kraken': 'SEA',

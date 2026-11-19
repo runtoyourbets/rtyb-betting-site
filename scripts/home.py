@@ -32,6 +32,7 @@ import seo
 import signup
 import nav
 import sports
+import stats_index
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ET = ZoneInfo('America/New_York')
@@ -222,7 +223,7 @@ def page(title, desc, body, status, depth='', noindex=False, is_home=False, curr
     css = f'<link rel="stylesheet" href="{depth}assets/site.css">'
     robots = '<meta name="robots" content="noindex">' if noindex else ''
     footer = FOOTER if sports.footer_on(is_home) else ''
-    return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
+    return (f'<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8">{nav.THEME_HEAD}'
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title>'
             f'<meta name="description" content="{esc(desc)}">{robots}{FONTS}{css}</head>'
             f'<body class="home">{nav_html(status, depth, current)}<main class="hp">{body}</main>{footer}{PAGE_JS}{account.ACCOUNT_JS}</body></html>')
@@ -320,6 +321,7 @@ def build(template, nhl_data, logo_svg, now_utc=None):
         with open(os.path.join(ROOT, kind, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(out)
 
+    stats_index.write(page, status, logo_svg)
     guides.write(page, status, logo_svg)
     daily.write_pages(page, status, logo_svg, pieces, pills=front.pills, script=front.FRONT_JS)
     seo.write_legal(page, status, logo_svg)
@@ -330,11 +332,19 @@ def build(template, nhl_data, logo_svg, now_utc=None):
 PICKS_H1 = f'{sports.CROSS_WORDS} Picks'
 
 
+def picks_soon(h1=None):
+    """The coming-soon block on /picks/ and every /{sport}/picks/ while
+    sports.PICKS_LIVE is False (a sport page's H1 is its page head)."""
+    return ((f'<section class="hp-sec pk-soon"><h1>{esc(h1)}</h1>' if h1 else '<section class="hp-sec pk-soon">') +
+            '<p class="lead">Picks are coming with Premium.</p>'
+            '<p>Daily first-period, first-quarter and first-half picks from RTYB&rsquo;s numbers, every one graded in public.</p>'
+            '<div class="pk-soon-tab"><h2>Get the Running Tab</h2><p>Get on the list and you&rsquo;ll hear first.</p><!--signup:tab--></div></section>')
+
+
 def picks_shell():
-    """/picks/ while sports.PICKS_LIVE is False (the sport pages' shells are
+    """/picks/ while sports.PICKS_LIVE is False (the sport pages' are
     build_site.write_sport_extras)."""
-    return (f'<section class="hp-sec hd-soon pk-shell"><h1>{esc(PICKS_H1)}</h1>'
-            '<p class="lead">Picks are coming with Premium.</p></section>')
+    return picks_soon(PICKS_H1)
 
 
 LEARN_SHOWN = 3   # guides on the home page, then "All guides"
@@ -349,7 +359,7 @@ def write_picks(template, nhl_data, logo_svg, body, now_utc=None):
     if not sports.PICKS_LIVE:   # the Premium shell; picks.build still keeps the log
         body = picks_shell()
     html = page(sports.page_title(PICKS_H1, daily=True), 'Trend-based plays for the first quarter, half, period and inning, ranked by confidence, with every tier’s record public.',
-                body, status, depth='../', noindex=True).replace('__LOGO_SVG__', logo_svg)
+                body, status, depth='../', noindex=not sports.PICKS_LIVE, current='picks').replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, 'picks'), exist_ok=True)
     with open(os.path.join(ROOT, 'picks', 'index.html'), 'w', encoding='utf-8') as f:
         f.write(html)

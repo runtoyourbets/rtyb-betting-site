@@ -221,7 +221,8 @@ def index_body(previews, depth, pills_html):
 
 
 def write_pages(page, status, logo_svg, pieces=None, pills=None, script=''):
-    """Every piece's own page, and the /on-tap/ index. `page` is home.page;
+    """Every piece's own page, and the /on-tap/ index (noindexed while
+    sports.ON_TAP_LIVE is False). `page` is home.page;
     pills(name, opts) draws the sport pills (front.pills), script switches
     them (front.FRONT_JS)."""
     pieces = load() if pieces is None else pieces
@@ -235,7 +236,7 @@ def write_pages(page, status, logo_svg, pieces=None, pills=None, script=''):
                 f'<p class="dp-back">{back}</p></article>')
         desc = (p['hook'] + ' ' if p['hook'] else '') + p['teaser']
         out = page(page_title(p), desc[:300], body, status, depth=depth,
-                   current=INDEX if p['kind'] == 'preview' else None).replace('__LOGO_SVG__', logo_svg)
+                   noindex=not sports.ON_TAP_LIVE).replace('__LOGO_SVG__', logo_svg)
         os.makedirs(os.path.join(ROOT, p['path']), exist_ok=True)
         with open(os.path.join(ROOT, p['path'], 'index.html'), 'w', encoding='utf-8') as f:
             f.write(out)
@@ -245,7 +246,7 @@ def write_pages(page, status, logo_svg, pieces=None, pills=None, script=''):
     pills_html = pills('Sport', opts) if pills and len(opts) > 2 else ''
     out = page(sports.page_title(INDEX_H1),
                'On Tap, RTYB’s daily preview: the first period, first quarter and first half games, trends and prices to know, for every sport in season.',
-               index_body(previews, '../', pills_html) + script, status, depth='../', current=INDEX).replace('__LOGO_SVG__', logo_svg)
+               index_body(previews, '../', pills_html) + script, status, depth='../', noindex=not sports.ON_TAP_LIVE).replace('__LOGO_SVG__', logo_svg)
     os.makedirs(os.path.join(ROOT, INDEX), exist_ok=True)
     with open(os.path.join(ROOT, INDEX, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(out)
@@ -279,7 +280,7 @@ def inject_arena(sport_dirs, today, pieces=None):
             page = f.read()
         if 'class="dp-arena"' in page:
             continue
-        m = re.search(r'<nav class="sn"[^>]*>.*?</nav>', page, re.S)
+        m = re.search(r'<div class="hr2">.*?</nav></div></div>', page, re.S)
         if not m:
             continue
         page = page[:m.end()] + f'<div class="dp-arena-wrap">{cards}</div>' + page[m.end():]

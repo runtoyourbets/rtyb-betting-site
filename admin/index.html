@@ -96,6 +96,16 @@
   td.err input, input.err { border-color: var(--bad); }
   .row-err { color: var(--bad); font-size: 0.75rem; }
   .add-game { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+  .ss-group { margin-top: 18px; }
+  .ss-group h3 { margin: 0 0 6px; font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .ss-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .ss-item { display: flex; align-items: center; gap: 8px; background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 8px; padding: 6px 8px; cursor: grab; }
+  .ss-item.dragging { opacity: 0.5; }
+  .ss-item .ss-key { min-width: 70px; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+  .ss-item input[type=text] { max-width: 240px; }
+  .ss-item button { background: none; color: var(--text-muted); padding: 4px 8px; }
+  .ss-switches { display: grid; gap: 8px; }
+  .ss-switches label { display: flex; align-items: center; gap: 8px; text-transform: none; letter-spacing: 0; font-size: 0.85rem; color: var(--text); }
   .add-game input { max-width: 240px; }
   button.remove { background: none; color: var(--text-faint); padding: 4px 8px; font-size: 1rem; }
   .preview-h { font-size: 0.8rem; font-weight: 700; margin: 14px 0 0; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -125,10 +135,21 @@
 
   <div id="main" hidden>
     <h1>RTYB — Admin</h1>
-    <p class="sub">Matchups Tool, Results Tool and On Tap&rsquo;s drafts. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
+    <p class="sub">Matchups Tool, Results Tool, On Tap&rsquo;s drafts and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
     <div class="seg-tabs" id="viewTabs" style="margin-bottom:14px">
       <button type="button" data-view="tools" aria-pressed="true">Odds &amp; results</button>
       <button type="button" data-view="drafts" aria-pressed="false">Drafts</button>
+      <button type="button" data-view="site" aria-pressed="false">Site settings</button>
+    </div>
+
+    <div id="siteView" hidden>
+      <div class="card">
+        <h2>Site settings</h2>
+        <p class="sub" style="margin-bottom:0">The menus, the sports and the site switches (<code>content/site_settings.json</code>). Drag a row (or use its arrows) to reorder, edit a label, then Save: the next refresh rebuilds every page with it, within about 10 minutes.</p>
+        <div id="siteForm"></div>
+        <div class="actions"><button class="save" id="siteReload" type="button">Reload</button><button class="publish" id="siteSave" type="button">Save</button></div>
+        <p class="status" id="siteStatus"></p>
+      </div>
     </div>
 
     <div id="draftsView" hidden>
@@ -1565,6 +1586,78 @@
   }
   document.getElementById('draftsReload').addEventListener('click', loadDrafts);
   var draftsLoaded = false;
+
+  // ---- Site settings (worker /site/get, /site/save; scripts/sports.py reads the file) ----
+  var siteLoaded = false, SITE = null;
+  var SITE_GROUPS = [
+    ['main_menu', 'Main menu', 'The top row on desktop; SPORTS opens the sports menu.'],
+    ['sports', 'Sports', 'Menu order and labels. On: shown all year (off-season sports show last season). In season: shown between its season months. Off: hidden.'],
+    ['sport_pages', 'Each sport’s pages', 'The row under a sport’s name.'],
+    ['bottom_bar', 'Phone bottom bar', 'Four tabs.']
+  ];
+  function siteItem(group, x) {
+    var status = group === 'sports' ? '<select data-f="status">' + [['on', 'On'], ['in_season', 'In season'], ['off', 'Off']].map(function(o) {
+      return '<option value="' + o[0] + '"' + (x.status === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>' : '';
+    return '<li class="ss-item" draggable="true" data-key="' + escHtml(x.key) + '"><span class="ss-key">' + escHtml(x.key) + '</span>' +
+      '<input type="text" data-f="label" value="' + escHtml(x.label) + '" maxlength="30" aria-label="' + escHtml(x.key) + ' label">' + status +
+      '<button type="button" data-move="-1" aria-label="Move up">&uarr;</button><button type="button" data-move="1" aria-label="Move down">&darr;</button></li>';
+  }
+  function renderSite(st) {
+    var sw = st.switches || {};
+    document.getElementById('siteForm').innerHTML = SITE_GROUPS.map(function(g) {
+      return '<div class="ss-group"><h3>' + g[1] + '</h3><p class="note">' + g[2] + '</p><ul class="ss-list" data-group="' + g[0] + '">' +
+        (st[g[0]] || []).map(function(x) { return siteItem(g[0], x); }).join('') + '</ul></div>';
+    }).join('') +
+      '<div class="ss-group"><h3>Switches</h3><div class="ss-switches">' +
+      '<label><input type="checkbox" id="ssOnTap"' + (sw.ON_TAP_LIVE ? ' checked' : '') + '> On Tap live (previews drafted, in the menus and search)</label>' +
+      '<label><input type="checkbox" id="ssPicks"' + (sw.PICKS_LIVE ? ' checked' : '') + '> Picks live (off: coming-soon pages)</label>' +
+      '<label>Footer <select id="ssFooter"><option value="home-only"' + (sw.FOOTER !== 'everywhere' ? ' selected' : '') + '>Home page only</option>' +
+      '<option value="everywhere"' + (sw.FOOTER === 'everywhere' ? ' selected' : '') + '>Every page</option></select></label></div></div>';
+    document.querySelectorAll('#siteForm .ss-list').forEach(function(list) {
+      var dragged = null;
+      list.addEventListener('dragstart', function(e) { dragged = e.target.closest('.ss-item'); if (dragged) dragged.classList.add('dragging'); });
+      list.addEventListener('dragend', function() { if (dragged) dragged.classList.remove('dragging'); dragged = null; });
+      list.addEventListener('dragover', function(e) {
+        if (!dragged) return;
+        e.preventDefault();
+        var after = Array.prototype.filter.call(list.querySelectorAll('.ss-item:not(.dragging)'), function(el) {
+          var r = el.getBoundingClientRect(); return e.clientY < r.top + r.height / 2; })[0];
+        if (after) list.insertBefore(dragged, after); else list.appendChild(dragged);
+      });
+      list.addEventListener('click', function(e) {
+        var b = e.target.closest('[data-move]');
+        if (!b) return;
+        var li = b.closest('.ss-item'), d = +b.getAttribute('data-move');
+        if (d < 0 && li.previousElementSibling) list.insertBefore(li, li.previousElementSibling);
+        if (d > 0 && li.nextElementSibling) list.insertBefore(li.nextElementSibling, li);
+      });
+    });
+  }
+  function readSite() {
+    var out = {};
+    SITE_GROUPS.forEach(function(g) {
+      out[g[0]] = Array.prototype.map.call(document.querySelectorAll('#siteForm [data-group="' + g[0] + '"] .ss-item'), function(li) {
+        var x = { key: li.getAttribute('data-key'), label: li.querySelector('[data-f="label"]').value.trim() };
+        var st = li.querySelector('[data-f="status"]');
+        if (st) x.status = st.value;
+        return x;
+      });
+    });
+    out.switches = { ON_TAP_LIVE: document.getElementById('ssOnTap').checked, PICKS_LIVE: document.getElementById('ssPicks').checked,
+                     FOOTER: document.getElementById('ssFooter').value };
+    return out;
+  }
+  function loadSite() {
+    callWorker('/site/get', {}, document.getElementById('siteStatus'), document.getElementById('siteReload'), 'Loading settings', '')
+      .then(function(res) { SITE = res.body.settings || {}; renderSite(SITE); })
+      .catch(function() {});
+  }
+  document.getElementById('siteReload').addEventListener('click', loadSite);
+  document.getElementById('siteSave').addEventListener('click', function() {
+    if (!SITE) return;
+    callWorker('/site/save', readSite(), document.getElementById('siteStatus'), document.getElementById('siteSave'), 'Saving',
+      'Saved. The site rebuilds with it on the next refresh, within about 10 minutes.').catch(function() {});
+  });
   document.getElementById('viewTabs').addEventListener('click', function(e) {
     var b = e.target.closest('[data-view]');
     if (!b) return;
@@ -1572,7 +1665,9 @@
     document.querySelectorAll('#viewTabs [data-view]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
     document.getElementById('toolsView').hidden = v !== 'tools';
     document.getElementById('draftsView').hidden = v !== 'drafts';
+    document.getElementById('siteView').hidden = v !== 'site';
     if (v === 'drafts' && !draftsLoaded) { draftsLoaded = true; loadDrafts(); }
+    if (v === 'site' && !siteLoaded) { siteLoaded = true; loadSite(); }
   });
 
   function showGate(msg) {

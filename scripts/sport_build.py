@@ -1125,7 +1125,7 @@ def build(sp, teams_list, now_utc=None):
         'generated': now_utc.strftime('%Y-%m-%dT%H:%M:%SZ'),
         'teams': {t['slug']: dict({k: t.get(k) for k in ('name', 'short', 'color', 'conference', 'division')},
                                   # one code per team, the same everywhere (sports.team_code)
-                                  code=sports.team_code(sp['key'], t.get('code')),
+                                  code=sports.college_code(sp['key'], t['slug'], t.get('code')),
                                   # naming rule: college teams go by the school name, never the nickname
                                   **({'short': t.get('location') or t.get('short')} if sp['key'] in COLLEGE else {}),
                                   logo=logo_flag(sp['key'], t['slug'])) for t in teams_list},

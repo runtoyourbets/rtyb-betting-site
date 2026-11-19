@@ -31,7 +31,7 @@ PAGES_URL = 'https://runtoyourbets.github.io/rtyb-betting-site/'
 ANALYTICS_FILE = os.path.join(ROOT, 'content', 'analytics.html')
 SKIP_DIRS = {'.git', 'admin', 'worker', 'tests', 'content', 'scripts', 'data_admin', 'data_feed', 'data_seed', 'trends_log', '__pycache__'}
 # first path segment: the home-style pages, the index pages and every sport on the site
-SITEMAP_TOP = ('', 'on-tap', 'column', 'betting-guides', 'matchups', 'odds', 'trends') + tuple(sp['slug'] for sp in sports.LAUNCHED)
+SITEMAP_TOP = ('', 'on-tap', 'column', 'betting-guides', 'matchups', 'odds', 'trends', 'stats', 'picks') + tuple(sp['slug'] for sp in sports.LAUNCHED)
 SHARE = {'nhl': 'nhl', 'nba': 'nba'}                          # first segment -> image
 
 
