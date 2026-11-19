@@ -1219,9 +1219,10 @@ def seo_url():
 
 
 def dated_keys():
-    """(key, date, page dir) of every published preview (for the old
-    /on-tap/ forwards, and a weekly piece's dated page to its week's)."""
-    return [(p['sport'], p['date'], piece_dir(p)) for p in daily.load() if p['kind'] == 'preview' and (p['sport'] == ALL or p['sport'] in sports.BY_KEY)]
+    """(key, date, page dir) of every preview showing (for the old
+    /on-tap/ forwards, and a weekly piece's dated page to its week's);
+    today's only from 11 AM ET, when its page goes up (visible)."""
+    return [(p['sport'], p['date'], piece_dir(p)) for p in visible(datetime.now(timezone.utc)) if p['sport'] == ALL or p['sport'] in sports.BY_KEY]
 
 
 # -------------------------------------------------- home and hub sections
