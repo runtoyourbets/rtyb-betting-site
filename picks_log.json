@@ -10245,10 +10245,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 184,
+    "price": 186,
     "title": "Bucks 1Q ML",
-    "est": 0.4247,
-    "edge": 0.0726,
+    "est": 0.4231,
+    "edge": 0.0734,
     "agree": 2,
     "sample": 15,
     "tier": "A",
@@ -10337,10 +10337,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1800,
+    "price": 1550,
     "title": "Tarleton State 1H ML",
-    "est": 0.1237,
-    "edge": 0.071,
+    "est": 0.1305,
+    "edge": 0.0699,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -10479,10 +10479,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 400,
+    "price": 430,
     "title": "East Texas A&M 1H ML",
-    "est": 0.2498,
-    "edge": 0.0498,
+    "est": 0.2401,
+    "edge": 0.0514,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -10505,99 +10505,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "East Texas A&M"
-   },
-   {
-    "id": "nba|401910020|1q|total|under",
-    "game": "nba|401910020",
-    "date": "2026-11-19",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-20T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Trail Blazers @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 58.5,
-    "price": 100,
-    "title": "1Q Under 58.5",
-    "est": 0.5491,
-    "edge": 0.0491,
-    "agree": 6,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 11,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, last 8 (58.5)",
-      "8-0"
-     ],
-     [
-      "Bucks 1Q unders at home (58.5)",
-      "7-1"
-     ],
-     [
-      "Bucks 1Q unders, season (58.5)",
-      "13-2"
-     ],
-     [
-      "Trail Blazers 1Q unders, season (58.5)",
-      "9-5"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 50.5 \u00b7 Trail Blazers 53.9",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
-   },
-   {
-    "id": "ncaab|401906867|1h|ml|away",
-    "game": "ncaab|401906867",
-    "date": "2026-11-19",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-20T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Southern Utah @ Texas",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 4000,
-    "title": "Southern Utah 1H ML",
-    "est": 0.0735,
-    "edge": 0.0491,
-    "agree": 2,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -2,
-    "streakTeam": "southern-utah-thunderbirds",
-    "angles": [
-     [
-      "Southern Utah 1H ML, season",
-      "3-2"
-     ],
-     [
-      "Southern Utah 1H ML, last 8",
-      "3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Southern Utah"
    },
    {
     "id": "nba|401910021|1h|ats|home",
@@ -10650,6 +10557,48 @@
     "streakTeamName": "Timberwolves"
    },
    {
+    "id": "ncaab|401906867|1h|ml|away",
+    "game": "ncaab|401906867",
+    "date": "2026-11-19",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-20T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Southern Utah @ Texas",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 3500,
+    "title": "Southern Utah 1H ML",
+    "est": 0.0764,
+    "edge": 0.0487,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -2,
+    "streakTeam": "southern-utah-thunderbirds",
+    "angles": [
+     [
+      "Southern Utah 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Southern Utah 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Southern Utah"
+   },
+   {
     "id": "nba|401910021|1h|ml|home",
     "game": "nba|401910021",
     "date": "2026-11-19",
@@ -10698,6 +10647,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Timberwolves"
+   },
+   {
+    "id": "nba|401910020|1q|total|under",
+    "game": "nba|401910020",
+    "date": "2026-11-19",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-20T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Trail Blazers @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 58.5,
+    "price": -105,
+    "title": "1Q Under 58.5",
+    "est": 0.5572,
+    "edge": 0.045,
+    "agree": 6,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 11,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, last 8 (58.5)",
+      "8-0"
+     ],
+     [
+      "Bucks 1Q unders at home (58.5)",
+      "7-1"
+     ],
+     [
+      "Bucks 1Q unders, season (58.5)",
+      "13-2"
+     ],
+     [
+      "Trail Blazers 1Q unders, season (58.5)",
+      "9-5"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 50.5 \u00b7 Trail Blazers 53.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
    },
    {
     "id": "nhl|2026020347|1p|ml|away",

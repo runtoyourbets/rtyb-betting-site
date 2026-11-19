@@ -36,8 +36,12 @@
     --card-pad: var(--card-pad-y) var(--card-pad-x);
     --card-radius: 14px;
     --section-gap: 24px;   /* phones: between home and hub sections, the hero and the Slate included */
+    --nav-gap: 24px;       /* the nav to the home page's H1 (16px phone) */
+    --fs-big: 26px;        /* a big yellow number line (Barlow Condensed): TREND TO WATCH, a streak */
+    --fs-odds-label: 18px; /* BEST ODDS (Barlow Condensed) */
+    --book-tile-w: 72px;   /* a book's logo tile beside its odds cell: the cell's size */
   }
-  @media (max-width: 640px) { :root { --fs-title: 26px; --fs-section: 18px; --fs-hero: 30px; --fs-read: 17px; --fs-dek: 18px; --fs-lede: 16px; } }
+  @media (max-width: 640px) { :root { --nav-gap: 16px; --fs-big: 22px; --fs-title: 26px; --fs-section: 18px; --fs-hero: 30px; --fs-read: 17px; --fs-dek: 18px; --fs-lede: 16px; } }
   .t-title { font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); }
   .t-section { font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); }
   .t-team { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
@@ -2118,8 +2122,6 @@
   .fr-empty { color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); margin: 0; }
   .fr-empty[hidden], .fr-res[hidden], [data-pane][hidden] { display: none; }
   .fr-res .daily-summary { margin: 0; }
-  /* Yesterday's Best: one result in a soft green box */
-  .yb-line { margin: 6px 0 0; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
   /* The Slate: header, date, pills, then cards (the Stats card and its title bar) */
   .sl-headline { display: grid; gap: 2px; margin-bottom: 12px; }
   .sl-headline h2 { margin: 0; }
@@ -2174,26 +2176,22 @@
      so it sits right under Yesterday's Best however tall the hero is. */
   @media (min-width: 900px) {
     .fv { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); column-gap: 24px; align-items: start;
-      grid-template-rows: auto auto auto 1fr auto auto auto auto;
-      grid-template-areas: "slogan slogan" "pv pv" "hero yb" "hero tab" "slate slate" "motd pair" "trends trends" "results learn"; }
+      grid-template-rows: auto auto auto 1fr auto auto auto auto auto;
+      grid-template-areas: "slogan slogan" "pv pv" "hero yb" "hero tab" "slate slate" "motd pair" "trends trends" "results ." "learn ."; }
     /* home: no Running Tab card, the hero takes its row */
-    .fv.fv-home { grid-template-rows: none; grid-template-areas: "slogan slogan" "hero hero" "yb yb" "slate slate" "motd pair" "trends trends" "results learn"; }
+    .fv.fv-home { grid-template-rows: none; grid-template-areas: "slogan slogan" "hero hero" "yb yb" "slate slate" "motd pair" "trends trends" "results ." "learn ."; }
     .fv-slogan { grid-area: slogan; } .fv-pv { grid-area: pv; } .fv-hero { grid-area: hero; } .fv-yb { grid-area: yb; } .fv-tab { grid-area: tab; }
     .fv-slate { grid-area: slate; } .fv-motd { grid-area: motd; } .fv-pair { grid-area: pair; } .fv-trends { grid-area: trends; }
     .fv-results { grid-area: results; } .fv-learn { grid-area: learn; }
     .fv-slate .sl-cards, .fv-trends .ht-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .fv-learn .hl-grid { grid-template-columns: 1fr; }
+    .fv-learn .hl-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .fv-yb .fr-sec, .fv-tab .fr-sec, .fv-pair .fr-sec { padding-top: 20px; }
   }
-  /* the home page's H1: "RUN TO YOUR BETS" above three brand lines */
-  .fr-kicker { margin: 14px 0 4px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .fr-big { margin: 0; font-family: var(--ff-display); font-size: var(--fs-hero); font-weight: var(--fw-title); line-height: 0.98; letter-spacing: 0.01em; color: var(--text); }
   .fr-line { display: block; }
   .fr-b1 { color: var(--accent); }
   .fr-b2 { color: var(--gold); }
   .fr-slogan { margin: 14px 0 0; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
-  .yb-headline { margin: 0; font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); line-height: 1.05; color: var(--text); }
-  .yb-more { margin: 0; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
   .sl-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
   .sl-next { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text); }
   .sl-next[hidden] { display: none; }
@@ -2205,19 +2203,18 @@
   .mo-team { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; text-align: center; }
   .mo-name, .tw-name { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
   .mo-at { color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
-  .mo-bet, .lm-line, .tw-line { margin: 0 0 6px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .tw-line { margin: 0 0 6px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
   .mo-n { color: var(--title-text); }
-  .mo-price, .mo-rec, .tw-next { margin: 0 0 8px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .mo-price, .mo-rec { margin: 0 0 8px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .mo-list { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 4px; }
   .mo-list li { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border-soft); padding-top: 5px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .tw-main { display: flex; align-items: center; gap: 16px; }
   .mo-name, .tw-name, .tw-opp { text-decoration: none; }
   .mo-name, .tw-name { display: block; }
-  a.mo-name:hover, a.tw-name:hover, a.tw-opp:hover, .lm-card h4 a:hover { color: var(--accent); }
-  .tw-opp, .lm-card h4 a { color: inherit; text-decoration: none; }
+  a.mo-name:hover, a.tw-name:hover, a.tw-opp:hover { color: var(--accent); }
+  .tw-opp { color: inherit; text-decoration: none; }
   .tw-logo, .mo-logo { display: inline-flex; }
   .mo-recs { margin: 0 0 10px; text-align: center; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
-  .mo-chip { display: inline-block; margin: 0 0 8px; padding: 2px 9px; border-radius: 999px; background: var(--title-bg); color: var(--title-text); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
   .mo-left .sl-grid, .mo-left .sl-rows { margin-top: 4px; }
   @media (min-width: 900px) {
     .mo-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
@@ -2228,7 +2225,7 @@
   .ht-rec .neg { color: var(--bad); }
   .ht-rec .mid { color: var(--push); }
   .fr-stack { display: grid; gap: 2px; }
-  .ht-card[hidden], .tr-row[hidden], [data-hot][hidden], [data-moves][hidden], .lm-card[hidden] { display: none; }
+  .ht-card[hidden], .tr-row[hidden], [data-hot][hidden] { display: none; }
   /* Yesterday's Results: solid unit pills, labels in the main text color */
   .fr-res .ds-label { color: var(--text); }
   .fr-res .u-pill { color: var(--pill-ink); }
@@ -2237,20 +2234,12 @@
   .fr-res .u-mid, .fr-res .u-zero { background: var(--pill-push); }
   .fr-res .u-none { background: none; color: var(--text-muted); }
   .tw-copy { min-width: 0; }
-  .tw-next .fr-more { font-size: var(--fs-price); }
-  .lm-line .tlogo, .lm-line .team-badge { vertical-align: middle; margin-right: 4px; }
   .rt-card h2 { margin: 0 0 6px; }
   .rt-line { margin: 0 0 12px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
 
   /* Home QA (Nov 18): the product line under the H1 */
   .fr-lede { margin: 12px 0 0; max-width: 640px; font-family: var(--ff-body); font-size: var(--fs-lede); font-weight: var(--fw-body); line-height: 1.45; color: var(--text-muted); }
-  .fr-proof { margin: 8px 0 0; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   /* Yesterday's Best: a normal card; the units are its one green */
-  .yb-card .yb-line, .yb-card .yb-headline { display: flex; align-items: center; flex-wrap: wrap; gap: 0 6px; }
-  .yb-card .yb-line .sport-icon { width: 16px; height: 16px; }
-  .yb-card .yb-headline .sport-icon { width: 24px; height: 24px; }
-  .yb-card .yb-line { margin: 0; }
-  .yb-card .yb-more { margin-top: 8px; }
   .yb-u { color: var(--good); }
   /* odds tables: the segment (row) and market (column) labels */
   .mk-h { display: inline-block; padding: 2px 6px; border-radius: 4px; background: var(--mkh-bg); color: var(--mkh-text); }
@@ -2259,24 +2248,76 @@
   .sl-over { margin: 0 0 12px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
   .sl-over[hidden] { display: none; }
   /* Matchup of the Day: BEST ODDS (the Odds page's best-price cell) */
-  .mo-best { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
-  .mo-best-l { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
-  .mo-best-c .cell { min-width: 72px; background: var(--best-bg); box-shadow: inset 0 0 0 1px var(--best); }
-  .mo-best-b .sl-book { height: 20px; max-width: 72px; }
   .mo-tr { white-space: nowrap; color: var(--text-muted); }
   /* Streak to Watch: the run as the big line, then the opponent */
-  .tw-card .tw-line { margin: 2px 0 6px; font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-title); line-height: 1.1; color: var(--text); }
-  .tw-next { display: flex; align-items: center; gap: 6px; }
-  .tw-next .tlogo, .tw-next .team-badge { width: 20px !important; height: 20px !important; }
-  /* Line Mover */
-  .lm-teams { display: flex; align-items: center; gap: 6px; margin: 0 0 10px; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
-  .lm-teams a { color: inherit; text-decoration: none; display: inline-flex; }
-  .lm-teams > span { margin-left: 4px; }
-  .lm-odds { display: flex; align-items: flex-end; gap: var(--cell-gap); margin: 0 0 10px; }
-  .lm-c { display: grid; gap: 4px; min-width: 84px; }
-  .lm-l { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
-  .lm-arr { align-self: center; margin-top: 16px; color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); letter-spacing: -1px; }
-  @media (max-width: 899px) { .lm-card { margin-bottom: 8px; } }
+  /* Home v3 (Nov 19) */
+  /* the nav to the H1: --nav-gap alone (the page's and the column's top padding off) */
+  .hp:has(> .fv-home) { padding-top: 0; }
+  .fv.fv-home { padding-top: 0; }
+  .fv-home .fv-slogan { padding-top: var(--nav-gap); }
+  .fv-home .fr-big { margin-top: 0; }
+  /* Yesterday's Best: up to 3 rows, one line each */
+  .yb-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .yb-row { display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .yb-row .sport-icon { width: 16px; height: 16px; flex: none; }
+  .yb-sp { font-weight: var(--fw-team); flex: none; }
+  .yb-dot { color: var(--text-muted); flex: none; }
+  .yb-mk { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .yb-rec { flex: none; font-weight: var(--fw-num); }
+  .yb-u { flex: none; color: var(--good); font-weight: var(--fw-num); }
+  @media (max-width: 400px) { .yb-row { gap: 4px; } }
+  /* Matchup of the Day: the label chip and its "i", TREND TO WATCH, BEST ODDS, the trend rows */
+  .mo-chip { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 5px 8px 5px 12px; border-radius: 999px; background: var(--title-bg); color: var(--title-text); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
+  .mo-chip .tip-bubble { width: 260px; text-transform: none; letter-spacing: 0; }
+  .mo-watch-l, .bn-label { margin: 0; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .mo-watch { margin: 2px 0 14px; font-family: var(--ff-display); font-size: var(--fs-big); font-weight: var(--fw-title); line-height: 1.05; text-transform: uppercase; color: var(--mkh-text); }
+  .mo-best { display: grid; gap: 6px; margin: 0 0 14px; }
+  .mo-best-l { font-family: var(--ff-display); font-size: var(--fs-odds-label); font-weight: var(--fw-title); text-transform: uppercase; color: var(--text); }
+  .mo-best-row, .bn-odds { display: flex; align-items: stretch; gap: var(--cell-gap); }
+  .mo-best-b, .bn-book { display: flex; align-items: center; justify-content: center; width: var(--book-tile-w); min-height: var(--cell-min-h); padding: var(--cell-pad); border-radius: var(--cell-radius); background: var(--cell); box-sizing: border-box; }
+  .mo-best-b .sl-book, .bn-book .sl-book { height: 22px; max-width: 100%; object-fit: contain; }
+  .mo-best-c .cell, .bn-cell .cell { width: var(--book-tile-w); min-width: 0; box-sizing: border-box; background: var(--best-bg); box-shadow: inset 0 0 0 1px var(--best); }
+  .mo-list li { align-items: baseline; }
+  .mo-tl { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mo-tr { flex: none; text-align: right; font-weight: var(--fw-num); color: var(--text); }
+  .mo-venue { display: none; margin: 10px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  @media (min-width: 900px) { .mo-venue { display: block; } }
+  /* Hottest Trends: the sport icon in the title bar */
+  .ht-card .st-head .sl-sport .sport-icon { width: 16px; height: 16px; }
+  /* Streak to Watch: the team and the run, a divider, NEXT MATCHUP */
+  .tw-card .tw-line { margin: 4px 0 0; font-family: var(--ff-display); font-size: var(--fs-big); font-weight: var(--fw-title); line-height: 1.05; color: var(--mkh-text); }
+  .tw-next { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-soft); }
+  .tw-next-l { margin: 0 0 6px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .tw-next-g { display: flex; align-items: center; gap: 8px; margin: 0; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .tw-next-g .tlogo, .tw-next-g .team-badge { width: 24px !important; height: 24px !important; }
+  .tw-opp { display: inline-flex; }
+  /* The Big Numbers (scripts/bignums.py): home, hubs and the top of every Odds page */
+  @media (max-width: 899px) { .fv-pair > * + * { margin-top: var(--section-gap); } .mo-right { margin-top: 16px; } }
+  .bn .fr-pills { margin-bottom: 12px; }
+  .bn-card .st-head .sport-icon { width: 16px; height: 16px; }
+  .bn-body .fr-pills { margin: 0 0 4px; }
+  .bn-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--border-soft); color: inherit; text-decoration: none; }
+  .bn-body [data-pane] > .bn-row:first-child, .bn-rows > .bn-row:first-child { border-top: 0; }
+  .bn-left { display: grid; gap: 6px; min-width: 0; }
+  .bn-label { color: var(--mkh-text); }
+  .bn-teams { display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
+  .bn-team { display: inline-flex; align-items: center; gap: 5px; }
+  .bn-fav { color: var(--text); font-weight: var(--fw-team); }
+  .bn-at { color: var(--text-muted); }
+  .bn-odds { flex: none; }
+  .bn-row:hover .bn-label, .bn-dcard:hover .bn-label { text-decoration: underline; }
+  .bn-dcards { display: none; }
+  .bn-odds-top { margin: 0 0 20px; }
+  .bn-odds-top .fr-head h2 { margin: 0; }
+  @media (min-width: 900px) {
+    .bn-odds-top > .bn-card { padding: 0; border: 0; background: none; }
+    .bn-odds-top .bn-rows { display: none; }
+    .bn-odds-top .bn-dcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .bn-dcard { display: grid; justify-items: center; gap: 10px; padding: var(--card-pad); color: inherit; text-decoration: none; text-align: center; }
+    .bn-dcard .bn-teams { gap: 10px; }
+    .bn-dcard .bn-team { flex-direction: column; gap: 4px; }
+    .bn-time { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  }
   /* Hottest Trends: % (record) · units, then the league average */
   .ht-card .ht-rec { margin: 0; color: var(--text); }
   .ht-avg { margin: 2px 0 8px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }

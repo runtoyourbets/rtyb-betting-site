@@ -274,6 +274,14 @@
       });
     });
   });
+  // The Big Numbers: the title bar names the segment shown ("NBA · 1st Half")
+  document.querySelectorAll('[data-bn-names]').forEach(function(c) {
+    var names = {}; try { names = JSON.parse(c.getAttribute('data-bn-names')); } catch (e) {}
+    c.addEventListener('click', function(e) {
+      var b = e.target.closest('[data-pick]'), t = c.querySelector('[data-bn-seg]');
+      if (b && t && names[b.getAttribute('data-pick')]) t.textContent = names[b.getAttribute('data-pick')];
+    });
+  });
   document.querySelectorAll('[data-trends-more]').forEach(function(b) {
     b.addEventListener('click', function() {
       b.parentNode.querySelectorAll('.tr-card[data-more]').forEach(function(c) { c.hidden = false; });
@@ -331,18 +339,8 @@
     var d = sec.querySelector('[data-hot-date]');
     if (d && keep.length) d.textContent = keep.map(function(c) { return c.getAttribute('data-label'); }).filter(function(l) { return l !== 'This week'; })[0] || 'This week';
   }
-  // Line Mover: the biggest move among games still to start; once it
-  // starts, the next; tomorrow's only when every game today has started
-  function move(sec) {
-    var last = Date.parse(sec.getAttribute('data-last') || '');
-    var items = [].slice.call(sec.querySelectorAll('[data-move]'));
-    var keep = items.filter(function(c) { return !isOn(c) && (c.getAttribute('data-move') === 'today' || isNaN(last) || last <= now()); })[0];
-    items.forEach(function(c) { c.hidden = c !== keep; });
-    sec.hidden = !keep;
-  }
   function live() {
     document.querySelectorAll('[data-hot]').forEach(hot);
-    document.querySelectorAll('[data-moves]').forEach(move);
   }
   live();
   setInterval(live, 60000);
