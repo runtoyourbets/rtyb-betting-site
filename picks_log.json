@@ -10538,13 +10538,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -112,
+    "price": -108,
     "title": "Los Angeles 1P ML",
-    "est": 0.5672,
-    "edge": 0.0389,
+    "est": 0.561,
+    "edge": 0.0418,
     "agree": 3,
     "sample": 14,
-    "tier": "C",
+    "tier": "B",
     "tags": [
      "Chalk Eater"
     ],
