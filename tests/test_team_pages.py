@@ -86,5 +86,44 @@ class TeamScriptTest(unittest.TestCase):
         self.assertIn("'Show 10 more' : 'Load more'", body)
 
 
+class TeamsIndexTest(unittest.TestCase):
+    """Teams index redesign (Nov 19): no dimming, times only with Today, Leaders, college paging."""
+
+    def body(self):
+        js = read('assets', 'sport.js')
+        return js[js.index('// ----------------------------------------------------------- Teams list'):js.index('// ------------------------------------------------------------ team page')]
+
+    def test_rules(self):
+        js = self.body()
+        self.assertNotIn('tl-few', js)
+        self.assertNotIn('pct-bar', js)
+        self.assertIn("'small sample'", js.replace('>small sample<', "'small sample'"))
+        self.assertIn('var TL_PAGE = 50;', js)
+        self.assertIn(">Show ' + Math.min(TL_PAGE", js)
+        self.assertIn("' of ' + list.length", js)
+        self.assertIn('var TL_LEAD_MIN = 10;', js)
+        self.assertIn("' Leaders</h2>'", js)
+        self.assertIn('All leaders &rarr;', js)
+        self.assertIn("placeholder=\"Search ' + nTeams + ' teams\"", js)
+        self.assertIn("tlCollege() ? 'All conferences' : 'All teams'", js)
+        self.assertIn("' % (' + tpSides(p.m) + ')'", js)
+        for key in ('name', 'pct', 'l10', 'streak', 'units'):
+            self.assertIn(f"th('{key}'", js)
+
+    def test_today_is_todays_date_only(self):
+        js = read('assets', 'sport.js')
+        self.assertIn('function tmSlate() { return D.games[todayET()] || []; }', js)
+        self.assertNotIn('tmShortTime', js)   # no game times in the list without Today
+
+    def test_ties_note_per_market(self):
+        js = self.body()
+        self.assertIn('win % leaves ties out', js)
+        self.assertIn('3-Way: win % counts ties', js)
+        self.assertIn('cover % leaves pushes out', js)
+
+    def test_gold_streak_chip_in_light_mode(self):
+        self.assertEqual(read('template.html').count('.tl-streak.flat)'), 2)
+
+
 if __name__ == '__main__':
     unittest.main()
