@@ -117,6 +117,9 @@
   .draft-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
   .draft-head b { font-size: 0.95rem; }
   .draft-head code { color: var(--text-muted); }
+  .draft-live { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--good); background: var(--good-dim); border-radius: 4px; padding: 1px 6px; }
+  #draftsAll { display: contents; }
+  #draftsAll[hidden] { display: none; }
   .draft-check { font-size: 0.8rem; color: var(--bad); margin: 6px 0 0; }
   .draft-pv { display: grid; grid-template-columns: 240px 1fr; gap: 12px 16px; align-items: start; margin-top: 10px; }
   .draft-pv img { width: 240px; aspect-ratio: 1200 / 630; border-radius: 8px; border: 1px solid var(--border); background: var(--panel-2, #1A212B); object-fit: cover; }
@@ -163,8 +166,8 @@
     <div id="draftsView" hidden>
       <div class="card">
         <h2>Preview &mdash; drafts and columns</h2>
-        <p class="sub" style="margin-bottom:0">Preview is drafted from the site&rsquo;s numbers from 8 AM ET (one per sport with games, plus the all-sports one for the home page) and shows from 11 AM ET. Each card shows the headline, the image card, the lead game and the sport&rsquo;s Matchup of the Day. Pick a different lead game from the list if you like (the image card is rebuilt on the next refresh), check the yellow numbers against the packet, edit the text, then Publish: it goes live on /preview/ (or the sport&rsquo;s /preview/), its own dated page, the home page hero (all-sports) or the sport hub&rsquo;s Preview section on the next refresh (within about 10 minutes). Columns are Markdown files in <code>content/columns/</code> and publish the same way.</p>
-        <div class="actions"><button class="save" id="draftsReload" type="button">Reload</button></div>
+        <p class="sub" style="margin-bottom:0">Preview is drafted from the site&rsquo;s numbers from 8 AM ET (one per sport with games, plus the all-sports one for the home page) and shows from 11 AM ET. Each card shows the headline, the image card, the lead game and the sport&rsquo;s Matchup of the Day. Pick a different lead game from the list if you like (the image card is rebuilt on the next refresh), check the yellow numbers against the packet, edit the text, then Publish: it goes live on /preview/ (or the sport&rsquo;s /preview/), its own dated page, the home page hero (all-sports) or the sport hub&rsquo;s Preview section on the next refresh (within about 10 minutes). Save all edits and Publish all do every card at once. Published previews from the last 3 days stay here marked Live: edit and Save edits, and the live page updates on the next refresh. Columns are Markdown files in <code>content/columns/</code> and publish the same way.</p>
+        <div class="actions"><button class="save" id="draftsReload" type="button">Reload</button><span id="draftsAll" hidden><button class="save" id="draftsSaveAll" type="button">Save all edits</button><button class="publish" id="draftsPublishAll" type="button">Publish all</button></span></div>
         <p class="status" id="draftsStatus"></p>
         <div id="draftsList"></div>
       </div>
@@ -1606,36 +1609,88 @@
       });
     });
   }
+  // Publish asks on the page (a second click within 5 seconds), not with
+  // confirm(): a blocked browser dialog silently answers "no".
+  function armed(btn, label) {
+    if (btn.getAttribute('data-armed')) return true;
+    var was = btn.textContent;
+    btn.setAttribute('data-armed', '1');
+    btn.textContent = label;
+    setTimeout(function() { btn.removeAttribute('data-armed'); btn.textContent = was; }, 5000);
+    return false;
+  }
+  function livePath(path) {
+    var name = path.split('/').pop();
+    return 'content/published/' + (path.indexOf('content/columns/') === 0 && name.indexOf('column-') !== 0 ? 'column-' + name : name);
+  }
+  var DRAFTS = [];
   function renderDrafts(files) {
+    DRAFTS = files;
     var box = document.getElementById('draftsList');
-    if (!files.length) { box.innerHTML = '<p class="empty">No drafts or columns waiting.</p>'; return; }
+    document.getElementById('draftsAll').hidden = !files.length;
+    if (!files.length) { box.innerHTML = '<p class="empty">No drafts, columns or recent previews.</p>'; return; }
     box.innerHTML = files.map(function(f, i) {
       var meta = draftMeta(f.text), check = [];
       try { check = JSON.parse(meta.check || '[]'); } catch (e) {}
       var pv = meta.kind === 'preview' && meta.date && meta.sport;
-      return '<div class="draft" data-i="' + i + '"><div class="draft-head"><b>' + escHtml((pv && draftHeadline(f.text)) || meta.title || f.path.split('/').pop()) + '</b><code>' + escHtml(f.path) + '</code></div>' +
+      return '<div class="draft" data-i="' + i + '"><div class="draft-head"><span class="draft-live" data-live' + (f.live ? '' : ' hidden') + '>Live</span><b>' + escHtml((pv && draftHeadline(f.text)) || meta.title || f.path.split('/').pop()) + '</b><code data-path>' + escHtml(f.path) + '</code></div>' +
         (pv ? '<div class="draft-pv"><img src="../assets/preview/' + escHtml(meta.date) + '/' + escHtml(meta.sport) + '.png?t=' + Date.now() + '" alt="Image card" onerror="this.alt=\'Image card: drawn on the next refresh\'"><div class="pv-meta"><p class="muted">Loading the day&rsquo;s games&hellip;</p></div></div>' : '') +
         (check.length ? '<p class="draft-check">Check these numbers against the results (not found in the data the draft was written from): ' + escHtml(check.join(', ')) + '</p>' : '') +
         '<textarea id="draftText' + i + '">' + escHtml(f.text) + '</textarea>' +
-        '<div class="actions"><button class="save" type="button" data-act="save">Save edits</button><button class="publish" type="button" data-act="publish">Publish</button></div>' +
+        '<div class="actions"><button class="save" type="button" data-act="save">Save edits</button><button class="publish" type="button" data-act="publish"' + (f.live ? ' hidden' : '') + '>Publish</button></div>' +
         '<p class="status" id="draftStatus' + i + '"></p></div>';
     }).join('');
     box.querySelectorAll('.draft').forEach(function(el) {
-      var i = +el.getAttribute('data-i'), f = files[i];
-      fillPreview(el, i, draftMeta(f.text));
+      var i = +el.getAttribute('data-i');
+      fillPreview(el, i, draftMeta(files[i].text));
       el.querySelectorAll('button[data-act]').forEach(function(btn) {
         btn.addEventListener('click', function() {
-          var act = btn.getAttribute('data-act'), text = document.getElementById('draftText' + i).value;
-          if (act === 'publish' && !confirm('Publish "' + (draftMeta(text).title || f.path) + '" to the site?')) return;
-          callWorker('/content/' + act, { path: f.path, text: text }, document.getElementById('draftStatus' + i), btn,
-            act === 'publish' ? 'Publishing' : 'Saving',
-            act === 'publish' ? 'Published. It goes live on the next refresh, within about 10 minutes.' : 'Saved.')
-            .then(function() { if (act === 'publish') el.querySelectorAll('button, textarea').forEach(function(x) { x.disabled = true; }); })
-            .catch(function() {});
+          if (btn.getAttribute('data-act') === 'publish' && !armed(btn, 'Click again to publish')) return;
+          sendDraft(i, btn.getAttribute('data-act')).catch(function() {});
         });
       });
     });
   }
+  // Save or publish one card. A published card turns into a live one: same
+  // text box, Save edits writes content/published/ (the page updates on the
+  // next refresh).
+  function sendDraft(i, act) {
+    var f = DRAFTS[i], el = document.querySelector('.draft[data-i="' + i + '"]');
+    var btn = el.querySelector('button[data-act="' + act + '"]'), text = document.getElementById('draftText' + i).value;
+    return callWorker('/content/' + act, { path: f.path, text: text }, document.getElementById('draftStatus' + i), btn,
+      act === 'publish' ? 'Publishing' : 'Saving',
+      act === 'publish' ? 'Published. It goes live on the next refresh, within about 10 minutes. You can keep editing it here.'
+        : f.live ? 'Saved. The live page updates on the next refresh, within about 10 minutes.' : 'Saved.')
+      .then(function(res) {
+        if (act === 'publish') {
+          f.path = livePath(f.path); f.live = true;
+          el.querySelector('[data-path]').textContent = f.path;
+          el.querySelector('[data-live]').hidden = false;
+          btn.hidden = true;
+        }
+        return res;
+      });
+  }
+  // Save all / Publish all: one card at a time, top to bottom.
+  function sendAll(act, btn) {
+    var todo = DRAFTS.map(function(f, i) { return i; }).filter(function(i) { return act === 'save' || !DRAFTS[i].live; });
+    var st = document.getElementById('draftsStatus');
+    if (!todo.length) { st.className = 'status'; st.textContent = 'Nothing waiting to publish.'; return; }
+    var failed = 0;
+    btn.disabled = true;
+    todo.reduce(function(p, i) {
+      return p.then(function() { return sendDraft(i, act).catch(function() { failed++; }); });
+    }, Promise.resolve()).then(function() {
+      btn.disabled = false;
+      st.className = failed ? 'status err' : 'status ok';
+      st.textContent = (act === 'publish' ? 'Published ' : 'Saved ') + (todo.length - failed) + ' of ' + todo.length +
+        (failed ? '. See the red lines below.' : act === 'publish' ? '. They go live on the next refresh, within about 10 minutes.' : '.');
+    });
+  }
+  document.getElementById('draftsSaveAll').addEventListener('click', function() { sendAll('save', this); });
+  document.getElementById('draftsPublishAll').addEventListener('click', function() {
+    if (armed(this, 'Click again to publish all')) sendAll('publish', this);
+  });
   function loadDrafts() {
     var btn = document.getElementById('draftsReload');
     callWorker('/content/list', {}, document.getElementById('draftsStatus'), btn, 'Loading drafts', '')

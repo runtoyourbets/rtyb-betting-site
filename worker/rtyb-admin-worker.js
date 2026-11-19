@@ -40,8 +40,9 @@
  *   /results/publish    same body -- also writes data_admin/results_overrides.json
  *   /odds/parse         body: {sport, segment, mode, text, games: [{away, home, date, awayName, homeName}]} --
  *                         AI fills one segment's table for the other sports; writes nothing
- *   /content/list       body: {} -- every draft (content/drafts/) and column (content/columns/) with its text
- *   /content/save       body: {path, text} -- saves an edited draft or column in place
+ *   /content/list       body: {} -- every draft (content/drafts/) and column (content/columns/) with its text,
+ *                         plus the last 3 days' published previews (live: true) so they stay editable
+ *   /content/save       body: {path, text} -- saves an edited draft, column or published preview in place
  *   /content/publish    body: {path, text} -- writes it to content/published/ and removes the draft
  *   /odds/save          body: {sport, rows: [{date, away, home, segment, ats, ml, total}], removes: [{date, away, home}]}
  *                         -- odds for the other sports (not NHL), one file per sport at
@@ -137,6 +138,9 @@ async function commitJsonFile(env, filePath, message, mutate) {
 // columns are hand-written into content/columns/. Publishing moves a file
 // to content/published/, which the next refresh turns into its page.
 const CONTENT_PATH = /^content\/(drafts|columns)\/[a-z0-9][a-z0-9-]*\.md$/;
+// a published preview (editable after it goes live): content/published/{sport}-preview-{date}.md
+const LIVE_PATH = /^content\/published\/[a-z0-9]+-preview-(\d{4}-\d{2}-\d{2})\.md$/;
+const LIVE_DAYS = 3;
 
 async function getFile(env, filePath) {
   const resp = await ghRequest(env, `contents/${filePath}?ref=${BRANCH}`, { method: "GET" });
@@ -218,11 +222,22 @@ async function listContent(env) {
       if (got.ok) files.push({ path: f.path, text: got.text });
     }
   }
+  const resp = await ghRequest(env, `contents/content/published?ref=${BRANCH}`, { method: "GET" });
+  if (resp.status === 200) {
+    const since = new Date(Date.now() - LIVE_DAYS * 86400000).toISOString().slice(0, 10);
+    for (const f of await resp.json()) {
+      const m = f.type === "file" && LIVE_PATH.exec(f.path);
+      if (!m || m[1] < since) continue;
+      const got = await getFile(env, f.path);
+      if (got.ok) files.push({ path: f.path, text: got.text, live: true });
+    }
+  }
   return { ok: true, files };
 }
 
-function validateContent(body) {
-  if (!body || typeof body.path !== "string" || !CONTENT_PATH.test(body.path)) return "path must be a .md file in content/drafts/ or content/columns/";
+function validateContent(body, live) {
+  const ok = body && typeof body.path === "string" && (CONTENT_PATH.test(body.path) || (live && LIVE_PATH.test(body.path)));
+  if (!ok) return live ? "path must be a .md file in content/drafts/, content/columns/ or a published preview" : "path must be a .md file in content/drafts/ or content/columns/";
   if (typeof body.text !== "string" || !body.text.trim() || body.text.length > 50000) return "text must be 1-50,000 characters";
   return null;
 }
@@ -748,7 +763,7 @@ export default {
         break;
       }
       case "/content/save": {
-        const err = validateContent(body);
+        const err = validateContent(body, true);
         if (err) return json({ ok: false, error: err }, 400);
         result = await putText(env, body.path, `Edit ${body.path.split("/").pop()} (admin)`, body.text);
         break;
