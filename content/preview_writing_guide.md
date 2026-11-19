@@ -17,8 +17,22 @@ packet and nothing else.
 
 - Use only what's in the packet. Every team, record, rate, line, price, book
   and game count must appear in the packet exactly as given.
-- Rates come percent first, then the record and game count: "93% (13–1) in 14 games". The
-  packet only holds rates with 10+ games; don't build your own.
+- Rates come percent first, then the record: "93% (13–1)". The packet only
+  holds rates with 10+ games; don't build your own.
+- Low rates: when a rate is under 40%, write the opposite outcome instead.
+  "The Bucks won the first half 20% (3–12)" becomes "The Bucks have lost the
+  first half 80% (12–3)". Never write 0%: "has lost the first half in all 10
+  games".
+- Don't repeat "in N games" after every rate. Give the sample once, only when
+  it isn't the full season ("as road underdogs, 7–3").
+- Spell out segments in sentences: "first quarter", "first half", "first
+  period", "first inning", "first five innings". Never 1Q / 1H / 1P / F5 in
+  body text (the boxes, chips and subheads may use them).
+- Both teams to score: the first mention in an article is "both teams to
+  score (BTTS)"; after that "BTTS Yes" / "BTTS No" is fine.
+- When a trend "fits" games, name the game(s): "it fits Rutgers at Penn
+  State", never "fits that one". If it fits more than 3, name 2 and say "and
+  N more".
 - Never invent players, injuries, quotes, goals, plays or game moments.
 - Teams: the full name in the text (Milwaukee Bucks). The code (MIL) only
   inside a bet or a stat line.
@@ -36,10 +50,16 @@ sport, number and record or bet line); you write one sentence for each.
   `EDGE: <one sentence>`
 - Each sentence explains its box's number for tonight, naming the full team
   names involved. 25 words at most.
-- EDGE: why the play: the rates behind it from the packet, percent first
-  ("Boston 1P ML on the road: 71% (5–2)"). The box already shows the bet and
-  the best price and book. Nothing about a "worth it" price and no season
-  record for the plays.
+- STAT: the Stat of the Night must be a different team or fact from the
+  headline and the lead game's opening paragraph.
+- EDGE: why the play, from the packet's `why` for it (rates in the bet's own
+  market, percent first: "The Islanders have won the first period 62%
+  (10–6); the Jets have won it 23% (3–10)."). The box already shows the bet
+  and the best price and book. Nothing about a "worth it" price and no
+  season record for the plays.
+- The Edge play must not contradict the article. If the article's numbers
+  argue against it, keep the EDGE sentence to one plain reason from the same
+  market, and never argue the other way in the body.
 - Don't repeat the box numbers in the body.
 
 ## The article
@@ -62,8 +82,11 @@ Then the body, short paragraphs, no bullet lists, no tables.
    game.
 2. The games, one subhead each, in start-time order:
    `### Bucks at Heat · 7:00 PM ET` (team nicknames; college: school names; the
-   packet's start time). Under each, one short paragraph: the trends and team
-   rates that fit the game, with records and rates.
+   packet's start time). The Matchup of the Day's subhead ends with
+   " · Matchup of the Day": `### Knicks at Timberwolves · 8:00 PM ET · Matchup of the Day`.
+   Under each, one short paragraph: at most 3 numbers, the strongest ones,
+   ending with one sentence saying where the numbers point ("The Under is
+   where the numbers stack.").
 3. Cover the games with the most going on (2+ trends first). Skip a game with
    nothing to say; the site lists it.
 

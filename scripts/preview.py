@@ -582,15 +582,60 @@ def trend_pick(sport, day, games):
             'text': f"{c['title']} {c['w']}–{c['l']} this season; tonight it fits {tonight}.", 'id': c['id'], '_score': c['rate']}
 
 
+SEG_SPELLED = {'1p': 'first period', '1q': 'first quarter', '1h': 'first half', '1i': 'first inning', 'f5': 'first five innings'}
+EDGE_MIN = 0.40        # an Edge play's side must win / cover 40%+ of its season
+MARKET_WORDS = {'ml': ' ML', 'ats': ' ATS', 'total': {'over': 'overs', 'under': 'unders'}, 'btts': 'BTTS', 'rfi': 'RFI'}
+
+
+def season_rate(rates, slug, k, m):
+    """(w, l) of a team's season rate in one segment market (10+ games), or None."""
+    r = next((r for r in rates.get(slug) or [] if r['seg'] == k and r['mk'] == m), None)
+    v = r and r['splits'].get('season')
+    return (v['_w'], v['_l']) if v else None
+
+
+def edge_why(sport, day, p, g, rates=None):
+    """The reason an Edge play qualifies, from rates in its own market only
+    ("Islanders have won the first period 62% (10–6); the Jets have won it
+    23% (3–10)."), or None when it doesn't: no same-market rate of 10+
+    games, or the side wins / covers under 40% of its season."""
+    k, m, side = p['seg'], p['market'], p['side']
+    if m in ('ml', 'ats'):
+        rates = rates if rates is not None else team_rates(sport, day, {g['away'], g['home']})
+        other = 'home' if side == 'away' else 'away'
+        mine, theirs = season_rate(rates, g[side], k, m), season_rate(rates, g[other], k, m)
+        if mine and mine[0] / sum(mine) < EDGE_MIN:
+            return None
+        if mine:
+            verb, it = ('won', 'won it') if m == 'ml' else ('covered', 'covered it')
+            what = SEG_SPELLED.get(k, k) + ('' if m == 'ml' else ' spread')
+            have = 'has' if sport.key in sports.COLLEGE else 'have'
+
+            def nick(slug):
+                t = sport.team(slug)
+                return t.get('short') or sport.full_name(slug)
+            why = f"{'' if sport.key in sports.COLLEGE else 'The '}{nick(g[side])} {have} {verb} the {what} {round(100 * mine[0] / sum(mine))}% ({mine[0]}–{mine[1]})"
+            if theirs:
+                why += f"; {'' if sport.key in sports.COLLEGE else 'the '}{nick(g[other])} {have} {it} {round(100 * theirs[0] / sum(theirs))}% ({theirs[0]}–{theirs[1]})"
+            return why + '.'
+    word = MARKET_WORDS.get(m)
+    word = word.get(side, '') if isinstance(word, dict) else word
+    same = [x for x in (angle_rate(a) for a in p.get('angles') or [] if word and word in a[0]) if x]
+    return ('; '.join(same[:2]) + '.') if same else None
+
+
 def edge_pick(sport, day, games):
-    """Edge Play of the Night: today's top Edge play."""
-    plays = edge_plays(sport, day, games)
-    if not plays:
-        return None
-    info = play_info(sport, day, *plays[0])
-    why = '; '.join(info['rates_behind_it'][:3])
-    return {'sport': sport.key, 'number': info['bet'], 'bet': info['bet'], 'price': info['best_price'], 'book': info['book'], 'line': info['_small'],
-            'text': f"{info['game']}: " + (why[:1].upper() + why[1:] + '.' if why else f"the top Edge play is {info['bet']}."), '_score': info['_score']}
+    """Edge Play of the Night: today's top Edge play backed by rates in its
+    own market (edge_why)."""
+    rates = team_rates(sport, day, {g[s] for g in games for s in ('away', 'home')})
+    for p, g in edge_plays(sport, day, games):
+        why = edge_why(sport, day, p, g, rates)
+        if not why:
+            continue
+        info = play_info(sport, day, p, g)
+        return {'sport': sport.key, 'number': info['bet'], 'bet': info['bet'], 'price': info['best_price'], 'book': info['book'], 'line': info['_small'],
+                'text': why[:1].upper() + why[1:], '_score': info['_score']}
+    return None
 
 
 BOX_KEYS = (('stat_of_night', stat_pick), ('league_trend', trend_pick), ('edge_play', edge_pick))
@@ -606,7 +651,14 @@ def boxes(key, day, keys=None):
     it covers): three different sports when 3+ play, two when two do
     (split 2 and 1), else one."""
     keys = (keys or covers(day)) if key == ALL else [key]
-    cand = {k: {b: f(sport_of(k), day, box_games(sport_of(k), key, day)) for b, f in BOX_KEYS} for k in keys}
+    lead = lead_of(key, day) or {}
+
+    def games_for(k, b):
+        """Stat of the Night skips the lead game (the headline's), unless it's the only one."""
+        games = box_games(sport_of(k), key, day)
+        rest = [g for g in games if not (b == 'stat_of_night' and lead.get('sport') == k and str(g['id']) == lead.get('id'))]
+        return rest or games
+    cand = {k: {b: f(sport_of(k), day, games_for(k, b)) for b, f in BOX_KEYS} for k in keys}
     import itertools
     best = None
     opts = [[k for k in keys if cand[k][b]] or [None] for b, _ in BOX_KEYS]
@@ -635,7 +687,8 @@ def more_data(key, day, ids=None):
                            'pct': f"{round(x['card']['rate'] * 100)}%", 'games': x['n'],
                            'fits_tonight': [f"{sport.full_name(g['away'])} at {sport.full_name(g['home'])}" for g in x['fit']]}
                           for x in league_cards(sport, day, games)],
-        'edge_plays': [{k: v for k, v in play_info(sport, day, p, g).items() if not k.startswith('_')} for p, g in edge_plays(sport, day, games)],
+        'edge_plays': [dict({k: v for k, v in play_info(sport, day, p, g).items() if not k.startswith('_') and k != 'rates_behind_it'}, why=why)
+                       for p, g in edge_plays(sport, day, games) for why in [edge_why(sport, day, p, g, rates)] if why],
     }
 
 
@@ -832,6 +885,7 @@ def matchup_heads(body_html, key, day, root):
     sport = sport_of(key)
     games = slate(sport, day)[1]
     href = f"{root}{sport.matchups}?date={day}"
+    motd = motd_of(key, day)
 
     def head(m):
         text = m.group(1)
@@ -840,7 +894,8 @@ def matchup_heads(body_html, key, day, root):
             return f'<h3><a href="{esc(href)}">{text}</a></h3>'
         logos = sport.badge(g['away'], 22, root) + sport.badge(g['home'], 22, root)
         line = venue_line(sport, g)
-        return (f'<h3 class="pv-gh"><a href="{esc(href)}"><span class="pv-logos">{logos}</span><span>{text}</span></a></h3>'
+        to = f"{root}{sport.sp['slug']}/#motd" if motd and motd[1] == str(g['id']) else href   # the Matchup of the Day card
+        return (f'<h3 class="pv-gh"><a href="{esc(to)}"><span class="pv-logos">{logos}</span><span>{text}</span></a></h3>'
                 + (f'<p class="pv-ven">{line}</p>' if line else ''))
     body_html, n = re.subn(r'<h3>(.*?)</h3>', head, body_html)
     if n:

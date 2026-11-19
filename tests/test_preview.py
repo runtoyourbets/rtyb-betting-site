@@ -58,8 +58,8 @@ class BoxTest(unittest.TestCase):
     def test_spread_across_sports(self):
         # 3+ sports: three different ones; 2: split 2 and 1; 1: all from it
         pick = lambda sport, day, games: {'_score': 0.6, 'sport': sport}
-        saved = preview.sport_of, preview.box_games, preview.BOX_KEYS
-        preview.sport_of, preview.box_games = (lambda k: k), (lambda sport, key, day: [])
+        saved = preview.sport_of, preview.box_games, preview.BOX_KEYS, preview.lead_of
+        preview.sport_of, preview.box_games, preview.lead_of = (lambda k: k), (lambda sport, key, day: []), (lambda key, day: None)
         preview.BOX_KEYS = tuple((b, pick) for b, _ in saved[2])
         try:
             for keys, want in ((['nhl', 'nba', 'ncaab', 'nfl'], 3), (['nhl', 'nba'], 2), (['nba'], 1)):
@@ -67,7 +67,23 @@ class BoxTest(unittest.TestCase):
                 self.assertEqual(len(got), 3)
                 self.assertEqual(len({b['sport'] for b in got.values()}), want)
         finally:
-            preview.sport_of, preview.box_games, preview.BOX_KEYS = saved
+            preview.sport_of, preview.box_games, preview.BOX_KEYS, preview.lead_of = saved
+
+    def test_edge_play_needs_its_own_market(self):
+        # the side's season rate under 40% skips it; a total needs over / under rates
+        class S:
+            key = 'nhl'
+            def team(self, slug): return {'short': slug.title()}
+            def full_name(self, slug): return slug.title()
+        g = {'away': 'islanders', 'home': 'jets'}
+        rate = lambda w, l: [{'seg': '1p', 'mk': 'ml', 'splits': {'season': {'_w': w, '_l': l}}}]
+        why = preview.edge_why(S(), '2026-11-19', {'seg': '1p', 'market': 'ml', 'side': 'away'}, g,
+                               {'islanders': rate(10, 6), 'jets': rate(3, 10)})
+        self.assertEqual(why, 'The Islanders have won the first period 62% (10–6); the Jets have won it 23% (3–10).')
+        self.assertIsNone(preview.edge_why(S(), '2026-11-19', {'seg': '1p', 'market': 'ml', 'side': 'home'}, g,
+                                           {'islanders': rate(10, 6), 'jets': rate(3, 10)}))
+        total = {'seg': '1p', 'market': 'total', 'side': 'under', 'angles': [['Jets 1P ML, season', '12-2'], ['Jets 1P unders, season (1.5)', '11-4']]}
+        self.assertEqual(preview.edge_why(S(), '2026-11-19', total, g, {}), 'Jets 1P unders, season (1.5): 73% (11–4).')
 
     def test_box_lines_go_to_front_matter(self):
         import daily_content as dc
