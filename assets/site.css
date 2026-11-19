@@ -2420,6 +2420,12 @@
   .os-u.pos { color: var(--good); } .os-u.neg { color: var(--bad); } .os-u.mid { color: var(--push); }
   .os-small { display: block; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .ht-rec .os-small { display: inline; margin-left: 6px; }
+  /* Champions cells + Awards cards: the big %, the record under it, the units under that */
+  .os-big { font-family: var(--ff-display); font-size: var(--fs-big); font-weight: var(--fw-title); line-height: 1.05; color: var(--text); }
+  .os-cell .os-rec, .aw-rec .os-rec, .os-ub { display: block; margin-left: 0; }
+  .aw-rec { display: grid; justify-items: center; gap: 2px; }
+  .os-none { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .aw-empty { align-content: start; }
   .bb-name { margin: 4px 0 6px; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
   .bb-rec { margin: 0 0 8px; }
   .bb-say { margin: 0; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
