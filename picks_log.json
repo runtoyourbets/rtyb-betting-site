@@ -10203,10 +10203,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 380,
+    "price": 360,
     "title": "Clippers 1H ML",
-    "est": 0.2886,
-    "edge": 0.0803,
+    "est": 0.2951,
+    "edge": 0.0777,
     "agree": 2,
     "sample": 12,
     "tier": "B",
@@ -10704,54 +10704,50 @@
     "streakTeamName": "Montreal"
    },
    {
-    "id": "nfl|401873066|1h|ats|away",
-    "game": "nfl|401873066",
+    "id": "nba|401910022|1h|ats|away",
+    "game": "nba|401910022",
     "date": "2026-11-19",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-20T01:15Z",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-20T01:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Colts @ Texans",
-    "href": "nfl/matchups/",
+    "matchup": "Clippers @ Spurs",
+    "href": "nba/matchups/",
     "market": "ats",
     "side": "away",
-    "line": 6.5,
-    "price": 105,
-    "title": "Colts 1H +6.5",
-    "est": 0.5188,
-    "edge": 0.031,
-    "agree": 4,
-    "sample": 10,
+    "line": 8.5,
+    "price": -104,
+    "title": "Clippers 1H +8.5",
+    "est": 0.5412,
+    "edge": 0.0313,
+    "agree": 3,
+    "sample": 13,
     "tier": "C",
     "tags": [
      "Dog Hunter"
     ],
-    "streak": 1,
-    "streakTeam": "ind",
+    "streak": 3,
+    "streakTeam": "lac",
     "angles": [
      [
-      "Colts 1H ATS at +6.5 on the road",
-      "4-1"
+      "Clippers 1H ATS at +8.5, last 8",
+      "7-1"
      ],
      [
-      "Colts 1H ATS at +6.5, last 8",
-      "6-2"
+      "Clippers 1H ATS at +8.5, season",
+      "10-3"
      ],
      [
-      "Texans\u2019s opponents 1H ATS at +6.5, Texans at home",
-      "3-1"
-     ],
-     [
-      "Colts 1H ATS at +6.5, season",
-      "7-3"
+      "Clippers 1H ATS at +8.5 on the road",
+      "3-2"
      ]
     ],
-    "info": "Colts avg 1H margin on the road: -4.2",
+    "info": "Clippers avg 1H margin on the road: -6.6",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Colts"
+    "streakTeamName": "Clippers"
    }
   ]
  }
