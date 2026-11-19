@@ -2384,7 +2384,9 @@
   // and finished games show each source's closing line; Open is always the
   // opening line. The best price per side gets a green outline (the key at
   // the bottom says so). The controls and the header row stay pinned.
-  var MKT_CUR = null;
+  // ?mkt= opens a market (The Big Numbers' rows link to theirs, #og-away-home: the game)
+  var MKT_CUR = new URLSearchParams(location.search).get('mkt');
+  var OG_HASH = /^#og-/.test(location.hash) ? location.hash.slice(1) : null;
   // the market pills: totals read "O/U" (NHL "O/U 1.5", MLB "F5 O/U")
   function pillLabel(x) { return x[1] === 'total' ? x[2].replace('Total', 'O/U') : x[2]; }
   // "· FINAL" or "· LIVE · 3RD 11:14" after a game's start time (Odds and Matchups)
@@ -2560,7 +2562,7 @@
           // timeET already names the day in week view
           var day = weeks && g.start && !(D && D.schedule === 'week') ? new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }) + ' ' : '';
           // every game's time row carries Open and the book logos, over their columns
-          return '<tbody class="ob-game"><tr class="ob-ghead"><th scope="col" class="ob-c-team"><span class="ob-time">' + esc(day) + (g.start ? esc(timeET(g.start)) : 'TBD') + oddsStatus(g) + '</span></th>' +
+          return '<tbody class="ob-game" id="og-' + esc(g.away) + '-' + esc(g.home) + '"><tr class="ob-ghead"><th scope="col" class="ob-c-team"><span class="ob-time">' + esc(day) + (g.start ? esc(timeET(g.start)) : 'TBD') + oddsStatus(g) + '</span></th>' +
             '<th scope="col" class="ob-c-open">Open</th>' + cols.map(function(b) { return '<th scope="col" class="ob-src">' + head(b) + '</th>'; }).join('') + '</tr>' + rows + '</tbody>';
         }).join('');
         return '<div class="ob-scroll" id="obBody"><table class="ob-grid" style="--n:' + cols.length + '">' + colgroup(cols) + body + '</table></div>';
@@ -2597,6 +2599,9 @@
         app.innerHTML = html;
         stickBelowNav(document.getElementById('obStick'));
         wireTips(app);
+        var hit = OG_HASH && document.getElementById(OG_HASH);
+        // (instant: the page can redraw while a smooth scroll runs; the next second's redraws land there too)
+        if (hit) { hit.scrollIntoView({ block: 'center', behavior: 'instant' }); setTimeout(function() { OG_HASH = null; }, 1500); }
         if (weeks) {
           var keys = weeks.map(function(w) { return w.key; }), i = keys.indexOf(cur);
           var p = document.getElementById('weekPrev'), n = document.getElementById('weekNext'), now = document.getElementById('weekNowBtn');

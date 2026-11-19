@@ -49,23 +49,31 @@ class ResultsTest(unittest.TestCase):
 
 
 class BestTest(unittest.TestCase):
-    def test_best_market_with_wording(self):
+    def test_rows_most_units_first(self):
         games = [nhl_game(i, [1, 1]) for i in range(4)] + [nhl_game(9, [1, 0])]
         S = {'nhl': FakeSport('nhl', {'2026-11-15': games})}
         html = front.yesterdays_best(S, '2026-11-15')
         self.assertIn('Yesterday&rsquo;s Best', html)
-        self.assertIn('1P O/U Over 1.5 went 4&ndash;1', html)
+        # Over 1.5 went 4-1 (+2.64u): the first row, one line, units lowercase
+        self.assertIn('<span class="yb-mk">1P Over 1.5</span><span class="yb-dot">&middot;</span>'
+                      '<span class="yb-rec">80% (4&ndash;1)</span><span class="yb-dot">&middot;</span><span class="yb-u">+2.64u</span>', html)
+        # the road teams' +6.0u comes first (the most units)
+        self.assertLess(html.index('1P Road ML'), html.index('1P Over 1.5'))
+        self.assertLessEqual(html.count('class="yb-row"'), 3)
+        self.assertNotIn('1P Under 1.5', html)   # -2.64u: under +1.0u
 
     def test_hidden_when_nothing_won(self):
         games = [nhl_game(i, [0, 0]) for i in range(3)]
         for g in games:
-            g['res']['1p']['u'] = {'su': [-1.0, -1.0], 'tot': [-1.0, 0.91]}
+            g['res']['1p']['u'] = {'su': [-1.0, -1.0], 'tot': [-1.0, 0.3]}   # Unders +0.9u: under +1.0u
         S = {'nhl': FakeSport('nhl', {'2026-11-15': games})}
         self.assertEqual(front.yesterdays_best(S, '2026-11-15'), '')
 
-
-    def test_needs_three_decided_games(self):
+    def test_needs_one_unit(self):
+        # one Over at +0.91u: under +1.0u, no card
         S = {'nhl': FakeSport('nhl', {'2026-11-15': [nhl_game(1, [1, 1])]})}
+        for g in S['nhl'].doc['games']['2026-11-15']:
+            g['res']['1p']['u']['su'] = [-1.0, -1.0]
         self.assertEqual(front.yesterdays_best(S, '2026-11-15'), '')
 
 
@@ -159,27 +167,6 @@ class HotTrendsTest(unittest.TestCase):
         S = FakeSport('nba', {'2026-11-17': games})
         S.trends = {'slates': {'2026-11-17': {'cards': [card('gone', 9, [('1', 'home')]), card('left', 5, [('2', 'home')], seg='1q')]}}}
         self.assertEqual([c['id'] for _, c, _, _ in front.hot_cards({'nba': S}, self.NOW, left=True)], ['left'])
-
-
-class LineMoveTest(unittest.TestCase):
-    def test_biggest_move_not_started(self):
-        now = datetime(2026, 11, 17, 22, 0, tzinfo=timezone.utc)
-        games = [nba_game('1'), nba_game('2'), nba_game('3', start='2026-11-17T21:00:00Z')]
-        S = FakeSport('nba', {'2026-11-17': games})
-        moves = {'1': ({'away': 100, 'home': -120}, {'away': -118, 'home': -105}),
-                 '2': ({'away': 120, 'home': -140}, {'away': 125, 'home': -150}),
-                 '3': ({'away': 300, 'home': -400}, {'away': -200, 'home': 170})}   # started: left out
-        S.odds_game = lambda d, g: {'open': {'1h': {'ml': moves[g['id']][0]}}, 'best': {'1h': {'ml': moves[g['id']][1]}}}
-        html = front.line_move({'nba': S}, now)
-        self.assertIn('<span class="lm-l">Open</span><span class="cell"><span class="ob-ln">+100</span></span>', html)
-        self.assertIn('<span class="lm-l">Now</span><span class="cell"><span class="ob-ln">-118</span></span>', html)
-        self.assertIn('Line moving toward A 1H ML', html)
-        # game 2's home side drifted (-140 to -150 is shorter): the cells show the team it's moving toward
-        self.assertIn('Line moving toward H 1H ML', html)
-        self.assertIn('See all odds', html)
-        # the next-biggest move waits, hidden, to take over when game 1 starts
-        self.assertEqual(html.count('data-move="today"'), 2)
-        self.assertEqual(front.line_move({'nba': FakeSport('nba', {})}, now), '')
 
 
 class LinkCheckTest(unittest.TestCase):

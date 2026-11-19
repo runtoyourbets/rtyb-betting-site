@@ -65,6 +65,7 @@ import daily  # noqa: E402
 import preview  # noqa: E402
 import home  # noqa: E402
 import front  # noqa: E402
+import bignums  # noqa: E402
 import hub  # noqa: E402
 import icons  # noqa: E402
 import nav  # noqa: E402
@@ -752,8 +753,10 @@ def write_moved_stubs(sp):
 
 def sport_app_body(sp, section):
     """A section page's body: the app assets/sport.js draws into, then the
-    How to read box where the page type has one."""
-    return (f'<div id="sportApp" data-section="{section}"><div class="no-games-note">Loading&hellip;</div>'
+    How to read box where the page type has one. The Odds page opens with
+    The Big Numbers (scripts/bignums.py), under the H1."""
+    top = bignums.odds_top(sp, datetime.now(timezone.utc), '__ROOT__/') if section == 'odds' else ''
+    return (top + (bignums.ODDS_JS if top else '') + f'<div id="sportApp" data-section="{section}"><div class="no-games-note">Loading&hellip;</div>'
             f'<noscript>This page needs JavaScript.</noscript></div>' + how_to_read_html(sp, section)
             + (front.running_tab() if section == 'trends' else ''))   # the Get the Tab lock's signup box
 

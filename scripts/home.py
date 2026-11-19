@@ -9,7 +9,7 @@ Sections, top to bottom: nav, then the shared front sections
 (scripts/front.py sections, also on every Arena hub): the brand H1 (hubs:
 the slogan line), the all-sports Preview from 11 AM ET (else Yesterday's
 Best, large), Yesterday's Best, The Slate, Matchup of the Day, Hottest
-Trends, Streak to Watch, Line Mover, Get the Running Tab (hubs
+Trends, Streak to Watch, The Big Numbers, Get the Running Tab (hubs
 only), Yesterday's Results, then Betting Guides (3 guides); footer. Every
 list of sports comes from sports.LAUNCHED (in season). Also writes
 /matchups/, /odds/ and /trends/ (scripts/front.py index pages) and /picks/

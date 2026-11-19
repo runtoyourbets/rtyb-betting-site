@@ -28,6 +28,17 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG_PATH = os.path.join(ROOT, 'matchup_of_the_day_log.json')
 TIPS = os.path.join(ROOT, 'content', 'trend_tooltips.json')
 MIN_AGREE = 3
+SHOW_MIN, SHOW_MAX = 4, 6   # the card's trend rows: short of 4, the next strongest agreeing team rates fill in
+
+# a league trend's short label (the card's rows: "Non-conf games · 1H Under")
+ANGLE_SHORT = {
+    'b2b_game': 'Back-to-back games', 'b2b_opp': 'Opp on a back-to-back', 'conf': 'Conf games', 'div': 'Div games',
+    'even_rest': 'Even rest games', 'home_dog': 'Home dogs', 'home_dog_game': 'Home dog games', 'home_fav': 'Home favs',
+    'home_fav_game': 'Home fav games', 'nonconf': 'Non-conf games', 'off_loss': 'Off a loss', 'off_loss3': 'Off a blowout',
+    'off_loss3_game': 'Team off a blowout', 'off_loss_game': 'Team off a loss', 'off_shutout': 'Off a shutout',
+    'off_shutout_game': 'Team off a shutout', 'rest_edge': 'Rest edge games', 'rested': 'Rested teams', 'road_dog': 'Road dogs',
+    'road_fav': 'Road favs', 'tier1': 'Big favs', 'tier2': 'Small favs', 'tier3': 'Small dogs', 'tier4': 'Big dogs',
+    'tired': 'Tired teams'}
 
 HIT = {'ml': 'W', 'ats': 'W', 'total': 'O', 'btts': 'Y', 'rfi': 'Y'}
 MISS = {'ml': 'L', 'ats': 'L', 'total': 'U', 'btts': 'N', 'rfi': 'N'}
@@ -181,6 +192,56 @@ def streak_words(doc, slug, m, st, k):
     return f'{nm} {plural} have gone {w} {n}'
 
 
+def market_short(doc, m, kind, k):
+    """A team's outcome in a market, short: "1H Under", "1Q ML wins"."""
+    tag = seg_of(doc, k)['tag']
+    return {'ml': f"{tag} ML {'wins' if kind == 'W' else 'losses'}",
+            'ats': f"{tag} Spread {'covers' if kind == 'W' else 'losses'}",
+            'total': f"{tag} {'Over' if kind == 'O' else 'Under'}" + (' 1.5' if doc['sport'] == 'nhl' else ''),
+            'btts': f"{tag} BTTS {'Yes' if kind == 'Y' else 'No'}",
+            'rfi': 'YRFI' if kind == 'Y' else 'NRFI'}[m]
+
+
+def streak_word(x):
+    """"1H ML wins" -> "1H ML win" (a "win streak")."""
+    for a, b in ((' wins', ' win'), (' losses', ' loss'), (' covers', ' cover')):
+        if x.endswith(a):
+            return x[:-len(a)] + b
+    return x
+
+
+def league_short(doc, g, c, pick):
+    who = ANGLE_SHORT.get(c.get('angle')) or c['title'].split(': ')[-1]
+    if c.get('dir') == 'Fade':
+        who = 'Fade ' + who[0].lower() + who[1:]
+    return f"{who} · {bet_words(doc, g, c['seg'], c['mk'], pick).replace(' spread', ' Spread')}"
+
+
+def agrees(m, pick, side):
+    """The outcome in a team's results that agrees with the pick."""
+    if m in ('ml', 'ats'):
+        return HIT[m] if side == pick else MISS[m]
+    return next(k for k, v in GAME_PICK.items() if v == pick and k in (HIT[m], MISS[m]))
+
+
+def fill_trends(doc, g, k, m, pick, ts, seqs):
+    """Short of SHOW_MIN trends: each team's season rate in the bet's
+    market that agrees with it (over 50%, 10+ games), strongest first."""
+    have = {t.get('side') for t in ts if t['kind'] == 'matchup'}
+    extra = []
+    for side in ('away', 'home'):
+        seq = (seqs.get(g[side]) or {}).get(m) or []
+        kind = agrees(m, pick, side)
+        x = sum(1 for v in seq if v == kind)
+        y = len(seq) if m == 'ml' else sum(1 for v in seq if v in (HIT[m], MISS[m]))
+        if side in have or y < 10 or x / y <= 0.5:
+            continue
+        extra.append((x / y, {'kind': 'matchup', 'side': side, 'text': lean_words(doc, g[side], m, kind, k),
+                              'short': f"{code(doc, g[side])} · {market_short(doc, m, kind, k)}", 'rec': pct_rec(x, y - x), 'edge': None}))
+    extra.sort(key=lambda e: -e[0])
+    return ts + [t for _, t in extra][:max(0, SHOW_MIN - len(ts))]
+
+
 # ------------------------------------------------------------- the pick
 def pct_rec(w, l):
     """"68% (58–27)": the percent first (CLAUDE.md), then the record."""
@@ -202,7 +263,7 @@ def game_trends(doc, g, cards, seqs_by_seg):
             pick = x.get('side') or x.get('bet')
             out.setdefault((c['seg'], c['mk'], pick), []).append({
                 'kind': 'league', 'text': f"{c['title']} ({c['tag'].replace(' ATS', ' Spread')})", 'rec': pct_rec(c['w'], c['l']),
-                'edge': (c.get('rate') or 0) - (c.get('base') or 0)})
+                'short': league_short(doc, g, c, pick), 'edge': (c.get('rate') or 0) - (c.get('base') or 0)})
     for k, m in market_keys(doc):
         seqs = seqs_by_seg[k]
         for side in ('away', 'home'):
@@ -210,10 +271,12 @@ def game_trends(doc, g, cards, seqs_by_seg):
             found = []
             ln, st = lean_of(m, seq), streak_of(seq)
             if ln:
-                found.append((ln['kind'], {'kind': 'matchup', 'text': lean_words(doc, g[side], m, ln['kind'], k),
+                found.append((ln['kind'], {'kind': 'matchup', 'side': side, 'text': lean_words(doc, g[side], m, ln['kind'], k),
+                                           'short': f"{code(doc, g[side])} · {market_short(doc, m, ln['kind'], k)}",
                                            'rec': pct_rec(ln['x'], ln['y'] - ln['x']), 'edge': ln['rate'] - league_rate(seqs, m, ln['kind'])}))
             if st and st['n'] >= 3:
-                found.append((st['kind'], {'kind': 'streak', 'text': streak_words(doc, g[side], m, st, k), 'rec': f"{st['n']} straight", 'edge': None}))
+                found.append((st['kind'], {'kind': 'streak', 'text': streak_words(doc, g[side], m, st, k),
+                                           'short': f"{code(doc, g[side])} · {streak_word(market_short(doc, m, st['kind'], k))} streak", 'rec': f"{st['n']} straight", 'edge': None}))
             for kind, t in found:
                 # a team's lean or run picks that team (or its opponent); a game market picks the side
                 pick = (side if kind == HIT[m] else 'home' if side == 'away' else 'away') if m in ('ml', 'ats') else GAME_PICK[kind]
@@ -313,11 +376,12 @@ def pick_matchup(doc, trends_doc, slug_dir, key, games, before):
     if not best:
         return None
     _, g, k, m, pick, ts = best
+    shown = fill_trends(doc, g, k, m, pick, ts, seqs_by_seg[k])[:SHOW_MAX]
     day = next((d for d, x in all_games(doc) if x is g), None)
     price = best_price(slug_dir, day, g, k, m, pick)
     return {'id': g['id'], 'date': day, 'start': g.get('start'), 'away': g['away'], 'home': g['home'], 'seg': k, 'mk': m, 'pick': pick,
             'bet': bet_words(doc, g, k, m, pick), 'n': len(ts), 'edge': round(best[0][1], 4), 'label': matchup_label(doc, g, k, seqs_by_seg.get(k) or {}),
-            'trends': [{'kind': t['kind'], 'text': t['text'], 'rec': t['rec']} for t in ts],
+            'trends': [{'kind': t['kind'], 'text': t['text'], 'short': t['short'], 'rec': t['rec']} for t in shown],
             'price': {'price': price[0], 'line': price[1], 'book': price[2]} if price else None}
 
 
