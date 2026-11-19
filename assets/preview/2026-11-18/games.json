@@ -427,11 +427,6 @@
     "value": "ncaab:401929146"
    },
    {
-    "label": "NCAAB · UNLV at Auburn · 10:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401920516"
-   },
-   {
     "label": "NCAAB · Washington State at Hawai'i · 10:00 PM ET",
     "trends": 2,
     "value": "ncaab:401929004"
@@ -440,6 +435,11 @@
     "label": "NCAAB · Cal State Fullerton at UCLA · 10:30 PM ET",
     "trends": 2,
     "value": "ncaab:401920158"
+   },
+   {
+    "label": "NCAAB · UNLV at Auburn · 10:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920516"
    }
   ],
   "lead": "nba:401910009",
@@ -854,11 +854,6 @@
     "value": "ncaab:401929146"
    },
    {
-    "label": "UNLV at Auburn · 10:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401920516"
-   },
-   {
     "label": "Washington State at Hawai'i · 10:00 PM ET",
     "trends": 2,
     "value": "ncaab:401929004"
@@ -867,6 +862,11 @@
     "label": "Cal State Fullerton at UCLA · 10:30 PM ET",
     "trends": 2,
     "value": "ncaab:401920158"
+   },
+   {
+    "label": "UNLV at Auburn · 10:30 PM ET",
+    "trends": 3,
+    "value": "ncaab:401920516"
    }
   ],
   "lead": "ncaab:401922055",
