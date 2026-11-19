@@ -1,7 +1,7 @@
 """
 The Big Numbers: the most extreme lines on the board for each market, games
 not started only (front.upcoming: today's, then the next game day's;
-football: the rest of the week). Home (in Line Mover's old place, sport
+football too: the next game day, not the whole week). Home (in Line Mover's old place, sport
 pills), each hub, and the top of every sport's Odds page.
 
 Rows per sport and segment:
@@ -14,7 +14,9 @@ Rows per sport and segment:
                   markets exist
 
 The line is the consensus across the sportsbooks (the line most books
-hang); the price shown is the best one at that line, with its book's logo.
+hang, never an alternate or one book's outlier; a spread's favorite is the
+side most books favor); the price shown is the best one at that line, with
+its book's logo.
 Ties: spread -> the more expensive favorite price, then the earlier start;
 moneyline -> the earlier start; total -> the higher Over price, then the
 earlier start.
@@ -78,15 +80,18 @@ def side_line(r, side):
 
 
 def spread_pick(sport, og, k):
-    """(line, price, book, side): the favorite's consensus spread."""
+    """(line, price, book, side): the favorite's consensus spread. The
+    favorite is the side most books make the favorite (one book's outlier
+    never flips it); the line is the one most of those books hang."""
     rows = books_of(sport, og, k, 'ats')
     lines = {s: [side_line(r, s) for r in rows.values() if isinstance(side_line(r, s), (int, float))] for s in ('away', 'home')}
-    fav = {s: consensus([x for x in v if x < 0]) for s, v in lines.items()}
-    side = min((s for s in fav if fav[s] is not None), key=lambda s: fav[s], default=None)
-    if not side:
+    favs = {s: [x for x in v if x < 0] for s, v in lines.items()}
+    if not favs['away'] and not favs['home']:
         return None
-    got = best_at(rows, side, fav[side], side_line)
-    return (fav[side], got[0], got[1], side) if got else None
+    side = max(('away', 'home'), key=lambda s: (len(favs[s]), -median(favs[s]) if favs[s] else 0))
+    line = consensus(favs[side])
+    got = best_at(rows, side, line, side_line)
+    return (line, got[0], got[1], side) if got else None
 
 
 def ml_pick(sport, og, k, m='ml', sides=('away', 'home')):
@@ -148,7 +153,7 @@ def rows_for(sport, k, games):
                 if not x:
                     continue
                 score = (x[0], start)
-                row = {'top': front.price_txt(x[1]), 'sub': '', 'book': x[2], 'fav': x[3]}
+                row = {'top': sport.code(g[x[3]]), 'sub': front.price_txt(x[1]), 'book': x[2], 'fav': x[3]}   # like the spread cells
             elif m == 'tie':
                 rows = books_of(sport, og, k, 'ml3')
                 ps = [price(r.get('draw')) for r in rows.values()]
@@ -178,8 +183,7 @@ def board(sport, now_utc):
     games = front.upcoming(sport, today, now_utc)
     if not games:
         return None, []
-    if not sport.weekly:   # the first game day only
-        games = [x for x in games if x[0] == games[0][0]]
+    games = [x for x in games if x[0] == games[0][0]]   # the next game day only (football too)
     return games[0][0], games
 
 
@@ -290,7 +294,7 @@ def odds_top(sp, now_utc, root):
     body, segs = seg_panes(sport, games, games[0][0], root, odds_page=True)
     if not segs:
         return ''
-    date = 'This week' if sport.weekly else front.day_label(day)
+    date = front.day_label(day)
     return (f'<section class="bn bn-odds-top" id="big-numbers"><div class="fr-head fr-stack"><h2>The Big Numbers</h2>'
             f'<span class="fr-date">{esc(date)}</span></div><div class="st-card bn-card">{body}</div></section>')
 

@@ -47,6 +47,8 @@ with open(os.path.join(ROOT, 'content', 'trend_tooltips.json'), encoding='utf-8'
 HOT_SHOWN = 3          # Hottest Trends: exactly this many cards,
 HOT_ROWS = 3           # ... with up to this many game rows each
 BEST_SHOW_U = 1.0      # Yesterday's Best: the units a row needs
+BEST_MIN_PCT = 0.55    # ... and the win rate
+BEST_PER_SPORT = 2     # ... and at most this many rows from one sport
 ML_CAP = 2000          # moneylines past -2000 / +2000 show a dash
 FLIP = {'W': 'L', 'L': 'W'}
 
@@ -474,14 +476,14 @@ def best_rows(sport, games, k):
 
 
 def best_cands(S, yday):
-    """[(sport, short market, row)] yesterday at +1.0u or better, any market
-    and side, the most units first."""
+    """[(sport, short market, row)] yesterday at +1.0u or better and a 55%+
+    win rate, any market and side, the most units first."""
     cand = []
     for sport in S.values():
         games = [g for g in sport.games(yday)]
         for k in result_segments(sport):
             for label, x in best_rows(sport, games, k):
-                if x.n and round(x.u, 2) >= BEST_SHOW_U:
+                if x.n and round(x.u, 2) >= BEST_SHOW_U and (x.pct or 0) >= BEST_MIN_PCT:
                     cand.append((sport, label, x))
     cand.sort(key=lambda c: (-round(c[2].u, 2), -(c[2].pct or 0)))
     return cand
@@ -503,8 +505,13 @@ def best_card(yday, inner, hero=False):
 
 
 def yesterdays_best(S, yday, hero=False):
-    """Up to 3 rows, the most units first, each +1.0u or better; none: no card."""
-    cand = best_cands(S, yday)[:3]
+    """Up to 3 rows, the most units first, each +1.0u or better at 55%+, at
+    most 2 from one sport; none: no card."""
+    cand, per = [], {}
+    for c in best_cands(S, yday):
+        if per.get(c[0].key, 0) < BEST_PER_SPORT and len(cand) < 3:
+            per[c[0].key] = per.get(c[0].key, 0) + 1
+            cand.append(c)
     if not cand:
         return ''
     return best_card(yday, f'<ul class="yb-rows">{"".join(best_row(*c) for c in cand)}</ul>', hero)

@@ -833,22 +833,18 @@ def label(key, day, week=None):
     return f"{esc(sports.seo_name(key))} {esc(sports.seg_words(key))} Betting Preview &middot; {esc(short_day(day))}"
 
 
-TITLE_WORDS = 10   # a headline longer than this isn't used in the tab title
-
-
 def title(key, headline, day=None, week=None):
-    """The browser tab: "[Sport] [segment words] Betting Preview: [headline]
-    | RTYB", the headline only when it's 10 words or fewer; else (day given)
-    "... Betting Preview · Nov 18 | RTYB". Weekly: "NFL Week 11 First
-    Quarter & First Half Betting Preview", and the headline when it fits."""
+    """The browser tab, always the short form (the headline is the H1):
+    "[Sport] [segment words] Betting Preview · Nov 19 | RTYB"; weekly: "NFL
+    Week 11 First Quarter & First Half Betting Preview | RTYB"; all-sports:
+    "First Period, Quarter & Half Betting Preview · Nov 19 | RTYB"."""
     lead = 'First Period, Quarter & Half Betting Preview' if key == ALL else f'{sports.seo_name(key)} {sports.seg_words(key)} Betting Preview'
     if week:
-        lead = f'{sports.seo_name(key)} Week {week} {sports.seg_words(key)} Betting Preview'
-        return f'{lead}: {headline} | RTYB' if headline and len(headline.split()) <= TITLE_WORDS else f'{lead} | RTYB'
-    if day and (not headline or len(headline.split()) > TITLE_WORDS):
+        return f'{sports.seo_name(key)} Week {week} {sports.seg_words(key)} Betting Preview | RTYB'
+    if day:
         d = date.fromisoformat(day)
         return f"{lead} · {d.strftime('%b')} {d.day} | RTYB"
-    return f'{lead}: {headline} | RTYB'
+    return f'{lead} | RTYB'
 
 
 def published_txt(p):
@@ -1224,7 +1220,7 @@ def pages(now_utc):
                 out.append((key, d, title(key, head, p['date'], piece_week(p)), dek or head,
                             (lambda root, p=p, days=days: article(p, root, days, have)), canon, img, False))
         if mine:
-            out.append((key, page_dir(key) + 'archive/', title(key, 'Past Previews').replace(': Past Previews', ' Archive'),
+            out.append((key, page_dir(key) + 'archive/', title(key, '').replace(' | RTYB', ' Archive | RTYB'),
                         'Every past preview, newest first.', (lambda root, mine=mine, key=key: archive(key, mine, root)), None, None, False))
         else:
             out.append((key, page_dir(key), title(key, 'Coming at 11 AM ET'), 'Our daily first-segment preview, from 11 AM ET.',

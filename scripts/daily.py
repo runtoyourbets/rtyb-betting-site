@@ -71,21 +71,31 @@ def inline(s):
 
 def to_html(md):
     """Paragraphs, headings, simple lists, bold, italic and links -- what
-    the drafts and columns use."""
+    the drafts and columns use. A "##" / "###" at the start of any line
+    starts a subhead, blank line or not; the lines after it are the
+    paragraph."""
     out = []
-    for block in re.split(r'\n\s*\n', md.strip()):
-        lines = block.strip().splitlines()
+
+    def para(lines):
         if not lines:
-            continue
-        h = re.match(r'(#{2,3})\s+(.*)', lines[0])
-        if h and len(lines) == 1:
-            n = len(h.group(1))
-            out.append(f'<h{n}>{inline(h.group(2))}</h{n}>')
-        elif all(re.match(r'[-*]\s+', x) for x in lines):
+            return
+        if all(re.match(r'[-*]\s+', x) for x in lines):
             items = [inline(re.sub(r'^[-*]\s+', '', x)) for x in lines]
             out.append('<ul>' + ''.join(f'<li>{x}</li>' for x in items) + '</ul>')
         else:
             out.append(f'<p>{inline(" ".join(x.strip() for x in lines))}</p>')
+    for block in re.split(r'\n\s*\n', md.strip()):
+        buf = []
+        for ln in block.strip().splitlines():
+            h = re.match(r'\s*(#{2,3})\s+(.*)', ln)
+            if h:
+                para(buf)
+                buf = []
+                n = len(h.group(1))
+                out.append(f'<h{n}>{inline(h.group(2).strip())}</h{n}>')
+            elif ln.strip():
+                buf.append(ln)
+        para(buf)
     return '\n'.join(out)
 
 

@@ -73,6 +73,13 @@ class EverySportTest(unittest.TestCase):
         self.assertNotIn('not promises', dc.SYSTEM + ''.join(dc.TASK.values()))
         self.assertNotIn('On Tap', dc.SYSTEM + ''.join(dc.TASK.values()))
 
+    def test_subheads_on_adjacent_lines(self):
+        # the drafter's "### ..." right above its paragraph: still a subhead (QA fixes, Nov 19)
+        import daily
+        html = daily.to_html('## Friday\n\n### Oregon at Michigan State · Friday 8:00 PM ET\nHome underdogs have covered.')
+        self.assertEqual(html, '<h2>Friday</h2>\n<h3>Oregon at Michigan State · Friday 8:00 PM ET</h3>\n<p>Home underdogs have covered.</p>')
+        self.assertIn('at most 8', dc.PREVIEW)
+
     def test_all_preview_title(self):
         self.assertEqual(dc.title('preview', 'all', '2026-11-18'), 'First Period, Quarter & Half Betting Preview — Nov 18, 2026')
 

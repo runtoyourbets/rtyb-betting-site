@@ -54,6 +54,9 @@ Never use these (the admin flags them):
 - Never invent players, injuries, quotes, goals, plays or game moments.
 - Teams: the full name in the text (Milwaukee Bucks). The code (MIL) only
   inside a bet or a stat line.
+- Verbs: a college team is one school and takes a singular verb ("Little Rock
+  has lost", "Florida has won"). A pro team's plural nickname stays plural
+  ("the Bucks have", "the Lightning have").
 - Odds are American (-125, +150).
 
 ## The three boxes
@@ -109,6 +112,12 @@ Then the body, short paragraphs, no bullet lists, no tables.
    closing sentence within an article.
 3. Cover the games with the most going on (2+ trends first). Skip a game with
    nothing to say; the site lists it.
+4. At most 8 game sections in an article. Any other game with trends goes in
+   one closing sentence: "Also with trends: Iowa at Illinois, Georgia at
+   South Carolina and UNLV at San José State."
+5. Every subhead (`##` and `###`) sits on its own line, with a blank line
+   before it and a blank line after it, then the paragraph. Never put the
+   subhead and its paragraph on the same line or on adjacent lines.
 
 The site adds "The Matchups" heading, the logos and the venue / TV line under
 each subhead, and the "more league trends" line at the end. Don't write them.
@@ -119,8 +128,10 @@ The same as a sport's preview, for every game of the week (the packet's
 `week`), grouped by kickoff window: a `## Thursday` line (the packet's
 `window` for the game: Thursday, Saturday, Sunday 1:00 PM, Sunday 4:25 PM,
 Sunday Night, Monday Night) before its first game, then each game's `###`
-subhead with its day: `### Colts at Texans · Thursday 8:15 PM ET`. With 10+
-games, a game's paragraph can be shorter: 2 numbers at most.
+subhead with its day: `### Colts at Texans · Thursday 8:15 PM ET`. The same
+8-section limit: the 8 games with the most going on get sections, the rest
+with trends go in the "Also with trends:" sentence. A game's paragraph can be
+shorter here: 2 numbers at most.
 
 ### The all-sports preview
 

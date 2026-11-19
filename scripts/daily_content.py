@@ -461,7 +461,7 @@ def system_for(kind):
         return SYSTEM + '\n\nFollow this writing guide exactly:\n\n<writing_guide>\n' + f.read().strip() + '\n</writing_guide>'
 
 
-PREVIEW = " Follow the writing guide: the STAT / TREND / EDGE lines for the packet's boxes, the headline and dek, then the body with one '###' subhead per game."
+PREVIEW = " Follow the writing guide: the STAT / TREND / EDGE lines for the packet's boxes, the headline and dek, then the body with one '###' subhead per game, at most 8 (the rest in one 'Also with trends:' sentence), each subhead on its own line with a blank line before and after."
 TASK = {
     'recap': "Write The Morning Run, today's recap of last night's {sport} {seg} betting results, from this packet. Cover the biggest results, how RTYB's league trends did, the night's best and worst results, and the streaks that were extended or snapped. End with what carries into today (the 'carries_into_today' part).",
     'preview': "Write Preview, today's {sport} {seg} betting preview, from this packet." + PREVIEW,

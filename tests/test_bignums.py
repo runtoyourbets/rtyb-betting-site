@@ -61,6 +61,27 @@ class PickTest(unittest.TestCase):
         self.assertEqual(r['ml']['label'], 'Moneyline')
         self.assertIs(r['total']['game'], b)
         self.assertEqual(r['total']['long'], 'Highest Total')
+        self.assertEqual((r['ml']['top'], r['ml']['sub']), (self.S.code('A2'), '-305'))   # the favorite's code on top, the price below
+
+    def test_one_book_never_flips_the_favorite(self):
+        # three books: home -0.5; one outlier makes the away team -0.5 at +150
+        a = game(1, '2026-11-20T00:00Z', ats=(0.5, {}))
+        a['rows']['ats']['xx'] = {'away': {'line': -0.5, 'price': 150}, 'home': {'line': 0.5, 'price': -210}}
+        r = self.rows([a])['ats']
+        self.assertEqual((r['fav'], r['top'], r['sub']), ('home', '-0.5', '-110'))
+
+    def test_football_board_is_the_next_game_day(self):
+        S = FakeSport('nfl')
+        S.weekly = True
+        games = [('2026-11-19', {'id': 1}), ('2026-11-22', {'id': 2})]
+        orig = front.upcoming
+        front.upcoming = lambda sport, today, now: games
+        try:
+            from datetime import datetime, timezone
+            day, got = bignums.board(S, datetime(2026, 11, 19, 17, tzinfo=timezone.utc))
+        finally:
+            front.upcoming = orig
+        self.assertEqual((day, got), ('2026-11-19', games[:1]))
 
 
 if __name__ == '__main__':

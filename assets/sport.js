@@ -605,7 +605,7 @@
   }
   function tmMarketNote(m) {
     return { ml: tieSport() ? 'Win % leaves ties out (a tie is in the record, not the %)' : 'A tied segment is a push: in the record, not the %',
-             ml3: '3-way: a tied segment loses a team bet; Tie % is how often the segment was tied' }[m] || (tmNoPush(m) ? 'This market can’t push' : 'Pushes count in the record but not the %');
+             ml3: '3-Way: win % counts ties (a tied segment loses a team bet); Tie % is how often the segment was tied' }[m] || (tmNoPush(m) ? 'This market can’t push' : 'Pushes count in the record but not the %');
   }
 
   // ----------------------------------------------------------- Teams list

@@ -54,13 +54,20 @@ class BestTest(unittest.TestCase):
         S = {'nhl': FakeSport('nhl', {'2026-11-15': games})}
         html = front.yesterdays_best(S, '2026-11-15')
         self.assertIn('Yesterday&rsquo;s Best', html)
-        # Over 1.5 went 4-1 (+2.64u): the first row, one line, units lowercase
-        self.assertIn('<span class="yb-mk">1P Over 1.5</span><span class="yb-dot">&middot;</span>'
-                      '<span class="yb-rec">80% (4&ndash;1)</span><span class="yb-dot">&middot;</span><span class="yb-u">+2.64u</span>', html)
-        # the road teams' +6.0u comes first (the most units)
-        self.assertLess(html.index('1P Road ML'), html.index('1P Over 1.5'))
-        self.assertLessEqual(html.count('class="yb-row"'), 3)
+        # the road teams' +6.0u first; then at most 2 rows from one sport (QA fixes, Nov 19)
+        self.assertIn('<span class="yb-mk">1P Road ML</span>', html)
+        self.assertEqual(html.count('class="yb-row"'), 2)
         self.assertNotIn('1P Under 1.5', html)   # -2.64u: under +1.0u
+
+    def test_rows_need_55_percent(self):
+        x = front.Row('1H Road ML')
+        for _ in range(17):
+            x.add('W', 3.0)
+        for _ in range(31):
+            x.add('L', -1.0)
+        self.assertGreater(x.u, front.BEST_SHOW_U)
+        self.assertLess(x.pct, front.BEST_MIN_PCT)   # +20u at 35% isn't a best bet
+        self.assertIn('BEST_MIN_PCT', open(front.__file__).read().split('def best_cands')[1].split('def best_row')[0])
 
     def test_hidden_when_nothing_won(self):
         games = [nhl_game(i, [0, 0]) for i in range(3)]
