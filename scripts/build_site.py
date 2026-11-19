@@ -897,10 +897,10 @@ def write_previews(template, now_utc):
         return lighten(out, page_dir)
     status = [(sp, '', True, '') for sp in sports.LAUNCHED]   # the nav reads only the sports
     preview.write_all(home.page, status, LOGO_SVG, now_utc, render_sport)
-    for key, day in preview.dated_keys():   # /on-tap/{date}/ and /on-tap/{date}/{sport}/ were the old pages
-        old = f'on-tap/{day}/' + ('' if key == daily.ALL else sports.BY_KEY[key]['slug'] + '/') if key == daily.ALL or key in sports.BY_KEY else None
-        if old:
-            write_stub(old, preview.page_dir(key, day))
+    for key, day, target in preview.dated_keys():   # /on-tap/{date}/ and /on-tap/{date}/{sport}/ were the old pages
+        write_stub(f'on-tap/{day}/' + ('' if key == daily.ALL else sports.BY_KEY[key]['slug'] + '/'), target)
+        if target != preview.page_dir(key, day):   # a weekly piece's dated page: its week's
+            write_stub(preview.page_dir(key, day), target)
     for sp in sports.SPORTS:
         write_stub(f"{sp['slug']}/on-tap/", preview.page_dir(sp['key']))
         if not sports.PICKS_LIVE:

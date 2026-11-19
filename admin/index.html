@@ -121,6 +121,8 @@
   #draftsAll { display: contents; }
   #draftsAll[hidden] { display: none; }
   .draft-check { font-size: 0.8rem; color: var(--bad); margin: 6px 0 0; }
+  #draftsNow .actions { flex-wrap: wrap; }
+  #draftsNow p { font-size: 0.85rem; color: var(--text-muted); margin: 10px 0 4px; }
   .draft-pv { display: grid; grid-template-columns: 240px 1fr; gap: 12px 16px; align-items: start; margin-top: 10px; }
   .draft-pv img { width: 240px; aspect-ratio: 1200 / 630; border-radius: 8px; border: 1px solid var(--border); background: var(--panel-2, #1A212B); object-fit: cover; }
   .draft-pv .h { font-size: 1.05rem; font-weight: 700; margin: 0 0 6px; }
@@ -166,9 +168,10 @@
     <div id="draftsView" hidden>
       <div class="card">
         <h2>Preview &mdash; drafts and columns</h2>
-        <p class="sub" style="margin-bottom:0">Preview is drafted from the site&rsquo;s numbers from 8 AM ET (one per sport with games, plus the all-sports one for the home page) and shows from 11 AM ET. Each card shows the headline, the image card, the lead game and the sport&rsquo;s Matchup of the Day. Pick a different lead game from the list if you like (the image card is rebuilt on the next refresh), check the yellow numbers against the packet, edit the text, then Publish: it goes live on /preview/ (or the sport&rsquo;s /preview/), its own dated page, the home page hero (all-sports) or the sport hub&rsquo;s Preview section on the next refresh (within about 10 minutes). Save all edits and Publish all do every card at once. Published previews from the last 3 days stay here marked Live: edit and Save edits, and the live page updates on the next refresh. Columns are Markdown files in <code>content/columns/</code> and publish the same way.</p>
+        <p class="sub" style="margin-bottom:0">Preview is drafted from the site&rsquo;s numbers at the draft time in Site settings (8 AM ET unless changed; NFL and College Football once a week, on the weekly draft day), one per sport with games plus the all-sports one for the home page, and shows from 11 AM ET. Each card shows the headline, the image card, the lead game and the sport&rsquo;s Matchup of the Day. Pick a different lead game from the list if you like (the image card is rebuilt on the next refresh), check the yellow numbers against the packet, edit the text, then Publish: it goes live on /preview/ (or the sport&rsquo;s /preview/), its own dated page, the home page hero (all-sports) or the sport hub&rsquo;s Preview section on the next refresh (within about 10 minutes). Save all edits and Publish all do every card at once. Published previews from the last 3 days stay here marked Live: edit and Save edits, and the live page updates on the next refresh. Redraft writes a card again from the current numbers and writing guide (about 2 minutes); a sport with no draft yet shows Draft now. A published preview can&rsquo;t be redrafted. Columns are Markdown files in <code>content/columns/</code> and publish the same way.</p>
         <div class="actions"><button class="save" id="draftsReload" type="button">Reload</button><span id="draftsAll" hidden><button class="save" id="draftsSaveAll" type="button">Save all edits</button><button class="publish" id="draftsPublishAll" type="button">Publish all</button></span></div>
         <p class="status" id="draftsStatus"></p>
+        <div id="draftsNow"></div>
         <div id="draftsList"></div>
       </div>
     </div>
@@ -1637,7 +1640,8 @@
         (pv ? '<div class="draft-pv"><img src="../assets/preview/' + escHtml(meta.date) + '/' + escHtml(meta.sport) + '.png?t=' + Date.now() + '" alt="Image card" onerror="this.alt=\'Image card: drawn on the next refresh\'"><div class="pv-meta"><p class="muted">Loading the day&rsquo;s games&hellip;</p></div></div>' : '') +
         (check.length ? '<p class="draft-check">Check these numbers against the results (not found in the data the draft was written from): ' + escHtml(check.join(', ')) + '</p>' : '') +
         '<textarea id="draftText' + i + '">' + escHtml(f.text) + '</textarea>' +
-        '<div class="actions"><button class="save" type="button" data-act="save">Save edits</button><button class="publish" type="button" data-act="publish"' + (f.live ? ' hidden' : '') + '>Publish</button></div>' +
+        '<div class="actions"><button class="save" type="button" data-act="save">Save edits</button><button class="publish" type="button" data-act="publish"' + (f.live ? ' hidden' : '') + '>Publish</button>' +
+        (pv && !f.live ? '<button class="save" type="button" data-act="redraft">Redraft</button>' : '') + '</div>' +
         '<p class="status" id="draftStatus' + i + '"></p></div>';
     }).join('');
     box.querySelectorAll('.draft').forEach(function(el) {
@@ -1645,8 +1649,15 @@
       fillPreview(el, i, draftMeta(files[i].text));
       el.querySelectorAll('button[data-act]').forEach(function(btn) {
         btn.addEventListener('click', function() {
-          if (btn.getAttribute('data-act') === 'publish' && !armed(btn, 'Click again to publish')) return;
-          sendDraft(i, btn.getAttribute('data-act')).catch(function() {});
+          var act = btn.getAttribute('data-act');
+          if (act === 'publish' && !armed(btn, 'Click again to publish')) return;
+          if (act === 'redraft') {   // unsaved edits: ask first (a second click)
+            if (document.getElementById('draftText' + i).value !== DRAFTS[i].text && !armed(btn, 'Unsaved edits will be lost: click again')) return;
+            var m = draftMeta(DRAFTS[i].text);
+            startDraft(m.sport, m.date, DRAFTS[i].path, m.written, btn, document.getElementById('draftStatus' + i));
+            return;
+          }
+          sendDraft(i, act).catch(function() {});
         });
       });
     });
@@ -1662,6 +1673,7 @@
       act === 'publish' ? 'Published. It goes live on the next refresh, within about 10 minutes. You can keep editing it here.'
         : f.live ? 'Saved. The live page updates on the next refresh, within about 10 minutes.' : 'Saved.')
       .then(function(res) {
+        f.text = text;   // saved: no longer "unsaved edits" for Redraft
         if (act === 'publish') {
           f.path = livePath(f.path); f.live = true;
           el.querySelector('[data-path]').textContent = f.path;
@@ -1694,8 +1706,57 @@
   function loadDrafts() {
     var btn = document.getElementById('draftsReload');
     callWorker('/content/list', {}, document.getElementById('draftsStatus'), btn, 'Loading drafts', '')
-      .then(function(res) { renderDrafts(res.body.files || []); })
+      .then(function(res) { renderDrafts(res.body.files || []); renderDraftNow(res.body.files || []); })
       .catch(function() {});
+  }
+  // Redraft / Draft now: the Worker starts the drafting job (about 2
+  // minutes); this checks every 20 seconds until the draft is back.
+  function startDraft(sport, day, path, written, btn, st) {
+    callWorker('/content/redraft', { sport: sport, date: day }, st, btn, 'Starting', 'Redrafting…')
+      .then(function() {
+        btn.disabled = true;
+        var tries = 0;
+        (function check() {
+          setTimeout(function() {
+            tries++;
+            fetch(WORKER_URL + '/content/list', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': getSecret() }, body: '{}' })
+              .then(function(r) { return r.json(); })
+              .then(function(j) {
+                var f = (j.files || []).filter(function(x) { return x.path === path; })[0];
+                if (f && draftMeta(f.text).written !== written) {
+                  renderDrafts(j.files); renderDraftNow(j.files);
+                  var s2 = document.getElementById('draftsStatus');
+                  s2.className = 'status ok'; s2.textContent = 'The ' + sportName(sport) + ' draft is back.';
+                  return;
+                }
+                if (tries >= 30) { btn.disabled = false; st.className = 'status err'; st.textContent = 'Still not back after 10 minutes. Reload in a bit, or check the Actions tab (Draft a Preview).'; return; }
+                check();
+              }).catch(check);
+          }, 20000);
+        })();
+      }).catch(function() {});
+  }
+  function sportName(key) { return key === 'all' ? 'all-sports' : key.toUpperCase(); }
+  // "Draft now": today's sports (weekly sports: this week's) with no draft or live preview yet
+  function renderDraftNow(files) {
+    var box = document.getElementById('draftsNow'), day = todayET();
+    loadGames(day).then(function(info) {
+      var metas = files.map(function(f) { return draftMeta(f.text); });
+      var missing = Object.keys(info).filter(function(k) {
+        return !metas.some(function(m) {
+          return m.kind === 'preview' && m.sport === k && (m.date === day || (info[k].week && String(m.week) === String(info[k].week)));
+        });
+      });
+      box.innerHTML = missing.length ? '<p>No draft yet:</p><div class="actions">' + missing.map(function(k) {
+        return '<button class="save" type="button" data-now="' + escHtml(k) + '">Draft now: ' + escHtml(sportName(k)) + (info[k].week ? ' Week ' + escHtml(info[k].week) : '') + '</button>';
+      }).join('') + '</div><p class="status" id="draftsNowStatus"></p>' : '';
+      box.querySelectorAll('[data-now]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var k = b.getAttribute('data-now');
+          startDraft(k, day, 'content/drafts/' + k + '-preview-' + day + '.md', undefined, b, document.getElementById('draftsNowStatus'));
+        });
+      });
+    });
   }
   document.getElementById('draftsReload').addEventListener('click', loadDrafts);
   var draftsLoaded = false;
@@ -1725,7 +1786,8 @@
       '<label><input type="checkbox" id="ssPreview"' + (sw.PREVIEW_LIVE !== false && sw.ON_TAP_LIVE !== false ? ' checked' : '') + '> Preview live (drafted daily, on the home page, hubs and menus)</label>' +
       '<label><input type="checkbox" id="ssPicks"' + (sw.PICKS_LIVE ? ' checked' : '') + '> Picks live (off: Picks links go to Preview)</label>' +
       '<label>Footer <select id="ssFooter"><option value="home-only"' + (sw.FOOTER !== 'everywhere' ? ' selected' : '') + '>Home page only</option>' +
-      '<option value="everywhere"' + (sw.FOOTER === 'everywhere' ? ' selected' : '') + '>Every page</option></select></label></div></div>';
+      '<option value="everywhere"' + (sw.FOOTER === 'everywhere' ? ' selected' : '') + '>Every page</option></select></label></div></div>' +
+      draftSettings(st);
     document.querySelectorAll('#siteForm .ss-list').forEach(function(list) {
       var dragged = null;
       list.addEventListener('dragstart', function(e) { dragged = e.target.closest('.ss-item'); if (dragged) dragged.classList.add('dragging'); });
@@ -1746,6 +1808,20 @@
       });
     });
   }
+  // Preview drafting: DRAFT_TIME_ET, WEEKLY_DRAFT_DAY and each sport's PREVIEW_MODE
+  var WEEKLY_SPORTS = ['nfl', 'ncaaf'], DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  function draftSettings(st) {
+    var dr = st.drafts || {}, mode = dr.PREVIEW_MODE || {};
+    return '<div class="ss-group"><h3>Preview drafting</h3><p class="note">The refresh drafts each sport&rsquo;s Preview at or after this time (ET). Weekly previews (NFL, College Football) are drafted on the weekly day, once the week&rsquo;s lines are posted. Weekly needs the schedule&rsquo;s weeks, so only football can be weekly.</p><div class="ss-switches">' +
+      '<label>Draft time (ET) <input type="time" id="ssDraftTime" value="' + escHtml(dr.DRAFT_TIME_ET || '08:00') + '"></label>' +
+      '<label>Weekly draft day <select id="ssWeeklyDay">' + DAYS.map(function(d) {
+        return '<option' + ((dr.WEEKLY_DRAFT_DAY || 'Tuesday') === d ? ' selected' : '') + '>' + d + '</option>'; }).join('') + '</select></label>' +
+      (st.sports || []).map(function(x) {
+        var weekly = WEEKLY_SPORTS.indexOf(x.key) >= 0, m = mode[x.key] || (weekly ? 'weekly' : 'daily');
+        return '<label>' + escHtml(x.label) + ' <select data-mode="' + escHtml(x.key) + '"' + (weekly ? '' : ' disabled') + '><option value="daily"' + (m === 'daily' ? ' selected' : '') + '>Daily</option>' +
+          (weekly ? '<option value="weekly"' + (m === 'weekly' ? ' selected' : '') + '>Weekly</option>' : '') + '</select></label>';
+      }).join('') + '</div></div>';
+  }
   function readSite() {
     var out = {};
     SITE_GROUPS.forEach(function(g) {
@@ -1759,6 +1835,10 @@
     var pvOn = document.getElementById('ssPreview').checked;   // ON_TAP_LIVE too, for a Worker not yet redeployed (sports.py reads either)
     out.switches = { PREVIEW_LIVE: pvOn, ON_TAP_LIVE: pvOn, PICKS_LIVE: document.getElementById('ssPicks').checked,
                      FOOTER: document.getElementById('ssFooter').value };
+    var mode = {};
+    document.querySelectorAll('#siteForm [data-mode]').forEach(function(sel) { mode[sel.getAttribute('data-mode')] = sel.value; });
+    out.drafts = { DRAFT_TIME_ET: document.getElementById('ssDraftTime').value || '08:00',
+                   WEEKLY_DRAFT_DAY: document.getElementById('ssWeeklyDay').value, PREVIEW_MODE: mode };
     return out;
   }
   function loadSite() {

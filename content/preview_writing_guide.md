@@ -93,16 +93,27 @@ Then the body, short paragraphs, no bullet lists, no tables.
 The site adds "The Matchups" heading, the logos and the venue / TV line under
 each subhead, and the "more league trends" line at the end. Don't write them.
 
+### A weekly preview (NFL, College Football)
+
+The same as a sport's preview, for every game of the week (the packet's
+`week`), grouped by kickoff window: a `## Thursday` line (the packet's
+`window` for the game: Thursday, Saturday, Sunday 1:00 PM, Sunday 4:25 PM,
+Sunday Night, Monday Night) before its first game, then each game's `###`
+subhead with its day: `### Colts at Texans · Thursday 8:15 PM ET`. With 10+
+games, a game's paragraph can be shorter: 2 numbers at most.
+
 ### The all-sports preview
 
 1. The intro: one or two short paragraphs, leading with the lead game.
 2. One section per sport, in the packet's order: `## NBA` (the sport's name as
    the packet gives it, nothing else on the line). Under it, exactly two short
-   paragraphs on that sport's games with the most going on.
+   paragraphs on that sport's games with the most going on. A sport with a
+   `weekly_preview` (NFL, College Football): one paragraph, on that day's
+   games only.
 
 The site adds each section's game count line, the "Also with trends:" line,
-the "Read the full preview" link and the closing "more league trends" line.
-Don't write them.
+the "Read the full preview" link (weekly sports: "Read the NFL Week 11
+Preview") and the closing "more league trends" line. Don't write them.
 
 ## Don't
 

@@ -127,14 +127,35 @@ def week_of(sport, day):
     return next((w for w in weeks if w['start'] <= day <= w['end']), None) or next((w for w in weeks if w['start'] > day), None)
 
 
+def weekly(sport):
+    """A weekly preview (NFL, College Football unless the admin's
+    PREVIEW_MODE says daily): one per week, every game in it."""
+    return sport.weekly and sports.preview_weekly(sport.key)
+
+
+def week_num(sport, day):
+    """The ESPN week number ("Week 11" -> 11) of the week `day` falls in
+    (else the next one), or None."""
+    w = week_of(sport, day)
+    m = re.search(r'(\d+)', (w or {}).get('label') or '')
+    return int(m.group(1)) if m else None
+
+
+def on_day(g, day):
+    t = parse(g.get('start'))
+    return bool(t) and t.astimezone(ET).date().isoformat() == day
+
+
 def slate(sport, day):
     """(trends key, games, before): the day's games; football: the week's
-    games from that day on."""
+    games from that day on (a weekly preview), or that day's (daily)."""
     if sport.weekly:
         w = week_of(sport, day)
         if not w:
             return None, [], day
         games = [g for d, g in sport.all_games() if g.get('wk') == w['key'] and d >= day]
+        if not weekly(sport):
+            games = [g for g in games if on_day(g, day)]
         return w['key'], sorted(games, key=lambda g: g.get('start') or ''), w['start']
     return day, sorted(sport.games(day), key=lambda g: (g.get('start') or '', g['away'])), day
 
@@ -211,7 +232,7 @@ def day_games(sport, day):
     games = slate(sport, day)[1]
     if not sport.weekly:
         return games
-    return [g for g in games if parse(g.get('start')) and parse(g['start']).astimezone(ET).date().isoformat() == day]
+    return [g for g in games if on_day(g, day)]
 
 
 def candidates(key, day):
@@ -339,15 +360,15 @@ def book_name(sport, b):
     return ((sport.sources.get(b) or {}).get('name') or b) if b else None
 
 
-def packet_games(key, day):
-    """The games in a sport's packet: names, start, each trend's season
-    rate (10+ games), the lines (open, now, best price and book), and
-    which game is the Matchup of the Day and which the lead game."""
+def packet_games(key, day, ids=None):
+    """The games in a sport's packet (ids: only these): names, start, each
+    trend's season rate (10+ games), the lines (open, now, best price and
+    book), and which game is the Matchup of the Day and which the lead game."""
     sp = sport_of(key)
     on = trends_on(sp, day)
     motd = motd_of(key, day)
     lead = lead_of(key, day)
-    games = slate(sp, day)[1]
+    games = [g for g in slate(sp, day)[1] if ids is None or str(g['id']) in ids]
     if len(games) > PACKET_MAX:   # the busiest games, in start order
         keep = sorted(games, key=lambda g: -len(on.get(str(g['id'])) or []))[:PACKET_MAX]
         if lead:
@@ -358,6 +379,7 @@ def packet_games(key, day):
         items = on.get(str(g['id'])) or []
         t = parse(g.get('start'))
         when = t.astimezone(ET).strftime('%A %-I:%M %p ET' if sp.weekly else '%-I:%M %p ET') if t else None
+        extra = {'window': kickoff_window(t)} if weekly(sp) and t else {}
         out.append({
             'id': str(g['id']), 'matchup': f"{sp.full_name(g['away'])} at {sp.full_name(g['home'])}",
             'away': {'code': sp.code(g['away']), 'name': sp.full_name(g['away'])},
@@ -368,8 +390,27 @@ def packet_games(key, day):
             'trends': [{'trend': x['text'], 'season_record': f"{x['w']}–{x['l']}", 'season_pct': f"{round(x['pct'] * 100)}%"}
                        for x in items if x['pct'] is not None and x['n'] >= RATE_MIN],
             'streaks': [x['text'] for x in items if x['kind'] == 'streak'],
-            'lines': lines_of(sp, day, g)})
+            'lines': lines_of(sp, day, g), **extra})
     return out
+
+
+def kickoff_window(t):
+    """A weekly preview's group for a game: Thursday, Saturday, Sunday 1:00
+    PM (noon to 3:59), Sunday 4:25 PM (4:00 to 6:59), Sunday Night, Monday
+    Night; another day or time: the day (and the time on a Sunday morning)."""
+    t = t.astimezone(ET)
+    day = t.strftime('%A')
+    if day == 'Sunday':
+        if t.hour >= 19:
+            return 'Sunday Night'
+        if t.hour >= 16:
+            return 'Sunday 4:25 PM'
+        if t.hour >= 12:
+            return 'Sunday 1:00 PM'
+        return 'Sunday ' + t.strftime('%-I:%M %p')
+    if day == 'Monday' and t.hour >= 19:
+        return 'Monday Night'
+    return day
 
 
 def parse(iso):
@@ -743,8 +784,27 @@ def split(body):
 
 
 def page_dir(key, day=None):
+    """/preview/, /nfl/preview/; a day's page: /preview/2026-11-18/; a
+    weekly piece's (its `week:`, a number): /nfl/preview/week-11/."""
     base = INDEX if key == ALL else f"{sports.BY_KEY[key]['slug']}/{INDEX}"
+    if isinstance(day, int):
+        return f'{base}/week-{day}/'
     return f'{base}/{day}/' if day else f'{base}/'
+
+
+def piece_week(p):
+    """A weekly piece's week number (its `week:`, else from its date), or
+    None for a daily piece."""
+    key = p['sport']
+    if key == ALL or not (p.get('week') or (sports.BY_KEY.get(key, {}).get('schedule') == 'week' and sports.preview_weekly(key))):
+        return None
+    m = re.search(r'(\d+)', str(p.get('week') or ''))
+    return int(m.group(1)) if m else week_num(sport_of(key), p['date'])
+
+
+def piece_dir(p):
+    w = piece_week(p)
+    return page_dir(p['sport'], w if w else p['date'])
 
 
 def card_path(key, day):
@@ -755,20 +815,26 @@ def has_card(key, day):
     return os.path.exists(os.path.join(ROOT, card_path(key, day)))
 
 
-def label(key, day):
+def label(key, day, week=None):
     if key == ALL:
         return f'Preview &middot; {esc(long_day(day))}'
+    if week:
+        return f"{esc(sports.seo_name(key))} Week {week} {esc(sports.seg_words(key))} Betting Preview"
     return f"{esc(sports.seo_name(key))} {esc(sports.seg_words(key))} Betting Preview &middot; {esc(short_day(day))}"
 
 
 TITLE_WORDS = 10   # a headline longer than this isn't used in the tab title
 
 
-def title(key, headline, day=None):
+def title(key, headline, day=None, week=None):
     """The browser tab: "[Sport] [segment words] Betting Preview: [headline]
     | RTYB", the headline only when it's 10 words or fewer; else (day given)
-    "... Betting Preview · Nov 18 | RTYB"."""
+    "... Betting Preview · Nov 18 | RTYB". Weekly: "NFL Week 11 First
+    Quarter & First Half Betting Preview", and the headline when it fits."""
     lead = 'First Period, Quarter & Half Betting Preview' if key == ALL else f'{sports.seo_name(key)} {sports.seg_words(key)} Betting Preview'
+    if week:
+        lead = f'{sports.seo_name(key)} Week {week} {sports.seg_words(key)} Betting Preview'
+        return f'{lead}: {headline} | RTYB' if headline and len(headline.split()) <= TITLE_WORDS else f'{lead} | RTYB'
     if day and (not headline or len(headline.split()) > TITLE_WORDS):
         d = date.fromisoformat(day)
         return f"{lead} · {d.strftime('%b')} {d.day} | RTYB"
@@ -898,8 +964,9 @@ def matchup_heads(body_html, key, day, root):
         return (f'<h3 class="pv-gh"><a href="{esc(to)}"><span class="pv-logos">{logos}</span><span>{text}</span></a></h3>'
                 + (f'<p class="pv-ven">{line}</p>' if line else ''))
     body_html, n = re.subn(r'<h3>(.*?)</h3>', head, body_html)
+    body_html = re.sub(r'<h2>(.*?)</h2>', r'<h2 class="pv-win">\1</h2>', body_html)   # a weekly piece's kickoff windows
     if n:
-        body_html = re.sub(r'(<h3 )', '<h2 class="pv-mh">The Matchups</h2>\\1', body_html, count=1)
+        body_html = re.sub(r'(<h2 class="pv-win"|<h3 )', '<h2 class="pv-mh">The Matchups</h2>\\1', body_html, count=1)
     return body_html
 
 
@@ -932,8 +999,12 @@ def sport_sections(body_html, day, root, have):
             f'<a href="{esc(href)}">{sport.name_html(g["away"])} at {sport.name_html(g["home"])}</a>'
             for g in also) + '</p>') if also else ''
         target = page_dir(sp['key'], day) if (sp['key'], day) in have else page_dir(sp['key'])
+        read = f"Read the full {esc(sports.seo_name(sp))} preview"
+        if weekly(sport):   # a weekly sport: that day's games here, the week in its own preview
+            wk = week_num(sport, day)
+            target, read = page_dir(sp['key'], wk) if wk else page_dir(sp['key']), f"Read the {esc(sports.seo_name(sp))} Week {wk} Preview"
         out.append(f'<h2 class="pv-sh">{icons.sport_icon(sp)}<span>{esc(sports.seo_name(sp))}</span></h2><p class="pv-smeta">{meta}</p>'
-                   f'{rest}{also_html}<p class="pv-more"><a href="{root}{target}">Read the full {esc(sports.seo_name(sp))} preview &rarr;</a></p>')
+                   f'{rest}{also_html}<p class="pv-more"><a href="{root}{target}">{read} &rarr;</a></p>')
     return ''.join(out)
 
 
@@ -1036,7 +1107,8 @@ def quiet_line(key, day):
 
 def past_line(key, day, days, root):
     older = [d for d in days if d < day][:2]
-    links = ' &middot; '.join(f'<a href="{root}{page_dir(key, d)}">{esc(short_day(d))}</a>' for d in older)
+    weeks = {d: w for d, w in days.items()} if isinstance(days, dict) else {}
+    links = ' &middot; '.join(f'<a href="{root}{page_dir(key, weeks.get(d) or d)}">{esc(f"Week {weeks[d]}" if weeks.get(d) else short_day(d))}</a>' for d in older)
     return (f'<p class="pv-past">Past previews: {links + " &middot; " if links else ""}'
             f'<a href="{root}{page_dir(key)}archive/">All &rarr;</a></p>')
 
@@ -1064,7 +1136,7 @@ def article(p, root, days, have):
            if has_card(key, day) else '')
     side = (tonight(key, day, root) + '<section class="pv-side-card pv-tab"><h2 class="pv-side-h">Picks are coming with Premium</h2>'
             '<p>Get on the list and you&rsquo;ll hear first.</p><!--signup:tab--></section>')
-    return (f'<div class="pv"><article class="pv-main"><p class="pv-label">{label(key, day)}</p>'
+    return (f'<div class="pv"><article class="pv-main"><p class="pv-label">{label(key, day, piece_week(p))}</p>'
             f'<h1 class="pv-h1">{esc(head)}</h1>' + (f'<p class="pv-dek">{esc(dek)}</p>' if dek else '') +
             f'<p class="pv-by">By RTYB &middot; {published_txt(p)}{esc(what)}</p>{img}'
             f'<div class="pv-body">{body}</div>{quiet_line(key, day)}{past_line(key, day, days, root)}{FOOT}</article>'
@@ -1078,7 +1150,7 @@ def empty(key, root):
 
 
 def archive(key, pieces, root):
-    rows = ''.join(f'<a class="st-card pv-arow" href="{root}{page_dir(key, p["date"])}"><span class="pv-label">{esc(short_day(p["date"]))}</span>'
+    rows = ''.join(f'<a class="st-card pv-arow" href="{root}{piece_dir(p)}"><span class="pv-label">{esc(f"Week {piece_week(p)}" if piece_week(p) else short_day(p["date"]))}</span>'
                    f'<b class="pv-ahead">{esc(split(p["body"])[0])}</b></a>' for p in pieces)
     h1 = 'Past Previews' if key == ALL else f"Past {esc(sports.seo_name(key))} Previews"
     return f'<div class="pv pv-archive"><article class="pv-main"><h1 class="pv-h1">{h1}</h1><div class="pv-alist">{rows}</div></article></div>'
@@ -1100,13 +1172,17 @@ def pages(now_utc):
     have = {(p['sport'], p['date']) for p in pieces}
     out = []
     for key in [ALL] + [sp['key'] for sp in sports.SPORTS]:
-        mine = sorted(by_key.get(key) or [], key=lambda p: p['date'], reverse=True)
-        days = [p['date'] for p in mine]
+        mine, seen = [], set()
+        for p in sorted(by_key.get(key) or [], key=lambda p: p['date'], reverse=True):   # one piece per week page: the newest
+            if piece_dir(p) not in seen:
+                seen.add(piece_dir(p))
+                mine.append(p)
+        days = {p['date']: piece_week(p) for p in mine}
         for i, p in enumerate(mine):
             head, dek, _ = split(p['body'])
             img = card_path(key, p['date']) if has_card(key, p['date']) else None
-            for d, canon in ((page_dir(key, p['date']), None),) + (((page_dir(key), page_dir(key, p['date'])),) if i == 0 else ()):
-                out.append((key, d, title(key, head, p['date']), dek or head,
+            for d, canon in ((piece_dir(p), None),) + (((page_dir(key), piece_dir(p)),) if i == 0 else ()):
+                out.append((key, d, title(key, head, p['date'], piece_week(p)), dek or head,
                             (lambda root, p=p, days=days: article(p, root, days, have)), canon, img, False))
         if mine:
             out.append((key, page_dir(key) + 'archive/', title(key, 'Past Previews').replace(': Past Previews', ' Archive'),
@@ -1143,8 +1219,9 @@ def seo_url():
 
 
 def dated_keys():
-    """(key, date) of every published preview (for the old /on-tap/ forwards)."""
-    return [(p['sport'], p['date']) for p in daily.load() if p['kind'] == 'preview']
+    """(key, date, page dir) of every published preview (for the old
+    /on-tap/ forwards, and a weekly piece's dated page to its week's)."""
+    return [(p['sport'], p['date'], piece_dir(p)) for p in daily.load() if p['kind'] == 'preview' and (p['sport'] == ALL or p['sport'] in sports.BY_KEY)]
 
 
 # -------------------------------------------------- home and hub sections
@@ -1152,10 +1229,11 @@ def todays(key, now_utc):
     """The preview showing today for key (football: this week's), or None."""
     today = today_et(now_utc)
     pieces = [p for p in visible(now_utc) if p['sport'] == key]
-    if key != ALL and sports.BY_KEY[key].get('schedule') == 'week':
-        d = date.fromisoformat(today)
-        since = (d - timedelta(days=(d.weekday() - 3) % 7)).isoformat()   # this week's Thursday
-        return next((p for p in pieces if p['date'] >= since), None)
+    if key != ALL and sports.BY_KEY[key].get('schedule') == 'week' and sports.preview_weekly(key):
+        sp = sport_of(key)
+        now = (week_of(sp, today) or {}).get('key')
+        return next((p for p in sorted(pieces, key=lambda p: p['date'], reverse=True)
+                     if now and (week_of(sp, p['date']) or {}).get('key') == now), None)
     return next((p for p in pieces if p['date'] == today), None)
 
 
@@ -1183,11 +1261,12 @@ def hub_section(key, now_utc, root=''):
     first = next((b for b in re.split(r'\n\s*\n', md) if b.strip() and not b.strip().startswith(('#', '<<'))), '')
     img = (f'<img class="pv-img" src="{root}{card_path(key, p["date"])}" width="1200" height="630" alt="">'
            if has_card(key, p['date']) else '')
-    name = sports.seo_name(key)
+    name, wk = sports.seo_name(key), piece_week(p)
+    when = f'Week {wk}' if wk else short_day(p['date'])   # a weekly preview shows all week
     return (f'<section class="fr-sec pv-hub" id="preview"><div class="fr-head fr-stack"><h2>{esc(name)} Preview</h2>'
-            f'<span class="fr-date">{esc(short_day(p["date"]))}</span></div><div class="st-card pv-hub-card">{img}'
+            f'<span class="fr-date">{esc(when)}</span></div><div class="st-card pv-hub-card">{img}'
             f'<h3 class="pv-hub-h">{esc(head)}</h3><p class="pv-hub-p">{daily.inline(daily.plain(first))}</p>'
-            f'<a class="pv-go" href="{root}{page_dir(key)}">Read the full {esc(name)} preview &rarr;</a></div></section>')
+            f'<a class="pv-go" href="{root}{page_dir(key)}">Read the full {esc(name)} {"Week " + str(wk) + " " if wk else ""}preview &rarr;</a></div></section>')
 
 
 # ------------------------------------------------------------ image cards
@@ -1318,7 +1397,11 @@ def build_cards(now_utc, logo_svg):
             continue
         jobs.append((os.path.join(ROOT, card_path(key, day)), page_html))
         keys.append((key, day, sig))
-    write_json(os.path.join(ROOT, CARD_DIR, today, 'games.json'), admin_games(today, [k for k, d in want if d == today], now_utc))
+    # the admin's lead dropdowns and "Draft now": today's drafts, plus every sport with games to draft
+    on = [k for k in [ALL] + [sp['key'] for sp in sports.shown(date.fromisoformat(today))]
+          if (covers(today) if k == ALL else slate(sport_of(k), today)[1])]
+    write_json(os.path.join(ROOT, CARD_DIR, today, 'games.json'),
+               admin_games(today, list(dict.fromkeys([k for k, d in want if d == today] + on)), now_utc))
     drew = draw(jobs)
     for (key, day, sig), (out, _) in zip(keys, jobs):
         if os.path.exists(out):
@@ -1342,4 +1425,6 @@ def admin_games(day, keys, now_utc):
                           'label': (f'{sp.label} · ' if key == ALL else '') + f"{sp.full_name(g['away'])} at {sp.full_name(g['home'])}" + (f' · {when}' if when else '')})
         out[key] = {'lead': f"{lead['sport']}:{lead['id']}" if lead else None,
                     'motd': f'{motd[0]}:{motd[1]}' if motd else None, 'games': games}
+        if key != ALL and weekly(sport_of(key)):   # the admin's "Draft now": one draft per week
+            out[key]['week'] = week_num(sport_of(key), day)
     return out

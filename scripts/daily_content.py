@@ -334,12 +334,13 @@ def sport_recap(key, day):
                                        seqs, {team_of(D, g[s])[1] for g in tonight for s in ('away', 'home')}, labels)[:8]}}
 
 
-def preview_packet(key, day):
-    """A sport's Preview packet (scripts/preview.py packet_games)."""
+def preview_packet(key, day, ids=None):
+    """A sport's Preview packet (scripts/preview.py packet_games); ids: only
+    these games (the all-sports preview: a weekly sport's games that day)."""
     sp = sports.BY_KEY[key]
     sport = pv.sport_of(key)
-    games = pv.slate(sport, day)[1]
-    rows = pv.packet_games(key, day)
+    games = [g for g in pv.slate(sport, day)[1] if ids is None or str(g['id']) in ids]
+    rows = pv.packet_games(key, day, ids)
     lead = next((g['matchup'] for g in rows if g['lead_game']), None)
     motd = next((g['matchup'] for g in rows if g['matchup_of_the_day']), None)
     out = {'sport': sports.seo_name(key), 'segments': seg_words(key), 'date': day, 'games_on_the_slate': len(games),
@@ -367,9 +368,13 @@ def all_preview(day):
     lead = pv.lead_of(daily.ALL, day)
     motd = pv.motd_of(daily.ALL, day)
     for sp in sports.shown(d):
-        if weekly(sp['key']) and d.weekday() != WEEKLY_WINDOWS['preview'][0]:
-            continue
-        x = builder('preview', sp['key'])(day)
+        if weekly_preview(sp['key']):   # only that day's games; the week has its own preview
+            ids = {str(g['id']) for g in pv.day_games(pv.sport_of(sp['key']), day)}
+            x = preview_packet(sp['key'], day, ids) if ids else None
+            if x:
+                x['weekly_preview'] = f"{sports.seo_name(sp)} {x.get('week') or 'Week'} Preview"
+        else:
+            x = builder('preview', sp['key'])(day)
         if x:
             for g in x['games']:   # the home page's own lead and Matchup of the Day
                 g['lead_game'] = bool(lead and (lead['sport'], lead['id']) == (sp['key'], g['id']))
@@ -426,7 +431,7 @@ def builder(kind, key):
         return all_preview
     if key == 'nhl':
         return nhl_recap if kind == 'recap' else nhl_preview
-    if sports.BY_KEY[key].get('schedule') == 'week':
+    if sports.BY_KEY[key].get('schedule') == 'week' and (kind == 'recap' or sports.preview_weekly(key)):
         return lambda day: (week_recap if kind == 'recap' else week_preview)(key, day)
     return lambda day: (sport_recap if kind == 'recap' else sport_preview)(key, day)
 
@@ -463,12 +468,19 @@ TASK = {
     'all_preview': "Write Preview, today's betting preview across every sport on the slate ({sport}), for the {seg}, from this packet. "
                    "Follow the writing guide: the STAT / TREND / EDGE lines for the packet's boxes, the headline and dek, the intro, then one '##' section per sport with two paragraphs each.",
     'week_recap': "Write the Weekend Recap, the {sport} {seg} betting results of {week} so far, from this packet. Cover the biggest results, how RTYB's league trends did, the weekend's best and worst results, and the streaks that were extended or snapped.",
-    'week_preview': "Write the {week} Preview, this week's {sport} {seg} betting preview, from this packet." + PREVIEW,
+    'week_preview': "Write the {week} Preview, this week's {sport} {seg} betting preview, from this packet." + PREVIEW +
+                    " Group the games by kickoff window ('##' lines, the games' `window`).",
 }
 
 
 def weekly(sport):
     return sport != daily.ALL and sports.BY_KEY[sport].get('schedule') == 'week'
+
+
+def weekly_preview(sport):
+    """A weekly Preview (NFL, College Football unless the admin's
+    PREVIEW_MODE says daily): one per week, every game in it."""
+    return weekly(sport) and sports.preview_weekly(sport)
 
 
 def title(kind, sport, day, packet=None):
@@ -477,9 +489,11 @@ def title(kind, sport, day, packet=None):
     sp = sports.BY_KEY[sport]
     seg = ' and '.join(s['label'].replace('1st ', 'First ') for s in sp['segments'])
     when = date.fromisoformat(day).strftime('%b %-d, %Y')
-    if weekly(sport):
+    if weekly(sport) and kind == 'recap':
+        return f"{sp['label']} {seg} Betting Weekend Recap — {when}"
+    if weekly_preview(sport) and kind == 'preview':   # "NFL Week 11 First Quarter & First Half Betting Preview"
         week = (packet or {}).get('week') or 'Week'
-        return f"{sp['label']} {seg} Betting {'Weekend Recap' if kind == 'recap' else week + ' Preview'} — {when}"
+        return f"{sports.seo_name(sport)} {week} {sports.seg_words(sport)} Betting Preview"
     return f"{sp['label']} {seg} Betting {'Recap' if kind == 'recap' else 'Preview'} — {when}"
 
 
@@ -516,7 +530,7 @@ def write_piece(kind, sport, day, packet):
     import anthropic   # only the scheduled run needs the SDK
     client = anthropic.Anthropic()
     seg = packet.get('segment') or packet.get('segments')
-    task = TASK['all_preview' if sport == daily.ALL else ('week_' if weekly(sport) else '') + kind]
+    task = TASK['all_preview' if sport == daily.ALL else ('week_' if (weekly_preview(sport) if kind == 'preview' else weekly(sport)) else '') + kind]
     prompt = task.format(sport=packet['sport'], seg=seg, week=packet.get('week')) + '\n\n<packet>\n' + json.dumps(packet, indent=1, ensure_ascii=False) + '\n</packet>'
     # A declined request falls back server-side to Anthropic's recommended model
     response = client.beta.messages.create(
@@ -566,6 +580,9 @@ def save(kind, sport, day, body, model, packet):
              f'check: {json.dumps(check)}']
     if sport == daily.ALL:   # the sports it covers
         front.append(f"sports: {json.dumps([sp['key'] for sp in sports.SPORTS if sports.seo_name(sp) in (packet.get('sports') or {})])}")
+    m = re.search(r'(\d+)', str(packet.get('week') or '')) if kind == 'preview' and weekly_preview(sport) else None
+    if m:   # a weekly piece's page: /nfl/preview/week-11/
+        front.append(f'week: {m.group(1)}')
     if kind == 'preview':   # the lead game (the admin's dropdown changes it) and the Matchup of the Day
         lead, motd = pv.lead_of(sport, day), pv.motd_of(sport, day)
         if lead:
@@ -582,13 +599,33 @@ def save(kind, sport, day, body, model, packet):
 
 
 def exists(kind, sport, day):
+    """A draft or published piece for that day; a weekly preview: for that week."""
     name = f'{sport}-{kind}-{day}.md'
-    return os.path.exists(os.path.join(DRAFTS, name)) or os.path.exists(os.path.join(PUBLISHED, name))
+    if os.path.exists(os.path.join(DRAFTS, name)) or os.path.exists(os.path.join(PUBLISHED, name)):
+        return True
+    if kind == 'preview' and weekly_preview(sport):
+        sp = pv.sport_of(sport)
+        wk = (pv.week_of(sp, day) or {}).get('key')
+        for folder in (DRAFTS, PUBLISHED):
+            for f in os.listdir(folder) if os.path.isdir(folder) else []:
+                m = re.fullmatch(rf'{sport}-preview-(\d{{4}}-\d{{2}}-\d{{2}})\.md', f)
+                if wk and m and (pv.week_of(sp, m.group(1)) or {}).get('key') == wk:
+                    return True
+    return False
+
+
+def published(kind, sport, day):
+    return os.path.exists(os.path.join(PUBLISHED, f'{sport}-{kind}-{day}.md'))
+
+
+def lines_posted(packet):
+    """A weekly preview waits until the week's lines are up."""
+    return any(g.get('lines') for g in packet.get('games') or [])
 
 
 def packet_for(kind, sport, day):
     """The recap dated `day` covers the games the night before."""
-    if weekly(sport):   # the week's own rules (week_recap / week_preview)
+    if weekly(sport) and (kind == 'recap' or weekly_preview(sport)):   # the week's own rules (week_recap / week_preview)
         return builder(kind, sport)(day)
     games_day = (date.fromisoformat(day) - timedelta(days=1)).isoformat() if kind == 'recap' else day
     return builder(kind, sport)(games_day)
@@ -609,6 +646,11 @@ def scheduled(now=None):
             continue
         for sport in [s for s in SPORTS if s in on] + ([daily.ALL] if kind == 'preview' else []):
             wday, start, end = (WEEKLY_WINDOWS if weekly(sport) else WINDOWS)[kind]
+            if kind == 'preview':   # the admin's DRAFT_TIME_ET (and WEEKLY_DRAFT_DAY for a weekly preview)
+                wday = sports.weekly_draft_day() if weekly_preview(sport) else None
+                if (now.hour, now.minute) < sports.draft_time() or now.hour > end:
+                    continue
+                start = 0
             if (wday is not None and now.weekday() != wday) or not start <= now.hour <= end:
                 continue
             if exists(kind, sport, day):
@@ -616,6 +658,9 @@ def scheduled(now=None):
             packet = packet_for(kind, sport, day)
             if not packet:
                 print(f'{sport} {kind} {day}: no games')
+                continue
+            if kind == 'preview' and weekly_preview(sport) and not lines_posted(packet):
+                print(f'{sport} {kind} {day}: the week\'s lines aren\'t posted yet')
                 continue
             try:
                 body, model = write_piece(kind, sport, day, packet)
@@ -632,6 +677,8 @@ if __name__ == '__main__':
     else:
         kind, sport = args[0], args[1]
         day = args[2] if len(args) > 2 else datetime.now(ET).date().isoformat()
+        if published(kind, sport, day) and '--dry-run' not in sys.argv:   # the admin's Redraft: unpublish first
+            sys.exit(f'{sport}-{kind}-{day} is published; unpublish it before redrafting')
         packet = packet_for(kind, sport, day)
         if '--dry-run' in sys.argv or not packet:
             print(json.dumps(packet, indent=1, ensure_ascii=False))

@@ -44,6 +44,10 @@ DEFAULT_SETTINGS = {
                     {'key': 'trends', 'label': 'Trends'}, {'key': 'stats', 'label': 'Stats'}, {'key': 'teams', 'label': 'Teams'}],
     'bottom_bar': [{'key': k, 'label': k.title()} for k in ('matchups', 'odds', 'trends', 'stats')],
     'switches': {'PREVIEW_LIVE': True, 'PICKS_LIVE': False, 'FOOTER': 'home-only'},
+    # Preview drafting (admin Site settings): the earliest time the refresh
+    # job drafts (ET), the weekly sports' draft day, and each sport's mode
+    # (missing: NFL and College Football weekly, the rest daily)
+    'drafts': {'DRAFT_TIME_ET': '08:00', 'WEEKLY_DRAFT_DAY': 'Tuesday', 'PREVIEW_MODE': {}},
 }
 
 
@@ -63,6 +67,8 @@ def load_settings(path=SETTINGS_PATH):
                 v.setdefault('PREVIEW_LIVE', v['ON_TAP_LIVE'])
                 del v['ON_TAP_LIVE']
             out['switches'].update(v)
+        elif k == 'drafts' and isinstance(v, dict):
+            out['drafts'].update({x: y for x, y in v.items() if x in out['drafts']})
         elif k in out and isinstance(v, list) and v:
             out[k] = v
     return out
@@ -102,6 +108,36 @@ def footer_on(is_home=False):
 # Preview section). False: no drafts (no API calls) and Yesterday's Best is
 # the hero.
 PREVIEW_LIVE = bool(SWITCHES.get('PREVIEW_LIVE', True))
+
+# Drafting (content/site_settings.json "drafts"): the refresh job drafts at
+# or after DRAFT_TIME_ET; weekly sports on WEEKLY_DRAFT_DAY.
+DRAFTS = SETTINGS['drafts']
+DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+
+def draft_time():
+    """(hour, minute) of DRAFT_TIME_ET; a bad value falls back to 8:00."""
+    m = re.fullmatch(r'([01]?\d|2[0-3]):([0-5]\d)', str(DRAFTS.get('DRAFT_TIME_ET') or ''))
+    return (int(m.group(1)), int(m.group(2))) if m else (8, 0)
+
+
+def weekly_draft_day():
+    """WEEKLY_DRAFT_DAY as a weekday number (Monday 0); default Tuesday."""
+    d = str(DRAFTS.get('WEEKLY_DRAFT_DAY') or '').title()
+    return DAYS.index(d) if d in DAYS else 1
+
+
+def preview_mode(key):
+    """'weekly' or 'daily'. Weekly needs the schedule's weeks (ESPN), so
+    only NFL and College Football can be weekly (their default)."""
+    sp = BY_KEY.get(key) or {}
+    if sp.get('schedule') != 'week':
+        return 'daily'
+    return 'daily' if (DRAFTS.get('PREVIEW_MODE') or {}).get(key) == 'daily' else 'weekly'
+
+
+def preview_weekly(key):
+    return preview_mode(key) == 'weekly'
 
 
 # in nav order (menus, pills): NHL, NBA, NCAAB, NFL, NCAAF, then WNBA and MLB

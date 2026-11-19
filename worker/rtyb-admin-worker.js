@@ -44,6 +44,9 @@
  *                         plus the last 3 days' published previews (live: true) so they stay editable
  *   /content/save       body: {path, text} -- saves an edited draft, column or published preview in place
  *   /content/publish    body: {path, text} -- writes it to content/published/ and removes the draft
+ *   /content/redraft    body: {sport, date} -- starts draft.yml (Redraft / Draft now): drafts that
+ *                         sport's Preview for that date and replaces the unpublished draft; a
+ *                         published preview is refused (unpublish it first)
  *   /odds/save          body: {sport, rows: [{date, away, home, segment, ats, ml, total}], removes: [{date, away, home}]}
  *                         -- odds for the other sports (not NHL), one file per sport at
  *                         data_admin/odds/{sport}.json, stored per game + segment + market
@@ -206,7 +209,42 @@ function validateSite(b) {
   if (typeof preview !== "boolean" || typeof sw.PICKS_LIVE !== "boolean") return "switches: PREVIEW_LIVE and PICKS_LIVE must be true or false";
   if (!["home-only", "everywhere"].includes(sw.FOOTER)) return "switches: FOOTER must be home-only or everywhere";
   out.switches = { PREVIEW_LIVE: preview, PICKS_LIVE: sw.PICKS_LIVE, FOOTER: sw.FOOTER };
+  // Preview drafting: the earliest draft time (ET), the weekly sports' day,
+  // and each sport's mode (weekly only where the schedule has weeks)
+  const dr = b.drafts || {};
+  const time = dr.DRAFT_TIME_ET || "08:00";
+  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) return "drafts: DRAFT_TIME_ET must be HH:MM (24-hour, ET)";
+  const day = dr.WEEKLY_DRAFT_DAY || "Tuesday";
+  if (!DAYS.includes(day)) return "drafts: WEEKLY_DRAFT_DAY must be a day of the week";
+  const mode = {};
+  for (const k of SITE_KEYS.sports) {
+    const m = (dr.PREVIEW_MODE || {})[k] || (WEEKLY_SPORTS.includes(k) ? "weekly" : "daily");
+    if (!["daily", "weekly"].includes(m) || (m === "weekly" && !WEEKLY_SPORTS.includes(k))) return `drafts: ${k} can't be ${m}`;
+    mode[k] = m;
+  }
+  out.drafts = { DRAFT_TIME_ET: time, WEEKLY_DRAFT_DAY: day, PREVIEW_MODE: mode };
   return out;
+}
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const WEEKLY_SPORTS = ["nfl", "ncaaf"];   // weekly needs the schedule's weeks (ESPN)
+
+// Redraft / Draft now: start draft.yml for one sport and date (it replaces
+// the unpublished draft). A published preview is refused: unpublish first.
+const DRAFT_WORKFLOW = "draft.yml";
+async function startDraft(env, body) {
+  const sport = body && body.sport, day = body && body.date;
+  if (![...SITE_KEYS.sports, "all"].includes(sport) || !/^\d{4}-\d{2}-\d{2}$/.test(day || "")) {
+    return { ok: false, status: 400, detail: "sport and date (YYYY-MM-DD) required" };
+  }
+  const pub = await ghRequest(env, `contents/content/published/${sport}-preview-${day}.md?ref=${BRANCH}`, { method: "GET" });
+  if (pub.status === 200) return { ok: false, status: 409, detail: "This preview is published. Unpublish it before redrafting." };
+  const r = await ghRequest(env, `actions/workflows/${DRAFT_WORKFLOW}/dispatches`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ref: BRANCH, inputs: { sport, date: day } }),
+  });
+  if (r.status !== 204) return { ok: false, status: r.status, detail: `Couldn't start the draft: ${(await r.text()).slice(0, 300)}` };
+  return { ok: true };
 }
 
 // Every draft and column, with its text: {ok, files: [{path, text}]}
@@ -770,6 +808,11 @@ export default {
         const err = validateContent(body, true);
         if (err) return json({ ok: false, error: err }, 400);
         result = await putText(env, body.path, `Edit ${body.path.split("/").pop()} (admin)`, body.text);
+        break;
+      }
+      case "/content/redraft": {
+        result = await startDraft(env, body);
+        if (!result.ok && (result.status === 400 || result.status === 409)) return json({ ok: false, error: result.detail }, result.status);
         break;
       }
       case "/content/publish": {

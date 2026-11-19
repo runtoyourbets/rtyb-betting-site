@@ -151,7 +151,7 @@ def load():
         out.append({'kind': kind, 'sport': sport, 'date': day, 'slug': slug, 'path': path, 'body': body, 'covers': covers,
                     'title': meta.get('title') or hook or name[:-3], 'hook': hook, 'teaser': teaser, 'lead': meta.get('lead'),
                     'boxes': {k: meta[k] for k in ('stat_of_night', 'league_trend', 'edge_play') if isinstance(meta.get(k), dict)},
-                    'published': published_at(name, meta, stamps)})
+                    'published': published_at(name, meta, stamps), 'week': meta.get('week')})
     if stamps != before:
         with open(PUBLISHED_AT, 'w', encoding='utf-8') as f:
             json.dump(stamps, f, indent=1, sort_keys=True)

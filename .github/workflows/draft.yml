@@ -1,0 +1,70 @@
+name: Draft a Preview (admin Redraft / Draft now)
+
+# Started by the admin Worker's /content/redraft (the Redraft and Draft now
+# buttons): drafts one sport's Preview for one date with today's packet and
+# writing guide, replacing its unpublished draft. A published preview is
+# refused (daily_content.py exits); unpublish it first.
+on:
+  workflow_dispatch:
+    inputs:
+      sport:
+        description: "nhl, nba, ncaab, nfl, ncaaf, wnba, mlb or all"
+        required: true
+      date:
+        description: "YYYY-MM-DD"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rtyb-draft-${{ github.event.inputs.sport }}
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Draft it
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SPORT: ${{ github.event.inputs.sport }}
+          DAY: ${{ github.event.inputs.date }}
+        run: |
+          echo "$SPORT" | grep -Eqx 'nhl|nba|ncaab|nfl|ncaaf|wnba|mlb|all' || { echo "unknown sport"; exit 1; }
+          echo "$DAY" | grep -Eqx '[0-9]{4}-[0-9]{2}-[0-9]{2}' || { echo "bad date"; exit 1; }
+          pip install --quiet anthropic
+          python3 scripts/daily_content.py preview "$SPORT" "$DAY"
+
+      - name: Commit and push the draft
+        env:
+          SPORT: ${{ github.event.inputs.sport }}
+          DAY: ${{ github.event.inputs.date }}
+        run: |
+          git config user.name "rtyb-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add content/drafts content/preview_leads.json
+          if git diff --cached --quiet; then
+            echo "No draft written."
+            exit 1
+          fi
+          git commit -m "Draft $SPORT preview $DAY (admin)"
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; git pull --no-rebase -X ours origin main --no-edit; }
+            sleep 3
+          done
+          exit 1

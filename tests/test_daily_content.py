@@ -43,8 +43,20 @@ class EverySportTest(unittest.TestCase):
     def test_titles_follow_the_sport(self):
         self.assertEqual(dc.title('recap', 'ncaab', '2026-11-12'), 'NCAAB First Half Betting Recap — Nov 12, 2026')
         self.assertEqual(dc.title('preview', 'nfl', '2026-11-12', {'week': 'Week 11'}),
-                         'NFL First Quarter and First Half Betting Week 11 Preview — Nov 12, 2026')
+                         'NFL Week 11 First Quarter & First Half Betting Preview')
+        self.assertEqual(dc.title('preview', 'ncaaf', '2026-11-17', {'week': 'Week 12'}),
+                         'College Football Week 12 First Quarter & First Half Betting Preview')
         self.assertEqual(dc.title('recap', 'ncaaf', '2026-11-16'), 'NCAAF First Quarter and First Half Betting Weekend Recap — Nov 16, 2026')
+
+    def test_weekly_previews_by_kickoff_window(self):
+        import preview
+        from datetime import datetime, timezone
+        at = lambda iso: datetime.fromisoformat(iso).replace(tzinfo=timezone.utc)
+        self.assertEqual([preview.kickoff_window(at(x)) for x in ('2026-11-20T01:15', '2026-11-22T18:00', '2026-11-22T21:25',
+                                                                   '2026-11-23T01:20', '2026-11-24T01:15', '2026-11-21T17:00')],
+                         ['Thursday', 'Sunday 1:00 PM', 'Sunday 4:25 PM', 'Sunday Night', 'Monday Night', 'Saturday'])
+        self.assertEqual(preview.page_dir('nfl', 11), 'nfl/preview/week-11/')
+        self.assertEqual(preview.page_dir('ncaaf', 12), 'college-football/preview/week-12/')
 
     def test_football_is_weekly(self):
         self.assertEqual(dc.WEEKLY_WINDOWS['recap'][0], 0)     # Monday
