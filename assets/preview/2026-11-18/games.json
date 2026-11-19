@@ -312,11 +312,6 @@
     "value": "ncaab:401927357"
    },
    {
-    "label": "NCAAB · Samford at South Carolina Upstate · 8:00 PM ET",
-    "trends": 0,
-    "value": "ncaab:401922283"
-   },
-   {
     "label": "NCAAB · UL Monroe at LSU · 8:00 PM ET",
     "trends": 4,
     "value": "ncaab:401917982"
@@ -330,6 +325,11 @@
     "label": "NCAAB · Wichita State at Loyola Chicago · 8:00 PM ET",
     "trends": 2,
     "value": "ncaab:401911232"
+   },
+   {
+    "label": "NCAAB · Samford at South Carolina Upstate · 8:30 PM ET",
+    "trends": 0,
+    "value": "ncaab:401922283"
    },
    {
     "label": "NCAAB · South Dakota at Nebraska · 8:30 PM ET",
@@ -759,11 +759,6 @@
     "value": "ncaab:401927357"
    },
    {
-    "label": "Samford at South Carolina Upstate · 8:00 PM ET",
-    "trends": 0,
-    "value": "ncaab:401922283"
-   },
-   {
     "label": "UL Monroe at LSU · 8:00 PM ET",
     "trends": 4,
     "value": "ncaab:401917982"
@@ -777,6 +772,11 @@
     "label": "Wichita State at Loyola Chicago · 8:00 PM ET",
     "trends": 2,
     "value": "ncaab:401911232"
+   },
+   {
+    "label": "Samford at South Carolina Upstate · 8:30 PM ET",
+    "trends": 0,
+    "value": "ncaab:401922283"
    },
    {
     "label": "South Dakota at Nebraska · 8:30 PM ET",
