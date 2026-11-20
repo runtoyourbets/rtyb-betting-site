@@ -219,7 +219,7 @@ def strongest(items):
 def motd_of(key, day):
     """(sport key, game id) of the Matchup of the Day for that day: a
     sport's own (matchup_of_the_day_log.json); 'all': the site's, the
-    sports' pick with the most agreeing trends (front.motd_pick's rule)."""
+    sports' pick with the most trends (front.motd_pick's rule, hub.rank_key)."""
     log = read_json(hub.LOG_PATH, {}) or {}
     keys = [k for k in log if k in sports.BY_KEY] if key == ALL else [key]
     best = None
@@ -229,8 +229,8 @@ def motd_of(key, day):
         e = (log.get(k) or {}).get(sk)
         if not e or (key == ALL and e.get('date') != day):
             continue
-        score = (e.get('n') or 0, e.get('edge') or 0)
-        if best is None or score > best[0]:
+        score = hub.rank_key(e)
+        if best is None or score < best[0]:
             best = (score, k, str(e['id']))
     return best[1:] if best else None
 

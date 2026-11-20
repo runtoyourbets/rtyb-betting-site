@@ -129,8 +129,8 @@ class GuidesTest(unittest.TestCase):
         self.assertEqual(guides.anchor('3-Way Moneyline'), '3-way-moneyline')
         self.assertEqual(guides.anchor('BTTS'), 'btts')
         html = guides.glossary_html('## Push\n\nThe line lands exactly.\n\n## BTTS\n\nBoth teams score.', '../')
-        self.assertIn('<h2 id="push">Push</h2>', html)
-        self.assertIn('<h2 id="btts">BTTS</h2>', html)
+        self.assertIn('<h2 class="gd-sh" id="push">Push</h2>', html)
+        self.assertIn('<h2 class="gd-sh" id="btts">BTTS</h2>', html)
 
     def test_sport_titles(self):
         self.assertEqual(guides.sport_title(sports.BY_KEY['nhl']), 'NHL First Period Betting Guide')

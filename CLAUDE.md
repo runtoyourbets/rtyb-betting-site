@@ -92,11 +92,16 @@ season value is dropped; anything else empty shows "-".
 
 Every site link in a guide goes through the root helper (guides.rooted), so
 it works on GitHub Pages and the domain; tests/test_betting_guides.py checks
-every guide link resolves. Section headers (##) get an icon tile (the
-sport's ball, or the guide's badge: guides.BADGE) and a 44px gold
-underline; "Where to go next" lists become pills. Sport guides show one
-fixed Example game per sport (content/betting-guides/examples.json) under
-each bet in "The bets", then "How to read the odds". Body text max 720px.
+every guide link resolves. Section headers (## on every guide page, the
+glossary and the index) are purple Barlow Condensed (`--accent-purple-text`),
+no icon tile or underline, 36px above; "Where to go next" lists become pills
+(with icon tiles). Sport guides show two example games per sport
+(content/betting-guides/examples.json, tests/test_guide_examples.py checks
+every won / lost / push cell against its score and line): NHL and MLB an
+Example card under each bet with a row per game; spread sports one card
+per game (first quarter, then first half) under "The bets", then any
+example's `note`. Then "How to read the odds" (the first example only,
+whole dollars). Body text max 720px.
 Records and scores never wrap at the hyphen (`.nw`: seo.nowrap on the
 built pages, SHELL_JS on what the sport pages draw).
 
@@ -171,6 +176,7 @@ Colors:
 | text on gold | `--on-gold` | #0B0F15 | #0B0F15 |
 | card title bar | `--title-bg` | rgba(167,139,250,0.14) | #EFEAFE |
 | card title text | `--title-text` | #D6CCFF | #4B2FB8 |
+| guide section heading | `--accent-purple-text` | #A78BFA | #4B2FB8 |
 | streak heat 3-4 | `--heat-1` | #F8E3A0 | #F8E3A0 (dark text) |
 | streak heat 5-6 | `--heat-2` | #F5C542 | #F5C542 (dark text) |
 | streak heat 7-8 | `--heat-3` | #F59E0B | #F59E0B (dark text) |

@@ -638,20 +638,19 @@
       : [['0 days · B2B', function(d) { return d === 0; }], ['1 day', function(d) { return d === 1; }], ['2 days', function(d) { return d === 2; }], ['3+ days', function(d) { return d >= 3; }]];
     // on team pages the strips replace these rows
     var TEAM_SKIP = { tb2b: 1, nb2b: 1, b2b2: 1 };
-    // the small purple tag above the outlined cell ("Next game · Fri", "Today")
-    function tsTag(t) { return t ? '<span class="ts-tag">' + esc(t) + '</span>' : ''; }
-    function restHtml(pool, m, mHead, teamLabel, next, pctOf, recOf, tag) {
+    // the next game's cell (the Splits page: today's) keeps a purple outline, no tag
+    function restHtml(pool, m, mHead, teamLabel, next, pctOf, recOf) {
       if (src.sport === 'mlb') return '';
       function strip(label, field) {
         var nv = next ? next[field] : null;
         return '<p class="ts-rl">' + esc(label) + '</p><div class="ts-strip ts-strip-' + REST_CELLS.length + '">' + REST_CELLS.map(function(cell) {
           var a = agg(pool.filter(function(e) { return e.c[field] != null && cell[1](e.c[field]); }), [m]), x = a[m.id], p = pctOf(x);
           var on = nv != null && cell[1](nv);
-          return '<div class="ts-day' + (on ? ' ts-today' : '') + '">' + (on ? tsTag(tag) : '') + '<span class="ts-dl">' + esc(cell[0]) + '</span><span class="ts-dp">' + (a.gp >= 5 && p != null ? p + '%' : '-') + '</span>' +
+          return '<div class="ts-day' + (on ? ' ts-today' : '') + '"><span class="ts-dl">' + esc(cell[0]) + '</span><span class="ts-dp">' + (a.gp >= 5 && p != null ? p + '%' : '-') + '</span>' +
             '<span class="ts-dr">' + (x.n ? '(' + recOf(m.id, x) + ')' : '') + '</span></div>';
         }).join('') + '</div>';
       }
-      return '<div class="ts-dow ts-rest' + (tag && next ? ' ts-tagged' : '') + '"><div class="ts-dow-head"><span class="ts-gl">Rest</span><span class="ts-dow-m">' + esc(mHead || '') + '</span></div>' +
+      return '<div class="ts-dow ts-rest"><div class="ts-dow-head"><span class="ts-gl">Rest</span><span class="ts-dow-m">' + esc(mHead || '') + '</span></div>' +
         strip(FOOTBALL ? (teamLabel ? teamLabel + ' rest' : 'Rest') : (teamLabel || 'Team') + ' rest', 'restDays') + strip('Opponent rest', 'oppRestDays') + '</div>';
     }
     function teamView(box, view) {
@@ -743,17 +742,16 @@
             '<span class="ts-val">' + cellHtml(sel, x.a.x[ts.col]) + '</span></li>';
         }).join('') + '</ul>';
       }).join('') + '</div>';
-      // DAY OF WEEK: Mon-Sun, the selected market, the next game's day highlighted
+      // DAY OF WEEK: Mon-Thu, then Fri-Sun, the selected market, the next game's day outlined
       var nd = view.next && view.next.dow != null ? view.next.dow : null;
-      var nextTag = nd != null ? 'Next game · ' + DOW.filter(function(d) { return d[0] === nd; })[0][1] : '';
       var strip = DOW.map(function(d) {
         var a = agg(pools[sel.k].filter(function(e) { return e.c.dow === d[0]; }), [ms[ts.col]]), x = a[sel.id], p = pctOf(x);
-        return '<div class="ts-day' + (d[0] === nd ? ' ts-today' : '') + '">' + (d[0] === nd ? tsTag(nextTag) : '') + '<span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
+        return '<div class="ts-day' + (d[0] === nd ? ' ts-today' : '') + '"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
           '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
       }).join('');
-      h += '<div class="ts-dow' + (nextTag ? ' ts-tagged' : '') + '"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.head) + '</span></div><div class="ts-strip">' + strip + '</div></div>';
+      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.head) + '</span></div><div class="ts-strip ts-strip-dow">' + strip + '</div></div>';
       var nextCtx = view.next ? upcoming[sel.k + '|' + view.next.id + '|' + view.slug] : null;
-      h += restHtml(pools[sel.k], ms[ts.col], sel.head, ((src.teams[view.slug] || {}).code || '').toUpperCase(), nextCtx, pctOf, recOf, nextTag);
+      h += restHtml(pools[sel.k], ms[ts.col], sel.head, ((src.teams[view.slug] || {}).code || '').toUpperCase(), nextCtx, pctOf, recOf);
       box.innerHTML = h;
       box.querySelectorAll('[data-ts-col]').forEach(function(b) { b.onclick = function() { ts.col = +b.getAttribute('data-ts-col'); teamView(box, view); }; });
       box.querySelectorAll('[data-ts-next]').forEach(function(b) { b.onclick = function() { ts.next = b.getAttribute('data-ts-next') === '1'; teamView(box, view); }; });
@@ -850,14 +848,14 @@
             '<span class="ts-val">' + cellHtml(lg.col, x.a[sel.id]) + '</span></li>';
         }).join('') + '</ul>';
       }).join('') + '</div>';
-      // DAY OF WEEK: Mon-Sun in the selected market (home team's side); today outlined, tagged "Today"
+      // DAY OF WEEK: Mon-Thu, then Fri-Sun, in the selected market (home team's side); today outlined
       var td = etParts(new Date().toISOString()).dow;
       var strip = DOW.map(function(d) {
         var x = agg(pool.filter(function(e) { return e.c.home && e.c.dow === d[0]; }), [sel])[sel.id], p = pctOf(x);
-        return '<div class="ts-day' + (d[0] === td ? ' ts-today' : '') + '">' + (d[0] === td ? tsTag('Today') : '') + '<span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
+        return '<div class="ts-day' + (d[0] === td ? ' ts-today' : '') + '"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
           '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
       }).join('');
-      h += '<div class="ts-dow ts-tagged"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.pctHead || '') + '</span></div><div class="ts-strip">' + strip + '</div></div>';
+      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.pctHead || '') + '</span></div><div class="ts-strip ts-strip-dow">' + strip + '</div></div>';
       // REST: every team's side (the team, then its opponent)
       h += restHtml(pool, sel, sel.pctHead, 'Team', null, pctOf, recOf) + '</div>';
       h += '<p class="st-foot">Team rows count each team in the spot' + (PER ? ' (<sup>*</sup> one game can count twice)' : '') + '; matchup-wide rows and the day strip count the home team&rsquo;s side, the rest strips every team&rsquo;s. Units count games with a saved price.</p></div>';

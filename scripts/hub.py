@@ -6,13 +6,16 @@ The Arena hubs (/{sport}/): each sport's front page, drawn by assets/sport.js
   {slate, weekly, motd, motdRecord: {last, season}, learn}
 
 Matchup of the Day (football: of the Week) is the game on the slate with the
-most trends pointing at the same bet, by the Trends page's rules:
+most trends, by the Trends page's rules:
   - League Trends: the slate's cards (trends.json) that pick the game
   - Matchup Trends: a team that leans a way in a market (60%+ over 5+
     games before the slate; the moneyline counts ties as games played)
   - Streak Trends: a team on a run of 3 or more
-It needs 3 agreeing trends; ties go to the bigger edge over the league rate
-(the average of the trends that have one). Every pick is kept in
+A game qualifies with 5+ trends (none does: 4, then 3) and a Trend to
+Watch -- its strongest bet (the most agreeing trends, then their average
+rate) with a live price no heavier than -150, else the next-best that has
+one. Ties go to the stronger Trend to Watch %, then the earlier start. The
+build output logs the pick (log_line). Every pick is kept in
 matchup_of_the_day_log.json -- frozen once its game starts -- and graded
 when the game is final, so the card can show the last result and the
 season record.
@@ -236,6 +239,8 @@ def agrees(m, pick, side):
 def fill_trends(doc, g, k, m, pick, ts, seqs):
     """Short of SHOW_MIN trends: each team's season rate in the bet's
     market that agrees with it (over 50%, 10+ games), strongest first."""
+    if m not in HIT:
+        return ts   # the 3-way: no team rates to fill in
     have = {t.get('side') for t in ts if t['kind'] == 'matchup'}
     extra = []
     for side in ('away', 'home'):
@@ -272,7 +277,7 @@ def game_trends(doc, g, cards, seqs_by_seg):
             pick = x.get('side') or x.get('bet')
             out.setdefault((c['seg'], c['mk'], pick), []).append({
                 'kind': 'league', 'text': f"{c['title']} ({c['tag'].replace(' ATS', ' Spread')})", 'rec': pct_rec(c['w'], c['l']),
-                'short': league_short(doc, g, c, pick), 'edge': (c.get('rate') or 0) - (c.get('base') or 0)})
+                'short': league_short(doc, g, c, pick), 'edge': (c.get('rate') or 0) - (c.get('base') or 0), 'rate': c.get('rate')})
     for k, m in market_keys(doc):
         seqs = seqs_by_seg[k]
         for side in ('away', 'home'):
@@ -282,7 +287,7 @@ def game_trends(doc, g, cards, seqs_by_seg):
             if ln:
                 found.append((ln['kind'], {'kind': 'matchup', 'side': side, 'text': lean_words(doc, g[side], m, ln['kind'], k),
                                            'short': f"{code(doc, g[side])} · {market_short(doc, m, ln['kind'], k)}",
-                                           'rec': pct_rec(ln['x'], ln['y'] - ln['x']), 'edge': ln['rate'] - league_rate(seqs, m, ln['kind'])}))
+                                           'rec': pct_rec(ln['x'], ln['y'] - ln['x']), 'edge': ln['rate'] - league_rate(seqs, m, ln['kind']), 'rate': ln['rate']}))
             if st and st['n'] >= 3:
                 found.append((st['kind'], {'kind': 'streak', 'text': streak_words(doc, g[side], m, st, k),
                                            'short': f"{code(doc, g[side])} · {streak_word(market_short(doc, m, st['kind'], k))} streak", 'rec': f"{st['n']} straight", 'edge': None}))
@@ -371,32 +376,69 @@ def grade(g, k, m, pick):
     return 'W' if GAME_PICK.get(x) == pick else 'L'
 
 
+MIN_TRENDS = (5, 4, 3)   # trends that apply to the game (league, matchup and streak combined); none qualifies: 4, then 3
+MAX_FAV = -150           # the Trend to Watch's best price: no heavier than -150
+
+
+def watch_pct(ts):
+    """The Trend to Watch's %: the average rate of its trends that have one."""
+    rates = [t['rate'] for t in ts if t.get('rate') is not None]
+    return sum(rates) / len(rates) if rates else 0
+
+
+def rank_key(e):
+    """Smaller first: the most trends, then the stronger Trend to Watch %, then the earlier start."""
+    return (-(e.get('n') or 0), -(e.get('pct') or 0), e.get('start') or '9')
+
+
 def pick_matchup(doc, trends_doc, slug_dir, key, games, before):
+    """The game with the most trends (5+, else 4+, else 3+) whose Trend to
+    Watch -- its strongest bet with a live price no heavier than -150 --
+    exists; ties: the stronger Trend to Watch %, then the earlier start."""
     cards = ((trends_doc.get('slates') or {}).get(key) or {}).get('cards') or []
     seqs_by_seg = {k: team_seqs(doc, before, k) for k in {x[0] for x in market_keys(doc)}}
-    best = None
     teams = doc.get('teams') or {}
+    found = []
     for g in games:
         if doc.get('sport') in sports.COLLEGE and not (g['away'] in teams and g['home'] in teams):
             continue   # a school outside Division I (College Football: FBS) is never the pick
-        for (k, m, pick), ts in game_trends(doc, g, cards, seqs_by_seg).items():
-            if len(ts) < MIN_AGREE:
-                continue
-            edges = [t['edge'] for t in ts if t['edge'] is not None]
-            score = (len(ts), sum(edges) / len(edges) if edges else 0)
-            if best is None or score > best[0]:
-                best = (score, g, k, m, pick, ts)
-    if not best:
+        day = next((d for d, x in all_games(doc) if x is g), None)
+        groups = game_trends(doc, g, cards, seqs_by_seg)
+        n = sum(len(ts) for ts in groups.values())
+        # the bets strongest first: the most agreeing trends, then their average rate
+        for (k, m, pick), ts in sorted(groups.items(), key=lambda kv: (-len(kv[1]), -watch_pct(kv[1]))):
+            price = best_price(slug_dir, day, g, k, m, pick)
+            if price and price[0] is not None and price[0] >= MAX_FAV:
+                found.append({'n': n, 'pct': watch_pct(ts), 'start': g.get('start') or '', 'g': g, 'day': day,
+                              'k': k, 'm': m, 'pick': pick, 'ts': ts, 'price': price})
+                break
+    for low in MIN_TRENDS:
+        ok = [x for x in found if x['n'] >= low]
+        if ok:
+            break
+    else:
         return None
-    _, g, k, m, pick, ts = best
+    x = min(ok, key=rank_key)
+    g, k, m, pick, ts, price = x['g'], x['k'], x['m'], x['pick'], x['ts'], x['price']
     shown = fill_trends(doc, g, k, m, pick, ts, seqs_by_seg[k])[:SHOW_MAX]
-    day = next((d for d, x in all_games(doc) if x is g), None)
-    price = best_price(slug_dir, day, g, k, m, pick)
+    edges = [t['edge'] for t in ts if t['edge'] is not None]
     lab = matchup_label(doc, g, k, seqs_by_seg.get(k) or {})
-    return {'id': g['id'], 'date': day, 'start': g.get('start'), 'away': g['away'], 'home': g['home'], 'seg': k, 'mk': m, 'pick': pick,
-            'bet': bet_words(doc, g, k, m, pick), 'n': len(ts), 'edge': round(best[0][1], 4), 'label': lab[0], 'label_mk': lab[1],
+    return {'id': g['id'], 'date': x['day'], 'start': g.get('start'), 'away': g['away'], 'home': g['home'], 'seg': k, 'mk': m, 'pick': pick,
+            'bet': bet_words(doc, g, k, m, pick), 'n': x['n'], 'agree': len(ts), 'pct': round(x['pct'], 4), 'min': low,
+            'edge': round(sum(edges) / len(edges), 4) if edges else 0, 'label': lab[0], 'label_mk': lab[1],
             'trends': [{'kind': t['kind'], 'text': t['text'], 'short': t['short'], 'rec': t['rec']} for t in shown],
-            'price': {'price': price[0], 'line': price[1], 'book': price[2]} if price else None}
+            'price': {'price': price[0], 'line': price[1], 'book': price[2]}}
+
+
+def log_line(sp, m, home=False):
+    """The build output's line for a pick: the trend count, the Trend to Watch and its price."""
+    if not m:
+        return f"Matchup of the {'Week' if sp.get('schedule') == 'week' else 'Day'} ({'home' if home else sp['key']}): no game qualifies"
+    p = m.get('price') or {}
+    return (f"Matchup of the {'Week' if sp.get('schedule') == 'week' else 'Day'} ({'home, ' + sp['key'] if home else sp['key']}): "
+            f"{m['away']} @ {m['home']} ({m.get('id')}), {m.get('n')} trends (min {m.get('min', '-')}), "
+            f"Trend to Watch {m.get('bet')} {round(100 * (m.get('pct') or 0))}% ({m.get('agree', '-')} agree), "
+            f"price {p.get('price')} at {p.get('book')}")
 
 
 def started(g, now_utc):
@@ -458,4 +500,6 @@ def build(sp, doc, trends_doc, slug_dir, now_utc=None):
                           'season': [sum(1 for e in graded if e['result'] == 'W'), sum(1 for e in graded if e['result'] == 'L')]},
            'learn': sports.guide_path(sp)}
     write_json(os.path.join(slug_dir, 'hub.json'), hub)
+    if key:
+        print(log_line(sp, hub['motd']))
     return hub['motd']

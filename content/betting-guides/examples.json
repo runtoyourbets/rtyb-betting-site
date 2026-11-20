@@ -1,144 +1,1068 @@
 {
- "nhl": {
-  "away": {"code": "EDM", "logo": "EDM"},
-  "home": {"code": "TB", "logo": "TB"},
-  "label": "EDM @ TB · 1st Period 0-0",
-  "bets": [
-   {"heading": "Moneyline", "name": "Moneyline", "cells": [
-     {"team": "away", "text": "EDM", "price": "+113", "res": "push"},
-     {"team": "home", "text": "TB", "price": "-130", "res": "push"}],
-    "result": "Tied 0-0 after one: the 2-way moneyline pushes and both sides get their stake back."},
-   {"heading": "Total", "name": "Total", "cells": [
-     {"text": "Over 1.5", "price": "-140", "res": "lost"},
-     {"text": "Under 1.5", "price": "+115", "res": "won"}],
-    "result": "No goals in the period: the Under wins."},
-   {"heading": "Both Teams to Score", "name": "BTTS", "cells": [
-     {"text": "Yes", "price": "+160", "res": "lost"},
-     {"text": "No", "price": "-210", "res": "won"}],
-    "result": "Neither team scored: BTTS No wins."},
-   {"heading": "3-Way Moneyline", "name": "3-way", "cells": [
-     {"team": "away", "text": "EDM", "price": "+220", "res": "lost"},
-     {"text": "Tie", "price": "+175", "res": "won"},
-     {"team": "home", "text": "TB", "price": "+160", "res": "lost"}],
-    "result": "Tied after one: the Tie wins and both teams lose."}
-  ]
- },
- "mlb": {
-  "away": {"code": "NYY", "logo": "nyy"},
-  "home": {"code": "BOS", "logo": "bos"},
-  "label": "NYY @ BOS · 1st Inning 0-0 · F5 2-2",
-  "bets": [
-   {"heading": "NRFI", "name": "NRFI / YRFI", "cells": [
-     {"text": "NRFI", "price": "-120", "res": "won"},
-     {"text": "YRFI", "price": "+100", "res": "lost"}],
-    "result": "Nobody scored in the 1st: NRFI wins."},
-   {"heading": "First Five (F5) moneyline", "name": "F5 moneyline", "cells": [
-     {"team": "away", "text": "NYY", "price": "+105", "res": "push"},
-     {"team": "home", "text": "BOS", "price": "-125", "res": "push"}],
-    "result": "Tied 2-2 after five: the 2-way F5 moneyline pushes."},
-   {"heading": "F5 run line", "name": "F5 run line", "cells": [
-     {"team": "away", "text": "NYY +0.5", "price": "-130", "res": "won"},
-     {"team": "home", "text": "BOS -0.5", "price": "+110", "res": "lost"}],
-    "result": "Tied after five: the underdog at +0.5 wins."},
-   {"heading": "F5 total", "name": "F5 total", "cells": [
-     {"text": "Over 4.5", "price": "-105", "res": "lost"},
-     {"text": "Under 4.5", "price": "-115", "res": "won"}],
-    "result": "4 runs after five: the Under wins."}
-  ]
- },
- "nba": {
-  "away": {"code": "BOS", "logo": "bos"},
-  "home": {"code": "NY", "logo": "ny"},
-  "label": "BOS @ NY · 1st Quarter 28-31",
-  "bets": [
-   {"heading": "spread", "name": "Spread", "cells": [
-     {"team": "away", "text": "BOS +1.5", "price": "-110", "res": "lost"},
-     {"team": "home", "text": "NY -1.5", "price": "-110", "res": "won"}],
-    "result": "NY won the quarter by 3: NY -1.5 covers."},
-   {"heading": "total", "name": "Total", "cells": [
-     {"text": "Over 57.5", "price": "-110", "res": "won"},
-     {"text": "Under 57.5", "price": "-110", "res": "lost"}],
-    "result": "59 points in the quarter: the Over wins."},
-   {"heading": "moneyline", "name": "Moneyline", "cells": [
-     {"team": "away", "text": "BOS", "price": "+105", "res": "lost"},
-     {"team": "home", "text": "NY", "price": "-125", "res": "won"}],
-    "result": "NY led after one: the NY moneyline wins."}
-  ]
- },
- "wnba": {
-  "away": {"code": "LV", "logo": "lv"},
-  "home": {"code": "NY", "logo": "ny"},
-  "label": "LV @ NY · 1st Quarter 20-20",
-  "bets": [
-   {"heading": "spread", "name": "Spread", "cells": [
-     {"team": "away", "text": "LV +1.5", "price": "-110", "res": "won"},
-     {"team": "home", "text": "NY -1.5", "price": "-110", "res": "lost"}],
-    "result": "Tied after one: LV +1.5 covers."},
-   {"heading": "total", "name": "Total", "cells": [
-     {"text": "Over 41.5", "price": "-110", "res": "lost"},
-     {"text": "Under 41.5", "price": "-110", "res": "won"}],
-    "result": "40 points in the quarter: the Under wins."},
-   {"heading": "moneyline", "name": "Moneyline", "cells": [
-     {"team": "away", "text": "LV", "price": "+110", "res": "push"},
-     {"team": "home", "text": "NY", "price": "-130", "res": "push"}],
-    "result": "Tied after one: the moneyline pushes."}
-  ]
- },
- "ncaab": {
-  "away": {"code": "UK", "logo": "kentucky-wildcats"},
-  "home": {"code": "DUKE", "logo": "duke-blue-devils"},
-  "label": "UK @ DUKE · 1st Half 34-36",
-  "bets": [
-   {"heading": "spread", "name": "Spread", "cells": [
-     {"team": "away", "text": "UK +2.5", "price": "-110", "res": "won"},
-     {"team": "home", "text": "DUKE -2.5", "price": "-110", "res": "lost"}],
-    "result": "DUKE won the half by 2, short of 2.5: UK +2.5 covers."},
-   {"heading": "total", "name": "Total", "cells": [
-     {"text": "Over 68.5", "price": "-110", "res": "won"},
-     {"text": "Under 68.5", "price": "-110", "res": "lost"}],
-    "result": "70 points at halftime: the Over wins."},
-   {"heading": "moneyline", "name": "Moneyline", "cells": [
-     {"team": "away", "text": "UK", "price": "+125", "res": "lost"},
-     {"team": "home", "text": "DUKE", "price": "-150", "res": "won"}],
-    "result": "DUKE led at halftime: the DUKE moneyline wins."}
-  ]
- },
- "nfl": {
-  "away": {"code": "KC", "logo": "kc"},
-  "home": {"code": "BUF", "logo": "buf"},
-  "label": "KC @ BUF · 1st Quarter 7-7",
-  "bets": [
-   {"heading": "spread", "name": "Spread", "cells": [
-     {"team": "away", "text": "KC +0.5", "price": "-115", "res": "won"},
-     {"team": "home", "text": "BUF -0.5", "price": "-105", "res": "lost"}],
-    "result": "Tied after one: KC +0.5 covers."},
-   {"heading": "total", "name": "Total", "cells": [
-     {"text": "Over 9.5", "price": "-110", "res": "won"},
-     {"text": "Under 9.5", "price": "-110", "res": "lost"}],
-    "result": "14 points in the quarter: the Over wins."},
-   {"heading": "moneyline", "name": "Moneyline", "cells": [
-     {"team": "away", "text": "KC", "price": "+120", "res": "push"},
-     {"team": "home", "text": "BUF", "price": "-140", "res": "push"}],
-    "result": "Tied after one: the moneyline pushes."}
-  ]
- },
- "ncaaf": {
-  "away": {"code": "ALA", "logo": "alabama-crimson-tide"},
-  "home": {"code": "UGA", "logo": "georgia-bulldogs"},
-  "label": "ALA @ UGA · 1st Quarter 7-3",
-  "bets": [
-   {"heading": "spread", "name": "Spread", "cells": [
-     {"team": "away", "text": "ALA +3.5", "price": "-110", "res": "won"},
-     {"team": "home", "text": "UGA -3.5", "price": "-110", "res": "lost"}],
-    "result": "ALA led by 4 after one: ALA +3.5 covers."},
-   {"heading": "total", "name": "Total", "cells": [
-     {"text": "Over 10.5", "price": "-110", "res": "lost"},
-     {"text": "Under 10.5", "price": "-110", "res": "won"}],
-    "result": "10 points in the quarter: the Under wins."},
-   {"heading": "moneyline", "name": "Moneyline", "cells": [
-     {"team": "away", "text": "ALA", "price": "+140", "res": "won"},
-     {"team": "home", "text": "UGA", "price": "-165", "res": "lost"}],
-    "result": "ALA led after one: the ALA moneyline wins."}
-  ]
- }
+ "nhl": [
+  {
+   "away": {
+    "code": "EDM",
+    "logo": "EDM"
+   },
+   "home": {
+    "code": "TB",
+    "logo": "TB"
+   },
+   "label": "EDM @ TB · 1st Period 0-0",
+   "bets": [
+    {
+     "heading": "Moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "EDM",
+       "price": "+113",
+       "res": "push"
+      },
+      {
+       "team": "home",
+       "text": "TB",
+       "price": "-130",
+       "res": "push"
+      }
+     ],
+     "result": "Tied 0-0 after one: the 2-way moneyline pushes and both sides get their stake back."
+    },
+    {
+     "heading": "Total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 1.5",
+       "price": "-140",
+       "res": "lost"
+      },
+      {
+       "text": "Under 1.5",
+       "price": "+115",
+       "res": "won"
+      }
+     ],
+     "result": "No goals in the period: the Under wins."
+    },
+    {
+     "heading": "Both Teams to Score",
+     "name": "BTTS",
+     "cells": [
+      {
+       "text": "Yes",
+       "price": "+160",
+       "res": "lost"
+      },
+      {
+       "text": "No",
+       "price": "-210",
+       "res": "won"
+      }
+     ],
+     "result": "Neither team scored: BTTS No wins."
+    },
+    {
+     "heading": "3-Way Moneyline",
+     "name": "3-way",
+     "cells": [
+      {
+       "team": "away",
+       "text": "EDM",
+       "price": "+220",
+       "res": "lost"
+      },
+      {
+       "text": "Tie",
+       "price": "+175",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "TB",
+       "price": "+160",
+       "res": "lost"
+      }
+     ],
+     "result": "Tied after one: the Tie wins and both teams lose."
+    }
+   ],
+   "score": "0-0"
+  },
+  {
+   "away": {
+    "code": "COL",
+    "logo": "COL"
+   },
+   "home": {
+    "code": "DAL",
+    "logo": "DAL"
+   },
+   "label": "COL @ DAL · 1st Period 2-1",
+   "score": "2-1",
+   "bets": [
+    {
+     "heading": "Moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "COL",
+       "price": "+105",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "DAL",
+       "price": "-125",
+       "res": "lost"
+      }
+     ],
+     "result": "COL led 2-1 after one: the COL moneyline wins."
+    },
+    {
+     "heading": "Total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 1.5",
+       "price": "-135",
+       "res": "won"
+      },
+      {
+       "text": "Under 1.5",
+       "price": "+110",
+       "res": "lost"
+      }
+     ],
+     "result": "Three goals in the period: the Over wins."
+    },
+    {
+     "heading": "Both Teams to Score",
+     "name": "BTTS",
+     "cells": [
+      {
+       "text": "Yes",
+       "price": "+150",
+       "res": "won"
+      },
+      {
+       "text": "No",
+       "price": "-190",
+       "res": "lost"
+      }
+     ],
+     "result": "Both teams scored: BTTS Yes wins."
+    },
+    {
+     "heading": "3-Way Moneyline",
+     "name": "3-way",
+     "cells": [
+      {
+       "team": "away",
+       "text": "COL",
+       "price": "+210",
+       "res": "won"
+      },
+      {
+       "text": "Tie",
+       "price": "+170",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "DAL",
+       "price": "+150",
+       "res": "lost"
+      }
+     ],
+     "result": "COL led after one: COL wins the 3-way at +210."
+    }
+   ]
+  }
+ ],
+ "mlb": [
+  {
+   "away": {
+    "code": "NYY",
+    "logo": "nyy"
+   },
+   "home": {
+    "code": "BOS",
+    "logo": "bos"
+   },
+   "label": "NYY @ BOS · 1st Inning 0-0 · F5 2-2",
+   "bets": [
+    {
+     "heading": "NRFI",
+     "name": "NRFI / YRFI",
+     "cells": [
+      {
+       "text": "NRFI",
+       "price": "-120",
+       "res": "won"
+      },
+      {
+       "text": "YRFI",
+       "price": "+100",
+       "res": "lost"
+      }
+     ],
+     "result": "Nobody scored in the 1st: NRFI wins."
+    },
+    {
+     "heading": "First Five (F5) moneyline",
+     "name": "F5 moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "NYY",
+       "price": "+105",
+       "res": "push"
+      },
+      {
+       "team": "home",
+       "text": "BOS",
+       "price": "-125",
+       "res": "push"
+      }
+     ],
+     "result": "Tied 2-2 after five: the 2-way F5 moneyline pushes.",
+     "score": "2-2"
+    },
+    {
+     "heading": "F5 run line",
+     "name": "F5 run line",
+     "cells": [
+      {
+       "team": "away",
+       "text": "NYY +0.5",
+       "price": "-130",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "BOS -0.5",
+       "price": "+110",
+       "res": "lost"
+      }
+     ],
+     "result": "Tied after five: the underdog at +0.5 wins.",
+     "score": "2-2"
+    },
+    {
+     "heading": "F5 total",
+     "name": "F5 total",
+     "cells": [
+      {
+       "text": "Over 4.5",
+       "price": "-105",
+       "res": "lost"
+      },
+      {
+       "text": "Under 4.5",
+       "price": "-115",
+       "res": "won"
+      }
+     ],
+     "result": "4 runs after five: the Under wins.",
+     "score": "2-2"
+    }
+   ],
+   "score": "0-0"
+  },
+  {
+   "away": {
+    "code": "LAD",
+    "logo": "lad"
+   },
+   "home": {
+    "code": "SD",
+    "logo": "sd"
+   },
+   "label": "LAD @ SD · 1st Inning 1-0 · F5 5-1",
+   "score": "1-0",
+   "bets": [
+    {
+     "heading": "NRFI",
+     "name": "NRFI / YRFI",
+     "cells": [
+      {
+       "text": "NRFI",
+       "price": "-115",
+       "res": "lost"
+      },
+      {
+       "text": "YRFI",
+       "price": "-105",
+       "res": "won"
+      }
+     ],
+     "result": "LAD scored in the top of the 1st: YRFI wins."
+    },
+    {
+     "heading": "First Five (F5) moneyline",
+     "name": "F5 moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "LAD",
+       "price": "-130",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "SD",
+       "price": "+110",
+       "res": "lost"
+      }
+     ],
+     "result": "LAD led 5-1 after five: the LAD moneyline wins.",
+     "score": "5-1"
+    },
+    {
+     "heading": "F5 run line",
+     "name": "F5 run line",
+     "cells": [
+      {
+       "team": "away",
+       "text": "LAD -0.5",
+       "price": "+105",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "SD +0.5",
+       "price": "-125",
+       "res": "lost"
+      }
+     ],
+     "result": "LAD led after five: LAD -0.5 covers.",
+     "score": "5-1"
+    },
+    {
+     "heading": "F5 total",
+     "name": "F5 total",
+     "cells": [
+      {
+       "text": "Over 4.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 4.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "6 runs after five: the Over wins.",
+     "score": "5-1"
+    }
+   ]
+  }
+ ],
+ "nba": [
+  {
+   "away": {
+    "code": "BOS",
+    "logo": "bos"
+   },
+   "home": {
+    "code": "NY",
+    "logo": "ny"
+   },
+   "label": "BOS @ NY · 1st Quarter 28-31",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "BOS +1.5",
+       "price": "-110",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "NY -1.5",
+       "price": "-110",
+       "res": "won"
+      }
+     ],
+     "result": "NY won the quarter by 3: NY -1.5 covers."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 57.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 57.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "59 points in the quarter: the Over wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "BOS",
+       "price": "+105",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "NY",
+       "price": "-125",
+       "res": "won"
+      }
+     ],
+     "result": "NY led after one: the NY moneyline wins."
+    }
+   ],
+   "score": "28-31"
+  },
+  {
+   "away": {
+    "code": "BOS",
+    "logo": "bos"
+   },
+   "home": {
+    "code": "NY",
+    "logo": "ny"
+   },
+   "label": "BOS @ NY · 1st Half 60-56",
+   "score": "60-56",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "BOS +3.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "NY -3.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "BOS won the half by 4: BOS +3.5 covers."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 113.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 113.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "116 points at halftime: the Over wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "BOS",
+       "price": "+140",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "NY",
+       "price": "-165",
+       "res": "lost"
+      }
+     ],
+     "result": "BOS led at halftime: the BOS moneyline wins at +140."
+    }
+   ],
+   "note": "NY won the first quarter, BOS won the half. The quarter and the half can tell two different stories."
+  }
+ ],
+ "wnba": [
+  {
+   "away": {
+    "code": "LV",
+    "logo": "lv"
+   },
+   "home": {
+    "code": "NY",
+    "logo": "ny"
+   },
+   "label": "LV @ NY · 1st Quarter 20-20",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "LV +1.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "NY -1.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "Tied after one: LV +1.5 covers."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 41.5",
+       "price": "-110",
+       "res": "lost"
+      },
+      {
+       "text": "Under 41.5",
+       "price": "-110",
+       "res": "won"
+      }
+     ],
+     "result": "40 points in the quarter: the Under wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "LV",
+       "price": "+110",
+       "res": "push"
+      },
+      {
+       "team": "home",
+       "text": "NY",
+       "price": "-130",
+       "res": "push"
+      }
+     ],
+     "result": "Tied after one: the moneyline pushes."
+    }
+   ],
+   "score": "20-20"
+  },
+  {
+   "away": {
+    "code": "LV",
+    "logo": "lv"
+   },
+   "home": {
+    "code": "NY",
+    "logo": "ny"
+   },
+   "label": "LV @ NY · 1st Half 40-44",
+   "score": "40-44",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "LV +3.5",
+       "price": "-110",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "NY -3.5",
+       "price": "-110",
+       "res": "won"
+      }
+     ],
+     "result": "NY won the half by 4: NY -3.5 covers by half a point."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 82.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 82.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "84 points at halftime: the Over wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "LV",
+       "price": "+125",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "NY",
+       "price": "-150",
+       "res": "won"
+      }
+     ],
+     "result": "NY led at halftime: the NY moneyline wins."
+    }
+   ]
+  }
+ ],
+ "ncaab": [
+  {
+   "away": {
+    "code": "UK",
+    "logo": "kentucky-wildcats"
+   },
+   "home": {
+    "code": "DUKE",
+    "logo": "duke-blue-devils"
+   },
+   "label": "UK @ DUKE · 1st Half 34-36",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "UK +2.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "DUKE -2.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "DUKE won the half by 2, short of 2.5: UK +2.5 covers."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 68.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 68.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "70 points at halftime: the Over wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "UK",
+       "price": "+125",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "DUKE",
+       "price": "-150",
+       "res": "won"
+      }
+     ],
+     "result": "DUKE led at halftime: the DUKE moneyline wins."
+    }
+   ],
+   "score": "34-36"
+  },
+  {
+   "away": {
+    "code": "KU",
+    "logo": "kansas-jayhawks"
+   },
+   "home": {
+    "code": "HOU",
+    "logo": "houston-cougars"
+   },
+   "label": "KU @ HOU · 1st Half 30-33",
+   "score": "30-33",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "KU +3",
+       "price": "-110",
+       "res": "push"
+      },
+      {
+       "team": "home",
+       "text": "HOU -3",
+       "price": "-110",
+       "res": "push"
+      }
+     ],
+     "result": "HOU won the half by exactly 3: the spread pushes and both sides get their money back."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 64.5",
+       "price": "-110",
+       "res": "lost"
+      },
+      {
+       "text": "Under 64.5",
+       "price": "-110",
+       "res": "won"
+      }
+     ],
+     "result": "63 points at halftime: the Under wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "KU",
+       "price": "+135",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "HOU",
+       "price": "-160",
+       "res": "won"
+      }
+     ],
+     "result": "HOU led at halftime: the HOU moneyline wins."
+    }
+   ]
+  }
+ ],
+ "nfl": [
+  {
+   "away": {
+    "code": "KC",
+    "logo": "kc"
+   },
+   "home": {
+    "code": "BUF",
+    "logo": "buf"
+   },
+   "label": "KC @ BUF · 1st Quarter 7-7",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "KC +0.5",
+       "price": "-115",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "BUF -0.5",
+       "price": "-105",
+       "res": "lost"
+      }
+     ],
+     "result": "Tied after one: KC +0.5 covers."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 9.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 9.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "14 points in the quarter: the Over wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "KC",
+       "price": "+120",
+       "res": "push"
+      },
+      {
+       "team": "home",
+       "text": "BUF",
+       "price": "-140",
+       "res": "push"
+      }
+     ],
+     "result": "Tied after one: the moneyline pushes."
+    }
+   ],
+   "score": "7-7"
+  },
+  {
+   "away": {
+    "code": "KC",
+    "logo": "kc"
+   },
+   "home": {
+    "code": "BUF",
+    "logo": "buf"
+   },
+   "label": "KC @ BUF · 1st Half 14-17",
+   "score": "14-17",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "KC +3",
+       "price": "-110",
+       "res": "push"
+      },
+      {
+       "team": "home",
+       "text": "BUF -3",
+       "price": "-110",
+       "res": "push"
+      }
+     ],
+     "result": "BUF won the half by exactly 3: the spread pushes. That’s why the hook matters."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 23.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 23.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "31 points at halftime: the Over wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "KC",
+       "price": "+130",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "BUF",
+       "price": "-155",
+       "res": "won"
+      }
+     ],
+     "result": "BUF led at halftime: the BUF moneyline wins."
+    }
+   ]
+  }
+ ],
+ "ncaaf": [
+  {
+   "away": {
+    "code": "ALA",
+    "logo": "alabama-crimson-tide"
+   },
+   "home": {
+    "code": "UGA",
+    "logo": "georgia-bulldogs"
+   },
+   "label": "ALA @ UGA · 1st Quarter 7-3",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "ALA +3.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "UGA -3.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "ALA led by 4 after one: ALA +3.5 covers."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 10.5",
+       "price": "-110",
+       "res": "lost"
+      },
+      {
+       "text": "Under 10.5",
+       "price": "-110",
+       "res": "won"
+      }
+     ],
+     "result": "10 points in the quarter: the Under wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "ALA",
+       "price": "+140",
+       "res": "won"
+      },
+      {
+       "team": "home",
+       "text": "UGA",
+       "price": "-165",
+       "res": "lost"
+      }
+     ],
+     "result": "ALA led after one: the ALA moneyline wins."
+    }
+   ],
+   "score": "7-3"
+  },
+  {
+   "away": {
+    "code": "ALA",
+    "logo": "alabama-crimson-tide"
+   },
+   "home": {
+    "code": "UGA",
+    "logo": "georgia-bulldogs"
+   },
+   "label": "ALA @ UGA · 1st Half 14-21",
+   "score": "14-21",
+   "bets": [
+    {
+     "heading": "spread",
+     "name": "Spread",
+     "cells": [
+      {
+       "team": "away",
+       "text": "ALA +6.5",
+       "price": "-110",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "UGA -6.5",
+       "price": "-110",
+       "res": "won"
+      }
+     ],
+     "result": "UGA won the half by 7: UGA -6.5 covers."
+    },
+    {
+     "heading": "total",
+     "name": "Total",
+     "cells": [
+      {
+       "text": "Over 27.5",
+       "price": "-110",
+       "res": "won"
+      },
+      {
+       "text": "Under 27.5",
+       "price": "-110",
+       "res": "lost"
+      }
+     ],
+     "result": "35 points at halftime: the Over wins."
+    },
+    {
+     "heading": "moneyline",
+     "name": "Moneyline",
+     "cells": [
+      {
+       "team": "away",
+       "text": "ALA",
+       "price": "+200",
+       "res": "lost"
+      },
+      {
+       "team": "home",
+       "text": "UGA",
+       "price": "-250",
+       "res": "won"
+      }
+     ],
+     "result": "UGA led at halftime: the UGA moneyline wins."
+    }
+   ],
+   "note": "ALA led after one quarter. Bully ball takes a quarter to show up."
+  }
+ ]
 }

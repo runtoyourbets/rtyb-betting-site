@@ -206,7 +206,7 @@ def glossary_html(md, root):
     out = rooted(daily.to_html(md), root)
     def head(m):
         name = html.unescape(re.sub('<[^>]+>', '', m.group(1)))
-        return f'<h2 id="{GLOSSARY_IDS.get(name) or anchor(name)}">{m.group(1)}</h2>'
+        return f'<h2 class="gd-sh" id="{GLOSSARY_IDS.get(name) or anchor(name)}">{m.group(1)}</h2>'
     return re.sub(r'<h2>(.*?)</h2>', head, out)
 
 
@@ -218,7 +218,7 @@ def article(title, doc, rel, root, slug, is_glossary=False):
                 f'<p class="lead">{COMING}.</p>{back}</article>',
                 f'{title}: {COMING.lower()} from Run To Your Bets.', True, f'{title} | RTYB Betting Guides')
     meta, body = doc
-    content = glossary_html(body, root) if is_glossary else guide_html(body, root, badge(slug))
+    content = glossary_html(body, root) if is_glossary else guide_html(body, root)
     headline = meta.get('title') or title
     desc = meta.get('description') or daily.plain(body)[:200]
     day = updated(rel, meta['_numbers']) if '_numbers' in meta else str(meta.get('updated') or '')
@@ -252,10 +252,9 @@ def rooted(out, root):
     return out.replace('href="/', f'href="{root}')
 
 
-def headers(out, tile):
-    """Every ## header gets its icon tile (the sport's ball or the guide's
-    badge) and the gold underline (.gd-sh)."""
-    return re.sub(r'<h2>(.*?)</h2>', lambda m: f'<h2 class="gd-sh">{tile}<span>{m.group(1)}</span></h2>', out)
+def headers(out):
+    """Every ## header in the guides' purple section style (.gd-sh)."""
+    return re.sub(r'<h2>(.*?)</h2>', r'<h2 class="gd-sh">\1</h2>', out)
 
 
 def link_icon(href):
@@ -278,11 +277,12 @@ def next_pills(out):
 
 
 def examples(key):
+    """The sport's example games (content/betting-guides/examples.json), in order."""
     try:
         with open(EXAMPLES, encoding='utf-8') as f:
-            return json.load(f).get(key)
+            return json.load(f).get(key) or []
     except (OSError, ValueError):
-        return None
+        return []
 
 
 def ex_logo(sp, team, root):
@@ -292,20 +292,46 @@ def ex_logo(sp, team, root):
     return icons.team_logo(sp['key'], team['logo'], 18, root=root)
 
 
-def ex_card(sp, ex, bet, root):
-    """An "Example" card: the example game's cells for one bet, won / push /
-    lost, and the result line."""
+def ex_cells(sp, ex, bet, root):
+    """A bet's cells in an example game, won / push / lost, then its result line."""
     cells = ''.join(
         f'<div class="cell {RES_CLS[c["res"]]}"><span class="ob-ln">'
         f'{ex_logo(sp, ex[c["team"]], root) if c.get("team") else ""}{esc(c["text"])}</span>'
         f'<span class="ob-pr">{esc(c["price"])}</span></div>' for c in bet['cells'])
-    return (f'<div class="st-card gd-ex"><p class="gd-ex-h">Example &middot; {esc(ex["label"])}</p>'
-            f'<div class="gd-ex-cells gd-ex-{len(bet["cells"])}">{cells}</div>'
-            f'<p class="gd-ex-r">{esc(bet["result"])}</p></div>')
+    return (f'<div class="gd-ex-cells gd-ex-{len(bet["cells"])}">{cells}</div>'
+            f'<p class="gd-ex-r">{esc(bet["result"])}</p>')
+
+
+def ex_score(ex, bet):
+    return bet.get('score') or ex['score']
+
+
+def ex_card(sp, exs, heading, root):
+    """NHL, MLB: the Example card under one bet, a row per example game
+    ("EDM @ TB · 0-0", then "COL @ DAL · 2-1")."""
+    rows = ''
+    for ex in exs:
+        bet = next((b for b in ex['bets'] if b['heading'] == heading), None)
+        if bet:
+            rows += (f'<div class="gd-ex-row"><p class="gd-ex-h">{esc(ex["away"]["code"])} @ {esc(ex["home"]["code"])} &middot; {esc(ex_score(ex, bet))}</p>'
+                     + ex_cells(sp, ex, bet, root) + '</div>')
+    return f'<div class="st-card gd-ex">{rows}</div>'
+
+
+def game_card(sp, ex, root):
+    """Spread sports: one card per example game, full width: the logos and
+    "BOS @ NY · 1st Quarter 28-31" once, then a row per bet (its name, its
+    cells, the result line under them)."""
+    head = (f'<p class="gd-game-h">{ex_logo(sp, ex["away"], root)}{ex_logo(sp, ex["home"], root)}'
+            f'<span>{esc(ex["label"])}</span></p>')
+    rows = ''.join(f'<div class="gd-bet-row"><span class="gd-bet-n">{esc(b["name"])}</span><div class="gd-bet-c">{ex_cells(sp, ex, b, root)}</div></div>'
+                   for b in ex['bets'])
+    return f'<div class="st-card gd-ex gd-game">{head}{rows}</div>'
 
 
 def money(x):
-    return f'${x:,.0f}' if abs(x - round(x)) < 0.005 else f'${x:,.2f}'
+    """Whole dollars: $91, $95, $67."""
+    return f'${int(x + 0.5):,}'
 
 
 def odds_table(ex):
@@ -324,35 +350,37 @@ def odds_table(ex):
 
 
 def with_examples(out, sp, root):
-    """The sport guide's "The bets" with an Example card under each bet
-    (spread sports: under the list), then "How to read the odds"."""
-    ex = examples(sp['key'])
+    """The sport guide's "The bets" with its example games -- NHL, MLB: an
+    Example card under each bet, a row per game; spread sports: a card per
+    game under the list (the first quarter, then the first half) and the
+    examples' notes -- then "How to read the odds" (the first example's)."""
+    exs = examples(sp['key'])
     m = re.search(r'<h2>The bets</h2>(.*?)(?=<h2>|\Z)', out, re.S)
-    if not ex or not m:
+    if not exs or not m:
         return out
     sec = m.group(1)
     parts = re.split(r'(?=<h3>)', sec)
-    used = set()
+    used = False
     for i, part in enumerate(parts):
         h = re.match(r'<h3>(.*?)</h3>', part)
-        bet = h and next((b for b in ex['bets'] if html.unescape(h.group(1)).startswith(b['heading'])), None)
+        bet = h and next((b for b in exs[0]['bets'] if html.unescape(h.group(1)).startswith(b['heading'])), None)
         if bet:
-            parts[i] = part.rstrip() + '\n' + ex_card(sp, ex, bet, root) + '\n'
-            used.add(bet['heading'])
+            parts[i] = part.rstrip() + '\n' + ex_card(sp, exs, bet['heading'], root) + '\n'
+            used = True
     sec = ''.join(parts)
-    rest = [b for b in ex['bets'] if b['heading'] not in used]
-    if rest:
-        sec = sec.rstrip() + '\n<div class="gd-ex-grid">' + ''.join(ex_card(sp, ex, b, root) for b in rest) + '</div>\n'
-    return out[:m.start(1)] + sec + odds_table(ex) + '\n' + out[m.end(1):]
+    if not used:
+        notes = ''.join(f'<p class="gd-ex-note">{esc(ex["note"])}</p>' for ex in exs if ex.get('note'))
+        sec = sec.rstrip() + '\n' + ''.join(game_card(sp, ex, root) for ex in exs) + notes + '\n'
+    return out[:m.start(1)] + sec + odds_table(exs[0]) + '\n' + out[m.end(1):]
 
 
-def guide_html(md, root, tile, sp=None):
-    """A guide's body: Example cards (sport guides), headers with icon
-    tiles, "Where to go next" pills, root-aware links."""
+def guide_html(md, root, sp=None):
+    """A guide's body: Example cards (sport guides), purple section headers,
+    "Where to go next" pills, root-aware links."""
     out = daily.to_html(md)
     if sp:
         out = with_examples(out, sp, root)
-    return rooted(headers(next_pills(out), tile), root)
+    return rooted(headers(next_pills(out)), root)
 
 
 def index_body(root):
@@ -433,7 +461,7 @@ def sport_page(sp):
         rel = sports.guide_path(sp).lstrip('/')
         desc = meta.get('description') or daily.plain(md)[:200]
         when = updated(rel, meta['_numbers'])
-        body = (f'<p class="dp-date">Updated {daily.nice_date(when)}</p><div class="dp-body">{guide_html(md, "__ROOT__/", sport_tile(sp), sp)}</div>'
+        body = (f'<p class="dp-date">Updated {daily.nice_date(when)}</p><div class="dp-body">{guide_html(md, "__ROOT__/", sp)}</div>'
                 + ld_json(rel, name, h1, desc, md, when))
         noindex = False
     more = ''.join(f'<a class="gd-link" href="__ROOT__/{INDEX_DIR}/{slug}/">{esc(GENERAL_BY[slug][1])} &rarr;</a>' for slug in bet_guides(sp))

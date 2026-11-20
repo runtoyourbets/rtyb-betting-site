@@ -1057,9 +1057,9 @@ def hottest_trends(S, now_utc, root='', hub=False, early=False):
 
 # ---------------------------------------------------- Matchup of the Day
 def motd_pick(S, now_utc, hub=False):
-    """(sport, pick, game) from each sport's hub.json (scripts/hub.py, 3+
-    agreeing trends). Home: tonight's game, any sport, with the most
-    agreeing trends, ties to the bigger edge over the league rate."""
+    """(sport, pick, game) from each sport's hub.json (scripts/hub.py's
+    rules). Home: tonight's game, any sport, with the most trends, ties to
+    the stronger Trend to Watch %, then the earlier start (hub.rank_key)."""
     today = now_utc.astimezone(ET).date().isoformat()
     best = None
     for sport in S.values():
@@ -1069,10 +1069,15 @@ def motd_pick(S, now_utc, hub=False):
         g = next((x for _, x in sport.all_games() if str(x['id']) == str(m['id'])), None) or m
         if not hub and (not today_game(g, today, now_utc) or g.get('state') == 'final'):
             continue
-        score = (m.get('n') or 0, m.get('edge') or 0)
-        if best is None or score > best[0]:
+        score = hub_rank(m)
+        if best is None or score < best[0]:
             best = (score, sport, m, g)
     return best[1:] if best else None
+
+
+def hub_rank(m):
+    import hub
+    return hub.rank_key(m)
 
 
 def motd_watch(sport, m):
@@ -1149,6 +1154,9 @@ def motd(S, now_utc, root='', hub=False):
     and 4-6 agreeing trends, one line each ("NY · 1H Under · 79% (11-3)").
     Phones: one column in that order, no venue line."""
     pick = motd_pick(S, now_utc, hub)
+    if not hub:
+        import hub as hub_mod
+        print(hub_mod.log_line(pick[0].sp, pick[1], home=True) if pick else 'Matchup of the Day (home): no game qualifies')
     if not pick:
         return ''
     sport, m, g = pick
