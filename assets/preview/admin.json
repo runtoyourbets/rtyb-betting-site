@@ -12,6 +12,16 @@
  "pieces": {
   "all": [
    {
+    "date": "2026-11-20",
+    "headline": "UTEP Takes Eight Straight First-Half Losses to Air Force",
+    "live": false,
+    "page": "admin/preview/all-2026-11-20/",
+    "path": "content/drafts/all-preview-2026-11-20.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-20T13:03Z"
+   },
+   {
     "date": "2026-11-19",
     "headline": "Bucks First Quarters Have Gone Under 11 Straight Ahead of Portland",
     "live": true,
@@ -34,6 +44,16 @@
   ],
   "nba": [
    {
+    "date": "2026-11-20",
+    "headline": "Sacramento Kings Visit Los Angeles Lakers Riding 7 Straight First-Half Losses",
+    "live": false,
+    "page": "admin/preview/nba-2026-11-20/",
+    "path": "content/drafts/nba-preview-2026-11-20.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-20T13:01Z"
+   },
+   {
     "date": "2026-11-19",
     "headline": "Bucks and Trail Blazers Bring the Under to Milwaukee",
     "live": true,
@@ -55,6 +75,16 @@
    }
   ],
   "ncaab": [
+   {
+    "date": "2026-11-20",
+    "headline": "Virginia Tech Rides a 5-Game First-Half Win Streak Into Northwestern",
+    "live": false,
+    "page": "admin/preview/ncaab-2026-11-20/",
+    "path": "content/drafts/ncaab-preview-2026-11-20.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-20T13:02Z"
+   },
    {
     "date": "2026-11-19",
     "headline": "Little Rock Takes a Four-Game First-Half Skid to Jacksonville",
