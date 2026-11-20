@@ -305,12 +305,12 @@
    },
    {
     "label": "NBA · Indiana Pacers at Cleveland Cavaliers · 7:30 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "nba:401909307"
    },
    {
     "label": "NBA · Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 20,
+    "trends": 19,
     "value": "nba:401909306"
    },
    {
@@ -465,7 +465,7 @@
    }
   ],
   "lead": "ncaaf:401864545",
-  "motd": "ncaab:401921723"
+  "motd": "nba:401909306"
  },
  "nba": {
   "codes": [
@@ -496,12 +496,12 @@
    },
    {
     "label": "Indiana Pacers at Cleveland Cavaliers · 7:30 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "nba:401909307"
    },
    {
     "label": "Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 20,
+    "trends": 19,
     "value": "nba:401909306"
    },
    {
