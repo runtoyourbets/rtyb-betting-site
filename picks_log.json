@@ -11173,6 +11173,48 @@
     "streakTeamName": "Raptors"
    },
    {
+    "id": "ncaab|401912710|1h|ml|away",
+    "game": "ncaab|401912710",
+    "date": "2026-11-20",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-21T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Marshall @ North Carolina",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 650,
+    "title": "Marshall 1H ML",
+    "est": 0.1905,
+    "edge": 0.0571,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "marshall-thundering-herd",
+    "angles": [
+     [
+      "Marshall 1H ML, season",
+      "4-1"
+     ],
+     [
+      "Marshall 1H ML, last 8",
+      "4-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Marshall"
+   },
+   {
     "id": "ncaab|401906852|1h|ml|away",
     "game": "ncaab|401906852",
     "date": "2026-11-20",
@@ -11299,6 +11341,90 @@
     "streakTeamName": "Kansas City"
    },
    {
+    "id": "nba|401909309|1q|ml|away",
+    "game": "nba|401909309",
+    "date": "2026-11-20",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Wizards @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 110,
+    "title": "Wizards 1Q ML",
+    "est": 0.5194,
+    "edge": 0.0432,
+    "agree": 2,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "wsh",
+    "angles": [
+     [
+      "Wizards 1Q ML on the road",
+      "6-3"
+     ],
+     [
+      "Bulls\u2019s opponents 1Q ML, Bulls at home",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Wizards"
+   },
+   {
+    "id": "ncaab|401920298|1h|ml|away",
+    "game": "ncaab|401920298",
+    "date": "2026-11-20",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-20T23:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Delaware @ Cal State Northridge",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 196,
+    "title": "Delaware 1H ML",
+    "est": 0.3782,
+    "edge": 0.0403,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "delaware-blue-hens",
+    "angles": [
+     [
+      "Delaware 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Delaware 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Delaware"
+   },
+   {
     "id": "nba|401909305|1h|ml|away",
     "game": "nba|401909305",
     "date": "2026-11-20",
@@ -11313,13 +11439,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 152,
+    "price": 154,
     "title": "Hornets 1H ML",
-    "est": 0.436,
-    "edge": 0.0392,
+    "est": 0.4339,
+    "edge": 0.0402,
     "agree": 3,
     "sample": 14,
-    "tier": "C",
+    "tier": "B",
     "tags": [
      "Dog Hunter"
     ],
@@ -11345,52 +11471,6 @@
     "streakTeamName": "Hornets"
    },
    {
-    "id": "ncaab|401921692|1h|ml|home",
-    "game": "ncaab|401921692",
-    "date": "2026-11-20",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-21T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Wisconsin @ Murray State",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 148,
-    "title": "Murray State 1H ML",
-    "est": 0.4382,
-    "edge": 0.035,
-    "agree": 3,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "murray-state-racers",
-    "angles": [
-     [
-      "Murray State 1H ML at home",
-      "4-0"
-     ],
-     [
-      "Murray State 1H ML, season",
-      "5-1"
-     ],
-     [
-      "Murray State 1H ML, last 8",
-      "5-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Murray State"
-   },
-   {
     "id": "nba|401909311|1h|ml|away",
     "game": "nba|401909311",
     "date": "2026-11-20",
@@ -11405,10 +11485,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -150,
+    "price": -148,
     "title": "Suns 1H ML",
-    "est": 0.6339,
-    "edge": 0.0339,
+    "est": 0.6317,
+    "edge": 0.0349,
     "agree": 4,
     "sample": 13,
     "tier": "C",
@@ -11439,91 +11519,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Suns"
-   },
-   {
-    "id": "ncaab|401920298|1h|ml|away",
-    "game": "ncaab|401920298",
-    "date": "2026-11-20",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-20T23:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Delaware @ Cal State Northridge",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 160,
-    "title": "Delaware 1H ML",
-    "est": 0.4183,
-    "edge": 0.0337,
-    "agree": 2,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "delaware-blue-hens",
-    "angles": [
-     [
-      "Delaware 1H ML, season",
-      "3-2"
-     ],
-     [
-      "Delaware 1H ML, last 8",
-      "3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Delaware"
-   },
-   {
-    "id": "ncaaf|401864542|1q|ml|home",
-    "game": "ncaaf|401864542",
-    "date": "2026-11-20",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-21T02:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "New Mexico @ Wyoming",
-    "href": "college-football/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 190,
-    "title": "Wyoming 1Q ML",
-    "est": 0.3768,
-    "edge": 0.0319,
-    "agree": 2,
-    "sample": 8,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "wyoming-cowboys",
-    "angles": [
-     [
-      "Wyoming 1Q ML, last 8",
-      "5-2-1"
-     ],
-     [
-      "Wyoming 1Q ML, season",
-      "5-3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Wyoming"
    }
   ]
  }

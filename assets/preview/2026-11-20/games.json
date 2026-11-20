@@ -310,7 +310,7 @@
    },
    {
     "label": "NBA · Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 21,
+    "trends": 20,
     "value": "nba:401909306"
    },
    {
@@ -350,7 +350,7 @@
    },
    {
     "label": "NBA · Washington Wizards at Chicago Bulls · 8:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "nba:401909309"
    },
    {
@@ -435,7 +435,7 @@
    },
    {
     "label": "NBA · Phoenix Suns at Utah Jazz · 9:30 PM ET",
-    "trends": 9,
+    "trends": 11,
     "value": "nba:401909311"
    },
    {
@@ -465,7 +465,7 @@
    }
   ],
   "lead": "ncaaf:401864545",
-  "motd": "nba:401909306"
+  "motd": "ncaab:401921723"
  },
  "nba": {
   "codes": [
@@ -501,7 +501,7 @@
    },
    {
     "label": "Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 21,
+    "trends": 20,
     "value": "nba:401909306"
    },
    {
@@ -516,12 +516,12 @@
    },
    {
     "label": "Washington Wizards at Chicago Bulls · 8:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "nba:401909309"
    },
    {
     "label": "Phoenix Suns at Utah Jazz · 9:30 PM ET",
-    "trends": 9,
+    "trends": 11,
     "value": "nba:401909311"
    },
    {
