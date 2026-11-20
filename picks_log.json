@@ -11127,6 +11127,48 @@
     "streakTeamName": "Rockets"
    },
    {
+    "id": "ncaab|401912710|1h|ml|away",
+    "game": "ncaab|401912710",
+    "date": "2026-11-20",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-21T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Marshall @ North Carolina",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 820,
+    "title": "Marshall 1H ML",
+    "est": 0.1694,
+    "edge": 0.0607,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "marshall-thundering-herd",
+    "angles": [
+     [
+      "Marshall 1H ML, season",
+      "4-1"
+     ],
+     [
+      "Marshall 1H ML, last 8",
+      "4-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Marshall"
+   },
+   {
     "id": "nba|401909308|1q|ml|away",
     "game": "nba|401909308",
     "date": "2026-11-20",
@@ -11173,48 +11215,6 @@
     "streakTeamName": "Raptors"
    },
    {
-    "id": "ncaab|401912710|1h|ml|away",
-    "game": "ncaab|401912710",
-    "date": "2026-11-20",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-21T02:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Marshall @ North Carolina",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 650,
-    "title": "Marshall 1H ML",
-    "est": 0.1905,
-    "edge": 0.0571,
-    "agree": 2,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "marshall-thundering-herd",
-    "angles": [
-     [
-      "Marshall 1H ML, season",
-      "4-1"
-     ],
-     [
-      "Marshall 1H ML, last 8",
-      "4-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Marshall"
-   },
-   {
     "id": "ncaab|401906852|1h|ml|away",
     "game": "ncaab|401906852",
     "date": "2026-11-20",
@@ -11229,10 +11229,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1800,
+    "price": 2000,
     "title": "Coastal Carolina 1H ML",
-    "est": 0.1086,
-    "edge": 0.056,
+    "est": 0.1043,
+    "edge": 0.0567,
     "agree": 2,
     "sample": 5,
     "tier": "C",
