@@ -11141,13 +11141,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 142,
+    "price": 144,
     "title": "Raptors 1Q ML",
-    "est": 0.4721,
-    "edge": 0.0589,
+    "est": 0.4698,
+    "edge": 0.06,
     "agree": 3,
     "sample": 15,
-    "tier": "B",
+    "tier": "A",
     "tags": [
      "Dog Hunter"
     ],
