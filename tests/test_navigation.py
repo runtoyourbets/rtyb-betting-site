@@ -22,11 +22,14 @@ def status():
 
 class NavTest(unittest.TestCase):
     def test_picks_link_everywhere(self):
-        # Picks shows (gold) in every menu; while PICKS_LIVE is off it goes to Preview
+        # Picks shows in every menu (gold, except the white pills inside an
+        # opened sport in the phone menu); while PICKS_LIVE is off it goes to Preview
         self.assertFalse(sports.PICKS_LIVE)
         html = nav.header('', status())
         self.assertIn('class="hn-link hn-gold" href="preview/">Picks', html)
-        self.assertIn('class="hm-pill gold" href="nhl/preview/">Picks', html)
+        self.assertIn('class="hm-pill" href="nhl/preview/">Picks', html)
+        self.assertNotIn('hm-pill gold', html)
+        self.assertIn('hm-all-btn gold', html)
         self.assertIn('class="hn-picks-pill" href="preview/"', html)
 
     def test_page_order(self):

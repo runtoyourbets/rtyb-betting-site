@@ -12,14 +12,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
 import seo  # noqa: E402
 
 BASE = 'https://example.com/'
-PAGE = '<head><meta name="description" content="Odds &amp; trends"></head><title>RTYB — NBA Games</title>'
+PAGE = '<head><meta name="description" content="Odds &amp; trends"></head><title>RTYB - NBA Games</title>'
 
 
 class HeadBlock(unittest.TestCase):
     def test_arena_image_and_tags(self):
         b = seo.head_block('nba/games/', PAGE, BASE, '')
         self.assertIn('content="https://example.com/assets/share/nba.jpg"', b)
-        self.assertIn('og:title" content="RTYB — NBA Games"', b)
+        self.assertIn('og:title" content="RTYB - NBA Games"', b)
         self.assertIn('og:description" content="Odds &amp; trends"', b)
         self.assertIn('<link rel="canonical" href="https://example.com/nba/games/">', b)
 

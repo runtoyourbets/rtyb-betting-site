@@ -103,8 +103,8 @@ class PreviewHeroTest(unittest.TestCase):
 
 class PriceTest(unittest.TestCase):
     def test_moneylines_past_2000_are_a_dash(self):
-        self.assertEqual(front.price_txt(-2700), '&mdash;')
-        self.assertEqual(front.price_txt(2100), '&mdash;')
+        self.assertEqual(front.price_txt(-2700), '-')
+        self.assertEqual(front.price_txt(2100), '-')
         self.assertEqual(front.price_txt(-205), '-205')
 
 

@@ -44,7 +44,7 @@ class NhlSportTest(unittest.TestCase):
         self.assertEqual((g['als'], g['hls'], g['res']['1p']['sc']), ([2], [0], [2, 0]))
 
     def test_doc(self):
-        d = nhl_sport.doc({'2026-09-30': [GAME], '2026-11-10': [GAME]}, '2026-10-01', '2026–27',
+        d = nhl_sport.doc({'2026-09-30': [GAME], '2026-11-10': [GAME]}, '2026-10-01', '2026-27',
                           {'NJ': {'name': 'New Jersey Devils'}, 'CBJ': {'name': 'Columbus Blue Jackets'}},
                           {'Metropolitan': ['NJ', 'CBJ']}, {'NJ': '#CE1126'}, None, 'now')
         self.assertEqual(list(d['games']), ['2026-11-10'])   # this season only

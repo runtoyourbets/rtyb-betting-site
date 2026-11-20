@@ -104,7 +104,7 @@
       test: function(c) { return c.prev && c.prev.dow === 1 && c.prev.mins >= C.primetime; } },
     { id: 'restadv', label: 'Rest advantage', short: 'Rest +', group: 'rest', def: 'Two or more days more rest than the opponent.',
       test: function(c) { return c.rest != null && c.oppRest != null && c.rest - c.oppRest >= 2; } },
-    { id: 'restdis', label: 'Rest disadvantage', short: 'Rest −', group: 'rest', def: 'Two or more days less rest than the opponent.',
+    { id: 'restdis', label: 'Rest disadvantage', short: 'Rest -', group: 'rest', def: 'Two or more days less rest than the opponent.',
       test: function(c) { return c.rest != null && c.oppRest != null && c.oppRest - c.rest >= 2; } },
     { id: 'road2', label: '2nd straight road game', short: '2nd road', group: 'rest', own: true, def: 'A road game right after another road game.',
       test: function(c) { return !c.home && c.prev && c.prev.side === 'away'; } },

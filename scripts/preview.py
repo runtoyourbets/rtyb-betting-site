@@ -171,8 +171,8 @@ def slate(sport, day):
 
 
 def rate_of(t):
-    """A trend's season record from hub.game_trends: "68% (58–27)" (league
-    cards and team leans; older logs: "58–27", "... in 11 of 13")."""
+    """A trend's season record from hub.game_trends: "68% (58-27)" (league
+    cards and team leans; older logs: "58-27", "... in 11 of 13")."""
     rec = t.get('rec') or ''
     m = re.search(r'\((\d+)\D+(\d+)\)', rec) if t['kind'] in ('league', 'matchup') else None
     if not m and t['kind'] == 'league':
@@ -279,7 +279,7 @@ def pick_lead(cands, motd):
 
 def chip_text(sport, t):
     """The card's yellow chip from the lead trend: "SAC LOST 1H · 11 OF 13",
-    "BACK ROAD FAVORITES · 1H ML · 58–27", "MIL UNDER 1Q · 10 STRAIGHT"."""
+    "BACK ROAD FAVORITES · 1H ML · 58-27", "MIL UNDER 1Q · 10 STRAIGHT"."""
     if not t:
         return ''
     if t['kind'] == 'league':
@@ -397,7 +397,7 @@ def packet_games(key, day, ids=None):
             'start': when,
             'matchup_of_the_day': bool(motd and motd[1] == str(g['id'])),
             'lead_game': bool(lead and lead['id'] == str(g['id'])),
-            'trends': [{'trend': x['text'], 'season_record': f"{x['w']}–{x['l']}", 'season_pct': f"{round(x['pct'] * 100)}%"}
+            'trends': [{'trend': x['text'], 'season_record': f"{x['w']}-{x['l']}", 'season_pct': f"{round(x['pct'] * 100)}%"}
                        for x in items if x['pct'] is not None and x['n'] >= RATE_MIN],
             'streaks': [x['text'] for x in items if x['kind'] == 'streak'],
             'lines': lines_of(sp, day, g), **extra})
@@ -464,7 +464,7 @@ def prepared(sport):
 
 def split_rec(w, l):
     n = w + l
-    return {'record': f'{w}–{l}', 'pct': f'{round(100 * w / n)}%', 'games': n, '_w': w, '_l': l} if n >= RATE_MIN else None
+    return {'record': f'{w}-{l}', 'pct': f'{round(100 * w / n)}%', 'games': n, '_w': w, '_l': l} if n >= RATE_MIN else None
 
 
 def team_rates(sport, day, slugs):
@@ -580,14 +580,14 @@ def play_info(sport, day, p, g):
 
 def angle_rate(a):
     """An Edge angle ["Boston 1P ML on the road", "5-2-2"] (W-L-push) as
-    "Boston 1P ML, season: 62% (10–6)", percent first; 10+ games only."""
+    "Boston 1P ML, season: 62% (10-6)", percent first; 10+ games only."""
     m = re.match(r'(\d+)-(\d+)', str(a[1] if len(a) > 1 else ''))
     if not m:
         return None
     w, l = int(m.group(1)), int(m.group(2))
     if w + l < RATE_MIN:
         return None
-    return f"{a[0]}: {round(100 * w / (w + l)) if w + l else 0}% ({w}–{l})"
+    return f"{a[0]}: {round(100 * w / (w + l)) if w + l else 0}% ({w}-{l})"
 
 
 # ----------------------------------------------------- the three boxes
@@ -616,7 +616,7 @@ def stat_pick(sport, day, games):
     (pct, n), g, side, r, sp_, (w, l), words = best
     code, name = sport.code(g[side]), sport.full_name(g[side])
     tail = '' if sp_ == 'season' else f' {SPLIT_WORDS[sp_]}'
-    return {'sport': sport.key, 'number': f'{round(pct * 100)}%', 'line': f"{code} {words.replace('went ', '')} · {w}–{l}{tail}",
+    return {'sport': sport.key, 'number': f'{round(pct * 100)}%', 'line': f"{code} {words.replace('went ', '')} · {w}-{l}{tail}",
             'text': f'The {name} {words} in {w} of {n} games{tail or " this season"}.', '_score': pct}
 
 
@@ -629,8 +629,8 @@ def trend_pick(sport, day, games):
     c = x['card']
     names = [f"{sport.full_name(g['away'])} at {sport.full_name(g['home'])}" for g in x['fit']]
     tonight = names[0] if len(names) == 1 else f'{names[0]} and {len(names) - 1} more game{"s" if len(names) > 2 else ""}'
-    return {'sport': sport.key, 'number': f"{round(c['rate'] * 100)}%", 'line': f"{c['title']} · {c['tag']} · {c['w']}–{c['l']}",
-            'text': f"{c['title']} {c['w']}–{c['l']} this season; tonight it fits {tonight}.", 'id': c['id'], '_score': c['rate']}
+    return {'sport': sport.key, 'number': f"{round(c['rate'] * 100)}%", 'line': f"{c['title']} · {c['tag']} · {c['w']}-{c['l']}",
+            'text': f"{c['title']} {c['w']}-{c['l']} this season; tonight it fits {tonight}.", 'id': c['id'], '_score': c['rate']}
 
 
 SEG_SPELLED = {'1p': 'first period', '1q': 'first quarter', '1h': 'first half', '1i': 'first inning', 'f5': 'first five innings'}
@@ -647,8 +647,8 @@ def season_rate(rates, slug, k, m):
 
 def edge_why(sport, day, p, g, rates=None):
     """The reason an Edge play qualifies, from rates in its own market only
-    ("Islanders have won the first period 62% (10–6); the Jets have won it
-    23% (3–10)."), or None when it doesn't: no same-market rate of 10+
+    ("Islanders have won the first period 62% (10-6); the Jets have won it
+    23% (3-10)."), or None when it doesn't: no same-market rate of 10+
     games, or the side wins / covers under 40% of its season."""
     k, m, side = p['seg'], p['market'], p['side']
     if m in ('ml', 'ats'):
@@ -665,9 +665,9 @@ def edge_why(sport, day, p, g, rates=None):
             def nick(slug):
                 t = sport.team(slug)
                 return t.get('short') or sport.full_name(slug)
-            why = f"{'' if sport.key in sports.COLLEGE else 'The '}{nick(g[side])} {have} {verb} the {what} {round(100 * mine[0] / sum(mine))}% ({mine[0]}–{mine[1]})"
+            why = f"{'' if sport.key in sports.COLLEGE else 'The '}{nick(g[side])} {have} {verb} the {what} {round(100 * mine[0] / sum(mine))}% ({mine[0]}-{mine[1]})"
             if theirs:
-                why += f"; {'' if sport.key in sports.COLLEGE else 'the '}{nick(g[other])} {have} {it} {round(100 * theirs[0] / sum(theirs))}% ({theirs[0]}–{theirs[1]})"
+                why += f"; {'' if sport.key in sports.COLLEGE else 'the '}{nick(g[other])} {have} {it} {round(100 * theirs[0] / sum(theirs))}% ({theirs[0]}-{theirs[1]})"
             return why + '.'
     word = MARKET_WORDS.get(m)
     word = word.get(side, '') if isinstance(word, dict) else word
@@ -734,7 +734,7 @@ def more_data(key, day, ids=None):
     rates = team_rates(sport, day, slugs)
     return {
         'teams': {sport.code(s): {'name': sport.full_name(s), 'rates': public(rates.get(s) or [])} for s in sorted(slugs)},
-        'league_trends': [{'trend': x['card']['title'], 'market': x['card']['tag'], 'record': f"{x['card']['w']}–{x['card']['l']}",
+        'league_trends': [{'trend': x['card']['title'], 'market': x['card']['tag'], 'record': f"{x['card']['w']}-{x['card']['l']}",
                            'pct': f"{round(x['card']['rate'] * 100)}%", 'games': x['n'],
                            'fits_tonight': [f"{sport.full_name(g['away'])} at {sport.full_name(g['home'])}" for g in x['fit']]}
                           for x in league_cards(sport, day, games)],

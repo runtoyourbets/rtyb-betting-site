@@ -79,8 +79,8 @@ def line_txt(x):
 def price_txt(p):
     """A price, or a dash past -2000 / +2000."""
     if not isinstance(p, (int, float)):
-        return '&mdash;'
-    return '&mdash;' if abs(p) > ML_CAP else esc(signed(round(p)))
+        return '-'
+    return '-' if abs(p) > ML_CAP else esc(signed(round(p)))
 
 
 def fmt_units(u):
@@ -96,7 +96,7 @@ def unit_tone(u):
 
 def units_pill(u, priced):
     if not priced:
-        return '<span class="u-pill u-none">&mdash;</span>'
+        return '<span class="u-pill u-none">-</span>'
     r = round(u, 2)
     cls = 'u-pos2' if r >= 3 else 'u-pos1' if r > 0.5 else 'u-neg2' if r < -3 else 'u-neg1' if r < -0.5 else 'u-mid'
     return f'<span class="u-pill {cls}">{fmt_units(r)}</span>'
@@ -393,7 +393,7 @@ def results_box(rows, title):
     body = ''.join(
         f'<div class="ds-row"><span class="ds-label">{esc(x.label)}</span><span class="ds-right">'
         f'<span class="ds-record ds-col-rec mono">{x.rec()}</span>'
-        f'<span class="ds-col-pct mono">{"&mdash;" if x.pct is None else str(round(x.pct * 100)) + "%"}</span>'
+        f'<span class="ds-col-pct mono">{"-" if x.pct is None else str(round(x.pct * 100)) + "%"}</span>'
         f'<span class="ds-col-units">{units_pill(x.u, x.n)}</span></span></div>' for x in rows)
     return (f'<div class="daily-summary gm-results"><h3>{esc(title)}</h3>'
             '<div class="ds-row ds-head"><span></span><span class="ds-right"><span class="ds-col-rec">Record</span>'
@@ -490,8 +490,8 @@ def best_cands(S, yday):
 
 
 def best_row(sport, label, x):
-    """"[icon] NBA · 1Q Fav ML · 75% (3–1) · +2.05u", one line."""
-    pct = f'{round(x.pct * 100)}% ({x.w}&ndash;{x.l})' if x.pct is not None else f'{x.w}&ndash;{x.l}'
+    """"[icon] NBA · 1Q Fav ML · 75% (3-1) · +2.05u", one line."""
+    pct = f'{round(x.pct * 100)}% ({x.w}-{x.l})' if x.pct is not None else f'{x.w}-{x.l}'
     return (f'<li class="yb-row">{icons.sport_icon(sport.sp)}<span class="yb-sp">{esc(sport.label)}</span><span class="yb-dot">&middot;</span>'
             f'<span class="yb-mk">{esc(label)}</span><span class="yb-dot">&middot;</span><span class="yb-rec">{pct}</span>'
             f'<span class="yb-dot">&middot;</span><span class="yb-u">{fmt_units(x.u)}</span></li>')
@@ -591,7 +591,7 @@ def cell(top, sub='', book=''):
 
 
 def dash():
-    return '<span class="cell"><span class="mc-dash">&ndash;</span></span>'
+    return '<span class="cell"><span class="mc-dash">-</span></span>'
 
 
 def mk_h(text):
@@ -890,7 +890,7 @@ def trend_card(sport, c, by_id, root, now, show_sport, hidden=False, xs=None):
     rate, base = c['rate'] * 100, c['base'] * 100
     return (f'<div class="tr-card"{" hidden data-more" if hidden else ""}><div class="tr-top">{sp}<span class="lt-tag">{esc(c["tag"].replace(" ATS", " Spread"))}</span></div>'
             f'<h3 class="tr-title">{esc(c["title"])}</h3>'
-            f'<div class="tr-rec" title="{esc(RECORD_TIP)}">{round(rate)}% ({c["w"]}&ndash;{c["l"]}) &middot; league {round(base)}% &middot; '
+            f'<div class="tr-rec" title="{esc(RECORD_TIP)}">{round(rate)}% ({c["w"]}-{c["l"]}) &middot; league {round(base)}% &middot; '
             f'<span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span></div>'
             f'<div class="tr-bar" aria-hidden="true"><span style="width:{rate:.1f}%"></span><i style="left:{base:.1f}%"></i></div>'
             f'<div class="tr-rows">{rows}</div></div>')
@@ -960,8 +960,8 @@ def info_tip(label, body, term=''):
 
 
 def trend_compare(c):
-    """"This trend: 62% (57–35). League average: 50%." """
-    return f'This trend: {round(c["rate"] * 100)}% ({c["w"]}–{c["l"]}). League average: {round(c["base"] * 100)}%.'
+    """"This trend: 62% (57-35). League average: 50%." """
+    return f'This trend: {round(c["rate"] * 100)}% ({c["w"]}-{c["l"]}). League average: {round(c["base"] * 100)}%.'
 
 
 def trend_tip(sport, c):
@@ -994,7 +994,7 @@ def hot_card(sport, c, by_id, xs, root, now, show_sport=True, n_rows=HOT_ROWS, a
     this_attr = ' data-season="this"' if last_recs is not None else ''
     return (f'<div class="st-card tr-card ht-card"{attrs}><div class="st-head"><h4><span class="sl-sport">{icons.sport_icon(sport.sp) + esc(sport.label) + " &middot; " if show_sport else ""}{tag}</span>{trend_tip(sport, c)}</h4></div>'
             f'<h3 class="tr-title">{esc(c["title"])}</h3>'
-            f'<p class="ht-rec"{this_attr}>{round(rate)}% ({c["w"]}&ndash;{c["l"]}) &middot; <span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span></p>'
+            f'<p class="ht-rec"{this_attr}>{round(rate)}% ({c["w"]}-{c["l"]}) &middot; <span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span></p>'
             + (last_rec_html(last_recs.get(c['id'])) if last_recs is not None else '') +
             f'<p class="ht-avg">League average {round(base)}%</p>'
             f'<div class="tr-rows">{rows}</div></div>')
@@ -1006,7 +1006,7 @@ def last_rec_html(r):
         return '<p class="ht-rec" data-season="last" hidden>Not tracked last season</p>'
     u = (f' &middot; <span class="{unit_tone(r["units"])}">{fmt_units(r["units"])}</span>' if r['all_priced'] else '')
     pct = round(100 * r['w'] / (r['w'] + r['l']))
-    return f'<p class="ht-rec" data-season="last" hidden>{pct}% ({r["w"]}&ndash;{r["l"]}){u}</p>'
+    return f'<p class="ht-rec" data-season="last" hidden>{pct}% ({r["w"]}-{r["l"]}){u}</p>'
 
 
 HOT_BUFFER = 12   # Hottest Trends: cards per day in the HTML, so the next one can move up
@@ -1145,7 +1145,7 @@ def motd(S, now_utc, root='', hub=False):
     """Desktop: two columns in the card. Left: the teams (large logos, full
     names), the Slate's odds table and the venue / TV line. Right: the
     matchup label (its "i"), TREND TO WATCH and the market, the best odds
-    and 4-6 agreeing trends, one line each ("NY · 1H Under · 79% (11–3)").
+    and 4-6 agreeing trends, one line each ("NY · 1H Under · 79% (11-3)").
     Phones: one column in that order, no venue line."""
     pick = motd_pick(S, now_utc, hub)
     if not pick:
@@ -1161,7 +1161,7 @@ def motd(S, now_utc, root='', hub=False):
     trends = ''.join(f'<li><span class="mo-tl">{esc(t.get("short") or t["text"])}</span><span class="mo-tr">{esc(t["rec"])}</span></li>'
                      for t in (m.get('trends') or [])[:MOTD_ROWS])
     season = ((sport.hub.get('motdRecord') or {}).get('season')) or [0, 0]
-    rec = f'<p class="mo-rec">Season: <span class="mono">{season[0]}&ndash;{season[1]}</span></p>' if season[0] > season[1] else ''
+    rec = f'<p class="mo-rec">Season: <span class="mono">{season[0]}-{season[1]}</span></p>' if season[0] > season[1] else ''
     title = 'Matchup of the Week' if hub and sport.weekly else 'Matchup of the Day'
     import preview
     chip = motd_chip(sport, m)
@@ -1221,17 +1221,39 @@ def streak_day(sport, now_utc, hub=False):
     return [(d, g) for d, g in games if d == games[0][0]] if games else []
 
 
-def streaks(S, now_utc, hub=False):
+def streak_next_day(sport, now_utc, hub=False):
+    """[(date, game)] of the game day after the block's (football hub: next
+    week): what Streaks to Watch shows once every game on it has started."""
+    cur = streak_day(sport, now_utc, hub)
+    if hub and sport.weekly:
+        weeks = [w['key'] for w in sport.doc.get('weeks') or []]
+        wk = cur[0][1].get('wk') if cur else week_key(sport, now_utc.astimezone(ET).date().isoformat())
+        nxt = weeks[weeks.index(wk) + 1] if wk in weeks and weeks.index(wk) + 1 < len(weeks) else None
+        return [(d, g) for d, g in sport.all_games() if nxt and g.get('wk') == nxt and not started(g, now_utc)]
+    after = cur[0][0] if cur else now_utc.astimezone(ET).date().isoformat()
+    for d in sorted(x for x in (sport.doc.get('games') or {}) if x > after):
+        day = [(d, g) for g in sport.games(d) if game_lined(sport, g) and not started(g, now_utc)]
+        if day:
+            return day
+    return []
+
+
+def streaks(S, now_utc, hub=False, nxt=False):
     """[{sport, game, day, side, m, k, st, rate}]: every team on the
     displayed day with a current run of STREAK_MIN+ (football 4+), its
     longest only; longest first, then the earlier start, then the higher
     season rate in that market. Never a team from the lead game of today's
-    published Preview at the top (the next one moves up)."""
+    published Preview at the top (the next one moves up). nxt: the next
+    game day's instead (every sport's games on the earliest such day)."""
     import hub as H
     skip = preview_lead_teams(next(iter(S)) if hub and S else 'all', now_utc)
     out = []
-    for sport in S.values():
-        games = [(d, g) for d, g in streak_day(sport, now_utc, hub) if game_lined(sport, g)]
+    pick = {k: [(d, g) for d, g in (streak_next_day if nxt else streak_day)(sp, now_utc, hub) if game_lined(sp, g)] for k, sp in S.items()}
+    if nxt and not (hub and next(iter(S.values())).weekly):
+        first = min((gs[0][0] for gs in pick.values() if gs), default=None)
+        pick = {k: [(d, g) for d, g in gs if d == first] for k, gs in pick.items()}
+    for key, sport in S.items():
+        games = pick[key]
         if not games:
             continue
         need = STREAK_MIN_WEEKLY if sport.weekly else STREAK_MIN
@@ -1300,19 +1322,46 @@ def streak_item(x, i, now_utc, root, hub, phone_more):
     return f'<li class="{cls}" data-start="{esc(g.get("start") or "")}" data-state="{esc(g.get("state") or "pre")}"{lead}>{big}{row}</li>'
 
 
+def streak_when(xs, now_utc, hub):
+    """' · Fri, Nov 20' (football hub: ' · Week 12') for a list that isn't
+    today's, else ''."""
+    if not xs:
+        return ''
+    if hub and xs[0]['sport'].weekly:
+        wk = week_label([(x['day'], x['game']) for x in xs])
+        return f' · {wk}' if wk else ''
+    day = min(x['day'] for x in xs)
+    return '' if day == now_utc.astimezone(ET).date().isoformat() else f' · {day_label(day)}'
+
+
 def streaks_watch(S, now_utc, root='', hub=False):
     """Streak to Watch (one) / Streaks to Watch (2+): the top streak large
     (logo, full name, the run in yellow, NEXT MATCHUP), then up to
-    STREAK_ROWS one-line rows (phones: STREAK_PHONE and "All streaks")."""
-    xs = streaks(S, now_utc, hub)[:STREAK_ROWS + 1]
-    if not xs:
+    STREAK_ROWS one-line rows (phones: STREAK_PHONE and "All streaks").
+    A second, hidden list holds the next game day's streaks (titled
+    "Streaks to Watch · Fri, Nov 20"); FRONT_JS shows it once every streak
+    in the first has started. Neither has any: no block, and Matchup of the
+    Day goes full width (.fv.sw-none)."""
+    lists = []
+    for nxt in (False, True):
+        xs = streaks(S, now_utc, hub, nxt)[:STREAK_ROWS + 1]
+        if xs:
+            lists.append((xs, streak_when(xs, now_utc, hub)))
+    if not lists:
         return ''
-    top = xs[0]['sport']
-    title = 'Streak to Watch' if len(xs) == 1 else 'Streaks to Watch'
-    items = ''.join(streak_item(x, i, now_utc, root, hub, len(xs) > STREAK_PHONE + 1) for i, x in enumerate(xs))
+    if len(lists) == 2 and lists[0][1] == lists[1][1]:
+        lists = lists[:1]
+    top = lists[0][0][0]['sport']
+    xs, when = lists[0]
+    title = ('Streak to Watch' if len(xs) == 1 else 'Streaks to Watch') + when
+    uls = ''
+    for n, (xs, when) in enumerate(lists):
+        items = ''.join(streak_item(x, i, now_utc, root, hub, len(xs) > STREAK_PHONE + 1) for i, x in enumerate(xs))
+        uls += (f'<ul class="sw-list" data-one="Streak to Watch{esc(when)}" data-many="Streaks to Watch{esc(when)}"'
+                f'{" hidden" if n else ""}>{items}</ul>')
     link = more_link(f'{root}{top.trends_page}#streak-trends', 'All streaks')
-    return (f'<section class="fr-sec tw sw" id="team-watch" data-streaks><div class="fr-head"><h2 data-one="Streak to Watch" data-many="Streaks to Watch">{title}</h2></div>'
-            f'<div class="st-card tw-card"><ul class="sw-list">{items}</ul><div class="fr-links sw-all">{link}</div></div></section>')
+    return (f'<section class="fr-sec tw sw" id="team-watch" data-streaks><div class="fr-head"><h2>{esc(title)}</h2></div>'
+            f'<div class="st-card tw-card">{uls}<div class="fr-links sw-all">{link}</div></div></section>')
 
 
 # ------------------------------------------------------ Get the Running Tab
@@ -1615,7 +1664,10 @@ FRONT_JS = '''
   // 5 rows, desktop the rows that keep it no taller than Matchup of the Day
   var wide = window.matchMedia('(min-width: 900px)');
   function streaksFit(sec) {
-    var list = sec.querySelector('.sw-list');
+    // the first list with a streak still to start (the next game day's once today's have)
+    var lists = [].slice.call(sec.querySelectorAll('.sw-list'));
+    var list = lists.filter(function(l) { return [].some.call(l.children, function(i) { return !isOn(i); }); })[0] || lists[0];
+    lists.forEach(function(l) { l.hidden = l !== list; });
     var items = [].slice.call(list.children), alive = items.filter(function(i) { return !isOn(i); });
     var top = alive.filter(function(i) { return !i.hasAttribute('data-lead'); })[0] || null;
     items.forEach(function(i) { i.hidden = alive.indexOf(i) === -1; i.classList.toggle('sw-top', i === top); i.classList.remove('sw-cut'); });
@@ -1624,8 +1676,10 @@ FRONT_JS = '''
     rows.forEach(function(r, n) { r.classList.toggle('sw-more', n >= 5); r.classList.toggle('sw-first', n === 0); });
     sec.hidden = !alive.length;
     var h = sec.querySelector('h2');
-    if (h) h.textContent = alive.length === 1 ? h.getAttribute('data-one') : h.getAttribute('data-many');
+    if (h) h.textContent = alive.length === 1 ? list.getAttribute('data-one') : list.getAttribute('data-many');
     var mo = document.querySelector('.fv-motd .mo-card'), grid = sec.closest('.fv');
+    // no streaks left on either day: Matchup of the Day takes the full width
+    if (grid) grid.classList.toggle('sw-none', !alive.length);
     if (wide.matches && mo && grid) {
       // measure both cards at their own height (not stretched level), then level them
       var card = sec.querySelector('.tw-card'), cut = rows.slice();
@@ -1725,9 +1779,10 @@ def sections(S, now_utc, root='', hub=False, learn=''):
     def box(cls, html):
         return f'<div class="{cls}">{html}</div>' if html else ''
     ad = preview.ad_slot('front')
-    return (f'<div class="fv{"" if hub else " fv-home"}">' + ('' if hub else box('fv-slogan', slogan(S))) + box('fv-hero', hero) + box('fv-yb', best)
+    pair = streaks_watch(S, now_utc, root, hub)
+    return (f'<div class="fv{"" if hub else " fv-home"}{"" if pair else " sw-none"}">' + ('' if hub else box('fv-slogan', slogan(S))) + box('fv-hero', hero) + box('fv-yb', best)
             + box('fv-slate', slate(S, now_utc, root, hub)) + box('fv-motd', motd(S, now_utc, root, hub))
-            + box('fv-pair', streaks_watch(S, now_utc, root, hub)) + box('fv-bn', bignums.section(S, now_utc, root, hub))
+            + box('fv-pair', pair) + box('fv-bn', bignums.section(S, now_utc, root, hub))
             + box('fv-trends', hottest_trends(S, now_utc, root, hub, early=bool(st) and st['key'] == 'early'))
             + box('fv-results', yesterdays_results(S, res_day, root, hub, week=res_week)) + box('fv-learn', learn) + (f'<div class="fv-ad">{ad}</div>' if ad else '')
             + f'</div>{FRONT_JS}')

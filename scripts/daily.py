@@ -6,7 +6,7 @@ Pieces are Markdown files with a front-matter block, in content/published/
 content/columns/):
 
   ---
-  title: "NHL First Period Betting Preview — Nov 24, 2026"
+  title: "NHL First Period Betting Preview - Nov 24, 2026"
   sport: nhl            (previews and recaps; 'all' = the every-sport preview)
   kind: preview         preview | recap | column
   date: 2026-11-24

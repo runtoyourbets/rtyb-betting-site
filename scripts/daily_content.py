@@ -485,16 +485,16 @@ def weekly_preview(sport):
 
 def title(kind, sport, day, packet=None):
     if sport == daily.ALL:
-        return f"First Period, Quarter & Half Betting Preview — {date.fromisoformat(day).strftime('%b %-d, %Y')}"
+        return f"First Period, Quarter & Half Betting Preview - {date.fromisoformat(day).strftime('%b %-d, %Y')}"
     sp = sports.BY_KEY[sport]
     seg = ' and '.join(s['label'].replace('1st ', 'First ') for s in sp['segments'])
     when = date.fromisoformat(day).strftime('%b %-d, %Y')
     if weekly(sport) and kind == 'recap':
-        return f"{sp['label']} {seg} Betting Weekend Recap — {when}"
+        return f"{sp['label']} {seg} Betting Weekend Recap - {when}"
     if weekly_preview(sport) and kind == 'preview':   # "NFL Week 11 First Quarter & First Half Betting Preview"
         week = (packet or {}).get('week') or 'Week'
         return f"{sports.seo_name(sport)} {week} {sports.seg_words(sport)} Betting Preview"
-    return f"{sp['label']} {seg} Betting {'Recap' if kind == 'recap' else 'Preview'} — {when}"
+    return f"{sp['label']} {seg} Betting {'Recap' if kind == 'recap' else 'Preview'} - {when}"
 
 
 def numbers_in(text):

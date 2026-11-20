@@ -361,8 +361,8 @@ def seg_words(sp, k):
 
 def last_line(sp, doc, G, aid, c, k, market, kind, bet, side):
     """The tooltip's last game that fit, in the tooltips file's formats:
-    side 'Last time: Nov 8, SJ was +165 vs VGK. VGK won the 1st period 2–0.'
-    game 'Last time: Nov 8, BOS @ DET. The 1st period ended 1–1: tied.'"""
+    side 'Last time: Nov 8, SJ was +165 vs VGK. VGK won the 1st period 2-0.'
+    game 'Last time: Nov 8, BOS @ DET. The 1st period ended 1-1: tied.'"""
     g = G['g']
     d = Date.fromisoformat(G['date'])
     day = f"{d.strftime('%b')} {d.day}"
@@ -375,9 +375,9 @@ def last_line(sp, doc, G, aid, c, k, market, kind, bet, side):
         p = ((o.get('ats') or {}).get(me) or {}).get('line') if market == 'ats' else (o.get('ml') or {}).get(me)
         team, opp = (A, H) if me == 'away' else (H, A)
         fact = f"{team} was {fmt_price(p)} vs {opp}" if isinstance(p, (int, float)) else f"{team} played {opp}"
-        won = f"The {sw} ended tied {a}–{h}" if a == h else f"{A if a > h else H} won the {sw} {max(a, h)}–{min(a, h)}"
+        won = f"The {sw} ended tied {a}-{h}" if a == h else f"{A if a > h else H} won the {sw} {max(a, h)}-{min(a, h)}"
         return f"Last time: {day}, {fact}. {won}."
-    return f"Last time: {day}, {A} @ {H}. The {sw} ended {a}–{h}: {outcome(doc, g, k, market)}."
+    return f"Last time: {day}, {A} @ {H}. The {sw} ended {a}-{h}: {outcome(doc, g, k, market)}."
 
 
 def outcome(doc, g, k, market):

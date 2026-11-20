@@ -157,7 +157,7 @@ def team_tallies(sport, doc, k, m):
 def units_html(t):
     """Units in the color rule's tones; a dash when some games had no price."""
     if not t.all_priced:
-        return '<span class="os-u">&mdash;</span>'
+        return '<span class="os-u">-</span>'
     return f'<span class="os-u {front.unit_tone(t.units)}">{front.fmt_units(t.units)}</span>'
 
 
@@ -205,17 +205,17 @@ def countdown(sport, st, doc, now_utc):
 
 # ------------------------------------------------------------ Champions
 def result_line(sport, ch):
-    """"Beat the Tampa Bay Rays 4–1" (a series); "Beat the Miami Hurricanes 27–21" (one game)."""
+    """"Beat the Tampa Bay Rays 4-1" (a series); "Beat the Miami Hurricanes 27-21" (one game)."""
     opp = sport.full_name(ch['opp'])
     the = '' if sport.key in sports.COLLEGE else 'the '
     w, l = (ch['wins'], ch['losses']) if ch['wins'] + ch['losses'] > 1 else ch['score']
-    return f'Beat {the}{opp} {w}–{l}'
+    return f'Beat {the}{opp} {w}-{l}'
 
 
 def big_html(t):
     """The big Barlow %, the record under it, the units under that."""
     pct = round(100 * t.w / t.n) if t.n else 0
-    return (f'<span class="os-big">{pct}%</span><span class="os-rec">{t.w}–{t.l}</span>'
+    return (f'<span class="os-big">{pct}%</span><span class="os-rec">{t.w}-{t.l}</span>'
             f'{units_html(t).replace("os-u", "os-u os-ub", 1)}')
 
 
@@ -308,7 +308,7 @@ def last_season_records(sport):
 
 def trend_units(c):
     if not c['all_priced']:
-        return '<span class="os-u">&mdash;</span>'
+        return '<span class="os-u">-</span>'
     return f'<span class="os-u {front.unit_tone(c["units"])}">{front.fmt_units(c["units"])}</span>'
 
 

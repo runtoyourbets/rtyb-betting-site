@@ -667,7 +667,7 @@ def render(log, plays_today, evaluated, now_utc, depth='../'):
     yd = (today - timedelta(days=1)).isoformat()
     ylist = (log.get(yd) or {}).get('plays') or []
     y_html = ''.join(f'<div class="pk-yrow"><span><b>{esc(p["title"])}</b><small>{esc(p["label"])} · {esc(p["matchup"])}</small></span>'
-                     f'<span class="pk-res {p["status"] if p["status"] != "pending" else "NA"}">{esc(p["status"] if p["status"] != "pending" else "—")}</span></div>'
+                     f'<span class="pk-res {p["status"] if p["status"] != "pending" else "NA"}">{esc(p["status"] if p["status"] != "pending" else "-")}</span></div>'
                      for p in ylist) or '<p class="pk-muted">No plays yesterday.</p>'
     yr = records(ylist)
     side = (f'<aside class="pk-side"><div class="pk-box"><h3>Personality Records &middot; This Week</h3>{pers_html}</div>'

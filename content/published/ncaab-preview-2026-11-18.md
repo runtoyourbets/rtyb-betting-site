@@ -1,5 +1,5 @@
 ---
-title: "NCAAB First Half Betting Preview — Nov 18, 2026"
+title: "NCAAB First Half Betting Preview - Nov 18, 2026"
 sport: ncaab
 kind: preview
 date: 2026-11-18
@@ -8,7 +8,7 @@ model: claude-opus-5-5
 check: ["20"]
 lead: ncaab:401922055
 motd: ncaab:401929201
-league_trend: {"sport": "ncaab", "number": "60%", "line": "Fade teams off a blowout · 1H ML · 182–123", "text": "Fade teams off a blowout 182–123 this season; tonight it fits Rutgers at Notre Dame and 18 more games.", "id": "off_loss3:1h:ml:fade"}
+league_trend: {"sport": "ncaab", "number": "60%", "line": "Fade teams off a blowout · 1H ML · 182-123", "text": "Fade teams off a blowout 182-123 this season; tonight it fits Rutgers at Notre Dame and 18 more games.", "id": "off_loss3:1h:ml:fade"}
 edge_play: {"sport": "ncaab", "number": "PORT 1H ML", "bet": "PORT 1H ML", "price": "+410", "book": "FanDuel", "line": "PORT 1H ML · best +410 at FanDuel", "text": "Portland at Colorado: the top Edge play is PORT 1H ML."}
 ---
 **Seventy-one games on the NCAAB board, and the first half is where our trends are piling up.**

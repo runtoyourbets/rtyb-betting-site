@@ -1970,7 +1970,6 @@ __THEME_HEAD__
   .hm-pills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .hm-pill { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 40px; border: 1px solid var(--card-border); border-radius: 999px;
     background: var(--panel); color: var(--text); text-decoration: none; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
-  .hm-pill.gold { color: var(--gold); border-color: var(--gold); }
   .hm-item { display: flex; align-items: center; min-height: 52px; border-bottom: 1px solid var(--border-soft); color: var(--text); text-decoration: none;
     font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
 
@@ -2431,6 +2430,9 @@ __THEME_HEAD__
     .fv-bn .bn-dcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
     .sw-cut { display: none !important; }
     .fv.sw-measure > .fv-motd, .fv.sw-measure > .fv-pair { align-self: start; }
+    /* no Streaks to Watch (today's or the next game day's): Matchup of the Day full width */
+    .fv.sw-none > .fv-motd { grid-column: 1 / -1; }
+    .fv.sw-none > .fv-pair { display: none; }
     .fv.sw-measure > .fv-motd .st-card, .fv.sw-measure > .fv-pair .st-card { flex: none; }
     .sw-all { display: none; }
   }
@@ -2704,14 +2706,14 @@ __THEME_HEAD__
      chips and units show dark ink on a gold chip; links and headings dark
      text with a gold underline or left bar. */
   :root[data-theme="light"] :is(.tm-u.mid, .st-u.mid, .tr-rec .mid, .ln-u.mid, .ln-best-u.mid, .ht-rec .mid, .pk-u.zero, .pk-u.mid, .os-u.mid,
-    .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hm-pill.gold, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
+    .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
     width: fit-content; padding: 0 5px; border-radius: 4px; border-color: var(--gold); background: var(--gold); color: var(--on-gold); }
   :root[data-theme="light"] :is(.u-mid, .btts-badge.tie) { background: var(--gold); color: var(--on-gold); }
   :root[data-theme="light"] :is(.hn-link.hn-gold, .hr2-label, a.hr2-label:hover, .fr-b2) { color: var(--text); text-decoration: underline 3px var(--gold); text-underline-offset: 5px; }
   :root[data-theme="light"] .pv .pv-body h3 { color: var(--text); border-left: 3px solid var(--gold); padding-left: 8px; }
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) :is(.tm-u.mid, .st-u.mid, .tr-rec .mid, .ln-u.mid, .ln-best-u.mid, .ht-rec .mid, .pk-u.zero, .pk-u.mid, .os-u.mid,
-      .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hm-pill.gold, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
+      .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
       width: fit-content; padding: 0 5px; border-radius: 4px; border-color: var(--gold); background: var(--gold); color: var(--on-gold); }
     :root:not([data-theme="dark"]) :is(.u-mid, .btts-badge.tie) { background: var(--gold); color: var(--on-gold); }
     :root:not([data-theme="dark"]) :is(.hn-link.hn-gold, .hr2-label, a.hr2-label:hover, .fr-b2) { color: var(--text); text-decoration: underline 3px var(--gold); text-underline-offset: 5px; }
@@ -3184,7 +3186,7 @@ __ACCOUNT_JS__
   <div class="gamelog-scroll"><table class="split-table" id="teamSplitsTable"></table></div>
   <h3 class="team-section-title">Current Trends</h3>
   <div id="teamTrendsBadges"></div>
-  <h3 class="team-section-title">Last 10 Games &mdash; 1P Result</h3>
+  <h3 class="team-section-title">Last 10 Games - 1P Result</h3>
   <div class="seg-toggle" id="l10SideToggle">
     <button class="seg-btn" data-l10-side="all" aria-pressed="true">All</button>
     <button class="seg-btn" data-l10-side="Home" aria-pressed="false">Home</button>
@@ -3435,7 +3437,7 @@ __ACCOUNT_JS__
     return r >= 3 ? 'u-pos2' : r > 0.5 ? 'u-pos1' : r < -3 ? 'u-neg2' : r < -0.5 ? 'u-neg1' : 'u-mid';
   }
   function unitsPill(u) {
-    if (u === null || u === undefined) return '<span class="u-pill u-none">&mdash;</span>';
+    if (u === null || u === undefined) return '<span class="u-pill u-none">-</span>';
     return '<span class="u-pill ' + unitsClass(u) + '">' + fmtUnits(u) + '</span>';
   }
   function unitsTipHtml(alignLeft) {
@@ -3582,7 +3584,7 @@ __ACCOUNT_JS__
         if (p.key !== key) return;
         var mk = t.market === 'ML' ? 'ml' : /^O|^U/.test(t.market) ? 'o15' : 'btts';
         var text = t.kind === 'side'
-          ? p.label.replace(/^Bet /, '') + ' — ' + p.why + '. ' + t.group + ' are ' + t.record + (t.units != null ? ' (' + fmtUnits(t.units) + ')' : '')
+          ? p.label.replace(/^Bet /, '') + ' - ' + p.why + '. ' + t.group + ' are ' + t.record + (t.units != null ? ' (' + fmtUnits(t.units) + ')' : '')
           : t.title + ': ' + pctText(t.rate) + ' (league ' + pctText(t.base) + ')' + (t.units != null ? ' · ' + fmtUnits(t.units) : '');
         out.push({ market: mk, side: t.kind === 'side' ? p.team : p.chip.toLowerCase(), chip: p.chip, text: text, src: 'League',
           z: Math.abs(t.z || 0), label: t.strength || trLabel(t.z || 0), n: t.n, status: trPickStatus(p) });
@@ -3602,8 +3604,8 @@ __ACCOUNT_JS__
       if (!isPartySpot(c) || dec < TR.league_min || u === null || u < TR.min_units) return;
       var z = trZ(r.w / dec, 0.5, dec);
       out.push({ market: 'ml', side: c.team, chip: 'Bet ' + c.team, src: 'League', z: Math.max(0, z), label: trLabel(Math.max(0, z), u, dec), n: dec,
-        text: 'Bet ' + c.team + ' — first game after ' + partyCityOf(c.prev.home) + '. Road teams in this spot are ' +
-          r.w + '–' + r.l + (r.t ? ' (' + r.t + ' push)' : '') + ' (' + fmtUnits(u) + ')' });
+        text: 'Bet ' + c.team + ' - first game after ' + partyCityOf(c.prev.home) + '. Road teams in this spot are ' +
+          r.w + '-' + r.l + (r.t ? ' (' + r.t + ' push)' : '') + ' (' + fmtUnits(u) + ')' });
     });
     return out;
   }
@@ -3628,10 +3630,10 @@ __ACCOUNT_JS__
   }
   function tallyText(mk, info) {
     if (!info.a) return '';
-    if (info.split) return (mk === 'ml' ? 'ML' : mk === 'o15' ? 'Total' : 'BTTS') + ' split ' + info.a + '–' + info.b;
+    if (info.split) return (mk === 'ml' ? 'ML' : mk === 'o15' ? 'Total' : 'BTTS') + ' split ' + info.a + '-' + info.b;
     var lead = info.chipLead;
     var name = mk === 'ml' ? lead + ' ML' : mk === 'o15' ? (lead === 'over' ? 'Over' : 'Under') : 'BTTS ' + (lead === 'yes' ? 'Yes' : 'No');
-    return name + ' ' + info.a + '–' + info.b;
+    return name + ' ' + info.a + '-' + info.b;
   }
   var TR_STATUS = { W: ['Hit', 'lt-w'], L: ['Miss', 'lt-l'], P: ['Push', 'lt-pending'], LIVE: ['Live', 'lt-pending'], NA: ['No line', 'lt-pending'] };
   // PENDING until the next data refresh notices the game started: show it live now
@@ -3658,7 +3660,7 @@ __ACCOUNT_JS__
     });
     if (!(w + l)) { el.style.display = 'none'; return; }
     el.style.display = '';
-    el.innerHTML = '<span class="trs-label">Trend record this season</span><span class="trs-rec mono">' + w + '–' + l + '</span>' +
+    el.innerHTML = '<span class="trs-label">Trend record this season</span><span class="trs-rec mono">' + w + '-' + l + '</span>' +
       '<span class="trs-pct">' + pctText(w / (w + l)) + '</span><a class="trs-link" href="' + SITE_ROOT + '/nhl/trends/">See trends &rsaquo;</a>';
   }
 
@@ -3711,14 +3713,14 @@ __ACCOUNT_JS__
     lgEl.innerHTML = lts.length ? lts.map(function(t, i) {
       var html = leagueCardHtml(t);
       return locked && i >= RTYB_CONFIG.freeTrends ? html.replace('class="tr-card', 'class="tr-card trend-blur') : html;
-    }).join('') : '<div class="empty-state">No league trends ' + (games.length ? 'clear the bar for today’s games.' : 'today — no NHL games.') + '</div>';
+    }).join('') : '<div class="empty-state">No league trends ' + (games.length ? 'clear the bar for today’s games.' : 'today - no NHL games.') + '</div>';
     var sec = document.getElementById('ltPageSection');
     var oldLock = sec.querySelector('.adv-lock'); if (oldLock) oldLock.remove();
     sec.classList.toggle('locked', locked);
     if (locked) { var d = document.createElement('div'); d.innerHTML = lockOverlayHtml('leagueTrendsSection'); sec.appendChild(d.firstChild); }
     var rec = entry && entry.record;
     var sum = document.getElementById('trLeagueSummary');
-    if (rec && rec.w + rec.l) { sum.style.display = ''; sum.innerHTML = 'League Trends are <b>' + rec.w + '–' + rec.l + '</b> today so far.'; }
+    if (rec && rec.w + rec.l) { sum.style.display = ''; sum.innerHTML = 'League Trends are <b>' + rec.w + '-' + rec.l + '</b> today so far.'; }
     else sum.style.display = 'none';
 
     // Team trends, grouped by game; teams on opposite sides of a market are flagged.
@@ -3863,7 +3865,7 @@ __ACCOUNT_JS__
     var n = 0, last = seq[seq.length - 1];
     for (var i = seq.length - 1; i >= 0 && seq[i] === last; i--) n++;
     var letters = market === 'btts' ? { W: 'Y', L: 'N' } : /^o/.test(market) ? { W: 'O', L: 'U' } : { W: 'W', L: 'L', T: 'T' };
-    r.streakHtml = n ? '<span class="tl-streak ' + (last === 'W' ? 'good' : last === 'L' ? 'bad' : 'flat') + '">' + letters[last] + n + '</span>' : '&mdash;';
+    r.streakHtml = n ? '<span class="tl-streak ' + (last === 'W' ? 'good' : last === 'L' ? 'bad' : 'flat') + '">' + letters[last] + n + '</span>' : '-';
     r.streak = n ? (last === 'W' ? n : last === 'L' ? -n : 0) : null;
     return r;
   }
@@ -3909,8 +3911,8 @@ __ACCOUNT_JS__
       return '<tr class="tl-row" data-team="' + r.code + '">' +
         '<td class="team-cell">' + teamLogoHtml(r.code, 24, {lazy: true}) + '<span class="tl-full">' + escapeHtml(r.name) + '</span><span class="tl-short">' + escapeHtml(teamNick(r.name)) + '</span></td>' +
         '<td class="num rec-cell mono col-rec"><b>' + r.rec + '</b></td>' +
-        '<td class="num col-pct"><div class="pct-cell"><div class="pct-bar"><span style="width:' + (pctDisplay || 0) + '%"></span></div><span class="pct-num mono">' + (pctDisplay === null ? '&mdash;' : pctDisplay + '%') + '</span></div></td>' +
-        (isMl ? '<td class="num col-tie mono">' + (r.tiePct === null ? '&mdash;' : Math.round(r.tiePct * 100) + '%') + '</td>' : '') +
+        '<td class="num col-pct"><div class="pct-cell"><div class="pct-bar"><span style="width:' + (pctDisplay || 0) + '%"></span></div><span class="pct-num mono">' + (pctDisplay === null ? '-' : pctDisplay + '%') + '</span></div></td>' +
+        (isMl ? '<td class="num col-tie mono">' + (r.tiePct === null ? '-' : Math.round(r.tiePct * 100) + '%') + '</td>' : '') +
         '<td class="num col-streak mono">' + r.streakHtml + '</td>' +
         '<td class="num col-units">' + unitsPill(r.units) + '</td>' +
         '<td class="col-go" aria-hidden="true">&rsaquo;</td></tr>';
@@ -4092,7 +4094,7 @@ __ACCOUNT_JS__
     var p = winPct(r.w, r.l, r.t), pct = p === null ? null : Math.round(p * 100); // ties stay out
     return {
       rec: r.w + '-' + r.l + (r.hasTies ? '-' + r.t : ''),
-      pct: pct === null ? '&mdash;' : pct + '%',
+      pct: pct === null ? '-' : pct + '%',
       cls: pct === null || pct === 50 ? 'warn' : pct > 50 ? 'good' : 'bad',
       units: unitsPill(r.units)
     };
@@ -4101,7 +4103,7 @@ __ACCOUNT_JS__
   function renderDailySummary(dateStr, games) {
     var el = document.getElementById('dailySummary');
     games = games || [];
-    var heading = '<h3>' + escapeHtml(dateLabelText(dateStr)) + ' &ndash; Results</h3>';
+    var heading = '<h3>' + escapeHtml(dateLabelText(dateStr)) + ' - Results</h3>';
 
     if (!games.length) {
       el.style.display = '';
@@ -4195,13 +4197,13 @@ __ACCOUNT_JS__
     if (seasonCardMode === 'week' || seasonCardMode === 'lastweek') {
       var wk = weekRange(seasonCardMode === 'week' ? 0 : 1);
       games = gradedGamesBetween(wk.from < SEASON_START ? SEASON_START : wk.from, wk.to);
-      weekLine = '<div class="sc-week">(' + shortDate(wk.from) + ' &ndash; ' + shortDate(wk.to) + ')</div>';
+      weekLine = '<div class="sc-week">(' + shortDate(wk.from) + ' - ' + shortDate(wk.to) + ')</div>';
     } else {
       games = gradedGamesBetween(SEASON_START || '0000-00-00', '9999-12-31');
     }
     var b = computeSeasonBlocks(games);
     function line(label, n) {
-      var pct = b.gp ? Math.round((n / b.gp) * 100) + '%' : '&mdash;';
+      var pct = b.gp ? Math.round((n / b.gp) * 100) + '%' : '-';
       return '<div class="sc-line"><span>' + label + '</span><span class="sc-val">' + n + ' <small>(' + pct + ')</small></span></div>';
     }
     function uLine(pairs) {
@@ -4471,7 +4473,7 @@ __ACCOUNT_JS__
         rows: [['0 goals', 0], ['1 goal', 1], ['2 goals', 2], ['3 goals', 3], ['4+ goals', 4]].map(function(r) {
           return { label: r[0], count: countWhere(p2, function(G) { return r[1] === 4 ? g2(G) >= 4 : g2(G) === r[1]; }), of: n2 };
         }),
-        note: '2P Over 1.5: ' + pctStr(o15, n2) + ' · Avg 2P goals: ' + (n2 ? (sum2 / n2).toFixed(2) : '&mdash;') + ' · ' + gamesTxt(n2) },
+        note: '2P Over 1.5: ' + pctStr(o15, n2) + ' · Avg 2P goals: ' + (n2 ? (sum2 / n2).toFixed(2) : '-') + ' · ' + gamesTxt(n2) },
       { title: '2nd Period Scoring', subtitle: 'Who breaks it open', n: n2, bars: true,
         rows: [
           { label: '2P Over 0.5', count: countWhere(p2, function(G) { return g2(G) > 0; }), of: n2 },
@@ -4497,7 +4499,7 @@ __ACCOUNT_JS__
     ];
   }
 
-  function pctStr(count, of) { return of ? Math.round((count / of) * 100) + '%' : '&mdash;'; }
+  function pctStr(count, of) { return of ? Math.round((count / of) * 100) + '%' : '-'; }
 
   // ---- Stats page rendering ----
   var advState = { boardView: 'pct' };
@@ -4530,7 +4532,7 @@ __ACCOUNT_JS__
     if (c.board) {
       body = c.rows.map(function(r) {
         var badge = advState.boardView === 'pct'
-          ? '<span class="u-pill u-zero">' + (recWinPct(r.rec) === null ? '&mdash;' : Math.round(recWinPct(r.rec) * 100) + '%') + '</span>'
+          ? '<span class="u-pill u-zero">' + (recWinPct(r.rec) === null ? '-' : Math.round(recWinPct(r.rec) * 100) + '%') + '</span>'
           : unitsPill(recUnits(r.rec));
         return '<div class="mb-row"><div><div class="mb-label">' + r.label + '</div><div class="mb-rec">' + r.rec.w + '-' + r.rec.l + '-' + r.rec.t + '</div></div>' + badge + '</div>';
       }).join('');
@@ -4596,7 +4598,7 @@ __ACCOUNT_JS__
         teams[c] = { name: ((DATA.summary || {})[c] || {}).name || c, division: div, conference: CONFERENCE_OF_DIVISION[div] };
       });
     });
-    var seasons = [{ key: 'current', label: DATA.seasonLabel || '2026–27', games: nhlSitGames(SCHEDULE.games, SEASON_START) }];
+    var seasons = [{ key: 'current', label: DATA.seasonLabel || '2026-27', games: nhlSitGames(SCHEDULE.games, SEASON_START) }];
     if (DATA.historyInfo) seasons.push({ key: 'prev', label: DATA.historyInfo.label, season: DATA.historyInfo.season, load: function() {
       return fetch(SITE_ROOT + '/nhl/history.json').then(function(r) { return r.json(); }).then(function(h) {
         var byDate = {};
@@ -4628,7 +4630,7 @@ __ACCOUNT_JS__
 
   function fmtAmerican(price) {
     var n = oddsNum(price);
-    if (n === null) return '&mdash;';
+    if (n === null) return '-';
     return (n > 0 ? '+' : '') + n;
   }
 
@@ -4780,7 +4782,7 @@ __ACCOUNT_JS__
     var rows = computeDailySummary(SCHEDULE.games[yDate]);
     if (!rows) { el.style.display = 'none'; el.onclick = null; return; }
     el.style.display = '';
-    el.innerHTML = '<span class="ys-title">' + escapeHtml(dateLabelText(yDate)) + ' &ndash; Results</span>' +
+    el.innerHTML = '<span class="ys-title">' + escapeHtml(dateLabelText(yDate)) + ' - Results</span>' +
       rows.map(function(r) {
         var v = summaryRowView(r);
         return '<span class="ys-item"><span class="ys-label">' + escapeHtml(r.label) + '</span>' +
@@ -4979,9 +4981,9 @@ __ACCOUNT_JS__
       var oppCode = isHome ? g.away : g.home;
       var oppName = DATA.summary[oppCode] ? DATA.summary[oppCode].name : oppCode;
       var odds = g.odds || {};
-      var mlPrice = odds.ml ? (fmtAmerican(odds.ml[g.away]) + ' / ' + fmtAmerican(odds.ml[g.home])) : '&mdash;';
-      var ouPrice = (odds.totals && odds.totals['1.5']) ? (fmtAmerican(odds.totals['1.5'].over) + ' / ' + fmtAmerican(odds.totals['1.5'].under)) : '&mdash;';
-      var bttsPrice = (odds.btts_yes != null) ? fmtAmerican(odds.btts_yes) : '&mdash;';
+      var mlPrice = odds.ml ? (fmtAmerican(odds.ml[g.away]) + ' / ' + fmtAmerican(odds.ml[g.home])) : '-';
+      var ouPrice = (odds.totals && odds.totals['1.5']) ? (fmtAmerican(odds.totals['1.5'].over) + ' / ' + fmtAmerican(odds.totals['1.5'].under)) : '-';
+      var bttsPrice = (odds.btts_yes != null) ? fmtAmerican(odds.btts_yes) : '-';
       nextGameEl.innerHTML = '<div class="daily-summary"><h3>Next Game</h3>' +
         '<div class="ds-row"><span class="ds-label">' + (isHome ? 'vs ' : '@ ') + teamLink(oppCode, oppName) + '</span>' +
           '<span class="ds-right"><a href="' + SITE_ROOT + '/nhl/matchups/?date=' + dateStr + '">' + escapeHtml(dateLabelText(dateStr)) + ' &middot; ' + fmtGameTime(g.startTimeUTC) + '</a></span></div>' +
@@ -5010,7 +5012,7 @@ __ACCOUNT_JS__
       var lTot = (lOdds.totals && lOdds.totals['1.5']) || {};
       var lYes = lg.awayP1 >= 1 && lg.homeP1 >= 1;
       var tFinal = lHome ? lg.homeFinal : lg.awayFinal, oFinal = lHome ? lg.awayFinal : lg.homeFinal;
-      var finalStr = (tFinal != null && oFinal != null) ? (tFinal + '-' + oFinal + (lg.ot ? ' ' + lg.ot : '')) : '&mdash;';
+      var finalStr = (tFinal != null && oFinal != null) ? (tFinal + '-' + oFinal + (lg.ot ? ' ' + lg.ot : '')) : '-';
       lastGameEl.innerHTML = '<div class="daily-summary"><h3>Last Game</h3>' +
         '<div class="ds-row"><span class="ds-label">' + (lHome ? 'vs ' : '@ ') + teamLink(lOpp, lOppName) + '</span>' +
           '<span class="ds-right"><a href="' + SITE_ROOT + '/nhl/matchups/?date=' + lDate + '">' + escapeHtml(dateLabelText(lDate)) + '</a></span></div>' +
@@ -5032,14 +5034,14 @@ __ACCOUNT_JS__
     document.getElementById('teamMarketTiles').innerHTML = TILE_MARKETS.map(function(m) {
       var r = teamMarketAgg(fullLog, 'Both', m[0]);
       if (!r.gp) {
-        return '<div class="stat-tile t-none"><div class="lbl">' + m[1] + '</div><div class="val">&ndash;</div></div>';
+        return '<div class="stat-tile t-none"><div class="lbl">' + m[1] + '</div><div class="val">-</div></div>';
       }
       var u = r.units === null ? 0 : roundUnits(r.units);
       var tint = r.units === null ? 't-none' : u > 0.25 ? 't-good' : u >= -0.25 ? 't-warn' : 't-bad';
-      var pct = r.pct === null ? '&mdash;' : Math.round(r.pct * 100) + '%';
+      var pct = r.pct === null ? '-' : Math.round(r.pct * 100) + '%';
       var tie = r.tiePct === null ? '' : '<div class="tile-tie mono">' + r.rec + ' &middot; Tie ' + Math.round(r.tiePct * 100) + '%</div>';
       return '<div class="stat-tile ' + tint + '"><div class="lbl">' + m[1] + (r.tiePct === null ? '' : ' win %') + '</div>' +
-        '<div class="val">' + pct + '<span class="u-inline">' + (r.units === null ? '&mdash;' : fmtUnits(r.units)) + '</span></div>' + tie + '</div>';
+        '<div class="val">' + pct + '<span class="u-inline">' + (r.units === null ? '-' : fmtUnits(r.units)) + '</span></div>' + tie + '</div>';
     }).join('');
 
     // Home / Away splits, records or units.
@@ -5101,7 +5103,7 @@ __ACCOUNT_JS__
       var rows = games.slice().reverse().map(function(g) {
         var wl = g.p1t > g.p1o ? 'W' : g.p1t < g.p1o ? 'L' : 'T';
         var over = g.p1t + g.p1o >= 2;
-        var finalStr = (g.ft != null && g.fo != null) ? (g.ft + '-' + g.fo + (g.ot ? ' ' + g.ot : '')) : '&mdash;';
+        var finalStr = (g.ft != null && g.fo != null) ? (g.ft + '-' + g.fo + (g.ot ? ' ' + g.ot : '')) : '-';
         return '<tr>' +
           '<td class="mono">' + g.date.slice(5) + '</td>' +
           '<td><span class="opp-cell">' + (g.side === 'Away' ? '@' : 'vs') + ' ' +

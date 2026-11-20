@@ -37,7 +37,7 @@ class TipBoxTest(unittest.TestCase):
              'last': 'Last time: ...', 'angle': 'home_fav'}
         html = front.trend_tip(None, c)
         self.assertIn('<span class="tip-t">Back home favorites</span>', html)
-        self.assertIn('This trend: 62% (57–35). League average: 50%.', html)
+        self.assertIn('This trend: 62% (57-35). League average: 50%.', html)
         self.assertNotIn('Last time', html)
 
     def test_last_time_behind_its_switch(self):
@@ -85,10 +85,10 @@ class TrendsPageTest(unittest.TestCase):
         self.assertIn('All active streaks &rarr;', js)
 
     def test_last_season_cards(self):
-        hist = {'season': 2026, 'seasonLabel': '2025–26', 'games': {}}
+        hist = {'season': 2026, 'seasonLabel': '2025-26', 'games': {}}
         sp = __import__('sports').BY_KEY['nba']
         out = trends.last_season(sp, hist)
-        self.assertEqual(out['label'], '2025–26')
+        self.assertEqual(out['label'], '2025-26')
         self.assertIsNone(trends.last_season(sp, {}))
 
 

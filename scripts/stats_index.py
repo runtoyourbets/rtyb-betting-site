@@ -40,12 +40,12 @@ def esc(s):
 
 
 def pct(w, l):
-    return f'{round(100 * w / (w + l))}%' if w + l else '&mdash;'
+    return f'{round(100 * w / (w + l))}%' if w + l else '-'
 
 
 def units_html(u, priced):
     if not priced:
-        return '<span class="st-u st-none">&mdash;</span>'
+        return '<span class="st-u st-none">-</span>'
     r = round(u, 2)
     cls = 'pos' if r > 0.5 else 'neg' if r < -0.5 else 'mid'
     return f'<span class="st-u {cls}">{"+" if r > 0 else ""}{r:.2f}u</span>'
@@ -185,7 +185,7 @@ def edges_card(sport, sp, doc, G_all, root):
     href = sports.section_path(sp, 'stats') + 'edges/'
     if not best:
         return card('Edges', '<p class="st-note">Closers and faders start once games are final.</p>', href, 'Edges')
-    rest = {'1p': 'Periods 2&ndash;3', '1q': 'Quarters 2&ndash;4', '1h': '2nd half', '1i': 'Innings 2&ndash;9', 'f5': 'Innings 6&ndash;9'}
+    rest = {'1p': 'Periods 2-3', '1q': 'Quarters 2-4', '1h': '2nd half', '1i': 'Innings 2-9', 'f5': 'Innings 6-9'}
 
     def team(e):
         inner = f'{sport.badge(e["slug"], 22, root)}{sport.name_html(e["slug"])}'

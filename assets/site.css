@@ -1959,7 +1959,6 @@
   .hm-pills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .hm-pill { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 40px; border: 1px solid var(--card-border); border-radius: 999px;
     background: var(--panel); color: var(--text); text-decoration: none; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
-  .hm-pill.gold { color: var(--gold); border-color: var(--gold); }
   .hm-item { display: flex; align-items: center; min-height: 52px; border-bottom: 1px solid var(--border-soft); color: var(--text); text-decoration: none;
     font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
 
@@ -2420,6 +2419,9 @@
     .fv-bn .bn-dcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
     .sw-cut { display: none !important; }
     .fv.sw-measure > .fv-motd, .fv.sw-measure > .fv-pair { align-self: start; }
+    /* no Streaks to Watch (today's or the next game day's): Matchup of the Day full width */
+    .fv.sw-none > .fv-motd { grid-column: 1 / -1; }
+    .fv.sw-none > .fv-pair { display: none; }
     .fv.sw-measure > .fv-motd .st-card, .fv.sw-measure > .fv-pair .st-card { flex: none; }
     .sw-all { display: none; }
   }
@@ -2693,14 +2695,14 @@
      chips and units show dark ink on a gold chip; links and headings dark
      text with a gold underline or left bar. */
   :root[data-theme="light"] :is(.tm-u.mid, .st-u.mid, .tr-rec .mid, .ln-u.mid, .ln-best-u.mid, .ht-rec .mid, .pk-u.zero, .pk-u.mid, .os-u.mid,
-    .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hm-pill.gold, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
+    .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
     width: fit-content; padding: 0 5px; border-radius: 4px; border-color: var(--gold); background: var(--gold); color: var(--on-gold); }
   :root[data-theme="light"] :is(.u-mid, .btts-badge.tie) { background: var(--gold); color: var(--on-gold); }
   :root[data-theme="light"] :is(.hn-link.hn-gold, .hr2-label, a.hr2-label:hover, .fr-b2) { color: var(--text); text-decoration: underline 3px var(--gold); text-underline-offset: 5px; }
   :root[data-theme="light"] .pv .pv-body h3 { color: var(--text); border-left: 3px solid var(--gold); padding-left: 8px; }
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) :is(.tm-u.mid, .st-u.mid, .tr-rec .mid, .ln-u.mid, .ln-best-u.mid, .ht-rec .mid, .pk-u.zero, .pk-u.mid, .os-u.mid,
-      .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hm-pill.gold, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
+      .hd-kicker, .hpp-kicker, .pv-label, .pv .pv-side-h, .pk-kick.gold, .pk-tierbox.tA .pk-tb-k, .pk-streak-n, .pv-box-stat .pv-box-h, .pv-box-stat .pv-box-num, .acct-tag, .hn-picks-pill, .tp-gl, .tp-cn:not(.tp-cn-w), .tl-streak.flat) {
       width: fit-content; padding: 0 5px; border-radius: 4px; border-color: var(--gold); background: var(--gold); color: var(--on-gold); }
     :root:not([data-theme="dark"]) :is(.u-mid, .btts-badge.tie) { background: var(--gold); color: var(--on-gold); }
     :root:not([data-theme="dark"]) :is(.hn-link.hn-gold, .hr2-label, a.hr2-label:hover, .fr-b2) { color: var(--text); text-decoration: underline 3px var(--gold); text-underline-offset: 5px; }

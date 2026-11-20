@@ -1,4 +1,4 @@
-# RTYB — Run to Your Bets
+# RTYB - Run to Your Bets
 
 Static site on GitHub Pages, built by `scripts/build_site.py` and rebuilt by the
 refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
@@ -52,6 +52,9 @@ refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
   - Units: green above +0.5u (`--good`), red below -0.5u (`--bad`), yellow in
     between (`--push`).
   - Never blue for results or units.
+- Plain hyphen only; never en/em dashes or minus signs. Records 80% (12-3-8),
+  scores 2-0, ranges 35-40, headers W-L-T, prices -160, empty cells "-"
+  (tests/test_plain_hyphen.py; the build swaps any that fetched text brings in).
 - Muted text is `--text-muted` everywhere (4.5:1+ on cards in both themes);
   never `--text-faint` for words. Cards: one 1px `--card-border`, no card
   inside a card (template.html `.st-card`, shared by Stats, Matchups and Odds).

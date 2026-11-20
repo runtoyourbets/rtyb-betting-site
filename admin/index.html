@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>RTYB — Admin</title>
+<title>RTYB - Admin</title>
 <style>
   :root {
     --bg: #0B0F14; --panel: #121820; --panel-2: #1A222C; --panel-3: #212B37;
@@ -228,7 +228,7 @@
   </div>
 
   <div id="main" hidden>
-    <h1>RTYB — Admin</h1>
+    <h1>RTYB - Admin</h1>
     <p class="sub">Matchups Tool, Results Tool, Preview&rsquo;s drafts, Definitions and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
     <div class="seg-tabs" id="viewTabs" style="margin-bottom:14px">
       <button type="button" data-view="tools" aria-pressed="true">Odds &amp; results</button>
@@ -344,7 +344,7 @@
 
     <div class="card">
       <h2>Matchups Tool</h2>
-      <p class="sub" style="margin-bottom:0">Save pushes these odds live to that day&rsquo;s Matchups page immediately. Moneyline is the 2-way 1st-period price (a tied period is a push), not the 3-way. No number means the odds are read as +; a leading &ndash; is kept as &ndash;.</p>
+      <p class="sub" style="margin-bottom:0">Save pushes these odds live to that day&rsquo;s Matchups page immediately. Moneyline is the 2-way 1st-period price (a tied period is a push), not the 3-way. No number means the odds are read as +; a leading - is kept as -.</p>
       <table id="matchupsTable">
         <thead><tr>
           <th>Matchup</th><th>ML Away</th><th>ML Home</th>
@@ -375,7 +375,7 @@
 
     <div class="card">
       <h2>Results Tool</h2>
-      <p class="sub" style="margin-bottom:0">Score after the 1st period. Save grades the Moneyline / Over-Under 1.5 / BTTS markets for that day immediately — it doesn&rsquo;t wait for the full game to end.</p>
+      <p class="sub" style="margin-bottom:0">Score after the 1st period. Save grades the Moneyline / Over-Under 1.5 / BTTS markets for that day immediately - it doesn&rsquo;t wait for the full game to end.</p>
       <table id="resultsTable">
         <thead><tr><th>Matchup</th><th>Away Score</th><th>Home Score</th></tr></thead>
         <tbody id="resultsBody"></tbody>
@@ -389,7 +389,7 @@
 
     <div class="card">
       <h2>Parse Odds Data with AI</h2>
-      <p class="sub" style="margin-bottom:0">Paste odds for this date &mdash; a Google Sheets block, a picks message, anything with the six numbers per matchup &mdash; and AI will fill in the Matchups Tool fields above. Review before hitting Save; nothing here touches the live site by itself.</p>
+      <p class="sub" style="margin-bottom:0">Paste odds for this date - a Google Sheets block, a picks message, anything with the six numbers per matchup - and AI will fill in the Matchups Tool fields above. Review before hitting Save; nothing here touches the live site by itself.</p>
       <textarea id="parseInput" placeholder="Paste odds data here..."></textarea>
       <div class="actions">
         <button class="publish" id="parseBtn">Parse with AI</button>
@@ -760,7 +760,7 @@
       text: text,
       games: games.map(function(g) { return { away: g.away, home: g.home, awayName: teamName(g.away), homeName: teamName(g.home) }; }),
     };
-    callWorker('/matchups/parse', payload, status, btn, 'Parsing', 'Parsed — review the fields below, then Save.')
+    callWorker('/matchups/parse', payload, status, btn, 'Parsing', 'Parsed - review the fields below, then Save.')
       .then(function(res) {
         var parsed = (res.body && res.body.matchups) || [];
         if (!parsed.length) {
@@ -843,10 +843,10 @@
     ats: ['Matchup', 'ATS Away', 'ATS Home', 'Total', ''],
   };
   var HELP = {
-    spread: 'One table per segment. ATS is the line (away and home must be opposites &mdash; type one and the other fills in); the small field under it is the price, &ndash;110 unless you change it. Total is the line with Over / Under prices underneath. <b>ML is the 2-way moneyline</b> (a tied segment is a push) &mdash; never enter 3-way prices (the ones with a Tie option) here. Rows marked Auto are already live from the odds feed; Save only what you add or change &mdash; a saved number always wins over the feed.',
-    f5: 'First Five innings. The ATS columns are <b>prices</b> &mdash; the line is always 0.5, and the moneyline favorite (shorter ML) lays &ndash;0.5. Use the Fav menu under the matchup to override (or to pick a side when the moneylines are even or blank). Total can be a whole number or a .5; Over / Under prices default to &ndash;110.',
+    spread: 'One table per segment. ATS is the line (away and home must be opposites - type one and the other fills in); the small field under it is the price, -110 unless you change it. Total is the line with Over / Under prices underneath. <b>ML is the 2-way moneyline</b> (a tied segment is a push) - never enter 3-way prices (the ones with a Tie option) here. Rows marked Auto are already live from the odds feed; Save only what you add or change - a saved number always wins over the feed.',
+    f5: 'First Five innings. The ATS columns are <b>prices</b> - the line is always 0.5, and the moneyline favorite (shorter ML) lays -0.5. Use the Fav menu under the matchup to override (or to pick a side when the moneylines are even or blank). Total can be a whole number or a .5; Over / Under prices default to -110.',
     rfi: 'Run in the 1st inning: Yes is the YRFI price, No is the NRFI price.',
-    ats: 'One table per segment. ATS is the line (away and home must be opposites &mdash; type one and the other fills in); the small field under it is the price, &ndash;110 unless you change it. Total is the line with Over / Under prices underneath. This segment tracks spread and total only, no moneyline. Rows marked Auto are already live from the odds feed; Save only what you add or change &mdash; a saved number always wins over the feed.',
+    ats: 'One table per segment. ATS is the line (away and home must be opposites - type one and the other fills in); the small field under it is the price, -110 unless you change it. Total is the line with Over / Under prices underneath. This segment tracks spread and total only, no moneyline. Rows marked Auto are already live from the odds feed; Save only what you add or change - a saved number always wins over the feed.',
   };
 
   function segMode(seg) {
@@ -894,8 +894,8 @@
     var dateEl = document.getElementById('sportDate');
     if (!dateEl.value) dateEl.value = todayET();
     document.getElementById('csvCols').innerHTML = SPORT.sport_type === 'baseball'
-      ? 'Columns (any order, header row required): <code>date, away, home, segment</code> (NRFI or F5), then for NRFI rows <code>yes, no</code> (YRFI / NRFI prices) and for F5 rows <code>ats_away, ats_home</code> (prices), <code>ml_away, ml_home, total</code>, optional <code>over_price, under_price</code> (blank = &ndash;110) and <code>fav</code> (away / home, to override which side lays &ndash;0.5).'
-      : 'Columns (any order, header row required): <code>date, away, home, segment, ats_away, ats_home, ml_away, ml_home, total</code>, plus optional <code>ats_away_price, ats_home_price, over_price, under_price</code> (blank = &ndash;110).';
+      ? 'Columns (any order, header row required): <code>date, away, home, segment</code> (NRFI or F5), then for NRFI rows <code>yes, no</code> (YRFI / NRFI prices) and for F5 rows <code>ats_away, ats_home</code> (prices), <code>ml_away, ml_home, total</code>, optional <code>over_price, under_price</code> (blank = -110) and <code>fav</code> (away / home, to override which side lays -0.5).'
+      : 'Columns (any order, header row required): <code>date, away, home, segment, ats_away, ats_home, ml_away, ml_home, total</code>, plus optional <code>ats_away_price, ats_home_price, over_price, under_price</code> (blank = -110).';
     document.getElementById('oddsBody').innerHTML = '<tr><td colspan="7" class="empty">Loading&hellip;</td></tr>';
     Promise.all([
       fetchJson('../data_seed/teams/' + key + '.json', { teams: [] }),
@@ -968,7 +968,7 @@
       });
     });
     sel.innerHTML = WEEKS.map(function(w) {
-      return '<option value="' + w.key + '">' + escapeHtml(w.label) + ' (' + w.start.slice(5).replace('-', '/') + '&ndash;' + w.end.slice(5).replace('-', '/') + ')</option>';
+      return '<option value="' + w.key + '">' + escapeHtml(w.label) + ' (' + w.start.slice(5).replace('-', '/') + '-' + w.end.slice(5).replace('-', '/') + ')</option>';
     }).join('') || '<option value="">No weeks loaded</option>';
     sel.value = now || (WEEKS.length ? WEEKS[WEEKS.length - 1].key : '');
     var w = curWeek();
@@ -1048,7 +1048,7 @@
     var need = neededMarkets(SEGMENT), missing = [];
     games.forEach(function(g) {
       var v = segValues(g), gaps = need.filter(function(n) { return v[n[0]] == null; }).map(function(n) { return n[1]; });
-      if (gaps.length) missing.push(escapeHtml(teamLabel(g.away) + ' @ ' + teamLabel(g.home)) + ' &mdash; ' + (gaps.length === need.length ? 'no odds yet' : gaps.join(', ')));
+      if (gaps.length) missing.push(escapeHtml(teamLabel(g.away) + ' @ ' + teamLabel(g.home)) + ' - ' + (gaps.length === need.length ? 'no odds yet' : gaps.join(', ')));
     });
     var done = games.length - missing.length;
     var html = '<b>' + escapeHtml(segLabel) + ':</b> ' + (missing.length
@@ -1057,7 +1057,7 @@
     if (FEED.updated) {
       html += ' &middot; auto odds last changed ' + escapeHtml(timeET(FEED.updated));
       var failed = Object.keys(FEED.status || {}).filter(function(k) { return String(FEED.status[k]).indexOf('ok') !== 0; });
-      if (failed.length) html += ' <span class="gap">(' + failed.map(function(k) { return { 1: 'ML', 2: 'spreads', 3: 'totals' }[k] || k; }).join(', ') + ' didn&rsquo;t load that time &mdash; earlier numbers kept)</span>';
+      if (failed.length) html += ' <span class="gap">(' + failed.map(function(k) { return { 1: 'ML', 2: 'spreads', 3: 'totals' }[k] || k; }).join(', ') + ' didn&rsquo;t load that time - earlier numbers kept)</span>';
     } else {
       html += ' &middot; no auto odds pulled yet';
     }
@@ -1140,7 +1140,7 @@
     document.getElementById('oddsHelp').innerHTML = HELP[m];
     var segLabel = SPORT.segments.filter(function(x) { return x.key === SEGMENT; })[0].label;
     document.getElementById('sportParseHelp').innerHTML = 'Paste ' + escapeHtml(SPORT.label) + ' ' + escapeHtml(segLabel) +
-      ' odds for ' + (isWeekly() ? 'this week' : 'this date') + ' &mdash; a sheet, a picks message, anything &mdash; and AI fills in the ' +
+      ' odds for ' + (isWeekly() ? 'this week' : 'this date') + ' - a sheet, a picks message, anything - and AI fills in the ' +
       escapeHtml(segLabel) + ' table above. Switch the tab above to parse another segment. Review before hitting Save; nothing here touches the live site by itself.';
     keepDrafts();
     var games = gamesFor();
@@ -1151,7 +1151,7 @@
       return !!(saved && saved.segments && saved.segments[SEGMENT]);
     });
     if (!games.length) {
-      body.innerHTML = '<tr><td colspan="' + head.length + '" class="empty">No ' + escapeHtml(SPORT.label) + ' games ' + (isWeekly() ? 'this week' : 'on this date') + ' yet &mdash; add one below.</td></tr>';
+      body.innerHTML = '<tr><td colspan="' + head.length + '" class="empty">No ' + escapeHtml(SPORT.label) + ' games ' + (isWeekly() ? 'this week' : 'on this date') + ' yet - add one below.</td></tr>';
     } else {
       body.innerHTML = games.map(function(g, i) {
         var v = segValues(g);
@@ -1210,7 +1210,7 @@
     }
     if (r.ats) {
       if (r.ats.away.line == null || r.ats.home.line == null) {
-        errs.push(m === 'f5' ? 'Can\'t tell which side lays -0.5 &mdash; enter both MLs or pick Fav' : 'ATS needs both lines');
+        errs.push(m === 'f5' ? 'Can\'t tell which side lays -0.5 - enter both MLs or pick Fav' : 'ATS needs both lines');
       } else {
         if (r.ats.away.line !== -r.ats.home.line) errs.push('ATS lines must be opposites (' + signed(r.ats.away.line) + ' / ' + signed(r.ats.home.line) + ')');
         if (!isHalf(r.ats.away.line)) errs.push('ATS line should be a whole or half point');
@@ -1378,7 +1378,7 @@
     rows = rows.filter(function(r) { return !sameAsFeed(r); });
     if (!rows.length) {
       status.className = 'status ok';
-      status.textContent = 'Nothing changed — these odds are already live from the auto feed.';
+      status.textContent = 'Nothing changed - these odds are already live from the auto feed.';
       return;
     }
     callWorker('/odds/save', { sport: SPORT.key, rows: rows, removes: [] }, status, this, 'Saving', SAVED_MSG)
@@ -1418,7 +1418,7 @@
       view: viewLabel(), text: text,
       games: games.map(function(g) { return { away: g.away, home: g.home, date: g.date, awayName: (TEAM_BY_SLUG[g.away] || {}).name || g.away, homeName: (TEAM_BY_SLUG[g.home] || {}).name || g.home }; }),
     };
-    callWorker('/odds/parse', payload, status, this, 'Parsing', 'Parsed — review the ' + seg.label + ' table, then Save.')
+    callWorker('/odds/parse', payload, status, this, 'Parsing', 'Parsed - review the ' + seg.label + ' table, then Save.')
       .then(function(res) {
         var parsed = (res.body && res.body.games) || [];
         if (!parsed.length) { status.className = 'status err'; status.textContent = 'AI didn\'t find odds for these games -- check the pasted text or enter manually.'; return; }
@@ -1438,7 +1438,7 @@
           filled++;
         });
         refreshF5Lines();
-        status.textContent = 'Filled ' + filled + ' game' + (filled === 1 ? '' : 's') + ' — review the ' + seg.label + ' table, then Save.';
+        status.textContent = 'Filled ' + filled + ' game' + (filled === 1 ? '' : 's') + ' - review the ' + seg.label + ' table, then Save.';
       })
       .catch(function() { /* status already shows the error */ });
   });
@@ -1550,7 +1550,7 @@
       var row = null;
       if (!problems.length) {
         row = buildRow(date, a.slug, h.slug, f);
-        problems = checkRow(row).map(function(p) { return p.replace(/&mdash;/g, '—'); });
+        problems = checkRow(row).map(function(p) { return p.replace(/-/g, '-'); });
         if (!hasOdds(row)) problems.push('no odds in this row');
       }
       var line = n + 2;
@@ -1594,7 +1594,7 @@
         }).join('') + '</tbody></table>';
     }
     if (res.unmatched.length) {
-      html += '<p class="preview-h bad">Unmatched (' + res.unmatched.length + ') &mdash; these won&rsquo;t be imported</p><table><thead><tr><th>Line</th><th>Row</th><th>Why</th></tr></thead><tbody>' +
+      html += '<p class="preview-h bad">Unmatched (' + res.unmatched.length + ') - these won&rsquo;t be imported</p><table><thead><tr><th>Line</th><th>Row</th><th>Why</th></tr></thead><tbody>' +
         res.unmatched.map(function(u) {
           return '<tr><td>' + u.line + '</td><td>' + escapeHtml(u.text) + '</td><td class="row-err">' + escapeHtml(u.why) + '</td></tr>';
         }).join('') + '</tbody></table>';
@@ -2223,7 +2223,7 @@
       (st.sports || []).map(function(x) {
         var v = se[x.key] || {}, ms = (v.MILESTONES || []).concat([{}, {}]).slice(0, 2), state = SEASON_STATES[x.key] || {};
         return '<div class="ss-season" data-season="' + escHtml(x.key) + '"><p class="ss-sname">' + escHtml(x.label) +
-          ' <span class="ss-state">' + escHtml(state.label || '—') + (state.next ? ' &middot; next games ' + escHtml(state.next) : '') + '</span></p><div class="ss-switches">' +
+          ' <span class="ss-state">' + escHtml(state.label || '-') + (state.next ? ' &middot; next games ' + escHtml(state.next) : '') + '</span></p><div class="ss-switches">' +
           '<label>Opening day <input type="date" data-f="opening" value="' + escHtml(v.OPENING_DAY || '') + '"></label>' +
           ms.map(function(m, i) {
             return '<label>Milestone ' + (i + 1) + ' <input type="text" data-f="ml' + i + '" maxlength="40" placeholder="Label" value="' + escHtml(m.label || '') + '">' +
@@ -2461,7 +2461,7 @@
       var next = function() {
         var batch = batches.shift();
         if (!batch) { st.className = 'status ok'; st.textContent = 'Drafted ' + done + ' of ' + ids.length + '. They’re Drafts: read each one, then Publish.'; dfRender(); if (DF.id && !DF.dirty) dfOpen(DF.id); return; }
-        callWorker('/definitions/draft', { items: batch.map(function(x) { return dfAiItem(x, E[x]); }) }, st, c, 'Drafting ' + (done + 1) + '–' + (done + batch.length) + ' of ' + ids.length, '').then(function(res) {
+        callWorker('/definitions/draft', { items: batch.map(function(x) { return dfAiItem(x, E[x]); }) }, st, c, 'Drafting ' + (done + 1) + '-' + (done + batch.length) + ' of ' + ids.length, '').then(function(res) {
           var drafts = res.body.drafts || {}, save = {};
           batch.forEach(function(x) { if (drafts[x]) save[x] = dfClean({ name: E[x].name, category: E[x].category, sports: E[x].sports, short: drafts[x].short, long: drafts[x].long || '', status: 'draft', show_last: E[x].show_last }); });
           if (!Object.keys(save).length) return;

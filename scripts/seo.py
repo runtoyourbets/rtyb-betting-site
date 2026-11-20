@@ -59,7 +59,7 @@ def analytics():
 PRIVACY = '''
 <h1>Privacy Policy</h1>
 <p class="dp-date">Last updated: November 26, 2026</p>
-<p>This policy explains what RTYB &mdash; Run to Your Bets (&ldquo;RTYB&rdquo;, &ldquo;we&rdquo;) collects when you use
+<p>This policy explains what RTYB - Run to Your Bets (&ldquo;RTYB&rdquo;, &ldquo;we&rdquo;) collects when you use
 runtoyourbets.com, and what we do with it. RTYB is run by Christopher David, [CITY, STATE].</p>
 <h2>What we collect</h2>
 <ul>
@@ -96,7 +96,7 @@ the data we hold about you by writing to <a href="mailto:info@runtoyourbets.com"
 TERMS = '''
 <h1>Terms of Use</h1>
 <p class="dp-date">Last updated: November 26, 2026</p>
-<p>These terms cover your use of RTYB &mdash; Run to Your Bets (runtoyourbets.com), run by Christopher David.
+<p>These terms cover your use of RTYB - Run to Your Bets (runtoyourbets.com), run by Christopher David.
 By using the site you agree to them.</p>
 <h2>21 and over</h2>
 <p>RTYB is for people 21 and over, and only where sports betting is legal for you. You&rsquo;re responsible for knowing
@@ -131,8 +131,8 @@ come from using the site or relying on its information.</p>
 <p><a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p>
 '''
 
-LEGAL = {'privacy': ('Privacy Policy | RTYB', 'How RTYB — Run to Your Bets handles your data.', PRIVACY),
-         'terms': ('Terms of Use | RTYB', 'The terms for using RTYB — Run to Your Bets.', TERMS)}
+LEGAL = {'privacy': ('Privacy Policy | RTYB', 'How RTYB - Run to Your Bets handles your data.', PRIVACY),
+         'terms': ('Terms of Use | RTYB', 'The terms for using RTYB - Run to Your Bets.', TERMS)}
 
 
 def write_legal(page, status, logo_svg):
@@ -164,13 +164,13 @@ def meta(page_html, name):
 
 def head_block(rel, page_html, base, snippet):
     title = re.search(r'<title>(.*?)</title>', page_html, re.S)
-    title = html.unescape(title.group(1).strip()) if title else 'RTYB — Run to Your Bets'
+    title = html.unescape(title.group(1).strip()) if title else 'RTYB - Run to Your Bets'
     desc = meta(page_html, 'description')
     own = meta(page_html, 'rtyb:image')   # a page's own share image (Preview's image cards)
     img = base + own if own else f'{base}assets/share/{SHARE.get(rel.split("/")[0], "home")}.jpg'
     e = lambda s: html.escape(s, quote=True)
     tags = [f'<meta property="og:type" content="website">',
-            f'<meta property="og:site_name" content="RTYB — Run to Your Bets">',
+            f'<meta property="og:site_name" content="RTYB - Run to Your Bets">',
             f'<meta property="og:title" content="{e(title)}">',
             f'<meta property="og:description" content="{e(desc)}">',
             f'<meta property="og:url" content="{e(base + rel)}">',

@@ -56,7 +56,7 @@
   function signed(n) { return n == null ? '' : (n > 0 ? '+' : '') + n; }
   function fmtUnits(u) { var r = Math.round(u * 100) / 100; return (r > 0 ? '+' : '') + r.toFixed(2) + 'u'; }
   function unitsPill(u, priced) {
-    if (!priced) return '<span class="u-pill u-none">&mdash;</span>';
+    if (!priced) return '<span class="u-pill u-none">-</span>';
     var r = Math.round(u * 100) / 100;
     var cls = r >= 3 ? 'u-pos2' : r > 0.5 ? 'u-pos1' : r < -3 ? 'u-neg2' : r < -0.5 ? 'u-neg1' : 'u-mid';
     return '<span class="u-pill ' + cls + '">' + fmtUnits(r) + '</span>';
@@ -64,13 +64,13 @@
   // green above +0.5u, red below -0.5u, yellow between (CLAUDE.md color rule)
   function unitCls(u) { var r = Math.round(u * 100) / 100; return r > 0.5 ? 'pos' : r < -0.5 ? 'neg' : 'mid'; }
   function pct(w, l) { return (w + l) ? Math.round(1000 * w / (w + l)) / 10 : null; }
-  function pctTxt(w, l) { var p = pct(w, l); return p == null ? '&mdash;' : p.toFixed(1) + '%'; }
+  function pctTxt(w, l) { var p = pct(w, l); return p == null ? '-' : p.toFixed(1) + '%'; }
   // Win % leaves ties and pushes out (Favorites 2-0-4 is 100%); Tie % is out
   // of every game played. Same rule as winPct in template.html (NHL).
   function winPct(w, l, t) { var n = w + l; return n ? w / n : null; }
   function tiePct(w, l, t) { var n = w + l + (t || 0); return n ? (t || 0) / n : null; }
   function pct1(x) { return x == null ? null : Math.round(1000 * x) / 10; }
-  function suPctTxt(r) { var p = pct1(winPct(r[0], r[1], r[2])); return p == null ? '&mdash;' : p.toFixed(1) + '%'; }
+  function suPctTxt(r) { var p = pct1(winPct(r[0], r[1], r[2])); return p == null ? '-' : p.toFixed(1) + '%'; }
   function suTieTxt(r) { var p = pct1(tiePct(r[0], r[1], r[2])); return p == null ? '' : ' <small class="tie-pct">Tie ' + p.toFixed(1) + '%</small>'; }
   function rec(r) { return r ? r[0] + '-' + r[1] + '-' + r[2] : '0-0-0'; }
   // Teams outside the league (non-Division I opponents) have a name and
@@ -225,7 +225,7 @@
       // only the outcome that hit is green; a tied period is the TIE cell
       if (done) res = done.na || !done.su || done.su === 'NA' ? 'P' : done.su === want ? 'W' : 'L';
     }
-    var none = line == null && price == null, body = none ? '<span class="cell"><span class="mc-dash">&ndash;</span></span>' : oddsCell(line, price);
+    var none = line == null && price == null, body = none ? '<span class="cell"><span class="mc-dash">-</span></span>' : oddsCell(line, price);
     // no price, nothing to highlight
     return '<td class="mc-cell' + (none ? '' : resultCls(res)) + '"' + (tip ? ' data-tip="' + esc(tip) + '" data-tap title="' + esc(tip) + '"' : '') + '>' + body + '</td>';
   }
@@ -394,8 +394,8 @@
       rows.map(function(x) {
         return '<div class="ds-row"><span class="ds-label">' + esc(x.label) + '</span><span class="ds-right">' +
           '<span class="ds-record ds-col-rec mono">' + x.w + '-' + x.l + (x.noTie ? '' : '-' + x.t) + '</span>' +
-          '<span class="ds-col-pct mono">' + (x.pct == null ? '&mdash;' : Math.round(x.pct * 100) + '%') + '</span>' +
-          '<span class="ds-col-units">' + (x.n ? unitsPill(x.u, true) : '<span class="u-pill u-none">&mdash;</span>') + '</span></span></div>';
+          '<span class="ds-col-pct mono">' + (x.pct == null ? '-' : Math.round(x.pct * 100) + '%') + '</span>' +
+          '<span class="ds-col-units">' + (x.n ? unitsPill(x.u, true) : '<span class="u-pill u-none">-</span>') + '</span></span></div>';
       }).join('') + '</div>';
   }
 
@@ -424,7 +424,7 @@
   }
   var WEEK_ORDER = [];
   function wireNoGames(go) { app.querySelectorAll('.no-games-card [data-go]').forEach(function(b) { b.onclick = function() { go(b.getAttribute('data-go')); }; }); }
-  function weekRange(w) { return w.start === w.end ? shortDay(w.start) : shortDay(w.start) + '–' + shortDay(w.end); }
+  function weekRange(w) { return w.start === w.end ? shortDay(w.start) : shortDay(w.start) + '-' + shortDay(w.end); }
   // This week = the first week that still has a game to play; else the last.
   function currentWeek(weeks) {
     for (var i = 0; i < weeks.length; i++) {
@@ -562,10 +562,10 @@
     a.run = n ? { r: last, n: n } : null;
     return a;
   }
-  function tmPct(x) { return x == null ? '&mdash;' : Math.round(x * 100) + '%'; }
+  function tmPct(x) { return x == null ? '-' : Math.round(x * 100) + '%'; }
   // only the number is colored: --good above +0.5u, red below -0.5u, yellow between
   function tmUnits(a) {
-    if (!a.priced) return '<span class="tm-u">&mdash;</span>';
+    if (!a.priced) return '<span class="tm-u">-</span>';
     var r = Math.round(a.units * 100) / 100;
     return '<span class="tm-u ' + unitCls(r) + '">' + fmtUnits(r) + '</span>';
   }
@@ -632,21 +632,21 @@
   }
   // the name: desktop the full name (college: the school), phones the short name
   function tlName(s) { return tlCollege() ? shortName(s) : D.teams[s].name; }
-  // the record column: "1P ML % (W–L–T)", "1H SPREAD % (W–L–P)", "O/U 1.5 % (O–U)", "BTTS % (Y–N)"
+  // the record column: "1P ML % (W-L-T)", "1H SPREAD % (W-L-P)", "O/U 1.5 % (O-U)", "BTTS % (Y-N)"
   function tlHead(p) {
     var n = D.sport === 'nhl' ? { ml: '1P ML', total: 'O/U 1.5', btts: 'BTTS', ml3: '3-Way' }[p.m] : tpName(p);
     return n + ' % (' + tpSides(p.m) + ')';
   }
-  function tlRecTxt(a, m) { return a.gp ? tmPct(a.pct) + ' (' + tpRec(a, m) + ')' : '&mdash;'; }
+  function tlRecTxt(a, m) { return a.gp ? tmPct(a.pct) + ' (' + tpRec(a, m) + ')' : '-'; }
   // the last 10: [w, l, t] and its win rate for sorting
   function tlL10(seq) {
     var x = seq.slice(-10), w = 0, l = 0, t = 0;
     x.forEach(function(r) { if (r === 'W') w++; else if (r === 'L') l++; else t++; });
     return { w: w, l: l, t: t, n: x.length, v: w + l ? w / (w + l) : null };
   }
-  function tlL10Txt(x, m) { return x.n ? x.w + '–' + x.l + (tmNoPush(m) ? '' : '–' + x.t) : '&mdash;'; }
+  function tlL10Txt(x, m) { return x.n ? x.w + '-' + x.l + (tmNoPush(m) ? '' : '-' + x.t) : '-'; }
   function tlStreak(run, m) {
-    if (!run) return '&mdash;';
+    if (!run) return '-';
     return '<span class="tl-streak ' + (run.r === 'W' ? 'good' : run.r === 'L' ? 'bad' : 'flat') + '">' + tmLetter(run.r, m) + run.n + '</span>';
   }
   function tlNote(m) {
@@ -689,7 +689,7 @@
       list = list.filter(function(x) { return byU ? x.a.priced : rate(x.a) != null; });
       list.sort(function(x, y) { return byU ? y.a.units - x.a.units : rate(y.a) - rate(x.a) || y.a.gp - x.a.gp; });
       return card(title, list.slice(0, 3).map(function(x, i) {
-        return row(i, x.s, byU ? tmUnits(x.a) : tmPct(rate(x.a)) + ' <span class="tll-sub">(' + (p.m === 'btts' ? x.a.l + '–' + x.a.w : tpRec(x.a, p.m)) + ')</span>');
+        return row(i, x.s, byU ? tmUnits(x.a) : tmPct(rate(x.a)) + ' <span class="tll-sub">(' + (p.m === 'btts' ? x.a.l + '-' + x.a.w : tpRec(x.a, p.m)) + ')</span>');
       }));
     }).join('');
     // Hottest / Coldest Last 10, in the first market
@@ -840,13 +840,13 @@
   function scoreWord() { return D.sport === 'nhl' ? 'goals' : D.sport === 'mlb' ? 'runs' : 'points'; }
   function num1(x) { var r = Math.round(x * 10) / 10; return String(r); }
   function signedLine(x) { var r = Math.round(x * 10) / 10; return (r > 0 ? '+' : '') + r; }
-  function priceTxt(p) { return typeof p === 'number' ? (p > 0 ? '+' : '') + Math.round(p) : '&mdash;'; }
+  function priceTxt(p) { return typeof p === 'number' ? (p > 0 ? '+' : '') + Math.round(p) : '-'; }
   function shortDate(g) { return g.start ? new Date(g.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' }) : ''; }
   function wdDate(g) { return g.start ? new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'America/New_York' }) : ''; }
   function tmScore(g, k, slug) {
     var r = (g.res || {})[k];
     if (!r || !r.sc) return null;
-    return g.home === slug ? r.sc[1] + '–' + r.sc[0] : r.sc[0] + '–' + r.sc[1];
+    return g.home === slug ? r.sc[1] + '-' + r.sc[0] : r.sc[0] + '-' + r.sc[1];
   }
   // the segment the team's headline numbers use: MLB's First Five, else the first
   function tpSeg() { return D.sportType === 'baseball' ? 'f5' : D.segments[0].key; }
@@ -855,14 +855,14 @@
     if (D.sportType === 'baseball') return { rfi: 'NRFI', ml: 'F5 ML', ats: 'F5 Run Line', total: 'F5 Total' }[p.m];
     return seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', ats: 'Spread', total: D.sport === 'nhl' ? 'Over 1.5' : 'Total', btts: 'BTTS' }[p.m];
   }
-  // the sides a record lists, first side = the %: "W–L–T", "O–U", "Y–N", "N–Y"
-  function tpSides(m) { return { ml: tieSport() ? 'W–L–T' : 'W–L–P', ml3: 'W–L–T', ats: 'W–L–P', total: 'O–U', btts: 'Y–N', rfi: 'N–Y' }[m]; }
-  // Home / Away and Situational headers: "1P ML (W–L–T)", "O/U 1.5 (O–U)", "BTTS (Y–N)", "1Q TOTAL (O–U)"
+  // the sides a record lists, first side = the %: "W-L-T", "O-U", "Y-N", "N-Y"
+  function tpSides(m) { return { ml: tieSport() ? 'W-L-T' : 'W-L-P', ml3: 'W-L-T', ats: 'W-L-P', total: 'O-U', btts: 'Y-N', rfi: 'N-Y' }[m]; }
+  // Home / Away and Situational headers: "1P ML (W-L-T)", "O/U 1.5 (O-U)", "BTTS (Y-N)", "1Q TOTAL (O-U)"
   function tpHead(p) {
     var n = D.sport === 'nhl' ? { ml: '1P ML', total: 'O/U 1.5', btts: 'BTTS', ml3: '3-Way' }[p.m] : tpName(p);
     return n + ' (' + tpSides(p.m) + ')';
   }
-  function tpRec(a, m) { return !a.gp ? '&mdash;' : a.w + '–' + a.l + (m === 'ml' || m === 'ml3' || m === 'ats' ? '–' + a.t : ''); }
+  function tpRec(a, m) { return !a.gp ? '-' : a.w + '-' + a.l + (m === 'ml' || m === 'ml3' || m === 'ats' ? '-' + a.t : ''); }
   // what each market's % means (2-way ML leaves ties out; 3-way counts them)
   function tpNote(m) {
     return { ml: tieSport() ? 'ML: win % leaves ties out' : 'ML: win % leaves pushes out',
@@ -904,7 +904,7 @@
   function tpResCell(g, p, slug, label) {
     var x = tpResult(g, p.k, p.m, slug);
     return '<div class="tp-res">' + (label ? '<span class="tp-gl">' + esc(tpName(p)) + '</span>' : '') +
-      '<span class="cell tp-rc' + (x ? ' tp-rc-' + x.cls : '') + '">' + (x ? '<span class="ob-ln">' + (x.short && !label ? '<span class="tn-full">' + esc(x.txt) + '</span><span class="tn-short">' + esc(x.short) + '</span>' : esc(x.txt)) + '</span>' : '<span class="mc-dash">&ndash;</span>') + '</span></div>';
+      '<span class="cell tp-rc' + (x ? ' tp-rc-' + x.cls : '') + '">' + (x ? '<span class="ob-ln">' + (x.short && !label ? '<span class="tn-full">' + esc(x.txt) + '</span><span class="tn-short">' + esc(x.short) + '</span>' : esc(x.txt)) + '</span>' : '<span class="mc-dash">-</span>') + '</span></div>';
   }
   // "Next game: @ TB, Thu" (the Situational toggle)
   function tpNextLabel(g, slug) {
@@ -993,7 +993,7 @@
         }
         if (top) any = true;
         var cell = top ? '<span class="cell tp-best"><span class="ob-ln">' + esc(top) + '</span>' + (sub ? '<span class="ob-pr">' + esc(sub) + '</span>' : '') + '</span>'
-          : '<span class="cell"><span class="mc-dash">&ndash;</span></span>';
+          : '<span class="cell"><span class="mc-dash">-</span></span>';
         return '<div class="tp-ob"><span class="tp-gl">' + esc(s.label) + '</span><span class="tp-ob-row"><span class="tp-book">' + book + '</span>' + cell + '</span></div>';
       }).join('');
       return any ? '<div class="tp-odds">' + html + '</div>' : '<p class="tp-none">Lines not posted yet.</p>';
@@ -1020,7 +1020,7 @@
       return tmSection(esc(TP.year || D.seasonLabel || '') + ' Season Markets &middot; Final', '<div class="st-card tp-card"><div class="st-head tp-split"><h4>' + champ +
         '</h4><span class="tp-hr">' + right + '</span></div>' + marketCards() + '</div>', 'tpMarkets');
     }
-    // LAST GAME: the segment's result pill, "EDM 2 @ FLA 0 · Final 5–2", a result cell per market
+    // LAST GAME: the segment's result pill, "EDM 2 @ FLA 0 · Final 5-2", a result cell per market
     function lastHtml() {
       if (!last) return tmSection('Last Game', emptyNote('No games played yet.'));
       var g = last, k = tpSeg(), r = (g.res || {})[k], home = g.home === slug;
@@ -1030,10 +1030,10 @@
       if (r && r.sc) {
         var mine = home ? r.sc[1] : r.sc[0], theirs = home ? r.sc[0] : r.sc[1], tag = seg(k).tag;
         var w = mine > theirs ? ['won', 'tp-pill-w'] : mine < theirs ? ['lost', 'tp-pill-l'] : ['tied', 'tp-pill-t'];
-        pill = '<span class="tp-pill ' + w[1] + '">' + esc(tag) + ' ' + w[0] + ' ' + mine + '–' + theirs + '</span>';
+        pill = '<span class="tp-pill ' + w[1] + '">' + esc(tag) + ' ' + w[0] + ' ' + mine + '-' + theirs + '</span>';
       }
       var line = r && r.sc ? esc(tcode(g.away)) + ' ' + r.sc[0] + ' @ ' + esc(tcode(g.home)) + ' ' + r.sc[1] : esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home));
-      if (g.as != null && g.hs != null) line += ' &middot; Final ' + g.as + '–' + g.hs + (g.ot ? ' ' + esc(g.ot) : '');
+      if (g.as != null && g.hs != null) line += ' &middot; Final ' + g.as + '-' + g.hs + (g.ot ? ' ' + esc(g.ot) : '');
       return tmSection('Last Game', '<div class="st-card tp-card"><div class="st-head tp-split"><h4>' + title + '</h4>' + pill + '</div>' +
         '<p class="tp-line">' + line + '</p><div class="tp-cells">' + all.map(function(p) { return tpResCell(g, p, slug, true); }).join('') + '</div></div>');
     }
@@ -1095,7 +1095,7 @@
           if (!best || best.n < 2) return;
           var kind = best.r === 'W' ? HIT[m] : MISS[m];
           if (m === 'rfi') kind = best.r === 'W' ? 'N' : 'Y';   // tmBet: W = NRFI
-          rows.push({ n: best.n, html: chip(best.n, m, kind, p.k, esc(shortDate(best.a)) + ' – ' + esc(shortDate(best.b))) });
+          rows.push({ n: best.n, html: chip(best.n, m, kind, p.k, esc(shortDate(best.a)) + ' - ' + esc(shortDate(best.b))) });
         });
         rows.sort(function(a, b) { return b.n - a.n; });
         return tmSection('Longest Streaks of ' + esc(TP.year || D.seasonLabel || ''), rows.length ? '<div class="tp-chips">' + rows.map(function(r) { return r.html; }).join('') + '</div>' :
@@ -1116,10 +1116,10 @@
       var list = finals.slice().reverse(), shown = list.slice(0, TP.log);
       var rows = shown.map(function(g) {
         var home = g.home === slug, opp = home ? g.away : g.home;
-        var fin = g.as != null && g.hs != null ? (home ? g.hs + '–' + g.as : g.as + '–' + g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '&mdash;';
+        var fin = g.as != null && g.hs != null ? (home ? g.hs + '-' + g.as : g.as + '-' + g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '-';
         var oppHtml = '<span class="tp-vs">' + (home ? 'vs' : '@') + '</span>' + badge(opp, 20) + '<span class="tp-oc">' + esc(tcode(opp)) + '</span>';
         return '<tr><td class="tp-d">' + esc(shortDate(g)) + '</td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) + '</td>' +
-          '<td class="num">' + (tmScore(g, sk, slug) || '&mdash;') + '</td>' + ms.map(function(p) { return '<td class="tp-lc">' + tpResCell(g, p, slug, false) + '</td>'; }).join('') +
+          '<td class="num">' + (tmScore(g, sk, slug) || '-') + '</td>' + ms.map(function(p) { return '<td class="tp-lc">' + tpResCell(g, p, slug, false) + '</td>'; }).join('') +
           '<td class="num tp-fin">' + fin + '</td></tr>';
       }).join('');
       var more = list.length > shown.length ? '<button class="seg-btn tp-more" id="tpLogMore" type="button">' + (TP.log === 5 ? 'Show 10 more' : 'Load more') + '</button>' : '';
@@ -1138,7 +1138,7 @@
       if (TP.haCol >= cols.length) TP.haCol = 0;
       function cellOf(p, side) {
         var a = tmAgg(slug, p.k, p.m, side, graded);
-        return a.gp ? '<span class="tp-hp">' + tmPct(a.pct) + '</span> <span class="tp-hr2">(' + tpRec(a, p.m) + ')</span>' : '&mdash;';
+        return a.gp ? '<span class="tp-hp">' + tmPct(a.pct) + '</span> <span class="tp-hr2">(' + tpRec(a, p.m) + ')</span>' : '-';
       }
       var pills = '<div class="seg-toggle tp-pills-phone" role="group" aria-label="Market">' + cols.map(function(p, i) {
         return '<button class="seg-btn" data-ha-col="' + i + '" aria-pressed="' + (i === TP.haCol) + '">' + esc(tpName(p)) + '</button>'; }).join('') + '</div>';
@@ -1189,12 +1189,12 @@
         return xs.length ? (isPrice ? avgPrice(xs) : avg(xs)) : null;
       }
       var mh = avgOf('home', mlv, useMl), ma = avgOf('away', mlv, useMl);
-      var t1 = tile('Avg ' + tag + (useMl ? ' ML' : ' spread'), mh == null ? '&mdash;' : fmt1(mh), ma == null ? 'Road: —' : 'Road: ' + fmt1(ma));
+      var t1 = tile('Avg ' + tag + (useMl ? ' ML' : ' spread'), mh == null ? '-' : fmt1(mh), ma == null ? 'Road: -' : 'Road: ' + fmt1(ma));
       // 2: the O/U price (NHL's Over 1.5) or the total line
       var nhl = D.sport === 'nhl';
       function tv(g) { var t = o(g).total || {}; return nhl ? t.over : t.line; }
       var th = avgOf('home', tv, nhl), ta = avgOf('away', tv, nhl);
-      var t2 = tile(nhl ? 'Avg O/U price' : 'Avg ' + tag + ' total', th == null ? '&mdash;' : nhl ? priceTxt(th) : num1(th), ta == null ? 'Road: —' : 'Road: ' + (nhl ? priceTxt(ta) : num1(ta)));
+      var t2 = tile(nhl ? 'Avg O/U price' : 'Avg ' + tag + ' total', th == null ? '-' : nhl ? priceTxt(th) : num1(th), ta == null ? 'Road: -' : 'Road: ' + (nhl ? priceTxt(ta) : num1(ta)));
       // 3: the range, with the opponents
       var xs = finals.filter(function(g) { return typeof mlv(g) === 'number'; });
       var t3;
@@ -1202,14 +1202,14 @@
         var lo = xs.reduce(function(a, g) { return mlv(g) < mlv(a) ? g : a; }), hi = xs.reduce(function(a, g) { return mlv(g) > mlv(a) ? g : a; });
         function vs(g) { return (g.home === slug ? 'vs ' : '@ ') + tcode(g.home === slug ? g.away : g.home); }
         t3 = tile(tag + (useMl ? ' ML' : ' spread') + ' range', fmt1(mlv(lo)) + ' to ' + fmt1(mlv(hi)), esc(vs(lo)) + ' &middot; ' + esc(vs(hi)));
-      } else t3 = tile(tag + (useMl ? ' ML' : ' spread') + ' range', '&mdash;', 'Not enough lines yet');
+      } else t3 = tile(tag + (useMl ? ' ML' : ' spread') + ' range', '-', 'Not enough lines yet');
       // 4: lines vs results: the average actual vs the average total
       var tg = finals.filter(function(g) { var r = (g.res || {})[k]; return r && r.sc && (nhl || (o(g).total && typeof o(g).total.line === 'number')); });
       var t4;
       if (tg.length) {
         var al = nhl ? 1.5 : avg(tg.map(function(g) { return o(g).total.line; })), aa = avg(tg.map(function(g) { return g.res[k].sc[0] + g.res[k].sc[1]; }));
         t4 = tile('Lines vs results', num1(aa) + ' vs ' + num1(al), 'Actual vs total, ' + esc(tag) + ' ' + scoreWord());
-      } else t4 = tile('Lines vs results', '&mdash;', 'No totals saved yet');
+      } else t4 = tile('Lines vs results', '-', 'No totals saved yet');
       return '<section class="tm-sec tp-hist"><div class="tph"><h2 class="team-section-title">Line History</h2>' + tpSeasonToggle() + '</div><div class="tp-tiles">' + t1 + t2 + t3 + t4 + '</div></section>';
     }
     function resultsHtml() {
@@ -1227,11 +1227,11 @@
       var wins = rows.filter(function(x) { return x.r === 'W'; }), losses = rows.filter(function(x) { return x.r === 'L'; });
       var bw = wins.length ? wins.reduce(function(a, x) { return x.mg > a.mg ? x : a; }) : null;
       var aw = wins.length ? avg(wins.map(function(x) { return x.mg; })) : null, al = losses.length ? avg(losses.map(function(x) { return -x.mg; })) : null;
-      var t1 = tile('Longest ' + tag + ' win run', best ? String(best.n) : '0', best ? esc(shortDate(best.a)) + (best.n > 1 ? ' – ' + esc(shortDate(best.b)) : '') : 'No ' + esc(tag) + ' wins yet');
-      var t2 = tile('Best ' + tag + ' win', bw ? bw.mine + '–' + bw.theirs : '&mdash;', bw ? esc(vs(bw.g)) + ' &middot; ' + esc(shortDate(bw.g)) : 'No ' + esc(tag) + ' wins yet');
-      var t3 = tile('Avg margin', aw != null ? '+' + num1(aw) : '&mdash;', 'Losses: ' + (al != null ? '−' + num1(al) : '—'));
-      var t4 = tile('Avg ' + tag + ' ' + scoreWord(), rows.length ? num1(avg(rows.map(function(x) { return x.mine; }))) : '&mdash;',
-        'Against: ' + (rows.length ? num1(avg(rows.map(function(x) { return x.theirs; }))) : '—'));
+      var t1 = tile('Longest ' + tag + ' win run', best ? String(best.n) : '0', best ? esc(shortDate(best.a)) + (best.n > 1 ? ' - ' + esc(shortDate(best.b)) : '') : 'No ' + esc(tag) + ' wins yet');
+      var t2 = tile('Best ' + tag + ' win', bw ? bw.mine + '-' + bw.theirs : '-', bw ? esc(vs(bw.g)) + ' &middot; ' + esc(shortDate(bw.g)) : 'No ' + esc(tag) + ' wins yet');
+      var t3 = tile('Avg margin', aw != null ? '+' + num1(aw) : '-', 'Losses: ' + (al != null ? '-' + num1(al) : '-'));
+      var t4 = tile('Avg ' + tag + ' ' + scoreWord(), rows.length ? num1(avg(rows.map(function(x) { return x.mine; }))) : '-',
+        'Against: ' + (rows.length ? num1(avg(rows.map(function(x) { return x.theirs; }))) : '-'));
       return '<section class="tm-sec tp-hist"><div class="tph"><h2 class="team-section-title">Results History</h2>' + tpSeasonToggle() + '</div><div class="tp-tiles">' + t1 + t2 + t3 + t4 + '</div></section>';
     }
 
@@ -1314,10 +1314,10 @@
       if (tf.mode === 'week') w = ws[ws.length - 1];
       else if (tf.mode === 'lastweek') w = ws[ws.length - 2];
       else if (tf.mode === 'wk') w = (D.weeks || []).filter(function(x) { return x.key === tf.wk; })[0];
-      return w ? { from: w.start, to: w.end, wk: w.key, label: esc(w.label) + ' (' + shortDay(w.start) + ' &ndash; ' + shortDay(w.end) + ')' } : { none: true };
+      return w ? { from: w.start, to: w.end, wk: w.key, label: esc(w.label) + ' (' + shortDay(w.start) + ' - ' + shortDay(w.end) + ')' } : { none: true };
     }
     var mon = addDaysStr(mondayOf(todayET()), tf.mode === 'week' ? 0 : -7), sun = addDaysStr(mon, 6);
-    return { from: mon, to: sun, label: '(' + shortDay(mon) + ' &ndash; ' + shortDay(sun) + ')' };
+    return { from: mon, to: sun, label: '(' + shortDay(mon) + ' - ' + shortDay(sun) + ')' };
   }
   // {games, line}: the graded games in the selected range, and the range
   function tfRange() {
@@ -1403,7 +1403,7 @@
     out.push([hi + step, null]);
     return out.filter(function(b) { return totals.some(function(t) { return (b[0] == null || t >= b[0]) && (b[1] == null || t <= b[1]); }); });
   }
-  function bucketLabel(b) { return b[0] == null ? '≤' + b[1] : b[1] == null ? b[0] + '+' : b[0] === b[1] ? String(b[0]) : b[0] + '–' + b[1]; }
+  function bucketLabel(b) { return b[0] == null ? '≤' + b[1] : b[1] == null ? b[0] + '+' : b[0] === b[1] ? String(b[0]) : b[0] + '-' + b[1]; }
   function scoringHtml(games, k) {
     var sample = [], missing = 0, rfiN = 0, rfiY = 0;
     games.forEach(function(g) {
@@ -1417,9 +1417,9 @@
     var avg = n ? totals.reduce(function(a, b) { return a + b; }, 0) / n : null;
     // card 1: averages
     var segName = isRfi(k) ? '1st-inning' : s.tag;
-    var stats = [['Avg ' + segName + ' ' + unit, avg == null ? '&mdash;' : avg.toFixed(D.sportType === 'baseball' ? 2 : 1)],
-                 ['Avg per team', avg == null ? '&mdash;' : (avg / 2).toFixed(D.sportType === 'baseball' ? 2 : 1)]];
-    if (isRfi(k)) stats.push(['NRFI rate', rfiN ? fbPct(rfiY, rfiN) : '&mdash;']);
+    var stats = [['Avg ' + segName + ' ' + unit, avg == null ? '-' : avg.toFixed(D.sportType === 'baseball' ? 2 : 1)],
+                 ['Avg per team', avg == null ? '-' : (avg / 2).toFixed(D.sportType === 'baseball' ? 2 : 1)]];
+    if (isRfi(k)) stats.push(['NRFI rate', rfiN ? fbPct(rfiY, rfiN) : '-']);
     var card0 = stats.map(function(x) { return '<div class="st-row st-stat"><span class="st-lbl">' + x[0] + '</span><span class="st-num mono">' + x[1] + '</span></div>'; }).join('') +
       (n && !isRfi(k) ? '<p class="st-line">' + fbPct(tied, n) + ' of ' + esc(segWords(k)) + ' end tied.</p>' : '');
     // card 2: exact scores, order-agnostic
@@ -1508,7 +1508,7 @@
   function totalWord(k) { return D.sport === 'nhl' && k === '1p' ? 'O/U 1.5' : 'O/U'; }
   function scoreUnit() { return D.sport === 'nhl' ? 'goals' : D.sportType === 'baseball' ? 'runs' : 'points'; }
   function pctOf(n, of) { return of ? Math.round(100 * n / of) : null; }
-  function pctCell(n, of) { var p = pctOf(n, of); return p == null ? '&mdash;' : p + '%'; }
+  function pctCell(n, of) { var p = pctOf(n, of); return p == null ? '-' : p + '%'; }
   function mlFavSide(ml) {
     ml = ml || {};
     if (typeof ml.away !== 'number' || typeof ml.home !== 'number') return null;
@@ -1554,8 +1554,8 @@
   function stSection(id, title, controls, body) {
     return '<section class="st-sec" id="' + id + '"><div class="st-sec-head"><h2>' + title + '</h2>' + (controls ? '<div class="st-ctl">' + controls + '</div>' : '') + '</div>' + body + '</section>';
   }
-  function stUnits(r) { return r.pr ? '<span class="st-u ' + unitCls(r.u) + '">' + fmtUnits(r.u) + '</span>' : '<span class="st-u st-none">&mdash;</span>'; }
-  function stPct(w, l) { return w + l ? Math.round(100 * w / (w + l)) + '%' : '&mdash;'; }
+  function stUnits(r) { return r.pr ? '<span class="st-u ' + unitCls(r.u) + '">' + fmtUnits(r.u) + '</span>' : '<span class="st-u st-none">-</span>'; }
+  function stPct(w, l) { return w + l ? Math.round(100 * w / (w + l)) + '%' : '-'; }
   // one row: label | record | % | units, the columns lined up across cards
   function stRow(label, recTxt, pctTxt, unitsTxt, cls) {
     return '<div class="st-row' + (cls ? ' ' + cls : '') + '"><span class="st-lbl">' + label + '</span><span class="st-rec mono">' + recTxt + '</span>' +
@@ -1657,9 +1657,9 @@
     var s = seg(k), n = list.length, pts = 0, zero = 0, tied = 0;
     list.forEach(function(g) { var sc = g.res[k].sc, t = sc[0] + sc[1]; pts += t; if (!t) zero++; if (sc[0] === sc[1]) tied++; });
     return { id: 'scoring', title: s.tag + ' Scoring', gp: n, stat: [
-      ['Avg ' + s.tag + ' goals', n ? (pts / n).toFixed(2) : '&mdash;'],
-      ['0&ndash;0', n ? zero + ' <small>(' + pctCell(zero, n) + ')</small>' : '&mdash;'],
-      ['Tied after one', n ? tied + ' <small>(' + pctCell(tied, n) + ')</small>' : '&mdash;']] };
+      ['Avg ' + s.tag + ' goals', n ? (pts / n).toFixed(2) : '-'],
+      ['0-0', n ? zero + ' <small>(' + pctCell(zero, n) + ')</small>' : '-'],
+      ['Tied after one', n ? tied + ' <small>(' + pctCell(tied, n) + ')</small>' : '-']] };
   }
   function recOf(r, fmt) { return r.w + '-' + r.l + (fmt ? '-' + r.t : ''); }
   function cardHtml(c, total) {
@@ -1755,7 +1755,7 @@
       cards.push(boardCard('Home / Road Fav &amp; Dog', s.tag + ' moneyline by side', Object.keys(groups).map(function(g) { return boardRow(g, groups[g]); }), priced + ' games with a closing ' + s.tag + ' moneyline', 'W-L-T'));
       cards.push(boardCard('Odds Tiers', s.tag + ' moneyline by closing price', tiers.map(function(t, i) { return boardRow(t[0], tr[i]); }), 'Ties are 0u, left out of win %', 'W-L-T'));
     } else {
-      var B = [['0.5&ndash;2.5', 0.5, 2.5], ['3&ndash;4.5', 3, 4.5], ['5+', 5, 999]];
+      var B = [['0.5-2.5', 0.5, 2.5], ['3-4.5', 3, 4.5], ['5+', 5, 999]];
       var fav = B.map(newRec), dog = B.map(newRec);
       list.forEach(function(g) {
         var r = g.res[k], u = (r.u || {}).ats, ats = ((g.odds || {})[k] || {}).ats || {};
@@ -1804,17 +1804,17 @@
   // the break-even American price for a rate: -(p/(1-p))*100 at 50%+, else
   // +((1-p)/p)*100, to the nearest 5; none at 0% or 100%
   function worthAt(p) {
-    if (!(p > 0 && p < 1)) return '&mdash;';
+    if (!(p > 0 && p < 1)) return '-';
     var v = Math.round((p >= 0.5 ? -(p / (1 - p)) * 100 : ((1 - p) / p) * 100) / 5) * 5;
-    if (Math.abs(v) > 2000) return '&mdash;';   // past -2000 / +2000: no price worth quoting
-    return (v > 0 ? '+' : '&minus;') + Math.abs(v);
+    if (Math.abs(v) > 2000) return '-';   // past -2000 / +2000: no price worth quoting
+    return (v > 0 ? '+' : '-') + Math.abs(v);
   }
   // {n, cards [{id, title, sub, rows [{label, n, hit}]}], rows (all of them), later {team: rest-of-game {w, l, t, m}}}
   function edgeRows(games, k) {
     var cuts = leadCuts(k);
     var basketball = ['nba', 'wnba', 'ncaab'].indexOf(D.sport) !== -1, football = isFootball(), hockey = D.sport === 'nhl';
     var unit = hockey ? 'goal' : D.sportType === 'baseball' ? 'run' : 'point';
-    function lbl(a, b) { return b === 999 ? a + '+' : a === b ? String(a) : a + '&ndash;' + b; }
+    function lbl(a, b) { return b === 999 ? a + '+' : a === b ? String(a) : a + '-' + b; }
     var sizes = [[1, cuts[0]], [cuts[0] + 1, cuts[1]], [cuts[1] + 1, 999]];
     var R = {};
     function row(id, label) { return (R[id] = R[id] || { id: id, label: label, n: 0, hit: 0 }); }
@@ -1876,7 +1876,7 @@
       if (hockey && two) {
         var p2 = g.als[1] + g.hls[1];
         if (a + h >= 3) add('hi', '3+ goals in the 1st: 2nd period Under 1.5', p2 < 2);
-        if (a + h === 0) add('lo', '0&ndash;0 after one: 2nd period Over 1.5', p2 > 1);
+        if (a + h === 0) add('lo', '0-0 after one: 2nd period Over 1.5', p2 > 1);
       }
       // bounce-back: the segment's loser wins the next stretch
       if (leader) {
@@ -1908,7 +1908,7 @@
   // every finished game's edges per segment, counted once a page load
   var EDGE_CACHE = {};
   function edgeData(k) { return EDGE_CACHE[k] || (EDGE_CACHE[k] = edgeRows(finalGames(), k)); }
-  function edgeRest(k) { return k === '1p' ? 'periods 2&ndash;3 (and OT)' : k === '1q' ? 'quarters 2&ndash;4' : k === 'f5' ? 'innings 6&ndash;9' : k === '1i' ? 'innings 2&ndash;9' : 'the 2nd half'; }
+  function edgeRest(k) { return k === '1p' ? 'periods 2-3 (and OT)' : k === '1q' ? 'quarters 2-4' : k === 'f5' ? 'innings 6-9' : k === '1i' ? 'innings 2-9' : 'the 2nd half'; }
   // Best Closers / Biggest Faders: each team's record over the rest of the
   // game (after the segment); a minimum of games (college: CLOSER_MIN), win
   // % leaves ties out, ties broken by the average margin
@@ -1982,7 +1982,7 @@
     if (segEl) segEl.onclick = function(e) { var b = e.target.closest('[data-seg]'); if (b) { setSeg(b.getAttribute('data-seg')); draw(); } };
     stickBelowNav(document.getElementById('stStick'));
   }
-  function noStats() { app.innerHTML = emptyNote('No ' + esc(D.label) + ' games loaded yet &mdash; stats appear once games are played.'); }
+  function noStats() { app.innerHTML = emptyNote('No ' + esc(D.label) + ' games loaded yet - stats appear once games are played.'); }
   function keepPlace(anchor) {
     var keep = anchor ? { id: anchor.id, top: anchor.getBoundingClientRect().top } : null;
     return function() { if (keep) { var el = document.getElementById(keep.id); if (el) window.scrollBy(0, el.getBoundingClientRect().top - keep.top); } };
@@ -2184,7 +2184,7 @@
   // One league card. The "i": the title, what it means and how it compares
   // to the league (nothing else). The "Last time" line under the rows shows
   // only when the trend's show_last switch is on (off by default).
-  function trendCompare(c) { return 'This trend: ' + pct0(c.rate) + ' (' + c.w + '–' + c.l + '). League average: ' + pct0(c.base) + '.'; }
+  function trendCompare(c) { return 'This trend: ' + pct0(c.rate) + ' (' + c.w + '-' + c.l + '). League average: ' + pct0(c.base) + '.'; }
   function showLast(c) { return c.last && ((TR.tips || {}).show_last || []).indexOf(c.angle) !== -1 ? c.last : ''; }
   function trendCard(c) {
     var tip = tipBody(c.title, c.meaning, trendCompare(c)), last = showLast(c);
@@ -2203,7 +2203,7 @@
     var more = list.length > TR_ROWS ? '<button type="button" class="tr-more tr-all">Show all ' + list.length + ' games</button>' : '';
     var rec = c.mk === 'ml3' && c.avg != null
       ? 'Hit ' + c.w + ' of ' + (c.w + c.l) + ' at avg ' + priceTxt(c.avg) + ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>'
-      : pct0(c.rate) + ' (' + c.w + '–' + c.l + ') · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
+      : pct0(c.rate) + ' (' + c.w + '-' + c.l + ') · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
     var avg = c.mk === 'ml3' && c.avg != null ? '' : '<p class="ht-avg">League average ' + pct0(c.base) + '</p>';
     return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span>' + infoTip(tip, true, c.title, termOf(c.mk)) + '</div>' +
       '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec" title="' + esc((TR.tips.record_line || {}).tooltip || '') + '">' + rec + '</div>' + avg +
@@ -2341,7 +2341,7 @@
     var title = fill(d.title || sideWord(m, kind, k));
     title = title.charAt(0).toUpperCase() + title.slice(1);
     var lg = leagueRate(seqs, m, kind);
-    return infoTip(tipBody(title, fill(d.meaning), 'This trend: ' + pct0(x / y) + ' (' + x + '–' + (y - x) + ').' + (lg == null ? '' : ' League average: ' + pct0(lg) + '.')), false, title, m === 'rfi' ? (kind === 'Y' ? 'yrfi' : 'nrfi') : termOf(m));
+    return infoTip(tipBody(title, fill(d.meaning), 'This trend: ' + pct0(x / y) + ' (' + x + '-' + (y - x) + ').' + (lg == null ? '' : ' League average: ' + pct0(lg) + '.')), false, title, m === 'rfi' ? (kind === 'Y' ? 'yrfi' : 'nrfi') : termOf(m));
   }
   // the share of team-games in the market that went this way (pushes out, as in leanOf)
   function leagueRate(seqs, m, kind) {
@@ -2361,7 +2361,7 @@
   }
   var RES_WORD = { hit: 'Hit', miss: 'Miss', push: 'Push' };
   // null when nothing qualifies (the game doesn't appear).
-  // One line per lean: NY · 1H Under (i) · 79% (11–3), then on past dates
+  // One line per lean: NY · 1H Under (i) · 79% (11-3), then on past dates
   // the result (Hit / Miss / Push); today and later, the streak of 3+.
   function matchupBlock(g, k, before, past) {
     var seqs = teamSeqs(before, k), groups = '';
@@ -2375,7 +2375,7 @@
         var end = past ? (res ? '<span class="mt-res mt-r-' + res + '">' + RES_WORD[res] + '</span>' : '') : streakChip(m, streakOf(seq));
         lines.push({ rate: ln.rate, html: '<div class="mt-line">' + teamLink(slug, badge(slug, 18) + '<b>' + esc(tcode(slug)) + '</b>') +
           '<span class="mt-side">' + esc(stkWord(m, ln.kind, k)) + teamTrendTip(m, ln.kind, k, ln.x, ln.y, seqs) + '</span>' +
-          '<span class="mt-pct">' + pct0(ln.rate) + ' <span class="mt-rec">(' + ln.x + '–' + (ln.y - ln.x) + ')</span></span>' +
+          '<span class="mt-pct">' + pct0(ln.rate) + ' <span class="mt-rec">(' + ln.x + '-' + (ln.y - ln.x) + ')</span></span>' +
           '<span class="mt-st">' + end + '</span></div>' });
       });
       if (!lines.length) return;
@@ -2400,7 +2400,7 @@
   // "All active streaks" opens every team's run in place. Runs: 3+ (college
   // basketball 5+, college football 4+); college moneyline runs count
   // Division I (FBS) games only, and a run that is the team's whole season
-  // (5–0 to start) waits until it has played 8 games.
+  // (5-0 to start) waits until it has played 8 games.
   var STK_TOP = 5, STK_SEASON_MIN = 8;
   function stkMin() { return { ncaab: 5, ncaaf: 4 }[D.sport] || 3; }
   function stkCollege() { return D.sport === 'ncaab' || D.sport === 'ncaaf'; }
@@ -2445,8 +2445,12 @@
       });
       list.sort(function(a, b) { return b.s.n - a.s.n || (((a.g || {}).start || '') < ((b.g || {}).start || '') ? -1 : 1); });
       var more = all ? 0 : Math.max(0, list.length - STK_TOP);
-      return { label: x[2].replace('Total', 'O/U'), list: all ? list : list.slice(0, STK_TOP), more: more };
+      return { m: m, full: list, label: x[2].replace('Total', 'O/U'), list: all ? list : list.slice(0, STK_TOP), more: more };
     });
+    // 3-way: shown only when its list differs from the moneyline's (same teams, same counts = hidden)
+    function stkSig(x) { return x.full.map(function(e) { return e.slug + ':' + e.s.n; }).sort().join(','); }
+    var stkMl = groups.filter(function(x) { return x.m === 'ml'; })[0];
+    if (stkMl) groups = groups.filter(function(x) { return x.m !== 'ml3' || stkSig(x) !== stkSig(stkMl); });
     if (all) groups = groups.filter(function(x) { return x.list.length; });
     function row(x) {
       var yn = x.m === 'total' || x.m === 'btts' || x.m === 'rfi' || x.s.kind === 'T';
@@ -2527,7 +2531,7 @@
     var u = c.units == null ? '' : ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
     return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span><span class="lt-season">' + esc(TR.lastSeason.label) + ' season</span>' +
       infoTip(tipBody(c.title, c.meaning, trendCompare(c)), true, c.title, termOf(c.mk)) + '</div>' +
-      '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec">' + pct0(c.rate) + ' (' + c.w + '–' + c.l + ')' + u + '</div>' +
+      '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec">' + pct0(c.rate) + ' (' + c.w + '-' + c.l + ')' + u + '</div>' +
       '<p class="ht-avg">League average ' + pct0(c.base) + '</p></div>';
   }
   function lockedTrends(rest) {
@@ -2591,7 +2595,7 @@
   }
   function renderTrendsByDay() {
     var dates = allDates();
-    if (!dates.length) { app.innerHTML = emptyNote('No ' + esc(D.label) + ' games loaded yet &mdash; trends appear once games are played.'); return; }
+    if (!dates.length) { app.innerHTML = emptyNote('No ' + esc(D.label) + ' games loaded yet - trends appear once games are played.'); return; }
     var cur = urlDate() || defaultDate(dates);
     function go(d) { cur = d; setUrlDate(d); draw(); }
     function draw() {
@@ -2610,7 +2614,7 @@
   // Football: one slate per week, like its Matchups page
   function renderTrendsByWeek() {
     var weeks = D.weeks || [];
-    if (!weeks.length) { app.innerHTML = emptyNote('No ' + esc(D.label) + ' games loaded yet &mdash; trends appear once games are played.'); return; }
+    if (!weeks.length) { app.innerHTML = emptyNote('No ' + esc(D.label) + ' games loaded yet - trends appear once games are played.'); return; }
     var keys = weeks.map(function(w) { return w.key; });
     var want = new URLSearchParams(location.search).get('week');
     var thisWeek = currentWeek(weeks);

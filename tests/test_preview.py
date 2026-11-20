@@ -79,11 +79,11 @@ class BoxTest(unittest.TestCase):
         rate = lambda w, l: [{'seg': '1p', 'mk': 'ml', 'splits': {'season': {'_w': w, '_l': l}}}]
         why = preview.edge_why(S(), '2026-11-19', {'seg': '1p', 'market': 'ml', 'side': 'away'}, g,
                                {'islanders': rate(10, 6), 'jets': rate(3, 10)})
-        self.assertEqual(why, 'The Islanders have won the first period 62% (10–6); the Jets have won it 23% (3–10).')
+        self.assertEqual(why, 'The Islanders have won the first period 62% (10-6); the Jets have won it 23% (3-10).')
         self.assertIsNone(preview.edge_why(S(), '2026-11-19', {'seg': '1p', 'market': 'ml', 'side': 'home'}, g,
                                            {'islanders': rate(10, 6), 'jets': rate(3, 10)}))
         total = {'seg': '1p', 'market': 'total', 'side': 'under', 'angles': [['Jets 1P ML, season', '12-2'], ['Jets 1P unders, season (1.5)', '11-4']]}
-        self.assertEqual(preview.edge_why(S(), '2026-11-19', total, g, {}), 'Jets 1P unders, season (1.5): 73% (11–4).')
+        self.assertEqual(preview.edge_why(S(), '2026-11-19', total, g, {}), 'Jets 1P unders, season (1.5): 73% (11-4).')
 
     def test_box_lines_go_to_front_matter(self):
         import daily_content as dc

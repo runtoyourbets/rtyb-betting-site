@@ -41,12 +41,12 @@ class NumberCheckTest(unittest.TestCase):
 
 class EverySportTest(unittest.TestCase):
     def test_titles_follow_the_sport(self):
-        self.assertEqual(dc.title('recap', 'ncaab', '2026-11-12'), 'NCAAB First Half Betting Recap — Nov 12, 2026')
+        self.assertEqual(dc.title('recap', 'ncaab', '2026-11-12'), 'NCAAB First Half Betting Recap - Nov 12, 2026')
         self.assertEqual(dc.title('preview', 'nfl', '2026-11-12', {'week': 'Week 11'}),
                          'NFL Week 11 First Quarter & First Half Betting Preview')
         self.assertEqual(dc.title('preview', 'ncaaf', '2026-11-17', {'week': 'Week 12'}),
                          'College Football Week 12 First Quarter & First Half Betting Preview')
-        self.assertEqual(dc.title('recap', 'ncaaf', '2026-11-16'), 'NCAAF First Quarter and First Half Betting Weekend Recap — Nov 16, 2026')
+        self.assertEqual(dc.title('recap', 'ncaaf', '2026-11-16'), 'NCAAF First Quarter and First Half Betting Weekend Recap - Nov 16, 2026')
 
     def test_weekly_previews_by_kickoff_window(self):
         import preview
@@ -81,7 +81,7 @@ class EverySportTest(unittest.TestCase):
         self.assertIn('at most 8', dc.PREVIEW)
 
     def test_all_preview_title(self):
-        self.assertEqual(dc.title('preview', 'all', '2026-11-18'), 'First Period, Quarter & Half Betting Preview — Nov 18, 2026')
+        self.assertEqual(dc.title('preview', 'all', '2026-11-18'), 'First Period, Quarter & Half Betting Preview - Nov 18, 2026')
 
 class PhraseCheckTest(unittest.TestCase):
     BANNED = ['headliner', 'fits that one', "let's dive in"]

@@ -1,5 +1,5 @@
 ---
-title: "First Period, Quarter & Half Betting Preview — Nov 18, 2026"
+title: "First Period, Quarter & Half Betting Preview - Nov 18, 2026"
 sport: all
 kind: preview
 date: 2026-11-18
@@ -9,9 +9,9 @@ sports: ["nhl", "nba", "ncaab"]
 check: ["10"]
 lead: nba:401910009
 motd: nba:401910018
-stat_of_night: {"sport": "nba", "number": "93%", "line": "MIL Under the 1Q total · 13–1", "text": "The Milwaukee Bucks went Under the 1Q total in 13 of 14 games this season."}
-league_trend: {"sport": "ncaab", "number": "60%", "line": "Fade teams off a blowout · 1H ML · 182–123", "text": "Fade teams off a blowout 182–123 this season; tonight it fits Rutgers at Notre Dame and 18 more games.", "id": "off_loss3:1h:ml:fade"}
-edge_play: {"sport": "nhl", "number": "BOS 1P ML", "bet": "BOS 1P ML", "price": "-105", "book": "TheScore US", "line": "BOS 1P ML · best -105 at TheScore US", "text": "Boston Bruins at Detroit Red Wings: Boston 1P ML, season: 62% (10–6)."}
+stat_of_night: {"sport": "nba", "number": "93%", "line": "MIL Under the 1Q total · 13-1", "text": "The Milwaukee Bucks went Under the 1Q total in 13 of 14 games this season."}
+league_trend: {"sport": "ncaab", "number": "60%", "line": "Fade teams off a blowout · 1H ML · 182-123", "text": "Fade teams off a blowout 182-123 this season; tonight it fits Rutgers at Notre Dame and 18 more games.", "id": "off_loss3:1h:ml:fade"}
+edge_play: {"sport": "nhl", "number": "BOS 1P ML", "bet": "BOS 1P ML", "price": "-105", "book": "TheScore US", "line": "BOS 1P ML · best -105 at TheScore US", "text": "Boston Bruins at Detroit Red Wings: Boston 1P ML, season: 62% (10-6)."}
 ---
 **NHL, NBA and NCAAB all hit the board tonight, and a few matchups come loaded with early-game history.**
 

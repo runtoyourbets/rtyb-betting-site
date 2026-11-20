@@ -8,7 +8,7 @@ packet and nothing else.
 
 - A fun, confident bettor who knows the numbers cold, talking to other bettors.
 - Short sentences. Plain words. One idea per sentence.
-- Numbers do the work: a record (13–1), a rate (93%), a line (-2.5), a price (+126).
+- Numbers do the work: a record (13-1), a rate (93%), a line (-2.5), a price (+126).
 - No hype words and no guarantees, and none of the banned phrases below.
 - No disclaimers; the site has its own.
 
@@ -33,21 +33,21 @@ Never use these (the admin flags them):
 
 - Use only what's in the packet. Every team, record, rate, line, price, book
   and game count must appear in the packet exactly as given.
-- Rates come percent first, then the record: "93% (13–1)". The packet only
+- Rates come percent first, then the record: "93% (13-1)". The packet only
   holds rates with 10+ games; don't build your own.
 - Low rates: when a rate is under 40%, write the opposite outcome instead.
-  "The Bucks won the first half 20% (3–12)" becomes "The Bucks have lost the
-  first half 80% (12–3)". Never write 0%: "has lost the first half in all 10
+  "The Bucks won the first half 20% (3-12)" becomes "The Bucks have lost the
+  first half 80% (12-3)". Never write 0%: "has lost the first half in all 10
   games".
 - Don't repeat "in N games" after every rate. Give the sample once, only when
-  it isn't the full season ("as road underdogs, 7–3").
+  it isn't the full season ("as road underdogs, 7-3").
 - Spell out segments in sentences: "first quarter", "first half", "first
   period", "first inning", "first five innings". Never 1Q / 1H / 1P / F5 in
   body text (the boxes, chips and subheads may use them).
 - Both teams to score: the first mention in an article is "both teams to
   score (BTTS)"; after that "BTTS Yes" / "BTTS No" is fine.
 - When a trend about favorites or underdogs is applied to a game, name who
-  the favorite is and the line ("Temple, a small favorite at −0.5").
+  the favorite is and the line ("Temple, a small favorite at -0.5").
 - When a trend "fits" games, name the game(s): "it fits Rutgers at Penn
   State", never "fits that one". If it fits more than 3, name 2 and say "and
   N more".
@@ -75,7 +75,7 @@ sport, number and record or bet line); you write one sentence for each.
   headline and the lead game's opening paragraph.
 - EDGE: why the play, from the packet's `why` for it (rates in the bet's own
   market, percent first: "The Islanders have won the first period 62%
-  (10–6); the Jets have won it 23% (3–10)."). The box already shows the bet
+  (10-6); the Jets have won it 23% (3-10)."). The box already shows the bet
   and the best price and book. Nothing about a "worth it" price and no
   season record for the plays.
 - The Edge play must not contradict the article. If the article's numbers

@@ -87,8 +87,8 @@ def finish_slate(entry, sig):
 
 
 def record_text(w, l, t, push_word='push'):
-    """'39–30 (8 push)' -- W–L from the bettor's side, pushes noted."""
-    base = f'{w}–{l}'
+    """'39-30 (8 push)' -- W-L from the bettor's side, pushes noted."""
+    base = f'{w}-{l}'
     return base + (f' ({t} {push_word})' if t else '')
 
 

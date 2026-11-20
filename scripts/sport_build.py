@@ -57,7 +57,7 @@ SPAN_YEARS = {'nba', 'ncaab'}
 
 
 def season_label(sport, season):
-    return f'{season - 1}–{str(season)[2:]}' if sport in SPAN_YEARS else str(season)
+    return f'{season - 1}-{str(season)[2:]}' if sport in SPAN_YEARS else str(season)
 
 
 def read_json(path, default):

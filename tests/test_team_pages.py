@@ -23,7 +23,7 @@ class HeaderTest(unittest.TestCase):
         sp = sports.BY_KEY['nba']
         team = {'slug': 'bos', 'code': 'BOS', 'name': 'Boston Celtics', 'nickname': 'Celtics', 'division': 'Atlantic', 'conference': 'Eastern Conference'}
         other = dict(team, slug='atl', code='ATL', name='Atlanta Hawks', nickname='Hawks')
-        meta = build_site.sport_team_meta(sp, team, '2025–26')
+        meta = build_site.sport_team_meta(sp, team, '2025-26')
         self.assertEqual(meta['desc'], '')
         self.assertNotIn('sub_html', meta)
         body = build_site.team_detail_html(sp, team, [team, other])

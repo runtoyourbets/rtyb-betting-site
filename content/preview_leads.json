@@ -20,7 +20,7 @@
   },
   "ncaab": {
    "away": "furman-paladins",
-   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 60% (182–123)",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 60% (182-123)",
    "home": "radford-highlanders",
    "id": "401922055",
    "sport": "ncaab",
@@ -58,7 +58,7 @@
   },
   "ncaab": {
    "away": "little-rock-trojans",
-   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 60% (195–128)",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 60% (195-128)",
    "home": "jacksonville-dolphins",
    "id": "401920878",
    "sport": "ncaab",
@@ -76,7 +76,7 @@
   },
   "nfl": {
    "away": "pit",
-   "chip": "FADE BIG UNDERDOGS · 1H ML · 79% (23–6)",
+   "chip": "FADE BIG UNDERDOGS · 1H ML · 79% (23-6)",
    "home": "phi",
    "id": "401873076",
    "sport": "nfl",

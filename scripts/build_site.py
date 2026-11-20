@@ -91,7 +91,7 @@ PAGE_META = {
     'hitrates': {
         'title': sports.sport_title('nhl', 'stats'),
         'h1': sports.h1('nhl', 'stats'),
-        'desc': ('League-wide 1st-period results for the 2026–27 regular season (since Sept. 29): '
+        'desc': ('League-wide 1st-period results for the 2026-27 regular season (since Sept. 29): '
                   'home/away, favorites/underdogs, Over 1.5 and BTTS, with units.'),
     },
     'trends': {
@@ -285,8 +285,8 @@ def build_teams_menu_html(summary, team_colors):
 PAGE_SECTION = {'games': 'games', 'hitrates': 'stats', 'trends': 'trends', 'teamsindex': 'teams', 'team': 'teams', 'empty': None}
 
 # NHL keeps its exact existing text; other sports get generic versions.
-NHL_META_DESC = 'RTYB — Run to Your Bets: NHL 1st-period betting stats and trends.'
-NHL_FOOTER = ('RTYB &mdash; 2026&ndash;27 regular season, games from Sept. 29 on. Records reflect 1st-period results only; '
+NHL_META_DESC = 'RTYB - Run to Your Bets: NHL 1st-period betting stats and trends.'
+NHL_FOOTER = ('RTYB - 2026-27 regular season, games from Sept. 29 on. Records reflect 1st-period results only; '
               'ties (periods ending level) count as pushes on the Moneyline market. Not affiliated with the NHL.')
 
 
@@ -325,7 +325,7 @@ def site_nav(sport, section):
 # Geometry from the logo sheet; the B position (132.9) and tagline length
 # (94.8) were measured in Barlow Condensed 800. Colors are --logo-* tokens.
 LOGO_SVG = (
-    '<svg class="logo" viewBox="-8 19 176 72" role="img" aria-label="RTYB — Run to Your Bets">'
+    '<svg class="logo" viewBox="-8 19 176 72" role="img" aria-label="RTYB - Run to Your Bets">'
     '<g class="lg-ring" stroke-width="3" stroke-linecap="round">'
     '<line x1="-6" y1="46" x2="4" y2="46" opacity="0.6"/><line x1="-3" y1="58" x2="4" y2="58" opacity="0.35"/></g>'
     '<rect class="lg-fill" x="25" y="21" width="10" height="6" rx="2"/>'
@@ -350,7 +350,7 @@ def apply_sport(out, sport, section):
     """Fill the sport-specific placeholders shared by every page."""
     is_nhl = sport['key'] == 'nhl'
     out = out.replace('__META_DESC__', NHL_META_DESC if is_nhl else
-                      f'RTYB — Run to Your Bets: {sport["label"]} {sports.segment_summary(sport)} betting stats and trends.')
+                      f'RTYB - Run to Your Bets: {sport["label"]} {sports.segment_summary(sport)} betting stats and trends.')
     out = out.replace('__SITE_NAV__', site_nav(sport, section or 'games'))
     out = out.replace('__LOGO_SVG__', LOGO_SVG)
     out = out.replace('__THEME_HEAD__', nav.THEME_HEAD)
@@ -369,10 +369,10 @@ def apply_sport(out, sport, section):
     if is_nhl:
         footer = NHL_FOOTER
     elif sport_has_data(sport['key']):
-        footer = (f'RTYB &mdash; Run to Your Bets. {sport["label"]} {sports.segment_summary(sport)} results; '
+        footer = (f'RTYB - Run to Your Bets. {sport["label"]} {sports.segment_summary(sport)} results; '
                   'odds-based records count only games with saved odds. Not affiliated with any league.')
     else:
-        footer = (f'RTYB &mdash; Run to Your Bets. {sport["label"]} {sports.segment_summary(sport)} coverage is coming soon. '
+        footer = (f'RTYB - Run to Your Bets. {sport["label"]} {sports.segment_summary(sport)} coverage is coming soon. '
                   'Not affiliated with any league.')
     out = out.replace('__FOOTER_TEXT__', footer)
     out = out.replace('__DATA_PATH__', f'/{sport["slug"]}/data.json')
@@ -730,7 +730,7 @@ def season_info(sport):
 def team_picker(sport, team, teams):
     """The team dropdown under the H1 (in place of "← All teams"): the
     team's logo + name + ▾; the list opens with "All [SPORT] teams →", then
-    every team A–Z (college: the team's conference first, then All teams)."""
+    every team A-Z (college: the team's conference first, then All teams)."""
     college = sport['key'] in sports.COLLEGE
     def label(t):
         full = (t.get('location') if college else t.get('nickname') or t.get('short')) or t['name']
@@ -1258,15 +1258,15 @@ def main():
         'games': {d: gs for d, gs in merged_games.items() if d >= SEASON_START},
     }
     full_data['seasonStart'] = SEASON_START
-    full_data['seasonLabel'] = f'{SEASON_START[:4]}–{str(int(SEASON_START[:4]) + 1)[2:]}'
+    full_data['seasonLabel'] = f'{SEASON_START[:4]}-{str(int(SEASON_START[:4]) + 1)[2:]}'
     # Situational Results: arena time zones, and 2025-26 for "Since last season"
     # (nhl/history.json, loaded only when picked)
     full_data['tz'] = (load('data_seed/conferences/nhl_timezones.json', {}) or {}).get('zones')
     archive = load('data_seed/nhl_2025_26_games.json', [])
     if archive:
         with open(os.path.join(ROOT, 'nhl', 'history.json'), 'w', encoding='utf-8') as f:
-            json.dump({'season': 2026, 'seasonLabel': '2025–26', 'games': archive}, f, separators=(',', ':'))
-        full_data['historyInfo'] = {'season': 2026, 'label': '2025–26'}
+            json.dump({'season': 2026, 'seasonLabel': '2025-26', 'games': archive}, f, separators=(',', ':'))
+        full_data['historyInfo'] = {'season': 2026, 'label': '2025-26'}
     # Stats and Trends use this season only (from SEASON_START). The 2025-26
     # backfill (data_seed/nhl_2025_26_games.json, scripts/backfill_2025_26.py)
     # stays in the repo but isn't published; pass it below to bring it back.
@@ -1421,6 +1421,9 @@ def main():
     write_previews(template, now_utc)
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()
+    dashed = plain_dashes()
+    if dashed:
+        print(f'plain hyphens: {dashed} files had an en/em dash or minus sign')
 
     print(f"wrote index.html (home: {home_info['today']} games today, {home_info['trends']} trends), preview/ ({cards} image cards drawn), picks/ ({picks_info['plays']} plays logged), betting-guides/, nhl/data.json ({len(data_json)} bytes), "
           f"nhl/matchups/index.html ({len(games_html)} bytes), "
@@ -1431,6 +1434,40 @@ def main():
           f"{len(full_data.get('summary', {}))} nhl/teams/<slug>/index.html pages ({team_bytes} bytes total), "
           f"and schedule_data.json ({sum(len(v) for v in merged_games.values())} games); "
           f"other sports: {other}; sitemap.xml ({sitemap_urls} URLs)")
+
+
+# Plain hyphen only (CLAUDE.md): en dash, em dash and minus sign, as
+# characters, HTML entities or JSON escapes. Fetched text brings them in
+# (an MLB game note: "Game 1, en dash, Makeup"), so the build's last step swaps
+# them in everything it writes; tests/test_plain_hyphen.py checks.
+DASHES = re.compile('|'.join(re.escape(x) for x in (
+    '\u2013', '\u2014', '\u2212', '&ndash;', '&mdash;', '&minus;', '&#8211;', '&#8212;', '&#8722;',
+    '\\u2013', '\\u2014', '\\u2212')), re.I)
+DASH_SKIP = {'.git', '.github', '.claude', 'scripts', 'tests', 'node_modules'}
+DASH_EXT = ('.html', '.json', '.js', '.css', '.xml', '.txt', '.md')
+
+
+def plain_dashes(root=ROOT):
+    """Swap every dash form for '-' in the site's text files; returns how
+    many files changed."""
+    changed = 0
+    for d, dirs, files in os.walk(root):
+        dirs[:] = [x for x in dirs if x not in DASH_SKIP]
+        for f in files:
+            if not f.endswith(DASH_EXT):
+                continue
+            path = os.path.join(d, f)
+            try:
+                with open(path, encoding='utf-8', newline='') as fh:
+                    text = fh.read()
+            except (UnicodeDecodeError, OSError):
+                continue
+            new = DASHES.sub('-', text)
+            if new != text:
+                with open(path, 'w', encoding='utf-8', newline='') as fh:
+                    fh.write(new)
+                changed += 1
+    return changed
 
 
 if __name__ == '__main__':

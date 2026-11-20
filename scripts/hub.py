@@ -253,8 +253,8 @@ def fill_trends(doc, g, k, m, pick, ts, seqs):
 
 # ------------------------------------------------------------- the pick
 def pct_rec(w, l):
-    """"68% (58–27)": the percent first (CLAUDE.md), then the record."""
-    return f"{round(100 * w / (w + l)) if w + l else 0}% ({w}–{l})"
+    """"68% (58-27)": the percent first (CLAUDE.md), then the record."""
+    return f"{round(100 * w / (w + l)) if w + l else 0}% ({w}-{l})"
 
 
 def market_keys(doc):
@@ -431,7 +431,7 @@ def update_log(sp, doc, trends_doc, slug_dir, now_utc, today):
                 entry['result'] = r
                 sc = ((g.get('res') or {}).get(entry['seg']) or {}).get('sc')
                 if sc:
-                    entry['score'] = f'{sc[0]}–{sc[1]}'
+                    entry['score'] = f'{sc[0]}-{sc[1]}'
     if not mine:
         log.pop(sp['key'], None)
     write_json(LOG_PATH, log)

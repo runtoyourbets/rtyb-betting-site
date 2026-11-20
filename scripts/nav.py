@@ -22,7 +22,7 @@ GO PREMIUM; free: GO PREMIUM · avatar; Premium: PICKS · avatar), row 2 as
 on desktop (the index sports row keeps only the sports in season), a fixed
 bottom bar (sports.BOTTOM_BAR) and the ☰ menu: ALL SPORTS (the index pages
 as one row of five buttons, Picks gold), SPORTS (icon + name; tapping a row
-opens "[SPORT] Home →" and its pages as pills, two rows of three, one sport
+opens "[SPORT] Home →" and its pages as pills, two rows of three, all white, one sport
 at a time) and MORE (Betting Guides, The Running Tab). While sports.PICKS_LIVE is False every Picks link opens the
 Preview pages (/preview/, /{sport}/preview/), which light up Picks.
 The avatar menu is scripts/account.py.
@@ -101,7 +101,7 @@ def _sports_menu(base, sps, cur):
 def _phone_sport(base, sp, i):
     """A ☰ sport row: icon + name; tapping it opens its Home button and its
     pages as pills (two rows of three) right under it."""
-    pills = ''.join(f'<a class="hm-pill{" gold" if sec == "picks" else ""}" href="{href}">{esc(label)}</a>' for sec, label, href in _pages(base, sp))
+    pills = ''.join(f'<a class="hm-pill" href="{href}">{esc(label)}</a>' for sec, label, href in _pages(base, sp))
     return (f'<div class="hm-sport"><button class="hm-row" type="button" aria-expanded="false" aria-controls="hmP{i}">'
             f'<span class="hm-name">{icons.sport_icon(sp)}{esc(sp["menu_label"])}</span></button>'
             f'<div class="hm-open" id="hmP{i}" hidden><a class="hm-home" href="{base}{sp["slug"]}/">{esc(sp["label"])} Home &rarr;</a>'

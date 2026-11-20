@@ -1,6 +1,6 @@
 ---
 published: 2026-11-19T15:01:12Z
-title: "NCAAB First Half Betting Preview — Nov 19, 2026"
+title: "NCAAB First Half Betting Preview - Nov 19, 2026"
 sport: ncaab
 kind: preview
 date: 2026-11-19
@@ -9,14 +9,14 @@ model: claude-opus-5-5
 check: []
 lead: ncaab:401920878
 motd: ncaab:401906867
-league_trend: {"sport": "ncaab", "number": "60%", "line": "Fade teams off a blowout · 1H ML · 195–128", "text": "Fading teams off a blowout is 60% (195–128) on the first-half moneyline; it fits Little Rock at Jacksonville, Southern Utah at Texas and 10 more.", "id": "off_loss3:1h:ml:fade"}
+league_trend: {"sport": "ncaab", "number": "60%", "line": "Fade teams off a blowout · 1H ML · 195-128", "text": "Fading teams off a blowout is 60% (195-128) on the first-half moneyline; it fits Little Rock at Jacksonville, Southern Utah at Texas and 10 more.", "id": "off_loss3:1h:ml:fade"}
 ---
 # Little Rock Takes a Four-Game First-Half Skid to Jacksonville
 > Little Rock can't win a first half lately, but its first halves keep finding points.
 
 Little Rock have lost the first half 4 straight. They've failed to cover the first-half spread 3 straight. Tonight they visit Jacksonville, one of 36 games on the slate.
 
-The fade angles show up all over the board. Fading teams off a loss is 57% (150–111) against the first-half spread. It fits Little Rock at Jacksonville, Southern Utah at Texas and 10 more.
+The fade angles show up all over the board. Fading teams off a loss is 57% (150-111) against the first-half spread. It fits Little Rock at Jacksonville, Southern Utah at Texas and 10 more.
 
 ### Florida at West Virginia · 2:30 PM ET
 

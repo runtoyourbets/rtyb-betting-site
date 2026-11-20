@@ -23,6 +23,8 @@
  * League view extras (the Splits page): view.range ({from, to} | {wk} |
  * {post: true | false} (postseason / regular season) | {none}), view.noSeg (the page has its own segment toggle), view.controls /
  * view.line (HTML for the header), view.after(box) (wire them after a redraw).
+ * Rows marked leagueOnly (the rest rows the Rest strips cover) show on the
+ * league table only, not in a team page's Situational Results (teamView).
  * Team view extras: view.next = {id, label} (the team's next game and how
  * to say it: "Tonight vs MTL"); its rows get a Tonight tag.
  *
@@ -51,7 +53,7 @@
   function fmtU(u) { var r = Math.round(u * 100) / 100; return (r > 0 ? '+' : '') + r.toFixed(2) + 'u'; }
   // tone: 1 / -1 colors the pill green / red (a real edge); else neutral gray
   function pill(u, n, prefix, tone) {
-    if (!n) return '<span class="u-pill u-none">&mdash;</span>';
+    if (!n) return '<span class="u-pill u-none">-</span>';
     var r = Math.round(u * 100) / 100;
     var cls = tone > 0 ? 'u-pos2' : tone < 0 ? 'u-neg2' : 'u-zero';
     return '<span class="u-pill ' + cls + '">' + (prefix || '') + fmtU(r) + '</span>';
@@ -464,7 +466,7 @@
         return '<div class="ob-stick sit-stick"><div class="sit-bar"><div class="sit-row1">' + b + '</div><div class="sit-full">' + (view.controls || '') + full + '</div></div></div>';
       }
 
-      function recTxt(m, x) { return x.n ? x.a + '-' + x.b + (m.pair || m.id === 'ml3' ? (x.p ? '-' + x.p : '') : '-' + x.p) : '&mdash;'; }
+      function recTxt(m, x) { return x.n ? x.a + '-' + x.b + (m.pair || m.id === 'ml3' ? (x.p ? '-' + x.p : '') : '-' + x.p) : '-'; }
       // Win % leaves ties and pushes out (2-0-4 is 100%), as in template.html /
       // sport.js winPct; Tie % is out of every game played.
       function decided(m, x) { return x.a + x.b; }
@@ -502,10 +504,10 @@
         var x0 = a[sel.id], p = pctOf(sel, x0), tone = edgeOf(sel, x0);
         var mark = a.gp && a.lined < a.gp ? '<sup class="st-mark">&dagger;</sup>' : '';
         if (a.gp && a.lined < a.gp) MARKED = true;
-        var h = labelCell(row, a, tone) + '<td class="num mono">' + (a.gp || '&mdash;') + perTeam(a) + '</td>';
+        var h = labelCell(row, a, tone) + '<td class="num mono">' + (a.gp || '-') + perTeam(a) + '</td>';
         h += '<td class="num mono sit-sel">' + recTxt(sel, x0) + mark + '</td>' +
-          '<td class="num"><div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '&mdash;' : p + '%') + '</span></div></td>' +
-          (isSu ? '<td class="num mono">' + (tieOf(x0) == null ? '&mdash;' : tieOf(x0) + '%') + '</td>' : '') +
+          '<td class="num"><div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '-' : p + '%') + '</span></div></td>' +
+          (isSu ? '<td class="num mono">' + (tieOf(x0) == null ? '-' : tieOf(x0) + '%') + '</td>' : '') +
           '<td class="num">' + unitsOf(sel, x0, tone) + '</td>';
         return h;
       }
@@ -519,10 +521,10 @@
         return G.rows.map(function(x) {
           var a = x.agg, x0 = a[sel.id], p = pctOf(sel, x0), tone = edgeOf(sel, x0);
           return '<details class="sit-mrow' + (FIT[x.row.id] ? ' sit-on' : '') + '" id="sit-m-' + esc(x.row.id) + '"><summary><span class="sit-mlabel' + (x.row.indent ? ' ind' : '') + '">' + esc(x.row.short) + (FIT[x.row.id] ? ' ' + TONIGHT_TAG : '') + '</span>' +
-            '<span class="mono sit-mrec">' + recTxt(sel, x0) + '</span><span class="sit-mval">' + (sel.id === 'su' ? '<span class="mono">' + (p == null ? '&mdash;' : p + '%') + '</span>' : unitsOf(sel, x0, tone)) +
+            '<span class="mono sit-mrec">' + recTxt(sel, x0) + '</span><span class="sit-mval">' + (sel.id === 'su' ? '<span class="mono">' + (p == null ? '-' : p + '%') + '</span>' : unitsOf(sel, x0, tone)) +
             '</span><span class="sit-chev" aria-hidden="true">&#9662;</span></summary>' +
             '<div class="sit-mbody"><p class="sit-mname">' + esc(lab(x.row, k)) + '</p>' +
-              '<div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '&mdash;' : p + '%') + '</span></div>' +
+              '<div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '-' : p + '%') + '</span></div>' +
               '<div class="sit-m3">' + markets.map(function(m) { var xx = a[m.id]; return '<div><b>' + esc(m.label) + '</b><span class="mono">' + recTxt(m, xx) + '</span>' + unitsOf(m, xx, edgeOf(m, xx)) + '</div>'; }).join('') + '</div>' +
               '<div class="sit-mfoot">' + a.gp + (a.gp > a.games ? ' team-games' : ' game' + (a.gp === 1 ? '' : 's')) + (a.lined < a.gp ? '<sup class="st-mark">&dagger;</sup>' : '') + '</div></div></details>';
         }).join('');
@@ -628,7 +630,7 @@
     // REST strips (team pages and the Splits page; not MLB): days off before
     // the game, 0 = played yesterday. Football: short / normal week / extra
     // rest. One strip for the team, one for the opponent, in the selected
-    // market; under 5 games a cell shows "—" with its record; the next game's
+    // market; under 5 games a cell shows "-" with its record; the next game's
     // cell (team pages) gets the purple outline.
     var FOOTBALL = src.sport === 'nfl' || src.sport === 'ncaaf';
     var REST_CELLS = FOOTBALL
@@ -643,7 +645,7 @@
         return '<p class="ts-rl">' + esc(label) + '</p><div class="ts-strip ts-strip-' + REST_CELLS.length + '">' + REST_CELLS.map(function(cell) {
           var a = agg(pool.filter(function(e) { return e.c[field] != null && cell[1](e.c[field]); }), [m]), x = a[m.id], p = pctOf(x);
           var on = nv != null && cell[1](nv);
-          return '<div class="ts-day' + (on ? ' ts-today' : '') + '"><span class="ts-dl">' + esc(cell[0]) + '</span><span class="ts-dp">' + (a.gp >= 5 && p != null ? p + '%' : '&mdash;') + '</span>' +
+          return '<div class="ts-day' + (on ? ' ts-today' : '') + '"><span class="ts-dl">' + esc(cell[0]) + '</span><span class="ts-dp">' + (a.gp >= 5 && p != null ? p + '%' : '-') + '</span>' +
             '<span class="ts-dr">' + (x.n ? '(' + recOf(m.id, x) + ')' : '') + '</span></div>';
         }).join('') + '</div>';
       }
@@ -676,10 +678,10 @@
       }
       function pctOf(x) { var d = x.a + x.b; return d ? Math.round(100 * x.a / d) : null; }
       function recOf(id, x) {
-        if (!x.n) return '&mdash;';
-        if (id === 'ml3') return x.a + '&ndash;' + (x.b - x.d) + '&ndash;' + x.d;
-        if (id === 'su' || id === 'ats') return x.a + '&ndash;' + x.b + '&ndash;' + x.p;
-        return x.a + '&ndash;' + x.b;
+        if (!x.n) return '-';
+        if (id === 'ml3') return x.a + '-' + (x.b - x.d) + '-' + x.d;
+        if (id === 'su' || id === 'ats') return x.a + '-' + x.b + '-' + x.p;
+        return x.a + '-' + x.b;
       }
       function unitsOf(c, x) {
         if (!c.priced || !x.na) return '';
@@ -688,13 +690,14 @@
       }
       function cellHtml(c, x) {
         var p = pctOf(x);
-        if (!x.n) return '<span class="ts-dash">&mdash;</span>';
-        return '<span class="ts-pct">' + (p == null ? '&mdash;' : p + '%') + '</span>' + unitsOf(c, x) + ' <span class="ts-rec">(' + recOf(c.id, x) + ')</span>';
+        if (!x.n) return '<span class="ts-dash">-</span>';
+        return '<span class="ts-pct">' + (p == null ? '-' : p + '%') + '</span>' + unitsOf(c, x) + ' <span class="ts-rec">(' + recOf(c.id, x) + ')</span>';
       }
       // the rows, in the four groups
       var groups = {};
       REG.rows.forEach(function(row) {
-        if (row.id === 'overall' || TEAM_SKIP[row.id]) return;
+        // leagueOnly: the rest rows the Rest strips cover (the league Splits page keeps them)
+        if (row.id === 'overall' || TEAM_SKIP[row.id] || row.leagueOnly) return;
         var name = TEAM_GROUP[row.group];
         if (!name) return;
         if (row.applies && !row.applies(view.slug, C)) return;
@@ -742,7 +745,7 @@
       var nd = view.next && view.next.dow != null ? view.next.dow : null;
       var strip = DOW.map(function(d) {
         var a = agg(pools[sel.k].filter(function(e) { return e.c.dow === d[0]; }), [ms[ts.col]]), x = a[sel.id], p = pctOf(x);
-        return '<div class="ts-day' + (d[0] === nd ? ' ts-today' : '') + '"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '&mdash;' : p + '%') + '</span>' +
+        return '<div class="ts-day' + (d[0] === nd ? ' ts-today' : '') + '"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
           '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
       }).join('');
       h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.head) + '</span></div><div class="ts-strip">' + strip + '</div></div>';
@@ -788,10 +791,10 @@
       var priced = ms.map(function(m) { return pool.some(function(e) { return e.r[m.id + 'U'] != null || e.r[m.id + 'A'] != null; }); });
       function pctOf(x) { var d = x.a + x.b; return d ? Math.round(100 * x.a / d) : null; }
       function recOf(id, x) {
-        if (!x.n) return '&mdash;';
-        if (id === 'ml3') return x.a + '&ndash;' + (x.b - x.d) + '&ndash;' + x.d;
-        if (id === 'su' || id === 'ats') return x.a + '&ndash;' + x.b + '&ndash;' + x.p;
-        return x.a + '&ndash;' + x.b;
+        if (!x.n) return '-';
+        if (id === 'ml3') return x.a + '-' + (x.b - x.d) + '-' + x.d;
+        if (id === 'su' || id === 'ats') return x.a + '-' + x.b + '-' + x.p;
+        return x.a + '-' + x.b;
       }
       function unitsOf(i, x) {
         if (!priced[i] || !x.na) return '';
@@ -799,9 +802,9 @@
         return ' <span class="ts-u ' + (r > 0.5 ? 'pos' : r < -0.5 ? 'neg' : 'mid') + '">' + fmtU(r) + '</span>';
       }
       function cellHtml(i, x) {
-        if (!x.n) return '<span class="ts-dash">&mdash;</span>';
+        if (!x.n) return '<span class="ts-dash">-</span>';
         var p = pctOf(x);
-        return '<span class="ts-pct">' + (p == null ? '&mdash;' : p + '%') + '</span>' + unitsOf(i, x) + ' <span class="ts-rec">(' + recOf(ms[i].id, x) + ')</span>';
+        return '<span class="ts-pct">' + (p == null ? '-' : p + '%') + '</span>' + unitsOf(i, x) + ' <span class="ts-rec">(' + recOf(ms[i].id, x) + ')</span>';
       }
       var PER = false, groups = {};
       REG.rows.concat(LEAGUE_EXTRA).forEach(function(row) {
@@ -847,7 +850,7 @@
       // DAY OF WEEK: Mon-Sun in the selected market (home team's side)
       var strip = DOW.map(function(d) {
         var x = agg(pool.filter(function(e) { return e.c.home && e.c.dow === d[0]; }), [sel])[sel.id], p = pctOf(x);
-        return '<div class="ts-day"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '&mdash;' : p + '%') + '</span>' +
+        return '<div class="ts-day"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
           '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
       }).join('');
       h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.pctHead || '') + '</span></div><div class="ts-strip">' + strip + '</div></div>';

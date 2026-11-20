@@ -113,7 +113,7 @@ class OffSeasonTest(unittest.TestCase):
 
     def test_result_line(self):
         sport = front.Sport(sports.BY_KEY['mlb'])
-        self.assertEqual(offseason.result_line(sport, {'opp': 'tb', 'wins': 4, 'losses': 1, 'score': [4, 1]}), 'Beat the Tampa Bay Rays 4–1')
+        self.assertEqual(offseason.result_line(sport, {'opp': 'tb', 'wins': 4, 'losses': 1, 'score': [4, 1]}), 'Beat the Tampa Bay Rays 4-1')
 
 
 class HubFollowUpTest(unittest.TestCase):
@@ -138,7 +138,7 @@ class HubFollowUpTest(unittest.TestCase):
         for _ in range(20):
             t.add('L', -1.0)
         html = offseason.cell('F5 ML', 'Win', t)
-        self.assertIn('<span class="os-big">20%</span><span class="os-rec">5–20</span>', html)
+        self.assertIn('<span class="os-big">20%</span><span class="os-rec">5-20</span>', html)
         self.assertIn('os-ub', html)
 
     def test_football_hub_shows_last_week(self):
