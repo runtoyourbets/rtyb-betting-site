@@ -11341,6 +11341,48 @@
     "streakTeamName": "South Alabama"
    },
    {
+    "id": "nba|401909309|1q|ml|away",
+    "game": "nba|401909309",
+    "date": "2026-11-20",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Wizards @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 110,
+    "title": "Wizards 1Q ML",
+    "est": 0.5194,
+    "edge": 0.0432,
+    "agree": 2,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "wsh",
+    "angles": [
+     [
+      "Wizards 1Q ML on the road",
+      "6-3"
+     ],
+     [
+      "Bulls\u2019s opponents 1Q ML, Bulls at home",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Wizards"
+   },
+   {
     "id": "nba|401909305|1h|ml|away",
     "game": "nba|401909305",
     "date": "2026-11-20",
@@ -11427,48 +11469,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Delaware"
-   },
-   {
-    "id": "nba|401909309|1q|ml|away",
-    "game": "nba|401909309",
-    "date": "2026-11-20",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-21T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Wizards @ Bulls",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 105,
-    "title": "Wizards 1Q ML",
-    "est": 0.527,
-    "edge": 0.0392,
-    "agree": 2,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "wsh",
-    "angles": [
-     [
-      "Wizards 1Q ML on the road",
-      "6-3"
-     ],
-     [
-      "Bulls\u2019s opponents 1Q ML, Bulls at home",
-      "3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Wizards"
    },
    {
     "id": "nba|401909311|1h|ml|away",
