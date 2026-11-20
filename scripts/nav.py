@@ -268,7 +268,7 @@ def footer_columns():
     live = sports.LAUNCHED
     cols = [('Sports', [(sports.seo_name(sp), f"/{sp['slug']}/") for sp in live])]
     for sec, word in (('odds', 'Odds'), ('trends', 'Trends'), ('stats', 'Stats')):
-        cols.append((word, [(f'{sports.seo_name(sp)} {seg_short(sp)} {word}', f"/{sp['slug']}/{sec}/") for sp in live]))
+        cols.append((word, [(f"{sports.seo_name(sp)}{'' if sp['key'] in sports.COLLEGE else ' ' + seg_short(sp)} {word}", f"/{sp['slug']}/{sec}/") for sp in live]))
     cols.append(('Learn', [(t, f'/betting-guides/{p}') for t, p in LEARN]))
     rtyb = [('Preview', '/preview/'), ('Matchups', '/matchups/')]
     if sports.PICKS_LIVE:

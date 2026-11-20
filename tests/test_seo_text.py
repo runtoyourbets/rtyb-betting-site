@@ -68,16 +68,13 @@ class FilesTest(unittest.TestCase):
         with self.assertRaises(seo_text.UnknownPath):
             seo_text.Pass({''}, {})
 
-    # Chris's approved copy, loaded as written, runs under 110 here (flagged, not rewritten)
-    SHORT_OK = {('content/seo/nhl__odds.md', 'description_offseason'), ('content/seo/nhl__teams.md', 'description_offseason')}
-
     def test_descriptions_110_to_165_with_sample_values(self):
         vals = seo_text.sample_values()
         for rel, (name, meta, body) in seo_text.files().items():
             if rel.endswith('preview/'):   # the day's headline: any length
                 continue
             for key in ('description', 'description_offseason'):
-                if meta.get(key) and (name, key) not in self.SHORT_OK:
+                if meta.get(key):
                     d = seo_text.plain(guide_stats.fill(str(meta[key]), vals, name))
                     with self.subTest(f'{name} {key}'):
                         self.assertTrue(110 <= len(d) <= 165, f'{len(d)}: {d}')
@@ -158,6 +155,15 @@ class BuiltPagesTest(unittest.TestCase):
         self.assertIn('"name": "Edmonton Oilers"', pages['nhl/teams/edm/'])
         self.assertIn('"BreadcrumbList"', pages['nhl/odds/'])
 
+    def test_info_tips_have_the_tip_script(self):
+        n = 0
+        for rel, page in built():
+            if 'class="info-tip' in page:
+                n += 1
+                with self.subTest(rel):
+                    self.assertIn("box.id = 'tipBox'", page)
+        self.assertGreater(n, 0)
+
     def test_footer_on_every_page(self):
         for rel, page in built():
             with self.subTest(rel):
@@ -175,9 +181,21 @@ class TeamTextTest(unittest.TestCase):
         self.assertEqual(seo_text.bet(g, '1p', 'total', 'h')[0], 'L')
 
     def test_rates_leave_ties_out(self):
-        gs = [{'away': 'a', 'home': 'h', 'res': {'1p': {'sc': [0, 0], 'su': x}}} for x in ('W', 'W', 'L', 'T')]
+        gs = [{'away': 'a', 'home': 'h', 'res': {'1p': {'sc': [0, 0], 'su': x}}} for x in ('W', 'W', 'W', 'L', 'T')]
         a = seo_text.Agg(gs, '1p', 'ml', 'a')
-        self.assertEqual(a.rate(), '67% (2-1-1)')
+        self.assertEqual(a.rate(), '75% (3-1-1)')
+
+    def test_small_samples_never_show(self):
+        gs = [{'away': 'a', 'home': 'h', 'res': {'1p': {'sc': [0, 0], 'su': x}}} for x in ('W', 'W', 'W', 'L')]
+        self.assertIsNone(seo_text.Agg(gs, '1p', 'ml', 'a').rate())
+        pages = dict(built())
+        for rel, page in pages.items():
+            if team_page(rel):
+                with self.subTest(rel):
+                    m = ABOUT.search(page)
+                    for txt in (head(page)[1], m.group(0) if m else ''):
+                        for rec in re.findall(r'\d+% \((\d+(?:-\d+){1,2})\)', html.unescape(re.sub('<[^>]+>', '', txt))):
+                            self.assertGreaterEqual(sum(int(x) for x in rec.split('-')), 5, rec)
 
 
 if __name__ == '__main__':

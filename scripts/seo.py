@@ -187,6 +187,86 @@ def head_block(rel, page_html, base, snippet):
 
 
 RECORD = re.compile(r'(?<![\w.,-])(\d{1,3}(?:,\d{3})*(?:-\d{1,3}(?:,\d{3})*){1,2})(?![\w-])')
+# the one "i" box (build_site.SHELL_JS on sport pages); finish() adds it to
+# every other page with an .info-tip (home, index pages, guides)
+TIP_JS = """  // ---- the one "i" box: every .info-tip on the site opens it
+  // Content comes from the button's hidden .tip-bubble: .tip-t (title),
+  // .tip-d (definition), .tip-c (the trend's comparison line); no link
+  // out (Nov 20). An older plain bubble gets a title from
+  // data-tip-title, its first <b>, or the aria-label.
+  (function() {
+    var box = document.createElement('div'), scrim = document.createElement('div'), cur = null, pinned = false, timer = null;
+    box.className = 'tip-box'; box.hidden = true; box.setAttribute('role', 'dialog'); box.id = 'tipBox';
+    scrim.className = 'tip-scrim'; scrim.hidden = true;
+    document.body.appendChild(scrim); document.body.appendChild(box);
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 641px)');
+    function content(tip) {
+      var b = tip.querySelector('.tip-bubble');
+      if (!b) return '';
+      if (b.querySelector('.tip-t, .tip-d')) return b.innerHTML;
+      var c = b.cloneNode(true), first = c.querySelector('b'), title = tip.getAttribute('data-tip-title');
+      if (!title && first && c.firstChild === first) { title = first.textContent; first.remove(); var br = c.querySelector('br'); if (br && c.firstChild === br) br.remove(); }
+      if (!title) title = (tip.getAttribute('aria-label') || '').replace(/^About (this )?/, '');
+      title = title.charAt(0).toUpperCase() + title.slice(1);
+      var t = document.createElement('span'); t.textContent = title;
+      return '<span class="tip-t">' + t.innerHTML + '</span><span class="tip-d">' + c.innerHTML + '</span>';
+    }
+    function hide() {
+      clearTimeout(timer);
+      if (cur) cur.classList.remove('open');
+      cur = null; pinned = false; box.hidden = true; scrim.hidden = true; box.classList.remove('tip-panel');
+    }
+    function place(tip) {
+      var r = tip.getBoundingClientRect(), w = box.offsetWidth, h = box.offsetHeight, vw = document.documentElement.clientWidth, vh = window.innerHeight;
+      var left = Math.max(8, Math.min(vw - w - 8, r.left + r.width / 2 - w / 2));
+      var top = r.bottom + 8;
+      if (top + h > vh - 8 && r.top - h - 8 >= 8) top = r.top - h - 8;
+      box.style.left = left + 'px'; box.style.top = Math.max(8, Math.min(vh - h - 8, top)) + 'px';
+    }
+    function show(tip, pin) {
+      clearTimeout(timer);
+      if (cur && cur !== tip) cur.classList.remove('open');
+      cur = tip; pinned = pin; tip.classList.add('open');
+      var panel = !fine.matches;
+      box.innerHTML = content(tip) + '<button type="button" class="tip-x" aria-label="Close">&#10005;</button>';
+      box.setAttribute('aria-label', (box.querySelector('.tip-t') || {}).textContent || 'About');
+      box.classList.toggle('tip-panel', panel);
+      box.style.left = ''; box.style.top = '';
+      box.hidden = false; scrim.hidden = !panel;
+      if (!panel) place(tip);
+    }
+    window.rtybTipClose = hide;
+    // captured, so a tip inside a sortable header or a link doesn't also act on it
+    document.addEventListener('click', function(e) {
+      if (e.target.closest && e.target.closest('.tip-x')) { e.preventDefault(); hide(); return; }
+      if (box.contains(e.target)) return;   // links inside the box work
+      var tip = e.target.closest ? e.target.closest('.info-tip') : null;
+      if (!tip) { if (cur) hide(); return; }
+      e.stopPropagation(); e.preventDefault();
+      if (cur === tip && pinned) hide(); else show(tip, true);
+    }, true);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && cur) hide(); });
+    window.addEventListener('scroll', function() { if (cur && fine.matches) { if (pinned) place(cur); else hide(); } }, { passive: true });
+    window.addEventListener('resize', function() { if (cur) hide(); });
+    document.addEventListener('mouseover', function(e) {
+      if (!fine.matches) return;
+      var tip = e.target.closest ? e.target.closest('.info-tip') : null;
+      if (tip) { if (cur !== tip && !pinned) show(tip, false); else clearTimeout(timer); return; }
+      if (box.contains(e.target)) { clearTimeout(timer); return; }
+      if (cur && !pinned) { clearTimeout(timer); timer = setTimeout(hide, 150); }
+    });
+  })();
+"""
+
+
+def tip_script(page_html):
+    """The page with the "i" box's script before </body> when it has an
+    .info-tip and no copy of the script yet."""
+    if 'class="info-tip' not in page_html or "box.id = 'tipBox'" in page_html:
+        return page_html
+    return page_html.replace('</body>', '<script>\n' + TIP_JS + '</script>\n</body>', 1)
+
+
 SKIP = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|<title>.*?</title>|<textarea\b.*?</textarea>|<[^>]+>)', re.S | re.I)
 
 
@@ -224,7 +304,7 @@ def finish():
             page_html = f.read()
         if 'http-equiv="refresh"' in page_html:   # redirect stubs
             continue
-        out = nowrap(signup.fill(text.apply(rel, page_html.replace('__ROOT__', '../' * rel.count('/')))))
+        out = tip_script(nowrap(signup.fill(text.apply(rel, page_html.replace('__ROOT__', '../' * rel.count('/'))))))
         block = head_block(rel, out, base, snippet)
         if '<!--seo-->' in out:
             out = re.sub(r'<!--seo-->.*?<!--/seo-->', lambda m: block, out, count=1, flags=re.S)

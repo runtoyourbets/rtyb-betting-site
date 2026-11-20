@@ -1251,7 +1251,8 @@ def streaks(S, now_utc, hub=False, nxt=False):
     """[{sport, game, day, side, m, k, st, rate}]: every team on the
     displayed day with a current run of STREAK_MIN+ (football 4+), its
     longest only; longest first, then the earlier start, then the higher
-    season rate in that market. Never a team from the lead game of today's
+    season rate in that market (home: today's games first, then each later
+    day's, each longest first). Never a team from the lead game of today's
     published Preview at the top (the next one moves up). nxt: the next
     game day's instead (every sport's games on the earliest such day)."""
     import hub as H
@@ -1283,7 +1284,10 @@ def streaks(S, now_utc, hub=False, nxt=False):
                         best = (score, {'sport': sport, 'game': g, 'day': d, 'side': side, 'm': m, 'k': k, 'st': st, 'rate': rate})
                 if best:
                     out.append(best[1])
-    out.sort(key=lambda x: (-x['st']['n'], x['game'].get('start') or '', -x['rate']))
+    if hub:
+        out.sort(key=lambda x: (-x['st']['n'], x['game'].get('start') or '', -x['rate']))
+    else:   # home: tonight's games first (longest, then the earlier start), then the next game day's
+        out.sort(key=lambda x: (x['day'], -x['st']['n'], x['game'].get('start') or '', -x['rate']))
     for x in out:
         x['lead'] = (x['sport'].key, x['game'][x['side']]) in skip
     top = next((x for x in out if not x['lead']), None)
@@ -1433,18 +1437,28 @@ def index_page(kind, day, sections_html, S):
 
 
 def trends_index_body(S, now_utc, root='../'):
-    """/trends/: per sport, the top 3 trends for its games (ranked by season
-    units), Hottest Trends cards with the "i", up to 3 rows each. Fully open:
+    """/trends/: per sport, the top 3 trends (ranked by season units) for
+    the games /odds/ and /matchups/ show (index_games: daily sports their
+    day, labeled when it isn't today; football the week's games still to
+    start), Hottest Trends cards with the "i", up to 3 rows each. Fully open:
     the newsletter lock is on each sport's own Trends page."""
-    out = ''
+    out, today = '', index_day(now_utc)
     for sport in S.values():
-        found = sorted(hot_cards({sport.key: sport}, now_utc, bar=False), key=lambda f: -f[1]['units'])
+        games = index_games(sport, now_utc)
+        ids, day = {str(g['id']) for _, g in games}, games[0][0] if games else None
+        found = []
+        if games:
+            for sp, c, b, xs in hot_cards({sport.key: sport}, now_utc, bar=False, day=None if sport.weekly else day, left=sport.weekly):
+                xs = [x for x in xs if str(x['id']) in ids]
+                if xs:
+                    found.append((sp, c, b, xs))
+        found.sort(key=lambda f: -f[1]['units'])
         cards = [h for h in (hot_card(sp, c, b, xs, root, now_utc, False) for sp, c, b, xs in found) if h][:INDEX_CARDS]
         inner = (f'<div class="tr-cards ht-cards">{"".join(cards)}</div>' if cards
-                 else f'<p class="fr-empty">No {esc(sport.label)} trends with games today.</p>')
-        out += index_section(sport, inner, f'{root}{sport.trends_page}', f'More {esc(sport.label)} Trends',
-                             week_label(index_games(sport, now_utc)) if sport.weekly else '')
-    return index_page('trends', index_day(now_utc), out, S) + running_tab()
+                 else f'<p class="fr-empty">No {esc(sport.label)} trends for {"these games" if games else "games coming up"} yet.</p>')
+        extra = week_label(games) if sport.weekly else (day_label(day) if day and day != today else '')
+        out += index_section(sport, inner, f'{root}{sport.trends_page}', f'More {esc(sport.label)} Trends', extra)
+    return index_page('trends', today, out, S) + running_tab()
 
 
 # ---------------------------------------------------- Yesterday's Results
@@ -1675,7 +1689,7 @@ FRONT_JS = '''
   });
   // Streaks to Watch: a streak drops off when its game starts and the next
   // moves up (never a team from the Preview's lead game on top); phones keep
-  // 5 rows, desktop the rows that keep it no taller than Matchup of the Day
+  // 5 rows, desktop 5+ rows, filled to Matchup of the Day's height
   var wide = window.matchMedia('(min-width: 900px)');
   function streaksFit(sec) {
     // the first list with a streak still to start (the next game day's once today's have)
@@ -1698,7 +1712,8 @@ FRONT_JS = '''
       // measure both cards at their own height (not stretched level), then level them
       var card = sec.querySelector('.tw-card'), cut = rows.slice();
       grid.classList.add('sw-measure');
-      while (cut.length && card.getBoundingClientRect().bottom > mo.getBoundingClientRect().bottom + 1) cut.pop().classList.add('sw-cut');
+      // never under 5 rows below the top streak; more when Matchup of the Day is taller
+      while (cut.length > 5 && card.getBoundingClientRect().bottom > mo.getBoundingClientRect().bottom + 1) cut.pop().classList.add('sw-cut');
       grid.classList.remove('sw-measure');
     }
   }

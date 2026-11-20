@@ -2,7 +2,7 @@
 path: "/nhl/teams/"
 title: "NHL First Period Team Records | Run To Your Bets"
 description: "Every NHL team's first period record: win %, units, home and road. Sort by any market or tap a team for its page."
-description_offseason: "NHL first period team records from last season, with win % and units. Next season starts {{season_start}}."
+description_offseason: "NHL first period team records from last season: win %, units, home and road for every team, with streaks and game logs. Next season starts {{season_start}}."
 ---
 ## Run To Your Bets NHL First Period Team Records
 

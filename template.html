@@ -2183,6 +2183,7 @@ __THEME_HEAD__
   .hub-number { margin: 0; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .hub-number b { font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); margin-right: 6px; }
   .hub-learn a { color: var(--accent); font-weight: inherit; }
+  .st-card.mt-game[hidden] { display: none; }   /* .st-card's flex beats [hidden] */
   .mt-game.mt-hit { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 10px; scroll-margin-top: 140px; }
   @media (max-width: 640px) {
     .hub-hero { grid-template-columns: 1fr 1fr; }
@@ -2652,26 +2653,30 @@ __THEME_HEAD__
   .tp-res .cell { min-width: 0; box-sizing: border-box; }
   .tp-ob .cell.tp-best { background: var(--best-bg); box-shadow: inset 0 0 0 1px var(--best); }
   .tp-card .fr-links { margin-top: 12px; }
-  /* Last game: the header row, then a row per segment (phones: a column each) */
+  /* Last game: the header row; desktop a row per segment, every side of every
+     market (price under the line); phones only the settled side of each bet */
   .tp-lg-teams { flex-wrap: wrap; margin-bottom: 14px; }
   .tp-lg-pts { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
-  .tp-lg { display: grid; gap: 12px; }
-  .tp-lg-seg { display: grid; grid-template-columns: 72px 96px minmax(0, 1fr); align-items: end; gap: var(--cell-gap) 12px; }
-  .tp-lg-seg + .tp-lg-seg { padding-top: 12px; border-top: 1px solid var(--border-soft); }
-  .tp-lg-k { margin: 0 0 15px; }
-  .tp-lg-sc { padding-bottom: 14px; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); white-space: nowrap; }
-  .tp-lg-cells { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--cell-gap) 12px; }
-  .tp-lg .ob-ln { white-space: normal; text-align: center; }
-  .tp-lg .cell { justify-content: center; }
+  .tp-lg-row { display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: end; gap: 12px; }
+  .tp-lg-row + .tp-lg-row { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-soft); }
+  .tp-lg-seg { display: grid; gap: 2px; align-self: center; min-width: 0; }
+  .tp-lg-sc { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); white-space: nowrap; }
+  .tp-lg-mks { display: flex; gap: 16px; min-width: 0; }
+  .tp-lg-mk { flex: 2 1 0; display: grid; gap: 4px; min-width: 0; }
+  .tp-lg-mk:has(.tp-lg-n3) { flex-grow: 3; }
+  .tp-lg-sides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cell-gap); }
+  .tp-lg-sides.tp-lg-n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tp-lgd .cell, .tp-lgp .cell { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; box-sizing: border-box; text-align: center; }
+  .tp-lgd .ob-ln, .tp-lgp .ob-ln { white-space: nowrap; }
+  .tp-lgp { display: grid; gap: 12px; }
+  .tp-lgp-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tp-lgp-col { display: grid; align-content: start; gap: 8px; min-width: 0; }
+  .tp-lgp-col .tp-lg-seg { grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 8px; }
+  .tp-lgp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; }
+  .tp-lgp .tp-res { display: grid; gap: 2px; }
+  @media (max-width: 899px) { .tp-lgd { display: none; } }
+  @media (min-width: 900px) { .tp-lgp { display: none; } }
   .tp-log .tp-table .tp-sc { padding-right: 22px; }
-  @media (max-width: 640px) {
-    .tp-lg-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .tp-lg-seg { display: block; min-width: 0; }
-    .tp-lg-seg + .tp-lg-seg { padding-top: 0; border-top: 0; }
-    .tp-lg-k { margin: 0 0 2px; }
-    .tp-lg-sc { display: block; padding-bottom: 8px; }
-    .tp-lg-cells { grid-template-columns: minmax(0, 1fr); }
-  }
   .tp-line { margin: 0 0 12px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-num); color: var(--text); }
   /* result cells (Matchups style): green = the team's side happened, gold = tie / push, gray = it didn't */
   .tp-res .cell { display: flex; width: 100%; }
@@ -2707,6 +2712,10 @@ __THEME_HEAD__
   .tp-vs { color: var(--text-muted); }
   .tp-more { margin-top: 10px; }
   .tp-hp { font-weight: var(--fw-num); }
+  .tp-hp-up { color: var(--good); }
+  .tp-hp-down { color: var(--bad); }
+  .tp-hp-warm { color: var(--heat-3); }
+  .tp-hp-cool { color: var(--accent-purple-text); }
   .tp-hr2 { color: var(--text-muted); }
   .tp-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .tp-tile { display: grid; align-content: start; border: 1px solid var(--card-border); border-radius: var(--card-radius); background: var(--panel); overflow: hidden; min-width: 0; }
@@ -2720,13 +2729,11 @@ __THEME_HEAD__
     .tp-log .tp-lc { width: auto; min-width: 0; }
     .tp-log .tp-res .cell { padding: 2px 3px; }
     .tp-table td, .tp-table th { padding-left: 2px; padding-right: 2px; }
-    .tp-log .tp-table { table-layout: fixed; }
-    .tp-log .tp-table td, .tp-log .tp-table th { white-space: normal; }
-    .tp-log .tp-table th:first-child { width: 46px; }
-    .tp-log .tp-table th:nth-child(2) { width: 46px; }
-    .tp-log .tp-table th:nth-child(3) { width: 52px; }
-    .tp-log .tp-table .tp-sc { padding-right: 20px; }
-    .tp-log .ob-ln { font-size: var(--fs-price); }
+    /* game log on phones: "11/19", the opponent's logo, no Final; nothing wraps */
+    .tp-log .tp-table .tp-sc { padding-right: 8px; }
+    .tp-log .tp-o a, .tp-log .tp-o > span { gap: 3px; }
+    .tp-log .ob-ln, .tp-log .ob-pr { font-size: var(--fs-price); white-space: nowrap; }
+    .tp-log .tp-lc .cell { min-height: 40px; }
   }
   @media (min-width: 900px) {
     .tp-odds, .tp-cells { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -2800,7 +2807,8 @@ __THEME_HEAD__
   .tl-team { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
   .tl-table .arrow { margin-left: 4px; }
   .tl-small { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); white-space: nowrap; }
-  .tl-game { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--title-text); white-space: nowrap; }
+  .tl-nm { display: grid; min-width: 0; }
+  .tl-game { display: block; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); white-space: nowrap; }
   .tl-more { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
   .tl-count { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .tl-mob-sort { margin: 0 0 6px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); text-align: right; }
@@ -2810,9 +2818,7 @@ __THEME_HEAD__
   .tlm-l, .tlm-r { display: grid; gap: 4px; min-width: 0; }
   .tlm-r { justify-items: end; text-align: right; }
   .tlm-name { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .tlm-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); }
-  .tlm-sub .tl-game { flex-basis: 100%; }
-  .tlm-chip { padding: 1px 6px; border-radius: 4px; background: var(--title-bg); color: var(--title-text); white-space: nowrap; }
+  .tlm-sub { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); white-space: nowrap; }
   .tlm-rec { font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); white-space: nowrap; }
   .tlm-r .tm-u { font-size: var(--fs-price); }
   .tll { display: none; }

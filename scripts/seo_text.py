@@ -189,7 +189,7 @@ def more_pills(out, h1s):
             full = h1s.get(h.lstrip('/'), html.unescape(t))
             if h.endswith('preview/'):   # its H1 is the day's headline
                 full = f'{sports.seo_name(sp)} {sports.seg_words(sp)} Betting Preview' if sp else 'First Period, Quarter & Half Betting Preview'
-            row.append(f'<a class="gd-pill" href="{h}" aria-label="{esc(full)}" title="{esc(full)}">{guides.link_icon(h)}'
+            row.append(f'<a class="gd-pill" href="{h}" aria-label="{esc(full)}" title="{esc(full)}">'
                        f'<span>{esc(short_name(html.unescape(t), sp))}</span></a>')
         return m.group(1) + '<div class="gd-pills">' + ''.join(row) + '</div>'
     return re.sub(r'(<h2>More [^<]*</h2>\s*)<p>(.*?)</p>', pills, out, flags=re.S)
@@ -454,10 +454,17 @@ class Agg:
         return f'{self.w}-{self.l}' + (f'-{self.t}' if self.m in ('ml', 'ats') else '')
 
     def rate(self):
-        return f'{self.pct}% ({self.rec()})' if self.pct is not None else None
+        """'59% (204-142)'; None when its record counts under MIN_TEAM games
+        (a small sample never shows)."""
+        return f'{self.pct}% ({self.rec()})' if self.pct is not None and self.shown >= MIN_TEAM else None
+
+    @property
+    def shown(self):
+        """The games the record lists (O-U, Y-N leave pushes out)."""
+        return self.w + self.l + (self.t if self.m in ('ml', 'ats') else 0)
 
     def units_txt(self):
-        return f'{self.units:+.2f} units' if self.priced else None
+        return f'{self.units:+.2f} units' if self.priced and self.shown >= MIN_TEAM else None
 
 
 def league_pct(doc, k, m):
@@ -584,8 +591,8 @@ def team_doc(sp, doc, key, ctx, base_url_dirs):
             desc = f"{T} {segs} record {season}: {', '.join(parts[:n])}. {tail}"
             if len(desc) <= 160:
                 break
-    if not parts:
-        desc = f'{T} {segs} record {season}: no graded games yet. {tail[:-1]}, updated every night.'
+    if not parts:   # no graded games yet, or under 5: no numbers
+        desc = f'{T} {segs} record {season}: {tail[0].lower()}{tail[1:-1]}, updated every night.'
     if len(desc) < 110:   # one market so far: say how it's graded
         desc += ' Every game graded at the closing line.'
     meta = {'title': f'{T} {sports.seg_words(sp)} Stats, Record & Trends | {SITE}', 'description': desc,
@@ -601,20 +608,21 @@ def team_doc(sp, doc, key, ctx, base_url_dirs):
             tot = (f'their {SEG_PLURAL["1i"]} stayed scoreless', Agg(graded, '1i', 'rfi', me).rate())
         else:
             tot = (f'their {SEG_PLURAL[k1]} went Over', Agg(graded, k1, 'total', me).rate())
+        s = f'Run To Your Bets tracked every {T} {seg1} {season}.'
         if a1.rate():
-            s = f'Run To Your Bets tracked every {T} {seg1} {season}. {verb} {a1.rate()}'
-            s += f', and {tot[0]} {tot[1]}.' if tot[1] and not few else '.'
-            lines.append(s)
+            s += f' {verb} {a1.rate()}' + (f', and {tot[0]} {tot[1]}.' if tot[1] else '.')
+        lines.append(s)
         lines.append(f'{ctx.year} season final. Next season starts {ctx.season_start}.')
     else:
+        s = ''
         if a1.rate():
             u = a1.units_txt()
             if family == 'spread':
-                s = f"They've covered the {seg1} spread {a1.rate()}" + (f', {u} betting them every game.' if u else '.')
+                s = f" They've covered the {seg1} spread {a1.rate()}" + (f', {u} betting them every game.' if u else '.')
             else:
                 won = "They've led after five" if sp['key'] == 'mlb' else f"They've won the {seg1}"
-                s = f'{won} {a1.rate()}' + (f', {u} betting them every game at the closing price.' if u else '.')
-            lines.append(f'Run To Your Bets has tracked every {T} {seg1} {season}. {s}')
+                s = f' {won} {a1.rate()}' + (f', {u} betting them every game at the closing price.' if u else '.')
+        lines.append(f'Run To Your Bets has tracked every {T} {seg1} {season}.{s}')
         if not few:
             if sp['key'] == 'nhl':
                 o, b = Agg(graded, '1p', 'total', me).rate(), Agg(graded, '1p', 'btts', me).rate()
@@ -636,11 +644,18 @@ def team_doc(sp, doc, key, ctx, base_url_dirs):
         if hm and rd:
             lines.append(f"At home they're {hm}; on the road, {rd}.")
         if not few:
-            lg = league_pct(doc, k1, m1)
-            if lg is not None and a1.pct is not None and abs(a1.pct - lg) >= 5:
-                mk = f'the {seg1} spread' if family == 'spread' else ('the F5 moneyline' if sp['key'] == 'mlb' else f'the {seg1} moneyline')
-                gap = a1.pct - lg
-                lines.append(f"League-wide, {mk} is {lg}%, so they're {abs(gap)} points {'above' if gap > 0 else 'below'} average.")
+            # line 4: the totals market (NHL Over 1.5, MLB NRFI, else the first segment's Over)
+            if sp['key'] == 'mlb':
+                kt, mt, lg = '1i', 'rfi', league_pct(doc, '1i', 'rfi')
+                what = 'first innings stay scoreless (NRFI)'
+            else:
+                kt = sp['segments'][0]['key']
+                mt, lg = 'total', over_pct(doc, kt)
+                what = f"{SEG_PLURAL[kt]} go Over{' 1.5' if sp['key'] == 'nhl' else ''}"
+            at = Agg(graded, kt, mt, me)
+            if lg is not None and at.rate() and abs(at.pct - lg) >= 5:
+                gap = at.pct - lg
+                lines.append(f"League-wide, {what} {lg}%, so they're {abs(gap)} points {'above' if gap > 0 else 'below'} average.")
             run = longest_run(sp, doc, graded, me)
             if run:
                 lines.append(f'Current streak: {run[1]} ({run[0]} straight).')
@@ -689,7 +704,7 @@ def team_doc(sp, doc, key, ctx, base_url_dirs):
             qa.append((f'What is {"the " if not college else ""}{T} {seg1} record {season}?', a))
         if sp['key'] == 'mlb':
             o, y = Agg(graded, 'f5', 'total', me), Agg(graded, '1i', 'rfi', me)
-            if o.rate() and y.w + y.l:
+            if o.rate() and y.rate():
                 qa.append((f'{do} {the} go Over in the first five?',
                            f'Their first fives have gone Over {o.rate()} {season}, and their first innings have gone YRFI '
                            f'{round(100 * y.l / (y.w + y.l))}% ({y.l}-{y.w}).'))

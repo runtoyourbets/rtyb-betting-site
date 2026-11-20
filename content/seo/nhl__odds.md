@@ -2,7 +2,7 @@
 path: "/nhl/odds/"
 title: "NHL First Period Odds Today | Run To Your Bets"
 description: "Best NHL first period odds at every sportsbook today: moneyline, Over/Under 1.5, BTTS and 3-way, with the best price outlined in green."
-description_offseason: "NHL first period odds: lines return when the books post them. Next season starts {{season_start}}."
+description_offseason: "NHL first period odds at every sportsbook: moneyline, Over/Under 1.5, BTTS and 3-way lines return when the books post them. Next season starts {{season_start}}."
 ---
 ## Run To Your Bets NHL First Period Odds
 

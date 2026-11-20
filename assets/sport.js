@@ -768,13 +768,14 @@
       function today(r) { var pl = tl.today && playing[r.slug]; return pl ? '<span class="tl-game">' + esc(tlGameTxt(pl)) + '</span>' : ''; }
       function rowHtml(r) {
         return '<tr class="tl-row" data-href="' + teamUrl(r.slug) + '"><td class="team-cell"><span class="tl-team">' + badge(r.slug, 24) +
-          '<a class="tl-name" href="' + teamUrl(r.slug) + '">' + esc(r.name) + '</a>' + today(r) + '</span></td>' +
+          '<span class="tl-nm"><a class="tl-name" href="' + teamUrl(r.slug) + '">' + esc(r.name) + '</a>' + today(r) + '</span></span></td>' +
           '<td class="num">' + tlRecTxt(r, m) + '</td><td class="num">' + tlL10Txt(r.l10, m) + '</td>' +
           '<td class="num">' + tlStreak(r.run, m) + '</td><td class="num">' + tmUnits(r) + '</td></tr>';
       }
       function mobHtml(r) {
         return '<li><a class="tlm-row" href="' + teamUrl(r.slug) + '">' + badge(r.slug, 28) + '<span class="tlm-l"><span class="tlm-name">' + esc(shortName(r.slug)) + '</span>' +
-          '<span class="tlm-sub">' + today(r) + (r.l10.n ? '<span class="tlm-chip">L10 &middot; ' + tlL10Txt(r.l10, m) + '</span>' : '') + tlStreak(r.run, m) + '</span></span>' +
+          today(r) +
+          '<span class="tlm-sub">' + (r.l10.n ? 'L10 ' + tlL10Txt(r.l10, m) + (r.run ? ' &middot; ' : '') : '') + (r.run ? tlStreak(r.run, m) : '') + '</span></span>' +
           '<span class="tlm-r"><span class="tlm-rec">' + tlRecTxt(r, m) + '</span>' + tmUnits(r) + '</span></a></li>';
       }
       var empty = tl.q ? 'No teams match &ldquo;' + esc(tl.q) + '&rdquo;.' : tl.today ? 'No teams playing today.' : 'No teams in ' + esc(grp.label) + '.';
@@ -847,6 +848,7 @@
   function signedLine(x) { var r = Math.round(x * 10) / 10; return (r > 0 ? '+' : '') + r; }
   function priceTxt(p) { return typeof p === 'number' ? (p > 0 ? '+' : '') + Math.round(p) : '-'; }
   function shortDate(g) { return g.start ? new Date(g.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' }) : ''; }
+  function numDate(g) { return g.start ? new Date(g.start).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', timeZone: 'America/New_York' }) : ''; }
   function wdDate(g) { return g.start ? new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'America/New_York' }) : ''; }
   function tmScore(g, k, slug) {
     var r = (g.res || {})[k];
@@ -1027,11 +1029,12 @@
         '</h4><span class="tp-hr">' + right + '</span></div>' + marketCards() + '</div>', 'tpMarkets');
     }
     // LAST GAME: the header row (both logos, names on desktop / codes on
-    // phones, the final score: "76ers 121 @ Magic 116 · Final"), then one
-    // row per segment (phones: a column each): the segment, the team's
-    // score in it ("ORL 40-27") and a cell per market with the line and
-    // closing price ("ORL -0.5 · -110", "Over 56.5 · -120"; phones drop the
-    // price: "ORL -0.5", "O 56.5"), then "Final: PHI 121-116."
+    // phones, the final score: "76ers 121 @ Magic 116 · Final"), then
+    // desktop: a row per segment, the segment and its score at the left
+    // ("1P 0-0", "1Q BOS 30-24"), then every market with every side, the
+    // closing price under the line; phones: only the side that settled each
+    // bet, its market label above it (NHL a 2 x 2 grid; the rest a column
+    // per segment). Then "Final: TB 3-1 · closing prices".
     function lastHtml() {
       if (!last) return tmSection('Last Game', emptyNote('No games played yet.'));
       var g = last, fin = g.as != null && g.hs != null;
@@ -1042,42 +1045,106 @@
         return (i ? '<span class="tp-at">@</span>' : '') + '<span class="tp-team">' + badge(s, 32) + teamLink(s, '<span class="tn-full">' + sname(s) + '</span><span class="tn-short">' + esc(tcode(s)) + '</span>') +
           (fin ? ' <span class="tp-lg-pts">' + (i ? g.hs : g.as) + '</span>' : '') + '</span>';
       }).join('') + (fin ? '<span class="tp-at">&middot; Final' + ot + '</span>' : '') + '</div>';
-      var segs = D.segments.map(function(sg) {
-        var ms = tmMarkets(sg.key);
-        if (!ms.length) return '';
-        var sc = tmScore(g, sg.key, slug);
-        return '<div class="tp-lg-seg"><span class="tp-gl tp-lg-k">' + esc(sg.key === '1i' ? '1st inning' : sg.tag) + '</span>' +
-          '<span class="tp-lg-sc">' + (sc ? esc(tcode(slug)) + ' ' + sc : '-') + '</span>' +
-          '<div class="tp-lg-cells">' + ms.map(function(p) { return lastCell(g, p); }).join('') + '</div></div>';
-      }).join('');
-      var win = fin && g.as !== g.hs ? (g.as > g.hs ? g.away : g.home) : null;
-      var foot = fin ? '<p class="tp-foot">Final: ' + (win ? esc(tcode(win)) + ' ' + Math.max(g.as, g.hs) + '-' + Math.min(g.as, g.hs) : 'tied ' + g.as + '-' + g.hs) + ot + '.</p>' : '';
-      return tmSection('Last Game', '<div class="st-card tp-card"><div class="st-head"><h4>' + title + '</h4></div>' + teams +
-        '<div class="tp-lg tp-lg-' + D.segments.length + '">' + segs + '</div>' + foot + '</div>');
-    }
-    // the cell's small label: "Spread", "Total", "ML" (NHL "O/U 1.5", MLB "F5 ML", "Run line")
-    function lastLabel(p) {
-      if (D.sportType === 'baseball') return { rfi: 'NRFI/YRFI', ml: 'F5 ML', ats: 'Run line', total: 'Total' }[p.m];
-      return { ml: 'ML', ml3: '3-Way', ats: 'Spread', total: D.sport === 'nhl' ? 'O/U 1.5' : 'Total', btts: 'BTTS' }[p.m];
-    }
-    function lastCell(g, p) {
-      var b = tmBet(g, p.k, p.m, slug), o = (g.odds || {})[p.k] || {}, home = g.home === slug, side = home ? 'home' : 'away', me = tcode(slug);
-      function pr(x) { return typeof x === 'number' ? ' · ' + priceTxt(x) : ''; }
-      var txt = null, short = null, cls = '';
-      if (b) {
-        if (p.m === 'ml' || p.m === 'ml3') { var v = (o[p.m] || {})[side]; txt = me + (typeof v === 'number' ? ' ' + priceTxt(v) : ''); short = me; cls = b.r === 'W' ? 'w' : b.r === 'T' && p.m === 'ml' ? 'p' : 'n'; }
-        else if (p.m === 'ats') { var a = (o.ats || {})[side] || {}; short = me + (typeof a.line === 'number' ? ' ' + signedLine(a.line) : ''); txt = short + pr(a.price); cls = b.r === 'W' ? 'w' : b.r === 'T' ? 'p' : 'n'; }
-        else if (p.m === 'total') {
-          var t = o.total || {}, ln = typeof t.line === 'number' ? t.line : D.sport === 'nhl' ? 1.5 : null, ov = b.r === 'W', l = ln != null ? ' ' + num1(ln) : '';
-          txt = (b.r === 'T' ? 'Push' : ov ? 'Over' : 'Under') + l + (b.r === 'T' ? '' : pr(t[ov ? 'over' : 'under']));
-          short = (b.r === 'T' ? 'P' : ov ? 'O' : 'U') + l;
-          cls = b.r === 'T' ? 'p' : ov ? 'warm' : 'cool';
-        }
-        else if (p.m === 'btts') { var y = b.r === 'W'; short = y ? 'Yes' : 'No'; txt = short + pr((o.btts || {})[y ? 'yes' : 'no']); cls = y ? 'warm' : 'cool'; }
-        else { var n = b.r === 'W'; short = n ? 'NRFI' : 'YRFI'; txt = short + pr((o.nrfi_yrfi || {})[n ? 'nrfi' : 'yrfi']); cls = n ? 'cool' : 'warm'; }
+      var segs = D.segments.filter(function(sg) { return tmMarkets(sg.key).length; });
+      // the segment and the team's score in it; a tie needs no team code
+      function segHead(sg) {
+        var sc = tmScore(g, sg.key, slug), lbl = sg.key === '1i' ? '1st Inning' : sg.tag;
+        if (!sc) return { k: lbl, sc: '-' };
+        var p = sc.split('-');
+        return { k: lbl, sc: (p[0] === p[1] ? '' : tcode(slug) + ' ') + sc };
       }
-      return '<div class="tp-res"><span class="tp-gl">' + esc(lastLabel(p)) + '</span><span class="cell tp-rc' + (txt ? ' tp-rc-' + cls : '') + '"><span class="ob-ln">' +
-        (txt ? '<span class="tn-full">' + esc(txt) + '</span><span class="tn-short">' + esc(short) + '</span>' : '<span class="mc-dash">-</span>') + '</span></span></div>';
+      var desk = segs.map(function(sg) {
+        var h = segHead(sg);
+        return '<div class="tp-lg-row"><div class="tp-lg-seg"><span class="tp-gl">' + esc(h.k) + '</span><span class="tp-lg-sc">' + esc(h.sc) + '</span></div>' +
+          '<div class="tp-lg-mks">' + tmMarkets(sg.key).map(function(p) {
+            var sides = lastSides(g, p);
+            return '<div class="tp-lg-mk"><span class="tp-gl">' + esc(lastLabel(p)) + '</span><div class="tp-lg-sides tp-lg-n' + sides.length + '">' +
+              sides.map(lastSideCell).join('') + '</div></div>';
+          }).join('') + '</div></div>';
+      }).join('');
+      // phones: the settled side of each bet
+      function settled(p) {
+        var x = settledSide(lastSides(g, p));
+        return '<div class="tp-res"><span class="tp-gl">' + esc(lastLabel(p)) + '</span>' + (x ? lastSideCell(x) : '<span class="cell"><span class="mc-dash">-</span></span>') + '</div>';
+      }
+      var phone;
+      if (D.sport === 'nhl') {
+        var h0 = segHead(segs[0]);
+        phone = '<div class="tp-lgp-col"><div class="tp-lg-seg"><span class="tp-gl">' + esc(h0.k) + '</span><span class="tp-lg-sc">' + esc(h0.sc) + '</span></div>' +
+          '<div class="tp-lgp-grid">' + tmMarkets(segs[0].key).map(settled).join('') + '</div></div>';
+      } else {
+        phone = segs.map(function(sg) {
+          var h = segHead(sg), lbl = sg.key === 'f5' ? 'F5' : sg.label;
+          return '<div class="tp-lgp-col"><div class="tp-lg-seg"><span class="tp-gl">' + esc(lbl) + '</span><span class="tp-lg-sc">' + esc(h.sc) + '</span></div>' +
+            tmMarkets(sg.key).map(settled).join('') + '</div>';
+        }).join('');
+      }
+      var win = fin && g.as !== g.hs ? (g.as > g.hs ? g.away : g.home) : null;
+      var foot = fin ? '<p class="tp-foot">Final: ' + (win ? esc(tcode(win)) + ' ' + Math.max(g.as, g.hs) + '-' + Math.min(g.as, g.hs) : 'tied ' + g.as + '-' + g.hs) + ot + ' &middot; closing prices</p>' : '';
+      return tmSection('Last Game', '<div class="st-card tp-card"><div class="st-head"><h4>' + title + '</h4></div>' + teams +
+        '<div class="tp-lgd">' + desk + '</div><div class="tp-lgp tp-lgp-' + (D.sport === 'nhl' ? 1 : segs.length) + '">' + phone + '</div>' + foot + '</div>');
+    }
+    // the market's label, as the Next Game card names it: "1P ML", "1P O/U 1.5",
+    // "1P BTTS", "1P 3-Way"; spread sports "Spread", "Total", "ML" (the
+    // segment is at the row's left); MLB "NRFI / YRFI", "F5 ML", "F5 Run Line", "F5 Total"
+    function lastLabel(p) {
+      if (D.sportType === 'baseball') return { rfi: 'NRFI / YRFI', ml: 'F5 ML', ats: 'F5 Run Line', total: 'F5 Total' }[p.m];
+      if (D.sport === 'nhl') return seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', total: 'O/U 1.5', btts: 'BTTS' }[p.m];
+      return { ml: 'ML', ats: 'Spread', total: 'Total', btts: 'BTTS' }[p.m];
+    }
+    // every side of a market in the last game: the line, its closing price
+    // ("-" when none was saved) and how it settled: w won, n lost (dimmed),
+    // p push; Total / BTTS / NRFI-YRFI warm or cool for the side that happened
+    function lastSides(g, p, bare) {
+      var r = (g.res || {})[p.k] || {}, o = (g.odds || {})[p.k] || {}, home = g.home === slug;
+      if (!r.sc || r.na) r = {};   // not graded: the lines only
+      var us = home ? 'home' : 'away', them = home ? 'away' : 'home';
+      function sideRes(x, side) {   // a result read from the away side, for `side`
+        if (!x || x === 'NA') return null;
+        if (x === 'P' || x === 'T') return 'p';
+        return (side === 'away') === (x === 'W') ? 'w' : 'n';
+      }
+      if (p.m === 'ml') {
+        return [us, them].map(function(sd) { return { ln: tcode(g[sd]), pr: (o.ml || {})[sd], cls: sideRes(r.su, sd), mine: sd === us }; });
+      }
+      if (p.m === 'ats') {
+        return [us, them].map(function(sd) {
+          var a = (o.ats || {})[sd] || {};
+          return { ln: tcode(g[sd]) + (typeof a.line === 'number' ? ' ' + signedLine(a.line) : ''), pr: a.price, cls: sideRes(r.ats, sd), mine: sd === us };
+        });
+      }
+      if (p.m === 'ml3') {
+        var su = r.su && r.su !== 'NA' ? r.su : null;
+        return [[us, tcode(g[us])], ['draw', 'Tie'], [them, tcode(g[them])]].map(function(x) {
+          var won = !su ? null : su === 'T' ? x[0] === 'draw' : x[0] !== 'draw' && (x[0] === 'away') === (su === 'W');
+          return { ln: x[1], pr: (o.ml3 || {})[x[0]], cls: won == null ? null : won ? 'w' : 'n', mine: x[0] === us };
+        });
+      }
+      if (p.m === 'total') {
+        var t = o.total || {}, ln = bare ? '' : typeof t.line === 'number' ? ' ' + num1(t.line) : D.sport === 'nhl' ? ' 1.5' : '';
+        return [['over', 'O', 'O', 'warm'], ['under', 'U', 'U', 'cool']].map(function(x) {
+          var c = !r.tot || r.tot === 'NA' ? null : r.tot === 'P' ? 'p' : r.tot === x[2] ? x[3] : 'n';
+          return { ln: x[1] + ln, pr: t[x[0]], cls: c };
+        });
+      }
+      if (p.m === 'btts') {
+        return [['yes', 'Yes', 'Y', 'warm'], ['no', 'No', 'N', 'cool']].map(function(x) {
+          return { ln: x[1], pr: (o.btts || {})[x[0]], cls: r.btts === 'Y' || r.btts === 'N' ? (r.btts === x[2] ? x[3] : 'n') : null };
+        });
+      }
+      return [['nrfi', 'NRFI', 'N', 'cool'], ['yrfi', 'YRFI', 'Y', 'warm']].map(function(x) {
+        return { ln: x[1], pr: (o.nrfi_yrfi || {})[x[0]], cls: r.rfi === 'Y' || r.rfi === 'N' ? (r.rfi === x[2] ? x[3] : 'n') : null };
+      });
+    }
+    // the side that settled a bet: the winner (or what happened); a push, our side
+    function settledSide(sides) {
+      var won = sides.filter(function(x) { return x.cls === 'w' || x.cls === 'warm' || x.cls === 'cool'; })[0];
+      var push = sides.filter(function(x) { return x.cls === 'p'; });
+      return won || push.filter(function(x) { return x.mine; })[0] || push[0] || null;
+    }
+    function lastSideCell(x) {
+      return '<span class="cell tp-rc' + (x.cls ? ' tp-rc-' + x.cls : '') + '"><span class="ob-ln">' + esc(x.ln) + '</span><span class="ob-pr">' +
+        (typeof x.pr === 'number' ? esc(priceTxt(x.pr)) : '-') + '</span></span>';
     }
     // SEASON MARKETS: one card per market (green border: top 5 in the league)
     function marketCards() {
@@ -1159,19 +1226,27 @@
         var home = g.home === slug, opp = home ? g.away : g.home;
         var fin = g.as != null && g.hs != null ? (home ? g.hs + '-' + g.as : g.as + '-' + g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '-';
         var oppHtml = '<span class="tp-vs">' + (home ? 'vs' : '@') + '</span>' + badge(opp, 20) + '<span class="tp-oc">' + esc(tcode(opp)) + '</span>';
-        return '<tr><td class="tp-d">' + esc(shortDate(g)) + '</td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) + '</td>' +
-          '<td class="num tp-sc">' + (tmScore(g, sk, slug) || '-') + '</td>' + ms.map(function(p) { return '<td class="tp-lc">' + tpResCell(g, p, slug, false) + '</td>'; }).join('') +
+        return '<tr><td class="tp-d"><span class="tn-full">' + esc(shortDate(g)) + '</span><span class="tn-short">' + esc(numDate(g)) + '</span></td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) + '</td>' +
+          '<td class="num tp-sc">' + (tmScore(g, sk, slug) || '-') + '</td>' + ms.map(function(p) { return '<td class="tp-lc">' + logCell(g, p) + '</td>'; }).join('') +
           '<td class="num tp-fin">' + fin + '</td></tr>';
       }).join('');
       var more = list.length > shown.length ? '<button class="seg-btn tp-more" id="tpLogMore" type="button">' + (TP.log === 5 ? 'Show 10 more' : 'Load more') + '</button>' : '';
       var segBtns = !periodFamily() && D.segments.length > 1 ? '<div class="seg-toggle" id="tmLogSeg">' + D.segments.map(function(s) {
         return '<button class="seg-btn" data-log-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>'; }).join('') + '</div>' : '';
       var head = '<tr><th>Date</th><th>Opp</th><th class="num tp-sc">' + esc(seg(sk).tag) + '</th>' + ms.map(function(p) {
-        var short = { ml: 'ML', ml3: '3-Way', ats: D.sportType === 'baseball' ? 'RL' : 'Spread', total: 'O/U', btts: 'BTTS', rfi: 'NRFI' }[p.m];
-        return '<th class="tp-lc"><span class="tn-full">' + esc(tpName(p)) + '</span><span class="tn-short">' + esc(short) + '</span></th>'; }).join('') +
+        var short = { ml: 'ML', ml3: '3W', ats: D.sportType === 'baseball' ? 'RL' : 'Spread', total: D.sport === 'nhl' ? 'O/U' : 'Total', btts: 'BTTS', rfi: 'NRFI' }[p.m];
+        var full = D.sport === 'nhl' ? seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', total: 'O/U 1.5', btts: 'BTTS' }[p.m] : tpName(p);
+        return '<th class="tp-lc"><span class="tn-full">' + esc(full) + '</span><span class="tn-short">' + esc(short) + '</span></th>'; }).join('') +
         '<th class="num tp-fin">Final</th></tr>';
       return tmSection('Game Log', segBtns + (list.length ? '<div class="st-card tp-card tp-log"><table class="tp-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>' + more
         : emptyNote('No games played yet.')), 'tmLog', tpFinalNote());
+    }
+    // a game log cell: the side that settled the bet (spread / run line: the
+    // team's side), its closing price under it ("-" when none was saved)
+    function logCell(g, p) {
+      var sides = lastSides(g, p, D.sport === 'nhl'), x = p.m === 'ats' ? sides[0] : settledSide(sides);
+      if (x && !x.cls && p.m !== 'ats') x = null;
+      return '<div class="tp-res">' + (x && x.cls ? lastSideCell(x) : '<span class="cell tp-rc"><span class="mc-dash">-</span></span>') + '</div>';
     }
     // HOME / AWAY: desktop every market side by side; phones one market (pills)
     function homeAwayHtml() {
@@ -1179,7 +1254,16 @@
       if (TP.haCol >= cols.length) TP.haCol = 0;
       function cellOf(p, side) {
         var a = tmAgg(slug, p.k, p.m, side, graded);
-        return a.gp ? '<span class="tp-hp">' + tmPct(a.pct) + '</span> <span class="tp-hr2">(' + tpRec(a, p.m) + ')</span>' : '-';
+        if (!a.gp) return '-';
+        // 60%+ / 40% and under with 5+ graded games: side markets green / red,
+        // Total, BTTS and NRFI amber / purple (only the %)
+        var c = '';
+        var pc = a.pct == null ? 50 : Math.round(a.pct * 100);   // the shown number
+        if (a.gp >= 5 && (pc >= 60 || pc <= 40)) {
+          var hi = pc >= 60, side = p.m === 'ml' || p.m === 'ml3' || p.m === 'ats';
+          c = ' tp-hp-' + (side ? (hi ? 'up' : 'down') : (hi ? 'warm' : 'cool'));
+        }
+        return '<span class="tp-hp' + c + '">' + tmPct(a.pct) + '</span> <span class="tp-hr2">(' + tpRec(a, p.m) + ')</span>';
       }
       var pills = '<div class="seg-toggle tp-pills-phone" role="group" aria-label="Market">' + cols.map(function(p, i) {
         return '<button class="seg-btn" data-ha-col="' + i + '" aria-pressed="' + (i === TP.haCol) + '">' + esc(tpName(p)) + '</button>'; }).join('') + '</div>';
@@ -2392,8 +2476,7 @@
   function heatCls(n) { return 'heat heat-' + (n >= 9 ? 4 : n >= 7 ? 3 : n >= 5 ? 2 : 1); }
   function streakChip(m, st) {
     if (!st || st.n < 3) return '';
-    var cls = m === 'ml' || m === 'ats' ? (st.kind === 'W' ? 'sk-w1' : 'sk-l1') : 'sk-n1';
-    return '<span class="mt-streak ' + cls + '">' + st.n + ' straight</span>';
+    return '<span class="mt-streak ' + heatCls(st.n) + '">' + st.n + ' straight</span>';
   }
   function mtLabelId(m, x) {
     if (!x || !x.away || !x.home) return null;
