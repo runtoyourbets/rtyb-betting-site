@@ -270,7 +270,7 @@
    },
    {
     "label": "NCAAB · Richmond at Western Kentucky · 7:00 PM ET",
-    "trends": 4,
+    "trends": 5,
     "value": "ncaab:401927396"
    },
    {
@@ -300,7 +300,7 @@
    },
    {
     "label": "NCAAB · Wisconsin at Murray State · 7:00 PM ET",
-    "trends": 5,
+    "trends": 6,
     "value": "ncaab:401921692"
    },
    {
@@ -315,7 +315,7 @@
    },
    {
     "label": "NBA · Toronto Raptors at Detroit Pistons · 7:30 PM ET",
-    "trends": 13,
+    "trends": 12,
     "value": "nba:401909308"
    },
    {
@@ -506,7 +506,7 @@
    },
    {
     "label": "Toronto Raptors at Detroit Pistons · 7:30 PM ET",
-    "trends": 13,
+    "trends": 12,
     "value": "nba:401909308"
    },
    {
@@ -771,7 +771,7 @@
    },
    {
     "label": "Richmond at Western Kentucky · 7:00 PM ET",
-    "trends": 4,
+    "trends": 5,
     "value": "ncaab:401927396"
    },
    {
@@ -801,7 +801,7 @@
    },
    {
     "label": "Wisconsin at Murray State · 7:00 PM ET",
-    "trends": 5,
+    "trends": 6,
     "value": "ncaab:401921692"
    },
    {
