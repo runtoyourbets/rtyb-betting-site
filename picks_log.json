@@ -11471,50 +11471,54 @@
     "streakTeamName": "Delaware"
    },
    {
-    "id": "ncaab|401921692|1h|ml|home",
-    "game": "ncaab|401921692",
+    "id": "nba|401909311|1h|ml|away",
+    "game": "nba|401909311",
     "date": "2026-11-20",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-21T00:00Z",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T02:30Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Wisconsin @ Murray State",
-    "href": "college-basketball/matchups/",
+    "matchup": "Suns @ Jazz",
+    "href": "nba/matchups/",
     "market": "ml",
-    "side": "home",
+    "side": "away",
     "line": null,
-    "price": 140,
-    "title": "Murray State 1H ML",
-    "est": 0.4494,
-    "edge": 0.0327,
-    "agree": 3,
-    "sample": 6,
+    "price": -150,
+    "title": "Suns 1H ML",
+    "est": 0.6339,
+    "edge": 0.0339,
+    "agree": 4,
+    "sample": 13,
     "tier": "C",
     "tags": [
-     "Dog Hunter"
+     "Chalk Eater"
     ],
-    "streak": -1,
-    "streakTeam": "murray-state-racers",
+    "streak": 2,
+    "streakTeam": "phx",
     "angles": [
      [
-      "Murray State 1H ML at home",
-      "4-0"
+      "Jazz\u2019s opponents 1H ML, Jazz at home",
+      "6-2"
      ],
      [
-      "Murray State 1H ML, season",
-      "5-1"
+      "Suns 1H ML, last 8",
+      "5-2-1"
      ],
      [
-      "Murray State 1H ML, last 8",
-      "5-1"
+      "Suns 1H ML on the road",
+      "3-2"
+     ],
+     [
+      "Suns 1H ML, season",
+      "7-6-1"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Murray State"
+    "streakTeamName": "Suns"
    }
   ]
  }
