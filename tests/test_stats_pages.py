@@ -25,7 +25,7 @@ class StatsPagesTest(unittest.TestCase):
     def test_tabs_mark_the_current_page(self):
         html = build_site.stats_tabs_html(sports.BY_KEY['nhl'], 'splits')
         self.assertIn('href="/nhl/stats/splits/" aria-current="page"', html)
-        self.assertIn('href="/nhl/stats/edges/"', html)
+        self.assertNotIn('edges', html)   # Edges is hidden: no tab
         self.assertEqual(html.count('aria-current'), 1)
 
 

@@ -49,6 +49,7 @@ import re
 import daily
 import definitions
 import guide_stats
+import icons
 import seo
 import sports
 
@@ -64,7 +65,7 @@ GENERAL = [
     ('moneyline', 'Moneyline', 'Picking the winner, and what the price means.'),
     ('spread', 'Spread', 'Covering, pushes and the -110 price.'),
     ('totals', 'Totals', 'Overs, unders and whole-number pushes.'),
-    ('btts', 'Both Teams to Score', 'Will each team score in the opening segment?'),
+    ('btts', 'Both Teams to Score (BTTS)', 'Will both score?'),
     ('3-way-moneyline', '3-Way Moneyline', 'Home, away or tie, with the tie as its own bet.'),
     ('nrfi-yrfi', 'NRFI / YRFI', 'A run in the 1st inning, or not.'),
     ('first-five', 'First Five', 'Baseball’s first five innings, before the bullpens.'),
@@ -72,6 +73,12 @@ GENERAL = [
 ]
 GENERAL_BY = {g[0]: g for g in GENERAL}
 GLOSSARY = ('glossary', 'Betting Glossary', 'Every term on the site, A to Z.')
+# each guide's badge: its section headers' icon tile and its card on the index
+BADGE = {'first-segment-betting': '1st', 'moneyline': 'ML', 'spread': '±', 'totals': 'O/U', 'btts': 'BT',
+         '3-way-moneyline': '3W', 'nrfi-yrfi': 'NR', 'first-five': 'F5', 'units': 'u', 'glossary': 'A-Z'}
+# one fixed example game per sport, shown under each bet in its guide
+EXAMPLES = os.path.join(CONTENT, 'examples.json')
+RES_CLS = {'won': 'tp-rc-w', 'push': 'tp-rc-p', 'lost': 'tp-rc-n'}
 
 # bet-type guides shown on each sport's pages, after its own guide
 SPORT_BET_GUIDES = {'nhl': ['moneyline', '3-way-moneyline', 'btts'], 'mlb': ['nrfi-yrfi', 'first-five', 'moneyline']}
@@ -116,7 +123,7 @@ def read(name):
         return None
     with open(path, encoding='utf-8') as f:
         meta, body = daily.parse(f.read())
-    numbers = [values()[t] for t in guide_stats.TOKEN.findall(body) if t in values() and t != 'asof']
+    numbers = [values()[k] for k in map(guide_stats.key, guide_stats.TOKEN.findall(body)) if k in values() and k != 'asof']
     meta['_numbers'] = numbers
     return meta, guide_stats.fill(body, values(), f'content/betting-guides/{name}.md')
 
@@ -190,28 +197,28 @@ def glossary_doc():
     GLOSSARY_IDS.update({name: slug for slug, name, _, _ in terms})   # #btts, #units: the "i" boxes link here
     if not terms:
         return None
-    body = 'Every betting term RTYB uses, A to Z. The ⓘ next to a market on any page links to its entry here.\n\n' + '\n\n'.join(f'## {name}\n\n{long or short}' for _, name, short, long in terms)
-    return ({'title': GLOSSARY[1], 'description': 'Every betting term on RTYB, A to Z: ' + ', '.join(t[1] for t in terms[:6]) + '…'}, body)
+    body = 'Every betting term on Run To Your Bets, A to Z.\n\n' + '\n\n'.join(f'## {name}\n\n{long or short}' for _, name, short, long in terms)
+    return ({'title': GLOSSARY[1], 'description': 'Every betting term on Run To Your Bets, A to Z: ' + ', '.join(t[1] for t in terms[:6]) + '…'}, body)
 
 
-def glossary_html(md):
+def glossary_html(md, root):
     """The glossary body: every '## Term' heading gets its anchor."""
-    out = daily.to_html(md)
+    out = rooted(daily.to_html(md), root)
     def head(m):
         name = html.unescape(re.sub('<[^>]+>', '', m.group(1)))
         return f'<h2 id="{GLOSSARY_IDS.get(name) or anchor(name)}">{m.group(1)}</h2>'
     return re.sub(r'<h2>(.*?)</h2>', head, out)
 
 
-def article(title, doc, rel, root, is_glossary=False):
+def article(title, doc, rel, root, slug, is_glossary=False):
     """(body html, description, noindex, <title>) for one guide page at rel."""
     back = f'<p class="gd-back"><a href="{root}{INDEX_DIR}/">&larr; All Betting Guides</a></p>'
     if doc is None:
         return (f'<article class="hp-sec gd-page">{crumb(title, root)}<h1>{esc(title)}</h1>'
                 f'<p class="lead">{COMING}.</p>{back}</article>',
-                f'{title}: {COMING.lower()} from RTYB.', True, f'{title} | RTYB Betting Guides')
+                f'{title}: {COMING.lower()} from Run To Your Bets.', True, f'{title} | RTYB Betting Guides')
     meta, body = doc
-    content = glossary_html(body) if is_glossary else daily.to_html(body)
+    content = glossary_html(body, root) if is_glossary else guide_html(body, root, badge(slug))
     headline = meta.get('title') or title
     desc = meta.get('description') or daily.plain(body)[:200]
     day = updated(rel, meta['_numbers']) if '_numbers' in meta else str(meta.get('updated') or '')
@@ -226,35 +233,164 @@ def card(href, title, line):
     return f'<a class="hl-card" href="{href}"><b>{esc(title)}</b><span>{esc(line)}</span></a>'
 
 
+def badge(slug):
+    """A guide's icon tile: its badge (ML, O/U...)."""
+    return f'<span class="gd-tile gd-badge" aria-hidden="true">{esc(BADGE.get(slug, "All"))}</span>'
+
+
+def sport_tile(sp):
+    return f'<span class="gd-tile" aria-hidden="true">{icons.sport_icon(sp)}</span>'
+
+
+def seg_caps(sp):
+    """'1ST PERIOD', '1ST INNING · F5' (CSS sets the caps)."""
+    return ' · '.join('F5' if seg['key'] == 'f5' else seg['label'] for seg in sp['segments'])
+
+
+def rooted(out, root):
+    """Every site link ("/nhl/odds/") made root-aware for the page."""
+    return out.replace('href="/', f'href="{root}')
+
+
+def headers(out, tile):
+    """Every ## header gets its icon tile (the sport's ball or the guide's
+    badge) and the gold underline (.gd-sh)."""
+    return re.sub(r'<h2>(.*?)</h2>', lambda m: f'<h2 class="gd-sh">{tile}<span>{m.group(1)}</span></h2>', out)
+
+
+def link_icon(href):
+    """A "Where to go next" pill's icon: the sport's ball for its pages,
+    the badge for a guide."""
+    m = re.match(r'/betting-guides/([^/]+)/', href)
+    if m:
+        return badge(m.group(1))
+    sp = next((x for x in sports.SPORTS if href.startswith(f"/{x['slug']}/")), None)
+    return sport_tile(sp) if sp else badge('')
+
+
+def next_pills(out):
+    """"Where to go next": the list's links as pills with icons."""
+    def pills(m):
+        links = re.findall(r'<a href="([^"]+)">(.*?)</a>', m.group(2))
+        return m.group(1) + '<div class="gd-pills">' + ''.join(
+            f'<a class="gd-pill" href="{h}">{link_icon(h)}<span>{t}</span></a>' for h, t in links) + '</div>'
+    return re.sub(r'(<h2>Where to go next</h2>\s*)<ul>(.*?)</ul>', pills, out, flags=re.S)
+
+
+def examples(key):
+    try:
+        with open(EXAMPLES, encoding='utf-8') as f:
+            return json.load(f).get(key)
+    except (OSError, ValueError):
+        return None
+
+
+def ex_logo(sp, team, root):
+    if sp['key'] == 'nhl':
+        base = f"{root}assets/logos/{team['logo']}_"
+        return icons.logo_html(base + 'light.svg', base + 'dark.svg', 18)
+    return icons.team_logo(sp['key'], team['logo'], 18, root=root)
+
+
+def ex_card(sp, ex, bet, root):
+    """An "Example" card: the example game's cells for one bet, won / push /
+    lost, and the result line."""
+    cells = ''.join(
+        f'<div class="cell {RES_CLS[c["res"]]}"><span class="ob-ln">'
+        f'{ex_logo(sp, ex[c["team"]], root) if c.get("team") else ""}{esc(c["text"])}</span>'
+        f'<span class="ob-pr">{esc(c["price"])}</span></div>' for c in bet['cells'])
+    return (f'<div class="st-card gd-ex"><p class="gd-ex-h">Example &middot; {esc(ex["label"])}</p>'
+            f'<div class="gd-ex-cells gd-ex-{len(bet["cells"])}">{cells}</div>'
+            f'<p class="gd-ex-r">{esc(bet["result"])}</p></div>')
+
+
+def money(x):
+    return f'${x:,.0f}' if abs(x - round(x)) < 0.005 else f'${x:,.2f}'
+
+
+def odds_table(ex):
+    """"How to read the odds": every price in the example game, what $100
+    wins and what it costs to win $100."""
+    rows = ''
+    for bet in ex['bets']:
+        for c in bet['cells']:
+            p = int(c['price'])
+            win, risk = (p, 10000 / p) if p > 0 else (10000 / -p, -p)
+            rows += (f'<tr><td>{esc(bet["name"])} {esc(c["text"])} {esc(c["price"])}</td>'
+                     f'<td>{money(win)}</td><td>{money(risk)}</td></tr>')
+    return ('<h2>How to read the odds</h2><div class="st-card gd-table"><table class="tp-table"><thead><tr>'
+            '<th>Price</th><th>Risk $100, you win</th><th>To win $100, you risk</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table></div>')
+
+
+def with_examples(out, sp, root):
+    """The sport guide's "The bets" with an Example card under each bet
+    (spread sports: under the list), then "How to read the odds"."""
+    ex = examples(sp['key'])
+    m = re.search(r'<h2>The bets</h2>(.*?)(?=<h2>|\Z)', out, re.S)
+    if not ex or not m:
+        return out
+    sec = m.group(1)
+    parts = re.split(r'(?=<h3>)', sec)
+    used = set()
+    for i, part in enumerate(parts):
+        h = re.match(r'<h3>(.*?)</h3>', part)
+        bet = h and next((b for b in ex['bets'] if html.unescape(h.group(1)).startswith(b['heading'])), None)
+        if bet:
+            parts[i] = part.rstrip() + '\n' + ex_card(sp, ex, bet, root) + '\n'
+            used.add(bet['heading'])
+    sec = ''.join(parts)
+    rest = [b for b in ex['bets'] if b['heading'] not in used]
+    if rest:
+        sec = sec.rstrip() + '\n<div class="gd-ex-grid">' + ''.join(ex_card(sp, ex, b, root) for b in rest) + '</div>\n'
+    return out[:m.start(1)] + sec + odds_table(ex) + '\n' + out[m.end(1):]
+
+
+def guide_html(md, root, tile, sp=None):
+    """A guide's body: Example cards (sport guides), headers with icon
+    tiles, "Where to go next" pills, root-aware links."""
+    out = daily.to_html(md)
+    if sp:
+        out = with_examples(out, sp, root)
+    return rooted(headers(next_pills(out), tile), root)
+
+
 def index_body(root):
-    """/betting-guides/: the general guides, every sport's guide, the glossary."""
+    """/betting-guides/: one line and two pills, a card per sport (its
+    segments in gold caps), a card per guide with its badge."""
     doc = read('index')
-    intro = daily.to_html(doc[1]) if doc else ('<p class="lead">How first period, first quarter, first half, first inning and '
-                                                 'first five bets work, and how RTYB counts them.</p>')
-    gen = ''.join(card(f'{root}{INDEX_DIR}/{slug}/', t, d) for slug, t, d in GENERAL)
-    sps = ''.join(card(root + sports.guide_path(sp).lstrip('/'), sport_title(sp), f"{sp['label']} {sports.segment_summary(sp)} bets.")
-                  for sp in sports.LAUNCHED)
-    return (f'<section class="hp-sec gd-index"><h1>{esc(INDEX_H1)}</h1>{intro}'
-            f'<h2 class="gd-h">The basics</h2><div class="hl-grid">{gen}</div>'
-            + (f'<h2 class="gd-h">By sport</h2><div class="hl-grid">{sps}</div>' if sps else '')
-            + f'<h2 class="gd-h">Glossary</h2><div class="hl-grid">{card(f"{root}{INDEX_DIR}/glossary/", GLOSSARY[1], GLOSSARY[2])}</div></section>')
+    intro = daily.to_html(doc[1]) if doc else ''
+    pills = (f'<div class="gd-pills"><a class="gd-pill" href="{root}{INDEX_DIR}/first-segment-betting/">{badge("first-segment-betting")}'
+             f'<span>New here? What is first-segment betting</span></a>'
+             f'<a class="gd-pill" href="{root}{INDEX_DIR}/glossary/">{badge("glossary")}<span>Glossary</span></a></div>')
+    sps = ''.join(f'<a class="gi-sport" href="{root}{sports.guide_path(sp).lstrip("/")}">{sport_tile(sp)}'
+                  f'<span class="gi-txt"><b>{esc(sports.seo_name(sp))}</b><span class="gi-seg">{esc(seg_caps(sp))}</span></span>'
+                  f'<span class="gi-go" aria-hidden="true">&rarr;</span></a>' for sp in sports.LAUNCHED)
+    bets = ''.join(f'<a class="gi-bet" href="{root}{INDEX_DIR}/{slug}/">{badge(slug)}'
+                   f'<span class="gi-txt"><b>{esc(t)}</b><span>{esc(d)}</span></span></a>' for slug, t, d in GENERAL)
+    return (f'<section class="hp-sec gd-index"><h1>{esc(INDEX_H1)}</h1><div class="gd-intro">{rooted(intro, root)}{pills}</div>'
+            + (f'<h2 class="gd-h">By sport</h2><div class="gi-sports">{sps}</div>' if sps else '')
+            + f'<h2 class="gd-h">The bets</h2><div class="gi-bets">{bets}</div></section>')
+
+
+def guide_cards(sp, root):
+    """The sport's guide, then its bet guides, as the home page's cards."""
+    cards = card(root + sports.guide_path(sp).lstrip('/'), sport_title(sp), f"{sp['label']} {sports.segment_summary(sp)} bets.")
+    return cards + ''.join(card(f'{root}{INDEX_DIR}/{slug}/', GENERAL_BY[slug][1], GENERAL_BY[slug][2]) for slug in bet_guides(sp))
 
 
 def sport_block(sp, root):
-    """The small Betting Guides block at the bottom of every sport page."""
-    links = [(root + sports.guide_path(sp).lstrip('/'), sport_title(sp))]
-    links += [(f'{root}{INDEX_DIR}/{slug}/', GENERAL_BY[slug][1]) for slug in bet_guides(sp)]
-    items = ''.join(f'<a class="gd-link" href="{h}">{esc(t)} &rarr;</a>' for h, t in links)
+    """The Betting Guides block at the bottom of every sport page: the home
+    page's cards."""
     return (f'<section class="gd-block" aria-label="Betting Guides"><h2 class="t-label">Betting Guides</h2>'
-            f'<div class="gd-links">{items}</div></section>')
+            f'<div class="hl-grid">{guide_cards(sp, root)}</div></section>')
 
 
 def hub_block(sp, root):
     """A hub's Betting Guides: the home page's cards (title + one line), the
     sport's guide first, then its bet guides, and "All guides"."""
     import front
-    cards = card(root + sports.guide_path(sp).lstrip('/'), sport_title(sp), f"{sp['label']} {sports.segment_summary(sp)} bets.")
-    cards += ''.join(card(f'{root}{INDEX_DIR}/{slug}/', GENERAL_BY[slug][1], GENERAL_BY[slug][2]) for slug in bet_guides(sp))
+    cards = guide_cards(sp, root)
     return (f'<section class="fr-sec" id="learn"><div class="fr-head"><h2>Betting Guides</h2></div>'
             f'<div class="hl-grid">{cards}</div><div class="fr-links">{front.more_link(root + INDEX_DIR + "/", "All guides")}</div></section>')
 
@@ -277,7 +413,7 @@ def write(page, status, logo_svg):
     for slug, title, _ in GENERAL + [GLOSSARY]:
         doc = glossary_doc() if slug == 'glossary' else read(slug)
         rel = f'{INDEX_DIR}/{slug}/'
-        body, desc, noindex, head = article(title, doc, rel, '__R__', is_glossary=slug == 'glossary')
+        body, desc, noindex, head = article(title, doc, rel, '__R__', slug, is_glossary=slug == 'glossary')
         save(rel, head, desc, body, noindex)
         n += 1
     return n
@@ -297,12 +433,12 @@ def sport_page(sp):
         rel = sports.guide_path(sp).lstrip('/')
         desc = meta.get('description') or daily.plain(md)[:200]
         when = updated(rel, meta['_numbers'])
-        body = (f'<p class="dp-date">Updated {daily.nice_date(when)}</p><div class="dp-body">{daily.to_html(md)}</div>'
+        body = (f'<p class="dp-date">Updated {daily.nice_date(when)}</p><div class="dp-body">{guide_html(md, "__ROOT__/", sport_tile(sp), sp)}</div>'
                 + ld_json(rel, name, h1, desc, md, when))
         noindex = False
-    more = ''.join(f'<a class="gd-link" href="/{INDEX_DIR}/{slug}/">{esc(GENERAL_BY[slug][1])} &rarr;</a>' for slug in bet_guides(sp))
+    more = ''.join(f'<a class="gd-link" href="__ROOT__/{INDEX_DIR}/{slug}/">{esc(GENERAL_BY[slug][1])} &rarr;</a>' for slug in bet_guides(sp))
     body = (f'<article class="gd-page gd-sport">{body}</article>'
             f'<section class="gd-block" aria-label="More guides"><h2 class="t-label">More guides</h2><div class="gd-links">{more}'
-            f'<a class="gd-link" href="/{INDEX_DIR}/">All Betting Guides &rarr;</a></div></section>')
-    meta = {'title': sports.page_title(h1), 'h1': esc(h1), 'desc': esc(desc), 'section': 'guide', 'crumb': crumb(name, '/')}
+            f'<a class="gd-link" href="__ROOT__/{INDEX_DIR}/">All Betting Guides &rarr;</a></div></section>')
+    meta = {'title': sports.page_title(h1), 'h1': esc(h1), 'desc': esc(desc), 'section': 'guide', 'crumb': crumb(name, '__ROOT__/')}
     return meta, body, noindex

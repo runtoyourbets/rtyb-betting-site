@@ -44,7 +44,7 @@ Some teams come out swinging and fade. In mid-November the Bucks were 6-9 in fir
 
 According to Run To Your Bets Trends (as of {{asof}}):
 
-- Favorites covering the 1Q spread: {{nba.1q.fav_ats:season}}; this week {{nba.1q.fav_ats:week}}; last week {{nba.1q.fav_ats:lastweek}}.
+- Favorites covering the 1Q spread: {{nba.1q.fav_ats:season}}{{nba.1q.fav_ats:week|; this week}}{{nba.1q.fav_ats:lastweek|; last week}}.
 - 1Q Over: {{nba.1q.over:season}}.
 - Home teams winning the 1Q: {{nba.1q.home_ml:season}}.
 - Favorites covering the 1H spread: {{nba.1h.fav_ats:season}}.

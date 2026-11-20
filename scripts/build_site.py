@@ -366,7 +366,7 @@ def apply_sport(out, sport, section):
     out = out.replace('__SPORT_LABEL__', sport['label'])
     out = out.replace('__ACCOUNT_JS__', account.ACCOUNT_JS)
     out = out.replace('__SPORT_SUBNAV__', sport_subnav(sport, section))
-    out = out.replace('__GUIDES_BLOCK__', '' if section == 'hub' else guides.sport_block(sport, '/'))   # hubs: under the results
+    out = out.replace('__GUIDES_BLOCK__', '' if section == 'hub' else guides.sport_block(sport, '__ROOT__/'))   # hubs: under the results
     if is_nhl:
         footer = NHL_FOOTER
     elif sport_has_data(sport['key']):
@@ -416,8 +416,8 @@ SHELL_JS = """<script>
   });
   // ---- the one "i" box: every .info-tip on the site opens it
   // Content comes from the button's hidden .tip-bubble: .tip-t (title),
-  // .tip-d (definition), .tip-c (the trend's comparison line), .tip-more
-  // (a glossary link). An older plain bubble gets a title from
+  // .tip-d (definition), .tip-c (the trend's comparison line); no link
+  // out (Nov 20). An older plain bubble gets a title from
   // data-tip-title, its first <b>, or the aria-label.
   (function() {
     var box = document.createElement('div'), scrim = document.createElement('div'), cur = null, pinned = false, timer = null;
@@ -459,23 +459,8 @@ SHELL_JS = """<script>
       box.style.left = ''; box.style.top = '';
       box.hidden = false; scrim.hidden = !panel;
       if (!panel) place(tip);
-      glossaryLink(tip);
     }
     window.rtybTipClose = hide;
-    // a market term's "i" (data-term) links to its glossary entry once it's Live there
-    var defsP = null;
-    function glossaryLink(tip) {
-      var term = tip.getAttribute('data-term');
-      if (!term) return;
-      defsP = defsP || fetch(SITE_ROOT + '/assets/definitions.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; });
-      defsP.then(function(d) {
-        if (cur !== tip || !d || !(d.live || {})['term:' + term] || box.querySelector('.tip-more')) return;
-        var a = document.createElement('a');
-        a.className = 'tip-more'; a.href = SITE_ROOT + '/betting-guides/glossary/#' + term; a.textContent = 'More in the glossary →';
-        box.insertBefore(a, box.querySelector('.tip-x'));
-        if (!box.classList.contains('tip-panel')) place(tip);
-      });
-    }
     // captured, so a tip inside a sortable header or a link doesn't also act on it
     document.addEventListener('click', function(e) {
       if (e.target.closest && e.target.closest('.tip-x')) { e.preventDefault(); hide(); return; }
@@ -495,6 +480,43 @@ SHELL_JS = """<script>
       if (box.contains(e.target)) { clearTimeout(timer); return; }
       if (cur && !pinned) { clearTimeout(timer); timer = setTimeout(hide, 150); }
     });
+  })();
+  // Records and scores never wrap at the hyphen (12-3-8, 2-0): each one the
+  // page draws goes in a .nw span, as seo.nowrap does for the static pages.
+  (function() {
+    var RE = /(^|[^\w.,-])(\d{1,3}(?:,\d{3})*(?:-\d{1,3}(?:,\d{3})*){1,2})(?![\w-])/g;
+    function wrap(root) {
+      if (!root || root.nodeType === 3 && !(root = root.parentNode)) return;
+      var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), list = [], n;
+      while ((n = w.nextNode())) {
+        var p = n.parentNode;
+        if (!p || /^(SCRIPT|STYLE|TEXTAREA|TITLE)$/.test(p.nodeName) || (p.closest && p.closest('.nw'))) continue;
+        RE.lastIndex = 0;
+        if (!RE.test(n.nodeValue)) continue;
+        var d = getComputedStyle(p).display;
+        if (n.nodeValue.trim() !== n.nodeValue.match(RE)[0].trim() && /flex|grid/.test(d)) continue;   // would split into flex items
+        list.push(n);
+      }
+      list.forEach(function(t) {
+        var f = document.createDocumentFragment(), s = t.nodeValue, last = 0, m;
+        RE.lastIndex = 0;
+        while ((m = RE.exec(s))) {
+          var at = m.index + m[1].length;
+          f.appendChild(document.createTextNode(s.slice(last, at)));
+          var sp = document.createElement('span'); sp.className = 'nw'; sp.textContent = m[2];
+          f.appendChild(sp); last = at + m[2].length;
+        }
+        f.appendChild(document.createTextNode(s.slice(last)));
+        if (t.parentNode) t.parentNode.replaceChild(f, t);
+      });
+    }
+    var queued = [], raf = 0;
+    function flush() { raf = 0; var q = queued; queued = []; q.forEach(wrap); }
+    new MutationObserver(function(ms) {
+      ms.forEach(function(m) { for (var i = 0; i < m.addedNodes.length; i++) queued.push(m.addedNodes[i]); });
+      if (!raf && queued.length) raf = requestAnimationFrame(flush);
+    }).observe(document.body, { childList: true, subtree: true });
+    wrap(document.body);
   })();
   // the menus are wired by scripts/nav.py
 })();
@@ -854,11 +876,12 @@ def how_to_read_html(sp, section):
     else:
         return ''
     seo = SEO_COPY.get((section, sp['key']))
-    return ('<aside class="how-to-read"><h2>How to read this page</h2>'
+    # starts closed (one row, "How to read this page ▾"); the full text stays in the HTML
+    return ('<details class="how-to-read"><summary><h2>How to read this page</h2><i class="htr-caret" aria-hidden="true">&#9662;</i></summary>'
             + ''.join(f'<p>{esc(x)}</p>' for x in lines)
             + f'<!-- SEO paragraph ({section}, {sp["key"]}): scripts/build_site.py SEO_COPY -->'
             + (f'<p class="htr-seo">{esc(seo)}</p>' if seo else '<div class="htr-seo" data-seo-slot></div>')
-            + '</aside>')
+            + '</details>')
 
 
 def section_title(sp, section):
@@ -903,12 +926,19 @@ STATS_PAGES = [('stats', '', 'Overview', 'The big picture'), ('splits', 'splits'
                ('edges', 'edges', 'Edges', 'Live-bet angles')]
 
 
+# Edges is hidden (Nov 20): no tab or link anywhere, noindexed and out of
+# the sitemap; the page and its data stay
+HIDDEN_STATS = {'edges'}
+
+
 def stats_tabs_html(sp, current):
-    """Overview · Splits · Edges: three tab cards under the heading (the
-    current page tinted, the others with an arrow)."""
+    """Overview · Splits: tab cards under the heading (the current page
+    tinted, the others with an arrow); hidden pages get no tab."""
     base = sports.section_path(sp, 'stats')
     out = []
     for sec, sub, name, line in STATS_PAGES:
+        if sec in HIDDEN_STATS:
+            continue
         cur = sec == current
         out.append(f'<a class="stc" href="{base}{sub + "/" if sub else ""}"' + (' aria-current="page"' if cur else '')
                    + f'><span class="stc-name">{name}' + ('' if cur else '<span class="stc-go" aria-hidden="true">&rarr;</span>')
@@ -945,6 +975,8 @@ def write_stats_pages(template, sp, teams_menu_html, season_label, has_data):
                                sport_body=stats_tabs_html(sp, sec) + sport_app_body(sp, sec))
         else:
             html = render_page(template, 'empty', teams_menu_html, meta=meta, sport=sp, empty_html=empty_state_html(sp, 'stats'))
+        if sec in HIDDEN_STATS and NOINDEX not in html:
+            html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
         write_light(html, f"{sp['slug']}/{sp['sections']['stats']}" + (f'/{sub}' if sub else ''))
 
 

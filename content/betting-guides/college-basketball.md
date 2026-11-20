@@ -39,7 +39,7 @@ Home teams are favored in most college games, and the big ones get heavy first h
 
 According to Run To Your Bets Trends (as of {{asof}}), Division I games:
 
-- Favorites covering the 1H spread: {{ncaab.1h.fav_ats:season}}; this week {{ncaab.1h.fav_ats:week}}; last week {{ncaab.1h.fav_ats:lastweek}}.
+- Favorites covering the 1H spread: {{ncaab.1h.fav_ats:season}}{{ncaab.1h.fav_ats:week|; this week}}{{ncaab.1h.fav_ats:lastweek|; last week}}.
 - 1H Over: {{ncaab.1h.over:season}}.
 - Home teams winning the 1H: {{ncaab.1h.home_ml:season}}.
 

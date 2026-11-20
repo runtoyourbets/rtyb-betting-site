@@ -66,9 +66,9 @@ class AdminTest(unittest.TestCase):
 
 
 class GlossaryTest(unittest.TestCase):
-    def test_market_terms_link_to_the_glossary(self):
+    def test_no_glossary_link_in_the_i_box(self):
         import build_site
-        self.assertIn("More in the glossary &rarr;", build_site.SHELL_JS.replace('→', '&rarr;'))
+        self.assertNotIn('glossary', build_site.SHELL_JS.lower())
         self.assertIn('data-term', read('assets', 'sport.js'))
         self.assertTrue(re.search(r'def glossary_doc\(', read('scripts', 'guides.py')))
         self.assertTrue(hasattr(guides, 'glossary_doc'))

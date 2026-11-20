@@ -52,6 +52,11 @@ refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
   - Units: green above +0.5u (`--good`), red below -0.5u (`--bad`), yellow in
     between (`--push`).
   - Never blue for results or units.
+  - Streak counts (Streak Trends, Streaks to Watch, team-page Current
+    streaks) are heat chips: `--heat-1..4` for 3-4, 5-6, 7-8, 9+.
+  - Total, BTTS and NRFI results are never win/loss: Over/Yes/YRFI warm
+    (`--warm-bg` + `--warm-line`), Under/No/NRFI purple (`--cool-bg` +
+    `--cool-line`) in game logs, team-page Last game and Matchups results.
 - Plain hyphen only; never en/em dashes or minus signs. Records 80% (12-3-8),
   scores 2-0, ranges 35-40, headers W-L-T, prices -160, empty cells "-"
   A stray dash is converted, never a reason to stop the refresh: the admin
@@ -78,9 +83,22 @@ Live numbers (scripts/guide_stats.py): `{{sport.segment.stat:window}}` and
 `{{asof}}` ("Thursday, Nov 19", ET). An unknown token fails the build with
 the file and the token. Windows: `season`, `week`, `lastweek` (daily sports:
 Mon-Sun ET so far and the Mon-Sun before; NFL/NCAAF: this game week and the
-one before). Off-season sports show the last full season in every window,
-with " (2026 season)" after it. Fewer than 10 games: "-". College counts
-Division I / FBS games only. Same data as the Trends/Stats pages.
+one before). Off-season sports show the last full season in every window
+(no season suffix). College counts Division I / FBS games only. Same data
+as the Trends/Stats pages. Empty numbers (fewer than 10 games) never show:
+`{{token:window|label}}` writes "label value" and drops both when empty
+(`{{nba.1q.over:week|; this week}}`); a list item or sentence with an empty
+season value is dropped; anything else empty shows "-".
+
+Every site link in a guide goes through the root helper (guides.rooted), so
+it works on GitHub Pages and the domain; tests/test_betting_guides.py checks
+every guide link resolves. Section headers (##) get an icon tile (the
+sport's ball, or the guide's badge: guides.BADGE) and a 44px gold
+underline; "Where to go next" lists become pills. Sport guides show one
+fixed Example game per sport (content/betting-guides/examples.json) under
+each bet in "The bets", then "How to read the odds". Body text max 720px.
+Records and scores never wrap at the hyphen (`.nw`: seo.nowrap on the
+built pages, SHELL_JS on what the sport pages draw).
 
 - `nhl.1p`: `over` (O-U), `btts_yes` (Y-N), `tie` ("34% (117 of 346)"),
   `home_ml` (2-way W-L), `top_score` ("1-0 (27%)"), `goal_share` ("29%")
@@ -153,6 +171,12 @@ Colors:
 | text on gold | `--on-gold` | #0B0F15 | #0B0F15 |
 | card title bar | `--title-bg` | rgba(167,139,250,0.14) | #EFEAFE |
 | card title text | `--title-text` | #D6CCFF | #4B2FB8 |
+| streak heat 3-4 | `--heat-1` | #F8E3A0 | #F8E3A0 (dark text) |
+| streak heat 5-6 | `--heat-2` | #F5C542 | #F5C542 (dark text) |
+| streak heat 7-8 | `--heat-3` | #F59E0B | #F59E0B (dark text) |
+| streak heat 9+ | `--heat-4` | #EA580C | #EA580C (white text, `--on-heat-4`) |
+| Over / Yes / YRFI result | `--warm-bg`, `--warm-line` | rgba(245,158,11,0.18) / 0.55 | same |
+| Under / No / NRFI result | `--cool-bg`, `--cool-line` | rgba(167,139,250,0.18) / 0.55 | same |
 
 Spacing:
 

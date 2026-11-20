@@ -187,12 +187,19 @@ def board(sport, now_utc):
     return games[0][0], games
 
 
-def when(g, day, first):
+def when(sport, g, today):
+    """"1:00 PM" today, "Sat, Nov 21 · 1:00 PM" another day; football
+    "Week 12 · Sun 1:00 PM"."""
     t = front.parse(g.get('start'))
     if not t:
         return 'TBD'
     t = t.astimezone(ET)
-    return (t.strftime('%a ') if day != first else '') + t.strftime('%-I:%M %p')
+    if sport.weekly:
+        week = next((w.get('label') for w in sport.doc.get('weeks') or [] if w.get('key') == g.get('wk')), None)
+        return (f'{week} · ' if week else '') + t.strftime('%a %-I:%M %p')
+    if t.date().isoformat() == today:
+        return t.strftime('%-I:%M %p')
+    return front.day_label(t.date().isoformat()) + ' · ' + t.strftime('%-I:%M %p')
 
 
 def odds_href(sport, r, k, root):
@@ -216,23 +223,23 @@ def odds_html(sport, r, root):
             f'<span class="bn-cell">{front.cell(r["top"], r["sub"])}</span></span>')
 
 
-def row_html(sport, r, k, first, root):
+def row_html(sport, r, k, today, root):
     """A phone row: the yellow market label and time, both teams (the
     favorite bold); the book's logo and the odds cell on the right."""
     return (f'<a class="bn-row" href="{esc(odds_href(sport, r, k, root))}"><span class="bn-left">'
-            f'<span class="bn-label">{esc(r["label"])} &middot; {esc(when(r["game"], r["day"], first))}</span>{teams_html(sport, r, root)}</span>'
+            f'<span class="bn-label">{esc(r["label"])} &middot; {esc(when(sport, r["game"], today))}</span>{teams_html(sport, r, root)}</span>'
             f'{odds_html(sport, r, root)}</a>')
 
 
-def card_html(sport, r, k, first, root):
+def card_html(sport, r, k, today, root):
     """A desktop card (Odds pages, home, hubs): the long label, large logos, the book
     and the odds cell, the time."""
     return (f'<a class="st-card bn-dcard" href="{esc(odds_href(sport, r, k, root))}"><span class="bn-label">{esc(r["long"])}</span>'
             f'{teams_html(sport, r, root, big=True)}{odds_html(sport, r, root)}'
-            f'<span class="bn-time">{esc(when(r["game"], r["day"], first))}</span></a>')
+            f'<span class="bn-time">{esc(when(sport, r["game"], today))}</span></a>')
 
 
-def seg_panes(sport, games, first, root, odds_page=False):
+def seg_panes(sport, games, today, root, odds_page=False):
     """The segment toggle (where the sport has two) and a pane per segment."""
     segs = [(k, tag, label, rows_for(sport, k, games)) for k, tag, label in segments_of(sport)]
     segs = [x for x in segs if x[3]]
@@ -240,10 +247,10 @@ def seg_panes(sport, games, first, root, odds_page=False):
         return '', []
     panes = ''
     for i, (k, tag, label, rows) in enumerate(segs):
-        inner = ''.join(row_html(sport, r, k, first, root) for r in rows)
+        inner = ''.join(row_html(sport, r, k, today, root) for r in rows)
         if odds_page:
             inner = (f'<div class="bn-rows">{inner}</div>'
-                     f'<div class="bn-dcards">{"".join(card_html(sport, r, k, first, root) for r in rows)}</div>')
+                     f'<div class="bn-dcards">{"".join(card_html(sport, r, k, today, root) for r in rows)}</div>')
         panes += f'<div data-pane="{k}"{"" if i == 0 else " hidden"}>{inner}</div>'
     toggle = front.pills(f'{sport.label} segment', [(k, tag) for k, tag, _, _ in segs], segs[0][0]) if len(segs) > 1 else ''
     return toggle + panes, segs
@@ -256,8 +263,7 @@ def sport_card(sport, now_utc, root):
     day, games = board(sport, now_utc)
     if not games:
         return '', None
-    first = games[0][0]
-    body, segs = seg_panes(sport, games, first, root, odds_page=True)   # desktop: the Odds page's cards, full width
+    body, segs = seg_panes(sport, games, now_utc.astimezone(ET).date().isoformat(), root, odds_page=True)   # desktop: the Odds page's cards, full width
     if not segs:
         return '', None
     title = f'{icons.sport_icon(sport.sp)}{esc(sport.label)}'
@@ -268,8 +274,9 @@ def sport_card(sport, now_utc, root):
 
 
 def section(S, now_utc, root='', hub=False):
-    """Home: THE BIG NUMBERS + date, a pill per sport with games that day,
-    a card per sport; a hub: its own card."""
+    """Home: THE BIG NUMBERS, a pill per sport with games still to start
+    (no games today: its next game day's), a card per sport; a hub: its own
+    card. Each card shows its game's day and time (bignums.when)."""
     cards = []
     for sport in S.values():
         html, day = sport_card(sport, now_utc, root)
@@ -277,11 +284,10 @@ def section(S, now_utc, root='', hub=False):
             cards.append((sport, html, day))
     if not cards:
         return ''
-    day = min(d for _, _, d in cards)
     pill = '' if hub or len(cards) == 1 else front.pills('Sport', [(s.key, s.label, icons.sport_icon(s.sp)) for s, _, _ in cards], cards[0][0].key)
     panes = ''.join(f'<div data-pane="{s.key}"{"" if i == 0 else " hidden"}>{h}</div>' for i, (s, h, _) in enumerate(cards))
     return (f'<section class="fr-sec bn" id="big-numbers"><div class="fr-head fr-stack"><h2>The Big Numbers</h2>'
-            f'<span class="fr-date">{esc(front.day_label(day))}</span></div>{pill}{panes}</section>')
+            f'</div>{pill}{panes}</section>')
 
 
 def odds_top(sp, now_utc, root):
@@ -291,7 +297,7 @@ def odds_top(sp, now_utc, root):
     day, games = board(sport, now_utc)
     if not games:
         return ''
-    body, segs = seg_panes(sport, games, games[0][0], root, odds_page=True)
+    body, segs = seg_panes(sport, games, now_utc.astimezone(ET).date().isoformat(), root, odds_page=True)
     if not segs:
         return ''
     date = front.day_label(day)

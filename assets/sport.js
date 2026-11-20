@@ -183,6 +183,10 @@
   }
   // W (won) / L (lost) / P (tie or push) -> the cell's highlight
   function resultCls(r) { return r === 'W' ? ' mc-w' : r === 'L' ? ' mc-l' : r === 'P' ? ' mc-p' : ''; }
+  // Total, BTTS and NRFI/YRFI cells are never win/loss colored: the outcome
+  // that happened is warm (Over, BTTS Yes, YRFI: row 0) or cool (Under, No,
+  // NRFI: row 1); the other row stays plain
+  function ouCls(r, row) { return r === 'W' ? (row === 0 ? ' mc-warm' : ' mc-cool') : r === 'P' ? ' mc-p' : ''; }
   // the markets across the top: [market, header]
   function cardCols(k) {
     if (D.sport === 'nhl') return [['ml', 'ML'], ['total', 'O/U'], ['btts', 'BTTS'], ['ml3', '3-WAY']];
@@ -227,7 +231,8 @@
     }
     var none = line == null && price == null, body = none ? '<span class="cell"><span class="mc-dash">-</span></span>' : oddsCell(line, price);
     // no price, nothing to highlight
-    return '<td class="mc-cell' + (none ? '' : resultCls(res)) + '"' + (tip ? ' data-tip="' + esc(tip) + '" data-tap title="' + esc(tip) + '"' : '') + '>' + body + '</td>';
+    var hl = m === 'total' || m === 'btts' || m === 'rfi' ? ouCls(res, row) : resultCls(res);
+    return '<td class="mc-cell' + (none ? '' : hl) + '"' + (tip ? ' data-tip="' + esc(tip) + '" data-tap title="' + esc(tip) + '"' : '') + '>' + body + '</td>';
   }
   // "FULL GAME  WSH 101 · IND 114 OT", away first, the winner bold
   function fullGameRow(g) {
@@ -896,9 +901,10 @@
     var cls = b.r === 'T' ? 'p' : b.r === 'W' ? 'w' : 'n', txt, short = null;
     if (m === 'ml' || m === 'ml3') txt = b.r === 'T' ? 'Tie' : b.r === 'W' ? me : opp;
     else if (m === 'ats') { var ln = ((o.ats || {})[home ? 'home' : 'away'] || {}).line; txt = me + (typeof ln === 'number' ? ' ' + signedLine(ln) : ''); short = typeof ln === 'number' ? signedLine(ln) : me; }
-    else if (m === 'total') { txt = b.r === 'T' ? 'Push' : b.r === 'W' ? 'Over' : 'Under'; cls = b.r === 'T' ? 'p' : 'w'; }
-    else if (m === 'btts') { txt = b.r === 'W' ? 'Yes' : 'No'; cls = 'w'; }
-    else { txt = b.r === 'W' ? 'NRFI' : 'YRFI'; cls = 'w'; }
+    // game markets: never win / loss; warm = Over, BTTS Yes, YRFI; cool = Under, No, NRFI
+    else if (m === 'total') { txt = b.r === 'T' ? 'Push' : b.r === 'W' ? 'Over' : 'Under'; cls = b.r === 'T' ? 'p' : b.r === 'W' ? 'warm' : 'cool'; }
+    else if (m === 'btts') { txt = b.r === 'W' ? 'Yes' : 'No'; cls = b.r === 'W' ? 'warm' : 'cool'; }
+    else { txt = b.r === 'W' ? 'NRFI' : 'YRFI'; cls = b.r === 'W' ? 'cool' : 'warm'; }
     return { cls: cls, txt: txt, short: short };
   }
   function tpResCell(g, p, slug, label) {
@@ -1020,22 +1026,41 @@
       return tmSection(esc(TP.year || D.seasonLabel || '') + ' Season Markets &middot; Final', '<div class="st-card tp-card"><div class="st-head tp-split"><h4>' + champ +
         '</h4><span class="tp-hr">' + right + '</span></div>' + marketCards() + '</div>', 'tpMarkets');
     }
-    // LAST GAME: the segment's result pill, "EDM 2 @ FLA 0 · Final 5-2", a result cell per market
+    // LAST GAME: "EDM @ FLA · 1P 0-0 · Final 3-2" (every segment, away
+    // first), then a cell per market with the market, the line and the
+    // closing price ("CHA -1.5 · -110", "Over 58.5 · -110", "CHA ML -125")
     function lastHtml() {
       if (!last) return tmSection('Last Game', emptyNote('No games played yet.'));
-      var g = last, k = tpSeg(), r = (g.res || {})[k], home = g.home === slug;
+      var g = last;
       var title = 'Last game &middot; ' + esc(wdDate(g));
       if (g.post && g.note) title = esc(String(g.note).replace(/\s*-\s*/, ' ')) + ' &middot; ' + esc(shortDate(g));
-      var pill = '';
-      if (r && r.sc) {
-        var mine = home ? r.sc[1] : r.sc[0], theirs = home ? r.sc[0] : r.sc[1], tag = seg(k).tag;
-        var w = mine > theirs ? ['won', 'tp-pill-w'] : mine < theirs ? ['lost', 'tp-pill-l'] : ['tied', 'tp-pill-t'];
-        pill = '<span class="tp-pill ' + w[1] + '">' + esc(tag) + ' ' + w[0] + ' ' + mine + '-' + theirs + '</span>';
+      var parts = [esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home))];
+      D.segments.forEach(function(sg) {
+        var r = (g.res || {})[sg.key];
+        if (r && r.sc) parts.push(esc(sg.key === '1i' ? '1st' : sg.tag) + ' ' + r.sc[0] + '-' + r.sc[1]);
+      });
+      if (g.as != null && g.hs != null) parts.push('Final ' + g.as + '-' + g.hs + (g.ot ? ' ' + esc(g.ot) : ''));
+      return tmSection('Last Game', '<div class="st-card tp-card"><div class="st-head"><h4>' + title + '</h4></div>' +
+        '<p class="tp-line">' + parts.join(' &middot; ') + '</p><div class="tp-cells tp-last">' + all.map(function(p) { return lastCell(g, p); }).join('') + '</div></div>');
+    }
+    function lastCell(g, p) {
+      var b = tmBet(g, p.k, p.m, slug), o = (g.odds || {})[p.k] || {}, home = g.home === slug, side = home ? 'home' : 'away', me = tcode(slug);
+      function pr(x) { return typeof x === 'number' ? ' · ' + priceTxt(x) : ''; }
+      var txt = null, cls = '';
+      if (b) {
+        if (p.m === 'ml') { txt = me + ' ML' + (typeof (o.ml || {})[side] === 'number' ? ' ' + priceTxt(o.ml[side]) : ''); cls = b.r === 'W' ? 'w' : b.r === 'T' ? 'p' : 'n'; }
+        else if (p.m === 'ml3') { txt = me + ' 3-Way' + (typeof (o.ml3 || {})[side] === 'number' ? ' ' + priceTxt(o.ml3[side]) : ''); cls = b.r === 'W' ? 'w' : 'n'; }
+        else if (p.m === 'ats') { var a = (o.ats || {})[side] || {}; txt = me + (typeof a.line === 'number' ? ' ' + signedLine(a.line) : '') + pr(a.price); cls = b.r === 'W' ? 'w' : b.r === 'T' ? 'p' : 'n'; }
+        else if (p.m === 'total') {
+          var t = o.total || {}, ln = typeof t.line === 'number' ? t.line : D.sport === 'nhl' ? 1.5 : null, ov = b.r === 'W';
+          txt = (b.r === 'T' ? 'Push' : ov ? 'Over' : 'Under') + (ln != null ? ' ' + num1(ln) : '') + (b.r === 'T' ? '' : pr(t[ov ? 'over' : 'under']));
+          cls = b.r === 'T' ? 'p' : ov ? 'warm' : 'cool';
+        }
+        else if (p.m === 'btts') { var y = b.r === 'W'; txt = 'BTTS ' + (y ? 'Yes' : 'No') + pr((o.btts || {})[y ? 'yes' : 'no']); cls = y ? 'warm' : 'cool'; }
+        else { var n = b.r === 'W'; txt = (n ? 'NRFI' : 'YRFI') + pr((o.nrfi_yrfi || {})[n ? 'nrfi' : 'yrfi']); cls = n ? 'cool' : 'warm'; }
       }
-      var line = r && r.sc ? esc(tcode(g.away)) + ' ' + r.sc[0] + ' @ ' + esc(tcode(g.home)) + ' ' + r.sc[1] : esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home));
-      if (g.as != null && g.hs != null) line += ' &middot; Final ' + g.as + '-' + g.hs + (g.ot ? ' ' + esc(g.ot) : '');
-      return tmSection('Last Game', '<div class="st-card tp-card"><div class="st-head tp-split"><h4>' + title + '</h4>' + pill + '</div>' +
-        '<p class="tp-line">' + line + '</p><div class="tp-cells">' + all.map(function(p) { return tpResCell(g, p, slug, true); }).join('') + '</div></div>');
+      return '<div class="tp-res"><span class="tp-gl">' + esc(tpName(p)) + '</span><span class="cell tp-rc' + (txt ? ' tp-rc-' + cls : '') + '"><span class="ob-ln">' +
+        (txt ? esc(txt) : '<span class="mc-dash">-</span>') + '</span></span></div>';
     }
     // SEASON MARKETS: one card per market (green border: top 5 in the league)
     function marketCards() {
@@ -1060,8 +1085,7 @@
       return kind === 'Y' ? 'YRFI' : 'NRFI';
     }
     function chip(n, m, kind, k, dates) {
-      var win = (m === 'ml' || m === 'ats') && kind === 'W';
-      return '<div class="tp-chip"><span class="tp-cn' + (win ? ' tp-cn-w' : '') + '">' + n + '</span><span class="tp-ct">' + n + ' straight ' + esc(streakText(m, kind, k)) +
+      return '<div class="tp-chip"><span class="tp-cn ' + heatCls(n) + '">' + n + '</span><span class="tp-ct">' + n + ' straight ' + esc(streakText(m, kind, k)) +
         (dates ? '<small>' + dates + '</small>' : '') + '</span></div>';
     }
     function eachSeq(fn) {
@@ -1531,8 +1555,7 @@
   // every "i" opens the one box (template.html #tipBox); tipBody: its title,
   // a short definition and, on trends only, the comparison line
   // (only Live definitions reach the page: none, and the box shows the title
-  // and the comparison line). term: the market's glossary anchor; the box
-  // adds "More in the glossary" when that term is Live.
+  // and the comparison line). No link out of the box (Nov 20).
   function infoTip(html, left, label, term) {
     return '<button type="button" class="info-tip"' + ' aria-label="About ' + esc(label || 'this section') + '"' + (term ? ' data-term="' + esc(term) + '"' : '') + '>i<span class="tip-bubble" role="tooltip">' + html + '</span></button>';
   }
@@ -2043,7 +2066,7 @@
     }).join('') + '</div>';
     var n = Math.min(5, Math.floor(list.length / 2)), what = TM_INFO[p.m].pct;
     var body = list.length < 2 ? emptyNote('Leaders show once teams have played ' + LEAD_MIN + ' games.')
-      : '<div class="sl-grid">' + card('Top 5 · ' + what, list.slice(0, n).map(row)) +
+      : '<div class="ldr-grid">' + card('Top 5 · ' + what, list.slice(0, n).map(row)) +
         card('Bottom 5 · ' + what, list.slice(-n).reverse().map(row)) + '</div>' +
         '<p class="st-foot">' + (byU ? 'Ranked by units' : 'Ranked by ' + what.toLowerCase() + ' (too few saved prices to rank by units)') + '. ' + LEAD_MIN + '+ games.</p>';
     return stSection('leaders', 'Leaders', pills, body);
@@ -2184,10 +2207,9 @@
   // One league card. The "i": the title, what it means and how it compares
   // to the league (nothing else). The "Last time" line under the rows shows
   // only when the trend's show_last switch is on (off by default).
-  function trendCompare(c) { return 'This trend: ' + pct0(c.rate) + ' (' + c.w + '-' + c.l + '). League average: ' + pct0(c.base) + '.'; }
   function showLast(c) { return c.last && ((TR.tips || {}).show_last || []).indexOf(c.angle) !== -1 ? c.last : ''; }
   function trendCard(c) {
-    var tip = tipBody(c.title, c.meaning, trendCompare(c)), last = showLast(c);
+    var last = showLast(c);
     var list = c.games.map(function(x) { return { x: x, g: findGame(x.id) }; })
       .filter(function(o) { return o.g && lined(o.g, c.seg); })
       .sort(function(a, b) { return (rowOrder(a.g) - rowOrder(b.g)) || ((a.g.start || '') < (b.g.start || '') ? -1 : 1); });
@@ -2205,7 +2227,7 @@
       ? 'Hit ' + c.w + ' of ' + (c.w + c.l) + ' at avg ' + priceTxt(c.avg) + ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>'
       : pct0(c.rate) + ' (' + c.w + '-' + c.l + ') · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
     var avg = c.mk === 'ml3' && c.avg != null ? '' : '<p class="ht-avg">League average ' + pct0(c.base) + '</p>';
-    return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span>' + infoTip(tip, true, c.title, termOf(c.mk)) + '</div>' +
+    return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span></div>' +
       '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec" title="' + esc((TR.tips.record_line || {}).tooltip || '') + '">' + rec + '</div>' + avg +
       '<div class="tr-rows">' + rows + '</div>' + more + '</div>';
   }
@@ -2241,14 +2263,18 @@
         var r = (g.res || {})[k];
         if (g.state !== 'final' || !r || !r.sc || r.na) return;
         ['away', 'home'].forEach(function(side) {
-          var s = g[side], o = out[s] || (out[s] = { ml: [], ats: [], total: [], btts: [], rfi: [], mlD1: [] });
-          if (r.su && r.su !== 'NA') o.ml.push(side === 'away' ? r.su : flipR(r.su));
-          // college Streak Trends: the moneyline against Division I (FBS) teams only
-          if (r.su && r.su !== 'NA' && D.teams[g[side === 'away' ? 'home' : 'away']]) o.mlD1.push(side === 'away' ? r.su : flipR(r.su));
-          if (r.ats && r.ats !== 'NA') o.ats.push(side === 'away' ? r.ats : flipR(r.ats));
-          if (r.tot && r.tot !== 'NA') o.total.push(r.tot);
-          if (r.btts === 'Y' || r.btts === 'N') o.btts.push(r.btts);
-          if (r.rfi === 'Y' || r.rfi === 'N') o.rfi.push(r.rfi);
+          function mk() { return { ml: [], ats: [], total: [], btts: [], rfi: [], mlD1: [] }; }
+          var s = g[side], o = out[s] || (out[s] = mk());
+          o.v = o.v || { home: mk(), away: mk() };   // Streak Trends' Home / Away: the team's runs at that venue
+          [o, o.v[side]].forEach(function(o) {
+            if (r.su && r.su !== 'NA') o.ml.push(side === 'away' ? r.su : flipR(r.su));
+            // college Streak Trends: the moneyline against Division I (FBS) teams only
+            if (r.su && r.su !== 'NA' && D.teams[g[side === 'away' ? 'home' : 'away']]) o.mlD1.push(side === 'away' ? r.su : flipR(r.su));
+            if (r.ats && r.ats !== 'NA') o.ats.push(side === 'away' ? r.ats : flipR(r.ats));
+            if (r.tot && r.tot !== 'NA') o.total.push(r.tot);
+            if (r.btts === 'Y' || r.btts === 'N') o.btts.push(r.btts);
+            if (r.rfi === 'Y' || r.rfi === 'N') o.rfi.push(r.rfi);
+          });
         });
       });
     });
@@ -2314,6 +2340,8 @@
     if (m === 'btts') return kind === 'Y' ? 'Yes' : 'No';
     return kind === 'Y' ? 'YRFI' : 'NRFI';
   }
+  // streak heat (CLAUDE.md --heat-1..4): 3-4, 5-6, 7-8, 9+, the same in every market
+  function heatCls(n) { return 'heat heat-' + (n >= 9 ? 4 : n >= 7 ? 3 : n >= 5 ? 2 : 1); }
   function streakChip(m, st) {
     if (!st || st.n < 3) return '';
     var cls = m === 'ml' || m === 'ats' ? (st.kind === 'W' ? 'sk-w1' : 'sk-l1') : 'sk-n1';
@@ -2332,22 +2360,6 @@
   function labelText(l, seg, btts) {
     var t = (btts && l.tooltip_btts) || l.tooltip || '';
     return t.replace(/\{segment\}s/g, seg === 'first five' ? seg : seg + 's').replace(/\{segment\}/g, seg);
-  }
-  // A team trend's "i": its definition (tooltips file team_trends) and how
-  // it compares to the league
-  function teamTrendTip(m, kind, k, x, y, seqs) {
-    var d = ((TR.tips.team_trends || {})[m + '_' + kind]) || {}, sw = segWord(k);
-    function fill(t) { return String(t || '').replace(/\{segment\}/g, sw); }
-    var title = fill(d.title || sideWord(m, kind, k));
-    title = title.charAt(0).toUpperCase() + title.slice(1);
-    var lg = leagueRate(seqs, m, kind);
-    return infoTip(tipBody(title, fill(d.meaning), 'This trend: ' + pct0(x / y) + ' (' + x + '-' + (y - x) + ').' + (lg == null ? '' : ' League average: ' + pct0(lg) + '.')), false, title, termOf(m));
-  }
-  // the share of team-games in the market that went this way (pushes out, as in leanOf)
-  function leagueRate(seqs, m, kind) {
-    var x = 0, y = 0;
-    Object.keys(seqs).forEach(function(t) { var c = countOf(m, seqs[t][m] || [], kind); x += c.x; y += c.y; });
-    return y ? x / y : null;
   }
   // a finished game's result for one team's lean: Hit / Miss / Push, or null
   function leanResult(g, k, m, side, kind) {
@@ -2374,7 +2386,7 @@
         var res = past ? leanResult(g, k, m, side, ln.kind) : null;
         var end = past ? (res ? '<span class="mt-res mt-r-' + res + '">' + RES_WORD[res] + '</span>' : '') : streakChip(m, streakOf(seq));
         lines.push({ rate: ln.rate, html: '<div class="mt-line">' + teamLink(slug, badge(slug, 18) + '<b>' + esc(tcode(slug)) + '</b>') +
-          '<span class="mt-side">' + esc(stkWord(m, ln.kind, k)) + teamTrendTip(m, ln.kind, k, ln.x, ln.y, seqs) + '</span>' +
+          '<span class="mt-side">' + esc(stkWord(m, ln.kind, k)) + '</span>' +
           '<span class="mt-pct">' + pct0(ln.rate) + ' <span class="mt-rec">(' + ln.x + '-' + (ln.y - ln.x) + ')</span></span>' +
           '<span class="mt-st">' + end + '</span></div>' });
       });
@@ -2396,13 +2408,14 @@
   // Streak Trends: follows the segment and market pills. One group per
   // market (top STK_TOP, longest first, then "+N more teams on N+ streaks"),
   // only teams playing on the slate (football: the week); a group with none
-  // says so. Rows: logo · code · streak · opponent code + time, every device.
-  // "All active streaks" opens every team's run in place. Runs: 3+ (college
-  // basketball 5+, college football 4+); college moneyline runs count
-  // Division I (FBS) games only, and a run that is the team's whole season
-  // (5-0 to start) waits until it has played 8 games.
-  var STK_TOP = 5, STK_SEASON_MIN = 8;
-  function stkMin() { return { ncaab: 5, ncaaf: 4 }[D.sport] || 3; }
+  // says so. Rows: the heat chip (the run's length) · logo · code · streak,
+  // then the opponent + time under the code, every device. All / Home / Away:
+  // Home is each team's run in its home games, for teams at home on the
+  // slate (Away the same on the road). "All active streaks" opens every
+  // team's run in place. Runs: 3+ in every sport; college moneyline runs
+  // count Division I (FBS) games only.
+  var STK_TOP = 5, STK_VEN = 'all';
+  function stkMin() { return 3; }
   function stkCollege() { return D.sport === 'ncaab' || D.sport === 'ncaaf'; }
   var STK_ORDER = { nhl: ['ml', 'total', 'btts', 'ml3'], mlb: ['rfi', 'ml', 'ats', 'total'] };
   function stkMarkets(k) {
@@ -2433,15 +2446,18 @@
     games.slice().sort(function(a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; }).forEach(function(g) {
       playing[g.away] = playing[g.away] || g; playing[g.home] = playing[g.home] || g;
     });
-    var min = stkMin();
+    var min = stkMin(), ven = STK_VEN;
     var groups = stkMarkets(k).map(function(x) {
       var m = x[1], list = [];
       Object.keys(all ? seqs : playing).forEach(function(slug) {
-        var key = m === 'ml3' ? 'ml' : m === 'ml' && stkCollege() ? 'mlD1' : m;
-        var seq = ((seqs[slug] || {})[key]) || [], st = stkOf(m, seq);
+        var key = m === 'ml3' ? 'ml' : m === 'ml' && stkCollege() ? 'mlD1' : m, g = playing[slug];
+        // Home / Away: teams at that venue on the slate (every team's run there when "All active streaks" is open)
+        if (ven !== 'all' && g && g[ven] !== slug) return;
+        if (ven !== 'all' && !g && !all) return;
+        var src = ven === 'all' ? seqs[slug] : ((seqs[slug] || {}).v || {})[ven];
+        var seq = ((src || {})[key]) || [], st = stkOf(m, seq);
         if (!st || st.n < min) return;
-        if (key === 'mlD1' && st.n === seq.length && seq.length < STK_SEASON_MIN) return;
-        list.push({ slug: slug, m: m, s: st, g: playing[slug] });
+        list.push({ slug: slug, m: m, s: st, g: g });
       });
       list.sort(function(a, b) { return b.s.n - a.s.n || (((a.g || {}).start || '') < ((b.g || {}).start || '') ? -1 : 1); });
       var more = all ? 0 : Math.max(0, list.length - STK_TOP);
@@ -2452,13 +2468,14 @@
     var stkMl = groups.filter(function(x) { return x.m === 'ml'; })[0];
     if (stkMl) groups = groups.filter(function(x) { return x.m !== 'ml3' || stkSig(x) !== stkSig(stkMl); });
     if (all) groups = groups.filter(function(x) { return x.list.length; });
+    var where = ven === 'home' ? ' at home' : ven === 'away' ? ' on the road' : '';
     function row(x) {
-      var yn = x.m === 'total' || x.m === 'btts' || x.m === 'rfi' || x.s.kind === 'T';
-      var cls = (yn ? 'sk-n' : x.s.kind === 'W' ? 'sk-w' : 'sk-l') + (x.s.n >= 7 ? '3' : x.s.n >= 5 ? '2' : '1');
-      var g = x.g, opp = g ? (g.home === x.slug ? '@ ' : 'vs ') + tcode(g.home === x.slug ? g.away : g.home) : '';
-      return '<div class="stk-row">' + teamLink(x.slug, badge(x.slug, 20) + '<span>' + esc(tcode(x.slug)) + '</span>') +
-        '<span class="stk-run"><span class="sk-len ' + cls + '">' + x.s.n + '</span>' + esc(stkWord(x.m, x.s.kind, k)) + '</span>' +
-        '<span class="stk-opp">' + (g ? esc(opp) : '') + '</span><span class="tr-time">' + (g ? esc(g.state === 'final' ? 'FINAL' : weekly ? trTime(g.start) : rowStatus(g)) : '') + '</span></div>';
+      var g = x.g, opp = g ? (g.home === x.slug ? 'vs ' : '@ ') + tcode(g.home === x.slug ? g.away : g.home) : '';
+      var when = g ? (g.state === 'final' ? 'FINAL' : weekly ? trTime(g.start) : rowStatus(g)) : '';
+      return '<div class="stk-row"><span class="sk-len ' + heatCls(x.s.n) + '">' + x.s.n + '</span>' +
+        '<span class="stk-l1">' + teamLink(x.slug, badge(x.slug, 20) + '<span>' + esc(tcode(x.slug)) + '</span>') +
+        '<span class="stk-run">' + esc(stkWord(x.m, x.s.kind, k) + where) + '</span></span>' +
+        '<span class="stk-l2">' + esc([opp, when].filter(Boolean).join(' · ')) + '</span></div>';
     }
     var when = weekly ? 'this week' : 'today';
     var body = !all && !Object.keys(playing).length ? '<div class="no-games-note">No games ' + esc(none) + '.</div>'
@@ -2467,8 +2484,10 @@
           (x.list.length ? x.list.map(row).join('') : '<p class="stk-none">No active streaks of ' + min + ' or more ' + when + '.</p>') +
           (x.more ? '<button type="button" class="tr-link stk-more" data-all-streaks>+' + x.more + ' more team' + (x.more === 1 ? '' : 's') + ' on ' + min + '+ streaks &rarr;</button>' : '') + '</div>';
       }).join('') : '<div class="no-games-note">No team is on a run of ' + min + ' or more.</div>';
+    var vens = '<div class="seg-toggle stk-ven" role="group" aria-label="Venue">' + [['all', 'All'], ['home', 'Home'], ['away', 'Away']].map(function(v) {
+      return '<button class="seg-btn" data-stk-ven="' + v[0] + '" aria-pressed="' + (v[0] === ven) + '">' + v[1] + '</button>'; }).join('') + '</div>';
     return '<section class="trends-page-section" id="streak-trends"><div class="tph"><div><h2>Streak Trends</h2>' +
-      '<p class="tp-sub">' + esc(((TR.tips.streaks || {}).section || '').replace(/run of \d+ or more/, 'run of ' + stkMin() + ' or more')) + '</p></div></div>' +
+      '<p class="tp-sub">' + esc(((TR.tips.streaks || {}).section || '').replace(/run of \d+ or more/, 'run of ' + stkMin() + ' or more')) + '</p></div></div>' + vens +
       '<div class="stk-grid">' + body + '</div>' +
       (all ? '' : '<button type="button" class="tr-link" data-all-streaks>All active streaks &rarr;</button>') + '</section>';
   }
@@ -2508,11 +2527,11 @@
     });
     // the first MT_GAMES games, then "Show more games" (MT_GAMES at a time)
     blocks = blocks.map(function(b, i) { return i >= MT_GAMES ? b.replace('<div class="st-card mt-game"', '<div hidden class="st-card mt-game"') : b; });
+    html += '<div id="stkBox">' + streakSection(o.games, k, o.before, o.none) + '</div>';
     html += '<section class="trends-page-section"><div class="tph"><div><h2>Matchup Trends</h2></div></div>' +
       (games.length ? '<div class="mt-grid">' + blocks.join('') + '</div>' +
         (blocks.length > MT_GAMES ? '<button type="button" class="tr-more" data-mt-more>Show more games</button>' : '')
         : '<div class="no-games-note">No games ' + esc(o.none) + '.</div>') + '</section>';
-    html += '<div id="stkBox">' + streakSection(o.games, k, o.before, o.none) + '</div>';
     return html;
   }
   var TR_OPEN = 6, TR_PHONE = 3, MT_GAMES = 5;
@@ -2529,8 +2548,7 @@
   }
   function lastSeasonCard(c) {
     var u = c.units == null ? '' : ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
-    return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span><span class="lt-season">' + esc(TR.lastSeason.label) + ' season</span>' +
-      infoTip(tipBody(c.title, c.meaning, trendCompare(c)), true, c.title, termOf(c.mk)) + '</div>' +
+    return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span><span class="lt-season">' + esc(TR.lastSeason.label) + ' season</span></div>' +
       '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec">' + pct0(c.rate) + ' (' + c.w + '-' + c.l + ')' + u + '</div>' +
       '<p class="ht-avg">League average ' + pct0(c.base) + '</p></div>';
   }
@@ -2559,13 +2577,18 @@
       [].slice.call(rest, 0, MT_GAMES).forEach(function(x) { x.hidden = false; });
       if (rest.length <= MT_GAMES) mm.remove();
     };
-    app.querySelectorAll('[data-all-streaks]').forEach(function(as) {
-      as.onclick = function() {
-        var box = document.getElementById('stkBox');
-        box.innerHTML = streakSection(o.games, getSeg(), o.before, o.none, true);
-        box.scrollIntoView({ block: 'start' });
-      };
-    });
+    var stkAll = false;
+    function stkWire() {
+      var box = document.getElementById('stkBox');
+      if (!box) return;
+      box.querySelectorAll('[data-all-streaks]').forEach(function(as) {
+        as.onclick = function() { stkAll = true; box.innerHTML = streakSection(o.games, getSeg(), o.before, o.none, true); stkWire(); box.scrollIntoView({ block: 'start' }); };
+      });
+      box.querySelectorAll('[data-stk-ven]').forEach(function(b) {
+        b.onclick = function() { STK_VEN = b.getAttribute('data-stk-ven'); box.innerHTML = streakSection(o.games, getSeg(), o.before, o.none, stkAll); stkWire(); };
+      });
+    }
+    stkWire();
     var ls = app.querySelector('[data-last-season]');
     if (ls) ls.onclick = function() {
       var box = document.getElementById('trLastSeason');

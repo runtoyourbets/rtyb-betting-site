@@ -50,7 +50,7 @@ Through Nov 19 this season, NFL first halves were priced at about 50% of the gam
 
 According to Run To Your Bets Trends (as of {{asof}}):
 
-- 1Q Over: {{nfl.1q.over:season}}; this week {{nfl.1q.over:week}}; last week {{nfl.1q.over:lastweek}}.
+- 1Q Over: {{nfl.1q.over:season}}{{nfl.1q.over:week|; this week}}{{nfl.1q.over:lastweek|; last week}}.
 - Favorites covering the 1Q spread: {{nfl.1q.fav_ats:season}}.
 - 1H Over: {{nfl.1h.over:season}}.
 - Favorites covering the 1H spread: {{nfl.1h.fav_ats:season}}.

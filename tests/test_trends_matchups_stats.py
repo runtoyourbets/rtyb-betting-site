@@ -77,7 +77,7 @@ class TrendsPageTest(unittest.TestCase):
         self.assertIn("'\">Show all ' + cards.length + ' trends</button>'", js)
         self.assertIn('League trends start once teams have played 10 games.', js)
         self.assertIn('See last season&rsquo;s trends &rarr;', js)
-        self.assertIn("' season</span>'", js)
+        self.assertIn("' season</span></div>'", js)
         self.assertIn('Show more games', js)
         self.assertIn("var RES_WORD = { hit: 'Hit', miss: 'Miss', push: 'Push' };", js)
         self.assertIn("STK_ORDER = { nhl: ['ml', 'total', 'btts', 'ml3'], mlb: ['rfi', 'ml', 'ats', 'total'] }", js)

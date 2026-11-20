@@ -54,7 +54,7 @@ Starting next season (2027), the College Football Playoff expands to 24 teams. F
 
 According to Run To Your Bets Trends (as of {{asof}}), FBS games:
 
-- 1Q Over: {{ncaaf.1q.over:season}}; this week {{ncaaf.1q.over:week}}; last week {{ncaaf.1q.over:lastweek}}.
+- 1Q Over: {{ncaaf.1q.over:season}}{{ncaaf.1q.over:week|; this week}}{{ncaaf.1q.over:lastweek|; last week}}.
 - Favorites covering the 1Q spread: {{ncaaf.1q.fav_ats:season}}.
 - 1H Over: {{ncaaf.1h.over:season}}.
 - Favorites covering the 1H spread: {{ncaaf.1h.fav_ats:season}}.

@@ -827,8 +827,9 @@ def trend_row(sport, c, x, g, root, now, last=''):
     (desktop: on hover or a click; phones: a tap opens it, ▾)."""
     st = 'FINAL' if g.get('state') == 'final' else 'LIVE' if started(g, now) else ''
     when = st or time_et(g.get('start'))
-    if sport.weekly and not st and parse(g.get('start')):
-        when = parse(g['start']).astimezone(ET).strftime('%a %-I:%M %p')
+    t = parse(g.get('start'))
+    if not st and t and (sport.weekly or t.astimezone(ET).date() != now.astimezone(ET).date()):
+        when = t.astimezone(ET).strftime('%a %-I:%M %p')   # not today: the day first ("Sat 1:00 PM")
     # the logo loads right away (a lazy one could stay blank as rows move up)
     logo = sport.badge(g[x['side']], 16, root).replace(' loading="lazy"', '') if x.get('side') else ''
     bet = (f'Bet {sport.link(g[x["side"]], logo + " " + esc(sport.code(g[x["side"]])), root)}' if x.get('side') else esc(x.get('label')))
@@ -954,7 +955,7 @@ TERM_OF = {'ml': 'moneyline', 'ml3': '3-way-moneyline', 'total': 'total', 'btts'
 
 
 def info_tip(label, body, term=''):
-    """term: the market's glossary anchor (the box adds the glossary link when it's Live)."""
+    """term: the market's glossary anchor (data-term); the box has no link out (Nov 20)."""
     t = f' data-term="{esc(term)}"' if term else ''
     return f'<button type="button" class="info-tip" aria-label="About {esc(label)}"{t}>i<span class="tip-bubble" role="tooltip">{body}</span></button>'
 
@@ -1298,6 +1299,11 @@ def next_txt(sport, x, now_utc, short=False):
     return f"{'@' if side == 'away' else 'vs'} {esc(name)}" + (f' &middot; {t}' if t else '')
 
 
+def heat_cls(n):
+    """Streak heat (CLAUDE.md --heat-1..4): 3-4, 5-6, 7-8, 9+."""
+    return 'heat heat-' + str(4 if n >= 9 else 3 if n >= 7 else 2 if n >= 5 else 1)
+
+
 def streak_item(x, i, now_utc, root, hub, phone_more):
     """One streak: the big block (the top one) and its one-line row; FRONT_JS
     picks which shows as games start."""
@@ -1311,10 +1317,10 @@ def streak_item(x, i, now_utc, root, hub, phone_more):
            f'{sport.link(slug, esc(sport.full_name(slug)), root, "tw-name")}<p class="tw-line">{line}</p></div></div>'
            f'<div class="tw-next"><p class="tw-next-l">Next matchup</p><p class="tw-next-g">{sport.link(opp, sport.badge(opp, 24, root), root, "tw-opp")}'
            f'<span>{next_txt(sport, x, now_utc)}</span></p></div></div>')
-    # two lines: icon (home) · logo · code · the full streak, then opponent + time;
+    # two lines: the heat chip · icon (home) · logo · code · the full streak, then opponent + time;
     # the first row under the top block carries the MORE STREAKS TO WATCH divider
     row = (f'<p class="sw-div">More streaks to watch</p>'
-           f'<div class="sw-row"><span class="sw-l1">{"" if hub else icons.sport_icon(sport.sp)}{sport.link(slug, sport.badge(slug, 22, root), root, "sw-logo")}'
+           f'<div class="sw-row"><span class="sw-l1"><span class="sk-len {heat_cls(x["st"]["n"])}">{x["st"]["n"]}</span>{"" if hub else icons.sport_icon(sport.sp)}{sport.link(slug, sport.badge(slug, 22, root), root, "sw-logo")}'
            f'<span class="sw-code">{esc(sport.code(slug))}</span><span class="sw-line">{line}</span></span>'
            f'<span class="sw-next">{next_txt(sport, x, now_utc, short=True)}</span></div>')
     cls = 'sw-item' + (' sw-top' if i == 0 else '') + (' sw-first' if i == 1 else '') + (' sw-more' if i > STREAK_PHONE else '')

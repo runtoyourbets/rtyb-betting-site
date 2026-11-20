@@ -128,7 +128,7 @@ class GuidesTest(unittest.TestCase):
     def test_anchors(self):
         self.assertEqual(guides.anchor('3-Way Moneyline'), '3-way-moneyline')
         self.assertEqual(guides.anchor('BTTS'), 'btts')
-        html = guides.glossary_html('## Push\n\nThe line lands exactly.\n\n## BTTS\n\nBoth teams score.')
+        html = guides.glossary_html('## Push\n\nThe line lands exactly.\n\n## BTTS\n\nBoth teams score.', '../')
         self.assertIn('<h2 id="push">Push</h2>', html)
         self.assertIn('<h2 id="btts">BTTS</h2>', html)
 
@@ -137,7 +137,7 @@ class GuidesTest(unittest.TestCase):
         self.assertEqual(guides.sport_title(sports.BY_KEY['nba']), 'NBA First Quarter & First Half Betting Guide')
 
     def test_missing_file_is_noindexed(self):
-        body, _, noindex, _ = guides.article('Units', None, 'betting-guides/units/', '../')
+        body, _, noindex, _ = guides.article('Units', None, 'betting-guides/units/', '../', 'units')
         self.assertTrue(noindex)
         self.assertIn(guides.COMING, body)
 

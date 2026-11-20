@@ -33,7 +33,7 @@ class TokenTest(unittest.TestCase):
         for name in FILES:
             body = daily.parse(open(os.path.join(guides.CONTENT, f'{name}.md'), encoding='utf-8').read())[1]
             for tok in gs.TOKEN.findall(body):
-                self.assertIn(tok, known, f'{name}.md: {tok}')
+                self.assertIn(gs.key(tok), known, f'{name}.md: {tok}')
 
     def test_unknown_token_fails_with_file_and_token(self):
         with self.assertRaises(gs.UnknownToken) as e:
@@ -58,8 +58,16 @@ class TokenTest(unittest.TestCase):
     def test_off_season_shows_last_season(self):
         t = gs.table(date(2026, 11, 19))
         for w in gs.WINDOWS:
-            self.assertRegex(t[f'mlb.1i.nrfi:{w}'], r'^\d+% \([\d,]+ of [\d,]+\) \(\d{4} season\)$')
+            self.assertRegex(t[f'mlb.1i.nrfi:{w}'], r'^\d+% \([\d,]+ of [\d,]+\)$')   # no "(2026 season)"
         self.assertEqual(t['mlb.1i.nrfi:week'], t['mlb.1i.nrfi:season'])
+
+    def test_empty_numbers_drop_out(self):
+        v = {'a:season': '59% (20-14)', 'a:week': gs.EMPTY, 'a:lastweek': '60% (6-4)', 'b:season': gs.EMPTY}
+        self.assertEqual(gs.fill('- Over: {{a:season}}{{a:week|; this week}}{{a:lastweek|; last week}}.', v, 'x'),
+                         '- Over: 59% (20-14); last week 60% (6-4).')
+        self.assertEqual(gs.fill('- One: {{a:season}}.\n- Two: {{b:season}}.\n- Three.', v, 'x'), '- One: 59% (20-14).\n- Three.')
+        self.assertEqual(gs.fill('First {{a:season}}. Then {{b:season}} tied. Last.', v, 'x'), 'First 59% (20-14). Last.')
+        self.assertEqual(gs.fill('Week {{a:week}}.', v, 'x'), 'Week -.')
 
 
 class MarkdownTest(unittest.TestCase):
@@ -82,6 +90,30 @@ class MarkdownTest(unittest.TestCase):
             self.assertEqual(guides.updated('x/', ['60% (2-0)']), gs.today_et().isoformat())
         finally:
             guides.LOG = old
+
+
+class LinksTest(unittest.TestCase):
+    def test_every_guide_link_resolves(self):
+        # the Markdown's site links point at pages that exist ...
+        for name in FILES:
+            body = open(os.path.join(guides.CONTENT, f'{name}.md'), encoding='utf-8').read()
+            for href in re.findall(r'\]\((/[^)\s]*)\)', body):
+                path = href.split('#')[0].lstrip('/')
+                with self.subTest(f'{name}.md {href}'):
+                    self.assertTrue(os.path.exists(os.path.join(ROOT, path, 'index.html')), href)
+        # ... and the built pages reach them root-relative (GitHub Pages and the domain)
+        for rel in pages():
+            page = open(os.path.join(ROOT, rel, 'index.html'), encoding='utf-8').read()
+            body = page[page.index('class="gd-'):]   # the guide itself (the sport template's menus are rewritten in the page)
+            body = body[:body.index('<footer')] if '<footer' in body else body
+            with self.subTest(rel):
+                self.assertNotRegex(body, r'href="/(?!/)', rel)
+                for href in re.findall(r'href="((?:\.\./)*[a-z0-9-][^"#?:]*/)"', body):
+                    target = os.path.normpath(os.path.join(ROOT, rel, href))
+                    self.assertTrue(os.path.exists(os.path.join(target, 'index.html')), f'{rel}: {href}')
+
+    def test_rooted(self):
+        self.assertEqual(guides.rooted('<a href="/nhl/odds/">x</a>', '../../'), '<a href="../../nhl/odds/">x</a>')
 
 
 class PagesTest(unittest.TestCase):

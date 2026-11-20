@@ -20,8 +20,13 @@ Division I (FBS) teams only:
 Windows: season, week and lastweek. Daily sports' week is Monday-Sunday in
 New York so far, lastweek the Monday-Sunday before it; NFL and NCAAF use
 this game week and the one before. An off-season sport shows the last full
-season's final value in every window, with " (2026 season)" after it. A
-window with fewer than MIN_GAMES games shows the site's empty-value dash.
+season's final value in every window.
+
+Empty numbers (a window with fewer than MIN_GAMES games) never show:
+{{sport.segment.stat:window|label}} writes "label value" and drops the
+label with an empty value ("{{nba.1q.over:week|; this week}}"); a list
+item or sentence with an empty season value is dropped; any other empty
+value shows the site's empty-value dash.
 """
 import json
 import os
@@ -195,26 +200,47 @@ def table(today=None):
         games = finals(doc, key)
         off = not sports.in_season(sp, today)
         wins = {w: games for w in WINDOWS} if off else windows(doc, games, today)
-        tail = f" ({doc.get('seasonLabel') or doc.get('season')} season)" if off and doc else ''
         for seg, stats in segs.items():
             for stat in stats:
                 for w in WINDOWS:
                     rows = [(g, (g.get('res') or {}).get(seg)) for _, g in wins[w]]
                     rows = [(g, x) for g, x in rows if x and x.get('sc') and not x.get('na')]
                     v = value(stat, rows, seg)
-                    out[f'{key}.{seg}.{stat}:{w}'] = v + tail if v != EMPTY else v
+                    out[f'{key}.{seg}.{stat}:{w}'] = v
     return out
+
+
+DROP = '\x00'   # an empty season value: its list item or sentence goes
 
 
 def fill(text, values, name):
     """text with every token replaced; an unknown one raises UnknownToken
-    naming the file and the token."""
+    naming the file and the token. Empty numbers drop out (see above)."""
     def sub(m):
-        tok = m.group(1)
+        tok, _, label = m.group(1).partition('|')
+        tok = tok.strip()
         if tok not in values:
-            raise UnknownToken(f'{name}: unknown token {{{{{tok}}}}}')
-        return values[tok]
-    return TOKEN.sub(sub, text)
+            raise UnknownToken(f'{name}: unknown token {{{{{m.group(1)}}}}}')
+        v = values[tok]
+        if v != EMPTY:
+            return f'{label.strip()} {v}' if label else v
+        if label:
+            return ''
+        return DROP if tok.endswith(':season') else EMPTY
+
+    def line(ln):
+        if DROP not in ln:
+            return ln
+        if re.match(r'\s*[-*]\s', ln):
+            return None
+        return ' '.join(x for x in re.split(r'(?<=[.!?])\s+', ln) if DROP not in x)
+    out = [line(ln) for ln in TOKEN.sub(sub, text).split('\n')]
+    return '\n'.join(ln for ln in out if ln is not None)
+
+
+def key(tok):
+    """The value's key for a token ("nba.1q.over:week|; this week" -> "nba.1q.over:week")."""
+    return tok.partition('|')[0].strip()
 
 
 if __name__ == '__main__':

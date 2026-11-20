@@ -30,7 +30,7 @@ BTTS No wins on 0-0, 1-0, 2-0, 3-0. It's the side that usually hits, so it's pri
 
 According to Run To Your Bets Trends (as of {{asof}}):
 
-- BTTS Yes, NHL 1P: {{nhl.1p.btts_yes:season}}; this week {{nhl.1p.btts_yes:week}}; last week {{nhl.1p.btts_yes:lastweek}}.
+- BTTS Yes, NHL 1P: {{nhl.1p.btts_yes:season}}{{nhl.1p.btts_yes:week|; this week}}{{nhl.1p.btts_yes:lastweek|; last week}}.
 
 Every team's BTTS record is on the [NHL Teams page](/nhl/teams/), and today's BTTS streaks are on [NHL Trends](/nhl/trends/).
 

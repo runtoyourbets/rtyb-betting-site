@@ -49,7 +49,7 @@ Thinking about the tie? The most common first-period tie isn't 0-0, it's 1-1. If
 
 This season, according to Run To Your Bets Trends (as of {{asof}}):
 
-- Over 1.5: {{nhl.1p.over:season}}; this week {{nhl.1p.over:week}}; last week {{nhl.1p.over:lastweek}}.
+- Over 1.5: {{nhl.1p.over:season}}{{nhl.1p.over:week|; this week}}{{nhl.1p.over:lastweek|; last week}}.
 - BTTS Yes: {{nhl.1p.btts_yes:season}}.
 - Home teams winning the period: {{nhl.1p.home_ml:season}}.
 - Tied after one: {{nhl.1p.tie:season}}.

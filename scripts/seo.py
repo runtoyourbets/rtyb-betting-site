@@ -186,6 +186,22 @@ def head_block(rel, page_html, base, snippet):
     return '<!--seo-->' + ''.join(tags) + '<!--/seo-->'
 
 
+RECORD = re.compile(r'(?<![\w.,-])(\d{1,3}(?:,\d{3})*(?:-\d{1,3}(?:,\d{3})*){1,2})(?![\w-])')
+SKIP = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|<title>.*?</title>|<textarea\b.*?</textarea>|<[^>]+>)', re.S | re.I)
+
+
+def nowrap(page_html):
+    """Every record and score in the page's text (12-3-8, 2-0, 1,200-1,229)
+    in a <span class="nw">, so it never wraps at the hyphen. Tags, scripts
+    and styles are left alone; the page's own drawing does the same
+    (build_site.SHELL_JS)."""
+    parts = SKIP.split(page_html)
+    for i in range(0, len(parts), 2):
+        if parts[i] and not (i and parts[i - 1] == '<span class="nw">'):
+            parts[i] = RECORD.sub(r'<span class="nw">\1</span>', parts[i])
+    return ''.join(parts)
+
+
 def finish():
     """Share tags, canonical and analytics on every page; footer links;
     sitemap.xml and robots.txt. Returns the sitemap's URL count."""
@@ -196,7 +212,7 @@ def finish():
             page_html = f.read()
         if 'http-equiv="refresh"' in page_html:   # redirect stubs
             continue
-        out = signup.fill(page_html.replace('__ROOT__', '../' * rel.count('/')))
+        out = nowrap(signup.fill(page_html.replace('__ROOT__', '../' * rel.count('/'))))
         block = head_block(rel, out, base, snippet)
         if '<!--seo-->' in out:
             out = re.sub(r'<!--seo-->.*?<!--/seo-->', lambda m: block, out, count=1, flags=re.S)

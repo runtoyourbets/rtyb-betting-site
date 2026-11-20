@@ -14,7 +14,8 @@ cards each in the Stats card style (template.html .st-card), then "More
                   (trends.side_angles / game_angles); links to Splits
   Edges           the top closer and the biggest fader: each team's record
                   over the rest of the game after the first segment (the
-                  Edges page's Best Closers / Biggest Faders); links to Edges
+                  Edges page's Best Closers / Biggest Faders); links to Edges.
+                  Hidden while Edges is (build_site.HIDDEN_STATS).
 
 Off-season sports show last season's numbers, labeled "2026 season".
 """
@@ -202,7 +203,7 @@ def section(sport, root):
     G_all = trends.prepare(sp, sport.doc)
     off = not sports.in_season(sp)
     label = f'<span class="ix-week">&middot; {esc(sport.doc.get("seasonLabel") or "")} season</span>' if off and sport.doc.get('seasonLabel') else ''
-    cards = season_card(sp, G_all) + split_card(sp, G_all) + edges_card(sport, sp, sport.doc, G_all, root)
+    cards = season_card(sp, G_all) + split_card(sp, G_all)   # Edges is hidden (build_site.HIDDEN_STATS)
     stats = root + sports.section_path(sp, 'stats').lstrip('/')
     cards = cards.replace('href="/', 'href="' + root)   # the cards' root-relative links, from this page's depth
     return (f'<section class="ix-group" id="ix-{sp["key"]}"><h2 class="ix-sport">{icons.sport_icon(sp)}{esc(sp["menu_label"])} {label}</h2>'
