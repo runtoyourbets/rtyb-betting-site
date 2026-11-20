@@ -10368,8 +10368,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "P",
+    "units": 0.0,
     "streakTeamName": "NY Islanders"
    },
    {
@@ -10460,8 +10460,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.45,
     "streakTeamName": "Washington"
    },
    {
