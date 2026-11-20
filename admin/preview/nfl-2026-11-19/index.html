@@ -290,8 +290,23 @@
       box.style.left = ''; box.style.top = '';
       box.hidden = false; scrim.hidden = !panel;
       if (!panel) place(tip);
+      glossaryLink(tip);
     }
     window.rtybTipClose = hide;
+    // a market term's "i" (data-term) links to its glossary entry once it's Live there
+    var defsP = null;
+    function glossaryLink(tip) {
+      var term = tip.getAttribute('data-term');
+      if (!term) return;
+      defsP = defsP || fetch(SITE_ROOT + '/assets/definitions.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; });
+      defsP.then(function(d) {
+        if (cur !== tip || !d || !(d.live || {})['term:' + term] || box.querySelector('.tip-more')) return;
+        var a = document.createElement('a');
+        a.className = 'tip-more'; a.href = SITE_ROOT + '/betting-guides/glossary/#' + term; a.textContent = 'More in the glossary →';
+        box.insertBefore(a, box.querySelector('.tip-x'));
+        if (!box.classList.contains('tip-panel')) place(tip);
+      });
+    }
     // captured, so a tip inside a sortable header or a link doesn't also act on it
     document.addEventListener('click', function(e) {
       if (e.target.closest && e.target.closest('.tip-x')) { e.preventDefault(); hide(); return; }
