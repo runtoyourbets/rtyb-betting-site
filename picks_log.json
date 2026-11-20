@@ -11483,54 +11483,47 @@
     "streakTeamName": "Delaware"
    },
    {
-    "id": "nba|401909311|1h|total|under",
-    "game": "nba|401909311",
+    "id": "ncaaf|401864542|1q|ml|home",
+    "game": "ncaaf|401864542",
     "date": "2026-11-20",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-21T02:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Suns @ Jazz",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 116.5,
-    "price": -105,
-    "title": "1H Under 116.5",
-    "est": 0.5441,
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-21T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "New Mexico @ Wyoming",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 190,
+    "title": "Wyoming 1Q ML",
+    "est": 0.3768,
     "edge": 0.0319,
-    "agree": 6,
-    "sample": 16,
+    "agree": 2,
+    "sample": 8,
     "tier": "C",
     "tags": [
-     "Under Grinder"
+     "Dog Hunter",
+     "Streak Rider"
     ],
-    "streak": -1,
-    "streakTeam": "phx",
+    "streak": 5,
+    "streakTeam": "wyoming-cowboys",
     "angles": [
      [
-      "Jazz 1H unders, season (116.5)",
-      "12-4"
+      "Wyoming 1Q ML, last 8",
+      "5-2-1"
      ],
      [
-      "Suns 1H unders, last 8 (116.5)",
-      "6-2"
-     ],
-     [
-      "Suns 1H unders, season (116.5)",
-      "9-5"
-     ],
-     [
-      "Jazz 1H unders at home (116.5)",
-      "5-3"
+      "Wyoming 1Q ML, season",
+      "5-3-2"
      ]
     ],
-    "info": "Avg 1H total in their games: Jazz 112.6 \u00b7 Suns 114.4",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Suns"
+    "streakTeamName": "Wyoming"
    }
   ]
  }
