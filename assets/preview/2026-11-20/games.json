@@ -215,7 +215,7 @@
    },
    {
     "label": "NBA · Charlotte Hornets at Atlanta Hawks · 7:00 PM ET",
-    "trends": 10,
+    "trends": 13,
     "value": "nba:401909305"
    },
    {
@@ -305,17 +305,17 @@
    },
    {
     "label": "NBA · Indiana Pacers at Cleveland Cavaliers · 7:30 PM ET",
-    "trends": 9,
+    "trends": 11,
     "value": "nba:401909307"
    },
    {
     "label": "NBA · Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 16,
+    "trends": 21,
     "value": "nba:401909306"
    },
    {
     "label": "NBA · Toronto Raptors at Detroit Pistons · 7:30 PM ET",
-    "trends": 11,
+    "trends": 13,
     "value": "nba:401909308"
    },
    {
@@ -345,12 +345,12 @@
    },
    {
     "label": "NBA · New Orleans Pelicans at Oklahoma City Thunder · 8:00 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "nba:401909310"
    },
    {
     "label": "NBA · Washington Wizards at Chicago Bulls · 8:00 PM ET",
-    "trends": 6,
+    "trends": 10,
     "value": "nba:401909309"
    },
    {
@@ -435,7 +435,7 @@
    },
    {
     "label": "NBA · Phoenix Suns at Utah Jazz · 9:30 PM ET",
-    "trends": 5,
+    "trends": 9,
     "value": "nba:401909311"
    },
    {
@@ -445,12 +445,12 @@
    },
    {
     "label": "NBA · Houston Rockets at Denver Nuggets · 10:00 PM ET",
-    "trends": 9,
+    "trends": 13,
     "value": "nba:401909312"
    },
    {
     "label": "NBA · Sacramento Kings at Los Angeles Lakers · 10:00 PM ET",
-    "trends": 16,
+    "trends": 17,
     "value": "nba:401909313"
    },
    {
@@ -465,7 +465,7 @@
    }
   ],
   "lead": "ncaaf:401864545",
-  "motd": "ncaab:401921723"
+  "motd": "nba:401909306"
  },
  "nba": {
   "codes": [
@@ -491,47 +491,47 @@
   "games": [
    {
     "label": "Charlotte Hornets at Atlanta Hawks · 7:00 PM ET",
-    "trends": 10,
+    "trends": 13,
     "value": "nba:401909305"
    },
    {
     "label": "Indiana Pacers at Cleveland Cavaliers · 7:30 PM ET",
-    "trends": 9,
+    "trends": 11,
     "value": "nba:401909307"
    },
    {
     "label": "Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 16,
+    "trends": 21,
     "value": "nba:401909306"
    },
    {
     "label": "Toronto Raptors at Detroit Pistons · 7:30 PM ET",
-    "trends": 11,
+    "trends": 13,
     "value": "nba:401909308"
    },
    {
     "label": "New Orleans Pelicans at Oklahoma City Thunder · 8:00 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "nba:401909310"
    },
    {
     "label": "Washington Wizards at Chicago Bulls · 8:00 PM ET",
-    "trends": 6,
+    "trends": 10,
     "value": "nba:401909309"
    },
    {
     "label": "Phoenix Suns at Utah Jazz · 9:30 PM ET",
-    "trends": 5,
+    "trends": 9,
     "value": "nba:401909311"
    },
    {
     "label": "Houston Rockets at Denver Nuggets · 10:00 PM ET",
-    "trends": 9,
+    "trends": 13,
     "value": "nba:401909312"
    },
    {
     "label": "Sacramento Kings at Los Angeles Lakers · 10:00 PM ET",
-    "trends": 16,
+    "trends": 17,
     "value": "nba:401909313"
    }
   ],
