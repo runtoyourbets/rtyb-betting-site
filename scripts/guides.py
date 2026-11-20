@@ -11,7 +11,7 @@ Pages:
                                       Betting Guide")
 
 Content is Markdown in content/betting-guides/, one file per page, named
-after the page: index.md, glossary.md, first-segment-betting.md,
+after the page: index.md, first-segment-betting.md,
 moneyline.md, ..., and nhl.md, nba.md ... for the sport guides. Front matter:
 
   ---
@@ -20,8 +20,17 @@ moneyline.md, ..., and nhl.md, nba.md ... for the sport guides. Front matter:
   description: "One or two sentences for search and share cards."
   updated: 2026-11-20
   ---
-  Body in Markdown: paragraphs, ## and ### headings, - lists, **bold**,
-  *italic* and [links](/nhl/odds/).
+  Body in Markdown: paragraphs, ## and ### headings, - lists, pipe tables
+  (header, --- row, rows: the site's standard table), **bold**, *italic*
+  and [links](/nhl/odds/). Live numbers ({{nhl.1p.over:season}},
+  {{asof}}) are filled at build time (guide_stats.py); an unknown one
+  stops the build. A "## FAQ" section ("### question", then the answer)
+  becomes the page's FAQPage data.
+
+Every guide page but the index opens with a breadcrumb (Betting Guides ›
+the page; BreadcrumbList data). General guides use the front-matter title
+as the H1 and <title>. "Updated" (and dateModified) is the date of the last
+build that changed a number on the page, kept in betting_guides_log.json.
 
 The glossary is built from the Live "Markets & terms" entries in
 content/definitions.json (the admin's Definitions tab): each term is a
@@ -33,17 +42,21 @@ Every sport page ends with a small Betting Guides block (sport_block): the
 sport's guide and two or three bet-type guides for its markets.
 """
 import html
+import json
 import os
 import re
 
 import daily
 import definitions
+import guide_stats
+import seo
 import sports
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, 'content', 'betting-guides')
 INDEX_DIR = 'betting-guides'
 INDEX_H1 = f'{sports.CROSS_WORDS} Betting Guides'
+LOG = os.path.join(ROOT, 'betting_guides_log.json')
 
 # (slug, default title, one line for the cards)
 GENERAL = [
@@ -55,7 +68,7 @@ GENERAL = [
     ('3-way-moneyline', '3-Way Moneyline', 'Home, away or tie, with the tie as its own bet.'),
     ('nrfi-yrfi', 'NRFI / YRFI', 'A run in the 1st inning, or not.'),
     ('first-five', 'First Five', 'Baseball’s first five innings, before the bullpens.'),
-    ('units', 'Units', 'How RTYB counts profit and loss.'),
+    ('units', 'Units', 'How Run To Your Bets counts profit and loss.'),
 ]
 GENERAL_BY = {g[0]: g for g in GENERAL}
 GLOSSARY = ('glossary', 'Betting Glossary', 'Every term on the site, A to Z.')
@@ -84,13 +97,84 @@ def bet_guides(sp):
     return SPORT_BET_GUIDES.get(sp['key'], SPREAD_BET_GUIDES)
 
 
+_VALUES = {}
+
+
+def values():
+    """Every live number, worked out once per build (guide_stats.table)."""
+    if not _VALUES:
+        _VALUES.update(guide_stats.table())
+    return _VALUES
+
+
 def read(name):
-    """(front matter, body) of content/betting-guides/{name}.md, or None."""
+    """(front matter, body) of content/betting-guides/{name}.md with its
+    live numbers filled in, or None. An unknown token raises
+    guide_stats.UnknownToken (file and token)."""
     path = os.path.join(CONTENT, f'{name}.md')
     if not os.path.exists(path):
         return None
     with open(path, encoding='utf-8') as f:
-        return daily.parse(f.read())
+        meta, body = daily.parse(f.read())
+    numbers = [values()[t] for t in guide_stats.TOKEN.findall(body) if t in values() and t != 'asof']
+    meta['_numbers'] = numbers
+    return meta, guide_stats.fill(body, values(), f'content/betting-guides/{name}.md')
+
+
+def updated(rel, numbers):
+    """The date (New York) of the last build that changed a number on the
+    page at `rel`; betting_guides_log.json keeps each page's numbers."""
+    try:
+        with open(LOG, encoding='utf-8') as f:
+            log = json.load(f)
+    except (OSError, ValueError):
+        log = {}
+    row = log.get(rel)
+    if row and row.get('numbers') == numbers and row.get('updated'):
+        return row['updated']
+    log[rel] = {'numbers': numbers, 'updated': guide_stats.today_et().isoformat()}
+    with open(LOG, 'w', encoding='utf-8') as f:
+        json.dump(log, f, indent=1, ensure_ascii=False, sort_keys=True)
+        f.write('\n')
+    return log[rel]['updated']
+
+
+def faq(md):
+    """[(question, answer)] from the body's "## FAQ" section."""
+    m = re.search(r'^##\s+FAQ\s*$(.*?)(?=^##\s|\Z)', md, re.M | re.S)
+    if not m:
+        return []
+    out = []
+    for part in re.split(r'^###\s+', m.group(1), flags=re.M)[1:]:
+        q, _, a = part.partition('\n')
+        a = ' '.join(daily.plain(x).strip() for x in a.strip().splitlines() if x.strip())
+        if q.strip() and a:
+            out.append((daily.plain(q).strip(), a))
+    return out
+
+
+def crumb(page, root):
+    """Betting Guides › page."""
+    return (f'<nav class="gd-crumb" aria-label="Breadcrumb"><a href="{root}{INDEX_DIR}/">Betting Guides</a>'
+            f'<span aria-hidden="true">›</span><span aria-current="page">{esc(page)}</span></nav>')
+
+
+def ld_json(rel, page, headline, desc, md, when):
+    """The page's structured data: Article (dateModified), BreadcrumbList
+    and, with a "## FAQ", FAQPage."""
+    base = seo.site_url()
+    graph = [{'@type': 'BreadcrumbList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': 1, 'name': 'Betting Guides', 'item': f'{base}{INDEX_DIR}/'},
+        {'@type': 'ListItem', 'position': 2, 'name': page, 'item': base + rel}]}]
+    if when:
+        graph.insert(0, {'@type': 'Article', 'headline': headline, 'description': desc,
+                         'dateModified': when, 'mainEntityOfPage': base + rel})
+    qa = faq(md)
+    if qa:
+        graph.append({'@type': 'FAQPage', 'mainEntity': [
+            {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in qa]})
+    data = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False).replace('</', '<\\/')
+    return f'<script type="application/ld+json">{data}</script>'
 
 
 GLOSSARY_IDS = {}
@@ -119,20 +203,23 @@ def glossary_html(md):
     return re.sub(r'<h2>(.*?)</h2>', head, out)
 
 
-def article(title, doc, kicker, back_href, is_glossary=False):
-    """(body html, description, noindex) for one guide page."""
+def article(title, doc, rel, root, is_glossary=False):
+    """(body html, description, noindex, <title>) for one guide page at rel."""
+    back = f'<p class="gd-back"><a href="{root}{INDEX_DIR}/">&larr; All Betting Guides</a></p>'
     if doc is None:
-        return (f'<article class="hp-sec gd-page"><span class="hd-kicker">{kicker}</span><h1>{esc(title)}</h1>'
-                f'<p class="lead">{COMING}.</p><p class="gd-back"><a href="{back_href}">&larr; All Betting Guides</a></p></article>',
-                f'{title}: {COMING.lower()} from RTYB.', True)
+        return (f'<article class="hp-sec gd-page">{crumb(title, root)}<h1>{esc(title)}</h1>'
+                f'<p class="lead">{COMING}.</p>{back}</article>',
+                f'{title}: {COMING.lower()} from RTYB.', True, f'{title} | RTYB Betting Guides')
     meta, body = doc
     content = glossary_html(body) if is_glossary else daily.to_html(body)
-    updated = str(meta.get('updated') or '')
-    when = (f'<p class="dp-date">Updated {daily.nice_date(updated)}</p>'
-            if re.fullmatch(r'\d{4}-\d{2}-\d{2}', updated) else '')
-    return (f'<article class="hp-sec gd-page"><span class="hd-kicker">{kicker}</span><h1>{esc(meta.get("title") or title)}</h1>{when}'
-            f'<div class="dp-body">{content}</div><p class="gd-back"><a href="{back_href}">&larr; All Betting Guides</a></p></article>',
-            meta.get('description') or daily.plain(body)[:200], False)
+    headline = meta.get('title') or title
+    desc = meta.get('description') or daily.plain(body)[:200]
+    day = updated(rel, meta['_numbers']) if '_numbers' in meta else str(meta.get('updated') or '')
+    when = day if re.fullmatch(r'\d{4}-\d{2}-\d{2}', day) else ''
+    date_html = f'<p class="dp-date">Updated {daily.nice_date(when)}</p>' if when else ''
+    return (f'<article class="hp-sec gd-page">{crumb(title, root)}<h1>{esc(headline)}</h1>{date_html}'
+            f'<div class="dp-body">{content}</div>{back}{ld_json(rel, title, headline, desc, body, when)}</article>',
+            desc, False, (not is_glossary and meta.get('title')) or f'{title} | RTYB Betting Guides')
 
 
 def card(href, title, line):
@@ -189,8 +276,9 @@ def write(page, status, logo_svg):
     n = 1
     for slug, title, _ in GENERAL + [GLOSSARY]:
         doc = glossary_doc() if slug == 'glossary' else read(slug)
-        body, desc, noindex = article(title, doc, 'Betting Guides', '__R__' + INDEX_DIR + '/', is_glossary=slug == 'glossary')
-        save(f'{INDEX_DIR}/{slug}/', f'{title} | RTYB Betting Guides', desc, body, noindex)
+        rel = f'{INDEX_DIR}/{slug}/'
+        body, desc, noindex, head = article(title, doc, rel, '__R__', is_glossary=slug == 'glossary')
+        save(rel, head, desc, body, noindex)
         n += 1
     return n
 
@@ -200,19 +288,21 @@ def sport_page(sp):
     template (its page head carries the title)."""
     title = sport_title(sp)
     doc = read(sp['slug'])
+    h1 = title   # the H1 is fixed (sports.h1); front-matter titles are for the general guides
+    name = sports.seo_name(sp)
     if doc is None:
         body, desc, noindex = '', f'{COMING}.', True
-        h1 = title
     else:
         meta, md = doc
-        h1 = title   # the H1 is fixed (sports.h1); front-matter titles are for the general guides
-        updated = str(meta.get('updated') or '')
-        when = (f'<p class="dp-date">Updated {daily.nice_date(updated)}</p>'
-                if re.fullmatch(r'\d{4}-\d{2}-\d{2}', updated) else '')
-        body, desc, noindex = f'{when}<div class="dp-body">{daily.to_html(md)}</div>', meta.get('description') or daily.plain(md)[:200], False
+        rel = sports.guide_path(sp).lstrip('/')
+        desc = meta.get('description') or daily.plain(md)[:200]
+        when = updated(rel, meta['_numbers'])
+        body = (f'<p class="dp-date">Updated {daily.nice_date(when)}</p><div class="dp-body">{daily.to_html(md)}</div>'
+                + ld_json(rel, name, h1, desc, md, when))
+        noindex = False
     more = ''.join(f'<a class="gd-link" href="/{INDEX_DIR}/{slug}/">{esc(GENERAL_BY[slug][1])} &rarr;</a>' for slug in bet_guides(sp))
     body = (f'<article class="gd-page gd-sport">{body}</article>'
             f'<section class="gd-block" aria-label="More guides"><h2 class="t-label">More guides</h2><div class="gd-links">{more}'
             f'<a class="gd-link" href="/{INDEX_DIR}/">All Betting Guides &rarr;</a></div></section>')
-    meta = {'title': sports.page_title(h1), 'h1': esc(h1), 'desc': esc(desc), 'section': 'guide'}
+    meta = {'title': sports.page_title(h1), 'h1': esc(h1), 'desc': esc(desc), 'section': 'guide', 'crumb': crumb(name, '/')}
     return meta, body, noindex

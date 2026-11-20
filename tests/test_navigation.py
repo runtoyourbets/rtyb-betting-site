@@ -137,9 +137,9 @@ class GuidesTest(unittest.TestCase):
         self.assertEqual(guides.sport_title(sports.BY_KEY['nba']), 'NBA First Quarter & First Half Betting Guide')
 
     def test_missing_file_is_noindexed(self):
-        _, body, noindex = guides.article('Units', None, 'Betting Guides', '../')
+        body, _, noindex, _ = guides.article('Units', None, 'betting-guides/units/', '../')
         self.assertTrue(noindex)
-        self.assertIn(guides.COMING, _)
+        self.assertIn(guides.COMING, body)
 
 
 class PreviewTitleTest(unittest.TestCase):

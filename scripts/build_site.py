@@ -997,6 +997,7 @@ def write_sport_extras(template):
     for sp in sports.SPORTS:
         meta, body, noindex = guides.sport_page(sp)
         html = render_page(bare, 'sport', '', meta=meta, sport=sp, sport_body=body)
+        html = html.replace('<div class="page-head">', meta['crumb'] + '<div class="page-head">', 1)   # Betting Guides › NHL
         if noindex and NOINDEX not in html:
             html = html.replace('</title>', '</title>\n' + NOINDEX, 1)
         write_light(html, sports.guide_path(sp).strip('/'))

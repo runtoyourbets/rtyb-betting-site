@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/3-way-moneyline/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/btts/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/first-five/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/first-segment-betting/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/glossary/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/moneyline/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/nrfi-yrfi/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/spread/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/totals/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/betting-guides/units/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/betting-guide/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/odds/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/preview/</loc></url>
@@ -381,6 +391,7 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/teams/youngstown-state-penguins/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-basketball/trends/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/betting-guide/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/odds/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/preview/</loc></url>
@@ -531,6 +542,7 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/college-football/trends/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/mlb/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/mlb/betting-guide/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/mlb/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/mlb/odds/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/mlb/stats/</loc></url>
@@ -569,6 +581,7 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/mlb/teams/wsh/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/mlb/trends/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/betting-guide/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/odds/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/preview/</loc></url>
@@ -611,6 +624,7 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/teams/wsh/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nba/trends/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nfl/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nfl/betting-guide/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nfl/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nfl/odds/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nfl/preview/</loc></url>
@@ -654,6 +668,7 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nfl/teams/wsh/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nfl/trends/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nhl/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nhl/betting-guide/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nhl/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nhl/odds/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/nhl/preview/</loc></url>
@@ -705,6 +720,7 @@
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/stats/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/trends/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/wnba/</loc></url>
+  <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/wnba/betting-guide/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/wnba/matchups/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/wnba/odds/</loc></url>
   <url><loc>https://runtoyourbets.github.io/rtyb-betting-site/wnba/stats/</loc></url>

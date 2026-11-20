@@ -62,6 +62,39 @@ refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
   never `--text-faint` for words. Cards: one 1px `--card-border`, no card
   inside a card (template.html `.st-card`, shared by Stats, Matchups and Odds).
 
+## Betting Guides
+
+Content is Markdown in content/betting-guides/ (17 files: index.md, the
+general guides and one per sport); the Glossary comes from the Definitions
+tool (content/definitions.json), never a glossary.md. Guide text says
+"Run To Your Bets" (not RTYB). Pipe tables render as the standard table; a
+"## FAQ" ("### question" + answer) becomes FAQPage data; every guide page
+but the index has a Betting Guides › [page] breadcrumb (BreadcrumbList).
+General guides use the front-matter title as H1 and <title>; sport guides
+keep their fixed H1. "Updated" and dateModified = the last build that
+changed a number on the page (betting_guides_log.json).
+
+Live numbers (scripts/guide_stats.py): `{{sport.segment.stat:window}}` and
+`{{asof}}` ("Thursday, Nov 19", ET). An unknown token fails the build with
+the file and the token. Windows: `season`, `week`, `lastweek` (daily sports:
+Mon-Sun ET so far and the Mon-Sun before; NFL/NCAAF: this game week and the
+one before). Off-season sports show the last full season in every window,
+with " (2026 season)" after it. Fewer than 10 games: "-". College counts
+Division I / FBS games only. Same data as the Trends/Stats pages.
+
+- `nhl.1p`: `over` (O-U), `btts_yes` (Y-N), `tie` ("34% (117 of 346)"),
+  `home_ml` (2-way W-L), `top_score` ("1-0 (27%)"), `goal_share` ("29%")
+- `mlb.1i.nrfi` ("49% (1,200 of 2,429)"); `mlb.f5`: `home_ml`, `tie`, `over`
+- `nba.1q`, `wnba.1q`: `over`, `fav_ats`, `home_ml`; `nba.1h`, `wnba.1h`:
+  `over`, `fav_ats`
+- `ncaab.1h`: `over`, `fav_ats`, `home_ml`
+- `nfl.1q`: `over`, `fav_ats`; `nfl.1h`: `over`, `fav_ats`, `home_ml`
+- `ncaaf.1q`, `ncaaf.1h`: `over`, `fav_ats`
+
+`over` = the segment total's Over (O-U, pushes out); `fav_ats` = the
+segment favorite covering the segment spread (W-L); `home_ml` = the home
+team winning the segment, 2-way (W-L, ties out). Rates read "59% (204-142)".
+
 ## Design tokens
 
 Every new page or component uses these tokens only (CSS variables and `.t-*`

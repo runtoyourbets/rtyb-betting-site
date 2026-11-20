@@ -70,7 +70,7 @@ def inline(s):
 
 
 def to_html(md):
-    """Paragraphs, headings, simple lists, bold, italic and links -- what
+    """Paragraphs, headings, simple lists, pipe tables, bold, italic and links -- what
     the drafts and columns use. A "##" / "###" at the start of any line
     starts a subhead, blank line or not; the lines after it are the
     paragraph."""
@@ -79,7 +79,14 @@ def to_html(md):
     def para(lines):
         if not lines:
             return
-        if all(re.match(r'[-*]\s+', x) for x in lines):
+        if (len(lines) > 1 and all(x.strip().startswith('|') for x in lines)
+                and re.fullmatch(r'\|?(\s*:?-{3,}:?\s*\|)+\s*:?(-{3,}:?\s*)?', lines[1].strip())):
+            # a pipe table (header, --- row, rows): the site's standard table
+            rows = [[c.strip() for c in x.strip().strip('|').split('|')] for x in lines]
+            head = ''.join(f'<th>{inline(c)}</th>' for c in rows[0])
+            body = ''.join('<tr>' + ''.join(f'<td>{inline(c)}</td>' for c in r) + '</tr>' for r in rows[2:])
+            out.append(f'<div class="st-card gd-table"><table class="tp-table"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>')
+        elif all(re.match(r'[-*]\s+', x) for x in lines):
             items = [inline(re.sub(r'^[-*]\s+', '', x)) for x in lines]
             out.append('<ul>' + ''.join(f'<li>{x}</li>' for x in items) + '</ul>')
         else:

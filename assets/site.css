@@ -2889,6 +2889,11 @@
   @media (min-width: 900px) { .ix .sl-cards, .ix .ht-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .gd-h { margin: 22px 0 10px; font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); }
   .gd-page .dp-body h2[id] { scroll-margin-top: 80px; }
+  .gd-crumb { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 8px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .gd-crumb a { color: var(--accent); text-decoration: none; }
+  .gd-table { margin: 0 0 14px; overflow-x: auto; }
+  .gd-table .tp-table td, .gd-table .tp-table th { white-space: normal; padding: 8px 10px 8px 0; }
+  .gd-table .tp-table td a { color: var(--accent); }
   .gd-back { margin-top: 18px; }
   .gd-back a { color: var(--accent); text-decoration: none; }
   .gd-block { margin: 28px 0 8px; padding-top: 16px; border-top: 1px solid var(--border-soft); }
