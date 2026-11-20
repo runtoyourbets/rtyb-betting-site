@@ -11471,47 +11471,54 @@
     "streakTeamName": "Delaware"
    },
    {
-    "id": "ncaaf|401864542|1q|ml|home",
-    "game": "ncaaf|401864542",
+    "id": "nba|401909311|1h|ml|away",
+    "game": "nba|401909311",
     "date": "2026-11-20",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-21T02:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "New Mexico @ Wyoming",
-    "href": "college-football/matchups/",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T02:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Suns @ Jazz",
+    "href": "nba/matchups/",
     "market": "ml",
-    "side": "home",
+    "side": "away",
     "line": null,
-    "price": 192,
-    "title": "Wyoming 1Q ML",
-    "est": 0.3749,
-    "edge": 0.0324,
-    "agree": 2,
-    "sample": 8,
+    "price": -155,
+    "title": "Suns 1H ML",
+    "est": 0.6394,
+    "edge": 0.0315,
+    "agree": 4,
+    "sample": 13,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Chalk Eater"
     ],
-    "streak": 5,
-    "streakTeam": "wyoming-cowboys",
+    "streak": 2,
+    "streakTeam": "phx",
     "angles": [
      [
-      "Wyoming 1Q ML, last 8",
+      "Jazz\u2019s opponents 1H ML, Jazz at home",
+      "6-2"
+     ],
+     [
+      "Suns 1H ML, last 8",
       "5-2-1"
      ],
      [
-      "Wyoming 1Q ML, season",
-      "5-3-2"
+      "Suns 1H ML on the road",
+      "3-2"
+     ],
+     [
+      "Suns 1H ML, season",
+      "7-6-1"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Wyoming"
+    "streakTeamName": "Suns"
    }
   ]
  }
