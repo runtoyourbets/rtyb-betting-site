@@ -192,7 +192,7 @@ class SeasonTest(unittest.TestCase):
     def test_in_season_by_month(self):
         nov = date(2026, 11, 16)
         on = [s['key'] for s in sports.SPORTS if sports.in_season(s, nov)]
-        self.assertEqual(on, ['nhl', 'nba', 'ncaab', 'nfl', 'ncaaf'])
+        self.assertEqual(sorted(on), sorted(['nhl', 'nba', 'ncaab', 'nfl', 'ncaaf']))   # in the admin's sport order
         self.assertTrue(sports.in_season(sports.BY_KEY['mlb'], date(2027, 4, 1)))
         self.assertFalse(sports.in_season(sports.BY_KEY['ncaaf'], date(2027, 3, 1)))
 

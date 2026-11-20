@@ -73,7 +73,10 @@ class NavTest(unittest.TestCase):
 
 class SettingsTest(unittest.TestCase):
     def test_defaults_and_order(self):
-        self.assertEqual([s['key'] for s in sports.SPORTS], ['nhl', 'nba', 'wnba', 'mlb', 'ncaab', 'nfl', 'ncaaf'])
+        # every sport, in the order the admin's Site settings saved (content/site_settings.json)
+        self.assertEqual(sorted(s['key'] for s in sports.SPORTS), sorted(['nhl', 'nba', 'wnba', 'mlb', 'ncaab', 'nfl', 'ncaaf']))
+        saved = [x['key'] for x in sports.SETTINGS.get('sports') or []]
+        self.assertEqual([s['key'] for s in sports.SPORTS], [k for k in saved if k in sports.BY_KEY] or [s['key'] for s in sports.SPORTS])
         self.assertEqual(sports.BY_KEY['ncaab']['menu_label'], 'College Basketball')
         # every sport "on": WNBA and MLB stay on the site out of season
         self.assertTrue(sports.is_launched('mlb'))
