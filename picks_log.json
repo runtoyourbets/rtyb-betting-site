@@ -10318,8 +10318,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Bucks"
    },
    {
@@ -10553,8 +10553,8 @@
      ]
     ],
     "info": "Avg 1Q total in their games: Bucks 50.5 \u00b7 Trail Blazers 53.9",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.885,
     "streakTeamName": "Bucks"
    },
    {
@@ -10888,8 +10888,8 @@
      ]
     ],
     "info": "Avg 1Q total in their games: Spurs 58.6 \u00b7 Clippers 55.7",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Spurs"
    },
    {
