@@ -14,10 +14,10 @@
    {
     "date": "2026-11-20",
     "headline": "UTEP Takes Eight Straight First-Half Losses to Air Force",
-    "live": false,
+    "live": true,
     "page": "admin/preview/all-2026-11-20/",
-    "path": "content/drafts/all-preview-2026-11-20.md",
-    "published": null,
+    "path": "content/published/all-preview-2026-11-20.md",
+    "published": "2026-11-20T16:57:39Z",
     "week": null,
     "written": "2026-11-20T13:03Z"
    },
