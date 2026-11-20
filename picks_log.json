@@ -10995,10 +10995,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 134,
+    "price": 156,
     "title": "Hornets 1Q ML",
-    "est": 0.5012,
-    "edge": 0.0738,
+    "est": 0.4755,
+    "edge": 0.0849,
     "agree": 3,
     "sample": 13,
     "tier": "B",
@@ -11257,6 +11257,52 @@
     "streakTeamName": "Coastal Carolina"
    },
    {
+    "id": "nba|401909305|1h|ml|away",
+    "game": "nba|401909305",
+    "date": "2026-11-20",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Hornets @ Hawks",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 186,
+    "title": "Hornets 1H ML",
+    "est": 0.4039,
+    "edge": 0.0542,
+    "agree": 3,
+    "sample": 14,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "cha",
+    "angles": [
+     [
+      "Hornets 1H ML on the road",
+      "5-2"
+     ],
+     [
+      "Hawks\u2019s opponents 1H ML, Hawks at home",
+      "4-2"
+     ],
+     [
+      "Hornets 1H ML, season",
+      "8-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Hornets"
+   },
+   {
     "id": "ncaab|401921007|1h|ml|away",
     "game": "ncaab|401921007",
     "date": "2026-11-20",
@@ -11297,52 +11343,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Kansas City"
-   },
-   {
-    "id": "nba|401909305|1h|ml|away",
-    "game": "nba|401909305",
-    "date": "2026-11-20",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-21T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Hornets @ Hawks",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 164,
-    "title": "Hornets 1H ML",
-    "est": 0.4237,
-    "edge": 0.0449,
-    "agree": 3,
-    "sample": 14,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "cha",
-    "angles": [
-     [
-      "Hornets 1H ML on the road",
-      "5-2"
-     ],
-     [
-      "Hawks\u2019s opponents 1H ML, Hawks at home",
-      "4-2"
-     ],
-     [
-      "Hornets 1H ML, season",
-      "8-6"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Hornets"
    },
    {
     "id": "ncaab|401929459|1h|ml|away",
@@ -11471,54 +11471,47 @@
     "streakTeamName": "Wizards"
    },
    {
-    "id": "nba|401909311|1h|ml|away",
-    "game": "nba|401909311",
+    "id": "ncaaf|401864542|1q|ml|home",
+    "game": "ncaaf|401864542",
     "date": "2026-11-20",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-21T02:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Suns @ Jazz",
-    "href": "nba/matchups/",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-21T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "New Mexico @ Wyoming",
+    "href": "college-football/matchups/",
     "market": "ml",
-    "side": "away",
+    "side": "home",
     "line": null,
-    "price": -150,
-    "title": "Suns 1H ML",
-    "est": 0.6339,
+    "price": 198,
+    "title": "Wyoming 1Q ML",
+    "est": 0.3695,
     "edge": 0.0339,
-    "agree": 4,
-    "sample": 13,
+    "agree": 2,
+    "sample": 8,
     "tier": "C",
     "tags": [
-     "Chalk Eater"
+     "Dog Hunter",
+     "Streak Rider"
     ],
-    "streak": 2,
-    "streakTeam": "phx",
+    "streak": 5,
+    "streakTeam": "wyoming-cowboys",
     "angles": [
      [
-      "Jazz\u2019s opponents 1H ML, Jazz at home",
-      "6-2"
-     ],
-     [
-      "Suns 1H ML, last 8",
+      "Wyoming 1Q ML, last 8",
       "5-2-1"
      ],
      [
-      "Suns 1H ML on the road",
-      "3-2"
-     ],
-     [
-      "Suns 1H ML, season",
-      "7-6-1"
+      "Wyoming 1Q ML, season",
+      "5-3-2"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Suns"
+    "streakTeamName": "Wyoming"
    }
   ]
  }
