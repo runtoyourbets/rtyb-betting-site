@@ -37,13 +37,13 @@
       "status": "on"
     },
     {
-      "key": "wnba",
-      "label": "WNBA",
+      "key": "nfl",
+      "label": "NFL",
       "status": "on"
     },
     {
-      "key": "mlb",
-      "label": "MLB",
+      "key": "ncaaf",
+      "label": "College Football",
       "status": "on"
     },
     {
@@ -52,13 +52,13 @@
       "status": "on"
     },
     {
-      "key": "nfl",
-      "label": "NFL",
+      "key": "mlb",
+      "label": "MLB",
       "status": "on"
     },
     {
-      "key": "ncaaf",
-      "label": "College Football",
+      "key": "wnba",
+      "label": "WNBA",
       "status": "on"
     }
   ],
