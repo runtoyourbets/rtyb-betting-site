@@ -92,5 +92,52 @@
    "start": "2026-11-20T00:00:00Z",
    "trend": "PHI has gone BTTS No"
   }
+ },
+ "2026-11-20": {
+  "all": {
+   "away": "utep-miners",
+   "chip": "UTEP LOST 1H · 9 OF 10",
+   "home": "air-force-falcons",
+   "id": "401864545",
+   "sport": "ncaaf",
+   "start": "2026-11-21T01:00Z",
+   "trend": "UTEP has lost the 1st half"
+  },
+  "nba": {
+   "away": "sac",
+   "chip": "SAC LOST 1H · 12 OF 14",
+   "home": "lal",
+   "id": "401909313",
+   "sport": "nba",
+   "start": "2026-11-21T03:00Z",
+   "trend": "SAC has lost the 1st half"
+  },
+  "ncaab": {
+   "away": "northwestern-wildcats",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 60% (202-133)",
+   "home": "virginia-tech-hokies",
+   "id": "401920380",
+   "sport": "ncaab",
+   "start": "2026-11-20T20:00Z",
+   "trend": "Fade teams off a blowout (1H ML)"
+  },
+  "ncaaf": {
+   "away": "northern-illinois-huskies",
+   "chip": "NIU LOST 1H · 10 OF 10",
+   "home": "north-dakota-state-bison",
+   "id": "401864543",
+   "sport": "ncaaf",
+   "start": "2026-11-21T21:00Z",
+   "trend": "NIU has lost the 1st half"
+  },
+  "nfl": {
+   "away": "ten",
+   "chip": "FADE BIG UNDERDOGS · 1H ML · 79% (23-6)",
+   "home": "dal",
+   "id": "401873073",
+   "sport": "nfl",
+   "start": "2026-11-22T18:00Z",
+   "trend": "Fade big underdogs (1H ML)"
+  }
  }
 }

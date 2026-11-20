@@ -10930,8 +10930,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Colorado"
    },
    {
@@ -10975,6 +10975,60 @@
     "status": "W",
     "units": 5.5,
     "streakTeamName": "Sacramento State"
+   }
+  ]
+ },
+ "2026-11-20": {
+  "plays": [
+   {
+    "id": "nba|401909311|1h|total|under",
+    "game": "nba|401909311",
+    "date": "2026-11-20",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T02:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Suns @ Jazz",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 116.5,
+    "price": -105,
+    "title": "1H Under 116.5",
+    "est": 0.5441,
+    "edge": 0.0319,
+    "agree": 6,
+    "sample": 16,
+    "tier": "C",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": -1,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Jazz 1H unders, season (116.5)",
+      "12-4"
+     ],
+     [
+      "Suns 1H unders, last 8 (116.5)",
+      "6-2"
+     ],
+     [
+      "Suns 1H unders, season (116.5)",
+      "9-5"
+     ],
+     [
+      "Jazz 1H unders at home (116.5)",
+      "5-3"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Jazz 112.6 \u00b7 Suns 114.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
    }
   ]
  }
