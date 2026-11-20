@@ -10995,10 +10995,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 156,
+    "price": 144,
     "title": "Hornets 1Q ML",
-    "est": 0.4755,
-    "edge": 0.0849,
+    "est": 0.4889,
+    "edge": 0.0791,
     "agree": 3,
     "sample": 13,
     "tier": "B",
@@ -11271,10 +11271,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 186,
+    "price": 170,
     "title": "Hornets 1H ML",
-    "est": 0.4039,
-    "edge": 0.0542,
+    "est": 0.418,
+    "edge": 0.0476,
     "agree": 3,
     "sample": 14,
     "tier": "B",
@@ -11512,6 +11512,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Wyoming"
+   },
+   {
+    "id": "nba|401909311|1h|ml|away",
+    "game": "nba|401909311",
+    "date": "2026-11-20",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T02:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Suns @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -150,
+    "title": "Suns 1H ML",
+    "est": 0.6339,
+    "edge": 0.0339,
+    "agree": 4,
+    "sample": 13,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Jazz\u2019s opponents 1H ML, Jazz at home",
+      "6-2"
+     ],
+     [
+      "Suns 1H ML, last 8",
+      "5-2-1"
+     ],
+     [
+      "Suns 1H ML on the road",
+      "3-2"
+     ],
+     [
+      "Suns 1H ML, season",
+      "7-6-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
    }
   ]
  }
