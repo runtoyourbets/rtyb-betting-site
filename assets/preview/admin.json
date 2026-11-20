@@ -46,10 +46,10 @@
    {
     "date": "2026-11-20",
     "headline": "Sacramento Kings Visit Los Angeles Lakers Riding 7 Straight First-Half Losses",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nba-2026-11-20/",
-    "path": "content/drafts/nba-preview-2026-11-20.md",
-    "published": null,
+    "path": "content/published/nba-preview-2026-11-20.md",
+    "published": "2026-11-20T16:58:00Z",
     "week": null,
     "written": "2026-11-20T13:01Z"
    },
@@ -78,10 +78,10 @@
    {
     "date": "2026-11-20",
     "headline": "Virginia Tech Rides a 5-Game First-Half Win Streak Into Northwestern",
-    "live": false,
+    "live": true,
     "page": "admin/preview/ncaab-2026-11-20/",
-    "path": "content/drafts/ncaab-preview-2026-11-20.md",
-    "published": null,
+    "path": "content/published/ncaab-preview-2026-11-20.md",
+    "published": "2026-11-20T16:58:23Z",
     "week": null,
     "written": "2026-11-20T13:02Z"
    },
