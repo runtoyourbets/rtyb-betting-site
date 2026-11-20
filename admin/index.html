@@ -646,6 +646,21 @@
     });
   }
 
+  // Plain hyphens only (CLAUDE.md): every save turns an en dash, em dash or
+  // minus sign into "-" in each string it sends, in every tab (they all save
+  // through callWorker), so a typed dash never reaches the site.
+  var DASH_RE = new RegExp('[' + String.fromCharCode(8211, 8212, 8722) + ']', 'g');
+  function plainDashes(v) {
+    if (typeof v === 'string') return v.replace(DASH_RE, '-');
+    if (Array.isArray(v)) return v.map(plainDashes);
+    if (v && typeof v === 'object') {
+      var o = {};
+      Object.keys(v).forEach(function(k) { o[plainDashes(k)] = plainDashes(v[k]); });
+      return o;
+    }
+    return v;
+  }
+
   function callWorker(path, body, statusEl, btn, doingLabel, doneMsg) {
     if (!WORKER_URL) {
       statusEl.className = 'status err';
@@ -658,7 +673,7 @@
     return fetch(WORKER_URL + path, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': getSecret() },
-      body: JSON.stringify(body),
+      body: JSON.stringify(plainDashes(body)),
     }).then(function(r) {
       if (r.status === 401) {
         clearSecret();

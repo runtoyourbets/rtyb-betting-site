@@ -128,6 +128,14 @@ jobs:
             echo "ANTHROPIC_API_KEY not set; skipping daily drafts"
           fi
 
+      - name: Plain hyphens, then check the finished pages
+        # A dash from fetched text, the admin or a Preview draft is converted,
+        # never a reason to stop the refresh (scripts/hyphens.py); this runs
+        # after the drafts step so their files are converted too.
+        run: |
+          python3 scripts/hyphens.py
+          python3 -m unittest tests.test_plain_hyphen
+
       - name: Commit and push if anything changed
         run: |
           git config user.name "rtyb-bot"

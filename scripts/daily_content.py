@@ -40,6 +40,7 @@ from zoneinfo import ZoneInfo
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import daily  # noqa: E402
 import grading  # noqa: E402
+import hyphens  # noqa: E402
 import preview as pv  # noqa: E402
 import sports  # noqa: E402
 
@@ -664,11 +665,12 @@ def save(kind, sport, day, body, model, packet):
         if motd:
             front.append(f'motd: {motd[0]}:{motd[1]}')
     front += boxes + ['---', '']
+    # plain hyphens only: Claude's long dashes become "-" here, not a failed refresh
     with open(draft_path(kind, sport, day), 'w', encoding='utf-8') as f:
-        f.write('\n'.join(front) + body + '\n')
+        f.write(hyphens.plain('\n'.join(front) + body + '\n'))
     # the packet beside the draft, so the editor can check every number
     with open(draft_path(kind, sport, day)[:-3] + '.packet.json', 'w', encoding='utf-8') as f:
-        json.dump(packet, f, indent=1, ensure_ascii=False)
+        f.write(hyphens.plain(json.dumps(packet, indent=1, ensure_ascii=False)))
     print(f'wrote {os.path.relpath(draft_path(kind, sport, day), ROOT)}' + (f' (check: {", ".join(check)})' if check else ''))
 
 

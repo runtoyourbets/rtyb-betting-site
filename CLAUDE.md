@@ -54,7 +54,10 @@ refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
   - Never blue for results or units.
 - Plain hyphen only; never en/em dashes or minus signs. Records 80% (12-3-8),
   scores 2-0, ranges 35-40, headers W-L-T, prices -160, empty cells "-"
-  (tests/test_plain_hyphen.py; the build swaps any that fetched text brings in).
+  A stray dash is converted, never a reason to stop the refresh: the admin
+  converts on save, the drafter as it writes, the build and the refresh's
+  last step in everything written (scripts/hyphens.py); the check runs on
+  the finished pages (tests/test_plain_hyphen.py).
 - Muted text is `--text-muted` everywhere (4.5:1+ on cards in both themes);
   never `--text-faint` for words. Cards: one 1px `--card-border`, no card
   inside a card (template.html `.st-card`, shared by Stats, Matchups and Odds).

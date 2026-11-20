@@ -58,6 +58,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import account  # noqa: E402
 import definitions  # noqa: E402
 import guides  # noqa: E402
+import hyphens  # noqa: E402
 import league_trends  # noqa: E402
 import periods  # noqa: E402
 import picks  # noqa: E402
@@ -1421,7 +1422,7 @@ def main():
     write_previews(template, now_utc)
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()
-    dashed = plain_dashes()
+    dashed = hyphens.plain_files()   # plain hyphens in everything written, content/ included
     if dashed:
         print(f'plain hyphens: {dashed} files had an en/em dash or minus sign')
 
@@ -1434,40 +1435,6 @@ def main():
           f"{len(full_data.get('summary', {}))} nhl/teams/<slug>/index.html pages ({team_bytes} bytes total), "
           f"and schedule_data.json ({sum(len(v) for v in merged_games.values())} games); "
           f"other sports: {other}; sitemap.xml ({sitemap_urls} URLs)")
-
-
-# Plain hyphen only (CLAUDE.md): en dash, em dash and minus sign, as
-# characters, HTML entities or JSON escapes. Fetched text brings them in
-# (an MLB game note: "Game 1, en dash, Makeup"), so the build's last step swaps
-# them in everything it writes; tests/test_plain_hyphen.py checks.
-DASHES = re.compile('|'.join(re.escape(x) for x in (
-    '\u2013', '\u2014', '\u2212', '&ndash;', '&mdash;', '&minus;', '&#8211;', '&#8212;', '&#8722;',
-    '\\u2013', '\\u2014', '\\u2212')), re.I)
-DASH_SKIP = {'.git', '.github', '.claude', 'scripts', 'tests', 'node_modules'}
-DASH_EXT = ('.html', '.json', '.js', '.css', '.xml', '.txt', '.md')
-
-
-def plain_dashes(root=ROOT):
-    """Swap every dash form for '-' in the site's text files; returns how
-    many files changed."""
-    changed = 0
-    for d, dirs, files in os.walk(root):
-        dirs[:] = [x for x in dirs if x not in DASH_SKIP]
-        for f in files:
-            if not f.endswith(DASH_EXT):
-                continue
-            path = os.path.join(d, f)
-            try:
-                with open(path, encoding='utf-8', newline='') as fh:
-                    text = fh.read()
-            except (UnicodeDecodeError, OSError):
-                continue
-            new = DASHES.sub('-', text)
-            if new != text:
-                with open(path, 'w', encoding='utf-8', newline='') as fh:
-                    fh.write(new)
-                changed += 1
-    return changed
 
 
 if __name__ == '__main__':

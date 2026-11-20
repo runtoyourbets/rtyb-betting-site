@@ -11,6 +11,7 @@ packet and nothing else.
 - Numbers do the work: a record (13-1), a rate (93%), a line (-2.5), a price (+126).
 - No hype words and no guarantees, and none of the banned phrases below.
 - No disclaimers; the site has its own.
+- Plain hyphens only; never en or em dashes.
 
 ## Banned phrases
 
