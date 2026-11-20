@@ -98,15 +98,15 @@ GLOSSARY_IDS = {}
 
 def glossary_doc():
     """The glossary from the Live Markets & terms entries in the admin's
-    Definitions tab (content/definitions.json), A to Z, one ## per term; the
-    long definition, when there is one, follows the short one. None while
+    Definitions tab (content/definitions.json), A to Z, one ## per term with its
+    long definition (the short one when there's no long one). None while
     no term is Live (the page says it's coming)."""
     terms = definitions.glossary_terms()
     GLOSSARY_IDS.clear()
     GLOSSARY_IDS.update({name: slug for slug, name, _, _ in terms})   # #btts, #units: the "i" boxes link here
     if not terms:
         return None
-    body = 'Every betting term RTYB uses, A to Z. The ⓘ next to a market on any page links to its entry here.\n\n' + '\n\n'.join(f'## {name}\n\n{short}' + (f'\n\n{long}' if long else '') for _, name, short, long in terms)
+    body = 'Every betting term RTYB uses, A to Z. The ⓘ next to a market on any page links to its entry here.\n\n' + '\n\n'.join(f'## {name}\n\n{long or short}' for _, name, short, long in terms)
     return ({'title': GLOSSARY[1], 'description': 'Every betting term on RTYB, A to Z: ' + ', '.join(t[1] for t in terms[:6]) + '…'}, body)
 
 

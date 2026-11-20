@@ -231,13 +231,18 @@ async function draftDefinitions(env, body) {
   const list = items.map((x) => ({ id: String(x.id || ""), name: String(x.name || "").slice(0, 120), category: String(x.category || ""),
     sports: (x.sports || []).slice(0, 7), how_calculated: String(x.calc || "").slice(0, 600), current: String(x.short || "").slice(0, 300) }));
   if (list.some((x) => !DEF_ID.test(x.id))) return { ok: false, status: 400, detail: "bad id" };
+  // the writing guide's voice (the same guide Preview's drafts follow)
+  const guide = await getFile(env, "content/preview_writing_guide.md");
+  const voice = guide.ok ? `\n\nWrite in the voice of RTYB's writing guide:\n<guide>\n${guide.text.slice(0, 8000)}\n</guide>` : "";
   const prompt = `You write the short definitions shown in the "i" boxes on RTYB, a sports betting stats site about the opening segment of games (NHL 1st period, NBA/WNBA/college basketball 1st quarter and 1st half, NFL/college football 1st quarter and 1st half, MLB 1st inning and first five innings).
 
 For each item below, write:
 - "short": one to three plain sentences, at most ${DEF_SHORT_MAX} characters, saying what the term, trend, label or split means for a bettor. Use {segment} where the opening segment's name belongs (the site fills in "1st period", "1st half"...) and {sport} for the league's name, only when needed. No hype, no advice, no emoji, no "this trend".
 - "long": two to four sentences with more detail (how it's counted, an example). Optional: "" when the short one says it all.
 
-Base the wording on how_calculated and keep any current text's meaning. Answer with JSON only: {"drafts": {"<id>": {"short": "...", "long": "..."}}}
+Base the wording on how_calculated and keep any current text's meaning.${voice}
+
+Answer with JSON only: {"drafts": {"<id>": {"short": "...", "long": "..."}}}
 
 Items:
 ${JSON.stringify(list, null, 1)}`;

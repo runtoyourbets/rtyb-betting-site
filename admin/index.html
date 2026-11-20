@@ -252,7 +252,7 @@
       <div class="card pv-confirm" id="dfConfirm" hidden></div>
       <p class="status" id="dfTopStatus"></p>
       <div class="pv-pills" id="dfCats" role="group" aria-label="Categories"></div>
-      <div class="df-filters"><select id="dfSport" aria-label="Sport"></select><select id="dfState" aria-label="Status"><option value="">Every status</option><option value="needs">Needs definition</option><option value="draft">Draft</option><option value="live">Live</option></select><input type="text" id="dfSearch" placeholder="Search names and text" aria-label="Search"></div>
+      <div class="df-filters"><select id="dfSport" aria-label="Sport"></select><select id="dfState" aria-label="Status"><option value="">All</option><option value="needs">Needs definition</option><option value="draft">Draft</option><option value="live">Live</option></select><input type="text" id="dfSearch" placeholder="Search names and text" aria-label="Search"></div>
       <div class="pv-warn" id="dfWarn" hidden></div>
       <div class="card"><div class="pv-cols df-cols"><div class="df-list" id="dfList"><p class="empty">Loading&hellip;</p></div><div id="dfEdit"><p class="empty">Pick an entry.</p></div></div></div>
     </div>
@@ -2296,7 +2296,7 @@
         var n = DF.meta[id].new;
         if (n && !DF.doc.entries[id]) DF.doc.entries[id] = { name: n.name, category: n.category, sports: DF.meta[id].sports || [], short: '', long: '', status: 'needs', isNew: true };
       });
-      document.getElementById('dfSport').innerHTML = '<option value="">Every sport</option>' + DF.sports.map(function(x) { return '<option value="' + x[0] + '">' + escHtml(x[1]) + '</option>'; }).join('');
+      document.getElementById('dfSport').innerHTML = '<option value="">All sports</option>' + DF.sports.map(function(x) { return '<option value="' + x[0] + '">' + escHtml(x[1]) + '</option>'; }).join('');
       DF.dirty = false;
       dfRender();
       if (DF.id && dfEntries()[DF.id]) dfOpen(DF.id);
@@ -2309,6 +2309,11 @@
     if (stt && e.status !== stt) return false;
     return !q || (id + ' ' + e.name + ' ' + (e.short || '') + ' ' + (e.long || '')).toLowerCase().indexOf(q) >= 0;
   }
+  // Draft all with AI: the Needs-definition entries in the filtered view (category, sport, search)
+  function dfNeeds() {
+    var E = dfEntries();
+    return Object.keys(E).filter(function(i) { return E[i].category === DF.cat && E[i].status === 'needs' && dfMatch(i, E[i]); });
+  }
   function dfRender() {
     var E = dfEntries(), ids = Object.keys(E);
     document.getElementById('dfCats').innerHTML = DF.cats.map(function(c) {
@@ -2316,7 +2321,7 @@
       var shown = all.filter(function(i) { return dfMatch(i, E[i]); }).length;
       var needs = all.filter(function(i) { return E[i].status === 'needs'; }).length;
       return '<button type="button" class="pv-pick" data-cat="' + c[0] + '" aria-pressed="' + (c[0] === DF.cat) + '">' + escHtml(c[1]) +
-        ' <span class="df-n">' + shown + '</span>' + (needs ? '<span class="pv-dot dot-needs" title="' + needs + ' need a definition"></span>' : '') + '</button>';
+        ' <span class="df-n">' + shown + (needs ? ' &middot; ' + needs + ' need' + (needs === 1 ? 's' : '') + ' definition' + (needs === 1 ? '' : 's') : '') + '</span>' + (needs ? '<span class="pv-dot dot-needs"></span>' : '') + '</button>';
     }).join('');
     var list = ids.filter(function(i) { return E[i].category === DF.cat && dfMatch(i, E[i]); })
       .sort(function(a, b) { return E[a].name.toLowerCase() < E[b].name.toLowerCase() ? -1 : 1; });
@@ -2324,7 +2329,7 @@
       var st = DF_ST[E[i].status] || DF_ST.needs;
       return '<button type="button" class="df-row" data-id="' + escHtml(i) + '" aria-current="' + (i === DF.id) + '"><span class="pv-dot dot-' + st[0] + '" title="' + st[1] + '"></span><span>' + escHtml(E[i].name) + '</span><small>' + st[1] + '</small></button>';
     }).join('') : '<p class="empty">Nothing matches.</p>';
-    var n = ids.filter(function(i) { return E[i].status === 'needs'; }).length;
+    var n = dfNeeds().length;
     document.getElementById('dfAiAll').textContent = 'Draft all with AI' + (n ? ' (' + n + ')' : '');
     document.getElementById('dfAiAll').disabled = !n;
   }
@@ -2442,11 +2447,11 @@
   document.getElementById('dfSearch').addEventListener('input', dfRender);
   document.getElementById('dfReload').addEventListener('click', function() { dfGuard(dfLoad); });
   document.getElementById('dfAiAll').addEventListener('click', function() {
-    var E = dfEntries(), ids = Object.keys(E).filter(function(i) { return E[i].status === 'needs'; });
+    var E = dfEntries(), ids = dfNeeds();
     if (!ids.length) return;
     var box = document.getElementById('dfConfirm');
     box.hidden = false;
-    box.innerHTML = '<p>Draft ' + ids.length + ' entr' + (ids.length === 1 ? 'y' : 'ies') + ' marked Needs definition with AI? Each is saved as a Draft; nothing goes Live until you publish it.</p>' +
+    box.innerHTML = '<p>Draft the ' + ids.length + ' Needs-definition entr' + (ids.length === 1 ? 'y' : 'ies') + ' in this view with AI? Each is saved as a Draft; nothing goes Live until you publish it.</p>' +
       '<div class="actions"><button class="save" type="button" data-c="no">Cancel</button><button class="publish" type="button" data-c="yes">Draft ' + ids.length + '</button></div><p class="status" id="dfAllStatus"></p>';
     box.onclick = function(ev) {
       var c = ev.target.closest('[data-c]'); if (!c) return;

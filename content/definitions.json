@@ -32,7 +32,7 @@
    "edited": "2026-11-19"
   },
   "edge:best-closers": {
-   "name": "Best closers",
+   "name": "Closers",
    "category": "edges",
    "sports": [
     "nhl",
@@ -49,7 +49,7 @@
    "edited": "2026-11-19"
   },
   "edge:biggest-faders": {
-   "name": "Biggest faders",
+   "name": "Faders",
    "category": "edges",
    "sports": [
     "nhl",
@@ -134,8 +134,61 @@
    "status": "needs",
    "edited": "2026-11-19"
   },
+  "edge:worth-it-price": {
+   "name": "Worth-it price",
+   "category": "edges",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "feature:awards": {
+   "name": "RTYB Awards",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Sport hubs › RTYB Awards"
+  },
+  "feature:best-bet": {
+   "name": "Best Bet of the season",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Sport hubs › Best Bet of the season"
+  },
   "feature:big-numbers": {
-   "name": "Big Numbers",
+   "name": "The Big Numbers",
    "category": "features",
    "sports": [
     "nhl",
@@ -150,10 +203,10 @@
    "long": "",
    "status": "needs",
    "edited": "2026-11-19",
-   "where": "Home"
+   "where": "Home › The Big Numbers"
   },
-  "feature:hottest-trends": {
-   "name": "Hottest Trends",
+  "feature:edge-play": {
+   "name": "Edge Play of the Night",
    "category": "features",
    "sports": [
     "nhl",
@@ -168,10 +221,10 @@
    "long": "",
    "status": "needs",
    "edited": "2026-11-19",
-   "where": "Home and sport hubs"
+   "where": "Preview › Edge Play of the Night box"
   },
-  "feature:leaders": {
-   "name": "Leaders",
+  "feature:league-trend-box": {
+   "name": "League Trend box",
    "category": "features",
    "sports": [
     "nhl",
@@ -186,28 +239,10 @@
    "long": "",
    "status": "needs",
    "edited": "2026-11-19",
-   "where": "Stats › Overview, Teams index"
-  },
-  "feature:league-trends": {
-   "name": "League Trends",
-   "category": "features",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "",
-   "long": "",
-   "status": "needs",
-   "edited": "2026-11-19",
-   "where": "Trends pages"
+   "where": "Preview › League Trend box"
   },
   "feature:matchup-of-the-day": {
-   "name": "Matchup of the Day",
+   "name": "Matchup of the Day / Week",
    "category": "features",
    "sports": [
     "nhl",
@@ -222,10 +257,10 @@
    "long": "",
    "status": "needs",
    "edited": "2026-11-19",
-   "where": "Home and sport hubs"
+   "where": "Home and sport hubs › Matchup of the Day (Matchup of the Week in football)"
   },
-  "feature:matchup-trends": {
-   "name": "Matchup Trends",
+  "feature:stat-of-the-night": {
+   "name": "Stat of the Night",
    "category": "features",
    "sports": [
     "nhl",
@@ -240,10 +275,10 @@
    "long": "",
    "status": "needs",
    "edited": "2026-11-19",
-   "where": "Trends pages"
+   "where": "Preview › Stat of the Night box"
   },
-  "feature:preview": {
-   "name": "Preview",
+  "feature:streaks-to-watch": {
+   "name": "Streaks to Watch",
    "category": "features",
    "sports": [
     "nhl",
@@ -258,10 +293,10 @@
    "long": "",
    "status": "needs",
    "edited": "2026-11-19",
-   "where": "Preview pages"
+   "where": "Home and sport hubs › Streaks to Watch"
   },
-  "feature:running-tab": {
-   "name": "Running Tab",
+  "feature:yesterdays-best": {
+   "name": "Yesterday’s Best",
    "category": "features",
    "sports": [
     "nhl",
@@ -276,25 +311,7 @@
    "long": "",
    "status": "needs",
    "edited": "2026-11-19",
-   "where": "Newsletter signup, Trends pages"
-  },
-  "feature:streak-trends": {
-   "name": "Streak Trends",
-   "category": "features",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "Teams on a run of 3 or more straight in the opening segment, counted from their most recent game. A tie or push ends a streak.",
-   "long": "",
-   "status": "live",
-   "edited": "2026-11-19",
-   "where": "Trends pages"
+   "where": "Home › Yesterday’s Best"
   },
   "label:fireworks": {
    "name": "🎆 Fireworks",
@@ -2203,40 +2220,6 @@
    "status": "draft",
    "edited": "2026-11-19"
   },
-  "term:back-fade": {
-   "name": "Back / Fade",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "Back: bet the side a trend names. Fade: bet against it, the other side.",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:best-price": {
-   "name": "Best price",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "The best payout for a bet across the books we track, outlined in green on the Odds page.",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
   "term:btts": {
    "name": "Both Teams to Score (BTTS)",
    "category": "terms",
@@ -2244,56 +2227,6 @@
     "nhl"
    ],
    "short": "Yes wins if both teams score in the segment; No wins if at least one team is held scoreless.",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:closing-line": {
-   "name": "Closing line",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "The last line and price before the game starts. RTYB grades units at the closing price.",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:cover": {
-   "name": "Cover",
-   "category": "terms",
-   "sports": [
-    "nba",
-    "wnba",
-    "ncaab",
-    "nfl",
-    "ncaaf",
-    "mlb"
-   ],
-   "short": "Beat the spread. Covering is what wins a spread bet, whether the team won the game or not.",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:favorite": {
-   "name": "Favorite",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "The team the line expects to win: a minus price on the moneyline, or giving points on the spread.",
    "long": "",
    "status": "draft",
    "edited": "2026-11-19"
@@ -2309,8 +2242,8 @@
    "status": "draft",
    "edited": "2026-11-19"
   },
-  "term:juice": {
-   "name": "Juice (vig)",
+  "term:league-average": {
+   "name": "League average",
    "category": "terms",
    "sports": [
     "nhl",
@@ -2321,7 +2254,7 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "The sportsbook’s cut, built into the price. At -110 you risk $110 to win $100.",
+   "short": "How often the same bet won across the whole league this season, for comparison with a trend or a team.",
    "long": "",
    "status": "draft",
    "edited": "2026-11-19"
@@ -2350,23 +2283,6 @@
     "mlb"
    ],
    "short": "No Run First Inning: wins if neither team scores in the 1st inning.",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:opening-line": {
-   "name": "Opening line",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "The first line a sportsbook posts. The Odds page shows it in the Open column.",
    "long": "",
    "status": "draft",
    "edited": "2026-11-19"
@@ -2400,7 +2316,7 @@
    "edited": "2026-11-19"
   },
   "term:segment": {
-   "name": "Segment",
+   "name": "First period / quarter / half",
    "category": "terms",
    "sports": [
     "nhl",
@@ -2412,6 +2328,23 @@
     "ncaaf"
    ],
    "short": "The opening part of a game RTYB tracks: 1st period (NHL), 1st quarter and 1st half (basketball, football), 1st inning and first five (MLB).",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:small-sample": {
+   "name": "Small sample",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Fewer than 5 games. RTYB hides records this small because a few results can swing the percentage a lot.",
    "long": "",
    "status": "draft",
    "edited": "2026-11-19"
@@ -2444,23 +2377,6 @@
     "ncaaf"
    ],
    "short": "A bet on the combined score. Over wins above the posted number, Under below it; landing exactly on a whole number is a push.",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:underdog": {
-   "name": "Underdog",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "The team the line expects to lose: a plus price on the moneyline, or getting points on the spread.",
    "long": "",
    "status": "draft",
    "edited": "2026-11-19"
