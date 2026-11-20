@@ -215,7 +215,7 @@
    },
    {
     "label": "NBA · Charlotte Hornets at Atlanta Hawks · 7:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "nba:401909305"
    },
    {
@@ -350,7 +350,7 @@
    },
    {
     "label": "NBA · Washington Wizards at Chicago Bulls · 8:00 PM ET",
-    "trends": 10,
+    "trends": 9,
     "value": "nba:401909309"
    },
    {
@@ -491,7 +491,7 @@
   "games": [
    {
     "label": "Charlotte Hornets at Atlanta Hawks · 7:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "nba:401909305"
    },
    {
@@ -516,7 +516,7 @@
    },
    {
     "label": "Washington Wizards at Chicago Bulls · 8:00 PM ET",
-    "trends": 10,
+    "trends": 9,
     "value": "nba:401909309"
    },
    {

@@ -10995,10 +10995,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 152,
+    "price": 144,
     "title": "Hornets 1Q ML",
-    "est": 0.4799,
-    "edge": 0.083,
+    "est": 0.4889,
+    "edge": 0.0791,
     "agree": 3,
     "sample": 13,
     "tier": "B",
@@ -11041,10 +11041,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 102,
+    "price": 104,
     "title": "Rockets 1H ML",
-    "est": 0.5656,
-    "edge": 0.0706,
+    "est": 0.5623,
+    "edge": 0.0721,
     "agree": 4,
     "sample": 14,
     "tier": "B",
@@ -11271,10 +11271,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 180,
+    "price": 185,
     "title": "Hornets 1H ML",
-    "est": 0.409,
-    "edge": 0.0518,
+    "est": 0.4047,
+    "edge": 0.0538,
     "agree": 3,
     "sample": 14,
     "tier": "B",
@@ -11429,48 +11429,6 @@
     "streakTeamName": "Delaware"
    },
    {
-    "id": "nba|401909309|1q|ml|away",
-    "game": "nba|401909309",
-    "date": "2026-11-20",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-21T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Wizards @ Bulls",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 105,
-    "title": "Wizards 1Q ML",
-    "est": 0.527,
-    "edge": 0.0392,
-    "agree": 2,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "wsh",
-    "angles": [
-     [
-      "Wizards 1Q ML on the road",
-      "6-3"
-     ],
-     [
-      "Bulls\u2019s opponents 1Q ML, Bulls at home",
-      "3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Wizards"
-   },
-   {
     "id": "ncaaf|401864542|1q|ml|home",
     "game": "ncaaf|401864542",
     "date": "2026-11-20",
@@ -11562,6 +11520,49 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Suns"
+   },
+   {
+    "id": "ncaaf|401864542|1h|ml|home",
+    "game": "ncaaf|401864542",
+    "date": "2026-11-20",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-21T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "New Mexico @ Wyoming",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 260,
+    "title": "Wyoming 1H ML",
+    "est": 0.3114,
+    "edge": 0.0336,
+    "agree": 2,
+    "sample": 10,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "wyoming-cowboys",
+    "angles": [
+     [
+      "Wyoming 1H ML at home",
+      "3-1"
+     ],
+     [
+      "Wyoming 1H ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Wyoming"
    }
   ]
  }
