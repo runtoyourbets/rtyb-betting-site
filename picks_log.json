@@ -10933,6 +10933,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Colorado"
+   },
+   {
+    "id": "ncaab|401920349|1h|ml|away",
+    "game": "ncaab|401920349",
+    "date": "2026-11-19",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-20T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Sacramento State @ Stanford",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 550,
+    "title": "Sacramento State 1H ML",
+    "est": 0.1841,
+    "edge": 0.0303,
+    "agree": 2,
+    "sample": 3,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "sacramento-state-hornets",
+    "angles": [
+     [
+      "Sacramento State 1H ML, season",
+      "2-1"
+     ],
+     [
+      "Sacramento State 1H ML, last 8",
+      "2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Sacramento State"
    }
   ]
  }
