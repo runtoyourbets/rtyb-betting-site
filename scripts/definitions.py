@@ -144,14 +144,14 @@ SEG_WORD = 'the opening segment (1st period, 1st quarter or half, 1st inning or 
 def calc(i, e, extra):
     kind = i.split(':')[0]
     if kind == 'label':
-        return ('From both teams’ leans in ' + SEG_WORD + ': a lean is a result in 60%+ of a team’s games, 10+ played. '
+        return ('From both teams’ leans in ' + SEG_WORD + ': a lean is a result in 60%+ of a team’s games, 5+ played. '
                 'Totals and BTTS: both Over (Fireworks), both Under (Lockdown), one each (Tug of war). '
                 'Moneyline: one wins / one loses (Mismatch), both win (Heavyweights).')
     if kind == 'trend':
         return ('Every graded game this season where the angle fit, before the slate’s date. The card shows when the bet’s record '
                 'beats the league rate for the same bet by 5+ points over 20+ decisions and made money at the closing prices (1 unit a bet).')
     if kind == 'team':
-        return ('Per team, its games this season in ' + SEG_WORD + '. A lean: this result in 60%+ of 10+ games (pushes left out, '
+        return ('Per team, its games this season in ' + SEG_WORD + '. A lean: this result in 60%+ of 5+ games (pushes left out, '
                 'ties count on the moneyline). A streak: 3+ straight from the most recent game; a tie or push ends it.')
     if kind == 'split':
         return ('Situational Results: every team-game this season that fits the row (' + (extra.get('def') or 'see the row') + '). '

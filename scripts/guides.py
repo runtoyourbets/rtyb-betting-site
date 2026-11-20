@@ -162,6 +162,16 @@ def sport_block(sp, root):
             f'<div class="gd-links">{items}</div></section>')
 
 
+def hub_block(sp, root):
+    """A hub's Betting Guides: the home page's cards (title + one line), the
+    sport's guide first, then its bet guides, and "All guides"."""
+    import front
+    cards = card(root + sports.guide_path(sp).lstrip('/'), sport_title(sp), f"{sp['label']} {sports.segment_summary(sp)} bets.")
+    cards += ''.join(card(f'{root}{INDEX_DIR}/{slug}/', GENERAL_BY[slug][1], GENERAL_BY[slug][2]) for slug in bet_guides(sp))
+    return (f'<section class="fr-sec" id="learn"><div class="fr-head"><h2>Betting Guides</h2></div>'
+            f'<div class="hl-grid">{cards}</div><div class="fr-links">{front.more_link(root + INDEX_DIR + "/", "All guides")}</div></section>')
+
+
 def write(page, status, logo_svg):
     """Every guide page except the sport guides (build_site writes those in
     the sport template). `page` is home.page. Returns the pages written."""

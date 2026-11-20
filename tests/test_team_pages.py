@@ -19,23 +19,35 @@ def read(*p):
 
 
 class HeaderTest(unittest.TestCase):
-    def test_one_muted_line_and_no_division(self):
+    def test_no_line_under_the_h1_and_a_team_dropdown(self):
         sp = sports.BY_KEY['nba']
-        team = {'slug': 'bos', 'code': 'BOS', 'name': 'Boston Celtics', 'division': 'Atlantic', 'conference': 'Eastern Conference'}
+        team = {'slug': 'bos', 'code': 'BOS', 'name': 'Boston Celtics', 'nickname': 'Celtics', 'division': 'Atlantic', 'conference': 'Eastern Conference'}
+        other = dict(team, slug='atl', code='ATL', name='Atlanta Hawks', nickname='Hawks')
         meta = build_site.sport_team_meta(sp, team, '2025–26')
-        self.assertEqual(meta['desc'], 'First quarter &amp; first half stats &amp; record')
-        self.assertNotIn('Atlantic', meta['desc'] + meta.get('sub_html', ''))
+        self.assertEqual(meta['desc'], '')
+        self.assertNotIn('sub_html', meta)
+        body = build_site.team_detail_html(sp, team, [team, other])
+        self.assertNotIn('sport-team-back', body)
+        self.assertIn('All NBA teams &rarr;</a>', body)
+        menu = body[body.index('tp-pick-menu'):]
+        self.assertLess(menu.index('>Celtics<'), menu.index('>Hawks<'))   # A to Z by the name shown
+        self.assertIn('aria-current="page"', body)
 
-    def test_champion_badge_only_for_the_title_winner_between_seasons(self):
+    def test_college_dropdown_starts_with_the_conference(self):
+        sp = sports.BY_KEY['ncaab']
+        a = {'slug': 'uk', 'code': 'UK', 'name': 'Kentucky Wildcats', 'location': 'Kentucky', 'conference': 'Southeastern Conference'}
+        b = {'slug': 'duke', 'code': 'DUKE', 'name': 'Duke Blue Devils', 'location': 'Duke', 'conference': 'Atlantic Coast Conference'}
+        body = build_site.team_picker(sp, a, [a, b])
+        self.assertLess(body.index('Southeastern Conference</p>'), body.index('All teams</p>'))
+
+    def test_champion_title_only_for_the_title_winner_between_seasons(self):
         sp = sports.BY_KEY['mlb']
         st, doc = build_site.season_info(sp)
         ch = seasons.champion(doc)
         if st['layout'] != 'off' or not ch:
             self.skipTest('MLB is not between seasons with a champion')
-        badge = build_site.champion_badge(sp, {'slug': ch['team'], 'name': ''})
-        self.assertIn('World Series Champions', badge)
-        self.assertIn(f'/{sp["slug"]}/#champions', badge)
-        self.assertEqual(build_site.champion_badge(sp, {'slug': ch['opp'], 'name': ''}), '')
+        self.assertIn('World Series Champions', build_site.champion_title(sp, {'slug': ch['team'], 'name': ''}))
+        self.assertEqual(build_site.champion_title(sp, {'slug': ch['opp'], 'name': ''}), '')
 
 
 class SeasonStateTest(unittest.TestCase):
@@ -97,7 +109,7 @@ class TeamsIndexTest(unittest.TestCase):
         js = self.body()
         self.assertNotIn('tl-few', js)
         self.assertNotIn('pct-bar', js)
-        self.assertIn("'small sample'", js.replace('>small sample<', "'small sample'"))
+        self.assertNotIn('>small sample<', js)   # Evening fixes (Nov 19): no "small sample" anywhere
         self.assertIn('var TL_PAGE = 50;', js)
         self.assertIn(">Show ' + Math.min(TL_PAGE", js)
         self.assertIn("' of ' + list.length", js)

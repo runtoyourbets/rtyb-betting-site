@@ -54,8 +54,8 @@ class TipBoxTest(unittest.TestCase):
 class LabelTextTest(unittest.TestCase):
     def test_label_texts(self):
         L = definitions.tooltips()['matchup_labels']
-        self.assertEqual(L['lockdown']['tooltip'], 'Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 10+ played.')
-        self.assertEqual(L['fireworks']['tooltip'], 'Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 10+ played.')
+        self.assertEqual(L['lockdown']['tooltip'], 'Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 5+ played.')
+        self.assertEqual(L['fireworks']['tooltip'], 'Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 5+ played.')
         self.assertEqual(L['tug_of_war']['tooltip'], 'One team’s {segment}s usually go Over, the other’s usually go Under.')
         self.assertIn('not both teams score', L['lockdown']['tooltip_btts'])
         self.assertIn('both teams usually score', L['fireworks']['tooltip_btts'])
@@ -73,7 +73,7 @@ class LabelTextTest(unittest.TestCase):
 class TrendsPageTest(unittest.TestCase):
     def test_rules(self):
         js = read('assets', 'sport.js')
-        self.assertIn('var TR_OPEN = 6, TR_PHONE = 3, MT_GAMES = 10;', js)
+        self.assertIn('var TR_OPEN = 6, TR_PHONE = 3, MT_GAMES = 5;', js)
         self.assertIn("'\">Show all ' + cards.length + ' trends</button>'", js)
         self.assertIn('League trends start once teams have played 10 games.', js)
         self.assertIn('See last season&rsquo;s trends &rarr;', js)

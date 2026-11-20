@@ -5,14 +5,15 @@ the season just played (data.json; once the next season's schedule is in it,
 history.json) and the Site settings' dates:
 
   Countdown card     "[YEAR] SEASON · OFF-SEASON": days / hours / minutes to
-                     OPENING_DAY (ticking, front.FRONT_JS), the date, then the
+                     the first game's start (until the schedule has it,
+                     12:00 AM ET on OPENING_DAY; ticking, front.FRONT_JS), the date, then the
                      MILESTONES with their dates and days left; no
                      OPENING_DAY: "Opening day: date TBA" and the milestones
   Champions card     the winner of the final series or game (never typed
                      in), the result line, then split pills (All · Home ·
                      Away · Favorite · Underdog) over one cell per market:
                      the team's season record and units
-  Best Bet of last season   the season's best trend by units (55%+, 50+ games)
+  Best Bet of last season   the season's best trend by units (55%+, MLB 50%+; 50+ games)
   Season in Review   the season's top 5 trends, one line each
   The RTYB Awards    every market's pill; per market Best team, Worst team,
                      Best underdog, Worst favorite (totals, BTTS, NRFI: the
@@ -38,9 +39,9 @@ from hub import pct_rec
 esc = front.esc
 ET = front.ET
 BEST_MIN_RATE, BEST_MIN_N = 0.55, 50   # Best Bet and Season in Review: 55%+ over 50+ games
+BEST_MIN_RATE_BY = {'mlb': 0.50}        # MLB: 50%+ (still 50+ games, ranked by units)
 REVIEW_SHOWN = 5
 AWARD_MIN = 20                         # games per team for an award
-SMALL = 10                             # fewer games than this: "Small sample"
 TITLE = {'mlb': 'World Series Champions', 'wnba': 'WNBA Champions', 'nba': 'NBA Champions', 'nhl': 'Stanley Cup Champions',
          'nfl': 'Super Bowl Champions', 'ncaab': 'National Champions', 'ncaaf': 'National Champions'}
 SPLITS = (('all', 'All'), ('home', 'Home'), ('away', 'Away'), ('fav', 'Favorite'), ('dog', 'Underdog'))
@@ -166,6 +167,14 @@ def opening_at(day):
     return datetime.combine(datetime.fromisoformat(day).date(), Time(0), ET).isoformat()
 
 
+def opening_target(sport, day):
+    """When the countdown runs to: the first game's start on or after
+    OPENING_DAY once the schedule has it, else 12:00 AM ET that day."""
+    games = (getattr(sport, 'doc', None) or {}).get('games') or {}
+    starts = sorted(g['start'] for d, gs in games.items() if d >= day for g in gs if g.get('start'))
+    return starts[0].replace('Z', '+00:00') if starts else opening_at(day)
+
+
 def countdown(sport, st, doc, now_utc):
     """The countdown card: "[YEAR] SEASON · [STATE]" title bar, OPENING DAY
     with days / hours / minutes boxes (front.FRONT_JS ticks them), the date,
@@ -175,10 +184,11 @@ def countdown(sport, st, doc, now_utc):
     today = now_utc.astimezone(ET).date()
     if st.get('opening'):
         d = datetime.fromisoformat(st['opening']).date()
-        left = max(0, int((datetime.fromisoformat(opening_at(st['opening'])) - now_utc).total_seconds() // 60))
+        target = opening_target(sport, st['opening'])
+        left = max(0, int((datetime.fromisoformat(target) - now_utc).total_seconds() // 60))
         boxes = ''.join(f'<span class="cd-box"><span class="cd-n" data-cd="{u}">{v}</span><span class="cd-u">{w}</span></span>'
                         for u, v, w in (('d', left // 1440, 'Days'), ('h', left // 60 % 24, 'Hours'), ('m', left % 60, 'Minutes')))
-        opening = (f'<p class="cd-l">Opening day</p><div class="cd-boxes" data-countdown="{esc(opening_at(st["opening"]))}">{boxes}</div>'
+        opening = (f'<p class="cd-l">Opening day</p><div class="cd-boxes" data-countdown="{esc(target)}">{boxes}</div>'
                    f'<p class="cd-date">{d.strftime("%A, %B")} {d.day}, {d.year}</p>')
     else:
         opening = '<p class="cd-l">Opening day</p><p class="cd-date">Opening day: date TBA</p>'
@@ -205,8 +215,7 @@ def result_line(sport, ch):
 def big_html(t):
     """The big Barlow %, the record under it, the units under that."""
     pct = round(100 * t.w / t.n) if t.n else 0
-    small = '<span class="os-small">Small sample</span>' if t.n < SMALL else ''
-    return (f'<span class="os-big">{pct}%</span><span class="os-rec">{t.w}–{t.l}</span>{small}'
+    return (f'<span class="os-big">{pct}%</span><span class="os-rec">{t.w}–{t.l}</span>'
             f'{units_html(t).replace("os-u", "os-u os-ub", 1)}')
 
 
@@ -266,7 +275,7 @@ def season_trends(sport, doc):
     """Every trend's record over the whole season (55%+ over 50+ games),
     best first: by units when the season has prices, else by win rate."""
     def bar(rec, base):
-        if rec.n < BEST_MIN_N or rec.rate is None or rec.rate < BEST_MIN_RATE:
+        if rec.n < BEST_MIN_N or rec.rate is None or rec.rate < BEST_MIN_RATE_BY.get(sport.key, BEST_MIN_RATE):
             return None
         return {'w': rec.w, 'l': rec.l, 't': rec.t, 'rate': round(rec.rate, 4), 'base': round(base, 4),
                 'units': round(rec.units, 2), 'n': rec.n, 'priced': rec.priced}

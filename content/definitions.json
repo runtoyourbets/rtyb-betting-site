@@ -17,7 +17,7 @@
    "section": "Teams on a run of 3 or more straight in the opening segment, counted from their most recent game. A tie or push ends a streak.",
    "colors": "Win and loss streaks run green to red. Over/Under and Yes/No streaks get darker the longer they run."
   },
-  "lean_rule": "‘Usually’ = 60%+ of their games, 10+ played."
+  "lean_rule": "‘Usually’ = 60%+ of their games, 5+ played."
  },
  "entries": {
   "edge:1st-inning-edge": {
@@ -325,7 +325,7 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "short": "Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 5+ played.",
    "long": "",
    "status": "live",
    "edited": "2026-11-19"
@@ -336,7 +336,7 @@
    "sports": [
     "nhl"
    ],
-   "short": "In both teams’ {segment}s, both teams usually score. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "short": "In both teams’ {segment}s, both teams usually score. ‘Usually’ = 60%+ of their games, 5+ played.",
    "long": "",
    "status": "live",
    "edited": "2026-11-19"
@@ -370,7 +370,7 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "short": "Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 5+ played.",
    "long": "",
    "status": "live",
    "edited": "2026-11-19"
@@ -381,7 +381,7 @@
    "sports": [
     "nhl"
    ],
-   "short": "In both teams’ {segment}s, usually not both teams score. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "short": "In both teams’ {segment}s, usually not both teams score. ‘Usually’ = 60%+ of their games, 5+ played.",
    "long": "",
    "status": "live",
    "edited": "2026-11-19"

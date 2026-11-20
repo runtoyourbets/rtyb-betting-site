@@ -496,8 +496,7 @@
       function perTeam(a) { if (a.gp > a.games) { PER_TEAM = true; return '<sup class="st-mark">*</sup>'; } return ''; }
       var TONIGHT_TAG = '<span class="sit-tn">Tonight</span>';
       function labelCell(row, a, tone) {
-        return '<td class="sit-label' + (row.indent ? ' ind' : '') + '"><span class="sit-name">' + esc(lab(row, k)) + '</span>' + (FIT[row.id] ? ' ' + TONIGHT_TAG : '') +
-          (a.gp && a.gp < (REG.smallSample || 10) ? ' <span class="sit-small">Small sample</span>' : '') + '</td>';
+        return '<td class="sit-label' + (row.indent ? ' ind' : '') + '"><span class="sit-name">' + esc(lab(row, k)) + '</span>' + (FIT[row.id] ? ' ' + TONIGHT_TAG : '') + '</td>';
       }
       function cells(row, a) {
         var x0 = a[sel.id], p = pctOf(sel, x0), tone = edgeOf(sel, x0);
@@ -519,8 +518,7 @@
       function mobRows(G) {
         return G.rows.map(function(x) {
           var a = x.agg, x0 = a[sel.id], p = pctOf(sel, x0), tone = edgeOf(sel, x0);
-          return '<details class="sit-mrow' + (FIT[x.row.id] ? ' sit-on' : '') + '" id="sit-m-' + esc(x.row.id) + '"><summary><span class="sit-mlabel' + (x.row.indent ? ' ind' : '') + '">' + esc(x.row.short) + (FIT[x.row.id] ? ' ' + TONIGHT_TAG : '') +
-              (a.gp && a.gp < (REG.smallSample || 10) ? ' <span class="sit-small">Small</span>' : '') + '</span>' +
+          return '<details class="sit-mrow' + (FIT[x.row.id] ? ' sit-on' : '') + '" id="sit-m-' + esc(x.row.id) + '"><summary><span class="sit-mlabel' + (x.row.indent ? ' ind' : '') + '">' + esc(x.row.short) + (FIT[x.row.id] ? ' ' + TONIGHT_TAG : '') + '</span>' +
             '<span class="mono sit-mrec">' + recTxt(sel, x0) + '</span><span class="sit-mval">' + (sel.id === 'su' ? '<span class="mono">' + (p == null ? '&mdash;' : p + '%') + '</span>' : unitsOf(sel, x0, tone)) +
             '</span><span class="sit-chev" aria-hidden="true">&#9662;</span></summary>' +
             '<div class="sit-mbody"><p class="sit-mname">' + esc(lab(x.row, k)) + '</p>' +
@@ -530,7 +528,7 @@
         }).join('');
       }
       var tip = esc(REG.foot || 'Records count every game; units count only games with saved closing odds, 1 unit at the closing price (spreads and totals at -110 when only the line was saved).') +
-        ' Small sample: under ' + (REG.smallSample || 10) + ' games; rows under 5 games stay hidden. ' +
+        ' Rows under 5 games stay hidden. ' +
         '&ldquo;Per team&rdquo; rows count each team&rsquo;s game, so one game can count twice. Green and red mark real edges: 60%+ (or 40% and under) over 10+ games, or more than 5 units either way.';
       var html = '<div class="st-sec sit"><div class="st-sec-head"><h2>Situational Results <button type="button" class="info-tip" aria-label="About Situational Results" data-tip-title="Situational Results">i<span class="tip-bubble" role="tooltip">' + tip + '</span></button></h2>' +
         '</div>' + bar() + (view.line || '') +
@@ -625,9 +623,33 @@
     var TEAM_GROUP = { ha: 'Matchup', spread: 'Matchup', size: 'Matchup', opp: 'Opponent', rank: 'Opponent',
                        tip: 'Schedule', drop: 'Schedule', ko: 'Schedule', rest: 'Schedule', prev: 'Bounce-back' };
     var TEAM_ORDER = ['Matchup', 'Opponent', 'Schedule', 'Bounce-back'];
-    var TEAM_SMALL = 8;   // fewer games than this: "small sample"
     var DOW = [[1, 'Mon'], [2, 'Tue'], [3, 'Wed'], [4, 'Thu'], [5, 'Fri'], [6, 'Sat'], [0, 'Sun']];
     var ts = { col: 0, next: false };
+    // REST strips (team pages and the Splits page; not MLB): days off before
+    // the game, 0 = played yesterday. Football: short / normal week / extra
+    // rest. One strip for the team, one for the opponent, in the selected
+    // market; under 5 games a cell shows "—" with its record; the next game's
+    // cell (team pages) gets the purple outline.
+    var FOOTBALL = src.sport === 'nfl' || src.sport === 'ncaaf';
+    var REST_CELLS = FOOTBALL
+      ? [['Short week', function(d) { return d <= 4; }], ['Normal week', function(d) { return d === 5 || d === 6; }], ['Extra rest', function(d) { return d >= 7; }]]
+      : [['0 days · B2B', function(d) { return d === 0; }], ['1 day', function(d) { return d === 1; }], ['2 days', function(d) { return d === 2; }], ['3+ days', function(d) { return d >= 3; }]];
+    // on team pages the strips replace these rows
+    var TEAM_SKIP = { tb2b: 1, nb2b: 1, b2b2: 1 };
+    function restHtml(pool, m, mHead, teamLabel, next, pctOf, recOf) {
+      if (src.sport === 'mlb') return '';
+      function strip(label, field) {
+        var nv = next ? next[field] : null;
+        return '<p class="ts-rl">' + esc(label) + '</p><div class="ts-strip ts-strip-' + REST_CELLS.length + '">' + REST_CELLS.map(function(cell) {
+          var a = agg(pool.filter(function(e) { return e.c[field] != null && cell[1](e.c[field]); }), [m]), x = a[m.id], p = pctOf(x);
+          var on = nv != null && cell[1](nv);
+          return '<div class="ts-day' + (on ? ' ts-today' : '') + '"><span class="ts-dl">' + esc(cell[0]) + '</span><span class="ts-dp">' + (a.gp >= 5 && p != null ? p + '%' : '&mdash;') + '</span>' +
+            '<span class="ts-dr">' + (x.n ? '(' + recOf(m.id, x) + ')' : '') + '</span></div>';
+        }).join('') + '</div>';
+      }
+      return '<div class="ts-dow ts-rest"><div class="ts-dow-head"><span class="ts-gl">Rest</span><span class="ts-dow-m">' + esc(mHead || '') + '</span></div>' +
+        strip(FOOTBALL ? (teamLabel ? teamLabel + ' rest' : 'Rest') : (teamLabel || 'Team') + ' rest', 'restDays') + strip('Opponent rest', 'oppRestDays') + '</div>';
+    }
     function teamView(box, view) {
       if (!box) return;
       var cols = view.cols.filter(function(c) { return MARKETS[c.id]; });
@@ -672,7 +694,7 @@
       // the rows, in the four groups
       var groups = {};
       REG.rows.forEach(function(row) {
-        if (row.id === 'overall') return;
+        if (row.id === 'overall' || TEAM_SKIP[row.id]) return;
         var name = TEAM_GROUP[row.group];
         if (!name) return;
         if (row.applies && !row.applies(view.slug, C)) return;
@@ -684,8 +706,7 @@
       var nextOn = ts.next && view.next;
       function rowCls(row) { return nextOn ? (FIT[row.id] ? ' ts-fit' : ' ts-dim') : ''; }
       function nameHtml(row, a) {
-        return '<span class="ts-name">' + (nextOn && FIT[row.id] ? '<i class="ts-dot" aria-hidden="true"></i>' : '') + esc(lab(row, k0)) + '</span>' +
-          (a.gp < TEAM_SMALL ? '<span class="ts-small">small sample</span>' : '');
+        return '<span class="ts-name">' + (nextOn && FIT[row.id] ? '<i class="ts-dot" aria-hidden="true"></i>' : '') + esc(lab(row, k0)) + '</span>';
       }
       var sel = cols[ts.col];
       function pills(cls) {
@@ -725,6 +746,8 @@
           '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
       }).join('');
       h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.head) + '</span></div><div class="ts-strip">' + strip + '</div></div>';
+      var nextCtx = view.next ? upcoming[sel.k + '|' + view.next.id + '|' + view.slug] : null;
+      h += restHtml(pools[sel.k], ms[ts.col], sel.head, ((src.teams[view.slug] || {}).code || '').toUpperCase(), nextCtx, pctOf, recOf);
       box.innerHTML = h;
       box.querySelectorAll('[data-ts-col]').forEach(function(b) { b.onclick = function() { ts.col = +b.getAttribute('data-ts-col'); teamView(box, view); }; });
       box.querySelectorAll('[data-ts-next]').forEach(function(b) { b.onclick = function() { ts.next = b.getAttribute('data-ts-next') === '1'; teamView(box, view); }; });
@@ -792,8 +815,7 @@
       });
       var names = LEAGUE_ORDER.filter(function(n) { return groups[n]; });
       function nameHtml(row, a) {
-        return '<span class="ts-name">' + esc(LEAGUE_NAME[row.id] || lab(row, k)) + (a.gp > a.games ? '<sup class="st-mark">*</sup>' : '') + '</span>' +
-          (a.gp < (REG.smallSample || 10) ? '<span class="ts-small">small sample</span>' : '');
+        return '<span class="ts-name">' + esc(LEAGUE_NAME[row.id] || lab(row, k)) + (a.gp > a.games ? '<sup class="st-mark">*</sup>' : '') + '</span>';
       }
       function pills(cls) {
         return '<div class="seg-toggle ' + cls + '" role="group" aria-label="Market">' + ms.map(function(m, i) {
@@ -828,8 +850,10 @@
         return '<div class="ts-day"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '&mdash;' : p + '%') + '</span>' +
           '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
       }).join('');
-      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.pctHead || '') + '</span></div><div class="ts-strip">' + strip + '</div></div></div>';
-      h += '<p class="st-foot">Team rows count each team in the spot' + (PER ? ' (<sup>*</sup> one game can count twice)' : '') + '; matchup-wide rows and the day strip count the home team&rsquo;s side. Units count games with a saved price.</p></div>';
+      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.pctHead || '') + '</span></div><div class="ts-strip">' + strip + '</div></div>';
+      // REST: every team's side (the team, then its opponent)
+      h += restHtml(pool, sel, sel.pctHead, 'Team', null, pctOf, recOf) + '</div>';
+      h += '<p class="st-foot">Team rows count each team in the spot' + (PER ? ' (<sup>*</sup> one game can count twice)' : '') + '; matchup-wide rows and the day strip count the home team&rsquo;s side, the rest strips every team&rsquo;s. Units count games with a saved price.</p></div>';
       var locked = src.locked && src.locked();
       box.className = 'adv-section' + (locked ? ' locked' : '');
       box.innerHTML = h + (locked && src.lockHtml ? src.lockHtml() : '');

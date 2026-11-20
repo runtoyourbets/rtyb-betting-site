@@ -13,8 +13,9 @@ def final(res):
 
 
 class LeanStreakTest(unittest.TestCase):
-    def test_lean_needs_ten_games_and_sixty_percent(self):
-        self.assertIsNone(hub.lean_of('ats', ['W'] * 9))
+    def test_lean_needs_five_games_and_sixty_percent(self):
+        self.assertIsNone(hub.lean_of('ats', ['W'] * 4))
+        self.assertEqual(hub.lean_of('ats', ['W'] * 5)['kind'], 'W')
         self.assertEqual(hub.lean_of('ats', ['W'] * 6 + ['L'] * 4)['kind'], 'W')
         self.assertIsNone(hub.lean_of('ats', ['W'] * 5 + ['L'] * 5))
 

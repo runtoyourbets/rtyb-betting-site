@@ -994,17 +994,10 @@ def hot_card(sport, c, by_id, xs, root, now, show_sport=True, n_rows=HOT_ROWS, a
     this_attr = ' data-season="this"' if last_recs is not None else ''
     return (f'<div class="st-card tr-card ht-card"{attrs}><div class="st-head"><h4><span class="sl-sport">{icons.sport_icon(sport.sp) + esc(sport.label) + " &middot; " if show_sport else ""}{tag}</span>{trend_tip(sport, c)}</h4></div>'
             f'<h3 class="tr-title">{esc(c["title"])}</h3>'
-            f'<p class="ht-rec"{this_attr}>{round(rate)}% ({c["w"]}&ndash;{c["l"]}) &middot; <span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span>{small_sample(c["w"] + c["l"])}</p>'
+            f'<p class="ht-rec"{this_attr}>{round(rate)}% ({c["w"]}&ndash;{c["l"]}) &middot; <span class="{unit_tone(c["units"])}">{fmt_units(c["units"])}</span></p>'
             + (last_rec_html(last_recs.get(c['id'])) if last_recs is not None else '') +
             f'<p class="ht-avg">League average {round(base)}%</p>'
             f'<div class="tr-rows">{rows}</div></div>')
-
-
-SMALL_SAMPLE = 10   # early season: a record under this many games says "Small sample"
-
-
-def small_sample(n):
-    return '<span class="os-small">Small sample</span>' if n < SMALL_SAMPLE else ''
 
 
 def last_rec_html(r):
@@ -1013,7 +1006,7 @@ def last_rec_html(r):
         return '<p class="ht-rec" data-season="last" hidden>Not tracked last season</p>'
     u = (f' &middot; <span class="{unit_tone(r["units"])}">{fmt_units(r["units"])}</span>' if r['all_priced'] else '')
     pct = round(100 * r['w'] / (r['w'] + r['l']))
-    return f'<p class="ht-rec" data-season="last" hidden>{pct}% ({r["w"]}&ndash;{r["l"]}){u}{small_sample(r["w"] + r["l"])}</p>'
+    return f'<p class="ht-rec" data-season="last" hidden>{pct}% ({r["w"]}&ndash;{r["l"]}){u}</p>'
 
 
 HOT_BUFFER = 12   # Hottest Trends: cards per day in the HTML, so the next one can move up
@@ -1296,10 +1289,13 @@ def streak_item(x, i, now_utc, root, hub, phone_more):
            f'{sport.link(slug, esc(sport.full_name(slug)), root, "tw-name")}<p class="tw-line">{line}</p></div></div>'
            f'<div class="tw-next"><p class="tw-next-l">Next matchup</p><p class="tw-next-g">{sport.link(opp, sport.badge(opp, 24, root), root, "tw-opp")}'
            f'<span>{next_txt(sport, x, now_utc)}</span></p></div></div>')
-    row = (f'<div class="sw-row">{"" if hub else icons.sport_icon(sport.sp)}{sport.link(slug, sport.badge(slug, 22, root), root, "sw-logo")}'
-           f'<span class="sw-code">{esc(sport.code(slug))}</span><span class="sw-line">{line}</span>'
+    # two lines: icon (home) · logo · code · the full streak, then opponent + time;
+    # the first row under the top block carries the MORE STREAKS TO WATCH divider
+    row = (f'<p class="sw-div">More streaks to watch</p>'
+           f'<div class="sw-row"><span class="sw-l1">{"" if hub else icons.sport_icon(sport.sp)}{sport.link(slug, sport.badge(slug, 22, root), root, "sw-logo")}'
+           f'<span class="sw-code">{esc(sport.code(slug))}</span><span class="sw-line">{line}</span></span>'
            f'<span class="sw-next">{next_txt(sport, x, now_utc, short=True)}</span></div>')
-    cls = 'sw-item' + (' sw-top' if i == 0 else '') + (' sw-more' if i > STREAK_PHONE else '')
+    cls = 'sw-item' + (' sw-top' if i == 0 else '') + (' sw-first' if i == 1 else '') + (' sw-more' if i > STREAK_PHONE else '')
     lead = ' data-lead' if x.get('lead') else ''
     return f'<li class="{cls}" data-start="{esc(g.get("start") or "")}" data-state="{esc(g.get("state") or "pre")}"{lead}>{big}{row}</li>'
 
@@ -1625,7 +1621,7 @@ FRONT_JS = '''
     items.forEach(function(i) { i.hidden = alive.indexOf(i) === -1; i.classList.toggle('sw-top', i === top); i.classList.remove('sw-cut'); });
     if (top && list.firstElementChild !== top) list.insertBefore(top, list.firstElementChild);
     var rows = alive.filter(function(i) { return i !== top; });
-    rows.forEach(function(r, n) { r.classList.toggle('sw-more', n >= 5); });
+    rows.forEach(function(r, n) { r.classList.toggle('sw-more', n >= 5); r.classList.toggle('sw-first', n === 0); });
     sec.hidden = !alive.length;
     var h = sec.querySelector('h2');
     if (h) h.textContent = alive.length === 1 ? h.getAttribute('data-one') : h.getAttribute('data-many');

@@ -124,5 +124,35 @@
       "nfl": "weekly",
       "ncaaf": "weekly"
     }
+  },
+  "seasons": {
+    "nhl": {
+      "OPENING_DAY": "",
+      "MILESTONES": []
+    },
+    "nba": {
+      "OPENING_DAY": "",
+      "MILESTONES": []
+    },
+    "wnba": {
+      "OPENING_DAY": "2027-05-07",
+      "MILESTONES": []
+    },
+    "mlb": {
+      "OPENING_DAY": "2027-03-24",
+      "MILESTONES": []
+    },
+    "ncaab": {
+      "OPENING_DAY": "",
+      "MILESTONES": []
+    },
+    "nfl": {
+      "OPENING_DAY": "",
+      "MILESTONES": []
+    },
+    "ncaaf": {
+      "OPENING_DAY": "",
+      "MILESTONES": []
+    }
   }
 }

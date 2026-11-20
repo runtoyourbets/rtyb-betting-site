@@ -548,6 +548,8 @@ def render_page(template, page_key, teams_menu_html, meta=None, team_code='', sp
     out = out.replace('__PAGE_TITLE__', meta['title'])
     out = out.replace('__PAGE_H1__', meta['h1'])
     out = out.replace('__PAGE_SUB__', meta.get('sub_html') or (f'<p class="page-sub">{meta["sub"]}</p>' if meta.get('sub') else ''))
+    if not meta['desc']:   # team pages: no line under the H1
+        out = out.replace('\n    <p>__PAGE_DESC__</p>', '', 1)
     out = out.replace('__PAGE_DESC__', meta['desc'])
     out = out.replace('__TEAMS_MENU_ITEMS__', teams_menu_html)
     out = out.replace('__PAGE_TEAM_CODE__', team_code)
@@ -725,21 +727,46 @@ def season_info(sport):
     return seasons.of(sport, doc), doc
 
 
-def team_detail_html(sport, team):
-    """The team page body; the header (logo + name as the one h1, the
-    champion's badge, one muted line) is the page head (sport_team_meta).
+def team_picker(sport, team, teams):
+    """The team dropdown under the H1 (in place of "← All teams"): the
+    team's logo + name + ▾; the list opens with "All [SPORT] teams →", then
+    every team A–Z (college: the team's conference first, then All teams)."""
+    college = sport['key'] in sports.COLLEGE
+    def label(t):
+        full = (t.get('location') if college else t.get('nickname') or t.get('short')) or t['name']
+        return f'<span class="nm-full">{esc(full)}</span><span class="nm-abbr">{esc(t["code"])}</span>'
+    def key(t):
+        return ((t.get('location') if college else t.get('nickname') or t.get('short')) or t['name']).lower()
+    cur = ' aria-current="page"'
+    def links(ts):
+        return ''.join(f'<a class="tp-pick-item"{cur if t["slug"] == team["slug"] else ""} href="{team_url(sport, t)}">{label(t)}</a>'
+                       for t in sorted(ts, key=key))
+    body = ''
+    if college and team.get('conference'):
+        conf = [t for t in teams if t.get('conference') == team['conference']]
+        body += f'<p class="tp-pick-h">{esc(team["conference"])}</p>{links(conf)}<p class="tp-pick-h">All teams</p>'
+    body += links(teams)
+    return (f'<details class="tp-pick"><summary>{badge_html(team, 24, sport["key"])}{label(team)}<span class="tp-pick-caret" aria-hidden="true">&#9662;</span></summary>'
+            f'<div class="tp-pick-menu"><a class="tp-pick-all" href="/{sport["slug"]}/teams/">All {esc(sport["label"])} teams &rarr;</a>{body}</div></details>')
+
+
+def team_detail_html(sport, team, teams=None):
+    """The team page body: the team dropdown, then #sportApp. The header
+    (logo + name as the one h1) is the page head (sport_team_meta).
     #sportApp carries the season state for assets/sport.js: data-season
     (off = between seasons, early = the first 21 days), data-season-year,
-    data-opening (Site settings' OPENING_DAY)."""
+    data-opening (Site settings' OPENING_DAY) and data-champ (the title
+    winner's "2026 World Series Champions", in the season card's title bar)."""
     st, doc = season_info(sport)
     state = 'off' if st['layout'] == 'off' else 'early' if st['key'] == 'early' else ''
     def section(title, msg):
         return f'<h2 class="team-section-title">{title}</h2><div class="section-empty">{msg}</div>'
     no_games = f'No {esc(sport["label"])} games tracked yet.'
-    return (f'<a class="sport-team-back" href="/{sport["slug"]}/teams/">&larr; All {esc(sport["label"])} teams</a>'
+    return (team_picker(sport, team, teams or [team])
             # assets/sport.js fills these in from data.json once games exist
             + f'<div id="sportApp" data-section="team" data-team="{esc(team.get("code") if sport["key"] == "nhl" else team["slug"])}"'
-            + f' data-season="{state}" data-season-year="{esc(str(doc.get("seasonLabel") or ""))}" data-opening="{esc(st.get("opening") or "")}">'
+            + f' data-season="{state}" data-season-year="{esc(str(doc.get("seasonLabel") or ""))}" data-opening="{esc(st.get("opening") or "")}"'
+            + f' data-champ="{esc(champion_title(sport, team))}">'
             + section('Next Game', 'No upcoming game scheduled yet.')
             + section('Last Game', no_games)
             + section('Season Markets', 'Records and units will appear here once games are graded.')
@@ -747,9 +774,9 @@ def team_detail_html(sport, team):
             + '</div>')
 
 
-def champion_badge(sport, team):
-    """Between seasons, the title winner's gold badge under its name:
-    "🏆 2026 World Series Champions →", to the hub's Champions card."""
+def champion_title(sport, team):
+    """Between seasons, the title winner's "2026 World Series Champions"
+    (assets/sport.js puts it, with the trophy, in the season card's title bar)."""
     import seasons
     from offseason import TITLE
     st, doc = season_info(sport)
@@ -758,17 +785,14 @@ def champion_badge(sport, team):
     ch = seasons.champion(doc)
     if not ch or str(ch['team']).lower() != str(team.get('code') if sport['key'] == 'nhl' else team['slug']).lower():
         return ''
-    return (f'<p class="tp-champ"><a href="/{sport["slug"]}/#champions"><span aria-hidden="true">\U0001F3C6</span> '
-            f'{esc(ch["date"][:4])} {esc(TITLE[sport["key"]])} &rarr;</a></p>')
+    return f'{ch["date"][:4]} {TITLE[sport["key"]]}'
 
 
 def sport_team_meta(sport, team, season_label):
-    """Team page title, h1 (logo + name), the champion's badge and one muted line."""
+    """Team page title and h1 (logo + name); no line under it."""
     heading = f"{team['name']} {sports.seg_words(sport)} Stats & Record"
-    words = sports.seg_words(sport).lower()
     return {'title': sports.page_title(heading), 'h1': esc(heading), 'icon': badge_html(team, 44, sport['key']),
-            'sub_html': champion_badge(sport, team), 'desc': esc(words[:1].upper() + words[1:] + ' stats & record'),
-            'section': 'teams'}
+            'desc': '', 'section': 'teams'}
 
 
 SECTION_DESC = {
@@ -824,7 +848,7 @@ def how_to_read_html(sp, section):
         lines = ['How often: the share of finished games where the row came true.',
                  'Worth it at: the break-even price for that rate. A live price better than it (a bigger plus number, or a '
                  'smaller minus one) has paid over the sample; worse has not. It is the rate turned into odds, not a pick.',
-                 'Rows need 10 games to show; 10 to 19 are tagged small sample. Best closers win the rest of the game most '
+                 'Rows need 10 games to show. Best closers win the rest of the game most '
                  'often, biggest faders lose it most (win % leaves ties out; ties broken by the average margin).']
     else:
         return ''
@@ -953,7 +977,7 @@ def write_hub(template, sp, teams_menu_html=''):
         S = {sp['key']: front.Sport(sp)}
         # every slot is static HTML (scripts/front.py sections, by the sport's
         # season state); the Betting Guides block sits under the results
-        body = (f'<div class="hub-front">{front.sections(S, datetime.now(timezone.utc), root="../", hub=True, learn=guides.sport_block(sp, "../"))}</div>'
+        body = (f'<div class="hub-front">{front.sections(S, datetime.now(timezone.utc), root="../", hub=True, learn=guides.hub_block(sp, "../"))}</div>'
                 '<div id="sportApp" data-section="hub"></div>')
         html = render_page(template, 'sport', teams_menu_html, meta=meta, sport=sp, sport_body=body)
     else:
@@ -1088,7 +1112,7 @@ def build_other_sports(template):
         # one page per team
         for t in teams:
             meta = sport_team_meta(sp, t, (SPORT_DATA.get(sp['key']) or {}).get('seasonLabel'))
-            write_light(render_page(template, 'sport', '', meta=meta, sport=sp, sport_body=team_detail_html(sp, t)),
+            write_light(render_page(template, 'sport', '', meta=meta, sport=sp, sport_body=team_detail_html(sp, t, teams)),
                         f"{sp['slug']}/teams/{t['slug']}")
         info = SPORT_DATA.get(sp['key']) or {}
         written.append(f"{sp['slug']} ({len(teams)} teams, {info.get('graded', 0)} graded games)")
@@ -1374,7 +1398,7 @@ def main():
     team_bytes = 0
     for t in nhl_teams:
         team_html = render_page(template, 'sport', teams_menu_html, meta=sport_team_meta(nhl, t, full_data['seasonLabel']),
-                                sport=nhl, sport_body=team_detail_html(nhl, t))
+                                sport=nhl, sport_body=team_detail_html(nhl, t, nhl_teams))
         write_light(team_html, f"nhl/teams/{t['slug']}")
         team_bytes += len(team_html)
     write_stats_pages(template, nhl, teams_menu_html, full_data['seasonLabel'], True)

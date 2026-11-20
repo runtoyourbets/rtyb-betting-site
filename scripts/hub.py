@@ -8,7 +8,7 @@ The Arena hubs (/{sport}/): each sport's front page, drawn by assets/sport.js
 Matchup of the Day (football: of the Week) is the game on the slate with the
 most trends pointing at the same bet, by the Trends page's rules:
   - League Trends: the slate's cards (trends.json) that pick the game
-  - Matchup Trends: a team that leans a way in a market (60%+ over 10+
+  - Matchup Trends: a team that leans a way in a market (60%+ over 5+
     games before the slate; the moneyline counts ties as games played)
   - Streak Trends: a team on a run of 3 or more
 It needs 3 agreeing trends; ties go to the bigger edge over the league rate
@@ -112,11 +112,14 @@ def team_seqs(doc, before, k):
     return out
 
 
+LEAN_MIN = 5   # a lean ("usually"): 60%+ of a team's games, this many played
+
+
 def lean_of(m, seq):
     a = sum(1 for x in seq if x == HIT[m])
     b = sum(1 for x in seq if x == MISS[m])
     y = len(seq) if m == 'ml' else a + b
-    if y < 10:
+    if y < LEAN_MIN:
         return None
     kind, x = (HIT[m], a) if a >= b else (MISS[m], b)
     return {'kind': kind, 'x': x, 'y': y, 'rate': x / y} if x / y >= 0.6 else None
