@@ -48,81 +48,6 @@
   "schedule": "day"
  },
  {
-  "key": "wnba",
-  "label": "WNBA",
-  "slug": "wnba",
-  "sport_type": "spread",
-  "segments": [
-   {
-    "key": "1q",
-    "label": "1st Quarter",
-    "tag": "1Q",
-    "markets": [
-     "ATS",
-     "ML",
-     "Total"
-    ]
-   },
-   {
-    "key": "1h",
-    "label": "1st Half",
-    "tag": "1H",
-    "markets": [
-     "ATS",
-     "ML",
-     "Total"
-    ]
-   }
-  ],
-  "schedule": "day"
- },
- {
-  "key": "mlb",
-  "label": "MLB",
-  "slug": "mlb",
-  "sport_type": "baseball",
-  "segments": [
-   {
-    "key": "1i",
-    "label": "1st Inning",
-    "tag": "NRFI",
-    "markets": [
-     "NRFI/YRFI"
-    ]
-   },
-   {
-    "key": "f5",
-    "label": "First Five Innings",
-    "tag": "F5",
-    "markets": [
-     "ATS",
-     "ML",
-     "Total"
-    ]
-   }
-  ],
-  "schedule": "day"
- },
- {
-  "key": "ncaab",
-  "label": "NCAAB",
-  "slug": "college-basketball",
-  "sport_type": "spread",
-  "segments": [
-   {
-    "key": "1h",
-    "label": "1st Half",
-    "tag": "1H",
-    "markets": [
-     "ATS",
-     "ML",
-     "Total"
-    ]
-   }
-  ],
-  "schedule": "day"
- },
- {
   "key": "nfl",
   "label": "NFL",
   "slug": "nfl",
@@ -179,5 +104,80 @@
    }
   ],
   "schedule": "week"
+ },
+ {
+  "key": "ncaab",
+  "label": "NCAAB",
+  "slug": "college-basketball",
+  "sport_type": "spread",
+  "segments": [
+   {
+    "key": "1h",
+    "label": "1st Half",
+    "tag": "1H",
+    "markets": [
+     "ATS",
+     "ML",
+     "Total"
+    ]
+   }
+  ],
+  "schedule": "day"
+ },
+ {
+  "key": "mlb",
+  "label": "MLB",
+  "slug": "mlb",
+  "sport_type": "baseball",
+  "segments": [
+   {
+    "key": "1i",
+    "label": "1st Inning",
+    "tag": "NRFI",
+    "markets": [
+     "NRFI/YRFI"
+    ]
+   },
+   {
+    "key": "f5",
+    "label": "First Five Innings",
+    "tag": "F5",
+    "markets": [
+     "ATS",
+     "ML",
+     "Total"
+    ]
+   }
+  ],
+  "schedule": "day"
+ },
+ {
+  "key": "wnba",
+  "label": "WNBA",
+  "slug": "wnba",
+  "sport_type": "spread",
+  "segments": [
+   {
+    "key": "1q",
+    "label": "1st Quarter",
+    "tag": "1Q",
+    "markets": [
+     "ATS",
+     "ML",
+     "Total"
+    ]
+   },
+   {
+    "key": "1h",
+    "label": "1st Half",
+    "tag": "1H",
+    "markets": [
+     "ATS",
+     "ML",
+     "Total"
+    ]
+   }
+  ],
+  "schedule": "day"
  }
 ]
