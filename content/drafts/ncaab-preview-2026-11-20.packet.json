@@ -1,0 +1,1030 @@
+{
+ "sport": "College Basketball",
+ "segments": "1st half",
+ "date": "2026-11-20",
+ "games_on_the_slate": 51,
+ "lead_game": "Northwestern at Virginia Tech",
+ "matchup_of_the_day": "Manhattan at Miami",
+ "games": [
+  {
+   "id": "401920380",
+   "matchup": "Northwestern at Virginia Tech",
+   "away": {
+    "code": "NU",
+    "name": "Northwestern"
+   },
+   "home": {
+    "code": "VT",
+    "name": "Virginia Tech"
+   },
+   "start": "3:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Virginia Tech have won the 1st half 5 straight",
+    "Northwestern 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "NU": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      },
+      "VT": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 67.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401919826",
+   "matchup": "Western Illinois at UAlbany",
+   "away": {
+    "code": "WIU",
+    "name": "Western Illinois"
+   },
+   "home": {
+    "code": "UALB",
+    "name": "UAlbany"
+   },
+   "start": "3:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1H": {
+     "spread": {
+      "WIU": {
+       "open": 2.5,
+       "now": 4.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "UALB": {
+       "open": -2.5,
+       "now": -4.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 67.5,
+      "now": 66.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921723",
+   "matchup": "Manhattan at Miami",
+   "away": {
+    "code": "MANH",
+    "name": "Manhattan"
+   },
+   "home": {
+    "code": "MIA",
+    "name": "Miami"
+   },
+   "start": "5:00 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Manhattan have lost the 1st half 5 straight",
+    "Miami have won the 1st half 4 straight",
+    "Manhattan have failed to cover the 1st half spread 3 straight",
+    "Manhattan 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "MANH": {
+       "open": 19.5,
+       "now": 20.5,
+       "price": 105,
+       "best_book": "Fanatics"
+      },
+      "MIA": {
+       "open": -19.5,
+       "now": -20.5,
+       "price": -130,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 71.5,
+      "now": 71.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401919827",
+   "matchup": "Mercyhurst at Canisius",
+   "away": {
+    "code": "MERC",
+    "name": "Mercyhurst"
+   },
+   "home": {
+    "code": "CANI",
+    "name": "Canisius"
+   },
+   "start": "5:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "50-41",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1H": {
+     "spread": {
+      "MERC": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "CANI": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 64.5,
+      "now": 64.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920298",
+   "matchup": "Delaware at Cal State Northridge",
+   "away": {
+    "code": "DEL",
+    "name": "Delaware"
+   },
+   "home": {
+    "code": "CSUN",
+    "name": "Cal State Northridge"
+   },
+   "start": "6:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Delaware 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "DEL": {
+       "open": 2.5,
+       "now": 3.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "CSUN": {
+       "open": -2.5,
+       "now": -3.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921107",
+   "matchup": "Bellarmine at Eastern Kentucky",
+   "away": {
+    "code": "BELL",
+    "name": "Bellarmine"
+   },
+   "home": {
+    "code": "EKU",
+    "name": "Eastern Kentucky"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Eastern Kentucky have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "BELL": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "EKU": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 69.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909709",
+   "matchup": "Central Michigan at Pittsburgh",
+   "away": {
+    "code": "CMU",
+    "name": "Central Michigan"
+   },
+   "home": {
+    "code": "PITT",
+    "name": "Pittsburgh"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Pittsburgh 1st halves have gone Over 4 straight"
+   ],
+   "lines": {}
+  },
+  {
+   "id": "401920427",
+   "matchup": "Loyola Maryland at Virginia",
+   "away": {
+    "code": "LOYM",
+    "name": "Loyola Maryland"
+   },
+   "home": {
+    "code": "UVA",
+    "name": "Virginia"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    }
+   ],
+   "streaks": [
+    "Loyola Maryland 1st halves have gone Under 3 straight"
+   ],
+   "lines": {}
+  },
+  {
+   "id": "401924844",
+   "matchup": "Niagara at Delaware State",
+   "away": {
+    "code": "NIAG",
+    "name": "Niagara"
+   },
+   "home": {
+    "code": "DSU",
+    "name": "Delaware State"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Niagara have lost the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "total": {
+      "open": 63.5,
+      "now": 63.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401926134",
+   "matchup": "Oakland at Purdue",
+   "away": {
+    "code": "OAK",
+    "name": "Oakland"
+   },
+   "home": {
+    "code": "PUR",
+    "name": "Purdue"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    }
+   ],
+   "streaks": [
+    "Purdue have won the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "OAK": {
+       "open": 12.5,
+       "now": 13.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "PUR": {
+       "open": -12.5,
+       "now": -13.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 71.5,
+      "now": 71.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401916299",
+   "matchup": "Wagner at Maryland",
+   "away": {
+    "code": "WAGN",
+    "name": "Wagner"
+   },
+   "home": {
+    "code": "MD",
+    "name": "Maryland"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Maryland 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "WAGN": {
+       "open": 19.5,
+       "now": 19.5,
+       "price": 105,
+       "best_book": "Fanatics"
+      },
+      "MD": {
+       "open": -19.5,
+       "now": -19.5,
+       "price": -130,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920922",
+   "matchup": "Western Michigan at Mount St. Mary's",
+   "away": {
+    "code": "WMU",
+    "name": "Western Michigan"
+   },
+   "home": {
+    "code": "MSM",
+    "name": "Mount St. Mary's"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "50-41",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Western Michigan have won the 1st half 4 straight",
+    "Western Michigan have covered the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "WMU": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "MSM": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 67.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401925080",
+   "matchup": "UT Arlington at Northwestern State",
+   "away": {
+    "code": "UTA",
+    "name": "UT Arlington"
+   },
+   "home": {
+    "code": "NWST",
+    "name": "Northwestern State"
+   },
+   "start": "7:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "157-116",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "50-41",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "UT Arlington have covered the 1st half spread 4 straight",
+    "Northwestern State 1st halves have gone Over 3 straight",
+    "UT Arlington have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "UTA": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "NWST": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 67.5,
+      "now": 68.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401906784",
+   "matchup": "Georgia at Georgia Tech",
+   "away": {
+    "code": "UGA",
+    "name": "Georgia"
+   },
+   "home": {
+    "code": "GT",
+    "name": "Georgia Tech"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "50-41",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Georgia Tech 1st halves have gone Over 3 straight",
+    "Georgia Tech have failed to cover the 1st half spread 3 straight",
+    "Georgia have won the 1st half 5 straight",
+    "Georgia Tech have lost the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "UGA": {
+       "open": -5.5,
+       "now": -4.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "GT": {
+       "open": 5.5,
+       "now": 4.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 80.5,
+      "now": 79.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401925740",
+   "matchup": "Mississippi Valley State at Arkansas",
+   "away": {
+    "code": "MVSU",
+    "name": "Mississippi Valley State"
+   },
+   "home": {
+    "code": "ARK",
+    "name": "Arkansas"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "202-133",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "121-93",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Mississippi Valley State have lost the 1st half 4 straight",
+    "Mississippi Valley State 1st halves have gone Over 3 straight",
+    "Arkansas 1st halves have gone Under 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "MVSU": {
+       "open": 24.5,
+       "now": 22.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "ARK": {
+       "open": -24.5,
+       "now": -22.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 72.5,
+      "now": 71.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  }
+ ],
+ "trends_page": "/college-basketball/trends/",
+ "teams": {
+  "ARK": {
+   "name": "Arkansas",
+   "rates": []
+  },
+  "BELL": {
+   "name": "Bellarmine",
+   "rates": []
+  },
+  "CSUN": {
+   "name": "Cal State Northridge",
+   "rates": []
+  },
+  "CANI": {
+   "name": "Canisius",
+   "rates": []
+  },
+  "CMU": {
+   "name": "Central Michigan",
+   "rates": []
+  },
+  "DEL": {
+   "name": "Delaware",
+   "rates": []
+  },
+  "DSU": {
+   "name": "Delaware State",
+   "rates": []
+  },
+  "EKU": {
+   "name": "Eastern Kentucky",
+   "rates": []
+  },
+  "UGA": {
+   "name": "Georgia",
+   "rates": []
+  },
+  "GT": {
+   "name": "Georgia Tech",
+   "rates": []
+  },
+  "LOYM": {
+   "name": "Loyola Maryland",
+   "rates": []
+  },
+  "MANH": {
+   "name": "Manhattan",
+   "rates": []
+  },
+  "MD": {
+   "name": "Maryland",
+   "rates": []
+  },
+  "MERC": {
+   "name": "Mercyhurst",
+   "rates": []
+  },
+  "MIA": {
+   "name": "Miami",
+   "rates": []
+  },
+  "MVSU": {
+   "name": "Mississippi Valley State",
+   "rates": []
+  },
+  "MSM": {
+   "name": "Mount St. Mary's",
+   "rates": []
+  },
+  "NIAG": {
+   "name": "Niagara",
+   "rates": []
+  },
+  "NWST": {
+   "name": "Northwestern State",
+   "rates": []
+  },
+  "NU": {
+   "name": "Northwestern",
+   "rates": []
+  },
+  "OAK": {
+   "name": "Oakland",
+   "rates": []
+  },
+  "PITT": {
+   "name": "Pittsburgh",
+   "rates": []
+  },
+  "PUR": {
+   "name": "Purdue",
+   "rates": []
+  },
+  "UALB": {
+   "name": "UAlbany",
+   "rates": []
+  },
+  "UTA": {
+   "name": "UT Arlington",
+   "rates": []
+  },
+  "UVA": {
+   "name": "Virginia",
+   "rates": []
+  },
+  "VT": {
+   "name": "Virginia Tech",
+   "rates": []
+  },
+  "WAGN": {
+   "name": "Wagner",
+   "rates": []
+  },
+  "WIU": {
+   "name": "Western Illinois",
+   "rates": []
+  },
+  "WMU": {
+   "name": "Western Michigan",
+   "rates": []
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H ML",
+   "record": "202-133",
+   "pct": "60%",
+   "games": 335,
+   "fits_tonight": [
+    "Western Illinois at UAlbany",
+    "Northwestern at Virginia Tech",
+    "Manhattan at Miami",
+    "Mercyhurst at Canisius",
+    "Delaware at Cal State Northridge",
+    "Central Michigan at Pittsburgh",
+    "Wagner at Maryland",
+    "Western Michigan at Mount St. Mary's",
+    "Bellarmine at Eastern Kentucky",
+    "Niagara at Delaware State",
+    "Mississippi Valley State at Arkansas"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "1H Spread",
+   "record": "157-116",
+   "pct": "58%",
+   "games": 273,
+   "fits_tonight": [
+    "Western Illinois at UAlbany",
+    "Northwestern at Virginia Tech",
+    "Manhattan at Miami",
+    "Delaware at Cal State Northridge",
+    "Central Michigan at Pittsburgh",
+    "Wagner at Maryland",
+    "Loyola Maryland at Virginia",
+    "Western Michigan at Mount St. Mary's",
+    "Bellarmine at Eastern Kentucky",
+    "Niagara at Delaware State",
+    "Oakland at Purdue",
+    "UT Arlington at Northwestern State"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H Spread",
+   "record": "121-93",
+   "pct": "57%",
+   "games": 214,
+   "fits_tonight": [
+    "Western Illinois at UAlbany",
+    "Northwestern at Virginia Tech",
+    "Manhattan at Miami",
+    "Mercyhurst at Canisius",
+    "Delaware at Cal State Northridge",
+    "Central Michigan at Pittsburgh",
+    "Wagner at Maryland",
+    "Western Michigan at Mount St. Mary's",
+    "Bellarmine at Eastern Kentucky",
+    "Niagara at Delaware State",
+    "Mississippi Valley State at Arkansas"
+   ]
+  },
+  {
+   "trend": "Over: home underdog games",
+   "market": "1H O/U",
+   "record": "50-41",
+   "pct": "55%",
+   "games": 91,
+   "fits_tonight": [
+    "Mercyhurst at Canisius",
+    "Western Michigan at Mount St. Mary's",
+    "UT Arlington at Northwestern State",
+    "Georgia at Georgia Tech"
+   ]
+  }
+ ],
+ "edge_plays": [],
+ "boxes": {
+  "league_trend": {
+   "sport": "ncaab",
+   "number": "60%",
+   "line": "Fade teams off a blowout · 1H ML · 202-133",
+   "text": "Fade teams off a blowout 202-133 this season; tonight it fits Green Bay at Florida State and 20 more games.",
+   "id": "off_loss3:1h:ml:fade"
+  }
+ }
+}

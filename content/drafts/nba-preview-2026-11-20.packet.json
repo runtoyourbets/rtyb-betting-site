@@ -1,0 +1,2956 @@
+{
+ "sport": "NBA",
+ "segments": "1st quarter and 1st half",
+ "date": "2026-11-20",
+ "games_on_the_slate": 9,
+ "lead_game": "Sacramento Kings at Los Angeles Lakers",
+ "matchup_of_the_day": "Orlando Magic at Brooklyn Nets",
+ "games": [
+  {
+   "id": "401909305",
+   "matchup": "Charlotte Hornets at Atlanta Hawks",
+   "away": {
+    "code": "CHA",
+    "name": "Charlotte Hornets"
+   },
+   "home": {
+    "code": "ATL",
+    "name": "Atlanta Hawks"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H ML)",
+     "season_record": "64-33",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Fade small underdogs (1H ML)",
+     "season_record": "56-38",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "ATL has won the 1st half",
+     "season_record": "9-6",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "60-39",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "32-18",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "CHA has gone Under the 1st quarter total",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Over: divisional games (1H O/U)",
+     "season_record": "28-23",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: rest edge games (1H O/U)",
+     "season_record": "53-45",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Fade big favorites (1Q Spread)",
+     "season_record": "67-52",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small underdogs (1Q Spread)",
+     "season_record": "70-55",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "ATL has failed to cover the 1st quarter spread",
+     "season_record": "10-5",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "ATL has lost the 1st quarter",
+     "season_record": "10-5",
+     "season_pct": "67%"
+    }
+   ],
+   "streaks": [
+    "Hawks 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "CHA": {
+       "open": 135,
+       "now": 134,
+       "best_book": "FanDuel"
+      },
+      "ATL": {
+       "open": -164,
+       "now": -164,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "CHA": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -105,
+       "best_book": "TheScore US"
+      },
+      "ATL": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -118,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 57.5,
+      "now": 57.5,
+      "over": -108,
+      "under": -118,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "CHA": {
+       "open": 146,
+       "now": 142,
+       "best_book": "FanDuel"
+      },
+      "ATL": {
+       "open": -180,
+       "now": -175,
+       "best_book": "TheScore US"
+      }
+     },
+     "spread": {
+      "CHA": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      },
+      "ATL": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -105,
+       "best_book": "TheScore US"
+      }
+     },
+     "total": {
+      "open": 113.5,
+      "now": 113.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909307",
+   "matchup": "Indiana Pacers at Cleveland Cavaliers",
+   "away": {
+    "code": "IND",
+    "name": "Indiana Pacers"
+   },
+   "home": {
+    "code": "CLE",
+    "name": "Cleveland Cavaliers"
+   },
+   "start": "7:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "51-32",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "IND has lost the 1st half",
+     "season_record": "9-6",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q ML)",
+     "season_record": "48-34",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "32-18",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Over: divisional games (1H O/U)",
+     "season_record": "28-23",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: team off a blowout (1H O/U)",
+     "season_record": "55-48",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "49-37",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade big favorites (1Q Spread)",
+     "season_record": "67-52",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "IND has gone Under the 1st half total",
+     "season_record": "9-6",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Cavaliers have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "IND": {
+       "open": 150,
+       "now": 152,
+       "best_book": "FanDuel"
+      },
+      "CLE": {
+       "open": -184,
+       "now": -188,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "IND": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -113,
+       "best_book": "FanDuel"
+      },
+      "CLE": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 57.5,
+      "now": 57.5,
+      "over": -105,
+      "under": -111,
+      "best_book_over": "Fanatics"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "IND": {
+       "open": 165,
+       "now": 172,
+       "best_book": "FanDuel"
+      },
+      "CLE": {
+       "open": -194,
+       "now": -215,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "IND": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -102,
+       "best_book": "FanDuel"
+      },
+      "CLE": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -120,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 113.5,
+      "now": 113.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909306",
+   "matchup": "Orlando Magic at Brooklyn Nets",
+   "away": {
+    "code": "ORL",
+    "name": "Orlando Magic"
+   },
+   "home": {
+    "code": "BKN",
+    "name": "Brooklyn Nets"
+   },
+   "start": "7:30 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "64-27",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "51-32",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade small underdogs (1H ML)",
+     "season_record": "56-38",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "BKN has lost the 1st half",
+     "season_record": "10-4",
+     "season_pct": "71%"
+    },
+    {
+     "trend": "Back road favorites (1H Spread)",
+     "season_record": "58-36",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "49-37",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "BKN has failed to cover the 1st half spread",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q ML)",
+     "season_record": "48-34",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade big favorites (1Q Spread)",
+     "season_record": "67-52",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small underdogs (1Q Spread)",
+     "season_record": "70-55",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: team off a blowout (1H O/U)",
+     "season_record": "55-48",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "BKN has gone Over the 1st half total",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    }
+   ],
+   "streaks": [
+    "Magic have won the 1st half 5 straight",
+    "Nets have lost the 1st half 3 straight",
+    "Magic have covered the 1st half spread 5 straight",
+    "Nets have failed to cover the 1st half spread 3 straight",
+    "Magic have won the 1st quarter 3 straight",
+    "Nets have lost the 1st quarter 3 straight",
+    "Nets 1st halves have gone Over 4 straight",
+    "Magic have covered the 1st quarter spread 3 straight",
+    "Nets have failed to cover the 1st quarter spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "ORL": {
+       "open": -155,
+       "now": -160,
+       "best_book": "TheScore US"
+      },
+      "BKN": {
+       "open": 130,
+       "now": 136,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "ORL": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      },
+      "BKN": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 58.5,
+      "now": 58.5,
+      "over": -102,
+      "under": -125,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "ORL": {
+       "open": -162,
+       "now": -175,
+       "best_book": "TheScore US"
+      },
+      "BKN": {
+       "open": 140,
+       "now": 146,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "ORL": {
+       "open": -2.5,
+       "now": -3.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      },
+      "BKN": {
+       "open": 2.5,
+       "now": 3.5,
+       "price": -118,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 114.5,
+      "now": 114.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909308",
+   "matchup": "Toronto Raptors at Detroit Pistons",
+   "away": {
+    "code": "TOR",
+    "name": "Toronto Raptors"
+   },
+   "home": {
+    "code": "DET",
+    "name": "Detroit Pistons"
+   },
+   "start": "7:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H ML)",
+     "season_record": "64-33",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "TOR has lost the 1st half",
+     "season_record": "9-6",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "60-39",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "TOR has failed to cover the 1st half spread",
+     "season_record": "9-6",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade big favorites (1Q Spread)",
+     "season_record": "67-52",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small underdogs (1Q Spread)",
+     "season_record": "70-55",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "DET has failed to cover the 1st quarter spread",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "DET has gone Under the 1st half total",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    }
+   ],
+   "streaks": [
+    "Raptors have lost the 1st half 3 straight",
+    "Raptors have failed to cover the 1st half spread 3 straight",
+    "Raptors 1st quarters have gone Under 3 straight",
+    "Pistons 1st quarters have gone Over 5 straight",
+    "Raptors 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "TOR": {
+       "open": 146,
+       "now": 144,
+       "best_book": "FanDuel"
+      },
+      "DET": {
+       "open": -180,
+       "now": -178,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "TOR": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -122,
+       "best_book": "FanDuel"
+      },
+      "DET": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 52.5,
+      "now": 53.5,
+      "over": -104,
+      "under": -122,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "TOR": {
+       "open": 184,
+       "now": 184,
+       "best_book": "FanDuel"
+      },
+      "DET": {
+       "open": -230,
+       "now": -230,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "TOR": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": -112,
+       "best_book": "FanDuel"
+      },
+      "DET": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": -108,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 104.5,
+      "now": 104.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909310",
+   "matchup": "New Orleans Pelicans at Oklahoma City Thunder",
+   "away": {
+    "code": "NO",
+    "name": "New Orleans Pelicans"
+   },
+   "home": {
+    "code": "OKC",
+    "name": "Oklahoma City Thunder"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "51-32",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "NO has lost the 1st half",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1Q ML)",
+     "season_record": "48-34",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "OKC has won the 1st quarter",
+     "season_record": "9-6",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "49-37",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade big favorites (1Q Spread)",
+     "season_record": "67-52",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: team off a blowout (1H O/U)",
+     "season_record": "55-48",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "NO has failed to cover the 1st quarter spread",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "OKC has gone Over the 1st quarter total",
+     "season_record": "10-5",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "OKC has gone Under the 1st half total",
+     "season_record": "9-6",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Thunder 1st quarters have gone Over 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "NO": {
+       "open": 190,
+       "now": 198,
+       "best_book": "FanDuel"
+      },
+      "OKC": {
+       "open": -240,
+       "now": -250,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "NO": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -105,
+       "best_book": "TheScore US"
+      },
+      "OKC": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -120,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 59.5,
+      "now": 59.5,
+      "over": -113,
+      "under": -113,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "NO": {
+       "open": 235,
+       "now": 250,
+       "best_book": "FanDuel"
+      },
+      "OKC": {
+       "open": -300,
+       "now": -325,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "NO": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": -106,
+       "best_book": "FanDuel"
+      },
+      "OKC": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": -114,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 117.5,
+      "now": 117.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909309",
+   "matchup": "Washington Wizards at Chicago Bulls",
+   "away": {
+    "code": "WSH",
+    "name": "Washington Wizards"
+   },
+   "home": {
+    "code": "CHI",
+    "name": "Chicago Bulls"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "31-20",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade small underdogs (1H ML)",
+     "season_record": "56-38",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "WSH has lost the 1st half",
+     "season_record": "11-5",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "29-23",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "WSH has failed to cover the 1st half spread",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "CHI has lost the 1st quarter",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    }
+   ],
+   "streaks": [
+    "Bulls have covered the 1st quarter spread 6 straight",
+    "Bulls 1st quarters have gone Under 4 straight",
+    "Bulls have won the 1st quarter 5 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "WSH": {
+       "open": 100,
+       "now": -104,
+       "best_book": "FanDuel"
+      },
+      "CHI": {
+       "open": -122,
+       "now": -118,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "WSH": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -115,
+       "best_book": "FanDuel"
+      },
+      "CHI": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -110,
+       "best_book": "TheScore US"
+      }
+     },
+     "total": {
+      "open": 63.5,
+      "now": 63.5,
+      "over": -106,
+      "under": -120,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "WSH": {
+       "open": 110,
+       "now": 106,
+       "best_book": "FanDuel"
+      },
+      "CHI": {
+       "open": -134,
+       "now": -130,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "WSH": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -118,
+       "best_book": "FanDuel"
+      },
+      "CHI": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 124.5,
+      "now": 124.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909311",
+   "matchup": "Phoenix Suns at Utah Jazz",
+   "away": {
+    "code": "PHX",
+    "name": "Phoenix Suns"
+   },
+   "home": {
+    "code": "UTA",
+    "name": "Utah Jazz"
+   },
+   "start": "9:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "64-27",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade small underdogs (1H ML)",
+     "season_record": "56-38",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "UTA has lost the 1st half",
+     "season_record": "12-4",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "Back road favorites (1H Spread)",
+     "season_record": "58-36",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Back small underdogs (1Q Spread)",
+     "season_record": "70-55",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "UTA has covered the 1st quarter spread",
+     "season_record": "11-5",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "UTA has gone Under the 1st quarter total",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "UTA has gone Under the 1st half total",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    }
+   ],
+   "streaks": [
+    "Jazz 1st quarters have gone Over 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "PHX": {
+       "open": -140,
+       "now": -144,
+       "best_book": "FanDuel"
+      },
+      "UTA": {
+       "open": 118,
+       "now": 118,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "PHX": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -105,
+       "best_book": "TheScore US"
+      },
+      "UTA": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -120,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 59.5,
+      "now": 59.5,
+      "over": -104,
+      "under": -122,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "PHX": {
+       "open": -145,
+       "now": -154,
+       "best_book": "FanDuel"
+      },
+      "UTA": {
+       "open": 122,
+       "now": 126,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "PHX": {
+       "open": -1.5,
+       "now": -2.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      },
+      "UTA": {
+       "open": 1.5,
+       "now": 2.5,
+       "price": -118,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 116.5,
+      "now": 116.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909312",
+   "matchup": "Houston Rockets at Denver Nuggets",
+   "away": {
+    "code": "HOU",
+    "name": "Houston Rockets"
+   },
+   "home": {
+    "code": "DEN",
+    "name": "Denver Nuggets"
+   },
+   "start": "10:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "31-20",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade small underdogs (1H ML)",
+     "season_record": "56-38",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back small underdogs (1Q Spread)",
+     "season_record": "70-55",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "29-23",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "DEN has covered the 1st quarter spread",
+     "season_record": "8-5",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "HOU has gone Over the 1st quarter total",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "DEN has won the 1st quarter",
+     "season_record": "8-5",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "HOU has covered the 1st half spread",
+     "season_record": "12-4",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "HOU has gone Under the 1st half total",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "HOU has won the 1st half",
+     "season_record": "12-4",
+     "season_pct": "75%"
+    }
+   ],
+   "streaks": [
+    "Nuggets 1st quarters have gone Under 3 straight",
+    "Nuggets have failed to cover the 1st half spread 3 straight",
+    "Nuggets 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "HOU": {
+       "open": 102,
+       "now": 102,
+       "best_book": "FanDuel"
+      },
+      "DEN": {
+       "open": -124,
+       "now": -124,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "HOU": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -113,
+       "best_book": "FanDuel"
+      },
+      "DEN": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -113,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 55.5,
+      "now": 55.5,
+      "over": -104,
+      "under": -122,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "HOU": {
+       "open": 102,
+       "now": 102,
+       "best_book": "FanDuel"
+      },
+      "DEN": {
+       "open": -124,
+       "now": -124,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "HOU": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -106,
+       "best_book": "FanDuel"
+      },
+      "DEN": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -114,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 109.5,
+      "now": 109.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909313",
+   "matchup": "Sacramento Kings at Los Angeles Lakers",
+   "away": {
+    "code": "SAC",
+    "name": "Sacramento Kings"
+   },
+   "home": {
+    "code": "LAL",
+    "name": "Los Angeles Lakers"
+   },
+   "start": "10:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "32-18",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Over: divisional games (1H O/U)",
+     "season_record": "28-23",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: team off a blowout (1H O/U)",
+     "season_record": "55-48",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "SAC has gone Over the 1st half total",
+     "season_record": "10-4",
+     "season_pct": "71%"
+    },
+    {
+     "trend": "LAL has gone Over the 1st half total",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade big favorites (1Q Spread)",
+     "season_record": "67-52",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "SAC has failed to cover the 1st quarter spread",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "SAC has lost the 1st quarter",
+     "season_record": "9-5",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "LAL has won the 1st quarter",
+     "season_record": "11-5",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "SAC has failed to cover the 1st half spread",
+     "season_record": "11-3",
+     "season_pct": "79%"
+    },
+    {
+     "trend": "LAL has covered the 1st half spread",
+     "season_record": "10-6",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "SAC has lost the 1st half",
+     "season_record": "12-2",
+     "season_pct": "86%"
+    },
+    {
+     "trend": "LAL has won the 1st half",
+     "season_record": "11-5",
+     "season_pct": "69%"
+    }
+   ],
+   "streaks": [
+    "Kings have failed to cover the 1st quarter spread 6 straight",
+    "Kings have lost the 1st quarter 6 straight",
+    "Kings have failed to cover the 1st half spread 7 straight",
+    "Kings have lost the 1st half 7 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "SAC": {
+       "open": 260,
+       "now": 250,
+       "best_book": "FanDuel"
+      },
+      "LAL": {
+       "open": -340,
+       "now": -325,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "SAC": {
+       "open": 5.5,
+       "now": 5.5,
+       "price": -125,
+       "best_book": "TheScore US"
+      },
+      "LAL": {
+       "open": -5.5,
+       "now": -5.5,
+       "price": -105,
+       "best_book": "TheScore US"
+      }
+     },
+     "total": {
+      "open": 60.5,
+      "now": 60.5,
+      "over": -102,
+      "under": -125,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "SAC": {
+       "open": 320,
+       "now": 310,
+       "best_book": "FanDuel"
+      },
+      "LAL": {
+       "open": -430,
+       "now": -420,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "SAC": {
+       "open": 8.5,
+       "now": 8.5,
+       "price": -115,
+       "best_book": "FanDuel"
+      },
+      "LAL": {
+       "open": -8.5,
+       "now": -8.5,
+       "price": -105,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 118.5,
+      "now": 118.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  }
+ ],
+ "trends_page": "/nba/trends/",
+ "teams": {
+  "ATL": {
+   "name": "Atlanta Hawks",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "5-10",
+      "pct": "33%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "3-9",
+      "pct": "25%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "5-10",
+      "pct": "33%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "3-9",
+      "pct": "25%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "5-7",
+      "pct": "42%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "9-6",
+      "pct": "60%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "BKN": {
+   "name": "Brooklyn Nets",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "9-5",
+      "pct": "64%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "4-10",
+      "pct": "29%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "4-9",
+      "pct": "31%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "CHA": {
+   "name": "Charlotte Hornets",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     },
+     "as underdogs": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "CHI": {
+   "name": "Chicago Bulls",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "CLE": {
+   "name": "Cleveland Cavaliers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "9-7",
+      "pct": "56%",
+      "games": 16
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "7-9",
+      "pct": "44%",
+      "games": 16
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "9-7",
+      "pct": "56%",
+      "games": 16
+     }
+    }
+   ]
+  },
+  "DEN": {
+   "name": "Denver Nuggets",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "DET": {
+   "name": "Detroit Pistons",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "HOU": {
+   "name": "Houston Rockets",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "10-6",
+      "pct": "62%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "9-5",
+      "pct": "64%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "9-5",
+      "pct": "64%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "12-4",
+      "pct": "75%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "10-4",
+      "pct": "71%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-10",
+      "pct": "38%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "12-2",
+      "pct": "86%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "10-2",
+      "pct": "83%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "IND": {
+   "name": "Indiana Pacers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-8",
+      "pct": "47%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-9",
+      "pct": "40%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6-9",
+      "pct": "40%",
+      "games": 15
+     }
+    }
+   ]
+  },
+  "LAL": {
+   "name": "Los Angeles Lakers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "9-7",
+      "pct": "56%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "11-4",
+      "pct": "73%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "9-4",
+      "pct": "69%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "10-6",
+      "pct": "62%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "10-6",
+      "pct": "62%",
+      "games": 16
+     },
+     "as favorites": {
+      "record": "9-5",
+      "pct": "64%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "11-3",
+      "pct": "79%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "9-3",
+      "pct": "75%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "NO": {
+   "name": "New Orleans Pelicans",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-10",
+      "pct": "38%",
+      "games": 16
+     },
+     "at home": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "7-9",
+      "pct": "44%",
+      "games": 16
+     },
+     "at home": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     },
+     "as underdogs": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-9",
+      "pct": "44%",
+      "games": 16
+     },
+     "at home": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     },
+     "at home": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "5-7",
+      "pct": "42%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6-10",
+      "pct": "38%",
+      "games": 16
+     },
+     "at home": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "OKC": {
+   "name": "Oklahoma City Thunder",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "10-5",
+      "pct": "67%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "9-6",
+      "pct": "60%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-8",
+      "pct": "47%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-9",
+      "pct": "40%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "ORL": {
+   "name": "Orlando Magic",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    }
+   ]
+  },
+  "PHX": {
+   "name": "Phoenix Suns",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "SAC": {
+   "name": "Sacramento Kings",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "4-9",
+      "pct": "31%",
+      "games": 13
+     },
+     "as underdogs": {
+      "record": "4-9",
+      "pct": "31%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "3-11",
+      "pct": "21%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "3-11",
+      "pct": "21%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "10-4",
+      "pct": "71%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "10-4",
+      "pct": "71%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "2-12",
+      "pct": "14%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "2-12",
+      "pct": "14%",
+      "games": 14
+     }
+    }
+   ]
+  },
+  "TOR": {
+   "name": "Toronto Raptors",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "7-8",
+      "pct": "47%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-9",
+      "pct": "40%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "7-8",
+      "pct": "47%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     }
+    }
+   ]
+  },
+  "UTA": {
+   "name": "Utah Jazz",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "11-5",
+      "pct": "69%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "10-5",
+      "pct": "67%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-10",
+      "pct": "38%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "6-9",
+      "pct": "40%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-9",
+      "pct": "44%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-10",
+      "pct": "38%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "3-12",
+      "pct": "20%",
+      "games": 15
+     },
+     "as underdogs": {
+      "record": "2-11",
+      "pct": "15%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "WSH": {
+   "name": "Washington Wizards",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "9-7",
+      "pct": "56%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-10",
+      "pct": "38%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "5-11",
+      "pct": "31%",
+      "games": 16
+     },
+     "as underdogs": {
+      "record": "4-9",
+      "pct": "31%",
+      "games": 13
+     }
+    }
+   ]
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Back road favorites",
+   "market": "1H ML",
+   "record": "64-27",
+   "pct": "70%",
+   "games": 91,
+   "fits_tonight": [
+    "Orlando Magic at Brooklyn Nets",
+    "Phoenix Suns at Utah Jazz"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "1H ML",
+   "record": "64-33",
+   "pct": "66%",
+   "games": 97,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks",
+    "Toronto Raptors at Detroit Pistons"
+   ]
+  },
+  {
+   "trend": "Back road favorites",
+   "market": "1H Spread",
+   "record": "58-36",
+   "pct": "62%",
+   "games": 94,
+   "fits_tonight": [
+    "Orlando Magic at Brooklyn Nets",
+    "Phoenix Suns at Utah Jazz"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H ML",
+   "record": "51-32",
+   "pct": "61%",
+   "games": 83,
+   "fits_tonight": [
+    "Orlando Magic at Brooklyn Nets",
+    "Indiana Pacers at Cleveland Cavaliers",
+    "New Orleans Pelicans at Oklahoma City Thunder"
+   ]
+  },
+  {
+   "trend": "Back small favorites",
+   "market": "1H ML",
+   "record": "31-20",
+   "pct": "61%",
+   "games": 51,
+   "fits_tonight": [
+    "Washington Wizards at Chicago Bulls",
+    "Houston Rockets at Denver Nuggets"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "1H Spread",
+   "record": "60-39",
+   "pct": "61%",
+   "games": 99,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks",
+    "Toronto Raptors at Detroit Pistons"
+   ]
+  },
+  {
+   "trend": "Fade small underdogs",
+   "market": "1H ML",
+   "record": "56-38",
+   "pct": "60%",
+   "games": 94,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks",
+    "Orlando Magic at Brooklyn Nets",
+    "Washington Wizards at Chicago Bulls",
+    "Phoenix Suns at Utah Jazz",
+    "Houston Rockets at Denver Nuggets"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1Q ML",
+   "record": "48-34",
+   "pct": "59%",
+   "games": 82,
+   "fits_tonight": [
+    "Orlando Magic at Brooklyn Nets",
+    "Indiana Pacers at Cleveland Cavaliers",
+    "New Orleans Pelicans at Oklahoma City Thunder"
+   ]
+  },
+  {
+   "trend": "Under: divisional games",
+   "market": "1Q O/U",
+   "record": "32-18",
+   "pct": "64%",
+   "games": 50,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks",
+    "Indiana Pacers at Cleveland Cavaliers",
+    "Sacramento Kings at Los Angeles Lakers"
+   ]
+  },
+  {
+   "trend": "Over: divisional games",
+   "market": "1H O/U",
+   "record": "28-23",
+   "pct": "55%",
+   "games": 51,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks",
+    "Indiana Pacers at Cleveland Cavaliers",
+    "Sacramento Kings at Los Angeles Lakers"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H Spread",
+   "record": "49-37",
+   "pct": "57%",
+   "games": 86,
+   "fits_tonight": [
+    "Orlando Magic at Brooklyn Nets",
+    "Indiana Pacers at Cleveland Cavaliers",
+    "New Orleans Pelicans at Oklahoma City Thunder"
+   ]
+  },
+  {
+   "trend": "Fade big favorites",
+   "market": "1Q Spread",
+   "record": "67-52",
+   "pct": "56%",
+   "games": 119,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks",
+    "Orlando Magic at Brooklyn Nets",
+    "Indiana Pacers at Cleveland Cavaliers",
+    "Toronto Raptors at Detroit Pistons",
+    "New Orleans Pelicans at Oklahoma City Thunder",
+    "Sacramento Kings at Los Angeles Lakers"
+   ]
+  },
+  {
+   "trend": "Over: rest edge games",
+   "market": "1H O/U",
+   "record": "53-45",
+   "pct": "54%",
+   "games": 98,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks"
+   ]
+  },
+  {
+   "trend": "Back small underdogs",
+   "market": "1Q Spread",
+   "record": "70-55",
+   "pct": "56%",
+   "games": 125,
+   "fits_tonight": [
+    "Charlotte Hornets at Atlanta Hawks",
+    "Orlando Magic at Brooklyn Nets",
+    "Toronto Raptors at Detroit Pistons",
+    "Phoenix Suns at Utah Jazz",
+    "Houston Rockets at Denver Nuggets"
+   ]
+  },
+  {
+   "trend": "Back small favorites",
+   "market": "1H Spread",
+   "record": "29-23",
+   "pct": "56%",
+   "games": 52,
+   "fits_tonight": [
+    "Washington Wizards at Chicago Bulls",
+    "Houston Rockets at Denver Nuggets"
+   ]
+  },
+  {
+   "trend": "Over: team off a blowout",
+   "market": "1H O/U",
+   "record": "55-48",
+   "pct": "53%",
+   "games": 103,
+   "fits_tonight": [
+    "Orlando Magic at Brooklyn Nets",
+    "Indiana Pacers at Cleveland Cavaliers",
+    "New Orleans Pelicans at Oklahoma City Thunder",
+    "Sacramento Kings at Los Angeles Lakers"
+   ]
+  }
+ ],
+ "edge_plays": [
+  {
+   "game": "Houston Rockets at Denver Nuggets",
+   "bet": "HOU 1H +0.5",
+   "line": 0.5,
+   "best_price": "-106",
+   "book": "FanDuel",
+   "tier": "A",
+   "why": "The Rockets have covered the first half spread 75% (12-4); the Nuggets have covered it 46% (6-7)."
+  },
+  {
+   "game": "Toronto Raptors at Detroit Pistons",
+   "bet": "TOR 1Q ML",
+   "line": null,
+   "best_price": "+144",
+   "book": "FanDuel",
+   "tier": "A",
+   "why": "The Raptors have won the first quarter 53% (8-7); the Pistons have won it 46% (6-7)."
+  },
+  {
+   "game": "Charlotte Hornets at Atlanta Hawks",
+   "bet": "CHA 1Q ML",
+   "line": null,
+   "best_price": "+134",
+   "book": "FanDuel",
+   "tier": "B",
+   "why": "The Hornets have won the first quarter 54% (7-6); the Hawks have won it 33% (5-10)."
+  },
+  {
+   "game": "Houston Rockets at Denver Nuggets",
+   "bet": "HOU 1H ML",
+   "line": null,
+   "best_price": "+102",
+   "book": "FanDuel",
+   "tier": "B",
+   "why": "The Rockets have won the first half 86% (12-2); the Nuggets have won it 54% (7-6)."
+  },
+  {
+   "game": "Charlotte Hornets at Atlanta Hawks",
+   "bet": "CHA 1Q +1.5",
+   "line": 1.5,
+   "best_price": "-105",
+   "book": "TheScore US",
+   "tier": "C",
+   "why": "The Hornets have covered the first quarter spread 57% (8-6); the Hawks have covered it 33% (5-10)."
+  },
+  {
+   "game": "Phoenix Suns at Utah Jazz",
+   "bet": "PHX 1H ML",
+   "line": null,
+   "best_price": "-154",
+   "book": "FanDuel",
+   "tier": "C",
+   "why": "The Suns have won the first half 54% (7-6); the Jazz have won it 20% (3-12)."
+  },
+  {
+   "game": "Phoenix Suns at Utah Jazz",
+   "bet": "1H Under 116.5",
+   "line": 116.5,
+   "best_price": "-105",
+   "book": "FanDuel",
+   "tier": "C",
+   "why": "Jazz 1H unders, season (116.5): 75% (12-4); Suns 1H unders, season (116.5): 64% (9-5)."
+  },
+  {
+   "game": "Washington Wizards at Chicago Bulls",
+   "bet": "WSH 1Q ML",
+   "line": null,
+   "best_price": "-104",
+   "book": "FanDuel",
+   "tier": "C",
+   "why": "The Wizards have won the first quarter 50% (8-8); the Bulls have won it 36% (5-9)."
+  }
+ ],
+ "boxes": {
+  "stat_of_night": {
+   "sport": "nba",
+   "number": "86%",
+   "line": "HOU won the 1H · 12-2",
+   "text": "The Houston Rockets won the 1H in 12 of 14 games this season."
+  },
+  "league_trend": {
+   "sport": "nba",
+   "number": "70%",
+   "line": "Back road favorites · 1H ML · 64-27",
+   "text": "Back road favorites 64-27 this season; tonight it fits Orlando Magic at Brooklyn Nets and 1 more game.",
+   "id": "road_fav:1h:ml:back"
+  },
+  "edge_play": {
+   "sport": "nba",
+   "number": "HOU 1H +0.5",
+   "bet": "HOU 1H +0.5",
+   "price": "-106",
+   "book": "FanDuel",
+   "line": "HOU 1H +0.5 · best -106 at FanDuel",
+   "text": "The Rockets have covered the first half spread 75% (12-4); the Nuggets have covered it 46% (6-7)."
+  }
+ }
+}
