@@ -10760,13 +10760,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 115,
+    "price": 113,
     "title": "Edmonton 1P ML",
-    "est": 0.5056,
-    "edge": 0.0404,
+    "est": 0.5085,
+    "edge": 0.039,
     "agree": 3,
     "sample": 15,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Dog Hunter"
     ],
