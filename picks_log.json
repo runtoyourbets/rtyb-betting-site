@@ -10226,8 +10226,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Clippers"
    },
    {
@@ -10645,8 +10645,8 @@
      ]
     ],
     "info": "Timberwolves avg 1H margin at home: +2.6",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Timberwolves"
    },
    {
@@ -10741,8 +10741,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Timberwolves"
    },
    {
@@ -10838,8 +10838,8 @@
      ]
     ],
     "info": "Avg 1H total in their games: Grizzlies 120.3 \u00b7 Warriors 109.1",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Grizzlies"
    },
    {
