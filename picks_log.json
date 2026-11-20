@@ -11141,10 +11141,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 150,
+    "price": 154,
     "title": "Raptors 1Q ML",
-    "est": 0.4633,
-    "edge": 0.0633,
+    "est": 0.4591,
+    "edge": 0.0654,
     "agree": 3,
     "sample": 15,
     "tier": "A",
@@ -11229,10 +11229,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1300,
+    "price": 1800,
     "title": "Coastal Carolina 1H ML",
-    "est": 0.1247,
-    "edge": 0.0533,
+    "est": 0.1086,
+    "edge": 0.056,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -11255,48 +11255,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Coastal Carolina"
-   },
-   {
-    "id": "ncaab|401929459|1h|ml|away",
-    "game": "ncaab|401929459",
-    "date": "2026-11-20",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-21T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "South Alabama @ SMU",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 500,
-    "title": "South Alabama 1H ML",
-    "est": 0.2146,
-    "edge": 0.048,
-    "agree": 2,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "south-alabama-jaguars",
-    "angles": [
-     [
-      "South Alabama 1H ML, season",
-      "4-2"
-     ],
-     [
-      "South Alabama 1H ML, last 8",
-      "4-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "South Alabama"
    },
    {
     "id": "ncaab|401921007|1h|ml|away",
@@ -11339,6 +11297,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Kansas City"
+   },
+   {
+    "id": "ncaab|401929459|1h|ml|away",
+    "game": "ncaab|401929459",
+    "date": "2026-11-20",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-21T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "South Alabama @ SMU",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 460,
+    "title": "South Alabama 1H ML",
+    "est": 0.2246,
+    "edge": 0.046,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "south-alabama-jaguars",
+    "angles": [
+     [
+      "South Alabama 1H ML, season",
+      "4-2"
+     ],
+     [
+      "South Alabama 1H ML, last 8",
+      "4-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "South Alabama"
    },
    {
     "id": "nba|401909309|1q|ml|away",
