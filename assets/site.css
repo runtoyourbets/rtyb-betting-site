@@ -1925,15 +1925,23 @@
   @keyframes hm-in { from { transform: translateX(-100%); } to { transform: none; } }
   .hm-body { padding: 4px 16px 96px; }
   .hm-label { margin: 18px 0 4px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .hm-all { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; padding: 4px 0 6px; }
+  .hm-all-btn { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 44px; padding: 0 2px; border: 1px solid var(--card-border); border-radius: 10px;
+    background: var(--panel); color: var(--text); text-decoration: none; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-team); }
+  .hm-all-btn.gold { color: var(--gold); border-color: var(--gold); }
+  :root[data-theme="light"] .hm-all-btn.gold { background: var(--gold); color: var(--on-gold); }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .hm-all-btn.gold { background: var(--gold); color: var(--on-gold); } }
   .hm-sport { border-bottom: 1px solid var(--border-soft); }
-  .hm-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 52px; }
-  .hm-name { flex: 1; display: flex; align-items: center; gap: 10px; min-height: 44px; color: var(--text); text-decoration: none;
+  .hm-sport.open { background: var(--panel); margin: 0 -16px; padding: 0 16px; }
+  .hm-row { display: flex; align-items: center; width: 100%; min-height: 52px; padding: 0; border: 0; background: none; color: var(--text); cursor: pointer; text-align: left; }
+  .hm-name { flex: 1; display: flex; align-items: center; gap: 10px; min-height: 44px; color: var(--text);
     font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
   .hm-name .sport-icon { width: 22px; height: 22px; }
-  .hm-plus { width: 40px; height: 40px; border: 1px solid var(--card-border); border-radius: 10px; background: var(--panel); color: var(--text); cursor: pointer;
-    font-family: var(--ff-body); font-size: var(--fs-section); font-weight: var(--fw-body); line-height: 1; }
-  .hm-pills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 2px 0 14px; }
-  .hm-pills[hidden] { display: none; }
+  .hm-open { padding: 0 0 14px; }
+  .hm-open[hidden] { display: none; }
+  .hm-home { display: flex; align-items: center; justify-content: center; min-height: 44px; margin-bottom: 8px; border: 1px solid var(--card-border); border-radius: 10px;
+    background: var(--cell); color: var(--text); text-decoration: none; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-team); }
+  .hm-pills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .hm-pill { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 40px; border: 1px solid var(--card-border); border-radius: 999px;
     background: var(--panel); color: var(--text); text-decoration: none; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .hm-pill.gold { color: var(--gold); border-color: var(--gold); }
@@ -1972,6 +1980,7 @@
   .hr2-label { display: flex; align-items: center; gap: 8px; margin: 0; padding: 10px 0 0; color: var(--gold); text-decoration: none;
     font-family: var(--ff-display); font-size: var(--fs-row-label); font-weight: var(--fw-title); text-transform: uppercase; letter-spacing: 0.02em; }
   .hr2-label .sport-icon { width: 20px; height: 20px; }
+  .hr2-sports .hr2-link .sport-icon, .fr-pills .seg-btn .sport-icon { width: 16px; height: 16px; margin-right: 6px; vertical-align: -3px; }
   a.hr2-label:hover { text-decoration: none; color: var(--gold); }
   .hr2-links { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
   .hr2-links::-webkit-scrollbar { display: none; }
@@ -2190,7 +2199,7 @@
   .ix-group { margin: 6px 0 22px; }
   .ix-group[hidden] { display: none; }
   .ix-sport { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; }
-  .ix-sport .sport-icon { width: 20px; height: 20px; }
+  .ix-sport .sport-icon { width: 24px; height: 24px; }
   .fr-tsport { display: inline-flex; align-items: center; gap: 5px; margin-right: 8px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .fr-tsport .sport-icon { width: 14px; height: 14px; }
   .fr-trow { cursor: default; grid-template-columns: minmax(62px, auto) minmax(0, 1fr) auto; column-gap: 10px; }
@@ -2782,7 +2791,7 @@
   .pv-logos { display: inline-flex; align-items: center; gap: 4px; flex: none; }
   .pv .pv-body .pv-ven, .pv .pv-body .pv-smeta { margin: 0 0 0.7em; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .pv .pv-body h2.pv-sh { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .pv-sh .sport-icon { width: 22px; height: 22px; flex: none; }
+  .pv-sh .sport-icon { width: 24px; height: 24px; flex: none; }
   .pv .pv-body .pv-also { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
   .pv .pv-body .pv-mt { margin-top: 1.6em; padding-top: 14px; border-top: 1px solid var(--border-soft); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); }
   .pv-mt .pv-go { margin-left: 6px; white-space: nowrap; }

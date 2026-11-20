@@ -774,10 +774,11 @@ def upcoming(sport, today, now):
 
 
 def pills(name, opts, cur='all'):
-    """A pill row (scrolls sideways on phones): [(value, label)]."""
+    """A pill row (scrolls sideways on phones): [(value, label)], or
+    [(value, label, icon html)] for a sport's league icon before its name."""
     return (f'<div class="fr-pills" role="group" aria-label="{esc(name)}" data-pills="{esc(name)}">' + ''.join(
-        f'<button class="seg-btn" type="button" data-pick="{esc(v)}" aria-pressed="{str(v == cur).lower()}">{esc(t)}</button>'
-        for v, t in opts) + '</div>')
+        f'<button class="seg-btn" type="button" data-pick="{esc(o[0])}" aria-pressed="{str(o[0] == cur).lower()}">{o[2] if len(o) > 2 else ""}{esc(o[1])}</button>'
+        for o in opts) + '</div>')
 
 
 def more_link(href, text, attrs=''):
@@ -789,7 +790,7 @@ def slate(S, now_utc, root='', hub=False):
     today = now.astimezone(ET).date().isoformat()
     cards, links, opts, ends = [], '', [('all', 'All')] if not hub else [], {}
     for sport in S.values():
-        opts.append((sport.key, sport.label))
+        opts.append((sport.key, sport.label, icons.sport_icon(sport.sp)))
         # today's last start: once it passes, the tab shows the next game day
         starts = [g['start'] for g in sport.games(today) if game_lined(sport, g) and g.get('start')]
         if starts:
@@ -1363,7 +1364,7 @@ def week_label(games):
 
 def index_section(sport, inner, more_href, more_text, heading_extra=''):
     extra = f' <span class="ix-week">&middot; {esc(heading_extra)}</span>' if heading_extra else ''
-    return (f'<section class="ix-group" id="ix-{sport.key}"><h2 class="ix-sport">{esc(sport.label)}{extra}</h2>'
+    return (f'<section class="ix-group" id="ix-{sport.key}"><h2 class="ix-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}{extra}</h2>'
             f'{inner}<div class="fr-links">{more_link(more_href, more_text)}</div></section>')
 
 

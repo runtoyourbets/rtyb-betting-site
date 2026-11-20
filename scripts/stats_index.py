@@ -21,6 +21,7 @@ Off-season sports show last season's numbers, labeled "2026 season".
 import html
 import os
 
+import icons
 import sports
 import trends
 
@@ -204,7 +205,7 @@ def section(sport, root):
     cards = season_card(sp, G_all) + split_card(sp, G_all) + edges_card(sport, sp, sport.doc, G_all, root)
     stats = root + sports.section_path(sp, 'stats').lstrip('/')
     cards = cards.replace('href="/', 'href="' + root)   # the cards' root-relative links, from this page's depth
-    return (f'<section class="ix-group" id="ix-{sp["key"]}"><h2 class="ix-sport">{esc(sp["menu_label"])} {label}</h2>'
+    return (f'<section class="ix-group" id="ix-{sp["key"]}"><h2 class="ix-sport">{icons.sport_icon(sp)}{esc(sp["menu_label"])} {label}</h2>'
             f'<div class="st-grid">{cards}</div>'
             f'<div class="fr-links"><a class="fr-more" href="{esc(stats)}">More {esc(sp["menu_label"])} Stats &rarr;</a></div></section>')
 

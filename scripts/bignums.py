@@ -278,7 +278,7 @@ def section(S, now_utc, root='', hub=False):
     if not cards:
         return ''
     day = min(d for _, _, d in cards)
-    pill = '' if hub or len(cards) == 1 else front.pills('Sport', [(s.key, s.label) for s, _, _ in cards], cards[0][0].key)
+    pill = '' if hub or len(cards) == 1 else front.pills('Sport', [(s.key, s.label, icons.sport_icon(s.sp)) for s, _, _ in cards], cards[0][0].key)
     panes = ''.join(f'<div data-pane="{s.key}"{"" if i == 0 else " hidden"}>{h}</div>' for i, (s, h, _) in enumerate(cards))
     return (f'<section class="fr-sec bn" id="big-numbers"><div class="fr-head fr-stack"><h2>The Big Numbers</h2>'
             f'<span class="fr-date">{esc(front.day_label(day))}</span></div>{pill}{panes}</section>')

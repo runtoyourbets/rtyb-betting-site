@@ -20,9 +20,10 @@ Row 2:
 Phones: ☰ · Logo, then the account controls (guest: sun/moon · Sign in ·
 GO PREMIUM; free: GO PREMIUM · avatar; Premium: PICKS · avatar), row 2 as
 on desktop (the index sports row keeps only the sports in season), a fixed
-bottom bar (sports.BOTTOM_BAR) and the ☰ menu: SPORTS (a name opens the
-hub, "+" its pages as pills, two rows of three) and MORE (Betting Guides,
-The Running Tab). While sports.PICKS_LIVE is False every Picks link opens the
+bottom bar (sports.BOTTOM_BAR) and the ☰ menu: ALL SPORTS (the index pages
+as one row of five buttons, Picks gold), SPORTS (icon + name; tapping a row
+opens "[SPORT] Home →" and its pages as pills, two rows of three, one sport
+at a time) and MORE (Betting Guides, The Running Tab). While sports.PICKS_LIVE is False every Picks link opens the
 Preview pages (/preview/, /{sport}/preview/), which light up Picks.
 The avatar menu is scripts/account.py.
 
@@ -98,10 +99,20 @@ def _sports_menu(base, sps, cur):
 
 
 def _phone_sport(base, sp, i):
+    """A ☰ sport row: icon + name; tapping it opens its Home button and its
+    pages as pills (two rows of three) right under it."""
     pills = ''.join(f'<a class="hm-pill{" gold" if sec == "picks" else ""}" href="{href}">{esc(label)}</a>' for sec, label, href in _pages(base, sp))
-    return (f'<div class="hm-sport"><div class="hm-row"><a class="hm-name" href="{base}{sp["slug"]}/">{icons.sport_icon(sp)}{esc(sp["menu_label"])}</a>'
-            f'<button class="hm-plus" type="button" aria-expanded="false" aria-controls="hmP{i}" aria-label="{esc(sp["menu_label"])} pages">+</button></div>'
-            f'<div class="hm-pills" id="hmP{i}" hidden>{pills}</div></div>')
+    return (f'<div class="hm-sport"><button class="hm-row" type="button" aria-expanded="false" aria-controls="hmP{i}">'
+            f'<span class="hm-name">{icons.sport_icon(sp)}{esc(sp["menu_label"])}</span></button>'
+            f'<div class="hm-open" id="hmP{i}" hidden><a class="hm-home" href="{base}{sp["slug"]}/">{esc(sp["label"])} Home &rarr;</a>'
+            f'<div class="hm-pills">{pills}</div></div></div>')
+
+
+def _phone_all(base):
+    """ALL SPORTS: the index pages as one row of five equal buttons (Picks gold)."""
+    return '<div class="hm-all">' + ''.join(
+        f'<a class="hm-all-btn{" gold" if key == "picks" else ""}" href="{index_href(base, key)}">{esc(label)}</a>'
+        for key, label in sports.MAIN_MENU if key != 'sports') + '</div>'
 
 
 def bottom_bar(base, current=None):
@@ -119,7 +130,7 @@ def index_row(base, key, sps):
     live = {s['key'] for s in sports.IN_SEASON}
     n = sum(1 for sp in sps if sp['key'] in live)
     links = f'<a class="hr2-link" href="{index_href(base, key)}"{CUR}>All</a>' + ''.join(
-        f'<a class="hr2-link{"" if sp["key"] in live else " hr2-off"}" href="{sport_href(base, sp, INDEX_SECTION[key])}">{_names(sp)}</a>'
+        f'<a class="hr2-link{"" if sp["key"] in live else " hr2-off"}" href="{sport_href(base, sp, INDEX_SECTION[key])}">{icons.sport_icon(sp)}{_names(sp)}</a>'
         for sp in sps)
     return (f'<div class="hr2"><div class="hr2-inner"><p class="hr2-label">{esc(label)}</p>'
             f'<nav class="hr2-links hr2-sports{" hr2-many" if n > 5 else ""}" aria-label="Sports">{links}</nav></div></div>')
@@ -169,6 +180,8 @@ def header(base, status, sport=None, section=None, home_href=None, current=None)
 </header>{row2}
 <div class="hm" id="hnMenu" hidden>
   <div class="hm-body">
+    <p class="hm-label">All sports</p>
+    {_phone_all(base)}
     <p class="hm-label">Sports</p>
     {phone}
     <p class="hm-label">More</p>
@@ -204,12 +217,17 @@ JS = '''
   burger.addEventListener('click', function() { setMenu(menu.hidden); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !menu.hidden) setMenu(false); });
   menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { setMenu(false); }); });
-  menu.querySelectorAll('.hm-plus').forEach(function(b) {
+  // one sport open at a time; tapping the open row again closes it
+  var rows = menu.querySelectorAll('.hm-row');
+  rows.forEach(function(b) {
     b.addEventListener('click', function() {
       var open = b.getAttribute('aria-expanded') !== 'true';
-      b.setAttribute('aria-expanded', String(open));
-      b.textContent = open ? '\\u2212' : '+';
-      document.getElementById(b.getAttribute('aria-controls')).hidden = !open;
+      rows.forEach(function(x) {
+        var on = x === b && open;
+        x.setAttribute('aria-expanded', String(on));
+        x.parentNode.classList.toggle('open', on);
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
     });
   });
   // dark is the default; the choice is kept on the device
