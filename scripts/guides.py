@@ -23,9 +23,10 @@ moneyline.md, ..., and nhl.md, nba.md ... for the sport guides. Front matter:
   Body in Markdown: paragraphs, ## and ### headings, - lists, **bold**,
   *italic* and [links](/nhl/odds/).
 
-glossary.md: each term is a "## Term" heading followed by its definition;
-the anchor is the term in lowercase with dashes ("## 3-Way Moneyline" ->
-#3-way-moneyline). Until a page's file exists it shows its title and "Guide
+The glossary is built from the Live "Markets & terms" entries in
+content/definitions.json (the admin's Definitions tab): each term is a
+"## Term" heading, anchored by the term in lowercase with dashes ("## 3-Way
+Moneyline" -> #3-way-moneyline). Until a page's file exists it shows its title and "Guide
 coming this week" and is noindexed.
 
 Every sport page ends with a small Betting Guides block (sport_block): the
@@ -36,6 +37,7 @@ import os
 import re
 
 import daily
+import definitions
 import sports
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -91,10 +93,30 @@ def read(name):
         return daily.parse(f.read())
 
 
+GLOSSARY_IDS = {}
+
+
+def glossary_doc():
+    """The glossary from the Live Markets & terms entries in the admin's
+    Definitions tab (content/definitions.json), A to Z, one ## per term; the
+    long definition, when there is one, follows the short one. None while
+    no term is Live (the page says it's coming)."""
+    terms = definitions.glossary_terms()
+    GLOSSARY_IDS.clear()
+    GLOSSARY_IDS.update({name: slug for slug, name, _, _ in terms})   # #btts, #units: the "i" boxes link here
+    if not terms:
+        return None
+    body = 'Every betting term RTYB uses, A to Z. The ⓘ next to a market on any page links to its entry here.\n\n' + '\n\n'.join(f'## {name}\n\n{short}' + (f'\n\n{long}' if long else '') for _, name, short, long in terms)
+    return ({'title': GLOSSARY[1], 'description': 'Every betting term on RTYB, A to Z: ' + ', '.join(t[1] for t in terms[:6]) + '…'}, body)
+
+
 def glossary_html(md):
     """The glossary body: every '## Term' heading gets its anchor."""
     out = daily.to_html(md)
-    return re.sub(r'<h2>(.*?)</h2>', lambda m: f'<h2 id="{anchor(html.unescape(re.sub("<[^>]+>", "", m.group(1))))}">{m.group(1)}</h2>', out)
+    def head(m):
+        name = html.unescape(re.sub('<[^>]+>', '', m.group(1)))
+        return f'<h2 id="{GLOSSARY_IDS.get(name) or anchor(name)}">{m.group(1)}</h2>'
+    return re.sub(r'<h2>(.*?)</h2>', head, out)
 
 
 def article(title, doc, kicker, back_href, is_glossary=False):
@@ -156,7 +178,8 @@ def write(page, status, logo_svg):
          index_body('__R__'), False)
     n = 1
     for slug, title, _ in GENERAL + [GLOSSARY]:
-        body, desc, noindex = article(title, read(slug), 'Betting Guides', '__R__' + INDEX_DIR + '/', is_glossary=slug == 'glossary')
+        doc = glossary_doc() if slug == 'glossary' else read(slug)
+        body, desc, noindex = article(title, doc, 'Betting Guides', '__R__' + INDEX_DIR + '/', is_glossary=slug == 'glossary')
         save(f'{INDEX_DIR}/{slug}/', f'{title} | RTYB Betting Guides', desc, body, noindex)
         n += 1
     return n

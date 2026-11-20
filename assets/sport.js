@@ -1531,11 +1531,19 @@
   }
   // every "i" opens the one box (template.html #tipBox); tipBody: its title,
   // a short definition and, on trends only, the comparison line
-  function infoTip(html, left, label) {
-    return '<button type="button" class="info-tip"' + ' aria-label="About ' + esc(label || 'this section') + '">i<span class="tip-bubble" role="tooltip">' + html + '</span></button>';
+  // (only Live definitions reach the page: none, and the box shows the title
+  // and the comparison line). term: the market's glossary anchor; the box
+  // adds "More in the glossary" when that term is Live.
+  function infoTip(html, left, label, term) {
+    return '<button type="button" class="info-tip"' + ' aria-label="About ' + esc(label || 'this section') + '"' + (term ? ' data-term="' + esc(term) + '"' : '') + '>i<span class="tip-bubble" role="tooltip">' + html + '</span></button>';
   }
   function tipBody(title, def, cmp) {
-    return '<span class="tip-t">' + esc(title) + '</span><span class="tip-d">' + esc(def || '') + '</span>' + (cmp ? '<span class="tip-c">' + esc(cmp) + '</span>' : '');
+    return '<span class="tip-t">' + esc(title) + '</span>' + (def ? '<span class="tip-d">' + esc(def) + '</span>' : '') + (cmp ? '<span class="tip-c">' + esc(cmp) + '</span>' : '');
+  }
+  // a market's glossary entry (content/definitions.json term:{anchor})
+  function termOf(m) {
+    if (m === 'ats' || m === 'spread') return D.sport === 'mlb' ? 'run-line' : 'spread';
+    return { ml: 'moneyline', su: 'moneyline', ml3: '3-way-moneyline', total: 'total', tot: 'total', btts: 'btts', rfi: 'nrfi' }[m] || null;
   }
   function statsUrl(page) { return ROOT + SPORT_SLUG + '/stats/' + (page ? page + '/' : ''); }
   // the one card style (Part 4): caps title, at most one muted subtitle,
@@ -2116,7 +2124,7 @@
   // League Trends (cards from {slug}/trends.json, scripts/trends.py: frozen
   // per slate once its first game starts), then Matchup Trends and Streak
   // Trends, worked out here from each team's games before the slate. Copy
-  // and tooltips come from content/trend_tooltips.json (TR.tips).
+  // and tooltips come from content/definitions.json (TR.tips).
   var TR = null, TR_MKT = 'all';
   function tcode(slug) { var t = team(slug); return t.code || String(t.short || slug).slice(0, 4).toUpperCase(); }
   function segWord(k) { return seg(k).label.toLowerCase(); }
@@ -2198,7 +2206,7 @@
       ? 'Hit ' + c.w + ' of ' + (c.w + c.l) + ' at avg ' + priceTxt(c.avg) + ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>'
       : pct0(c.rate) + ' (' + c.w + '–' + c.l + ') · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
     var avg = c.mk === 'ml3' && c.avg != null ? '' : '<p class="ht-avg">League average ' + pct0(c.base) + '</p>';
-    return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span>' + infoTip(tip, true, c.title) + '</div>' +
+    return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span>' + infoTip(tip, true, c.title, termOf(c.mk)) + '</div>' +
       '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec" title="' + esc((TR.tips.record_line || {}).tooltip || '') + '">' + rec + '</div>' + avg +
       '<div class="tr-rows">' + rows + '</div>' + more + '</div>';
   }
@@ -2331,7 +2339,7 @@
     var title = fill(d.title || sideWord(m, kind, k));
     title = title.charAt(0).toUpperCase() + title.slice(1);
     var lg = leagueRate(seqs, m, kind);
-    return infoTip(tipBody(title, fill(d.meaning), 'This trend: ' + pct0(x / y) + ' (' + x + '–' + (y - x) + ').' + (lg == null ? '' : ' League average: ' + pct0(lg) + '.')), false, title);
+    return infoTip(tipBody(title, fill(d.meaning), 'This trend: ' + pct0(x / y) + ' (' + x + '–' + (y - x) + ').' + (lg == null ? '' : ' League average: ' + pct0(lg) + '.')), false, title, m === 'rfi' ? (kind === 'Y' ? 'yrfi' : 'nrfi') : termOf(m));
   }
   // the share of team-games in the market that went this way (pushes out, as in leanOf)
   function leagueRate(seqs, m, kind) {
@@ -2516,7 +2524,7 @@
   function lastSeasonCard(c) {
     var u = c.units == null ? '' : ' · <span class="' + unitCls(c.units) + '">' + fmtUnits(c.units) + '</span>';
     return '<div class="tr-card"><div class="tr-top"><span class="lt-tag">' + esc(c.tag) + '</span><span class="lt-season">' + esc(TR.lastSeason.label) + ' season</span>' +
-      infoTip(tipBody(c.title, c.meaning, trendCompare(c)), true, c.title) + '</div>' +
+      infoTip(tipBody(c.title, c.meaning, trendCompare(c)), true, c.title, termOf(c.mk)) + '</div>' +
       '<h3 class="tr-title">' + esc(c.title) + '</h3><div class="tr-rec">' + pct0(c.rate) + ' (' + c.w + '–' + c.l + ')' + u + '</div>' +
       '<p class="ht-avg">League average ' + pct0(c.base) + '</p></div>';
   }
@@ -2653,14 +2661,20 @@
     if (e) e.render(document.getElementById(boxId), view);
   }
   // the split definitions, as a glossary in the page's How to read box
+  // the Live definitions (assets/definitions.json, from the admin's Definitions tab)
+  var DEFS_P = null;
+  function defs() { return DEFS_P || (DEFS_P = fetch(ROOT + 'assets/definitions.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })); }
   function sitGlossary(k) {
+    defs().then(function(d) { sitGlossaryNow(k, d); });
+  }
+  function sitGlossaryNow(k, d) {
     var e = sitEngine(), box = document.querySelector('.how-to-read');
     if (!e || !box || !e.glossary) return;
     var old = box.querySelector('.htr-gloss');
     if (old) old.remove();
     var seo = box.querySelector('.htr-seo');
     var div = document.createElement('div');
-    div.innerHTML = e.glossary(k);
+    div.innerHTML = e.glossary(k, d);
     box.insertBefore(div.firstChild, seo || null);
   }
   // ------------------------------------------------------- calendar modal

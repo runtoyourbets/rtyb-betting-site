@@ -192,6 +192,27 @@
   .pv-bar > span { display: flex; gap: 10px; }
   #pvColumns summary { cursor: pointer; font-weight: 600; }
   @media (max-width: 900px) { .pv-cols { grid-template-columns: 1fr; } .pv-boxes { grid-template-columns: 1fr; } }
+  /* Definitions tab (content/definitions.json, scripts/definitions.py) */
+  .df-filters { display: flex; gap: 8px; flex-wrap: wrap; margin: -4px 0 14px; }
+  .df-filters input { flex: 1 1 220px; width: auto; font-family: inherit; }
+  .df-cols { grid-template-columns: 320px minmax(0, 1fr); }
+  .df-list { max-height: 72vh; overflow-y: auto; border-right: 1px solid var(--border-soft); padding-right: 10px; }
+  .df-row { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: none; border: 0; border-radius: 8px; padding: 8px 10px; color: var(--text); font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .df-row:hover { background: var(--panel-2); }
+  .df-row[aria-current="true"] { background: var(--panel-3); }
+  .df-row span:nth-child(2) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .df-row small { color: var(--text-muted); font-size: 0.75rem; }
+  .df-n { color: var(--text-muted); font-weight: 400; }
+  .dot-needs { background: var(--gold); } .dot-ddraft { background: #A78BFA; }
+  .st-needs { color: var(--gold-text); background: var(--gold-chip); } .st-ddraft { color: #A78BFA; background: rgba(167, 139, 250, 0.16); }
+  .df-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .df-chip { background: var(--panel-2); color: var(--text-muted); border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; }
+  .df-chip[aria-pressed="true"] { color: var(--text); border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .df-ro { background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 8px; padding: 10px 12px; margin: 5px 0 0; font-size: 0.86rem; line-height: 1.5; color: var(--text); text-transform: none; letter-spacing: 0; font-weight: 400; }
+  .df-ro ul { margin: 0; padding-left: 18px; }
+  .df-over { color: var(--bad); }
+  .df-hint { color: var(--text-muted); font-size: 0.8rem; text-transform: none; letter-spacing: 0; font-weight: 400; }
+  @media (max-width: 900px) { .df-list { max-height: 40vh; border-right: 0; padding-right: 0; } }
 </style>
 </head>
 <body>
@@ -208,10 +229,11 @@
 
   <div id="main" hidden>
     <h1>RTYB — Admin</h1>
-    <p class="sub">Matchups Tool, Results Tool, Preview&rsquo;s drafts and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
+    <p class="sub">Matchups Tool, Results Tool, Preview&rsquo;s drafts, Definitions and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
     <div class="seg-tabs" id="viewTabs" style="margin-bottom:14px">
       <button type="button" data-view="tools" aria-pressed="true">Odds &amp; results</button>
       <button type="button" data-view="drafts" aria-pressed="false">Preview</button>
+      <button type="button" data-view="defs" aria-pressed="false">Definitions</button>
       <button type="button" data-view="site" aria-pressed="false">Site settings</button>
     </div>
 
@@ -223,6 +245,16 @@
         <div class="actions"><button class="save" id="siteReload" type="button">Reload</button><button class="publish" id="siteSave" type="button">Save</button></div>
         <p class="status" id="siteStatus"></p>
       </div>
+    </div>
+
+    <div id="defsView" hidden>
+      <div class="pv-top"><h2>Definitions</h2><span class="pv-topb"><button class="save" id="dfReload" type="button">Reload</button><button class="pv-redraft" id="dfAiAll" type="button">Draft all with AI</button></span></div>
+      <div class="card pv-confirm" id="dfConfirm" hidden></div>
+      <p class="status" id="dfTopStatus"></p>
+      <div class="pv-pills" id="dfCats" role="group" aria-label="Categories"></div>
+      <div class="df-filters"><select id="dfSport" aria-label="Sport"></select><select id="dfState" aria-label="Status"><option value="">Every status</option><option value="needs">Needs definition</option><option value="draft">Draft</option><option value="live">Live</option></select><input type="text" id="dfSearch" placeholder="Search names and text" aria-label="Search"></div>
+      <div class="pv-warn" id="dfWarn" hidden></div>
+      <div class="card"><div class="pv-cols df-cols"><div class="df-list" id="dfList"><p class="empty">Loading&hellip;</p></div><div id="dfEdit"><p class="empty">Pick an entry.</p></div></div></div>
     </div>
 
     <div id="draftsView" hidden>
@@ -2241,6 +2273,200 @@
     callWorker('/site/save', readSite(), document.getElementById('siteStatus'), document.getElementById('siteSave'), 'Saving',
       'Saved. The site rebuilds with it on the next refresh, within about 10 minutes.').catch(function() {});
   });
+  // ---- Definitions (content/definitions.json; the build's assets/definitions_meta.json) ----
+  var DF = { doc: null, meta: {}, cats: [], sports: [], max: 200, cat: 'labels', id: null, form: null, dirty: false };
+  var DF_ST = { needs: ['needs', 'Needs definition'], draft: ['ddraft', 'Draft'], live: ['live', 'Live'] };
+  var dfLoaded = false;
+  function dfEntries() { return (DF.doc && DF.doc.entries) || {}; }
+  function dfToday() { return new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); }
+  function dfLoad() {
+    var get = function(u) { return fetch(u + '?t=' + Date.now(), { cache: 'no-store' }).then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }); };
+    var st = document.getElementById('dfTopStatus');
+    st.className = 'status'; st.textContent = 'Loading…';
+    Promise.all([get('../content/definitions.json'), get('../assets/definitions_meta.json')]).then(function(r) {
+      if (!r[0]) { st.className = 'status err'; st.textContent = 'Couldn’t read content/definitions.json.'; return; }
+      st.textContent = '';
+      DF.doc = r[0]; DF.doc.entries = DF.doc.entries || {};
+      var m = r[1] || {};
+      DF.meta = m.entries || {}; DF.max = m.shortMax || 200;
+      DF.cats = m.categories || [['labels', 'Matchup labels'], ['league', 'League trends'], ['team', 'Team trends & streaks'], ['splits', 'Splits & situations'], ['edges', 'Edges'], ['terms', 'Markets & terms'], ['features', 'Site features']];
+      DF.sports = m.sports || [];
+      // new trends, labels and splits the build found: listed as Needs definition until saved
+      Object.keys(DF.meta).forEach(function(id) {
+        var n = DF.meta[id].new;
+        if (n && !DF.doc.entries[id]) DF.doc.entries[id] = { name: n.name, category: n.category, sports: DF.meta[id].sports || [], short: '', long: '', status: 'needs', isNew: true };
+      });
+      document.getElementById('dfSport').innerHTML = '<option value="">Every sport</option>' + DF.sports.map(function(x) { return '<option value="' + x[0] + '">' + escHtml(x[1]) + '</option>'; }).join('');
+      DF.dirty = false;
+      dfRender();
+      if (DF.id && dfEntries()[DF.id]) dfOpen(DF.id);
+    });
+  }
+  function dfMatch(id, e) {
+    var sp = document.getElementById('dfSport').value, stt = document.getElementById('dfState').value;
+    var q = document.getElementById('dfSearch').value.trim().toLowerCase();
+    if (sp && (e.sports || []).indexOf(sp) < 0) return false;
+    if (stt && e.status !== stt) return false;
+    return !q || (id + ' ' + e.name + ' ' + (e.short || '') + ' ' + (e.long || '')).toLowerCase().indexOf(q) >= 0;
+  }
+  function dfRender() {
+    var E = dfEntries(), ids = Object.keys(E);
+    document.getElementById('dfCats').innerHTML = DF.cats.map(function(c) {
+      var all = ids.filter(function(i) { return E[i].category === c[0]; });
+      var shown = all.filter(function(i) { return dfMatch(i, E[i]); }).length;
+      var needs = all.filter(function(i) { return E[i].status === 'needs'; }).length;
+      return '<button type="button" class="pv-pick" data-cat="' + c[0] + '" aria-pressed="' + (c[0] === DF.cat) + '">' + escHtml(c[1]) +
+        ' <span class="df-n">' + shown + '</span>' + (needs ? '<span class="pv-dot dot-needs" title="' + needs + ' need a definition"></span>' : '') + '</button>';
+    }).join('');
+    var list = ids.filter(function(i) { return E[i].category === DF.cat && dfMatch(i, E[i]); })
+      .sort(function(a, b) { return E[a].name.toLowerCase() < E[b].name.toLowerCase() ? -1 : 1; });
+    document.getElementById('dfList').innerHTML = list.length ? list.map(function(i) {
+      var st = DF_ST[E[i].status] || DF_ST.needs;
+      return '<button type="button" class="df-row" data-id="' + escHtml(i) + '" aria-current="' + (i === DF.id) + '"><span class="pv-dot dot-' + st[0] + '" title="' + st[1] + '"></span><span>' + escHtml(E[i].name) + '</span><small>' + st[1] + '</small></button>';
+    }).join('') : '<p class="empty">Nothing matches.</p>';
+    var n = ids.filter(function(i) { return E[i].status === 'needs'; }).length;
+    document.getElementById('dfAiAll').textContent = 'Draft all with AI' + (n ? ' (' + n + ')' : '');
+    document.getElementById('dfAiAll').disabled = !n;
+  }
+  function dfGuard(go) {
+    if (!DF.dirty) { go(); return; }
+    var w = document.getElementById('dfWarn');
+    w.hidden = false;
+    w.innerHTML = '<span>You have unsaved edits to ' + escHtml(DF.form.name) + '.</span><button type="button" class="save" data-w="stay">Keep editing</button><button type="button" class="publish" data-w="go">Discard and switch</button>';
+    w.onclick = function(e) {
+      var b = e.target.closest('[data-w]'); if (!b) return;
+      w.hidden = true;
+      if (b.getAttribute('data-w') === 'go') { DF.dirty = false; go(); }
+    };
+  }
+  function dfOpen(id) {
+    DF.id = id; DF.dirty = false;
+    var e = dfEntries()[id], m = DF.meta[id] || {};
+    DF.form = JSON.parse(JSON.stringify(e));
+    var f = DF.form, st = DF_ST[f.status] || DF_ST.needs;
+    var where = (m.where && m.where.length ? m.where : (f.where ? [f.where] : []));
+    var cats = DF.cats.map(function(c) { return '<option value="' + c[0] + '"' + (c[0] === f.category ? ' selected' : '') + '>' + escHtml(c[1]) + '</option>'; }).join('');
+    var chips = DF.sports.map(function(x) { return '<button type="button" class="df-chip" data-sp="' + x[0] + '" aria-pressed="' + ((f.sports || []).indexOf(x[0]) >= 0) + '">' + escHtml(x[1]) + '</button>'; }).join('');
+    document.getElementById('dfEdit').innerHTML =
+      '<div class="pv-chead"><div class="pv-ctitle"><b>' + escHtml(f.name) + '</b><span class="pv-status st-' + st[0] + '">' + st[1] + '</span>' +
+        '<span class="pv-when">' + (f.edited ? 'Edited ' + escHtml(f.edited) : 'Not edited yet') + ' · <code>' + escHtml(id) + '</code></span></div></div>' +
+      '<label class="pv-f">Name<input type="text" data-df="name" value="' + escHtml(f.name) + '"></label>' +
+      '<div class="pv-two"><label class="pv-f">Category<select data-df="category" style="display:block;width:100%;margin-top:5px">' + cats + '</select></label>' +
+        '<div class="pv-f">Sports<div class="df-chips" id="dfChips">' + chips + '</div></div></div>' +
+      '<label class="pv-f">Short definition <span class="pv-count" id="dfCount"></span><textarea data-df="short" rows="3">' + escHtml(f.short || '') + '</textarea>' +
+        '<span class="df-hint">Shown in the &#9432; box. {segment} becomes 1st period, 1st half&hellip;; {sport} the league&rsquo;s name.</span></label>' +
+      '<label class="pv-f">Long definition (optional)<textarea data-df="long" rows="4">' + escHtml(f.long || '') + '</textarea></label>' +
+      (f.category === 'league' ? '<label class="pv-f pv-show" style="margin-bottom:12px">Show &ldquo;Last time&rdquo;<input type="checkbox" class="pv-switch" data-df="show_last"' + (f.show_last ? ' checked' : '') + '></label>' : '') +
+      '<div class="pv-f">How it&rsquo;s calculated<p class="df-ro">' + escHtml(m.calc || 'Not a calculated number.') + '</p></div>' +
+      '<div class="pv-f">Where it appears<div class="df-ro">' + (where.length ? '<ul>' + where.map(function(w) { return '<li>' + escHtml(w) + '</li>'; }).join('') + '</ul>' : 'Not placed on a page yet.') + '</div></div>' +
+      '<p class="df-hint">Only Live text shows on the site; until then the &#9432; shows the title' + (f.category === 'league' ? ' and the comparison line' : '') + '.</p>' +
+      '<div class="pv-bar"><span><button class="save" type="button" id="dfSave">Save</button><button class="publish" type="button" id="dfPublish">Publish</button></span>' +
+        '<button class="pv-redraft" type="button" id="dfAi">Draft with AI</button></div><p class="status" id="dfStatus"></p>';
+    dfCount();
+    dfRender();
+  }
+  function dfCount() {
+    var n = (DF.form.short || '').length, over = n > DF.max;
+    var c = document.getElementById('dfCount');
+    c.textContent = n + ' / ' + DF.max; c.className = 'pv-count' + (over ? ' df-over' : '');
+    document.getElementById('dfSave').disabled = over;
+    document.getElementById('dfPublish').disabled = over || !(DF.form.short || '').trim();
+  }
+  function dfClean(f) {
+    var o = { name: f.name.trim(), category: f.category, sports: f.sports || [], short: (f.short || '').trim(), long: (f.long || '').trim(), status: f.status };
+    if (f.category === 'league') o.show_last = !!f.show_last;
+    return o;
+  }
+  function dfSave(entries, statusEl, btn, label, done) {
+    return callWorker('/definitions/save', { entries: entries }, statusEl, btn, label, done).then(function(res) {
+      Object.keys(entries).forEach(function(i) {
+        var cur = dfEntries()[i] || {};
+        Object.keys(entries[i]).forEach(function(k) { cur[k] = entries[i][k]; });
+        cur.edited = dfToday(); delete cur.isNew;
+        dfEntries()[i] = cur;
+      });
+      return res;
+    });
+  }
+  function dfAiItem(i, e) { return { id: i, name: e.name, category: e.category, sports: e.sports || [], calc: (DF.meta[i] || {}).calc || '', short: e.short || '' }; }
+  document.getElementById('dfEdit').addEventListener('input', function(e) {
+    var k = e.target.getAttribute('data-df'); if (!k || !DF.form) return;
+    DF.form[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    DF.dirty = true;
+    if (k === 'short') dfCount();
+  });
+  document.getElementById('dfEdit').addEventListener('change', function(e) {
+    if (e.target.getAttribute('data-df') === 'category') { DF.form.category = e.target.value; DF.dirty = true; }
+  });
+  document.getElementById('dfEdit').addEventListener('click', function(e) {
+    var chip = e.target.closest('[data-sp]');
+    if (chip) {
+      var k = chip.getAttribute('data-sp'), on = chip.getAttribute('aria-pressed') !== 'true';
+      chip.setAttribute('aria-pressed', String(on));
+      DF.form.sports = DF.sports.map(function(x) { return x[0]; }).filter(function(x) { return x === k ? on : (DF.form.sports || []).indexOf(x) >= 0; });
+      DF.dirty = true; return;
+    }
+    var b = e.target.closest('button'); if (!b || !DF.form) return;
+    var id = DF.id, st = document.getElementById('dfStatus');
+    if (b.id === 'dfSave' || b.id === 'dfPublish') {
+      var pub = b.id === 'dfPublish', f = DF.form;
+      if (!f.name.trim()) { st.className = 'status err'; st.textContent = 'The name is required.'; return; }
+      f.status = pub ? 'live' : ((f.short || '').trim() ? 'draft' : 'needs');
+      var one = {}; one[id] = dfClean(f);
+      dfSave(one, st, b, pub ? 'Publishing' : 'Saving', pub ? 'Published: live on the site after the next refresh, within about 10 minutes.' : 'Saved as a draft. Only Live text shows on the site.')
+        .then(function() { DF.dirty = false; var msg = st.textContent; dfOpen(id); var s2 = document.getElementById('dfStatus'); s2.className = 'status ok'; s2.textContent = msg; })
+        .catch(function() {});
+    }
+    if (b.id === 'dfAi') {
+      var f2 = DF.form;
+      callWorker('/definitions/draft', { items: [dfAiItem(id, f2)] }, st, b, 'Drafting with AI', '').then(function(res) {
+        var d = (res.body.drafts || {})[id];
+        if (!d) throw new Error('failed');
+        f2.short = d.short; f2.long = d.long || f2.long || ''; f2.status = 'draft';
+        var one2 = {}; one2[id] = dfClean(f2);
+        return dfSave(one2, st, b, 'Saving the draft', 'Drafted with AI and saved as a draft. Read it, then Publish.');
+      }).then(function() { DF.dirty = false; var msg = st.textContent; dfOpen(id); var s2 = document.getElementById('dfStatus'); s2.className = 'status ok'; s2.textContent = msg; })
+        .catch(function(err) { if (err && err.message === 'failed' && !st.textContent) { st.className = 'status err'; st.textContent = 'No draft came back.'; } });
+    }
+  });
+  document.getElementById('dfList').addEventListener('click', function(e) {
+    var b = e.target.closest('[data-id]'); if (!b) return;
+    var id = b.getAttribute('data-id');
+    if (id !== DF.id) dfGuard(function() { dfOpen(id); });
+  });
+  document.getElementById('dfCats').addEventListener('click', function(e) {
+    var b = e.target.closest('[data-cat]'); if (!b) return;
+    DF.cat = b.getAttribute('data-cat'); dfRender();
+  });
+  ['dfSport', 'dfState'].forEach(function(x) { document.getElementById(x).addEventListener('change', dfRender); });
+  document.getElementById('dfSearch').addEventListener('input', dfRender);
+  document.getElementById('dfReload').addEventListener('click', function() { dfGuard(dfLoad); });
+  document.getElementById('dfAiAll').addEventListener('click', function() {
+    var E = dfEntries(), ids = Object.keys(E).filter(function(i) { return E[i].status === 'needs'; });
+    if (!ids.length) return;
+    var box = document.getElementById('dfConfirm');
+    box.hidden = false;
+    box.innerHTML = '<p>Draft ' + ids.length + ' entr' + (ids.length === 1 ? 'y' : 'ies') + ' marked Needs definition with AI? Each is saved as a Draft; nothing goes Live until you publish it.</p>' +
+      '<div class="actions"><button class="save" type="button" data-c="no">Cancel</button><button class="publish" type="button" data-c="yes">Draft ' + ids.length + '</button></div><p class="status" id="dfAllStatus"></p>';
+    box.onclick = function(ev) {
+      var c = ev.target.closest('[data-c]'); if (!c) return;
+      if (c.getAttribute('data-c') === 'no') { box.hidden = true; return; }
+      var st = document.getElementById('dfAllStatus'), done = 0, batches = [];
+      for (var i = 0; i < ids.length; i += 20) batches.push(ids.slice(i, i + 20));
+      var next = function() {
+        var batch = batches.shift();
+        if (!batch) { st.className = 'status ok'; st.textContent = 'Drafted ' + done + ' of ' + ids.length + '. They’re Drafts: read each one, then Publish.'; dfRender(); if (DF.id && !DF.dirty) dfOpen(DF.id); return; }
+        callWorker('/definitions/draft', { items: batch.map(function(x) { return dfAiItem(x, E[x]); }) }, st, c, 'Drafting ' + (done + 1) + '–' + (done + batch.length) + ' of ' + ids.length, '').then(function(res) {
+          var drafts = res.body.drafts || {}, save = {};
+          batch.forEach(function(x) { if (drafts[x]) save[x] = dfClean({ name: E[x].name, category: E[x].category, sports: E[x].sports, short: drafts[x].short, long: drafts[x].long || '', status: 'draft', show_last: E[x].show_last }); });
+          if (!Object.keys(save).length) return;
+          return dfSave(save, st, c, 'Saving', '').then(function() { done += Object.keys(save).length; });
+        }).then(next).catch(function() { dfRender(); });
+      };
+      next();
+    };
+  });
+
   document.getElementById('viewTabs').addEventListener('click', function(e) {
     var b = e.target.closest('[data-view]');
     if (!b) return;
@@ -2248,10 +2474,12 @@
     document.querySelectorAll('#viewTabs [data-view]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
     document.getElementById('toolsView').hidden = v !== 'tools';
     document.getElementById('draftsView').hidden = v !== 'drafts';
-    document.querySelector('.wrap').classList.toggle('wide', v === 'drafts');
+    document.getElementById('defsView').hidden = v !== 'defs';
+    document.querySelector('.wrap').classList.toggle('wide', v === 'drafts' || v === 'defs');
     document.getElementById('siteView').hidden = v !== 'site';
     if (v === 'drafts' && !draftsLoaded) { draftsLoaded = true; loadDrafts(); }
     if (v === 'site' && !siteLoaded) { siteLoaded = true; loadSite(); }
+    if (v === 'defs' && !dfLoaded) { dfLoaded = true; dfLoad(); }
   });
 
   function showGate(msg) {

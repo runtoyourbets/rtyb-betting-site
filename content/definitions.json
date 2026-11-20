@@ -1,0 +1,2975 @@
+{
+ "_about": "Every definition the site shows (scripts/definitions.py). Edited in the admin’s Definitions tab; only status \"live\" text reaches the site.",
+ "config": {
+  "direction": {
+   "Back": "",
+   "Fade": "Fade means bet the other side."
+  },
+  "last_time_format": {
+   "side": "Last time: {date}, {team} was {price} vs {opp}. {winner} won the {segment} {score}.",
+   "game": "Last time: {date}, {away} @ {home}. The {segment} ended {score}: {result}.",
+   "note": "{result} is the plain outcome of the bet, e.g. 'Over 1.5', 'both teams scored', 'tied'. Never a ✓ or ✗."
+  },
+  "record_line": {
+   "tooltip": "Record betting this trend this season, how often it won, how often the same bet won across all games, and profit at 1 unit per bet."
+  },
+  "streaks": {
+   "section": "Teams on a run of 3 or more straight in the opening segment, counted from their most recent game. A tie or push ends a streak.",
+   "colors": "Win and loss streaks run green to red. Over/Under and Yes/No streaks get darker the longer they run."
+  },
+  "lean_rule": "‘Usually’ = 60%+ of their games, 10+ played."
+ },
+ "entries": {
+  "edge:1st-inning-edge": {
+   "name": "1st Inning Edge",
+   "category": "edges",
+   "sports": [
+    "mlb"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "edge:best-closers": {
+   "name": "Best closers",
+   "category": "edges",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "edge:biggest-faders": {
+   "name": "Biggest faders",
+   "category": "edges",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "edge:f5-edge": {
+   "name": "F5 Edge",
+   "category": "edges",
+   "sports": [
+    "mlb"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "edge:halftime-edge": {
+   "name": "Halftime Edge",
+   "category": "edges",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "edge:intermission-edge": {
+   "name": "Intermission Edge",
+   "category": "edges",
+   "sports": [
+    "nhl"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "edge:quarter-edge": {
+   "name": "Quarter Edge",
+   "category": "edges",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "edge:watch-tonight": {
+   "name": "Watch tonight",
+   "category": "edges",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "feature:big-numbers": {
+   "name": "Big Numbers",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Home"
+  },
+  "feature:hottest-trends": {
+   "name": "Hottest Trends",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Home and sport hubs"
+  },
+  "feature:leaders": {
+   "name": "Leaders",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Stats › Overview, Teams index"
+  },
+  "feature:league-trends": {
+   "name": "League Trends",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Trends pages"
+  },
+  "feature:matchup-of-the-day": {
+   "name": "Matchup of the Day",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Home and sport hubs"
+  },
+  "feature:matchup-trends": {
+   "name": "Matchup Trends",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Trends pages"
+  },
+  "feature:preview": {
+   "name": "Preview",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Preview pages"
+  },
+  "feature:running-tab": {
+   "name": "Running Tab",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19",
+   "where": "Newsletter signup, Trends pages"
+  },
+  "feature:streak-trends": {
+   "name": "Streak Trends",
+   "category": "features",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Teams on a run of 3 or more straight in the opening segment, counted from their most recent game. A tie or push ends a streak.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "where": "Trends pages"
+  },
+  "label:fireworks": {
+   "name": "🎆 Fireworks",
+   "category": "labels",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "label:fireworks_btts": {
+   "name": "🎆 Fireworks (BTTS)",
+   "category": "labels",
+   "sports": [
+    "nhl"
+   ],
+   "short": "In both teams’ {segment}s, both teams usually score. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "label:heavyweights": {
+   "name": "⚔️ Heavyweights",
+   "category": "labels",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Both teams usually win the {segment}.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "label:lockdown": {
+   "name": "🔒 Lockdown",
+   "category": "labels",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "label:lockdown_btts": {
+   "name": "🔒 Lockdown (BTTS)",
+   "category": "labels",
+   "sports": [
+    "nhl"
+   ],
+   "short": "In both teams’ {segment}s, usually not both teams score. ‘Usually’ = 60%+ of their games, 10+ played.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "label:mismatch": {
+   "name": "🥊 Mismatch",
+   "category": "labels",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "One team usually wins the {segment}, the other usually loses it.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "label:tug_of_war": {
+   "name": "🪢 Tug of war",
+   "category": "labels",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "One team’s {segment}s usually go Over, the other’s usually go Under.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "label:tug_of_war_btts": {
+   "name": "🪢 Tug of war (BTTS)",
+   "category": "labels",
+   "sports": [
+    "nhl"
+   ],
+   "short": "In one team’s {segment}s both teams usually score; in the other’s, usually not both teams score.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:adog": {
+   "name": "Away underdog",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Road team and the underdog.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:afav": {
+   "name": "Away favorite",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Road team and favored.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:aft": {
+   "name": "Afternoon (before 6 PM ET)",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab",
+    "ncaaf"
+   ],
+   "short": "Tip-off before 6:00 PM ET.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:aftermnf": {
+   "name": "After Monday night",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "The game after playing on Monday night.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:alt": {
+   "name": "At altitude",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Road games in Denver or Utah.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:anyb2b": {
+   "name": "Either team on a back-to-back",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "At least one team played yesterday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:asrk": {
+   "name": "As a ranked team",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Ranked in that week’s AP Top 25.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:asur": {
+   "name": "As an unranked team",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Not in that week’s AP Top 25.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:away": {
+   "name": "Away",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf",
+    "mlb"
+   ],
+   "short": "Games as the road team.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:b2b": {
+   "name": "Back-to-back team",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Played yesterday; the opponent didn’t.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:b2b1": {
+   "name": "Back-to-back, 1st leg",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "The team plays again tomorrow.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:b2b2": {
+   "name": "Back-to-back, 2nd leg",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "The team played yesterday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:conf": {
+   "name": "Conference",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Same conference, other division.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:ctour": {
+   "name": "Conference tournament games",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Conference tournament games in March.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:cup": {
+   "name": "NBA Cup games",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "NBA Cup group play and knockout games.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d0": {
+   "name": "Underdog 0–6.5",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Getting 0.5 to 6.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d1": {
+   "name": "Underdog by 1–3.5",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "Getting 1 to 3.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d10": {
+   "name": "Underdog by 10–14.5",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Getting 10 to 14.5 points.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d14": {
+   "name": "Underdog 14–20.5",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Getting 14 to 20.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d15": {
+   "name": "Underdog by 15+",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Getting 15 or more points.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d21": {
+   "name": "Underdog 21+",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Getting 21 or more points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d4": {
+   "name": "Underdog by 4–7.5",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Getting 4 to 7.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d5": {
+   "name": "Underdog by 5–9.5",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Getting 5 to 9.5 points.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d7": {
+   "name": "Underdog 7–13.5",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Getting 7 to 13.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:d8": {
+   "name": "Underdog by 8+",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Getting 8 or more points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:dan": {
+   "name": "Day game after a night game",
+   "category": "splits",
+   "sports": [
+    "mlb"
+   ],
+   "short": "A game before 5 PM ET the day after a game at 5 PM ET or later.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:div": {
+   "name": "Division",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "nfl",
+    "mlb"
+   ],
+   "short": "Against a division rival.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:dog": {
+   "name": "Underdog",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf",
+    "mlb"
+   ],
+   "short": "The underdog by the closing 1st-period moneyline (full-game when there’s no 1P price).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:early": {
+   "name": "Early (5 to 7:59 PM ET)",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "nfl"
+   ],
+   "short": "Puck drop 5:00 to 7:59 PM ET.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:eloss": {
+   "name": "Either team off a loss",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "At least one team lost its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:eloss3": {
+   "name": "Either team off a loss by 3+",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "At least one team lost its previous game by 3 or more.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:even": {
+   "name": "Even rest",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Both teams had the same rest.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:ew": {
+   "name": "East vs. West",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Against the other conference.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f0": {
+   "name": "Favorite 0–6.5",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Favored by 0.5 to 6.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f1": {
+   "name": "Favorite by 1–3.5",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "Favored by 1 to 3.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f10": {
+   "name": "Favorite by 10–14.5",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Favored by 10 to 14.5 points.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f14": {
+   "name": "Favorite 14–20.5",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Favored by 14 to 20.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f15": {
+   "name": "Favorite by 15+",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Favored by 15 or more points.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f21": {
+   "name": "Favorite 21+",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Favored by 21 or more points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f4": {
+   "name": "Favorite by 4–7.5",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Favored by 4 to 7.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f5": {
+   "name": "Favorite by 5–9.5",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Favored by 5 to 9.5 points.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f7": {
+   "name": "Favorite 7–13.5",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Favored by 7 to 13.5 points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:f8": {
+   "name": "Favorite by 8+",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Favored by 8 or more points (full game).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:fav": {
+   "name": "Favorite",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf",
+    "mlb"
+   ],
+   "short": "Favored by the closing 1st-period moneyline (full-game when there’s no 1P price).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:g2in3": {
+   "name": "2nd game in 3 days",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Played within the last two days (tournament and holiday stretches).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:ha": {
+   "name": "Home / Away / Favorite / Underdog",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf",
+    "mlb"
+   ],
+   "short": "Games as the home team.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:hdog": {
+   "name": "Home underdog",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Home team and the underdog.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:heavy": {
+   "name": "Heavy favorite (-200 or shorter)",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "A favorite at a closing full-game moneyline of -200 or shorter.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:hfav": {
+   "name": "Home favorite",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Home team and favored.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:home": {
+   "name": "Home",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Games as the home team.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:homeback": {
+   "name": "First home game after a 3+ game road trip",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba"
+   ],
+   "short": "Home after a road trip of 3 or more games.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:intl": {
+   "name": "International",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "Played outside the US.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:late": {
+   "name": "Late (8 to 9:59 PM ET)",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Puck drop 8:00 to 9:59 PM ET.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:letdown": {
+   "name": "Letdown",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "The game right after a rivalry game or an upset win.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:look": {
+   "name": "Lookahead",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "The game right before facing a rival or a ranked opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:ls": {
+   "name": "On a 3+ game losing streak",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "Lost its last 3 or more games.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:march": {
+   "name": "March games",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Every game played in March.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:mat": {
+   "name": "Matinee (before 5 PM ET)",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Puck drop before 5:00 PM ET.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:mnf": {
+   "name": "Monday night",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "Monday kickoffs at 7:00 PM ET or later.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:mvp": {
+   "name": "Mid-major vs. power conference",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "A mid-major against a power-conference team.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:nb2b": {
+   "name": "Not on a back-to-back",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba"
+   ],
+   "short": "The team didn’t play yesterday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:neutral": {
+   "name": "Neutral site",
+   "category": "splits",
+   "sports": [
+    "ncaab",
+    "ncaaf"
+   ],
+   "short": "Tournaments and other neutral-site games.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:night": {
+   "name": "Night (6 PM ET+)",
+   "category": "splits",
+   "sports": [
+    "ncaab",
+    "ncaaf"
+   ],
+   "short": "Tip-off at 6:00 PM ET or later.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:nob2b": {
+   "name": "Neither team on a back-to-back",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Neither team played yesterday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:nonconf": {
+   "name": "Non-conference",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Against the other conference.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:noon": {
+   "name": "Noon ET",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Kickoffs from 11:00 AM to 1:59 PM ET.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:nov": {
+   "name": "November tournaments and neutral-site events",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Regular-season neutral-site games (multi-team events, showcases).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:ob2b": {
+   "name": "Opponent on back-to-back",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba"
+   ],
+   "short": "The opponent played yesterday; this team didn’t.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:p5": {
+   "name": "After scoring 5+",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Scored 5 or more last game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pa5": {
+   "name": "After allowing 5+",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Allowed 5 or more last game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pblowl": {
+   "name": "After blowout loss (17+)",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team lost its previous game by 17 or more.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pbloww": {
+   "name": "After blowout win (17+)",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team won its previous game by 17 or more.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pclose": {
+   "name": "After one-score loss (8 or fewer)",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team lost its previous game by 8 or fewer.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pfirst": {
+   "name": "Scored first last game",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Scored the first goal of its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pfirsta": {
+   "name": "Allowed first goal last game",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Allowed the first goal of its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pl": {
+   "name": "After a loss",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "mlb"
+   ],
+   "short": "Lost its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pl14": {
+   "name": "After a loss by 14+",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Lost its previous game by 14 or more points.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pl15": {
+   "name": "After a loss by 15+",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "Lost its previous game by 15 or more.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pl3": {
+   "name": "After a loss by 3+",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "mlb"
+   ],
+   "short": "Lost its previous game by 3 or more goals.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:ploss": {
+   "name": "After a loss",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team lost its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:plow": {
+   "name": "After scoring 10 or fewer",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "The team scored 10 or fewer points in its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:postbye": {
+   "name": "After bye",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The first game after the team’s bye week.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pot": {
+   "name": "After an OT or shootout game",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Its previous game went past regulation.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:prebye": {
+   "name": "Before bye",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The last game before the team’s bye week.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:prime": {
+   "name": "Primetime (7 PM ET+)",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "Any kickoff at 7:00 PM ET or later.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pseg": {
+   "name": "After losing the segment last game",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "Lost the same segment (1Q or 1H) last game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pshut": {
+   "name": "After a shutout (scored 0)",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nfl",
+    "mlb"
+   ],
+   "short": "Was shut out last game (a shootout loss doesn’t count).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pshutw": {
+   "name": "After a shutout win",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Won its last game without allowing a goal.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pupl": {
+   "name": "After upset loss (lost as a favorite of 7+)",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "The team lost its previous game as a 7-point or bigger favorite.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pupw": {
+   "name": "After upset win (won as an underdog of 7+)",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "The team won its previous game as a 7-point or bigger underdog.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pvm": {
+   "name": "Power conference vs. mid-major",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "A power-conference team against a mid-major.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pw": {
+   "name": "After a win",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "mlb"
+   ],
+   "short": "Won its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:pwin": {
+   "name": "After a win",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team won its previous game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:r2": {
+   "name": "2+ days rest",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Two or more days off before the game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:r4": {
+   "name": "After 4+ days off",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "Four or more days off before the game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:radv": {
+   "name": "Rest advantage",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "More rest days than the opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:rdis": {
+   "name": "Rest disadvantage",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Fewer rest days than the opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:restadv": {
+   "name": "Rest advantage",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Two or more days more rest than the opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:restdis": {
+   "name": "Rest disadvantage",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Two or more days less rest than the opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:rested": {
+   "name": "Rested",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "More rest days than the opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:reven": {
+   "name": "Even rest",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "Both teams had the same rest.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:road2": {
+   "name": "2nd straight road game",
+   "category": "splits",
+   "sports": [
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A road game right after another road game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:rvr": {
+   "name": "Ranked vs. ranked",
+   "category": "splits",
+   "sports": [
+    "ncaab",
+    "ncaaf"
+   ],
+   "short": "Both teams in the AP Top 25 at game time.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:rvu": {
+   "name": "Ranked vs. unranked",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "A ranked team (AP Top 25 at game time) against an unranked one.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:sat": {
+   "name": "Saturday",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Saturday games.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:short": {
+   "name": "Short week",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "A Thursday game right after a Sunday game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:small": {
+   "name": "Small favorite (-199 to -101)",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "A favorite at a closing full-game moneyline of -199 to -101.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:snf": {
+   "name": "Sunday night",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "Sunday kickoffs at 7:00 PM ET or later.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:sun": {
+   "name": "Sunday",
+   "category": "splits",
+   "sports": [
+    "ncaab"
+   ],
+   "short": "Sunday games.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:tb2b": {
+   "name": "Back-to-back",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "The team played yesterday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:thigh": {
+   "name": "High total",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "split:three": {
+   "name": "3 games in 4 nights",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba"
+   ],
+   "short": "The team’s 3rd game within 4 days.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:tired": {
+   "name": "Tired",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Fewer rest days than the opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:tlow": {
+   "name": "Low total",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "split:tmid": {
+   "name": "Mid total",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "",
+   "long": "",
+   "status": "needs",
+   "edited": "2026-11-19"
+  },
+  "split:tnf": {
+   "name": "Thursday night",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "Thursday kickoffs at 7:00 PM ET or later.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:trip3": {
+   "name": "3rd+ game of a road trip",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba"
+   ],
+   "short": "At least the 3rd straight road game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:tv": {
+   "name": "National TV",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "On a national broadcast.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:tz": {
+   "name": "Crossed 2+ time zones",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Two or more time zones from the last game’s arena.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:uvr": {
+   "name": "Unranked vs. ranked",
+   "category": "splits",
+   "sports": [
+    "ncaab",
+    "ncaaf"
+   ],
+   "short": "An unranked team against a ranked one.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:v500": {
+   "name": "Vs. teams over .500",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "The opponent was over .500 going into the game (this season).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vfcs": {
+   "name": "vs FCS",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Against an FCS team.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vg5": {
+   "name": "vs Group of 5",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Non-conference game against an FBS team outside the Power 4.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vo500": {
+   "name": "Vs. teams over .500",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "ncaab",
+    "nfl",
+    "ncaaf",
+    "mlb"
+   ],
+   "short": "The opponent was over .500 going into the game (this season).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vp4": {
+   "name": "vs Power 4",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "Non-conference game against the SEC, Big Ten, ACC, Big 12 or Notre Dame.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vrk": {
+   "name": "vs ranked opponent",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "The opponent is in that week’s AP Top 25.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vsub": {
+   "name": "Vs. teams under .500",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba"
+   ],
+   "short": "The opponent was under .500 going into the game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vt10": {
+   "name": "vs Top 10",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "The opponent is ranked 1–10 that week.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vu500": {
+   "name": "Vs. teams under .500",
+   "category": "splits",
+   "sports": [
+    "nhl",
+    "ncaab",
+    "nfl",
+    "ncaaf",
+    "mlb"
+   ],
+   "short": "The opponent was under .500 going into the game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:vur": {
+   "name": "vs unranked opponent",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "The opponent is not in that week’s AP Top 25.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:west": {
+   "name": "West Coast late (10 PM ET+)",
+   "category": "splits",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Puck drop at 10:00 PM ET or later.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:west1": {
+   "name": "West Coast team · 1:00 ET",
+   "category": "splits",
+   "sports": [
+    "nfl"
+   ],
+   "short": "A team based in Pacific time playing a 1:00 PM ET kickoff.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:westnoon": {
+   "name": "West team · Noon ET",
+   "category": "splits",
+   "sports": [
+    "ncaaf"
+   ],
+   "short": "A team based in Pacific or Mountain time playing a Noon ET kickoff.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:wkday": {
+   "name": "Weekday",
+   "category": "splits",
+   "sports": [
+    "ncaab",
+    "ncaaf"
+   ],
+   "short": "Monday through Friday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "split:ws": {
+   "name": "On a 3+ game win streak",
+   "category": "splits",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "Won its last 3 or more games.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:ats_L": {
+   "name": "Didn’t cover the {segment} spread",
+   "category": "team",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team failed to beat the {segment} spread. Pushes are left out.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:ats_W": {
+   "name": "Covered the {segment} spread",
+   "category": "team",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team beat the {segment} spread. Pushes are left out.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:btts_N": {
+   "name": "Not both teams score",
+   "category": "team",
+   "sports": [
+    "nhl"
+   ],
+   "short": "At least one team was held scoreless in the {segment}.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:btts_Y": {
+   "name": "Both teams score",
+   "category": "team",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Both teams scored in the {segment}.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:ml_L": {
+   "name": "Lost the {segment}",
+   "category": "team",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team trailed after the {segment}. Ties count as games played.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:ml_T": {
+   "name": "Tied the {segment}",
+   "category": "team",
+   "sports": [
+    "nhl"
+   ],
+   "short": "The {segment} ended level (the 3-way market’s tie).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:ml_W": {
+   "name": "Won the {segment}",
+   "category": "team",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team led after the {segment}. Ties count as games played.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:rfi_N": {
+   "name": "NRFI",
+   "category": "team",
+   "sports": [
+    "mlb"
+   ],
+   "short": "No runs scored in the 1st inning.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:rfi_Y": {
+   "name": "YRFI",
+   "category": "team",
+   "sports": [
+    "mlb"
+   ],
+   "short": "At least one run scored in the 1st inning.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:total_O": {
+   "name": "{segment} Over",
+   "category": "team",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The {segment} went over its total. Pushes are left out.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "team:total_U": {
+   "name": "{segment} Under",
+   "category": "team",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The {segment} stayed under its total. Pushes are left out.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:3-way-moneyline": {
+   "name": "3-Way Moneyline",
+   "category": "terms",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Home, away or tie, each its own bet. A tie loses both team bets; the tie bet pays only on a tie.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:back-fade": {
+   "name": "Back / Fade",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Back: bet the side a trend names. Fade: bet against it, the other side.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:best-price": {
+   "name": "Best price",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The best payout for a bet across the books we track, outlined in green on the Odds page.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:btts": {
+   "name": "Both Teams to Score (BTTS)",
+   "category": "terms",
+   "sports": [
+    "nhl"
+   ],
+   "short": "Yes wins if both teams score in the segment; No wins if at least one team is held scoreless.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:closing-line": {
+   "name": "Closing line",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The last line and price before the game starts. RTYB grades units at the closing price.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:cover": {
+   "name": "Cover",
+   "category": "terms",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf",
+    "mlb"
+   ],
+   "short": "Beat the spread. Covering is what wins a spread bet, whether the team won the game or not.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:favorite": {
+   "name": "Favorite",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team the line expects to win: a minus price on the moneyline, or giving points on the spread.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:first-five": {
+   "name": "First Five (F5)",
+   "category": "terms",
+   "sports": [
+    "mlb"
+   ],
+   "short": "A baseball bet settled after five innings, before most bullpens enter.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:juice": {
+   "name": "Juice (vig)",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The sportsbook’s cut, built into the price. At -110 you risk $110 to win $100.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:moneyline": {
+   "name": "Moneyline",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A bet on which team wins. In a segment bet, the team leading when the segment ends; a tie in a 2-way segment moneyline is a push.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:nrfi": {
+   "name": "NRFI",
+   "category": "terms",
+   "sports": [
+    "mlb"
+   ],
+   "short": "No Run First Inning: wins if neither team scores in the 1st inning.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:opening-line": {
+   "name": "Opening line",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The first line a sportsbook posts. The Odds page shows it in the Open column.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:push": {
+   "name": "Push",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A tie with the line: the bet is refunded. It counts as neither a win nor a loss.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:run-line": {
+   "name": "Run line",
+   "category": "terms",
+   "sports": [
+    "mlb"
+   ],
+   "short": "Baseball’s spread, usually 0.5 runs in the first five. The favorite must lead; the underdog covers by leading or tying.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:segment": {
+   "name": "Segment",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The opening part of a game RTYB tracks: 1st period (NHL), 1st quarter and 1st half (basketball, football), 1st inning and first five (MLB).",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:spread": {
+   "name": "Spread",
+   "category": "terms",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A head start in points. The favorite must win by more than the spread to cover; the underdog covers by losing by less or winning.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:total": {
+   "name": "Total (Over/Under)",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A bet on the combined score. Over wins above the posted number, Under below it; landing exactly on a whole number is a push.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:underdog": {
+   "name": "Underdog",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team the line expects to lose: a plus price on the moneyline, or getting points on the spread.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:units": {
+   "name": "Units",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "1 unit = $100 at the listed price. +2.06u means $206 profit betting $100 on every game; a loss is -1 unit, a push 0.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "term:yrfi": {
+   "name": "YRFI",
+   "category": "terms",
+   "sports": [
+    "mlb"
+   ],
+   "short": "Yes Run First Inning: wins if either team scores in the 1st inning.",
+   "long": "",
+   "status": "draft",
+   "edited": "2026-11-19"
+  },
+  "trend:b2b": {
+   "name": "Teams on a back-to-back",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "A team that played yesterday, facing a rested opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:b2b_game": {
+   "name": "Back-to-back games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "At least one team played yesterday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:b2b_opp": {
+   "name": "Opponents of a back-to-back team",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab"
+   ],
+   "short": "A rested team facing an opponent that played yesterday.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:conf": {
+   "name": "Conference games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Same conference, different division.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:div": {
+   "name": "Divisional games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "mlb",
+    "nfl"
+   ],
+   "short": "Two teams from the same division.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:even_rest": {
+   "name": "Even rest games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Both teams have the same days off.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:home_dog": {
+   "name": "Home underdogs",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The home team is the underdog.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:home_dog_game": {
+   "name": "Home underdog games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The road team is favored.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:home_fav": {
+   "name": "Home favorites",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The home team is favored to win the {segment}.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:home_fav_game": {
+   "name": "Home favorite games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The home team is favored.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:nonconf": {
+   "name": "Non-conference games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Teams from different conferences.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:off_loss": {
+   "name": "Teams off a loss",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team that lost its last game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:off_loss3": {
+   "name": "Teams off a blowout",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team that lost its last game by {blowout_margin} or more.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:off_loss3_game": {
+   "name": "Team off a blowout",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "At least one team lost its last game by {blowout_margin} or more.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:off_loss_game": {
+   "name": "Team off a loss",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "At least one team lost its last game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:off_shutout": {
+   "name": "Teams off a shutout",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team that was shut out in its last game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:off_shutout_game": {
+   "name": "Team off a shutout",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "At least one team was shut out last game.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:rest_edge": {
+   "name": "Rest edge games",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "One team has more days off than the other.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "game_angles",
+   "show_last": false
+  },
+  "trend:rested": {
+   "name": "Rested teams",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team with more days off than its opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:road_dog": {
+   "name": "Road underdogs",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The road team is the underdog.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:road_fav": {
+   "name": "Road favorites",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The road team is favored.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:tier1": {
+   "name": "Big favorites",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team priced -150 or shorter.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:tier2": {
+   "name": "Small favorites",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team priced between -149 and -101.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:tier3": {
+   "name": "Small underdogs",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team priced between +100 and +149.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:tier4": {
+   "name": "Big underdogs",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team priced +150 or longer.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  },
+  "trend:tired": {
+   "name": "Tired teams",
+   "category": "league",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team with fewer days off than its opponent.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19",
+   "group": "side_angles",
+   "show_last": false
+  }
+ }
+}

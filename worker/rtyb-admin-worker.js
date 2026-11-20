@@ -57,6 +57,10 @@
  *   /site/get           body: {} -- content/site_settings.json (menus, sports, switches)
  *   /site/save          body: the whole settings object -- checked (validateSite), then
  *                         written to content/site_settings.json; the next refresh rebuilds
+ *   /definitions/save   body: {entries: {id: {name, category, sports, short, long, status, show_last}}}
+ *                        -- merges into content/definitions.json (the admin's Definitions tab)
+ *   /definitions/draft  body: {items: [{id, name, category, sports, calc, short}]} (up to 25) -- asks Claude
+ *                        for a short (max 200 characters) and long definition each; writes nothing
  */
 
 const REPO_OWNER = "runtoyourbets"; // GitHub org that owns the repo (moved from captbosh-glitch 2026-11)
@@ -175,6 +179,79 @@ async function deleteFile(env, filePath, message) {
 
 // content/site_settings.json (admin's Site settings tab; scripts/sports.py reads it)
 const SITE_SETTINGS = "content/site_settings.json";
+
+// --- Definitions (content/definitions.json, scripts/definitions.py) ---------
+const DEFINITIONS = "content/definitions.json";
+const DEF_ID = /^(label|trend|team|split|edge|term|feature):[A-Za-z0-9_-]{1,60}$/;
+const DEF_CATS = ["labels", "league", "team", "splits", "edges", "terms", "features"];
+const DEF_STATUS = ["needs", "draft", "live"];
+const DEF_SHORT_MAX = 200;
+
+function validateDefinitions(body) {
+  const entries = body && body.entries;
+  if (!entries || typeof entries !== "object" || Array.isArray(entries)) return "entries must be an object";
+  const ids = Object.keys(entries);
+  if (!ids.length || ids.length > 400) return "send 1 to 400 entries";
+  for (const id of ids) {
+    const e = entries[id];
+    if (!DEF_ID.test(id)) return `bad id: ${id}`;
+    if (!e || typeof e.name !== "string" || !e.name.trim() || e.name.length > 120) return `${id}: name is required (120 characters max)`;
+    if (!DEF_CATS.includes(e.category)) return `${id}: unknown category`;
+    if (!DEF_STATUS.includes(e.status)) return `${id}: status must be needs, draft or live`;
+    if (typeof (e.short || "") !== "string" || (e.short || "").length > DEF_SHORT_MAX) return `${id}: the short definition is ${DEF_SHORT_MAX} characters max`;
+    if (typeof (e.long || "") !== "string" || (e.long || "").length > 2000) return `${id}: the long definition is 2000 characters max`;
+    if (e.status === "live" && !(e.short || "").trim()) return `${id}: a Live entry needs a short definition`;
+    if (!Array.isArray(e.sports || []) || (e.sports || []).some((x) => !/^[a-z]{2,6}$/.test(x))) return `${id}: bad sports list`;
+  }
+  return null;
+}
+
+async function saveDefinitions(env, body) {
+  const cur = await getFile(env, DEFINITIONS);
+  let doc = { config: {}, entries: {} };
+  if (cur.ok) { try { doc = JSON.parse(cur.text); } catch { return { ok: false, status: 500, detail: "definitions.json isn't valid JSON" }; } }
+  doc.entries = doc.entries || {};
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+  const keep = ["name", "category", "sports", "short", "long", "status", "show_last", "group", "where"];
+  for (const [id, e] of Object.entries(body.entries)) {
+    const next = { ...(doc.entries[id] || {}) };
+    for (const k of keep) if (e[k] !== undefined) next[k] = e[k];
+    if (next.category !== "league") delete next.show_last;
+    next.edited = today;
+    doc.entries[id] = next;
+  }
+  doc.entries = Object.fromEntries(Object.entries(doc.entries).sort(([a], [b]) => (a < b ? -1 : 1)));
+  const ids = Object.keys(body.entries);
+  return putText(env, DEFINITIONS, `Definitions: ${ids.length === 1 ? ids[0] : ids.length + " entries"} (admin)`, JSON.stringify(doc, null, 1) + "\n");
+}
+
+async function draftDefinitions(env, body) {
+  const items = (body && body.items) || [];
+  if (!Array.isArray(items) || !items.length || items.length > 25) return { ok: false, status: 400, detail: "send 1 to 25 items" };
+  const list = items.map((x) => ({ id: String(x.id || ""), name: String(x.name || "").slice(0, 120), category: String(x.category || ""),
+    sports: (x.sports || []).slice(0, 7), how_calculated: String(x.calc || "").slice(0, 600), current: String(x.short || "").slice(0, 300) }));
+  if (list.some((x) => !DEF_ID.test(x.id))) return { ok: false, status: 400, detail: "bad id" };
+  const prompt = `You write the short definitions shown in the "i" boxes on RTYB, a sports betting stats site about the opening segment of games (NHL 1st period, NBA/WNBA/college basketball 1st quarter and 1st half, NFL/college football 1st quarter and 1st half, MLB 1st inning and first five innings).
+
+For each item below, write:
+- "short": one to three plain sentences, at most ${DEF_SHORT_MAX} characters, saying what the term, trend, label or split means for a bettor. Use {segment} where the opening segment's name belongs (the site fills in "1st period", "1st half"...) and {sport} for the league's name, only when needed. No hype, no advice, no emoji, no "this trend".
+- "long": two to four sentences with more detail (how it's counted, an example). Optional: "" when the short one says it all.
+
+Base the wording on how_calculated and keep any current text's meaning. Answer with JSON only: {"drafts": {"<id>": {"short": "...", "long": "..."}}}
+
+Items:
+${JSON.stringify(list, null, 1)}`;
+  const res = await askClaude(env, prompt);
+  if (!res.ok) return res;
+  const drafts = (res.parsed && res.parsed.drafts) || {};
+  const out = {};
+  for (const x of list) {
+    const d = drafts[x.id];
+    if (!d || typeof d.short !== "string") continue;
+    out[x.id] = { short: d.short.trim().slice(0, DEF_SHORT_MAX), long: typeof d.long === "string" ? d.long.trim().slice(0, 2000) : "" };
+  }
+  return { ok: true, drafts: out };
+}
 const SITE_KEYS = {
   main_menu: ["sports", "matchups", "odds", "trends", "stats", "picks"],
   sports: ["nhl", "nba", "wnba", "mlb", "ncaab", "nfl", "ncaaf"],
@@ -840,6 +917,17 @@ export default {
         if (err) return json({ ok: false, error: err }, 400);
         result = await publishContent(env, body);
         break;
+      }
+      case "/definitions/save": {
+        const err = validateDefinitions(body);
+        if (err) return json({ ok: false, error: err }, 400);
+        result = await saveDefinitions(env, body);
+        break;
+      }
+      case "/definitions/draft": {
+        const drafted = await draftDefinitions(env, body);
+        if (drafted.ok) return json({ ok: true, drafts: drafted.drafts });
+        return json({ ok: false, error: drafted.detail || "Draft failed", status: drafted.status }, drafted.status === 400 ? 400 : 502);
       }
       default:
         return json({ ok: false, error: "Unknown endpoint" }, 404);

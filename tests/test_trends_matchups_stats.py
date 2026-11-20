@@ -1,13 +1,13 @@
 """Trends, Matchups and Stats tweaks (Nov 19 spec): one "i" box everywhere,
 matchup label texts, League / Streak / Matchup Trends, no-games days, the
 Stats Leaders block and the league Splits layout."""
-import json
 import os
 import sys
 import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
 import build_site  # noqa: E402
+import definitions  # noqa: E402
 import front  # noqa: E402
 import trends  # noqa: E402
 
@@ -41,7 +41,7 @@ class TipBoxTest(unittest.TestCase):
         self.assertNotIn('Last time', html)
 
     def test_last_time_behind_its_switch(self):
-        T = json.loads(read('content', 'trend_tooltips.json'))
+        T = definitions.tooltips()
         for grp in ('side_angles', 'game_angles'):
             for aid, x in T[grp].items():
                 self.assertIs(x.get('show_last'), False, aid)
@@ -53,7 +53,7 @@ class TipBoxTest(unittest.TestCase):
 
 class LabelTextTest(unittest.TestCase):
     def test_label_texts(self):
-        L = json.loads(read('content', 'trend_tooltips.json'))['matchup_labels']
+        L = definitions.tooltips()['matchup_labels']
         self.assertEqual(L['lockdown']['tooltip'], 'Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 10+ played.')
         self.assertEqual(L['fireworks']['tooltip'], 'Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 10+ played.')
         self.assertEqual(L['tug_of_war']['tooltip'], 'One team’s {segment}s usually go Over, the other’s usually go Under.')

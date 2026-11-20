@@ -20,13 +20,13 @@ season record.
 import os
 from datetime import date, datetime, timedelta, timezone
 
+import definitions
 import sport_build
 import sports
 from sport_build import read_json, write_json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG_PATH = os.path.join(ROOT, 'matchup_of_the_day_log.json')
-TIPS = os.path.join(ROOT, 'content', 'trend_tooltips.json')
 MIN_AGREE = 3
 SHOW_MIN, SHOW_MAX = 4, 6   # the card's trend rows: short of 4, the next strongest agreeing team rates fill in
 
@@ -294,7 +294,7 @@ def matchup_label(doc, g, k, seqs):
     """Tug of war / Fireworks / Lockdown (totals, BTTS), Mismatch /
     Heavyweights (moneyline), from both teams' leans in the segment:
     (label, the market it came from) or (None, None)."""
-    labels = (read_json(TIPS, {}).get('matchup_labels') or {})
+    labels = definitions.tooltips().get('matchup_labels') or {}
     leans = {}
     for m in ('total', 'btts', 'ml'):
         for side in ('away', 'home'):

@@ -56,6 +56,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import account  # noqa: E402
+import definitions  # noqa: E402
 import guides  # noqa: E402
 import league_trends  # noqa: E402
 import periods  # noqa: E402
@@ -457,8 +458,23 @@ SHELL_JS = """<script>
       box.style.left = ''; box.style.top = '';
       box.hidden = false; scrim.hidden = !panel;
       if (!panel) place(tip);
+      glossaryLink(tip);
     }
     window.rtybTipClose = hide;
+    // a market term's "i" (data-term) links to its glossary entry once it's Live there
+    var defsP = null;
+    function glossaryLink(tip) {
+      var term = tip.getAttribute('data-term');
+      if (!term) return;
+      defsP = defsP || fetch(SITE_ROOT + '/assets/definitions.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; });
+      defsP.then(function(d) {
+        if (cur !== tip || !d || !(d.live || {})['term:' + term] || box.querySelector('.tip-more')) return;
+        var a = document.createElement('a');
+        a.className = 'tip-more'; a.href = SITE_ROOT + '/betting-guides/glossary/#' + term; a.textContent = 'More in the glossary →';
+        box.insertBefore(a, box.querySelector('.tip-x'));
+        if (!box.classList.contains('tip-panel')) place(tip);
+      });
+    }
     // captured, so a tip inside a sortable header or a link doesn't also act on it
     document.addEventListener('click', function(e) {
       if (e.target.closest && e.target.closest('.tip-x')) { e.preventDefault(); hide(); return; }
@@ -1377,6 +1393,7 @@ def main():
     home.write_picks(template, full_data, LOGO_SVG, picks_body)
     write_sport_extras(template)
     write_moved()   # /daily/, /on-tap/ -> /preview/, /learn/ -> /betting-guides/, /streaks/ -> /trends/
+    definitions.write_meta()   # the admin's Definitions tab and the pages' Live text (assets/definitions*.json)
     write_previews(template, now_utc)
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()

@@ -8,7 +8,7 @@ Works on games in the shared sport shape (data.json's games, or NHL's
 nhl/sport.json from nhl_sport.py): res[k] from the away side with u[market]
 units, odds[k] the closing prices.
 
-A trend is an angle (content/trend_tooltips.json: side angles like "teams
+A trend is an angle (content/definitions.json: side angles like "teams
 off a loss", game angles like "divisional games") plus one bet in one
 segment. It gets a card on a date when:
   - its sample (graded games before the date) has at least
@@ -28,15 +28,17 @@ it and frozen in trends_log/cards/{sport}.json once its first game starts,
 so past dates show the cards that were up that day; the page grades them
 from the games.
 """
+import hashlib
 import json
 import os
 from datetime import date as Date, datetime
 from zoneinfo import ZoneInfo
 
+import definitions
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ET = ZoneInfo('America/New_York')
 LOG_DIR = os.path.join(ROOT, 'trends_log', 'cards')
-TIPS_FILE = os.path.join(ROOT, 'content', 'trend_tooltips.json')
 
 # Tune here.
 RULES = {
@@ -45,7 +47,6 @@ RULES = {
     'shown': 8,           # cards before "Show more trends" (the page reads this)
     'backfill_days': 21,  # past slates generated on a first run, counted back from the latest game
 }
-TEXT_VERSION = 2   # content/trend_tooltips.json's wording; bump to re-word frozen slates
 LOG_VERSION = 2   # 2: cards carry the tooltip's 'last' line (and 'avg' on 3-way cards), no row facts
 
 # A loss by this much or more is a "blowout" (the tooltips say 3+ goals for NHL)
@@ -57,8 +58,14 @@ DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sund
 
 
 def tips():
-    with open(TIPS_FILE, encoding='utf-8') as f:
-        return json.load(f)
+    """The tooltip text (content/definitions.json, Live entries only)."""
+    return definitions.tooltips()
+
+
+def text_version(T):
+    """The trends' wording, as a short hash: a Definitions edit re-words frozen slates (same records)."""
+    words = json.dumps([T.get('side_angles'), T.get('game_angles')], sort_keys=True, ensure_ascii=False)
+    return hashlib.md5(words.encode('utf-8')).hexdigest()[:8]
 
 
 def et_date(iso):
@@ -557,16 +564,16 @@ def update(sp, doc, now_utc, log_path=None):
         starts = [G['g']['start'] for G in slate]
         started = d < today or now_utc >= datetime.fromisoformat(min(starts).replace('Z', '+00:00'))
         if entry is not None and not entry.get('frozen') and started:
-            entry = {'cards': entry['cards'], 'frozen': True, 'tv': TEXT_VERSION}   # the cards that were up when it started
+            entry = {'cards': entry['cards'], 'frozen': True, 'tv': text_version(T)}   # the cards that were up when it started
         elif entry is None or not entry.get('frozen'):
-            entry = {'cards': generate(sp, doc, G_all, slate, d, T), 'frozen': started, 'tv': TEXT_VERSION}
-        elif entry.get('tv') != TEXT_VERSION:   # tooltip wording changed: new words, same records
+            entry = {'cards': generate(sp, doc, G_all, slate, d, T), 'frozen': started, 'tv': text_version(T)}
+        elif entry.get('tv') != text_version(T):   # tooltip wording changed: new words, same records
             fresh = {c['id']: c for c in generate(sp, doc, G_all, slate, d, T)}
             for c in entry['cards']:
                 f = fresh.get(c['id'])
                 if f:
                     c.update(title=f['title'], meaning=f['meaning'], last=f.get('last'))
-            entry['tv'] = TEXT_VERSION
+            entry['tv'] = text_version(T)
         keep[key] = entry
     log['slates'] = keep
     os.makedirs(os.path.dirname(log_path), exist_ok=True)

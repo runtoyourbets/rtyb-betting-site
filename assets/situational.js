@@ -597,14 +597,19 @@
     }
     // the How to read box's glossary: every group's rows and what each means
     // (the definitions live here, not under the rows)
-    function glossary(k) {
+    // defs: the Live definitions (assets/definitions.json): a row the
+    // Definitions tab knows shows its Live text, or none while it isn't Live
+    function glossary(k, defs) {
       var notes = [], by = {}, order = [];
       REG.groups.forEach(function(G) { if (G.note) notes.push(G.note); });
       REG.rows.forEach(function(row) {
         if (!row || !row.def || row.teamOnly) return;
         var name = GROUP_OF[row.group] || ((REG.groups.filter(function(G) { return G.id === row.group; })[0] || {}).label) || '';
         if (!by[name]) { by[name] = []; order.push(name); }
-        by[name].push('<dt>' + esc(lab(row, k)) + '</dt><dd>' + esc(typeof row.def === 'function' ? row.def(C, { cuts: (src.totalCuts || {})[k] }) : row.def) + '</dd>');
+        var own = typeof row.def === 'function' ? row.def(C, { cuts: (src.totalCuts || {})[k] }) : row.def, id = 'split:' + row.id;
+        // a row whose wording depends on the season (total cuts) keeps its own
+        var said = !defs || typeof row.def === 'function' || (defs.known || []).indexOf(id) === -1 ? own : ((defs.live || {})[id] || {}).short || '';
+        by[name].push('<dt>' + esc(lab(row, k)) + '</dt><dd>' + esc(said) + '</dd>');
       });
       return '<div class="htr-gloss"><h3>Glossary</h3>' + notes.map(function(n) { return '<p>' + esc(n) + '</p>'; }).join('') +
         order.map(function(n) { return '<h4>' + esc(n) + '</h4><dl>' + by[n].join('') + '</dl>'; }).join('') + '</div>';

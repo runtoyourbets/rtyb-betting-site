@@ -29,6 +29,7 @@ import os
 from datetime import date as Date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
+import definitions
 import icons
 import sports
 
@@ -42,8 +43,7 @@ TREND_ROWS = 5         # game rows per trend card
 TREND_MIN_N = 20       # Hottest Trends: games behind the record,
 TREND_MIN_EDGE = 0.05  # ... and points over the league rate, to qualify
 TREND_MIN_RATE = 0.55  # every Hottest Trends card (home, hubs, /trends/): a 55%+ win rate
-with open(os.path.join(ROOT, 'content', 'trend_tooltips.json'), encoding='utf-8') as _f:   # the record line's hover text
-    RECORD_TIP = (json.load(_f).get('record_line') or {}).get('tooltip') or ''
+RECORD_TIP = (definitions.tooltips().get('record_line') or {}).get('tooltip') or ''   # the record line's hover text
 HOT_SHOWN = 3          # Hottest Trends: exactly this many cards,
 HOT_ROWS = 3           # ... with up to this many game rows each
 BEST_SHOW_U = 1.0      # Yesterday's Best: the units a row needs
@@ -945,12 +945,17 @@ def hot_cards(S, now_utc, bar=True, day=None, left=False):
 def tip_body(title, definition, compare=''):
     """The "i" box's contents (template.html #tipBox): the title, a short
     definition and, on trends only, the comparison line. Nothing else."""
-    return (f'<span class="tip-t">{esc(title)}</span><span class="tip-d">{esc(definition)}</span>'
+    return (f'<span class="tip-t">{esc(title)}</span>' + (f'<span class="tip-d">{esc(definition)}</span>' if definition else '')
             + (f'<span class="tip-c">{esc(compare)}</span>' if compare else ''))
 
 
-def info_tip(label, body):
-    return f'<button type="button" class="info-tip" aria-label="About {esc(label)}">i<span class="tip-bubble" role="tooltip">{body}</span></button>'
+TERM_OF = {'ml': 'moneyline', 'ml3': '3-way-moneyline', 'total': 'total', 'btts': 'btts', 'rfi': 'nrfi'}
+
+
+def info_tip(label, body, term=''):
+    """term: the market's glossary anchor (the box adds the glossary link when it's Live)."""
+    t = f' data-term="{esc(term)}"' if term else ''
+    return f'<button type="button" class="info-tip" aria-label="About {esc(label)}"{t}>i<span class="tip-bubble" role="tooltip">{body}</span></button>'
 
 
 def trend_compare(c):
@@ -960,12 +965,13 @@ def trend_compare(c):
 
 def trend_tip(sport, c):
     """The "i" circle, the same as the Trends page's."""
-    return info_tip(c['title'], tip_body(c['title'], c.get('meaning') or '', trend_compare(c)))
+    term = ('run-line' if sport and sport.key == 'mlb' else 'spread') if c.get('mk') == 'ats' else TERM_OF.get(c.get('mk'), '')
+    return info_tip(c['title'], tip_body(c['title'], c.get('meaning') or '', trend_compare(c)), term)
 
 
 def last_line(sport, c):
     """The trend's "Last time" line under its rows, only when the trend's
-    show_last switch is on (content/trend_tooltips.json, off by default)."""
+    show_last switch is on (content/definitions.json, off by default)."""
     on = ((sport.trends.get('tips') or {}).get('show_last')) or []
     return (c.get('last') or '') if c.get('angle') in on else ''
 
@@ -1110,11 +1116,11 @@ def label_chip(label, definition, cls='mo-chip'):
 
 
 def motd_chip(sport, m):
-    """The matchup label with its "i" (content/trend_tooltips.json
+    """The matchup label with its "i" (content/definitions.json
     matchup_labels, the same words as the Matchups page)."""
     if not m.get('label'):
         return ''
-    labels = read_json(os.path.join(ROOT, 'content', 'trend_tooltips.json'), {}).get('matchup_labels') or {}
+    labels = definitions.tooltips().get('matchup_labels') or {}
     x = next((v for v in labels.values() if isinstance(v, dict) and v.get('label') == m['label']), None)
     if not x:
         return f'<span class="mo-chip">{esc(m["label"])}</span>'
