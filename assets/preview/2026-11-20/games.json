@@ -215,7 +215,7 @@
    },
    {
     "label": "NBA · Charlotte Hornets at Atlanta Hawks · 7:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "nba:401909305"
    },
    {
@@ -305,12 +305,12 @@
    },
    {
     "label": "NBA · Indiana Pacers at Cleveland Cavaliers · 7:30 PM ET",
-    "trends": 11,
+    "trends": 10,
     "value": "nba:401909307"
    },
    {
     "label": "NBA · Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401909306"
    },
    {
@@ -491,17 +491,17 @@
   "games": [
    {
     "label": "Charlotte Hornets at Atlanta Hawks · 7:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "nba:401909305"
    },
    {
     "label": "Indiana Pacers at Cleveland Cavaliers · 7:30 PM ET",
-    "trends": 11,
+    "trends": 10,
     "value": "nba:401909307"
    },
    {
     "label": "Orlando Magic at Brooklyn Nets · 7:30 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401909306"
    },
    {
