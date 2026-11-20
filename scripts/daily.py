@@ -210,7 +210,7 @@ def home_cards(pieces):
 
 
 def page_title(p):
-    return f"{p['title']} | RTYB"
+    return f"{p['title']} | Run To Your Bets"
 
 
 def write_pages(page, status, logo_svg, pieces=None):

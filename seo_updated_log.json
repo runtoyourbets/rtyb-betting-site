@@ -1,0 +1,30 @@
+{
+ "mlb": {
+  "hash": "1256354d517c419bdbf48f1a38c245a0a72fb6ca",
+  "updated": "2026-11-20T19:19:51Z"
+ },
+ "nba": {
+  "hash": "eb2db4befa7462a99c36d37c070bfbb199623e8b",
+  "updated": "2026-11-20T19:19:51Z"
+ },
+ "ncaab": {
+  "hash": "ea7037376f589067de060761e394b0433110f098",
+  "updated": "2026-11-20T19:19:51Z"
+ },
+ "ncaaf": {
+  "hash": "de3b1f5d4ec90d3ec14eb5318f3d092c9c192188",
+  "updated": "2026-11-20T19:19:51Z"
+ },
+ "nfl": {
+  "hash": "fe5fcf236e924e3b0a3c2f5494e1b2ae5f6968e1",
+  "updated": "2026-11-20T19:19:51Z"
+ },
+ "nhl": {
+  "hash": "279c939d921ec05081682bdca36403275a85080f",
+  "updated": "2026-11-20T19:19:51Z"
+ },
+ "wnba": {
+  "hash": "4ebf91781a8756f7b957bf12d3fe058ac44fcbca",
+  "updated": "2026-11-20T19:19:51Z"
+ }
+}

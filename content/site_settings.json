@@ -109,7 +109,7 @@
   "switches": {
     "PREVIEW_LIVE": true,
     "PICKS_LIVE": false,
-    "FOOTER": "home-only",
+    "FOOTER": "everywhere",
     "ADS_ON": false
   },
   "drafts": {

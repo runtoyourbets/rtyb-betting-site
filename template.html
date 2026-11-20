@@ -83,6 +83,10 @@ __THEME_HEAD__
     --accent-dim: #2E2550;
     --title-bg: rgba(167, 139, 250, 0.14);
     --title-text: #D6CCFF;
+    /* the footer (scripts/nav.py) and the phone tab bar (.bb) */
+    --foot-bg: #0E131A;
+    --bb-bg: #1D1733; --bb-line: rgba(167, 139, 250, 0.40); --bb-off: #C9C2E6; --bb-on: #FFFFFF;
+    --bb-chip: rgba(167, 139, 250, 0.32); --bb-mark: #A78BFA; --bb-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
     --accent-purple-text: #A78BFA;   /* Betting Guides section headings */
     --on-accent: #0B0F14;
     /* One gold (CLAUDE.md): #F5C542 in both themes, for the logo, PICKS, GO
@@ -175,6 +179,9 @@ __THEME_HEAD__
     --accent-dim: #EFEAFD;
     --title-bg: #EFEAFE;
     --title-text: #4B2FB8;
+    --foot-bg: #EEF1F5;
+    --bb-bg: #4B2FB8; --bb-line: #4B2FB8; --bb-off: #D9D0FF; --bb-on: #FFFFFF;
+    --bb-chip: rgba(255, 255, 255, 0.20); --bb-mark: var(--gold); --bb-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
     --accent-purple-text: #4B2FB8;
     --on-accent: #FFFFFF;
     --gold: #F5C542;
@@ -230,6 +237,9 @@ __THEME_HEAD__
       --accent-dim: #EFEAFD;
       --title-bg: #EFEAFE;
       --title-text: #4B2FB8;
+      --foot-bg: #EEF1F5;
+      --bb-bg: #4B2FB8; --bb-line: #4B2FB8; --bb-off: #D9D0FF; --bb-on: #FFFFFF;
+      --bb-chip: rgba(255, 255, 255, 0.20); --bb-mark: var(--gold); --bb-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
       --accent-purple-text: #4B2FB8;
       --on-accent: #FFFFFF;
       --gold: #F5C542;
@@ -1907,19 +1917,8 @@ __THEME_HEAD__
   .team-page-head { margin-bottom: 16px; }
   .team-page-head h1 { font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); }
 
-  footer {
-    max-width: 1180px; margin: 30px auto 0; padding: 18px 20px 40px;
-    color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); border-top: 1px solid var(--border-soft);
-  }
-  footer .ft-rg { margin: 0 0 8px; color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
-  footer .ft-rg a, footer .ft-legal a { color: var(--accent); font-weight: inherit; }
-  footer .ft-legal { margin: 8px 0 0; }
-  .hf-legal a { color: var(--text-muted); }
   .legal h2 { font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); margin: 26px 0 8px; }
   /* email signup (scripts/signup.py): Beehiiv's form in an iframe */
-  .ft-signup { max-width: 460px; margin: 0 0 22px; }
-  .ft-signup h2 { font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); margin: 0 0 4px; }
-  .ft-signup p { margin: 0 0 10px; color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .rt-signup { max-width: 460px; }
   /* the iframe's color scheme matches Beehiiv's light document, so it stays
      see-through on the dark theme (a mismatch paints white behind its corners) */
@@ -2012,10 +2011,83 @@ __THEME_HEAD__
 
   /* phone bottom bar: sports.BOTTOM_BAR (Matchups · Odds · Trends · Stats) */
   .bb { display: none; }
-  .bb-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 58px; color: var(--text-muted); text-decoration: none;
+  .bb-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 58px; color: var(--bb-off); text-decoration: none;
     font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
-  .bb-tab svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .bb-tab[aria-current] { color: var(--accent); }
+  .bb-tab svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  /* the active tab: a chip behind its icon and label, a 3px bar across its top */
+  .bb-tab[aria-current] { color: var(--bb-on); font-weight: var(--fw-title); box-shadow: inset 0 3px 0 var(--bb-mark); }
+  .bb-tab[aria-current] svg { stroke-width: 2.2; }
+  .bb-chip { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 5px 12px; border-radius: 12px; }
+  .bb-tab[aria-current] .bb-chip { background: var(--bb-chip); }
+
+  /* ---------- the footer (scripts/nav.py footer(), every page) ---------- */
+  .sf { margin-top: 40px; background: var(--foot-bg); border-top: 1px solid var(--card-border); color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
+  .sf-inner { max-width: 1180px; margin: 0 auto; padding: 32px 20px 36px; box-sizing: border-box; }
+  .sf a { color: var(--text-muted); text-decoration: none; }
+  .sf a:hover { color: var(--text); }
+  .sf-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border-soft); }
+  .sf-logo { display: block; width: 150px; }
+  .sf-logo svg { display: block; width: 100%; height: auto; }
+  .sf-line { margin: 10px 0 0; max-width: 420px; line-height: 1.5; }
+  .sf-short { display: none; }
+  .sf-signup { flex: 0 1 460px; max-width: 460px; }
+  .sf-signup h2 { margin: 0 0 4px; font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); color: var(--text); }
+  .sf-signup p { margin: 0 0 10px; }
+  .sf-cols { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border-soft); }
+  .sf-h { margin: 0 0 10px; }
+  .sf-tog { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0; border: 0; background: none; cursor: default; text-align: left;
+    font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--title-text); }
+  .sf-pm { display: none; }
+  .sf-links { list-style: none; margin: 0; padding: 0; }
+  .sf-links li { margin: 0 0 8px; line-height: 1.35; }
+  .sf-bottom { padding-top: 20px; }
+  .sf-rg { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; color: var(--text); }
+  .sf-rg a { color: var(--accent); }
+  .sf-21 { flex: none; padding: 2px 8px; border: 1px solid var(--text-muted); border-radius: 6px; color: var(--text);
+    font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); letter-spacing: var(--ls-label); }
+  .sf-small { margin: 0 0 14px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); line-height: 1.5; }
+  .sf-legal { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); }
+  .sf-legal p { margin: 0; }
+  @media (max-width: 1023px) {
+    .sf-inner { padding: 24px 16px calc(84px + env(safe-area-inset-bottom)); }   /* the tab bar never covers the copyright */
+    .sf-top { flex-direction: column; gap: 20px; padding-bottom: 8px; border-bottom: 0; }
+    .sf-logo { width: 118px; }
+    .sf-long { display: none; }
+    .sf-short { display: inline; }
+    .sf-signup { flex: none; width: 100%; max-width: none; }
+    .sf-cols { display: block; padding: 8px 0 16px; border-bottom: 0; }
+    .sf-col { border-bottom: 1px solid var(--border-soft); }
+    .sf-h { margin: 0; }
+    .sf-tog { min-height: 48px; cursor: pointer; }
+    .sf-pm { display: block; position: relative; width: 14px; height: 14px; }
+    .sf-pm::before, .sf-pm::after { content: ''; position: absolute; left: 0; right: 0; top: 6px; height: 2px; border-radius: 1px; background: currentColor; }
+    .sf-pm::after { transform: rotate(90deg); }
+    .sf-col.open .sf-pm::after { display: none; }
+    .sf-links { display: none; padding: 0 0 12px; }
+    .sf-col.open .sf-links { display: block; }
+    .sf-links li { margin: 0; }
+    .sf-links a { display: flex; align-items: center; min-height: 40px; }
+    .sf-rg { align-items: flex-start; }
+    .sf-legal { flex-direction: column; gap: 6px; }
+  }
+
+  /* ---------- About this page (scripts/seo_text.py, content/seo/) ---------- */
+  .seo-about .dp-body { color: var(--text); }
+  .seo-about .dp-body > :first-child { margin-top: 8px; }
+  .seo-upd { margin: 6px 0 0; }
+  .seo-learn { margin-top: var(--section-gap); }
+  .seo-learn .hl-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .seo-oss { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; max-width: 720px; }
+  .seo-os { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 0; border-bottom: 1px solid var(--border-soft); color: var(--text); text-decoration: none; }
+  .seo-os-ic { display: inline-flex; flex: none; width: 22px; height: 22px; }
+  .seo-os-ic svg { width: 22px; height: 22px; }
+  .seo-os-n { flex: none; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
+  .seo-os-s { flex: 1; min-width: 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .seo-os-go { flex: none; color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-section); font-weight: var(--fw-body); }
+  @media (max-width: 720px) {
+    .seo-oss { grid-template-columns: minmax(0, 1fr); }
+    .seo-learn .hl-grid { grid-template-columns: minmax(0, 1fr); }
+  }
 
   @media (max-width: 1023px) {
     .hn-links { display: none; }
@@ -2025,7 +2097,7 @@ __THEME_HEAD__
     .hn-premium { min-height: 36px; padding: 0 12px; }
     html.rtyb-premium .hn-picks-pill { display: inline-flex; }
     .bb { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); position: fixed; left: 0; right: 0; bottom: 0; z-index: 48;
-      background: var(--panel); border-top: 1px solid var(--card-border); padding-bottom: env(safe-area-inset-bottom); }
+      background: var(--bb-bg); border-top: 1px solid var(--bb-line); box-shadow: var(--bb-shadow); padding-bottom: env(safe-area-inset-bottom); }
     body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
   }
   @media (max-width: 420px) {
@@ -3029,11 +3101,6 @@ __THEME_HEAD__
   .learn p { line-height: 1.6; color: var(--text); }
   .learn .lead { color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
 
-  .hf { border-top: 1px solid var(--border-soft); margin-top: 10px; }
-  .hf-inner { max-width: 1200px; margin: 0 auto; padding: 22px 20px 34px; }
-  .hf-rg { margin: 0 0 6px; }
-  .hf-rg a { color: var(--accent); font-weight: inherit; }
-  .hf-small { margin: 0; color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); line-height: 1.5; }
 
   /* ---- Today's Picks (picks/, scripts/picks.py) ---- */
   .pk-hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin: 8px 0 18px; }
@@ -3318,12 +3385,7 @@ __ACCOUNT_JS__
   __GUIDES_BLOCK__
 </main>
 
-<footer>
-  <div class="ft-signup"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and previews.</p><!--signup:footer--></div>
-  <p class="ft-rg"><b>21+ only.</b> Gambling problem? Call <a href="tel:18004262537">1-800-GAMBLER</a>. Please bet responsibly.</p>
-  __FOOTER_TEXT__
-  <p class="ft-legal">RTYB may earn a commission from sportsbook links.<br><a href="__ROOT__betting-guides/">Betting Guides</a> &middot; <a href="__ROOT__privacy/">Privacy</a> &middot; <a href="__ROOT__terms/">Terms</a> &middot; <a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p>
-</footer>
+__SITE_FOOTER__
 
 <script>
 (function() {

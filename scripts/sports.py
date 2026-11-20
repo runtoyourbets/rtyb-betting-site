@@ -426,7 +426,7 @@ H1_TOPIC = {'hub': 'Betting', 'picks': 'Picks', 'games': 'Matchups', 'odds': 'Od
             'stats': 'Stats', 'splits': 'Splits', 'edges': 'Edges: Closers & Faders', 'teams': 'Team Records',
             'guide': 'Betting Guide', 'preview': 'Preview'}
 DAILY_TOPICS = {'hub', 'picks', 'games', 'odds', 'trends'}   # "... Today" in the title
-TITLE_MAX = 65
+TITLE_MAX = 77   # 65 before the suffix became "Run To Your Bets"
 CROSS_WORDS = 'First Period, Quarter & Half'   # the every-sport pages
 
 
@@ -449,13 +449,13 @@ def h1(sport, topic):
 
 
 def page_title(heading, daily=False, weekly=False):
-    """'[H1] Today | RTYB' (weekly sports: 'This Week') for the daily pages,
-    '[H1] | RTYB' for evergreen ones; past TITLE_MAX the "Today" goes first."""
+    """'[H1] Today | Run To Your Bets' (weekly sports: 'This Week') for the daily pages,
+    '[H1] | Run To Your Bets' for evergreen ones; past TITLE_MAX the "Today" goes first."""
     if daily:
-        t = f"{heading} {'This Week' if weekly else 'Today'} | RTYB"
+        t = f"{heading} {'This Week' if weekly else 'Today'} | Run To Your Bets"
         if len(t) <= TITLE_MAX:
             return t
-    return f'{heading} | RTYB'
+    return f'{heading} | Run To Your Bets'
 
 
 def sport_title(sport, topic):

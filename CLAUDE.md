@@ -118,6 +118,33 @@ built pages, SHELL_JS on what the sport pages draw).
 segment favorite covering the segment spread (W-L); `home_ml` = the home
 team winning the segment, 2-way (W-L, ties out). Rates read "59% (204-142)".
 
+## SEO page text
+
+content/seo/ holds one Markdown file per index, hub and sport page (62;
+front matter path / title / description / description_offseason / intro);
+scripts/seo_text.py applies them in seo.finish. A path with no built page or
+an unknown token fails the build. Titles end "| Run To Your Bets" (every
+page; og:site_name too). Off-season: "Today" / "Week {{week}}" become
+"[YEAR] Season" and description_offseason is used. Tokens: the guides' plus
+`{{asof}}`, `{{season}}`, `{{week}}`, `{{season_start}}`, `{{date}}`,
+`{{headline}}`. The body is the About block: closed (How to read's pattern),
+at the page bottom (How to read · About · Betting Guides · footer); "## More
+..." links become gd-pills (short name, full name in aria-label/title), "##
+... in other sports" a stacked list of sports.LAUNCHED, "## FAQ" FAQPage
+data. Team pages (~640) get their title, description, intro, About and FAQ
+from their own numbers (content/seo/_team-pages.md is the spec). "Updated
+1:05 PM ET" under the intro: seo_updated_log.json (Odds and Matchups: the
+last odds pull). tests/test_seo_text.py: unique titles and descriptions,
+110-165 characters, no "RTYB".
+
+## Footer
+
+One footer on every page (scripts/nav.py footer(); sports.FOOTER is
+'everywhere'): logo + line and the Running Tab signup, six link columns
+(Sports, Odds, Trends, Stats: sports.LAUNCHED; Learn; Run To Your Bets),
+the 21+ line, small print, copyright and legal links. Phones: stacked, the
+columns as tap-to-open rows.
+
 ## Design tokens
 
 Every new page or component uses these tokens only (CSS variables and `.t-*`
@@ -174,6 +201,13 @@ Colors:
 | push fill | `--push-dim` | rgba(245,197,66,0.14) | #FBF3D6 |
 | brand gold | `--gold` | #F5C542 | #F5C542 |
 | text on gold | `--on-gold` | #0B0F15 | #0B0F15 |
+| footer bg | `--foot-bg` | #0E131A | #EEF1F5 |
+| tab bar bg | `--bb-bg` | #1D1733 | #4B2FB8 |
+| tab bar top line | `--bb-line` | rgba(167,139,250,0.40) | #4B2FB8 |
+| tab off | `--bb-off` | #C9C2E6 | #D9D0FF |
+| tab on | `--bb-on` | #FFFFFF | #FFFFFF |
+| active tab chip | `--bb-chip` | rgba(167,139,250,0.32) | rgba(255,255,255,0.20) |
+| active tab bar (3px) | `--bb-mark` | #A78BFA | `--gold` |
 | card title bar | `--title-bg` | rgba(167,139,250,0.14) | #EFEAFE |
 | card title text | `--title-text` | #D6CCFF | #4B2FB8 |
 | guide section heading | `--accent-purple-text` | #A78BFA | #4B2FB8 |

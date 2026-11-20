@@ -286,9 +286,7 @@ def build_teams_menu_html(summary, team_colors):
 PAGE_SECTION = {'games': 'games', 'hitrates': 'stats', 'trends': 'trends', 'teamsindex': 'teams', 'team': 'teams', 'empty': None}
 
 # NHL keeps its exact existing text; other sports get generic versions.
-NHL_META_DESC = 'RTYB - Run to Your Bets: NHL 1st-period betting stats and trends.'
-NHL_FOOTER = ('RTYB - 2026-27 regular season, games from Sept. 29 on. Records reflect 1st-period results only; '
-              'ties (periods ending level) count as pushes on the Moneyline market. Not affiliated with the NHL.')
+NHL_META_DESC = 'Run To Your Bets: NHL 1st-period betting stats and trends.'
 
 
 # Filled by build_sport_data() before any page renders: per sport, what
@@ -351,7 +349,7 @@ def apply_sport(out, sport, section):
     """Fill the sport-specific placeholders shared by every page."""
     is_nhl = sport['key'] == 'nhl'
     out = out.replace('__META_DESC__', NHL_META_DESC if is_nhl else
-                      f'RTYB - Run to Your Bets: {sport["label"]} {sports.segment_summary(sport)} betting stats and trends.')
+                      f'Run To Your Bets: {sport["label"]} {sports.segment_summary(sport)} betting stats and trends.')
     out = out.replace('__SITE_NAV__', site_nav(sport, section or 'games'))
     out = out.replace('__LOGO_SVG__', LOGO_SVG)
     out = out.replace('__THEME_HEAD__', nav.THEME_HEAD)
@@ -367,15 +365,6 @@ def apply_sport(out, sport, section):
     out = out.replace('__ACCOUNT_JS__', account.ACCOUNT_JS)
     out = out.replace('__SPORT_SUBNAV__', sport_subnav(sport, section))
     out = out.replace('__GUIDES_BLOCK__', '' if section == 'hub' else guides.sport_block(sport, '__ROOT__/'))   # hubs: under the results
-    if is_nhl:
-        footer = NHL_FOOTER
-    elif sport_has_data(sport['key']):
-        footer = (f'RTYB - Run to Your Bets. {sport["label"]} {sports.segment_summary(sport)} results; '
-                  'odds-based records count only games with saved odds. Not affiliated with any league.')
-    else:
-        footer = (f'RTYB - Run to Your Bets. {sport["label"]} {sports.segment_summary(sport)} coverage is coming soon. '
-                  'Not affiliated with any league.')
-    out = out.replace('__FOOTER_TEXT__', footer)
     out = out.replace('__DATA_PATH__', f'/{sport["slug"]}/data.json')
     out = out.replace('__SPORT_SLUGS_JSON__', json.dumps([sp['slug'] for sp in sports.SPORTS]))
     return out
@@ -559,14 +548,15 @@ def lighten(html, page_dir):
 def render_page(template, page_key, teams_menu_html, meta=None, team_code='', sport=None, empty_html='', sport_body=''):
     sport = sport or sports.BY_KEY['nhl']
     out = strip_pages(template, page_key)
+    out = out.replace('__SITE_FOOTER__', nav.footer() if sports.footer_on() else '', 1)   # sports.FOOTER; scripts/nav.py
     if (meta or {}).get('icon') is not None:   # team pages: the team's logo, not the sport icon
         out = out.replace('__PAGE_ICON__', meta['icon'], 1)
     section = PAGE_SECTION.get(page_key) or (meta or {}).get('section')
+    if (meta or {}).get('desc') and section in ('preview', 'guide'):   # their own description, not the sport's
+        out = out.replace('__META_DESC__', re.sub(r'<[^>]+>', '', meta['desc']), 1)
     out = apply_sport(out, sport, section)
     out = out.replace('__EMPTY_HTML__', empty_html)
     out = out.replace('__SPORT_BODY__', sport_body)
-    if not sports.footer_on():   # sports.FOOTER: the bottom block is on the home page only for now
-        out = re.sub(r'\n<footer>.*?</footer>\n', '\n', out, count=1, flags=re.S)
     meta = meta or PAGE_META[page_key]
     out = out.replace('__PAGE_TITLE__', meta['title'])
     out = out.replace('__PAGE_H1__', meta['h1'])
@@ -886,7 +876,7 @@ def how_to_read_html(sp, section):
 
 def section_title(sp, section):
     """The browser-tab title for a sport page: its H1 (sports.h1), then
-    "Today" on the daily pages: "NHL First Period Odds Today | RTYB"."""
+    "Today" on the daily pages: "NHL First Period Odds Today | Run To Your Bets"."""
     return sports.sport_title(sp, section)
 
 
@@ -1455,6 +1445,7 @@ def main():
     write_previews(template, now_utc)
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()
+    print('content/seo: {title} titles, {description} descriptions, {about} About blocks'.format(**seo.COUNTS))
     dashed = hyphens.plain_files()   # plain hyphens in everything written, content/ included
     if dashed:
         print(f'plain hyphens: {dashed} files had an en/em dash or minus sign')

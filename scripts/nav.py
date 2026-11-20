@@ -118,7 +118,7 @@ def _phone_all(base):
 def bottom_bar(base, current=None):
     tabs = ''.join(
         f'<a class="bb-tab" href="{index_href(base, key)}"{CUR if key == current else ""}>'
-        f'<svg viewBox="0 0 24 24" aria-hidden="true">{TAB_ICON[key]}</svg><span>{esc(label)}</span></a>'
+        f'<span class="bb-chip"><svg viewBox="0 0 24 24" aria-hidden="true">{TAB_ICON[key]}</svg><span>{esc(label)}</span></span></a>'
         for key, label in sports.BOTTOM_BAR)
     return f'<nav class="bb" aria-label="Sections">{tabs}</nav>'
 
@@ -243,3 +243,76 @@ JS = '''
 # anything paints.
 THEME_HEAD = ("<script>(function(){var t='dark';try{if(localStorage.getItem('rtyb-theme')==='light')t='light';}catch(e){}"
               "document.documentElement.setAttribute('data-theme',t);})();</script>")
+
+
+# ------------------------------------------------------------------ footer
+# One footer on every page (sports.FOOTER). Desktop: the logo and its line
+# with the Running Tab signup on the right; six link columns; the 21+ line,
+# the small print, copyright and legal links. Phones: stacked, the columns
+# as tap-to-open rows (closed; the links are in the HTML). Links are site
+# paths made root-aware with __ROOT__ (seo.finish fills it in).
+
+def seg_short(sp):
+    """'1st Period', '1Q & 1H', 'NRFI & F5', '1H'."""
+    if sp['key'] == 'nhl':
+        return sp['segments'][0]['label']
+    return ' & '.join(s['tag'] for s in sp['segments'])
+
+
+LEARN = [('Betting Guides', ''), ('First-Segment Betting', 'first-segment-betting/'), ('Glossary', 'glossary/'),
+         ('Moneyline', 'moneyline/'), ('Spread', 'spread/'), ('Totals', 'totals/'), ('NRFI & YRFI', 'nrfi-yrfi/'),
+         ('Both Teams to Score', 'btts/'), ('Units', 'units/')]
+
+
+def footer_columns():
+    live = sports.LAUNCHED
+    cols = [('Sports', [(sports.seo_name(sp), f"/{sp['slug']}/") for sp in live])]
+    for sec, word in (('odds', 'Odds'), ('trends', 'Trends'), ('stats', 'Stats')):
+        cols.append((word, [(f'{sports.seo_name(sp)} {seg_short(sp)} {word}', f"/{sp['slug']}/{sec}/") for sp in live]))
+    cols.append(('Learn', [(t, f'/betting-guides/{p}') for t, p in LEARN]))
+    rtyb = [('Preview', '/preview/'), ('Matchups', '/matchups/')]
+    if sports.PICKS_LIVE:
+        rtyb.append(('Picks · Premium', '/picks/'))
+    rtyb += [('The Running Tab', '#running-tab'), ('Contact', 'mailto:info@runtoyourbets.com'),
+             ('Privacy', '/privacy/'), ('Terms', '/terms/')]
+    cols.append(('Run To Your Bets', rtyb))
+    return cols
+
+
+def rooted(href):
+    return '__ROOT__' + href[1:] if href.startswith('/') else href
+
+
+def footer():
+    cols = ''.join(
+        f'<div class="sf-col"><h2 class="sf-h"><button type="button" class="sf-tog" aria-expanded="false">'
+        f'<span>{esc(head)}</span><i class="sf-pm" aria-hidden="true"></i></button></h2>'
+        f'<ul class="sf-links">' + ''.join(f'<li><a href="{rooted(h)}">{esc(t)}</a></li>' for t, h in links) + '</ul></div>'
+        for head, links in footer_columns())
+    return f'''<footer class="sf">
+  <div class="sf-inner">
+    <div class="sf-top">
+      <div class="sf-brand"><a class="sf-logo" href="__ROOT__" aria-label="Run To Your Bets home">__LOGO_SVG__</a>
+        <p class="sf-line"><span class="sf-long">First period, quarter and half betting. Odds, stats and trends for 7 sports, graded every night. Run to yours with the numbers.</span><span class="sf-short">First period, quarter and half betting. Run to yours with the numbers.</span></p></div>
+      <div class="sf-signup" id="running-tab"><h2>Get the Running Tab</h2><p>Free newsletter: last night&rsquo;s results, tonight&rsquo;s spots.</p><!--signup:footer--></div>
+    </div>
+    <div class="sf-cols">{cols}</div>
+    <div class="sf-bottom">
+      <p class="sf-rg"><span class="sf-21">21+</span><span>Gambling problem? Call <a href="tel:18004262537">1-800-GAMBLER</a>. Please bet responsibly.</span></p>
+      <p class="sf-small">Run To Your Bets is for information and entertainment. We don&rsquo;t take bets and we&rsquo;re not affiliated with any league, team or sportsbook. Records and units are for tracking only; past results don&rsquo;t predict future ones. Run To Your Bets may earn a commission from sportsbook links.</p>
+      <div class="sf-legal"><p class="sf-copy">&copy; 2026 Run To Your Bets</p><p class="sf-meta"><a href="__ROOT__privacy/">Privacy</a> &middot; <a href="__ROOT__terms/">Terms</a> &middot; <a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p></div>
+    </div>
+  </div>
+  <script>
+  (function() {{
+    // phones: each column opens and closes on its own
+    document.querySelectorAll('.sf-tog').forEach(function(b) {{
+      b.addEventListener('click', function() {{
+        var col = b.closest('.sf-col'), open = !col.classList.contains('open');
+        col.classList.toggle('open', open);
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }});
+    }});
+  }})();
+  </script>
+</footer>'''

@@ -835,16 +835,16 @@ def label(key, day, week=None):
 
 def title(key, headline, day=None, week=None):
     """The browser tab, always the short form (the headline is the H1):
-    "[Sport] [segment words] Betting Preview · Nov 19 | RTYB"; weekly: "NFL
-    Week 11 First Quarter & First Half Betting Preview | RTYB"; all-sports:
-    "First Period, Quarter & Half Betting Preview · Nov 19 | RTYB"."""
+    "[Sport] [segment words] Betting Preview · Nov 19 | Run To Your Bets"; weekly: "NFL
+    Week 11 First Quarter & First Half Betting Preview | Run To Your Bets"; all-sports:
+    "First Period, Quarter & Half Betting Preview · Nov 19 | Run To Your Bets"."""
     lead = 'First Period, Quarter & Half Betting Preview' if key == ALL else f'{sports.seo_name(key)} {sports.seg_words(key)} Betting Preview'
     if week:
-        return f'{sports.seo_name(key)} Week {week} {sports.seg_words(key)} Betting Preview | RTYB'
+        return f'{sports.seo_name(key)} Week {week} {sports.seg_words(key)} Betting Preview | Run To Your Bets'
     if day:
         d = date.fromisoformat(day)
-        return f"{lead} · {d.strftime('%b')} {d.day} | RTYB"
-    return f'{lead} | RTYB'
+        return f"{lead} · {d.strftime('%b')} {d.day} | Run To Your Bets"
+    return f'{lead} | Run To Your Bets'
 
 
 def published_txt(p):
@@ -1196,6 +1196,13 @@ def share_meta(path):
     return f'<meta name="rtyb:image" content="{esc(path)}">'
 
 
+SEO_INFO = {}   # {page dir: {date, headline}} for content/seo's Preview tokens
+
+
+def plain_head(head):
+    return html.unescape(re.sub(r'<[^>]+>', '', head or '')).strip()
+
+
 def pages(now_utc):
     """[(key, page dir, title, desc, body builder(root), canonical dir or
     None, share image or None, noindex)] for every Preview page."""
@@ -1216,12 +1223,15 @@ def pages(now_utc):
         for i, p in enumerate(mine):
             head, dek, _ = split(p['body'])
             img = card_path(key, p['date']) if has_card(key, p['date']) else None
+            if i == 0:   # the page's {{date}} and {{headline}} (scripts/seo_text.py)
+                pd = date.fromisoformat(p['date'])
+                SEO_INFO[page_dir(key)] = {'date': f"{pd.strftime('%b')} {pd.day}", 'headline': re.sub(r'[.!?]+$', '', plain_head(head))}
             for d, canon in ((piece_dir(p), None),) + (((page_dir(key), piece_dir(p)),) if i == 0 else ()):
                 out.append((key, d, title(key, head, p['date'], piece_week(p)), dek or head,
                             (lambda root, p=p, days=days: article(p, root, days, have)), canon, img, False))
         if mine:
-            out.append((key, page_dir(key) + 'archive/', title(key, '').replace(' | RTYB', ' Archive | RTYB'),
-                        'Every past preview, newest first.', (lambda root, mine=mine, key=key: archive(key, mine, root)), None, None, False))
+            out.append((key, page_dir(key) + 'archive/', title(key, '').replace(' | Run To Your Bets', ' Archive | Run To Your Bets'),
+                        f"Every past {'first-segment' if key == ALL else sports.seo_name(key) + ' ' + sports.seg_words(key).lower()} preview, newest first.", (lambda root, mine=mine, key=key: archive(key, mine, root)), None, None, False))
         else:
             out.append((key, page_dir(key), title(key, 'Coming at 11 AM ET'), 'Our daily first-segment preview, from 11 AM ET.',
                         (lambda root, key=key: empty(key, root)), None, None, True))

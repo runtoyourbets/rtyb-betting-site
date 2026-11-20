@@ -216,7 +216,7 @@ def article(title, doc, rel, root, slug, is_glossary=False):
     if doc is None:
         return (f'<article class="hp-sec gd-page">{crumb(title, root)}<h1>{esc(title)}</h1>'
                 f'<p class="lead">{COMING}.</p>{back}</article>',
-                f'{title}: {COMING.lower()} from Run To Your Bets.', True, f'{title} | RTYB Betting Guides')
+                f'{title}: {COMING.lower()} from Run To Your Bets.', True, f'{title} | Run To Your Bets Betting Guides')
     meta, body = doc
     content = glossary_html(body, root) if is_glossary else guide_html(body, root)
     headline = meta.get('title') or title
@@ -226,7 +226,7 @@ def article(title, doc, rel, root, slug, is_glossary=False):
     date_html = f'<p class="dp-date">Updated {daily.nice_date(when)}</p>' if when else ''
     return (f'<article class="hp-sec gd-page">{crumb(title, root)}<h1>{esc(headline)}</h1>{date_html}'
             f'<div class="dp-body">{content}</div>{back}{ld_json(rel, title, headline, desc, body, when)}</article>',
-            desc, False, (not is_glossary and meta.get('title')) or f'{title} | RTYB Betting Guides')
+            desc, False, (not is_glossary and meta.get('title')) or f'{title} | Run To Your Bets Betting Guides')
 
 
 def card(href, title, line):

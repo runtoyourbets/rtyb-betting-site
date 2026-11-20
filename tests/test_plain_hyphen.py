@@ -4,6 +4,7 @@ never a reason to stop the refresh: the admin converts on save, the drafter
 as it writes, the build in everything it writes (content/ included). The
 check is on the finished pages: the refresh runs this file again after
 scripts/hyphens.py, right before it commits."""
+import glob
 import os
 import shutil
 import sys
@@ -38,6 +39,12 @@ class PlainHyphenTest(unittest.TestCase):
         self.assertTrue(pages)
         bad = offenders(pages)
         self.assertEqual(bad, [], f'{len(bad)} page(s) with an en/em dash or minus sign:\n' + '\n'.join(bad[:20]))
+
+    def test_no_dashes_in_seo_text(self):
+        # content/seo: the SEO page text (scripts/seo_text.py)
+        paths = glob.glob(os.path.join(ROOT, 'content', 'seo', '*.md'))
+        self.assertTrue(paths)
+        self.assertEqual(offenders(paths), [])
 
     def test_build_converts_every_form_content_included(self):
         tmp = tempfile.mkdtemp()

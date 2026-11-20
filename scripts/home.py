@@ -186,18 +186,6 @@ def nav_html(status, depth='', current=None):
     return nav.header(depth, [(sp, live, short) for sp, chip, live, short in status], current=current)
 
 
-FOOTER = '''
-<footer class="hf">
-  <div class="hf-inner">
-    <div class="ft-signup" id="premium"><h2>Get the Running Tab</h2><p>Our free newsletter: first-segment results, trends and previews.</p><!--signup:footer--></div>
-    <p class="hf-rg"><b>21+ only.</b> Gambling problem? Call <a href="tel:18004262537">1-800-GAMBLER</a>. Please bet responsibly.</p>
-    <p class="hf-small">RTYB - Run to Your Bets is for information and entertainment. Not affiliated with any league or sportsbook.
-    Records and units are for tracking only; past results don&rsquo;t predict future ones.</p>
-    <p class="hf-small">RTYB may earn a commission from sportsbook links.</p>
-    <p class="hf-small hf-legal"><a href="__ROOT__betting-guides/">Betting Guides</a> &middot; <a href="__ROOT__privacy/">Privacy</a> &middot; <a href="__ROOT__terms/">Terms</a> &middot; <a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p>
-  </div>
-</footer>'''
-
 PAGE_JS = '''
 <script>
 (function() {
@@ -223,7 +211,7 @@ def page(title, desc, body, status, depth='', noindex=False, is_home=False, curr
     The footer follows sports.FOOTER (the home page passes is_home)."""
     css = f'<link rel="stylesheet" href="{depth}assets/site.css">'
     robots = '<meta name="robots" content="noindex">' if noindex else ''
-    footer = FOOTER if sports.footer_on(is_home) else ''
+    footer = nav.footer() if sports.footer_on(is_home) else ''   # scripts/nav.py: one footer on every page
     return (f'<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8">{nav.THEME_HEAD}'
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title>'
             f'<meta name="description" content="{esc(desc)}">{robots}{FONTS}{css}</head>'

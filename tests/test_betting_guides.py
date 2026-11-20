@@ -93,6 +93,16 @@ class MarkdownTest(unittest.TestCase):
 
 
 class LinksTest(unittest.TestCase):
+    def test_every_seo_text_link_resolves(self):
+        # content/seo's site links (the About blocks) point at pages that exist
+        for path in glob.glob(os.path.join(ROOT, 'content', 'seo', '*.md')):
+            if os.path.basename(path).startswith('_'):
+                continue
+            body = open(path, encoding='utf-8').read()
+            for href in re.findall(r'\]\((/[^)\s]*)\)', body):
+                with self.subTest(f'{os.path.basename(path)} {href}'):
+                    self.assertTrue(os.path.exists(os.path.join(ROOT, href.split('#')[0].lstrip('/'), 'index.html')), href)
+
     def test_every_guide_link_resolves(self):
         # the Markdown's site links point at pages that exist ...
         for name in FILES:

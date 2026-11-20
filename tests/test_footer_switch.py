@@ -27,7 +27,7 @@ class FooterSwitchTest(unittest.TestCase):
 
     def test_markup_kept(self):
         with open(os.path.join(os.path.dirname(__file__), '..', 'template.html'), encoding='utf-8') as f:
-            self.assertIn('<footer>', f.read())
+            self.assertIn('__SITE_FOOTER__', f.read())   # scripts/nav.py footer(), the one footer
 
 
 if __name__ == '__main__':

@@ -102,12 +102,12 @@ class HeadingTest(unittest.TestCase):
         self.assertEqual(sports.h1('nba', 'edges'), 'NBA First Quarter & First Half Edges: Closers & Faders')
 
     def test_titles(self):
-        self.assertEqual(sports.sport_title('nhl', 'odds'), 'NHL First Period Odds Today | RTYB')
-        self.assertEqual(sports.sport_title('nhl', 'teams'), 'NHL First Period Team Records | RTYB')
+        self.assertEqual(sports.sport_title('nhl', 'odds'), 'NHL First Period Odds Today | Run To Your Bets')
+        self.assertEqual(sports.sport_title('nhl', 'teams'), 'NHL First Period Team Records | Run To Your Bets')
         # past 65 characters "Today" goes first
         long = sports.sport_title('ncaaf', 'trends')
         self.assertNotIn('This Week', long)
-        self.assertEqual(front.INDEX['odds']['title'], 'First Period, Quarter & Half Odds Today | RTYB')
+        self.assertEqual(front.INDEX['odds']['title'], 'First Period, Quarter & Half Odds Today | Run To Your Bets')
 
     def test_hottest_trends_need_55(self):
         self.assertEqual(front.TREND_MIN_RATE, 0.55)
@@ -146,13 +146,13 @@ class PreviewTitleTest(unittest.TestCase):
     def test_titles(self):
         import preview
         # always the short form; the headline is the H1 (QA fixes, Nov 19)
-        self.assertEqual(preview.title('all', 'Suns at Kings', '2026-11-19'), 'First Period, Quarter & Half Betting Preview · Nov 19 | RTYB')
+        self.assertEqual(preview.title('all', 'Suns at Kings', '2026-11-19'), 'First Period, Quarter & Half Betting Preview · Nov 19 | Run To Your Bets')
         self.assertEqual(preview.title('nba', 'A very long headline that used to land in the tab', '2026-11-19'),
-                         'NBA First Quarter & First Half Betting Preview · Nov 19 | RTYB')
-        self.assertEqual(preview.title('nhl', 'X', '2026-11-19'), 'NHL First Period Betting Preview · Nov 19 | RTYB')
-        self.assertEqual(preview.title('ncaab', 'X', '2026-11-19'), 'College Basketball First Half Betting Preview · Nov 19 | RTYB')
-        self.assertEqual(preview.title('nfl', 'X', '2026-11-19', 11), 'NFL Week 11 First Quarter & First Half Betting Preview | RTYB')
-        self.assertEqual(preview.title('mlb', 'X'), 'MLB First Inning & First Five Betting Preview | RTYB')
+                         'NBA First Quarter & First Half Betting Preview · Nov 19 | Run To Your Bets')
+        self.assertEqual(preview.title('nhl', 'X', '2026-11-19'), 'NHL First Period Betting Preview · Nov 19 | Run To Your Bets')
+        self.assertEqual(preview.title('ncaab', 'X', '2026-11-19'), 'College Basketball First Half Betting Preview · Nov 19 | Run To Your Bets')
+        self.assertEqual(preview.title('nfl', 'X', '2026-11-19', 11), 'NFL Week 11 First Quarter & First Half Betting Preview | Run To Your Bets')
+        self.assertEqual(preview.title('mlb', 'X'), 'MLB First Inning & First Five Betting Preview | Run To Your Bets')
 
     def test_paths(self):
         import preview

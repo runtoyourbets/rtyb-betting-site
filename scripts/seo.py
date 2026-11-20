@@ -131,8 +131,8 @@ come from using the site or relying on its information.</p>
 <p><a href="mailto:info@runtoyourbets.com">info@runtoyourbets.com</a></p>
 '''
 
-LEGAL = {'privacy': ('Privacy Policy | RTYB', 'How RTYB - Run to Your Bets handles your data.', PRIVACY),
-         'terms': ('Terms of Use | RTYB', 'The terms for using RTYB - Run to Your Bets.', TERMS)}
+LEGAL = {'privacy': ('Privacy Policy | Run To Your Bets', 'How Run To Your Bets handles your data.', PRIVACY),
+         'terms': ('Terms of Use | Run To Your Bets', 'The terms for using Run To Your Bets.', TERMS)}
 
 
 def write_legal(page, status, logo_svg):
@@ -164,13 +164,13 @@ def meta(page_html, name):
 
 def head_block(rel, page_html, base, snippet):
     title = re.search(r'<title>(.*?)</title>', page_html, re.S)
-    title = html.unescape(title.group(1).strip()) if title else 'RTYB - Run to Your Bets'
+    title = html.unescape(title.group(1).strip()) if title else 'Run To Your Bets'
     desc = meta(page_html, 'description')
     own = meta(page_html, 'rtyb:image')   # a page's own share image (Preview's image cards)
     img = base + own if own else f'{base}assets/share/{SHARE.get(rel.split("/")[0], "home")}.jpg'
     e = lambda s: html.escape(s, quote=True)
     tags = [f'<meta property="og:type" content="website">',
-            f'<meta property="og:site_name" content="RTYB - Run to Your Bets">',
+            f'<meta property="og:site_name" content="Run To Your Bets">',
             f'<meta property="og:title" content="{e(title)}">',
             f'<meta property="og:description" content="{e(desc)}">',
             f'<meta property="og:url" content="{e(base + rel)}">',
@@ -202,17 +202,29 @@ def nowrap(page_html):
     return ''.join(parts)
 
 
+COUNTS = {}   # pages that got a content/seo title, description and About block (the build prints it)
+
+
 def finish():
     """Share tags, canonical and analytics on every page; footer links;
     sitemap.xml and robots.txt. Returns the sitemap's URL count."""
+    import preview
+    import seo_text
     base, snippet, urls = site_url(), analytics(), []
-    for rel in pages():
+    rels, h1s = list(pages()), {}
+    for rel in rels:
+        with open(os.path.join(ROOT, rel, 'index.html'), encoding='utf-8') as f:
+            m = re.search(r'<h1[^>]*>(.*?)</h1>', f.read(), re.S)
+        if m:
+            h1s[rel] = html.unescape(re.sub(r'<[^>]+>', '', m.group(1))).strip()
+    text = seo_text.Pass(set(rels), h1s, preview.SEO_INFO)   # content/seo: titles, descriptions, About blocks
+    for rel in rels:
         path = os.path.join(ROOT, rel, 'index.html')
         with open(path, encoding='utf-8') as f:
             page_html = f.read()
         if 'http-equiv="refresh"' in page_html:   # redirect stubs
             continue
-        out = nowrap(signup.fill(page_html.replace('__ROOT__', '../' * rel.count('/'))))
+        out = nowrap(signup.fill(text.apply(rel, page_html.replace('__ROOT__', '../' * rel.count('/')))))
         block = head_block(rel, out, base, snippet)
         if '<!--seo-->' in out:
             out = re.sub(r'<!--seo-->.*?<!--/seo-->', lambda m: block, out, count=1, flags=re.S)
@@ -229,4 +241,5 @@ def finish():
         f.write('</urlset>\n')
     with open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8') as f:
         f.write(f'User-agent: *\nDisallow: /admin/\n\nSitemap: {base}sitemap.xml\n')
+    COUNTS.update(text.counts)
     return len(urls)
