@@ -1046,13 +1046,15 @@
           (fin ? ' <span class="tp-lg-pts">' + (i ? g.hs : g.as) + '</span>' : '') + '</span>';
       }).join('') + (fin ? '<span class="tp-at">&middot; Final' + ot + '</span>' : '') + '</div>';
       var segs = D.segments.filter(function(sg) { return tmMarkets(sg.key).length; });
-      // the segment and the team's score in it; a tie needs no team code
+      // the segment and its score, the leader first ("LAL 34-29"); a tie "Tied 28-28"
       function segHead(sg) {
-        var sc = tmScore(g, sg.key, slug), lbl = sg.key === '1i' ? '1st Inning' : sg.tag;
-        if (!sc) return { k: lbl, sc: '-' };
-        var p = sc.split('-');
-        return { k: lbl, sc: (p[0] === p[1] ? '' : tcode(slug) + ' ') + sc };
+        var r = (g.res || {})[sg.key], lbl = sg.key === '1i' ? '1st Inning' : sg.tag;
+        if (!r || !r.sc) return { k: lbl, sc: '-' };
+        var a = r.sc[0], h = r.sc[1];
+        return { k: lbl, sc: a === h ? 'Tied ' + a + '-' + h : tcode(a > h ? g.away : g.home) + ' ' + Math.max(a, h) + '-' + Math.min(a, h) };
       }
+      // phones: the segment's whole name ("1st Quarter", "First Five"), never cut
+      function segName(sg) { return sg.key === 'f5' ? 'First Five' : sg.label; }
       var desk = segs.map(function(sg) {
         var h = segHead(sg);
         return '<div class="tp-lg-row"><div class="tp-lg-seg"><span class="tp-gl">' + esc(h.k) + '</span><span class="tp-lg-sc">' + esc(h.sc) + '</span></div>' +
@@ -1070,12 +1072,12 @@
       var phone;
       if (D.sport === 'nhl') {
         var h0 = segHead(segs[0]);
-        phone = '<div class="tp-lgp-col"><div class="tp-lg-seg"><span class="tp-gl">' + esc(h0.k) + '</span><span class="tp-lg-sc">' + esc(h0.sc) + '</span></div>' +
+        phone = '<div class="tp-lgp-col"><div class="tp-lg-seg"><span class="tp-gl">' + esc(segName(segs[0])) + '</span><span class="tp-lg-sc">' + esc(h0.sc) + '</span></div>' +
           '<div class="tp-lgp-grid">' + tmMarkets(segs[0].key).map(settled).join('') + '</div></div>';
       } else {
         phone = segs.map(function(sg) {
-          var h = segHead(sg), lbl = sg.key === 'f5' ? 'F5' : sg.label;
-          return '<div class="tp-lgp-col"><div class="tp-lg-seg"><span class="tp-gl">' + esc(lbl) + '</span><span class="tp-lg-sc">' + esc(h.sc) + '</span></div>' +
+          var h = segHead(sg);
+          return '<div class="tp-lgp-col"><div class="tp-lg-seg"><span class="tp-gl">' + esc(segName(sg)) + '</span><span class="tp-lg-sc">' + esc(h.sc) + '</span></div>' +
             tmMarkets(sg.key).map(settled).join('') + '</div>';
         }).join('');
       }
