@@ -10792,56 +10792,6 @@
     "streakTeamName": "Edmonton"
    },
    {
-    "id": "nfl|401873066|1h|ats|away",
-    "game": "nfl|401873066",
-    "date": "2026-11-19",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-20T01:15Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Colts @ Texans",
-    "href": "nfl/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 6.5,
-    "price": 114,
-    "title": "Colts 1H +6.5",
-    "est": 0.5034,
-    "edge": 0.0362,
-    "agree": 4,
-    "sample": 10,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Colts 1H ATS at +6.5 on the road",
-      "4-1"
-     ],
-     [
-      "Colts 1H ATS at +6.5, last 8",
-      "6-2"
-     ],
-     [
-      "Texans\u2019s opponents 1H ATS at +6.5, Texans at home",
-      "3-1"
-     ],
-     [
-      "Colts 1H ATS at +6.5, season",
-      "7-3"
-     ]
-    ],
-    "info": "Colts avg 1H margin on the road: -4.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Colts"
-   },
-   {
     "id": "nba|401910019|1h|total|over",
     "game": "nba|401910019",
     "date": "2026-11-19",
@@ -10941,6 +10891,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Spurs"
+   },
+   {
+    "id": "nhl|2026020356|1p|btts|yes",
+    "game": "nhl|2026020356",
+    "date": "2026-11-19",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-20T02:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Anaheim @ Colorado",
+    "href": "nhl/matchups/?date=2026-11-19",
+    "market": "btts",
+    "side": "yes",
+    "line": null,
+    "price": 145,
+    "title": "1P BTTS Yes",
+    "est": 0.4406,
+    "edge": 0.0324,
+    "agree": 2,
+    "sample": 22,
+    "tier": "C",
+    "tags": [
+     "Over Lover"
+    ],
+    "streak": -3,
+    "streakTeam": "COL",
+    "angles": [
+     [
+      "Anaheim 1P BTTS, last 8",
+      "5-3"
+     ],
+     [
+      "Anaheim 1P BTTS on the road",
+      "6-5"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Colorado"
    }
   ]
  }
