@@ -75,7 +75,7 @@ LEADS = os.path.join(ROOT, 'content', 'preview_leads.json')
 CARD_DIR = 'assets/preview'
 CARD_W, CARD_H = 600, 315   # CSS px, drawn at 2x: 1200x630
 BIG_LOGO = 320              # px, the card's logos (assets/logos/{sport}/lg/)
-CARD_VERSION = 1            # bump to redraw every card (a .pc-* style change)
+CARD_VERSION = 2            # bump to redraw every card (a .pc-* style change)
 FOOT = daily.FOOT
 
 
@@ -1454,27 +1454,171 @@ def file_url(path):
     return 'file://' + urllib.parse.quote(os.path.abspath(path))
 
 
-def card_team(sport, slug):
-    src = big_logo(sport, slug)
-    logo = (f'<img class="pc-logo" src="{file_url(src)}" alt="">' if src else sport.badge(slug, 110, ROOT + '/'))
-    return f'<div class="pc-team">{logo}<b class="pc-name">{esc(sport.full_name(slug))}</b></div>'
+# the card's background per sport (assets/share/bg/); the all-sports Preview: the sportsbook
+CARD_BG = {'nba': 'hardwood', 'wnba': 'hardwood', 'ncaab': 'hardwood', 'nhl': 'ice', 'nfl': 'field', 'ncaaf': 'field',
+           'mlb': 'diamond', ALL: 'sportsbook'}
+SEGS_WORD = {'1p': 'first periods', '1q': 'first quarters', '1h': 'first halves', '1i': 'first innings', 'f5': 'first fives'}
+SEG_WORD = {'1p': 'first period', '1q': 'first quarter', '1h': 'first half', '1i': 'first inning', 'f5': 'first five'}
+MARKET_WORD = {'ml': 'moneyline', 'ats': 'spread', 'total': 'total', 'btts': 'BTTS', 'rfi': ''}
+DEK_MAX = 110
 
 
-def card_html(info, logo_svg):
-    """The card's page: the site's stylesheet (template.html .pc-*), 600x315."""
-    sp = sport_of(info['sport'])
-    t = parse(info.get('start'))
-    if t:
-        local = t.astimezone(ET)
-        when = local.strftime('%a %-I:%M %p ET').upper() if sp.weekly else ('TONIGHT ' if local.hour >= 17 else 'TODAY ') + local.strftime('%-I:%M %p ET')
+def card_bg(key):
+    """The background's file, or None (the card stays plain purple)."""
+    p = os.path.join(ROOT, 'assets', 'share', 'bg', f'bg-{CARD_BG.get(key, "")}.jpg')
+    return p if CARD_BG.get(key) and os.path.exists(p) else None
+
+
+def card_title(key, day):
+    """"NBA PREVIEW · NOV 20, 2026", "NFL WEEK 11 PREVIEW", "BETTING PREVIEW · NOV 20, 2026"."""
+    d = date.fromisoformat(day)
+    dated = f"{d.strftime('%b')} {d.day}, {d.year}"
+    if key == ALL:
+        return f'Betting Preview · {dated}'.upper()
+    sp = sport_of(key)
+    n = week_num(sp, day) if weekly(sp) else None
+    name = sports.seo_name(sp.sp)
+    return (f'{name} Week {n} Preview' if n else f'{name} Preview · {dated}').upper()
+
+
+def card_dek(body):
+    """The Preview's dek; past DEK_MAX characters, cut at the last full word (nothing added)."""
+    dek = daily.plain(split(body or '')[1]).strip()
+    if len(dek) > DEK_MAX:
+        cut = dek[:DEK_MAX + 1]
+        dek = (cut[:cut.rfind(' ')] if ' ' in cut else dek[:DEK_MAX]).rstrip(' ,;:-')
+    return dek
+
+
+def trend_team(sp, g, t):
+    """The team a team trend is about (its side, else the code before " · " in its short form)."""
+    if t.get('side') in ('away', 'home'):
+        return g[t['side']]
+    code = (t.get('short') or '').split(' · ')[0]
+    return next((g[x] for x in ('away', 'home') if sp.code(g[x]) == code), None)
+
+
+def team_words(sp, slug):
+    """"the Sacramento Kings"; college: the school ("Northern Illinois")."""
+    return sp.full_name(slug) if sp.key in sports.COLLEGE else f'the {sp.full_name(slug)}'
+
+
+def big_trend(sp, g, t):
+    """(count, first line, second line): "12 OF 14" / "FIRST HALVES LOST BY" /
+    "THE SACRAMENTO KINGS", from the lead trend the yellow chip uses."""
+    text, k, m = t.get('text') or '', t.get('seg'), t.get('mk')
+    st = re.search(r'(\d+) straight$', text)
+    if t['kind'] == 'streak' and st:
+        count = f'{st.group(1)} straight'
     else:
-        when = ''
+        r = rate_of(t) if t['kind'] == 'matchup' else {'w': t.get('w') or 0, 'n': (t.get('w') or 0) + (t.get('l') or 0)}
+        count = f"{r['w']} of {r['n']}" if r.get('n') else ''
+    team = trend_team(sp, g, t) if t['kind'] != 'league' else None
+    segs = SEGS_WORD.get(k, '')
+    if team:
+        if m == 'ml':
+            what = f"{segs} {'lost' if ' lost ' in f' {text} ' else 'won'} by"
+        elif m == 'ats':
+            what = f"{SEG_WORD.get(k, '')} spreads {'not covered' if 'failed' in text else 'covered'} by"
+        elif m == 'total':
+            what = f"{segs} {'under' if t.get('pick') == 'under' else 'over'}{' 1.5' if sp.key == 'nhl' else ''} for"
+        elif m == 'btts':
+            what = f"{segs} BTTS {'no' if t.get('pick') == 'no' else 'yes'} for"
+        else:
+            what = f"{segs} {'NRFI' if str(t.get('pick')).lower() in ('nrfi', 'no', 'n') else 'YRFI'} for"
+        lines = (what, team_words(sp, team))
+    else:
+        name = text.rpartition(' (')[0] or text
+        lines = (name, f"{SEG_WORD.get(k, '')} {MARKET_WORD.get(m, '')}".strip())
+    return count.upper(), lines[0].upper(), lines[1].upper()
+
+
+def card_market(sp, g, t):
+    """(market label, current line or ''): "1H SPREAD" / "LAL -8.5", "1P BTTS NO" / "-190", "NRFI" / "-120"."""
+    k, m, pick = t.get('seg'), t.get('mk'), str(t.get('pick') or '').lower()
+    tag = next((s['tag'] for s in sp.segments if s['key'] == k), '')
+    d = next((x for x, y in sp.all_games() if str(y.get('id')) == str(g.get('id'))), None)
+    mk = sp.market(d, g, k) if d else {}
+    if m in ('ml', 'ats'):
+        side = pick if pick in ('away', 'home') else None
+        code = sp.code(g[side]) if side else ''
+        if m == 'ml':
+            p = (mk.get('ml') or {}).get(side)
+            return f'{tag} ML', (f'{code} {price_txt(p)}' if isinstance(p, (int, float)) and side else '')
+        a = (mk.get('ats') or {}).get(side) or {}
+        ln = a.get('line')
+        return f'{tag} Spread'.upper(), (f'{code} {"+" if ln > 0 else ""}{ln:g}' if isinstance(ln, (int, float)) and side else '')
+    if m == 'total':
+        tot, over = mk.get('total') or {}, pick != 'under'
+        if sp.key == 'nhl':
+            p = tot.get('over' if over else 'under')
+            return f"{tag} {'Over' if over else 'Under'} 1.5".upper(), (price_txt(p) if isinstance(p, (int, float)) else '')
+        ln = tot.get('line')
+        return f'{tag} Total'.upper(), (f"{'O' if over else 'U'} {ln:g}" if isinstance(ln, (int, float)) else '')
+    if m == 'btts':
+        yes = pick != 'no'
+        p = (mk.get('btts') or {}).get('yes' if yes else 'no')
+        return f"{tag} BTTS {'Yes' if yes else 'No'}".upper(), (price_txt(p) if isinstance(p, (int, float)) else '')
+    nrfi = pick in ('nrfi', 'no', 'n')
+    p = (mk.get('nrfi_yrfi') or {}).get('nrfi' if nrfi else 'yrfi')
+    return ('NRFI' if nrfi else 'YRFI'), (price_txt(p) if isinstance(p, (int, float)) else '')
+
+
+def price_txt(p):
+    return f'{"+" if p > 0 else ""}{round(p)}'
+
+
+def card_info(key, day, info, body):
+    """Everything on the card ({title, dek, pill, count, what, teams, market,
+    line, bg}); its hash decides a redraw."""
+    sp = sport_of(info['sport'])
+    got = find_game(key, day, f"{info['sport']}:{info['id']}")
+    g = got[1] if got else {'id': info['id'], 'away': info['away'], 'home': info['home'], 'start': info.get('start')}
+    t = lead_trend(got[2]) if got else None
+    pill = ''
+    if key == ALL:
+        when = parse(info.get('start'))
+        when = when.astimezone(ET) if when else None
+        pill = f"{sp.label} · " + ((('Tonight ' if when.hour >= 17 else 'Today ') + when.strftime('%-I:%M %p')) if when else '')
+    count, l1, l2 = big_trend(sp, g, t) if t else ('', '', '')
+    market, line = card_market(sp, g, t) if t else ('', '')
+    names = [sp.full_name(x) if sp.key in sports.COLLEGE else (sp.team(x).get('short') or sp.full_name(x)) for x in (g['away'], g['home'])]
+    return {'key': key, 'sport': sp.key, 'title': card_title(key, day), 'dek': card_dek(body), 'pill': pill.upper().strip(' ·'),
+            'count': count, 'what': [l1, l2], 'away': g['away'], 'home': g['home'], 'names': names,
+            'market': market.upper(), 'line': line, 'bg': CARD_BG.get(key if key == ALL else sp.key, '')}
+
+
+def card_side(sport, slug, name):
+    src = big_logo(sport, slug)
+    logo = (f'<img class="pc-logo" src="{file_url(src)}" alt="">' if src else sport.badge(slug, 48, ROOT + '/'))
+    small = ' pc-name-s' if len(name) > 12 or max(len(w) for w in name.split() or ['']) > 9 else ''
+    return f'<div class="pc-side">{logo}<b class="pc-name{small}">{esc(name)}</b></div>'
+
+
+def card_html(c, logo_svg):
+    """The card's page: the site's stylesheet (template.html .pc-*), 600x315:
+    the sport's background under the brand purple, the title and dek, the
+    lead trend's count and what it is, the matchup box, the site's address."""
+    import seo
+    sp = sport_of(c['sport'])
+    bg = card_bg(c['key'] if c['key'] == ALL else c['sport'])
+    surface = (f'<img class="pc-bg" src="{file_url(bg)}" alt=""><div class="pc-over"></div>' if bg else '')
+    trend = ''
+    if c['count']:
+        long = ' pc-big-long' if len(c['count']) > 8 else ''
+        small = ' pc-what-s' if max(len(x) for x in c['what']) > 28 else ''
+        trend = (f'<div class="pc-trend"><div class="pc-big{long}">{esc(c["count"])}</div>'
+                 f'<div class="pc-what{small}">' + ''.join(f'<span>{esc(x)}</span>' for x in c['what'] if x) + '</div></div>')
+    box = (f'<div class="pc-box"><div class="pc-mu">{card_side(sp, c["away"], c["names"][0])}<span class="pc-at">@</span>{card_side(sp, c["home"], c["names"][1])}</div>'
+           + (f'<div class="pc-div"></div><div class="pc-mk">{esc(c["market"])}</div>' if c['market'] else '')
+           + (f'<div class="pc-line">{esc(c["line"])}</div>' if c['line'] else '') + '</div>')
+    ice = ' pc-ice' if bg and c['bg'] == 'ice' else ''
     return (f'<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8">{front_fonts()}'
             f'<link rel="stylesheet" href="{file_url(os.path.join(ROOT, "assets", "site.css"))}"></head><body class="pc-body">'
-            f'<div class="pc"><div class="pc-top"><span class="pc-when">{icons.sport_icon(sp.sp)}{esc(sp.label)} &middot; {esc(when)}</span>'
-            f'<span class="pc-mark">{logo_svg}</span></div>'
-            f'<div class="pc-teams">{card_team(sp, info["away"])}<span class="pc-at">@</span>{card_team(sp, info["home"])}</div>'
-            + (f'<div class="pc-chip">{esc(info["chip"])}</div>' if info.get('chip') else '') + '</div></body></html>')
+            f'<div class="pc{ice}">{surface}<div class="pc-title">{esc(c["title"])}</div><span class="pc-mark">{logo_svg}</span>'
+            + (f'<p class="pc-dek">{seo.nowrap(esc(c["dek"]))}</p>' if c['dek'] else '')   # records never wrap at the hyphen
+            + (f'<span class="pc-pill">{icons.sport_icon(sp.sp)}{esc(c["pill"])}</span>' if c['pill'] else '')
+            + trend + box + '<span class="pc-url">RUNTOYOURBETS.COM</span></div></body></html>')
 
 
 def front_fonts():
@@ -1513,22 +1657,27 @@ def build_cards(now_utc, logo_svg):
     today = today_et(now_utc)
     index_path = os.path.join(ROOT, CARD_DIR, 'index.json')
     index = read_json(index_path, {}) or {}
-    want = {}
+    want, bodies = {}, {}
     for p in visible(now_utc):
         want[(p['sport'], p['date'])] = p.get('lead')
+        bodies[(p['sport'], p['date'])] = p.get('body')
     for key, p in drafts(today).items():
         want.setdefault((key, today), p.get('lead'))
+        bodies.setdefault((key, today), p.get('body'))
     jobs, keys = [], []
     for (key, day), override in sorted(want.items()):
         if key != ALL and key not in sports.BY_KEY:
             continue
+        if key != ALL and not sports.in_season(sports.BY_KEY[key]) and has_card(key, day):
+            continue   # off-season: the last card stays as it is
         info = lead_of(key, day, override, now_utc)
         if not info:
             continue
-        page_html = card_html(info, logo_svg)
-        sig = hashlib.sha1(json.dumps([CARD_VERSION, info], sort_keys=True).encode()).hexdigest()[:12]
+        card = card_info(key, day, info, bodies.get((key, day)))
+        sig = hashlib.sha1(json.dumps([CARD_VERSION, card], sort_keys=True).encode()).hexdigest()[:12]
         if (index.get(day) or {}).get(key) == sig and has_card(key, day):
             continue
+        page_html = card_html(card, logo_svg)
         jobs.append((os.path.join(ROOT, card_path(key, day)), page_html))
         keys.append((key, day, sig))
     # the admin's lead dropdowns and "Draft now": today's drafts, plus every sport with games to draft

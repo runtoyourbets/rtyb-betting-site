@@ -158,8 +158,11 @@ headings, Source Sans 3 for everything else, numbers included, with tabular
 figures on the body. No mono font. No bold numbers: emphasis is color and fill.
 Preview's article text (scripts/preview.py `.pv-body`) is Source Sans 3
 (`--ff-read`) at `--fs-read` (18px, 17px phone), line-height `--lh-read`
-(1.65); its dek is `--fs-dek`. The 1200×630 image cards (`.pc-*`) use
-`--pc-grad`, `--pc-text`, `--pc-muted`, `--fs-pc-name` and `--fs-pc-at`.
+(1.65); its dek is `--fs-dek`. The 1200×630 image cards (`.pc-*`, scripts/preview.py
+card_html) use `--pc-grad` (no background image), `--pc-over` / `--pc-over-ice`
+over the sport's assets/share/bg/ image, `--pc-text`, `--pc-muted`,
+`--pc-box-bg`, `--pc-box-line`, `--fw-pc-heavy` and the `--fs-pc-*` sizes;
+`--gold` only for the big number and the line chip.
 The home page's product line under the H1 is `--fs-lede` (17px, 16px phone);
 the sport row's label (nav) is Barlow Condensed at `--fs-row-label` (16px).
 Odds tables' segment and market labels (1Q, ATS, ML...) are the `.mk-h` chip:
