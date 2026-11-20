@@ -4249,7 +4249,6 @@ __ACCOUNT_JS__
   var RTYB_CONFIG = {
     isPremium: true,           // false = free view (also previewable with ?free=1 in the URL)
     upgradeUrl: '#go-premium', // placeholder until there's a real upgrade page
-    smallSample: 15,           // splits built from fewer games get a "small sample" tag
     trendsShown: 6,            // Trends to Watch on the daily slate
     trendsMinSpots: 2,         // of those, slots kept for situational spots when the slate has any
     freeTrends: 2,             // how many of those free viewers see in full
@@ -4526,7 +4525,6 @@ __ACCOUNT_JS__
       return '<button class="seg-btn" ' + attr + '="' + o[0] + '" aria-pressed="' + (o[0] === current) + '">' + o[1] + '</button>';
     }).join('') + '</div>';
   }
-  function smallTag(n) { return n < RTYB_CONFIG.smallSample ? ' <span class="small-sample">small sample</span>' : ''; }
   function advCardHtml(c) {
     var body;
     if (c.board) {
