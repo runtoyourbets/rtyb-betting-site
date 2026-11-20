@@ -211,7 +211,7 @@
   
 
   
-  <section class="gd-block" aria-label="Betting Guides"><h2 class="t-label">Betting Guides</h2><div class="gd-links"><a class="gd-link" href="/nfl/betting-guide/">NFL First Quarter &amp; First Half Betting Guide &rarr;</a><a class="gd-link" href="/betting-guides/spread/">Spread &rarr;</a><a class="gd-link" href="/betting-guides/moneyline/">Moneyline &rarr;</a><a class="gd-link" href="/betting-guides/totals/">Totals &rarr;</a></div></section>
+  <section class="gd-block" aria-label="Betting Guides"><h2 class="t-label">Betting Guides</h2><div class="hl-grid"><a class="hl-card" href="../../../nfl/betting-guide/"><b>NFL First Quarter &amp; First Half Betting Guide</b><span>NFL 1st Quarter and 1st Half bets.</span></a><a class="hl-card" href="../../../betting-guides/spread/"><b>Spread</b><span>Covering, pushes and the -110 price.</span></a><a class="hl-card" href="../../../betting-guides/moneyline/"><b>Moneyline</b><span>Picking the winner, and what the price means.</span></a><a class="hl-card" href="../../../betting-guides/totals/"><b>Totals</b><span>Overs, unders and whole-number pushes.</span></a></div></section>
 </main>
 
 
@@ -245,8 +245,8 @@
   });
   // ---- the one "i" box: every .info-tip on the site opens it
   // Content comes from the button's hidden .tip-bubble: .tip-t (title),
-  // .tip-d (definition), .tip-c (the trend's comparison line), .tip-more
-  // (a glossary link). An older plain bubble gets a title from
+  // .tip-d (definition), .tip-c (the trend's comparison line); no link
+  // out (Nov 20). An older plain bubble gets a title from
   // data-tip-title, its first <b>, or the aria-label.
   (function() {
     var box = document.createElement('div'), scrim = document.createElement('div'), cur = null, pinned = false, timer = null;
@@ -288,23 +288,8 @@
       box.style.left = ''; box.style.top = '';
       box.hidden = false; scrim.hidden = !panel;
       if (!panel) place(tip);
-      glossaryLink(tip);
     }
     window.rtybTipClose = hide;
-    // a market term's "i" (data-term) links to its glossary entry once it's Live there
-    var defsP = null;
-    function glossaryLink(tip) {
-      var term = tip.getAttribute('data-term');
-      if (!term) return;
-      defsP = defsP || fetch(SITE_ROOT + '/assets/definitions.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; });
-      defsP.then(function(d) {
-        if (cur !== tip || !d || !(d.live || {})['term:' + term] || box.querySelector('.tip-more')) return;
-        var a = document.createElement('a');
-        a.className = 'tip-more'; a.href = SITE_ROOT + '/betting-guides/glossary/#' + term; a.textContent = 'More in the glossary →';
-        box.insertBefore(a, box.querySelector('.tip-x'));
-        if (!box.classList.contains('tip-panel')) place(tip);
-      });
-    }
     // captured, so a tip inside a sortable header or a link doesn't also act on it
     document.addEventListener('click', function(e) {
       if (e.target.closest && e.target.closest('.tip-x')) { e.preventDefault(); hide(); return; }
@@ -324,6 +309,43 @@
       if (box.contains(e.target)) { clearTimeout(timer); return; }
       if (cur && !pinned) { clearTimeout(timer); timer = setTimeout(hide, 150); }
     });
+  })();
+  // Records and scores never wrap at the hyphen (12-3-8, 2-0): each one the
+  // page draws goes in a .nw span, as seo.nowrap does for the static pages.
+  (function() {
+    var RE = /(^|[^\w.,-])(\d{1,3}(?:,\d{3})*(?:-\d{1,3}(?:,\d{3})*){1,2})(?![\w-])/g;
+    function wrap(root) {
+      if (!root || root.nodeType === 3 && !(root = root.parentNode)) return;
+      var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), list = [], n;
+      while ((n = w.nextNode())) {
+        var p = n.parentNode;
+        if (!p || /^(SCRIPT|STYLE|TEXTAREA|TITLE)$/.test(p.nodeName) || (p.closest && p.closest('.nw'))) continue;
+        RE.lastIndex = 0;
+        if (!RE.test(n.nodeValue)) continue;
+        var d = getComputedStyle(p).display;
+        if (n.nodeValue.trim() !== n.nodeValue.match(RE)[0].trim() && /flex|grid/.test(d)) continue;   // would split into flex items
+        list.push(n);
+      }
+      list.forEach(function(t) {
+        var f = document.createDocumentFragment(), s = t.nodeValue, last = 0, m;
+        RE.lastIndex = 0;
+        while ((m = RE.exec(s))) {
+          var at = m.index + m[1].length;
+          f.appendChild(document.createTextNode(s.slice(last, at)));
+          var sp = document.createElement('span'); sp.className = 'nw'; sp.textContent = m[2];
+          f.appendChild(sp); last = at + m[2].length;
+        }
+        f.appendChild(document.createTextNode(s.slice(last)));
+        if (t.parentNode) t.parentNode.replaceChild(f, t);
+      });
+    }
+    var queued = [], raf = 0;
+    function flush() { raf = 0; var q = queued; queued = []; q.forEach(wrap); }
+    new MutationObserver(function(ms) {
+      ms.forEach(function(m) { for (var i = 0; i < m.addedNodes.length; i++) queued.push(m.addedNodes[i]); });
+      if (!raf && queued.length) raf = requestAnimationFrame(flush);
+    }).observe(document.body, { childList: true, subtree: true });
+    wrap(document.body);
   })();
   // the menus are wired by scripts/nav.py
 })();
