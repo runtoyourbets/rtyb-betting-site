@@ -253,9 +253,9 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "",
+   "short": "The game we'd watch first: the one where the numbers line up the most.",
    "long": "",
-   "status": "needs",
+   "status": "live",
    "edited": "2026-11-19",
    "where": "Home and sport hubs › Matchup of the Day (Matchup of the Week in football)"
   },
@@ -289,9 +289,9 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "",
+   "short": "Teams on the longest active runs that play today, longest first.",
    "long": "",
-   "status": "needs",
+   "status": "live",
    "edited": "2026-11-19",
    "where": "Home and sport hubs › Streaks to Watch"
   },
@@ -2215,9 +2215,9 @@
    "sports": [
     "nhl"
    ],
-   "short": "Home, away or tie, each its own bet. A tie loses both team bets; the tie bet pays only on a tie.",
+   "short": "Common in soccer betting, except here the draw is called a tie: Team A, Team B or Tie. If it ends level, Team A and Team B both lose. That's why the prices are better.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:btts": {
@@ -2226,9 +2226,9 @@
    "sports": [
     "nhl"
    ],
-   "short": "Yes wins if both teams score in the segment; No wins if at least one team is held scoreless.",
+   "short": "Yes means both teams score in the segment; No means at least one gets shut out. In NHL first periods, BTTS Yes has hit 36% this season, which is why it pays plus money.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:first-five": {
@@ -2237,9 +2237,9 @@
    "sports": [
     "mlb"
    ],
-   "short": "A baseball bet settled after five innings, before most bullpens enter.",
+   "short": "Baseball bets that settle after five innings: moneyline, run line and total. You're betting the starting pitchers, not the bullpens.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:league-average": {
@@ -2254,13 +2254,13 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "How often the same bet won across the whole league this season, for comparison with a trend or a team.",
+   "short": "What a side hits across the whole league. If home teams win the 1P 51% of the time, a team at 51% is just average.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:moneyline": {
-   "name": "Moneyline",
+   "name": "Moneyline (ML)",
    "category": "terms",
    "sports": [
     "nhl",
@@ -2271,20 +2271,20 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "A bet on which team wins. In a segment bet, the team leading when the segment ends; a tie in a 2-way segment moneyline is a push.",
+   "short": "Pick who wins the segment. That's it. In the 2-way version, a tie is a push and you get your money back.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:nrfi": {
-   "name": "NRFI",
+   "name": "NRFI / YRFI",
    "category": "terms",
    "sports": [
     "mlb"
    ],
-   "short": "No Run First Inning: wins if neither team scores in the 1st inning.",
+   "short": "No Run First Inning / Yes Run First Inning. NRFI wins if nobody scores in the 1st, YRFI if anybody does. It came in 49.4% NRFI in 2026, basically a coin flip, so the price is everything.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:push": {
@@ -2299,58 +2299,24 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "A tie with the line: the bet is refunded. It counts as neither a win nor a loss.",
+   "short": "A tie against the number: you get your money back. A 2-way moneyline pushes on a tied segment, and a whole-number spread or total can land right on it.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:run-line": {
-   "name": "Run line",
+   "name": "Run Line",
    "category": "terms",
    "sports": [
     "mlb"
    ],
-   "short": "Baseball’s spread, usually 0.5 runs in the first five. The favorite must lead; the underdog covers by leading or tying.",
+   "short": "Baseball's spread. In the first five it's usually 1/2 a run, so a tie after five goes to the underdog.",
    "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:segment": {
-   "name": "First period / quarter / half",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "The opening part of a game RTYB tracks: 1st period (NHL), 1st quarter and 1st half (basketball, football), 1st inning and first five (MLB).",
-   "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:small-sample": {
-   "name": "Small sample",
-   "category": "terms",
-   "sports": [
-    "nhl",
-    "nba",
-    "wnba",
-    "mlb",
-    "ncaab",
-    "nfl",
-    "ncaaf"
-   ],
-   "short": "Fewer than 5 games. RTYB hides records this small because a few results can swing the percentage a lot.",
-   "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:spread": {
-   "name": "Spread",
+   "name": "Spread (ATS)",
    "category": "terms",
    "sports": [
     "nba",
@@ -2359,13 +2325,13 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "A head start in points. The favorite must win by more than the spread to cover; the underdog covers by losing by less or winning.",
+   "short": "The favorite has to win by more than the number; the underdog can lose by less and still cash. In the first quarter you'll usually see 1/2 to 1 point.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:total": {
-   "name": "Total (Over/Under)",
+   "name": "Total (Over/Under, O/U)",
    "category": "terms",
    "sports": [
     "nhl",
@@ -2376,13 +2342,13 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "A bet on the combined score. Over wins above the posted number, Under below it; landing exactly on a whole number is a push.",
+   "short": "Bet on the combined score going over or under the number. NHL first periods are almost always 1.5: get two goals and you've got a winner.",
    "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "term:units": {
-   "name": "Units",
+   "name": "Units (u)",
    "category": "terms",
    "sports": [
     "nhl",
@@ -2393,20 +2359,9 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "1 unit = $100 at the listed price. +2.06u means $206 profit betting $100 on every game; a loss is -1 unit, a push 0.",
+   "short": "How we keep score in money terms: 1 unit risked on every game at the closing price. +6.4u means you'd be up 6.4 times your bet size. A dash means we don't have enough prices saved for that team yet.",
    "long": "",
-   "status": "draft",
-   "edited": "2026-11-19"
-  },
-  "term:yrfi": {
-   "name": "YRFI",
-   "category": "terms",
-   "sports": [
-    "mlb"
-   ],
-   "short": "Yes Run First Inning: wins if either team scores in the 1st inning.",
-   "long": "",
-   "status": "draft",
+   "status": "live",
    "edited": "2026-11-19"
   },
   "trend:b2b": {
@@ -2886,6 +2841,425 @@
    "edited": "2026-11-19",
    "group": "side_angles",
    "show_last": false
+  },
+  "term:team-total": {
+   "name": "Team Total",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Over/under on one team's score only.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:side": {
+   "name": "Side",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Which team you're on: home or away, favorite or underdog.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:first-segment-bet": {
+   "name": "First-segment bet",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A bet on just the start of the game: the first period, quarter, half, inning or five innings. It settles fast, and you're not sweating the fourth quarter.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:1st-period": {
+   "name": "1st Period (1P)",
+   "category": "terms",
+   "sports": [
+    "nhl"
+   ],
+   "short": "The first 20 minutes of an NHL game. It settles in about 35-40 minutes. The most common 1st period score this season: 1-0.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:1st-quarter": {
+   "name": "1st Quarter (1Q)",
+   "category": "terms",
+   "sports": [
+    "nba",
+    "wnba",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The first 12 minutes (NBA), 10 (WNBA) or 15 (NFL, college football). Books price an NBA first quarter a point or two above a straight quarter of the total.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:1st-half": {
+   "name": "1st Half (1H)",
+   "category": "terms",
+   "sports": [
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Everything up to halftime. Overtime never counts. College basketball first halves are priced a few points under half the game total.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:1st-inning": {
+   "name": "1st Inning",
+   "category": "terms",
+   "sports": [
+    "mlb"
+   ],
+   "short": "The top and bottom of the 1st. That's where NRFI and YRFI live.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:tie": {
+   "name": "Tie",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "mlb"
+   ],
+   "short": "The segment ends level. On a 2-way moneyline that's a push; on the 3-way, only the tie bet wins. NHL first periods have ended tied 34% of the time this season, and about half of those were 1-1.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:half-point": {
+   "name": "Half-point (hook)",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The .5 on a line. It means no push is possible: somebody wins, somebody loses.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:american-odds": {
+   "name": "American odds",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Minus is the favorite: -150 means bet $150 to win $100. Plus is the underdog: +150 means bet $100 to win $150.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:favorite": {
+   "name": "Favorite",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team the book expects to win. You pay more to back it (a minus price).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:underdog": {
+   "name": "Underdog",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The team the book expects to lose. You get paid more if it wins (a plus price).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:juice": {
+   "name": "Juice (vig)",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The book's cut, built into the price. That's why both sides of a spread are -110, not even money.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:best-price": {
+   "name": "Best price",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The best odds on a side across the books we track, outlined in green. Same bet, more money back.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:opening-line": {
+   "name": "Opening line",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The first price a book posts.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:closing-line": {
+   "name": "Closing line",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "The last price before the game starts. Every Run To Your Bets record and unit is graded at the closing line.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:line-move": {
+   "name": "Line move",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "How far a price moved from open to now. A big move usually means money came in on one side.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:record": {
+   "name": "Record",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Wins, losses and ties (or pushes), always shown with the % first: 80% (12-3-8). The header tells you which sides: W-L-T, O-U, Y-N.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:win": {
+   "name": "Win %",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Wins divided by wins plus losses. Ties and pushes are left out, except on the 3-way, where a tie counts as a loss.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:trend": {
+   "name": "Trend",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A situation and how it's done this season, like \"fade teams off a loss: 57% (150-111).\" Graded every night.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:league-trend": {
+   "name": "League trend",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A trend across the whole league, shown with the league average next to it so you can see if it's real or just noise.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:streak": {
+   "name": "Streak",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "How many games in a row a team has hit the same result in a market, like \"1Q Under · 11 straight.\" A push or tie ends it.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:last-10": {
+   "name": "Last 10 (L10)",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team's record over its last 10 games in that market. Hot or cold right now, not all season.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:split": {
+   "name": "Split",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "A team's record in one situation: home, away, favorite, back-to-back, after a loss.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:rest": {
+   "name": "Rest",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Days off before the game. 0 days means a back-to-back.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
+  },
+  "term:edge": {
+   "name": "Edge",
+   "category": "terms",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "When our numbers say a side wins more often than its price says it should. That gap is the edge.",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-19"
   }
  }
 }

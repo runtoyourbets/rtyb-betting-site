@@ -2341,7 +2341,7 @@
     var title = fill(d.title || sideWord(m, kind, k));
     title = title.charAt(0).toUpperCase() + title.slice(1);
     var lg = leagueRate(seqs, m, kind);
-    return infoTip(tipBody(title, fill(d.meaning), 'This trend: ' + pct0(x / y) + ' (' + x + '-' + (y - x) + ').' + (lg == null ? '' : ' League average: ' + pct0(lg) + '.')), false, title, m === 'rfi' ? (kind === 'Y' ? 'yrfi' : 'nrfi') : termOf(m));
+    return infoTip(tipBody(title, fill(d.meaning), 'This trend: ' + pct0(x / y) + ' (' + x + '-' + (y - x) + ').' + (lg == null ? '' : ' League average: ' + pct0(lg) + '.')), false, title, termOf(m));
   }
   // the share of team-games in the market that went this way (pushes out, as in leanOf)
   function leagueRate(seqs, m, kind) {
