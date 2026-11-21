@@ -12547,6 +12547,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Arkansas State"
+   },
+   {
+    "id": "nba|401910027|1h|ats|away",
+    "game": "nba|401910027",
+    "date": "2026-11-21",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-22T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Pelicans @ Spurs",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 10.5,
+    "price": -105,
+    "title": "Pelicans 1H +10.5",
+    "est": 0.5549,
+    "edge": 0.0427,
+    "agree": 4,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "no",
+    "angles": [
+     [
+      "Pelicans 1H ATS at +10.5 on the road",
+      "5-1"
+     ],
+     [
+      "Pelicans 1H ATS at +10.5, season",
+      "13-4"
+     ],
+     [
+      "Spurs\u2019s opponents 1H ATS at +10.5, Spurs at home",
+      "6-3"
+     ],
+     [
+      "Pelicans 1H ATS at +10.5, last 8",
+      "5-3"
+     ]
+    ],
+    "info": "Pelicans avg 1H margin on the road: -4.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pelicans"
    }
   ]
  }
