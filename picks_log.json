@@ -12399,6 +12399,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Minnesota"
+   },
+   {
+    "id": "ncaaf|401871101|1q|ml|away",
+    "game": "ncaaf|401871101",
+    "date": "2026-11-21",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-21T21:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "South Alabama @ Southern Miss",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -150,
+    "title": "South Alabama 1Q ML",
+    "est": 0.644,
+    "edge": 0.044,
+    "agree": 4,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 1,
+    "streakTeam": "south-alabama-jaguars",
+    "angles": [
+     [
+      "South Alabama 1Q ML, season",
+      "8-1-1"
+     ],
+     [
+      "South Alabama 1Q ML, last 8",
+      "6-1-1"
+     ],
+     [
+      "South Alabama 1Q ML on the road",
+      "3-1-1"
+     ],
+     [
+      "Southern Miss\u2019s opponents 1Q ML, Southern Miss at home",
+      "3-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "South Alabama"
    }
   ]
  }
