@@ -1,0 +1,1181 @@
+{
+ "sport": "College Basketball",
+ "segments": "1st half",
+ "date": "2026-11-21",
+ "games_on_the_slate": 51,
+ "lead_game": "Washington State at Duke",
+ "matchup_of_the_day": "Southern Miss at Nicholls",
+ "games": [
+  {
+   "id": "401924884",
+   "matchup": "Siena at Bucknell",
+   "away": {
+    "code": "SIEN",
+    "name": "Siena"
+   },
+   "home": {
+    "code": "BUCK",
+    "name": "Bucknell"
+   },
+   "start": "11:00 AM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Siena 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "SIEN": {
+       "open": -215,
+       "now": -215,
+       "best_book": "Caesars"
+      },
+      "BUCK": {
+       "open": 178,
+       "now": 178,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "SIEN": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -105,
+       "best_book": "Caesars"
+      },
+      "BUCK": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 72.5,
+      "now": 71.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401922284",
+   "matchup": "South Carolina Upstate at UNC Greensboro",
+   "away": {
+    "code": "UPST",
+    "name": "South Carolina Upstate"
+   },
+   "home": {
+    "code": "UNCG",
+    "name": "UNC Greensboro"
+   },
+   "start": "11:00 AM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [],
+   "lines": {}
+  },
+  {
+   "id": "401911199",
+   "matchup": "Fordham at Portland",
+   "away": {
+    "code": "FORD",
+    "name": "Fordham"
+   },
+   "home": {
+    "code": "PORT",
+    "name": "Portland"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Portland have covered the 1st half spread 3 straight",
+    "Fordham have won the 1st half 3 straight",
+    "Portland have won the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "FORD": {
+       "open": -195,
+       "now": -195,
+       "best_book": "Caesars"
+      },
+      "PORT": {
+       "open": 164,
+       "now": 164,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "FORD": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": 100,
+       "best_book": "Caesars"
+      },
+      "PORT": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 70.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401924882",
+   "matchup": "Stony Brook at Saint Peter's",
+   "away": {
+    "code": "STBK",
+    "name": "Stony Brook"
+   },
+   "home": {
+    "code": "SPU",
+    "name": "Saint Peter's"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Saint Peter's 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "STBK": {
+       "open": -200,
+       "now": -215,
+       "best_book": "DraftKings"
+      },
+      "SPU": {
+       "open": 154,
+       "now": 165,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "STBK": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      },
+      "SPU": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 60.5,
+      "now": 60.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909730",
+   "matchup": "Western Carolina at Wake Forest",
+   "away": {
+    "code": "WCU",
+    "name": "Western Carolina"
+   },
+   "home": {
+    "code": "WAKE",
+    "name": "Wake Forest"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Wake Forest have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "WCU": {
+       "open": 430,
+       "now": 430,
+       "best_book": "Caesars"
+      },
+      "WAKE": {
+       "open": -590,
+       "now": -590,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "WCU": {
+       "open": 8.5,
+       "now": 8.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      },
+      "WAKE": {
+       "open": -8.5,
+       "now": -8.5,
+       "price": 100,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 69.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920846",
+   "matchup": "St. Thomas at Milwaukee",
+   "away": {
+    "code": "STMN",
+    "name": "St. Thomas"
+   },
+   "home": {
+    "code": "MILW",
+    "name": "Milwaukee"
+   },
+   "start": "3:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "STMN": {
+       "open": -125,
+       "now": -125,
+       "best_book": "Caesars"
+      },
+      "MILW": {
+       "open": 105,
+       "now": 105,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "STMN": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      },
+      "MILW": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -105,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 73.5,
+      "now": 71.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401917918",
+   "matchup": "Central Arkansas at Jacksonville",
+   "away": {
+    "code": "CARK",
+    "name": "Central Arkansas"
+   },
+   "home": {
+    "code": "JAX",
+    "name": "Jacksonville"
+   },
+   "start": "4:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Central Arkansas have failed to cover the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "CARK": {
+       "open": -140,
+       "now": -140,
+       "best_book": "DraftKings"
+      },
+      "JAX": {
+       "open": 110,
+       "now": 110,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "CARK": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      },
+      "JAX": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 68.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401922048",
+   "matchup": "Longwood at East Tennessee State",
+   "away": {
+    "code": "LONG",
+    "name": "Longwood"
+   },
+   "home": {
+    "code": "ETSU",
+    "name": "East Tennessee State"
+   },
+   "start": "4:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Longwood have won the 1st half 4 straight",
+    "Longwood have covered the 1st half spread 3 straight",
+    "East Tennessee State 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "LONG": {
+       "open": 180,
+       "now": 180,
+       "best_book": "DraftKings"
+      },
+      "ETSU": {
+       "open": -238,
+       "now": -238,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "LONG": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "ETSU": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 67.5,
+      "now": 67.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401918995",
+   "matchup": "South Florida at George Mason",
+   "away": {
+    "code": "USF",
+    "name": "South Florida"
+   },
+   "home": {
+    "code": "GMU",
+    "name": "George Mason"
+   },
+   "start": "4:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "South Florida have failed to cover the 1st half spread 4 straight",
+    "George Mason 1st halves have gone Over 3 straight",
+    "George Mason have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "USF": {
+       "open": 126,
+       "now": 126,
+       "best_book": "Caesars"
+      },
+      "GMU": {
+       "open": -148,
+       "now": -148,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "USF": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      },
+      "GMU": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -110,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": -110,
+      "under": -113,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401911337",
+   "matchup": "Air Force at UTSA",
+   "away": {
+    "code": "AFA",
+    "name": "Air Force"
+   },
+   "home": {
+    "code": "UTSA",
+    "name": "UTSA"
+   },
+   "start": "5:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Air Force 1st halves have gone Over 3 straight"
+   ],
+   "lines": {}
+  },
+  {
+   "id": "401925065",
+   "matchup": "Southern Miss at Nicholls",
+   "away": {
+    "code": "USM",
+    "name": "Southern Miss"
+   },
+   "home": {
+    "code": "NICH",
+    "name": "Nicholls"
+   },
+   "start": "5:00 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Nicholls have lost the 1st half 4 straight",
+    "Nicholls have failed to cover the 1st half spread 3 straight",
+    "Southern Miss have failed to cover the 1st half spread 4 straight",
+    "Southern Miss 1st halves have gone Over 3 straight",
+    "Nicholls 1st halves have gone Under 4 straight",
+    "Southern Miss have lost the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "USM": {
+       "open": -175,
+       "now": -175,
+       "best_book": "DraftKings"
+      },
+      "NICH": {
+       "open": 135,
+       "now": 135,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "USM": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      },
+      "NICH": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401917539",
+   "matchup": "California Baptist at Loyola Marymount",
+   "away": {
+    "code": "CBU",
+    "name": "California Baptist"
+   },
+   "home": {
+    "code": "LMU",
+    "name": "Loyola Marymount"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "California Baptist have failed to cover the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "CBU": {
+       "open": 420,
+       "now": 420,
+       "best_book": "DraftKings"
+      },
+      "LMU": {
+       "open": -660,
+       "now": -660,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "CBU": {
+       "open": 8.5,
+       "now": 8.5,
+       "price": -125,
+       "best_book": "DraftKings"
+      },
+      "LMU": {
+       "open": -8.5,
+       "now": -8.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 66.5,
+      "now": 64.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920125",
+   "matchup": "Northern Arizona at Cal Poly",
+   "away": {
+    "code": "NAU",
+    "name": "Northern Arizona"
+   },
+   "home": {
+    "code": "CPOL",
+    "name": "Cal Poly"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Cal Poly 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "NAU": {
+       "open": 210,
+       "now": 210,
+       "best_book": "DraftKings"
+      },
+      "CPOL": {
+       "open": -280,
+       "now": -280,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "NAU": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": -110,
+       "best_book": "TheScore US"
+      },
+      "CPOL": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 75.5,
+      "now": 74.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401917537",
+   "matchup": "Bradley at Pacific",
+   "away": {
+    "code": "BRAD",
+    "name": "Bradley"
+   },
+   "home": {
+    "code": "PAC",
+    "name": "Pacific"
+   },
+   "start": "10:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    }
+   ],
+   "streaks": [
+    "Bradley have failed to cover the 1st half spread 4 straight",
+    "Bradley have lost the 1st half 5 straight",
+    "Pacific have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "BRAD": {
+       "open": 230,
+       "now": 240,
+       "best_book": "DraftKings"
+      },
+      "PAC": {
+       "open": -315,
+       "now": -330,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "BRAD": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "PAC": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 59.5,
+      "now": 59.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909567",
+   "matchup": "Washington State at Duke",
+   "away": {
+    "code": "WSU",
+    "name": "Washington State"
+   },
+   "home": {
+    "code": "DUKE",
+    "name": "Duke"
+   },
+   "start": "11:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "219-139",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "172-129",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H Spread)",
+     "season_record": "130-103",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Washington State have won the 1st half 3 straight",
+    "Washington State have covered the 1st half spread 3 straight",
+    "Duke have failed to cover the 1st half spread 3 straight",
+    "Duke 1st halves have gone Under 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "WSU": {
+       "open": 1400,
+       "now": 1300,
+       "best_book": "DraftKings"
+      },
+      "DUKE": {
+       "open": -2800,
+       "now": -2800,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "WSU": {
+       "open": 14.5,
+       "now": 14.5,
+       "price": 105,
+       "best_book": "Fanatics"
+      },
+      "DUKE": {
+       "open": -14.5,
+       "now": -14.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 73.5,
+      "now": 71.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  }
+ ],
+ "trends_page": "/college-basketball/trends/",
+ "teams": {
+  "AFA": {
+   "name": "Air Force",
+   "rates": []
+  },
+  "BRAD": {
+   "name": "Bradley",
+   "rates": []
+  },
+  "BUCK": {
+   "name": "Bucknell",
+   "rates": []
+  },
+  "CPOL": {
+   "name": "Cal Poly",
+   "rates": []
+  },
+  "CBU": {
+   "name": "California Baptist",
+   "rates": []
+  },
+  "CARK": {
+   "name": "Central Arkansas",
+   "rates": []
+  },
+  "DUKE": {
+   "name": "Duke",
+   "rates": []
+  },
+  "ETSU": {
+   "name": "East Tennessee State",
+   "rates": []
+  },
+  "FORD": {
+   "name": "Fordham",
+   "rates": []
+  },
+  "GMU": {
+   "name": "George Mason",
+   "rates": []
+  },
+  "JAX": {
+   "name": "Jacksonville",
+   "rates": []
+  },
+  "LONG": {
+   "name": "Longwood",
+   "rates": []
+  },
+  "LMU": {
+   "name": "Loyola Marymount",
+   "rates": []
+  },
+  "MILW": {
+   "name": "Milwaukee",
+   "rates": []
+  },
+  "NICH": {
+   "name": "Nicholls",
+   "rates": []
+  },
+  "NAU": {
+   "name": "Northern Arizona",
+   "rates": []
+  },
+  "PAC": {
+   "name": "Pacific",
+   "rates": []
+  },
+  "PORT": {
+   "name": "Portland",
+   "rates": []
+  },
+  "SPU": {
+   "name": "Saint Peter's",
+   "rates": []
+  },
+  "SIEN": {
+   "name": "Siena",
+   "rates": []
+  },
+  "UPST": {
+   "name": "South Carolina Upstate",
+   "rates": []
+  },
+  "USF": {
+   "name": "South Florida",
+   "rates": []
+  },
+  "USM": {
+   "name": "Southern Miss",
+   "rates": []
+  },
+  "STMN": {
+   "name": "St. Thomas",
+   "rates": []
+  },
+  "STBK": {
+   "name": "Stony Brook",
+   "rates": []
+  },
+  "UNCG": {
+   "name": "UNC Greensboro",
+   "rates": []
+  },
+  "UTSA": {
+   "name": "UTSA",
+   "rates": []
+  },
+  "WAKE": {
+   "name": "Wake Forest",
+   "rates": []
+  },
+  "WSU": {
+   "name": "Washington State",
+   "rates": []
+  },
+  "WCU": {
+   "name": "Western Carolina",
+   "rates": []
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H ML",
+   "record": "219-139",
+   "pct": "61%",
+   "games": 358,
+   "fits_tonight": [
+    "South Carolina Upstate at UNC Greensboro",
+    "Siena at Bucknell",
+    "Western Carolina at Wake Forest",
+    "Stony Brook at Saint Peter's",
+    "St. Thomas at Milwaukee",
+    "Central Arkansas at Jacksonville",
+    "Longwood at East Tennessee State",
+    "Air Force at UTSA",
+    "Southern Miss at Nicholls",
+    "California Baptist at Loyola Marymount",
+    "Northern Arizona at Cal Poly",
+    "Washington State at Duke"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "1H Spread",
+   "record": "172-129",
+   "pct": "57%",
+   "games": 301,
+   "fits_tonight": [
+    "South Carolina Upstate at UNC Greensboro",
+    "Siena at Bucknell",
+    "Western Carolina at Wake Forest",
+    "Stony Brook at Saint Peter's",
+    "St. Thomas at Milwaukee",
+    "Longwood at East Tennessee State",
+    "Air Force at UTSA",
+    "Southern Miss at Nicholls",
+    "California Baptist at Loyola Marymount",
+    "Northern Arizona at Cal Poly",
+    "Bradley at Pacific",
+    "Washington State at Duke"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H Spread",
+   "record": "130-103",
+   "pct": "56%",
+   "games": 233,
+   "fits_tonight": [
+    "South Carolina Upstate at UNC Greensboro",
+    "Siena at Bucknell",
+    "Western Carolina at Wake Forest",
+    "Stony Brook at Saint Peter's",
+    "St. Thomas at Milwaukee",
+    "Central Arkansas at Jacksonville",
+    "Longwood at East Tennessee State",
+    "Air Force at UTSA",
+    "Southern Miss at Nicholls",
+    "California Baptist at Loyola Marymount",
+    "Northern Arizona at Cal Poly",
+    "Washington State at Duke"
+   ]
+  }
+ ],
+ "edge_plays": [],
+ "boxes": {
+  "league_trend": {
+   "sport": "ncaab",
+   "number": "61%",
+   "line": "Fade teams off a blowout · 1H ML · 219-139",
+   "text": "Fade teams off a blowout 219-139 this season; tonight it fits South Carolina Upstate at UNC Greensboro and 23 more games.",
+   "id": "off_loss3:1h:ml:fade"
+  }
+ }
+}
