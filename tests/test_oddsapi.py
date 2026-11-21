@@ -122,14 +122,17 @@ class FullGame(unittest.TestCase):
         self.assertEqual(rep['big_ml'], [])
 
     def test_saved_full_game_lines_are_pregame(self):
-        """No saved full-game moneyline has both sides plus (an in-play price)."""
+        """No saved full-game moneyline has both sides plus (an in-play price),
+        except a pick'em: the best prices across books can both be plus when
+        the game is close to even (+115 / +102, ten books), so both sides
+        +130 or less pass."""
         for path in glob.glob(os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', '*', '*.json')):
             with open(path, encoding='utf-8') as f:
                 games = json.load(f).get('games') or {}
             for key, g in games.items():
                 ml = ((g.get('segments') or {}).get('game') or {}).get('ml')
                 if ml:
-                    self.assertFalse(ml['away'] > 0 and ml['home'] > 0, f'{path}: {key} {ml}')
+                    self.assertFalse(ml['away'] > 0 and ml['home'] > 0 and max(ml['away'], ml['home']) > 130, f'{path}: {key} {ml}')
 
 
 class Merge(unittest.TestCase):
