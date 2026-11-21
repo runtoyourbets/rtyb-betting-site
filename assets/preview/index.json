@@ -9,7 +9,7 @@
   "all": "8a5601efa6a4",
   "nba": "30c34c7ee8cb",
   "ncaab": "2b926f650ec9",
-  "ncaaf": "c25a09825bd2",
+  "ncaaf": "4febeabff371",
   "nfl": "6b0203dc7eab",
   "nhl": "d7efe5a6de18"
  },
@@ -17,5 +17,11 @@
   "all": "c460d211a2a7",
   "nba": "6a5cedbc6504",
   "ncaab": "b6f84d8e6d4d"
+ },
+ "2026-11-21": {
+  "all": "bb41d4d9a0c1",
+  "nba": "21b6960eaaf7",
+  "ncaab": "ee4ef7ea1b16",
+  "nhl": "f59b0dfc05a4"
  }
 }
