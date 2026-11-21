@@ -11881,8 +11881,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "NC State"
    },
    {
@@ -12401,6 +12401,57 @@
     "streakTeamName": "Minnesota"
    },
    {
+    "id": "ncaaf|401858302|1q|total|under",
+    "game": "ncaaf|401858302",
+    "date": "2026-11-21",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-22T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Virginia Tech @ Miami",
+    "href": "college-football/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 13.5,
+    "price": 124,
+    "title": "1Q Under 13.5",
+    "est": 0.4908,
+    "edge": 0.0444,
+    "agree": 6,
+    "sample": 10,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 7,
+    "streakTeam": "miami-hurricanes",
+    "angles": [
+     [
+      "Virginia Tech 1Q unders on the road (13.5)",
+      "5-0"
+     ],
+     [
+      "Miami 1Q unders, last 8 (13.5)",
+      "7-1"
+     ],
+     [
+      "Miami 1Q unders at home (13.5)",
+      "4-1"
+     ],
+     [
+      "Virginia Tech 1Q unders, last 8 (13.5)",
+      "6-2"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Miami 10.2 \u00b7 Virginia Tech 10.3",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Miami"
+   },
+   {
     "id": "ncaaf|401871101|1q|ml|away",
     "game": "ncaaf|401871101",
     "date": "2026-11-21",
@@ -12496,57 +12547,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Arkansas State"
-   },
-   {
-    "id": "ncaaf|401858302|1q|total|under",
-    "game": "ncaaf|401858302",
-    "date": "2026-11-21",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-22T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Virginia Tech @ Miami",
-    "href": "college-football/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 13.5,
-    "price": 122,
-    "title": "1Q Under 13.5",
-    "est": 0.4938,
-    "edge": 0.0434,
-    "agree": 6,
-    "sample": 10,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 7,
-    "streakTeam": "miami-hurricanes",
-    "angles": [
-     [
-      "Virginia Tech 1Q unders on the road (13.5)",
-      "5-0"
-     ],
-     [
-      "Miami 1Q unders, last 8 (13.5)",
-      "7-1"
-     ],
-     [
-      "Miami 1Q unders at home (13.5)",
-      "4-1"
-     ],
-     [
-      "Virginia Tech 1Q unders, last 8 (13.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Miami 10.2 \u00b7 Virginia Tech 10.3",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Miami"
    }
   ]
  }
