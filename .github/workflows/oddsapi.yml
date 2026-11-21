@@ -1,11 +1,31 @@
 name: The Odds API
 
-# Manual only (Run workflow), never on a schedule. oddsapi-probe: which
-# markets and books The Odds API has per sport, live and in history
-# (scripts/oddsapi_probe.py, about 5,000 credits). The key is the
+# Manual only (Run workflow), never on a schedule. The key is the
 # ODDS_API_KEY secret and is never printed or written to a file.
+# - oddsapi-probe: which markets and books The Odds API has per sport
+#   (scripts/oddsapi_probe.py, about 5,000 credits).
+# - oddsapi-backfill: closing lines for finished games the admin and the
+#   Unabated feed don't have (scripts/backfill_oddsapi.py). Resumable; it
+#   commits every 30 minutes and at the end, and stops at 5h30m.
 on:
   workflow_dispatch:
+    inputs:
+      job:
+        description: "backfill or probe"
+        type: choice
+        options: [backfill, probe]
+        default: backfill
+      sport:
+        description: "backfill: nhl, nba, ncaab, nfl, ncaaf, mlb, wnba or all"
+        default: all
+      season:
+        description: "backfill: this, last or both"
+        type: choice
+        options: [this, last, both]
+        default: this
+      max_credits:
+        description: "backfill: most credits this run may use"
+        default: "400000"
 
 permissions:
   contents: write
@@ -16,6 +36,7 @@ concurrency:
 
 jobs:
   oddsapi-probe:
+    if: github.event.inputs.job == 'probe'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
@@ -52,3 +73,31 @@ jobs:
             sleep 3
           done
           exit 1
+
+  oddsapi-backfill:
+    if: github.event.inputs.job == 'backfill'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run the backfill
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          SPORT: ${{ github.event.inputs.sport }}
+          SEASON: ${{ github.event.inputs.season }}
+          MAX_CREDITS: ${{ github.event.inputs.max_credits }}
+        run: |
+          echo "$SPORT" | grep -Eqx 'nhl|nba|ncaab|nfl|ncaaf|mlb|wnba|all' || { echo "unknown sport"; exit 1; }
+          echo "$MAX_CREDITS" | grep -Eqx '[0-9]+' || { echo "max_credits must be a number"; exit 1; }
+          git config user.name "rtyb-bot"
+          git config user.email "actions@users.noreply.github.com"
+          python3 scripts/backfill_oddsapi.py --sport "$SPORT" --season "$SEASON" --max-credits "$MAX_CREDITS" --commit

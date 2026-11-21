@@ -322,23 +322,38 @@ def seg_scores(sp, g):
     return out or None
 
 
-def merge_odds(admin, feed):
-    """Odds the pages grade against: the Unabated feed (fetch_odds_unabated.py,
-    auto-published) with the admin's saved odds on top. A market Chris saved
-    always wins; one he left blank, or never saved, comes from the feed."""
+def oddsapi_odds(sport, segs=None):
+    """{game key: {date, away, home, segments}} from The Odds API backfill
+    (scripts/backfill_oddsapi.py, data_feed/oddsapi/history/{sport}/*.json),
+    every season; segs: only these segments. Each line's `books` count stays
+    in the history file."""
     out = {}
-    for key in set(admin) | set(feed):
-        a, f = admin.get(key) or {}, feed.get(key) or {}
+    for path in sorted(glob.glob(os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', sport, '*.json'))):
+        for key, g in (read_json(path, {}).get('games') or {}).items():
+            seg_odds = {seg: {m: {k: v for k, v in line.items() if k != 'books'} for m, line in markets.items()}
+                        for seg, markets in (g.get('segments') or {}).items() if segs is None or seg in segs}
+            if seg_odds:
+                out[key] = {'date': g.get('date'), 'away': g.get('away'), 'home': g.get('home'), 'segments': seg_odds}
+    return out
+
+
+def merge_odds(admin, feed, oddsapi=None):
+    """Odds the pages grade against, market by market: the admin's saved odds
+    win, then the Unabated feed (fetch_odds_unabated.py, auto-published),
+    then The Odds API backfill (oddsapi_odds) for what neither has."""
+    oddsapi = oddsapi or {}
+    out = {}
+    for key in set(admin) | set(feed) | set(oddsapi):
+        layers = [(x.get(key) or {}) for x in (oddsapi, feed, admin)]   # lowest first
         segs = {}
-        for seg in set(a.get('segments') or {}) | set(f.get('segments') or {}):
-            mine = (a.get('segments') or {}).get(seg) or {}
-            auto = (f.get('segments') or {}).get(seg) or {}
-            # 3-way ML is NHL only (nhl_sport.py); this builds the other sports
-            merged = {m: v for m, v in auto.items() if v is not None and m != 'ml3'}
-            merged.update({m: v for m, v in mine.items() if v is not None and m != 'ml3'})
+        for seg in set().union(*[set(x.get('segments') or {}) for x in layers]):
+            merged = {}
+            for x in layers:
+                # 3-way ML is NHL only (nhl_sport.py); this builds the other sports
+                merged.update({m: v for m, v in ((x.get('segments') or {}).get(seg) or {}).items() if v is not None and m != 'ml3'})
             if merged:
                 segs[seg] = merged
-        base = a or f
+        base = layers[2] or layers[1] or layers[0]
         out[key] = {'date': base.get('date'), 'away': base.get('away'), 'home': base.get('home'), 'segments': segs}
     return out
 
@@ -1095,7 +1110,8 @@ def build(sp, teams_list, now_utc=None):
     now_utc = now_utc or datetime.now(timezone.utc)
     seasons = load_games(sp['key'])
     odds = merge_odds(read_json(os.path.join(ROOT, 'data_admin', 'odds', f"{sp['key']}.json"), {}),
-                      read_json(os.path.join(ROOT, 'data_feed', 'unabated', f"{sp['key']}.json"), {}).get('games') or {})
+                      read_json(os.path.join(ROOT, 'data_feed', 'unabated', f"{sp['key']}.json"), {}).get('games') or {},
+                      oddsapi_odds(sp['key'], {s['key'] for s in sp['segments']}))
     teams = {t['slug']: t for t in teams_list}
     slug_dir = os.path.join(ROOT, sp['slug'])
     current = max(seasons) if seasons else None

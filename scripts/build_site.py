@@ -1106,6 +1106,36 @@ def apply_admin_overrides(merged_games, odds_overrides, results_overrides):
             games[i] = g
 
 
+def nhl_oddsapi(key, oddsapi):
+    """A game's 1st-period odds from The Odds API backfill
+    (sport_build.oddsapi_odds) in the schedule's odds shape, or {}."""
+    g = oddsapi.get(key) or {}
+    p = (g.get('segments') or {}).get('1p') or {}
+    out = {}
+    if p.get('ml'):
+        out['ml'] = {g['away']: p['ml']['away'], g['home']: p['ml']['home']}
+    if p.get('total'):
+        out['totals'] = {f"{p['total']['line']:g}": {'over': p['total']['over'], 'under': p['total']['under']}}
+    if p.get('ml3'):
+        out['ml3'] = p['ml3']
+    if p.get('btts'):
+        out['btts_yes'], out['btts_no'] = p['btts']['yes'], p['btts']['no']
+    return out
+
+
+def fill_from_oddsapi(games, key_of, oddsapi):
+    """Each game's odds the other sources left empty, field by field, from
+    The Odds API backfill (under the admin and Unabated; admin overrides are
+    applied after this)."""
+    for i, g in enumerate(games):
+        extra = nhl_oddsapi(key_of(g), oddsapi)
+        odds = dict(g.get('odds') or {})
+        add = {k: v for k, v in extra.items() if not odds.get(k)}
+        if add:
+            odds.update(add)
+            games[i] = dict(g, odds=odds)
+
+
 def main():
     build_sport_data()
     if sports.COLLEGE_FALLBACKS:   # teams missing from data_seed/college_codes.json keep their ESPN code
@@ -1192,6 +1222,9 @@ def main():
     # Applied unconditionally, after either path above, so admin-published
     # odds/results always take effect -- including on a local/manual build
     # with no fresh schedule fetch.
+    odds_backfill = sport_build.oddsapi_odds('nhl', {'1p'})
+    for date_str, games in merged_games.items():
+        fill_from_oddsapi(games, lambda g, d=date_str: f"{d}|{g['away']}|{g['home']}", odds_backfill)
     apply_admin_overrides(merged_games, odds_overrides, results_overrides)
 
     merged_schedule = {
@@ -1220,6 +1253,7 @@ def main():
     # (nhl/history.json, loaded only when picked)
     full_data['tz'] = (load('data_seed/conferences/nhl_timezones.json', {}) or {}).get('zones')
     archive = load('data_seed/nhl_2025_26_games.json', [])
+    fill_from_oddsapi(archive, lambda g: f"{g['date']}|{g['away']}|{g['home']}", odds_backfill)
     if archive:
         with open(os.path.join(ROOT, 'nhl', 'history.json'), 'w', encoding='utf-8') as f:
             json.dump({'season': 2026, 'seasonLabel': '2025-26', 'games': archive}, f, separators=(',', ':'))
