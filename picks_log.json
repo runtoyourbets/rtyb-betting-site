@@ -11510,8 +11510,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Wyoming"
    },
    {
@@ -11602,8 +11602,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.6452,
     "streakTeamName": "Suns"
    },
    {
