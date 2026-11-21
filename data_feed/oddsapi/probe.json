@@ -1,0 +1,5299 @@
+{
+ "books": [
+  "draftkings",
+  "fanduel",
+  "betmgm",
+  "williamhill_us",
+  "espnbet",
+  "fanatics",
+  "betrivers",
+  "hardrockbet",
+  "bovada",
+  "betonlineag"
+ ],
+ "budget": 5000,
+ "credits_remaining": 4995066,
+ "credits_used": 4934,
+ "days": {
+  "mlb": {
+   "last": "2025-06-20",
+   "this": "2026-06-20"
+  },
+  "nba": {
+   "last": "2026-01-15",
+   "this": "2026-11-14"
+  },
+  "ncaab": {
+   "last": "2026-01-17",
+   "this": "2026-11-14"
+  },
+  "ncaaf": {
+   "last": "2025-11-15",
+   "this": "2026-11-14"
+  },
+  "nfl": {
+   "last": "2025-11-16",
+   "this": "2026-11-15"
+  },
+  "nhl": {
+   "last": "2026-01-15",
+   "this": "2026-11-14"
+  },
+  "wnba": {
+   "last": "2025-06-20",
+   "this": "2026-06-20"
+  }
+ },
+ "generated": "2026-11-21T15:31:39+00:00",
+ "sports": {
+  "mlb": {
+   "bulk": {
+    "at": "2026-06-20T23:06:00Z",
+    "credits": 30,
+    "events": 22,
+    "events_with_lines": 22
+   },
+   "history_games": {
+    "last": {
+     "day": "2025-06-20",
+     "events_listed": 15,
+     "games": [
+      {
+       "away_team": "Cincinnati Reds",
+       "commence_time": "2025-06-20T23:16:00Z",
+       "home_team": "St. Louis Cardinals",
+       "id": "e6e01535f4a6b4ebba80e77a3992fad0"
+      },
+      {
+       "away_team": "New York Mets",
+       "commence_time": "2025-06-20T23:15:00Z",
+       "home_team": "Philadelphia Phillies",
+       "id": "4b8ab59d390cde574ed5837d3aaa9591"
+      },
+      {
+       "away_team": "Atlanta Braves",
+       "commence_time": "2025-06-20T23:11:00Z",
+       "home_team": "Miami Marlins",
+       "id": "e2d7b04710298e093ce620c8075d6e30"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Cincinnati Reds",
+      "commence_time": "2025-06-20T23:16:00Z",
+      "home_team": "St. Louis Cardinals",
+      "id": "e6e01535f4a6b4ebba80e77a3992fad0"
+     }
+    },
+    "this": {
+     "day": "2026-06-20",
+     "events_listed": 14,
+     "games": [
+      {
+       "away_team": "Cleveland Guardians",
+       "commence_time": "2026-06-20T23:16:00Z",
+       "home_team": "Houston Astros",
+       "id": "d0bf798e1c85fe47d8160217d79b5a3e"
+      },
+      {
+       "away_team": "New York Mets",
+       "commence_time": "2026-06-20T23:16:00Z",
+       "home_team": "Philadelphia Phillies",
+       "id": "6344d2ce9df189689ed256d05cfcffb4"
+      },
+      {
+       "away_team": "Pittsburgh Pirates",
+       "commence_time": "2026-06-21T01:11:00Z",
+       "home_team": "Colorado Rockies",
+       "id": "4bb2c510f37ac3221423f6fe96d81822"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Cleveland Guardians",
+      "commence_time": "2026-06-20T23:16:00Z",
+      "home_team": "Houston Astros",
+      "id": "d0bf798e1c85fe47d8160217d79b5a3e"
+     }
+    }
+   },
+   "in_season": false,
+   "markets": {
+    "h2h_1st_5_innings": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cincinnati Reds",
+         "price": 106
+        },
+        {
+         "name": "St. Louis Cardinals",
+         "price": -132
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cleveland Guardians",
+         "price": 116
+        },
+        {
+         "name": "Houston Astros",
+         "price": -145
+        }
+       ]
+      }
+     }
+    },
+    "spreads_1st_5_innings": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "fanduel"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "fanduel",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cincinnati Reds",
+         "point": 0.5,
+         "price": -130
+        },
+        {
+         "name": "St. Louis Cardinals",
+         "point": -0.5,
+         "price": 100
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cleveland Guardians",
+         "point": 0.5,
+         "price": -125
+        },
+        {
+         "name": "Houston Astros",
+         "point": -0.5,
+         "price": -104
+        }
+       ]
+      }
+     }
+    },
+    "totals_1st_1_innings": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betrivers",
+       "bovada",
+       "espnbet",
+       "fanduel",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "fanduel",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 0.5,
+         "price": -111
+        },
+        {
+         "name": "Under",
+         "point": 0.5,
+         "price": -115
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 0.5,
+         "price": -111
+        },
+        {
+         "name": "Under",
+         "point": 0.5,
+         "price": -115
+        }
+       ]
+      }
+     }
+    },
+    "totals_1st_5_innings": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "fanduel"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "fanduel",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 4.5,
+         "price": -138
+        },
+        {
+         "name": "Under",
+         "point": 4.5,
+         "price": 106
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 4.5,
+         "price": -120
+        },
+        {
+         "name": "Under",
+         "point": 4.5,
+         "price": -108
+        }
+       ]
+      }
+     }
+    }
+   },
+   "next": {
+    "games": [
+     {
+      "game": {
+       "away_team": "Cleveland Guardians",
+       "commence_time": "2026-06-20T23:16:00Z",
+       "home_team": "Houston Astros",
+       "id": "d0bf798e1c85fe47d8160217d79b5a3e"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "spreads": 10,
+        "totals": 10
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "New York Mets",
+       "commence_time": "2026-06-20T23:16:00Z",
+       "home_team": "Philadelphia Phillies",
+       "id": "6344d2ce9df189689ed256d05cfcffb4"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "spreads": 10,
+        "totals": 10
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Pittsburgh Pirates",
+       "commence_time": "2026-06-21T01:11:00Z",
+       "home_team": "Colorado Rockies",
+       "id": "4bb2c510f37ac3221423f6fe96d81822"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "spreads": 10,
+        "totals": 10
+       }
+      }
+     }
+    ],
+    "markets": [
+     "h2h",
+     "spreads",
+     "totals"
+    ],
+    "samples": {
+     "h2h": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cleveland Guardians",
+        "price": 132
+       },
+       {
+        "name": "Houston Astros",
+        "price": -156
+       }
+      ]
+     },
+     "spreads": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cleveland Guardians",
+        "point": 1.5,
+        "price": -154
+       },
+       {
+        "name": "Houston Astros",
+        "point": -1.5,
+        "price": 128
+       }
+      ]
+     },
+     "totals": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 8.5,
+        "price": -106
+       },
+       {
+        "name": "Under",
+        "point": 8.5,
+        "price": -114
+       }
+      ]
+     }
+    },
+    "seen": {
+     "h2h": {
+      "first": -10,
+      "games": 3,
+      "last": -10,
+      "max_books": 10
+     },
+     "spreads": {
+      "first": -10,
+      "games": 3,
+      "last": -10,
+      "max_books": 10
+     },
+     "totals": {
+      "first": -10,
+      "games": 3,
+      "last": -10,
+      "max_books": 10
+     }
+    }
+   }
+  },
+  "nba": {
+   "bulk": {
+    "at": "2026-11-15T00:30:00Z",
+    "credits": 30,
+    "events": 5,
+    "events_with_lines": 5
+   },
+   "history_games": {
+    "last": {
+     "day": "2026-01-15",
+     "events_listed": 9,
+     "games": [
+      {
+       "away_team": "Boston Celtics",
+       "commence_time": "2026-01-16T00:40:00Z",
+       "home_team": "Miami Heat",
+       "id": "363cf226fe2602130e774d952f7aba95"
+      },
+      {
+       "away_team": "Oklahoma City Thunder",
+       "commence_time": "2026-01-16T00:40:00Z",
+       "home_team": "Houston Rockets",
+       "id": "2ad9e0affab10cad1a66f8c7bc1ad959"
+      },
+      {
+       "away_team": "Phoenix Suns",
+       "commence_time": "2026-01-16T00:10:00Z",
+       "home_team": "Detroit Pistons",
+       "id": "e2a3dbd8d101d617f49495df16db2d11"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Boston Celtics",
+      "commence_time": "2026-01-16T00:40:00Z",
+      "home_team": "Miami Heat",
+      "id": "363cf226fe2602130e774d952f7aba95"
+     }
+    },
+    "this": {
+     "day": "2026-11-14",
+     "events_listed": 5,
+     "games": [
+      {
+       "away_team": "Dallas Mavericks",
+       "commence_time": "2026-11-15T00:40:00Z",
+       "home_team": "Cleveland Cavaliers",
+       "id": "2cc2c254049b0bd0a6219f70cbb0b69a"
+      },
+      {
+       "away_team": "Denver Nuggets",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "New Orleans Pelicans",
+       "id": "6cb4c8feeadd57aa6ab46ebdee60818a"
+      },
+      {
+       "away_team": "Brooklyn Nets",
+       "commence_time": "2026-11-15T01:10:00Z",
+       "home_team": "Memphis Grizzlies",
+       "id": "a7cb6062530bd69eb6caee84a015abd0"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Dallas Mavericks",
+      "commence_time": "2026-11-15T00:40:00Z",
+      "home_team": "Cleveland Cavaliers",
+      "id": "2cc2c254049b0bd0a6219f70cbb0b69a"
+     }
+    }
+   },
+   "in_season": true,
+   "live_events": [
+    {
+     "away_team": "Milwaukee Bucks",
+     "commence_time": "2026-11-21T18:10:00Z",
+     "home_team": "Philadelphia 76ers",
+     "id": "6cd4587453e4da55317b2c1e3576e75b"
+    },
+    {
+     "away_team": "Portland Trail Blazers",
+     "commence_time": "2026-11-22T00:40:00Z",
+     "home_team": "New York Knicks",
+     "id": "232f705eea406644ff14ad17bcf9aea6"
+    },
+    {
+     "away_team": "Los Angeles Clippers",
+     "commence_time": "2026-11-22T01:10:00Z",
+     "home_team": "Dallas Mavericks",
+     "id": "293cafe6913a9bd59328c98049266ad0"
+    }
+   ],
+   "markets": {
+    "h2h": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "williamhill_us",
+      "draftkings",
+      "fanatics",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ]
+    },
+    "h2h_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "draftkings",
+      "fanatics",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Boston Celtics",
+         "price": -138
+        },
+        {
+         "name": "Miami Heat",
+         "price": 112
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cleveland Cavaliers",
+         "price": 198
+        },
+        {
+         "name": "Dallas Mavericks",
+         "price": -250
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Milwaukee Bucks",
+        "price": 225
+       },
+       {
+        "name": "Philadelphia 76ers",
+        "price": -290
+       }
+      ]
+     }
+    },
+    "h2h_h2": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "draftkings",
+      "hardrockbet"
+     ]
+    },
+    "h2h_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "draftkings",
+      "fanatics",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Boston Celtics",
+         "price": -122
+        },
+        {
+         "name": "Miami Heat",
+         "price": 100
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cleveland Cavaliers",
+         "price": 158
+        },
+        {
+         "name": "Dallas Mavericks",
+         "price": -196
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Milwaukee Bucks",
+        "price": 186
+       },
+       {
+        "name": "Philadelphia 76ers",
+        "price": -235
+       }
+      ]
+     }
+    },
+    "spreads": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "williamhill_us",
+      "draftkings",
+      "fanatics",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ]
+    },
+    "spreads_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "draftkings",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Boston Celtics",
+         "point": -1.5,
+         "price": -110
+        },
+        {
+         "name": "Miami Heat",
+         "point": 1.5,
+         "price": -110
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cleveland Cavaliers",
+         "point": 5.5,
+         "price": -118
+        },
+        {
+         "name": "Dallas Mavericks",
+         "point": -5.5,
+         "price": -104
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Milwaukee Bucks",
+        "point": 6.5,
+        "price": -115
+       },
+       {
+        "name": "Philadelphia 76ers",
+        "point": -6.5,
+        "price": -105
+       }
+      ]
+     }
+    },
+    "spreads_h2": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "draftkings",
+      "hardrockbet"
+     ]
+    },
+    "spreads_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "draftkings",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Boston Celtics",
+         "point": -0.5,
+         "price": -113
+        },
+        {
+         "name": "Miami Heat",
+         "point": 0.5,
+         "price": -113
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Cleveland Cavaliers",
+         "point": 2.5,
+         "price": -111
+        },
+        {
+         "name": "Dallas Mavericks",
+         "point": -2.5,
+         "price": -115
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Milwaukee Bucks",
+        "point": 3.5,
+        "price": -113
+       },
+       {
+        "name": "Philadelphia 76ers",
+        "point": -3.5,
+        "price": -113
+       }
+      ]
+     }
+    },
+    "totals": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "williamhill_us",
+      "draftkings",
+      "fanatics",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ]
+    },
+    "totals_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "draftkings",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 121.5,
+         "price": -110
+        },
+        {
+         "name": "Under",
+         "point": 121.5,
+         "price": -110
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 117.5,
+         "price": -105
+        },
+        {
+         "name": "Under",
+         "point": 117.5,
+         "price": -115
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 111.5,
+        "price": -115
+       },
+       {
+        "name": "Under",
+        "point": 111.5,
+        "price": -105
+       }
+      ]
+     }
+    },
+    "totals_h2": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "draftkings",
+      "hardrockbet"
+     ]
+    },
+    "totals_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "betrivers",
+      "draftkings",
+      "betmgm",
+      "espnbet",
+      "betonlineag",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 60.5,
+         "price": -120
+        },
+        {
+         "name": "Under",
+         "point": 60.5,
+         "price": -106
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 59.5,
+         "price": -108
+        },
+        {
+         "name": "Under",
+         "point": 59.5,
+         "price": -118
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 56.5,
+        "price": -115
+       },
+       {
+        "name": "Under",
+        "point": 56.5,
+        "price": -111
+       }
+      ]
+     }
+    }
+   },
+   "next": {
+    "games": [
+     {
+      "game": {
+       "away_team": "Dallas Mavericks",
+       "commence_time": "2026-11-15T00:40:00Z",
+       "home_team": "Cleveland Cavaliers",
+       "id": "2cc2c254049b0bd0a6219f70cbb0b69a"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 3,
+        "spreads": 10,
+        "spreads_h2": 3,
+        "totals": 10,
+        "totals_h2": 3
+       },
+       "105": {
+        "h2h_h2": 4,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       },
+       "75": {
+        "h2h": 9,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 4,
+        "totals": 9,
+        "totals_h2": 4
+       },
+       "85": {
+        "h2h_h2": 5,
+        "spreads_h2": 4,
+        "totals_h2": 4
+       },
+       "95": {
+        "h2h_h2": 4,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Denver Nuggets",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "New Orleans Pelicans",
+       "id": "6cb4c8feeadd57aa6ab46ebdee60818a"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 3,
+        "spreads": 10,
+        "spreads_h2": 3,
+        "totals": 10,
+        "totals_h2": 3
+       },
+       "105": {
+        "h2h_h2": 4,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       },
+       "75": {
+        "h2h": 9,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 5,
+        "totals": 9,
+        "totals_h2": 5
+       },
+       "85": {
+        "h2h_h2": 5,
+        "spreads_h2": 4,
+        "totals_h2": 4
+       },
+       "95": {
+        "h2h_h2": 4,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Brooklyn Nets",
+       "commence_time": "2026-11-15T01:10:00Z",
+       "home_team": "Memphis Grizzlies",
+       "id": "a7cb6062530bd69eb6caee84a015abd0"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 3,
+        "spreads": 10,
+        "spreads_h2": 3,
+        "totals": 10,
+        "totals_h2": 3
+       },
+       "105": {
+        "h2h_h2": 4,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       },
+       "75": {
+        "h2h": 9,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 5,
+        "totals": 9,
+        "totals_h2": 5
+       },
+       "85": {
+        "h2h_h2": 5,
+        "spreads_h2": 4,
+        "totals_h2": 4
+       },
+       "95": {
+        "h2h_h2": 4,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       }
+      }
+     }
+    ],
+    "markets": [
+     "h2h_h2",
+     "spreads_h2",
+     "totals_h2",
+     "h2h",
+     "spreads",
+     "totals"
+    ],
+    "samples": {
+     "h2h": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cleveland Cavaliers",
+        "price": 300
+       },
+       {
+        "name": "Dallas Mavericks",
+        "price": -375
+       }
+      ]
+     },
+     "h2h_h2": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cleveland Cavaliers",
+        "price": 164
+       },
+       {
+        "name": "Dallas Mavericks",
+        "price": -205
+       }
+      ]
+     },
+     "spreads": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cleveland Cavaliers",
+        "point": 8.5,
+        "price": -106
+       },
+       {
+        "name": "Dallas Mavericks",
+        "point": -8.5,
+        "price": -114
+       }
+      ]
+     },
+     "spreads_h2": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cleveland Cavaliers",
+        "point": 3.5,
+        "price": -106
+       },
+       {
+        "name": "Dallas Mavericks",
+        "point": -3.5,
+        "price": -120
+       }
+      ]
+     },
+     "totals": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 227.5,
+        "price": -108
+       },
+       {
+        "name": "Under",
+        "point": 227.5,
+        "price": -112
+       }
+      ]
+     },
+     "totals_h2": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 110.5,
+        "price": -106
+       },
+       {
+        "name": "Under",
+        "point": 110.5,
+        "price": -114
+       }
+      ]
+     }
+    },
+    "seen": {
+     "h2h": {
+      "first": -10,
+      "games": 3,
+      "last": 75,
+      "max_books": 10
+     },
+     "h2h_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 105,
+      "max_books": 5
+     },
+     "spreads": {
+      "first": -10,
+      "games": 3,
+      "last": 75,
+      "max_books": 10
+     },
+     "spreads_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 105,
+      "max_books": 5
+     },
+     "totals": {
+      "first": -10,
+      "games": 3,
+      "last": 75,
+      "max_books": 10
+     },
+     "totals_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 105,
+      "max_books": 5
+     }
+    }
+   }
+  },
+  "ncaab": {
+   "bulk": {
+    "at": "2026-11-15T00:20:00Z",
+    "credits": 30,
+    "events": 66,
+    "events_with_lines": 66
+   },
+   "history_games": {
+    "last": {
+     "day": "2026-01-17",
+     "events_listed": 144,
+     "games": [
+      {
+       "away_team": "Austin Peay Governors",
+       "commence_time": "2026-01-18T00:00:00Z",
+       "home_team": "Lipscomb Bisons",
+       "id": "85526cd16b26a750100edd22faeda181"
+      },
+      {
+       "away_team": "Bellarmine Knights",
+       "commence_time": "2026-01-18T00:00:00Z",
+       "home_team": "Eastern Kentucky Colonels",
+       "id": "befbfec49924656209fe026a9f8e472a"
+      },
+      {
+       "away_team": "Belmont Bruins",
+       "commence_time": "2026-01-18T00:00:00Z",
+       "home_team": "Southern Illinois Salukis",
+       "id": "3a4fe8eec4dde12d8cbd68e92c981010"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Austin Peay Governors",
+      "commence_time": "2026-01-18T00:00:00Z",
+      "home_team": "Lipscomb Bisons",
+      "id": "85526cd16b26a750100edd22faeda181"
+     }
+    },
+    "this": {
+     "day": "2026-11-14",
+     "events_listed": 58,
+     "games": [
+      {
+       "away_team": "Binghamton Bearcats",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Duquesne Dukes",
+       "id": "d5cbf37f2b89719fb252a764888448e5"
+      },
+      {
+       "away_team": "Cincinnati Bearcats",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Dayton Flyers",
+       "id": "05f71288bf4061ab1b84b383ca03fbc6"
+      },
+      {
+       "away_team": "IUPUI Jaguars",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Morehead St Eagles",
+       "id": "3a65626e5928c391a7057a839cd00d5b"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Binghamton Bearcats",
+      "commence_time": "2026-11-15T00:30:00Z",
+      "home_team": "Duquesne Dukes",
+      "id": "d5cbf37f2b89719fb252a764888448e5"
+     }
+    }
+   },
+   "in_season": true,
+   "live_events": [
+    {
+     "away_team": "Siena Saints",
+     "commence_time": "2026-11-21T16:00:00Z",
+     "home_team": "Bucknell Bison",
+     "id": "934d69fc4e080af297a4f91987ad87f0"
+    },
+    {
+     "away_team": "South Carolina Upstate Spartans",
+     "commence_time": "2026-11-21T16:00:00Z",
+     "home_team": "UNC Greensboro Spartans",
+     "id": "b346f6555c1055ecaf0494e0a23d08dc"
+    },
+    {
+     "away_team": "Columbia Lions",
+     "commence_time": "2026-11-21T17:00:00Z",
+     "home_team": "Boston Univ. Terriers",
+     "id": "78595a04d81f88f96e1045a0c36edf26"
+    }
+   ],
+   "markets": {
+    "h2h": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "fanatics",
+      "betonlineag",
+      "williamhill_us",
+      "draftkings",
+      "espnbet",
+      "betmgm",
+      "betrivers",
+      "hardrockbet",
+      "bovada"
+     ]
+    },
+    "h2h_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "williamhill_us",
+      "draftkings",
+      "espnbet",
+      "betmgm",
+      "betrivers",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Austin Peay Governors",
+         "price": 120
+        },
+        {
+         "name": "Lipscomb Bisons",
+         "price": -148
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Binghamton Bearcats",
+         "price": 575
+        },
+        {
+         "name": "Duquesne Dukes",
+         "price": -950
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Bucknell Bison",
+        "price": 172
+       },
+       {
+        "name": "Siena Saints",
+        "price": -215
+       }
+      ]
+     }
+    },
+    "spreads": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "fanatics",
+      "betonlineag",
+      "williamhill_us",
+      "draftkings",
+      "espnbet",
+      "betmgm",
+      "betrivers",
+      "hardrockbet",
+      "bovada"
+     ]
+    },
+    "spreads_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "williamhill_us",
+      "draftkings",
+      "espnbet",
+      "betmgm",
+      "betrivers",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Austin Peay Governors",
+         "point": 1.5,
+         "price": -112
+        },
+        {
+         "name": "Lipscomb Bisons",
+         "point": -1.5,
+         "price": -112
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Binghamton Bearcats",
+         "point": 10.5,
+         "price": -125
+        },
+        {
+         "name": "Duquesne Dukes",
+         "point": -10.5,
+         "price": -105
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Bucknell Bison",
+        "point": 3.5,
+        "price": -112
+       },
+       {
+        "name": "Siena Saints",
+        "point": -3.5,
+        "price": -112
+       }
+      ]
+     }
+    },
+    "spreads_h2": {
+     "history": {},
+     "live_books": [
+      "fanduel"
+     ]
+    },
+    "totals": {
+     "history": {},
+     "live_books": [
+      "fanduel",
+      "fanatics",
+      "betonlineag",
+      "williamhill_us",
+      "draftkings",
+      "espnbet",
+      "betmgm",
+      "betrivers",
+      "hardrockbet",
+      "bovada"
+     ]
+    },
+    "totals_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "fanduel",
+      "williamhill_us",
+      "draftkings",
+      "espnbet",
+      "betmgm",
+      "betrivers",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 73.5,
+         "price": -113
+        },
+        {
+         "name": "Under",
+         "point": 73.5,
+         "price": -113
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 67.5,
+         "price": -120
+        },
+        {
+         "name": "Under",
+         "point": 67.5,
+         "price": -110
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "fanduel",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 72.5,
+        "price": -113
+       },
+       {
+        "name": "Under",
+        "point": 72.5,
+        "price": -113
+       }
+      ]
+     }
+    },
+    "totals_h2": {
+     "history": {},
+     "live_books": [
+      "fanduel"
+     ]
+    }
+   },
+   "next": {
+    "games": [
+     {
+      "game": {
+       "away_team": "Binghamton Bearcats",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Duquesne Dukes",
+       "id": "d5cbf37f2b89719fb252a764888448e5"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 9,
+        "spreads": 10,
+        "totals": 10
+       },
+       "55": {
+        "h2h": 2,
+        "h2h_h2": 2,
+        "spreads": 9,
+        "spreads_h2": 2,
+        "totals": 9,
+        "totals_h2": 3
+       },
+       "65": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 3
+       },
+       "75": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 3
+       },
+       "85": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 3
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Cincinnati Bearcats",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Dayton Flyers",
+       "id": "05f71288bf4061ab1b84b383ca03fbc6"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "spreads": 10,
+        "spreads_h2": 1,
+        "totals": 10,
+        "totals_h2": 1
+       },
+       "55": {
+        "h2h": 5,
+        "spreads": 8,
+        "spreads_h2": 1,
+        "totals": 8,
+        "totals_h2": 1
+       },
+       "65": {
+        "h2h_h2": 3,
+        "spreads_h2": 4,
+        "totals_h2": 4
+       },
+       "75": {
+        "h2h_h2": 3,
+        "spreads_h2": 4,
+        "totals_h2": 4
+       },
+       "85": {
+        "h2h_h2": 3,
+        "spreads_h2": 4,
+        "totals_h2": 4
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "IUPUI Jaguars",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Morehead St Eagles",
+       "id": "3a65626e5928c391a7057a839cd00d5b"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "spreads": 10,
+        "totals": 10
+       },
+       "55": {
+        "h2h": 8,
+        "h2h_h2": 2,
+        "spreads": 8,
+        "spreads_h2": 2,
+        "totals": 8,
+        "totals_h2": 2
+       },
+       "65": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 3
+       },
+       "75": {
+        "h2h_h2": 3,
+        "spreads_h2": 3,
+        "totals_h2": 4
+       },
+       "85": {
+        "h2h_h2": 3,
+        "spreads_h2": 3,
+        "totals_h2": 4
+       }
+      }
+     }
+    ],
+    "markets": [
+     "h2h_h2",
+     "spreads_h2",
+     "totals_h2",
+     "h2h",
+     "spreads",
+     "totals"
+    ],
+    "samples": {
+     "h2h": {
+      "book": "fanatics",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Binghamton Bearcats",
+        "price": 1200
+       },
+       {
+        "name": "Duquesne Dukes",
+        "price": -2200
+       }
+      ]
+     },
+     "h2h_h2": {
+      "book": "draftkings",
+      "minute": 55,
+      "outcomes": [
+       {
+        "name": "Binghamton Bearcats",
+        "price": 270
+       },
+       {
+        "name": "Duquesne Dukes",
+        "price": -380
+       }
+      ]
+     },
+     "spreads": {
+      "book": "betonlineag",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Binghamton Bearcats",
+        "point": 18.0,
+        "price": -110
+       },
+       {
+        "name": "Duquesne Dukes",
+        "point": -18.0,
+        "price": -110
+       }
+      ]
+     },
+     "spreads_h2": {
+      "book": "draftkings",
+      "minute": 55,
+      "outcomes": [
+       {
+        "name": "Binghamton Bearcats",
+        "point": 6.5,
+        "price": -120
+       },
+       {
+        "name": "Duquesne Dukes",
+        "point": -6.5,
+        "price": -110
+       }
+      ]
+     },
+     "totals": {
+      "book": "betonlineag",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 140.0,
+        "price": -115
+       },
+       {
+        "name": "Under",
+        "point": 140.0,
+        "price": -105
+       }
+      ]
+     },
+     "totals_h2": {
+      "book": "draftkings",
+      "minute": 55,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 72.5,
+        "price": -115
+       },
+       {
+        "name": "Under",
+        "point": 72.5,
+        "price": -120
+       }
+      ]
+     }
+    },
+    "seen": {
+     "h2h": {
+      "first": -10,
+      "games": 3,
+      "last": 55,
+      "max_books": 10
+     },
+     "h2h_h2": {
+      "first": 55,
+      "games": 3,
+      "last": 85,
+      "max_books": 3
+     },
+     "spreads": {
+      "first": -10,
+      "games": 3,
+      "last": 55,
+      "max_books": 10
+     },
+     "spreads_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 85,
+      "max_books": 4
+     },
+     "totals": {
+      "first": -10,
+      "games": 3,
+      "last": 55,
+      "max_books": 10
+     },
+     "totals_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 85,
+      "max_books": 4
+     }
+    }
+   }
+  },
+  "ncaaf": {
+   "bulk": {
+    "at": "2026-11-15T00:20:00Z",
+    "credits": 30,
+    "events": 36,
+    "events_with_lines": 36
+   },
+   "history_games": {
+    "last": {
+     "day": "2025-11-15",
+     "events_listed": 51,
+     "games": [
+      {
+       "away_team": "Virginia Tech Hokies",
+       "commence_time": "2025-11-16T00:30:00Z",
+       "home_team": "Florida State Seminoles",
+       "id": "115a258be837f0ab18a9e2c4482f49db"
+      },
+      {
+       "away_team": "Texas Longhorns",
+       "commence_time": "2025-11-16T00:30:00Z",
+       "home_team": "Georgia Bulldogs",
+       "id": "98cb354e78a2e035f0e5c36736d65f7e"
+      },
+      {
+       "away_team": "UCLA Bruins",
+       "commence_time": "2025-11-16T00:30:00Z",
+       "home_team": "Ohio State Buckeyes",
+       "id": "d4c6b7b779184709320894b0023e17e5"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Virginia Tech Hokies",
+      "commence_time": "2025-11-16T00:30:00Z",
+      "home_team": "Florida State Seminoles",
+      "id": "115a258be837f0ab18a9e2c4482f49db"
+     }
+    },
+    "this": {
+     "day": "2026-11-14",
+     "events_listed": 55,
+     "games": [
+      {
+       "away_team": "Purdue Boilermakers",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Iowa Hawkeyes",
+       "id": "13916d6f26b193abfc3367d80f27e64c"
+      },
+      {
+       "away_team": "Texas Longhorns",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "LSU Tigers",
+       "id": "5f45291a1a5e01525b2e3aebe791c436"
+      },
+      {
+       "away_team": "UNLV Rebels",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "New Mexico Lobos",
+       "id": "8982b0a852d112b25310aa03f0f104b6"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Purdue Boilermakers",
+      "commence_time": "2026-11-15T00:30:00Z",
+      "home_team": "Iowa Hawkeyes",
+      "id": "13916d6f26b193abfc3367d80f27e64c"
+     }
+    }
+   },
+   "in_season": true,
+   "live_events": [
+    {
+     "away_team": "Ohio State Buckeyes",
+     "commence_time": "2026-11-21T16:59:00Z",
+     "home_team": "Nebraska Cornhuskers",
+     "id": "03a07ec7a62fbc2d6bf4748aafd30303"
+    },
+    {
+     "away_team": "East Carolina Pirates",
+     "commence_time": "2026-11-21T17:00:00Z",
+     "home_team": "Army Black Knights",
+     "id": "4336f3fcf7e287f1609c1822fef8f63d"
+    },
+    {
+     "away_team": "BYU Cougars",
+     "commence_time": "2026-11-21T17:00:00Z",
+     "home_team": "Kansas Jayhawks",
+     "id": "606426f36cb32d1843f6abbe6f683b76"
+    }
+   ],
+   "markets": {
+    "h2h": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betrivers",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "fanatics",
+      "williamhill_us",
+      "bovada"
+     ]
+    },
+    "h2h_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "williamhill_us",
+      "bovada",
+      "betrivers"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Florida State Seminoles",
+         "price": -430
+        },
+        {
+         "name": "Virginia Tech Hokies",
+         "price": 320
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Iowa Hawkeyes",
+         "price": -850
+        },
+        {
+         "name": "Purdue Boilermakers",
+         "price": 560
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Nebraska Cornhuskers",
+        "price": 130
+       },
+       {
+        "name": "Ohio State Buckeyes",
+        "price": -155
+       }
+      ]
+     }
+    },
+    "h2h_h2": {
+     "history": {},
+     "live_books": [
+      "draftkings"
+     ]
+    },
+    "h2h_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "williamhill_us",
+      "bovada",
+      "betrivers"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Florida State Seminoles",
+         "price": -340
+        },
+        {
+         "name": "Virginia Tech Hokies",
+         "price": 250
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Iowa Hawkeyes",
+         "price": -460
+        },
+        {
+         "name": "Purdue Boilermakers",
+         "price": 360
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Nebraska Cornhuskers",
+        "price": 114
+       },
+       {
+        "name": "Ohio State Buckeyes",
+        "price": -145
+       }
+      ]
+     }
+    },
+    "spreads": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betrivers",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "fanatics",
+      "williamhill_us",
+      "bovada"
+     ]
+    },
+    "spreads_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "williamhill_us",
+      "bovada",
+      "betrivers"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Florida State Seminoles",
+         "point": -7.5,
+         "price": -110
+        },
+        {
+         "name": "Virginia Tech Hokies",
+         "point": 7.5,
+         "price": -110
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Iowa Hawkeyes",
+         "point": -10.5,
+         "price": -115
+        },
+        {
+         "name": "Purdue Boilermakers",
+         "point": 10.5,
+         "price": -105
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Nebraska Cornhuskers",
+        "point": 2.5,
+        "price": -110
+       },
+       {
+        "name": "Ohio State Buckeyes",
+        "point": -2.5,
+        "price": -110
+       }
+      ]
+     }
+    },
+    "spreads_h2": {
+     "history": {},
+     "live_books": [
+      "draftkings"
+     ]
+    },
+    "spreads_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "williamhill_us",
+      "bovada",
+      "betrivers"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Florida State Seminoles",
+         "point": -3.5,
+         "price": -132
+        },
+        {
+         "name": "Virginia Tech Hokies",
+         "point": 3.5,
+         "price": 106
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Iowa Hawkeyes",
+         "point": -5.5,
+         "price": -110
+        },
+        {
+         "name": "Purdue Boilermakers",
+         "point": 5.5,
+         "price": -110
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Nebraska Cornhuskers",
+        "point": 0.5,
+        "price": -145
+       },
+       {
+        "name": "Ohio State Buckeyes",
+        "point": -0.5,
+        "price": 114
+       }
+      ]
+     }
+    },
+    "totals": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betrivers",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "fanatics",
+      "williamhill_us",
+      "bovada"
+     ]
+    },
+    "totals_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "williamhill_us",
+      "bovada",
+      "betrivers"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 29.5,
+         "price": -102
+        },
+        {
+         "name": "Under",
+         "point": 29.5,
+         "price": -120
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 25.5,
+         "price": -110
+        },
+        {
+         "name": "Under",
+         "point": 25.5,
+         "price": -110
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 20.5,
+        "price": -108
+       },
+       {
+        "name": "Under",
+        "point": 20.5,
+        "price": -112
+       }
+      ]
+     }
+    },
+    "totals_h2": {
+     "history": {},
+     "live_books": [
+      "draftkings"
+     ]
+    },
+    "totals_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "betonlineag",
+      "espnbet",
+      "hardrockbet",
+      "williamhill_us",
+      "bovada",
+      "betrivers"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 13.5,
+         "price": -114
+        },
+        {
+         "name": "Under",
+         "point": 13.5,
+         "price": -110
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 10.5,
+         "price": 116
+        },
+        {
+         "name": "Under",
+         "point": 10.5,
+         "price": -142
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 7.5,
+        "price": -105
+       },
+       {
+        "name": "Under",
+        "point": 7.5,
+        "price": -125
+       }
+      ]
+     }
+    }
+   },
+   "next": {
+    "games": [
+     {
+      "game": {
+       "away_team": "Purdue Boilermakers",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "Iowa Hawkeyes",
+       "id": "13916d6f26b193abfc3367d80f27e64c"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 1,
+        "spreads": 10,
+        "spreads_h2": 1,
+        "totals": 10,
+        "totals_h2": 1
+       },
+       "100": {
+        "h2h": 4,
+        "h2h_h2": 2,
+        "spreads": 8,
+        "spreads_h2": 2,
+        "totals": 8,
+        "totals_h2": 2
+       },
+       "110": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       },
+       "120": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       },
+       "130": {
+        "h2h_h2": 1,
+        "spreads_h2": 1,
+        "totals_h2": 1
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Texas Longhorns",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "LSU Tigers",
+       "id": "5f45291a1a5e01525b2e3aebe791c436"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 1,
+        "spreads": 10,
+        "spreads_h2": 1,
+        "totals": 10,
+        "totals_h2": 1
+       },
+       "100": {
+        "h2h": 8,
+        "h2h_h2": 1,
+        "spreads": 8,
+        "spreads_h2": 1,
+        "totals": 8,
+        "totals_h2": 1
+       },
+       "110": {
+        "h2h_h2": 1,
+        "spreads_h2": 1,
+        "totals_h2": 1
+       },
+       "120": {
+        "h2h_h2": 1,
+        "spreads_h2": 1,
+        "totals_h2": 1
+       },
+       "130": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "UNLV Rebels",
+       "commence_time": "2026-11-15T00:30:00Z",
+       "home_team": "New Mexico Lobos",
+       "id": "8982b0a852d112b25310aa03f0f104b6"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 1,
+        "spreads": 10,
+        "spreads_h2": 1,
+        "totals": 10,
+        "totals_h2": 1
+       },
+       "100": {
+        "h2h": 7,
+        "h2h_h2": 1,
+        "spreads": 8,
+        "spreads_h2": 1,
+        "totals": 8,
+        "totals_h2": 1
+       },
+       "110": {
+        "h2h_h2": 1,
+        "spreads_h2": 1,
+        "totals_h2": 1
+       },
+       "120": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       },
+       "130": {
+        "h2h_h2": 2,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       }
+      }
+     }
+    ],
+    "markets": [
+     "h2h_h2",
+     "spreads_h2",
+     "totals_h2",
+     "h2h",
+     "spreads",
+     "totals"
+    ],
+    "samples": {
+     "h2h": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Iowa Hawkeyes",
+        "price": -1400
+       },
+       {
+        "name": "Purdue Boilermakers",
+        "price": 810
+       }
+      ]
+     },
+     "h2h_h2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Iowa Hawkeyes",
+        "price": -440
+       },
+       {
+        "name": "Purdue Boilermakers",
+        "price": 340
+       }
+      ]
+     },
+     "spreads": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Iowa Hawkeyes",
+        "point": -18.5,
+        "price": -110
+       },
+       {
+        "name": "Purdue Boilermakers",
+        "point": 18.5,
+        "price": -110
+       }
+      ]
+     },
+     "spreads_h2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Iowa Hawkeyes",
+        "point": -7.5,
+        "price": 105
+       },
+       {
+        "name": "Purdue Boilermakers",
+        "point": 7.5,
+        "price": -125
+       }
+      ]
+     },
+     "totals": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 47.5,
+        "price": -115
+       },
+       {
+        "name": "Under",
+        "point": 47.5,
+        "price": -105
+       }
+      ]
+     },
+     "totals_h2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 21.5,
+        "price": -112
+       },
+       {
+        "name": "Under",
+        "point": 21.5,
+        "price": -108
+       }
+      ]
+     }
+    },
+    "seen": {
+     "h2h": {
+      "first": -10,
+      "games": 3,
+      "last": 100,
+      "max_books": 10
+     },
+     "h2h_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 130,
+      "max_books": 2
+     },
+     "spreads": {
+      "first": -10,
+      "games": 3,
+      "last": 100,
+      "max_books": 10
+     },
+     "spreads_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 130,
+      "max_books": 2
+     },
+     "totals": {
+      "first": -10,
+      "games": 3,
+      "last": 100,
+      "max_books": 10
+     },
+     "totals_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 130,
+      "max_books": 2
+     }
+    }
+   }
+  },
+  "nfl": {
+   "bulk": {
+    "at": "2026-11-16T01:10:00Z",
+    "credits": 30,
+    "events": 15,
+    "events_with_lines": 15
+   },
+   "history_games": {
+    "last": {
+     "day": "2025-11-16",
+     "events_listed": 13,
+     "games": [
+      {
+       "away_team": "Detroit Lions",
+       "commence_time": "2025-11-17T01:20:00Z",
+       "home_team": "Philadelphia Eagles",
+       "id": "6d209e0e637f3b116ec958e0634f2a02"
+      },
+      {
+       "away_team": "Baltimore Ravens",
+       "commence_time": "2025-11-16T21:25:00Z",
+       "home_team": "Cleveland Browns",
+       "id": "cc60225b5a907bd9ba7c27c23131fc5c"
+      },
+      {
+       "away_team": "Kansas City Chiefs",
+       "commence_time": "2025-11-16T21:25:00Z",
+       "home_team": "Denver Broncos",
+       "id": "96ce7785b0980b03282c7e10d4c58d4a"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Detroit Lions",
+      "commence_time": "2025-11-17T01:20:00Z",
+      "home_team": "Philadelphia Eagles",
+      "id": "6d209e0e637f3b116ec958e0634f2a02"
+     }
+    },
+    "this": {
+     "day": "2026-11-15",
+     "events_listed": 12,
+     "games": [
+      {
+       "away_team": "Pittsburgh Steelers",
+       "commence_time": "2026-11-16T01:20:00Z",
+       "home_team": "Cincinnati Bengals",
+       "id": "48e497c230e6c9afcb3b600091d28e17"
+      },
+      {
+       "away_team": "San Francisco 49ers",
+       "commence_time": "2026-11-15T21:25:00Z",
+       "home_team": "Dallas Cowboys",
+       "id": "7627192fd89b05120ab6c712aa23fd81"
+      },
+      {
+       "away_team": "Los Angeles Rams",
+       "commence_time": "2026-11-15T21:05:00Z",
+       "home_team": "Arizona Cardinals",
+       "id": "6c932a965110f3f89ec4a5f1a6ac256e"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Pittsburgh Steelers",
+      "commence_time": "2026-11-16T01:20:00Z",
+      "home_team": "Cincinnati Bengals",
+      "id": "48e497c230e6c9afcb3b600091d28e17"
+     }
+    }
+   },
+   "in_season": true,
+   "live_events": [
+    {
+     "away_team": "Arizona Cardinals",
+     "commence_time": "2026-11-22T18:00:00Z",
+     "home_team": "Kansas City Chiefs",
+     "id": "403a88701352da05b0710a9e883b803e"
+    },
+    {
+     "away_team": "Baltimore Ravens",
+     "commence_time": "2026-11-22T18:00:00Z",
+     "home_team": "Carolina Panthers",
+     "id": "4527f57f5bc32742d8194af1ccf7da7e"
+    },
+    {
+     "away_team": "Miami Dolphins",
+     "commence_time": "2026-11-22T18:00:00Z",
+     "home_team": "Buffalo Bills",
+     "id": "4c5b1c0843a260278e95eb93e7787576"
+    }
+   ],
+   "markets": {
+    "h2h": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada",
+      "fanatics"
+     ]
+    },
+    "h2h_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Detroit Lions",
+         "price": 110
+        },
+        {
+         "name": "Philadelphia Eagles",
+         "price": -130
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Cincinnati Bengals",
+         "price": -192
+        },
+        {
+         "name": "Pittsburgh Steelers",
+         "price": 160
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Arizona Cardinals",
+        "price": 575
+       },
+       {
+        "name": "Kansas City Chiefs",
+        "price": -850
+       }
+      ]
+     }
+    },
+    "h2h_h2": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betrivers",
+      "hardrockbet"
+     ]
+    },
+    "h2h_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Detroit Lions",
+         "price": 110
+        },
+        {
+         "name": "Philadelphia Eagles",
+         "price": -140
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Cincinnati Bengals",
+         "price": -155
+        },
+        {
+         "name": "Pittsburgh Steelers",
+         "price": 130
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Arizona Cardinals",
+        "price": 280
+       },
+       {
+        "name": "Kansas City Chiefs",
+        "price": -355
+       }
+      ]
+     }
+    },
+    "spreads": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada",
+      "fanatics"
+     ]
+    },
+    "spreads_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Detroit Lions",
+         "point": 0.5,
+         "price": -110
+        },
+        {
+         "name": "Philadelphia Eagles",
+         "point": -0.5,
+         "price": -110
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Cincinnati Bengals",
+         "point": -3.5,
+         "price": 100
+        },
+        {
+         "name": "Pittsburgh Steelers",
+         "point": 3.5,
+         "price": -120
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Arizona Cardinals",
+        "point": 9.5,
+        "price": -102
+       },
+       {
+        "name": "Kansas City Chiefs",
+        "point": -9.5,
+        "price": -118
+       }
+      ]
+     }
+    },
+    "spreads_h2": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betrivers",
+      "hardrockbet"
+     ]
+    },
+    "spreads_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Detroit Lions",
+         "point": 0.5,
+         "price": -154
+        },
+        {
+         "name": "Philadelphia Eagles",
+         "point": -0.5,
+         "price": 120
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Cincinnati Bengals",
+         "point": -0.5,
+         "price": 105
+        },
+        {
+         "name": "Pittsburgh Steelers",
+         "point": 0.5,
+         "price": -125
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Arizona Cardinals",
+        "point": 3.5,
+        "price": -122
+       },
+       {
+        "name": "Kansas City Chiefs",
+        "point": -3.5,
+        "price": 102
+       }
+      ]
+     }
+    },
+    "totals": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada",
+      "fanatics"
+     ]
+    },
+    "totals_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 23.5,
+         "price": 102
+        },
+        {
+         "name": "Under",
+         "point": 23.5,
+         "price": -122
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 24.5,
+         "price": 102
+        },
+        {
+         "name": "Under",
+         "point": 24.5,
+         "price": -122
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 20.5,
+        "price": -118
+       },
+       {
+        "name": "Under",
+        "point": 20.5,
+        "price": -102
+       }
+      ]
+     }
+    },
+    "totals_h2": {
+     "history": {},
+     "live_books": [
+      "draftkings",
+      "fanduel",
+      "betrivers",
+      "hardrockbet"
+     ]
+    },
+    "totals_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "draftkings",
+      "williamhill_us",
+      "fanduel",
+      "betonlineag",
+      "betrivers",
+      "betmgm",
+      "espnbet",
+      "hardrockbet",
+      "bovada"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 9.5,
+         "price": -108
+        },
+        {
+         "name": "Under",
+         "point": 9.5,
+         "price": -112
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 9.5,
+         "price": -125
+        },
+        {
+         "name": "Under",
+         "point": 9.5,
+         "price": 105
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "draftkings",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 7.5,
+        "price": 105
+       },
+       {
+        "name": "Under",
+        "point": 7.5,
+        "price": -125
+       }
+      ]
+     }
+    }
+   },
+   "next": {
+    "games": [
+     {
+      "game": {
+       "away_team": "Pittsburgh Steelers",
+       "commence_time": "2026-11-16T01:20:00Z",
+       "home_team": "Cincinnati Bengals",
+       "id": "48e497c230e6c9afcb3b600091d28e17"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 4,
+        "spreads": 10,
+        "spreads_h2": 4,
+        "totals": 10,
+        "totals_h2": 4
+       },
+       "100": {
+        "h2h": 6,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 5,
+        "totals": 9,
+        "totals_h2": 5
+       },
+       "110": {
+        "h2h_h2": 5,
+        "spreads_h2": 5,
+        "totals_h2": 5
+       },
+       "120": {
+        "h2h_h2": 5,
+        "spreads_h2": 5,
+        "totals_h2": 5
+       },
+       "130": {
+        "h2h_h2": 3,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "San Francisco 49ers",
+       "commence_time": "2026-11-15T21:25:00Z",
+       "home_team": "Dallas Cowboys",
+       "id": "7627192fd89b05120ab6c712aa23fd81"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 4,
+        "spreads": 10,
+        "spreads_h2": 4,
+        "totals": 10,
+        "totals_h2": 4
+       },
+       "100": {
+        "h2h": 9,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 5,
+        "totals": 9,
+        "totals_h2": 5
+       },
+       "110": {
+        "h2h_h2": 5,
+        "spreads_h2": 5,
+        "totals_h2": 5
+       },
+       "120": {
+        "h2h_h2": 5,
+        "spreads_h2": 5,
+        "totals_h2": 5
+       },
+       "130": {
+        "h2h_h2": 3,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Los Angeles Rams",
+       "commence_time": "2026-11-15T21:05:00Z",
+       "home_team": "Arizona Cardinals",
+       "id": "6c932a965110f3f89ec4a5f1a6ac256e"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 3,
+        "spreads": 10,
+        "spreads_h2": 3,
+        "totals": 10,
+        "totals_h2": 3
+       },
+       "100": {
+        "h2h": 8,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 5,
+        "totals": 9,
+        "totals_h2": 5
+       },
+       "110": {
+        "h2h_h2": 5,
+        "spreads_h2": 5,
+        "totals_h2": 5
+       },
+       "120": {
+        "h2h_h2": 5,
+        "spreads_h2": 5,
+        "totals_h2": 5
+       },
+       "130": {
+        "h2h_h2": 3,
+        "spreads_h2": 3,
+        "totals_h2": 3
+       }
+      }
+     }
+    ],
+    "markets": [
+     "h2h_h2",
+     "spreads_h2",
+     "totals_h2",
+     "h2h",
+     "spreads",
+     "totals"
+    ],
+    "samples": {
+     "h2h": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cincinnati Bengals",
+        "price": -218
+       },
+       {
+        "name": "Pittsburgh Steelers",
+        "price": 180
+       }
+      ]
+     },
+     "h2h_h2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cincinnati Bengals",
+        "price": -166
+       },
+       {
+        "name": "Pittsburgh Steelers",
+        "price": 130
+       }
+      ]
+     },
+     "spreads": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cincinnati Bengals",
+        "point": -4.5,
+        "price": -108
+       },
+       {
+        "name": "Pittsburgh Steelers",
+        "point": 4.5,
+        "price": -112
+       }
+      ]
+     },
+     "spreads_h2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Cincinnati Bengals",
+        "point": -2.5,
+        "price": -110
+       },
+       {
+        "name": "Pittsburgh Steelers",
+        "point": 2.5,
+        "price": -120
+       }
+      ]
+     },
+     "totals": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 49.5,
+        "price": -110
+       },
+       {
+        "name": "Under",
+        "point": 49.5,
+        "price": -110
+       }
+      ]
+     },
+     "totals_h2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 24.5,
+        "price": 102
+       },
+       {
+        "name": "Under",
+        "point": 24.5,
+        "price": -122
+       }
+      ]
+     }
+    },
+    "seen": {
+     "h2h": {
+      "first": -10,
+      "games": 3,
+      "last": 100,
+      "max_books": 10
+     },
+     "h2h_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 130,
+      "max_books": 5
+     },
+     "spreads": {
+      "first": -10,
+      "games": 3,
+      "last": 100,
+      "max_books": 10
+     },
+     "spreads_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 130,
+      "max_books": 5
+     },
+     "totals": {
+      "first": -10,
+      "games": 3,
+      "last": 100,
+      "max_books": 10
+     },
+     "totals_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 130,
+      "max_books": 5
+     }
+    }
+   }
+  },
+  "nhl": {
+   "bulk": {
+    "at": "2026-11-15T00:00:00Z",
+    "credits": 30,
+    "events": 17,
+    "events_with_lines": 17
+   },
+   "history_games": {
+    "last": {
+     "day": "2026-01-15",
+     "events_listed": 10,
+     "games": [
+      {
+       "away_team": "Montr\u00e9al Canadiens",
+       "commence_time": "2026-01-16T00:10:00Z",
+       "home_team": "Buffalo Sabres",
+       "id": "8d74417b23a74d04f9ad2483e9f3a37c"
+      },
+      {
+       "away_team": "Vancouver Canucks",
+       "commence_time": "2026-01-16T00:10:00Z",
+       "home_team": "Columbus Blue Jackets",
+       "id": "c1f056d78a12110a79d39ca53cb18241"
+      },
+      {
+       "away_team": "Philadelphia Flyers",
+       "commence_time": "2026-01-16T00:10:00Z",
+       "home_team": "Pittsburgh Penguins",
+       "id": "5907d0f479f6c35dceb714eb404802f0"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Montr\u00e9al Canadiens",
+      "commence_time": "2026-01-16T00:10:00Z",
+      "home_team": "Buffalo Sabres",
+      "id": "8d74417b23a74d04f9ad2483e9f3a37c"
+     }
+    },
+    "this": {
+     "day": "2026-11-14",
+     "events_listed": 14,
+     "games": [
+      {
+       "away_team": "Minnesota Wild",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "Boston Bruins",
+       "id": "20f100d5b4c8ce5d8c868f34ea7bddbf"
+      },
+      {
+       "away_team": "Philadelphia Flyers",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "Columbus Blue Jackets",
+       "id": "f3b622fed365136e09be1f7b53052543"
+      },
+      {
+       "away_team": "Detroit Red Wings",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "Tampa Bay Lightning",
+       "id": "9df5283f800c7d4c2d0bd38b7c5f4846"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Minnesota Wild",
+      "commence_time": "2026-11-15T00:10:00Z",
+      "home_team": "Boston Bruins",
+      "id": "20f100d5b4c8ce5d8c868f34ea7bddbf"
+     }
+    }
+   },
+   "in_season": true,
+   "live_events": [
+    {
+     "away_team": "Edmonton Oilers",
+     "commence_time": "2026-11-21T18:00:00Z",
+     "home_team": "Carolina Hurricanes",
+     "id": "43b2e285559dbe2bb5ddc1665bccddf2"
+    },
+    {
+     "away_team": "Chicago Blackhawks",
+     "commence_time": "2026-11-21T20:30:00Z",
+     "home_team": "Calgary Flames",
+     "id": "b9678f4fdeb3125258b4679e9785fffb"
+    },
+    {
+     "away_team": "Buffalo Sabres",
+     "commence_time": "2026-11-21T23:00:00Z",
+     "home_team": "Florida Panthers",
+     "id": "627813427faf8d3b73ff1fe4be6bc7d6"
+    }
+   ],
+   "markets": {
+    "btts_p1": {
+     "history": {
+      "last": [
+       "fanduel"
+      ],
+      "this": [
+       "espnbet",
+       "fanduel"
+      ]
+     },
+     "live_books": [
+      "espnbet",
+      "betrivers",
+      "fanduel"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Yes",
+         "price": 144
+        },
+        {
+         "name": "No",
+         "price": -186
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Yes",
+         "price": 172
+        },
+        {
+         "name": "No",
+         "price": -225
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "espnbet",
+      "outcomes": [
+       {
+        "name": "Yes",
+        "price": 160
+       },
+       {
+        "name": "No",
+        "price": -210
+       }
+      ]
+     }
+    },
+    "h2h": {
+     "history": {},
+     "live_books": [
+      "espnbet",
+      "betrivers",
+      "fanatics",
+      "hardrockbet",
+      "williamhill_us",
+      "fanduel",
+      "draftkings",
+      "betonlineag",
+      "bovada",
+      "betmgm"
+     ]
+    },
+    "h2h_3_way_p1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ]
+     },
+     "live_books": [
+      "espnbet",
+      "betrivers",
+      "hardrockbet",
+      "williamhill_us",
+      "fanduel",
+      "draftkings",
+      "bovada",
+      "betmgm"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Buffalo Sabres",
+         "price": 195
+        },
+        {
+         "name": "Montr\u00e9al Canadiens",
+         "price": 170
+        },
+        {
+         "name": "Draw",
+         "price": 180
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Boston Bruins",
+         "price": 190
+        },
+        {
+         "name": "Minnesota Wild",
+         "price": 165
+        },
+        {
+         "name": "Draw",
+         "price": 180
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "espnbet",
+      "outcomes": [
+       {
+        "name": "Carolina Hurricanes",
+        "price": 120
+       },
+       {
+        "name": "Edmonton Oilers",
+        "price": 240
+       },
+       {
+        "name": "Draw",
+        "price": 190
+       }
+      ]
+     }
+    },
+    "h2h_3_way_p2": {
+     "history": {},
+     "live_books": [
+      "betrivers",
+      "hardrockbet",
+      "fanduel",
+      "draftkings",
+      "betmgm"
+     ]
+    },
+    "h2h_3_way_p3": {
+     "history": {},
+     "live_books": [
+      "betrivers",
+      "hardrockbet",
+      "fanduel",
+      "draftkings",
+      "betmgm"
+     ]
+    },
+    "h2h_p1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "espnbet",
+       "fanduel",
+       "hardrockbet",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [
+      "espnbet",
+      "hardrockbet",
+      "fanduel",
+      "betonlineag",
+      "bovada",
+      "betmgm"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Buffalo Sabres",
+         "price": -104
+        },
+        {
+         "name": "Montr\u00e9al Canadiens",
+         "price": -122
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Boston Bruins",
+         "price": 106
+        },
+        {
+         "name": "Minnesota Wild",
+         "price": -134
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "espnbet",
+      "outcomes": [
+       {
+        "name": "Carolina Hurricanes",
+        "price": -175
+       },
+       {
+        "name": "Edmonton Oilers",
+        "price": 150
+       }
+      ]
+     }
+    },
+    "h2h_p2": {
+     "history": {},
+     "live_books": [
+      "hardrockbet",
+      "fanduel",
+      "bovada",
+      "betmgm"
+     ]
+    },
+    "h2h_p3": {
+     "history": {},
+     "live_books": [
+      "hardrockbet",
+      "fanduel",
+      "bovada",
+      "betmgm"
+     ]
+    },
+    "spreads": {
+     "history": {},
+     "live_books": [
+      "espnbet",
+      "betrivers",
+      "fanatics",
+      "hardrockbet",
+      "williamhill_us",
+      "fanduel",
+      "draftkings",
+      "betonlineag",
+      "bovada",
+      "betmgm"
+     ]
+    },
+    "totals": {
+     "history": {},
+     "live_books": [
+      "espnbet",
+      "betrivers",
+      "fanatics",
+      "hardrockbet",
+      "williamhill_us",
+      "fanduel",
+      "draftkings",
+      "betonlineag",
+      "bovada",
+      "betmgm"
+     ]
+    },
+    "totals_p1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "williamhill_us"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel"
+      ]
+     },
+     "live_books": [
+      "espnbet",
+      "betrivers",
+      "fanduel",
+      "draftkings",
+      "betonlineag",
+      "bovada",
+      "betmgm"
+     ],
+     "sample_history": {
+      "last": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 1.5,
+         "price": -148
+        },
+        {
+         "name": "Under",
+         "point": 1.5,
+         "price": 116
+        }
+       ]
+      },
+      "this": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 1.5,
+         "price": -135
+        },
+        {
+         "name": "Under",
+         "point": 1.5,
+         "price": 105
+        }
+       ]
+      }
+     },
+     "sample_live": {
+      "book": "espnbet",
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 1.5,
+        "price": -140
+       },
+       {
+        "name": "Under",
+        "point": 1.5,
+        "price": 110
+       }
+      ]
+     }
+    },
+    "totals_p2": {
+     "history": {},
+     "live_books": [
+      "betrivers",
+      "fanduel",
+      "draftkings",
+      "bovada",
+      "betmgm"
+     ]
+    },
+    "totals_p3": {
+     "history": {},
+     "live_books": [
+      "betrivers",
+      "fanduel",
+      "draftkings",
+      "bovada",
+      "betmgm"
+     ]
+    }
+   },
+   "next": {
+    "games": [
+     {
+      "game": {
+       "away_team": "Minnesota Wild",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "Boston Bruins",
+       "id": "20f100d5b4c8ce5d8c868f34ea7bddbf"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_3_way_p2": 5,
+        "h2h_3_way_p3": 5,
+        "h2h_p2": 4,
+        "h2h_p3": 4,
+        "spreads": 10,
+        "totals": 10,
+        "totals_p2": 5,
+        "totals_p3": 5
+       },
+       "40": {
+        "h2h": 8,
+        "h2h_3_way_p2": 2,
+        "h2h_p2": 2,
+        "spreads": 8,
+        "totals": 8,
+        "totals_p2": 2
+       },
+       "50": {
+        "h2h": 8,
+        "h2h_3_way_p2": 5,
+        "h2h_p2": 4,
+        "spreads": 8,
+        "totals": 8,
+        "totals_p2": 4
+       },
+       "80": {
+        "h2h_3_way_p3": 1,
+        "h2h_p3": 2,
+        "totals_p3": 1
+       },
+       "90": {
+        "h2h_3_way_p3": 1,
+        "h2h_p3": 2,
+        "totals_p3": 1
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Philadelphia Flyers",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "Columbus Blue Jackets",
+       "id": "f3b622fed365136e09be1f7b53052543"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_3_way_p2": 5,
+        "h2h_3_way_p3": 5,
+        "h2h_p2": 4,
+        "h2h_p3": 4,
+        "spreads": 10,
+        "totals": 10,
+        "totals_p2": 5,
+        "totals_p3": 5
+       },
+       "40": {
+        "h2h": 8,
+        "h2h_3_way_p2": 5,
+        "h2h_p2": 4,
+        "spreads": 8,
+        "totals": 8,
+        "totals_p2": 4
+       },
+       "50": {
+        "h2h": 8,
+        "h2h_3_way_p2": 5,
+        "h2h_p2": 4,
+        "spreads": 8,
+        "totals": 8,
+        "totals_p2": 4
+       },
+       "80": {
+        "h2h_3_way_p3": 1,
+        "h2h_p3": 2,
+        "totals_p3": 1
+       },
+       "90": {
+        "h2h_3_way_p3": 1,
+        "h2h_p3": 2,
+        "totals_p3": 1
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Detroit Red Wings",
+       "commence_time": "2026-11-15T00:10:00Z",
+       "home_team": "Tampa Bay Lightning",
+       "id": "9df5283f800c7d4c2d0bd38b7c5f4846"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_3_way_p2": 5,
+        "h2h_3_way_p3": 5,
+        "h2h_p2": 4,
+        "h2h_p3": 4,
+        "spreads": 10,
+        "totals": 10,
+        "totals_p2": 5,
+        "totals_p3": 5
+       },
+       "40": {
+        "h2h": 8,
+        "h2h_3_way_p2": 5,
+        "h2h_p2": 4,
+        "spreads": 8,
+        "totals": 8,
+        "totals_p2": 4
+       },
+       "50": {
+        "h2h": 8,
+        "h2h_3_way_p2": 5,
+        "h2h_p2": 4,
+        "spreads": 8,
+        "totals": 8,
+        "totals_p2": 4
+       },
+       "80": {
+        "h2h_3_way_p3": 1,
+        "h2h_p3": 2,
+        "totals_p3": 1
+       },
+       "90": {
+        "h2h_3_way_p3": 1,
+        "h2h_p3": 2,
+        "totals_p3": 1
+       }
+      }
+     }
+    ],
+    "markets": [
+     "h2h_p2",
+     "totals_p2",
+     "h2h_3_way_p2",
+     "h2h_p3",
+     "totals_p3",
+     "h2h_3_way_p3",
+     "h2h",
+     "spreads",
+     "totals"
+    ],
+    "samples": {
+     "h2h": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Boston Bruins",
+        "price": 110
+       },
+       {
+        "name": "Minnesota Wild",
+        "price": -130
+       }
+      ]
+     },
+     "h2h_3_way_p2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Boston Bruins",
+        "price": 180
+       },
+       {
+        "name": "Minnesota Wild",
+        "price": 160
+       },
+       {
+        "name": "Draw",
+        "price": 200
+       }
+      ]
+     },
+     "h2h_3_way_p3": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Boston Bruins",
+        "price": 170
+       },
+       {
+        "name": "Minnesota Wild",
+        "price": 145
+       },
+       {
+        "name": "Draw",
+        "price": 240
+       }
+      ]
+     },
+     "h2h_p2": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Boston Bruins",
+        "price": 102
+       },
+       {
+        "name": "Minnesota Wild",
+        "price": -128
+       }
+      ]
+     },
+     "h2h_p3": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Boston Bruins",
+        "price": 104
+       },
+       {
+        "name": "Minnesota Wild",
+        "price": -130
+       }
+      ]
+     },
+     "spreads": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Boston Bruins",
+        "point": 1.5,
+        "price": -245
+       },
+       {
+        "name": "Minnesota Wild",
+        "point": -1.5,
+        "price": 200
+       }
+      ]
+     },
+     "totals": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 5.5,
+        "price": -135
+       },
+       {
+        "name": "Under",
+        "point": 5.5,
+        "price": 114
+       }
+      ]
+     },
+     "totals_p2": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 1.5,
+        "price": -160
+       },
+       {
+        "name": "Under",
+        "point": 1.5,
+        "price": 124
+       }
+      ]
+     },
+     "totals_p3": {
+      "book": "draftkings",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 2.5,
+        "price": 150
+       },
+       {
+        "name": "Under",
+        "point": 2.5,
+        "price": -195
+       }
+      ]
+     }
+    },
+    "seen": {
+     "h2h": {
+      "first": -10,
+      "games": 3,
+      "last": 50,
+      "max_books": 10
+     },
+     "h2h_3_way_p2": {
+      "first": -10,
+      "games": 3,
+      "last": 50,
+      "max_books": 5
+     },
+     "h2h_3_way_p3": {
+      "first": -10,
+      "games": 3,
+      "last": 90,
+      "max_books": 5
+     },
+     "h2h_p2": {
+      "first": -10,
+      "games": 3,
+      "last": 50,
+      "max_books": 4
+     },
+     "h2h_p3": {
+      "first": -10,
+      "games": 3,
+      "last": 90,
+      "max_books": 4
+     },
+     "spreads": {
+      "first": -10,
+      "games": 3,
+      "last": 50,
+      "max_books": 10
+     },
+     "totals": {
+      "first": -10,
+      "games": 3,
+      "last": 50,
+      "max_books": 10
+     },
+     "totals_p2": {
+      "first": -10,
+      "games": 3,
+      "last": 50,
+      "max_books": 5
+     },
+     "totals_p3": {
+      "first": -10,
+      "games": 3,
+      "last": 90,
+      "max_books": 5
+     }
+    }
+   }
+  },
+  "wnba": {
+   "bulk": {
+    "at": "2026-06-20T23:50:00Z",
+    "credits": 30,
+    "events": 6,
+    "events_with_lines": 6
+   },
+   "history_games": {
+    "last": {
+     "day": "2025-06-20",
+     "events_listed": 3,
+     "games": [
+      {
+       "away_team": "Washington Mystics",
+       "commence_time": "2025-06-20T23:30:00Z",
+       "home_team": "Atlanta Dream",
+       "id": "f7146d763fb3aeeef681a346b076c47a"
+      },
+      {
+       "away_team": "Dallas Wings",
+       "commence_time": "2025-06-20T23:30:00Z",
+       "home_team": "Connecticut Sun",
+       "id": "1266181e0df3824a7edd192b09cdf999"
+      },
+      {
+       "away_team": "Seattle Storm",
+       "commence_time": "2025-06-21T02:00:00Z",
+       "home_team": "Las Vegas Aces",
+       "id": "a2af4df43747d20225e5070e48d7df02"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Washington Mystics",
+      "commence_time": "2025-06-20T23:30:00Z",
+      "home_team": "Atlanta Dream",
+      "id": "f7146d763fb3aeeef681a346b076c47a"
+     }
+    },
+    "this": {
+     "day": "2026-06-20",
+     "events_listed": 3,
+     "games": [
+      {
+       "away_team": "Chicago Sky",
+       "commence_time": "2026-06-21T00:00:00Z",
+       "home_team": "Dallas Wings",
+       "id": "518b54531029e1f0aaeb9f238f1c93a9"
+      },
+      {
+       "away_team": "Seattle Storm",
+       "commence_time": "2026-06-20T19:00:00Z",
+       "home_team": "Phoenix Mercury",
+       "id": "dae9bd45371f74a71f5634c0024aaea6"
+      },
+      {
+       "away_team": "Indiana Fever",
+       "commence_time": "2026-06-20T17:00:00Z",
+       "home_team": "Atlanta Dream",
+       "id": "7491fd0be6a7571811634426ad7408b7"
+      }
+     ],
+     "odds_game": {
+      "away_team": "Chicago Sky",
+      "commence_time": "2026-06-21T00:00:00Z",
+      "home_team": "Dallas Wings",
+      "id": "518b54531029e1f0aaeb9f238f1c93a9"
+     }
+    }
+   },
+   "in_season": false,
+   "markets": {
+    "h2h_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Atlanta Dream",
+         "price": -305
+        },
+        {
+         "name": "Washington Mystics",
+         "price": 245
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Chicago Sky",
+         "price": 235
+        },
+        {
+         "name": "Dallas Wings",
+         "price": -300
+        }
+       ]
+      }
+     }
+    },
+    "h2h_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "fanatics",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Atlanta Dream",
+         "price": -230
+        },
+        {
+         "name": "Washington Mystics",
+         "price": 190
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Chicago Sky",
+         "price": 190
+        },
+        {
+         "name": "Dallas Wings",
+         "price": -250
+        }
+       ]
+      }
+     }
+    },
+    "spreads_h1": {
+     "history": {
+      "last": [
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Atlanta Dream",
+         "point": -5.0,
+         "price": -108
+        },
+        {
+         "name": "Washington Mystics",
+         "point": 5.0,
+         "price": -112
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Chicago Sky",
+         "point": 5.5,
+         "price": -111
+        },
+        {
+         "name": "Dallas Wings",
+         "point": -5.5,
+         "price": -115
+        }
+       ]
+      }
+     }
+    },
+    "spreads_q1": {
+     "history": {
+      "last": [
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Atlanta Dream",
+         "point": -3.0,
+         "price": -115
+        },
+        {
+         "name": "Washington Mystics",
+         "point": 3.0,
+         "price": -105
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Chicago Sky",
+         "point": 3.5,
+         "price": -118
+        },
+        {
+         "name": "Dallas Wings",
+         "point": -3.5,
+         "price": -108
+        }
+       ]
+      }
+     }
+    },
+    "totals_h1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betonlineag",
+       "betrivers",
+       "bovada",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 77.0,
+         "price": -115
+        },
+        {
+         "name": "Under",
+         "point": 77.0,
+         "price": -105
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 84.5,
+         "price": -114
+        },
+        {
+         "name": "Under",
+         "point": 84.5,
+         "price": -106
+        }
+       ]
+      }
+     }
+    },
+    "totals_q1": {
+     "history": {
+      "last": [
+       "betmgm",
+       "betrivers",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ],
+      "this": [
+       "betmgm",
+       "betonlineag",
+       "draftkings",
+       "espnbet",
+       "fanduel",
+       "hardrockbet"
+      ]
+     },
+     "live_books": [],
+     "sample_history": {
+      "last": {
+       "book": "draftkings",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 39.0,
+         "price": -110
+        },
+        {
+         "name": "Under",
+         "point": 39.0,
+         "price": -110
+        }
+       ]
+      },
+      "this": {
+       "book": "fanduel",
+       "outcomes": [
+        {
+         "name": "Over",
+         "point": 42.5,
+         "price": -128
+        },
+        {
+         "name": "Under",
+         "point": 42.5,
+         "price": -102
+        }
+       ]
+      }
+     }
+    }
+   },
+   "next": {
+    "games": [
+     {
+      "game": {
+       "away_team": "Chicago Sky",
+       "commence_time": "2026-06-21T00:00:00Z",
+       "home_team": "Dallas Wings",
+       "id": "518b54531029e1f0aaeb9f238f1c93a9"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 2,
+        "spreads": 10,
+        "spreads_h2": 1,
+        "totals": 10,
+        "totals_h2": 1
+       },
+       "105": {
+        "h2h_h2": 5,
+        "spreads_h2": 3,
+        "totals_h2": 2
+       },
+       "75": {
+        "h2h": 9,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 3,
+        "totals": 9,
+        "totals_h2": 2
+       },
+       "85": {
+        "h2h_h2": 5,
+        "spreads_h2": 3,
+        "totals_h2": 2
+       },
+       "95": {
+        "h2h_h2": 5,
+        "spreads_h2": 3,
+        "totals_h2": 2
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Seattle Storm",
+       "commence_time": "2026-06-20T19:00:00Z",
+       "home_team": "Phoenix Mercury",
+       "id": "dae9bd45371f74a71f5634c0024aaea6"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 2,
+        "spreads": 10,
+        "spreads_h2": 1,
+        "totals": 10,
+        "totals_h2": 1
+       },
+       "105": {
+        "h2h_h2": 4,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       },
+       "75": {
+        "h2h": 9,
+        "h2h_h2": 4,
+        "spreads": 9,
+        "spreads_h2": 2,
+        "totals": 9,
+        "totals_h2": 2
+       },
+       "85": {
+        "h2h_h2": 4,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       },
+       "95": {
+        "h2h_h2": 4,
+        "spreads_h2": 2,
+        "totals_h2": 2
+       }
+      }
+     },
+     {
+      "game": {
+       "away_team": "Indiana Fever",
+       "commence_time": "2026-06-20T17:00:00Z",
+       "home_team": "Atlanta Dream",
+       "id": "7491fd0be6a7571811634426ad7408b7"
+      },
+      "snapshots": {
+       "-10": {
+        "h2h": 10,
+        "h2h_h2": 2,
+        "spreads": 10,
+        "spreads_h2": 1,
+        "totals": 10,
+        "totals_h2": 1
+       },
+       "105": {
+        "h2h_h2": 5,
+        "spreads_h2": 3,
+        "totals_h2": 2
+       },
+       "75": {
+        "h2h": 9,
+        "h2h_h2": 5,
+        "spreads": 9,
+        "spreads_h2": 3,
+        "totals": 9,
+        "totals_h2": 2
+       },
+       "85": {
+        "h2h_h2": 5,
+        "spreads_h2": 3,
+        "totals_h2": 2
+       },
+       "95": {
+        "h2h_h2": 5,
+        "spreads_h2": 3,
+        "totals_h2": 2
+       }
+      }
+     }
+    ],
+    "markets": [
+     "h2h_h2",
+     "spreads_h2",
+     "totals_h2",
+     "h2h",
+     "spreads",
+     "totals"
+    ],
+    "samples": {
+     "h2h": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Chicago Sky",
+        "price": 360
+       },
+       {
+        "name": "Dallas Wings",
+        "price": -500
+       }
+      ]
+     },
+     "h2h_h2": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Chicago Sky",
+        "price": 215
+       },
+       {
+        "name": "Dallas Wings",
+        "price": -290
+       }
+      ]
+     },
+     "spreads": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Chicago Sky",
+        "point": 10.5,
+        "price": -110
+       },
+       {
+        "name": "Dallas Wings",
+        "point": -10.5,
+        "price": -110
+       }
+      ]
+     },
+     "spreads_h2": {
+      "book": "hardrockbet",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Chicago Sky",
+        "point": 2.5,
+        "price": 130
+       },
+       {
+        "name": "Dallas Wings",
+        "point": -2.5,
+        "price": -170
+       }
+      ]
+     },
+     "totals": {
+      "book": "fanduel",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 174.5,
+        "price": -108
+       },
+       {
+        "name": "Under",
+        "point": 174.5,
+        "price": -112
+       }
+      ]
+     },
+     "totals_h2": {
+      "book": "hardrockbet",
+      "minute": -10,
+      "outcomes": [
+       {
+        "name": "Over",
+        "point": 90.5,
+        "price": 115
+       },
+       {
+        "name": "Under",
+        "point": 90.5,
+        "price": -145
+       }
+      ]
+     }
+    },
+    "seen": {
+     "h2h": {
+      "first": -10,
+      "games": 3,
+      "last": 75,
+      "max_books": 10
+     },
+     "h2h_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 105,
+      "max_books": 5
+     },
+     "spreads": {
+      "first": -10,
+      "games": 3,
+      "last": 75,
+      "max_books": 10
+     },
+     "spreads_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 105,
+      "max_books": 3
+     },
+     "totals": {
+      "first": -10,
+      "games": 3,
+      "last": 75,
+      "max_books": 10
+     },
+     "totals_h2": {
+      "first": -10,
+      "games": 3,
+      "last": 105,
+      "max_books": 2
+     }
+    }
+   }
+  }
+ },
+ "stopped": null
+}
