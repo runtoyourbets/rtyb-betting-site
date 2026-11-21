@@ -11424,8 +11424,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Delaware"
    },
    {
@@ -11443,10 +11443,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 198,
+    "price": 200,
     "title": "Wyoming 1Q ML",
-    "est": 0.3695,
-    "edge": 0.0339,
+    "est": 0.3677,
+    "edge": 0.0344,
     "agree": 2,
     "sample": 8,
     "tier": "C",

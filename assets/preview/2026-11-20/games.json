@@ -269,11 +269,6 @@
     "value": "ncaab:401926134"
    },
    {
-    "label": "NCAAB · Richmond at Western Kentucky · 7:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401927396"
-   },
-   {
     "label": "NCAAB · Saint Joseph's at Drexel · 7:00 PM ET",
     "trends": 3,
     "value": "ncaab:401920195"
@@ -292,6 +287,11 @@
     "label": "NCAAB · Wagner at Maryland · 7:00 PM ET",
     "trends": 5,
     "value": "ncaab:401916299"
+   },
+   {
+    "label": "NCAAB · Western Kentucky at Richmond · 7:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401927396"
    },
    {
     "label": "NCAAB · Western Michigan at Mount St. Mary's · 7:00 PM ET",
@@ -770,11 +770,6 @@
     "value": "ncaab:401926134"
    },
    {
-    "label": "Richmond at Western Kentucky · 7:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401927396"
-   },
-   {
     "label": "Saint Joseph's at Drexel · 7:00 PM ET",
     "trends": 3,
     "value": "ncaab:401920195"
@@ -793,6 +788,11 @@
     "label": "Wagner at Maryland · 7:00 PM ET",
     "trends": 5,
     "value": "ncaab:401916299"
+   },
+   {
+    "label": "Western Kentucky at Richmond · 7:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401927396"
    },
    {
     "label": "Western Michigan at Mount St. Mary's · 7:00 PM ET",
