@@ -139,5 +139,61 @@
    "start": "2026-11-22T18:00Z",
    "trend": "Fade big underdogs (1H ML)"
   }
+ },
+ "2026-11-21": {
+  "all": {
+   "away": "northern-illinois-huskies",
+   "chip": "NIU LOST 1H · 10 OF 10",
+   "home": "north-dakota-state-bison",
+   "id": "401864543",
+   "sport": "ncaaf",
+   "start": "2026-11-21T21:00Z",
+   "trend": "NIU has lost the 1st half"
+  },
+  "nba": {
+   "away": "bos",
+   "chip": "SAC LOST 1H · 12 OF 14",
+   "home": "sac",
+   "id": "401910028",
+   "sport": "nba",
+   "start": "2026-11-22T03:00Z",
+   "trend": "SAC has lost the 1st half"
+  },
+  "ncaab": {
+   "away": "washington-state-cougars",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 61% (218-139)",
+   "home": "duke-blue-devils",
+   "id": "401909567",
+   "sport": "ncaab",
+   "start": "2026-11-22T04:00Z",
+   "trend": "Fade teams off a blowout (1H ML)"
+  },
+  "ncaaf": {
+   "away": "northern-illinois-huskies",
+   "chip": "NIU LOST 1H · 10 OF 10",
+   "home": "north-dakota-state-bison",
+   "id": "401864543",
+   "sport": "ncaaf",
+   "start": "2026-11-21T21:00Z",
+   "trend": "NIU has lost the 1st half"
+  },
+  "nfl": {
+   "away": "ten",
+   "chip": "FADE BIG UNDERDOGS · 1H ML · 79% (23-6)",
+   "home": "dal",
+   "id": "401873073",
+   "sport": "nfl",
+   "start": "2026-11-22T18:00Z",
+   "trend": "Fade big underdogs (1H ML)"
+  },
+  "nhl": {
+   "away": "PHI",
+   "chip": "PHI BTTS NO 1P · 20 OF 25",
+   "home": "MTL",
+   "id": "2026020365",
+   "sport": "nhl",
+   "start": "2026-11-22T00:00:00Z",
+   "trend": "PHI has gone BTTS No"
+  }
  }
 }
