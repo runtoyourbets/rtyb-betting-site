@@ -1,0 +1,54 @@
+name: The Odds API
+
+# Manual only (Run workflow), never on a schedule. oddsapi-probe: which
+# markets and books The Odds API has per sport, live and in history
+# (scripts/oddsapi_probe.py, about 5,000 credits). The key is the
+# ODDS_API_KEY secret and is never printed or written to a file.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rtyb-oddsapi
+  cancel-in-progress: false
+
+jobs:
+  oddsapi-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run the probe
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python3 scripts/oddsapi_probe.py
+
+      - name: Commit and push the results
+        run: |
+          git config user.name "rtyb-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data_feed/oddsapi/probe.json data_feed/oddsapi/usage.jsonl
+          if git diff --cached --quiet; then
+            echo "Nothing written."
+            exit 1
+          fi
+          git commit -m "The Odds API probe results"
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; git pull --no-rebase -X ours origin main --no-edit; }
+            sleep 3
+          done
+          exit 1
