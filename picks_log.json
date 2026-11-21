@@ -12114,6 +12114,54 @@
     "streakTeamName": "Longwood"
    },
    {
+    "id": "ncaaf|401858531|1h|ats|home",
+    "game": "ncaaf|401858531",
+    "date": "2026-11-21",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-21T17:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Ohio State @ Nebraska",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 2.5,
+    "price": -104,
+    "title": "Nebraska 1H +2.5",
+    "est": 0.5585,
+    "edge": 0.0487,
+    "agree": 3,
+    "sample": 10,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider",
+     "Early Bird"
+    ],
+    "streak": 10,
+    "streakTeam": "nebraska-cornhuskers",
+    "angles": [
+     [
+      "Nebraska 1H ATS at +2.5, season",
+      "10-0"
+     ],
+     [
+      "Nebraska 1H ATS at +2.5, last 8",
+      "8-0"
+     ],
+     [
+      "Nebraska 1H ATS at +2.5 at home",
+      "6-0"
+     ]
+    ],
+    "info": "Nebraska avg 1H margin at home: +11.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Nebraska"
+   },
+   {
     "id": "nhl|2026020371|1p|ml|away",
     "game": "nhl|2026020371",
     "date": "2026-11-21",
@@ -12163,54 +12211,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Minnesota"
-   },
-   {
-    "id": "ncaaf|401858531|1h|ats|home",
-    "game": "ncaaf|401858531",
-    "date": "2026-11-21",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-21T17:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Ohio State @ Nebraska",
-    "href": "college-football/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 2.5,
-    "price": -106,
-    "title": "Nebraska 1H +2.5",
-    "est": 0.5621,
-    "edge": 0.0475,
-    "agree": 3,
-    "sample": 10,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider",
-     "Early Bird"
-    ],
-    "streak": 10,
-    "streakTeam": "nebraska-cornhuskers",
-    "angles": [
-     [
-      "Nebraska 1H ATS at +2.5, season",
-      "10-0"
-     ],
-     [
-      "Nebraska 1H ATS at +2.5, last 8",
-      "8-0"
-     ],
-     [
-      "Nebraska 1H ATS at +2.5 at home",
-      "6-0"
-     ]
-    ],
-    "info": "Nebraska avg 1H margin at home: +11.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Nebraska"
    }
   ]
  }
