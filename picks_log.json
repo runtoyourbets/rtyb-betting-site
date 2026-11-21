@@ -12258,56 +12258,6 @@
     "streakTeamName": "Arizona State"
    },
    {
-    "id": "ncaaf|401871101|1q|ml|away",
-    "game": "ncaaf|401871101",
-    "date": "2026-11-21",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-21T21:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "South Alabama @ Southern Miss",
-    "href": "college-football/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -145,
-    "title": "South Alabama 1Q ML",
-    "est": 0.6377,
-    "edge": 0.0459,
-    "agree": 4,
-    "sample": 9,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 1,
-    "streakTeam": "south-alabama-jaguars",
-    "angles": [
-     [
-      "South Alabama 1Q ML, season",
-      "8-1-1"
-     ],
-     [
-      "South Alabama 1Q ML, last 8",
-      "6-1-1"
-     ],
-     [
-      "South Alabama 1Q ML on the road",
-      "3-1-1"
-     ],
-     [
-      "Southern Miss\u2019s opponents 1Q ML, Southern Miss at home",
-      "3-1-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "South Alabama"
-   },
-   {
     "id": "nhl|2026020361|1p|btts|yes",
     "game": "nhl|2026020361",
     "date": "2026-11-21",
@@ -12398,6 +12348,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "San Jos\u00e9 State"
+   },
+   {
+    "id": "nhl|2026020371|1p|ml|away",
+    "game": "nhl|2026020371",
+    "date": "2026-11-21",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-22T03:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Minnesota @ Vancouver",
+    "href": "nhl/matchups/?date=2026-11-21",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -209,
+    "title": "Minnesota 1P ML",
+    "est": 0.7211,
+    "edge": 0.0447,
+    "agree": 4,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "MIN",
+    "angles": [
+     [
+      "Minnesota 1P ML, last 8",
+      "7-0-1"
+     ],
+     [
+      "Vancouver\u2019s opponents 1P ML, Vancouver at home",
+      "6-1-3"
+     ],
+     [
+      "Minnesota 1P ML, season",
+      "13-3-8"
+     ],
+     [
+      "Minnesota 1P ML on the road",
+      "8-2-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Minnesota"
    }
   ]
  }
