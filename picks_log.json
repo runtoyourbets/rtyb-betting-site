@@ -11072,8 +11072,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Rockets"
    },
    {
@@ -11122,8 +11122,8 @@
      ]
     ],
     "info": "Rockets avg 1H margin on the road: +7.6",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Rockets"
    },
    {
