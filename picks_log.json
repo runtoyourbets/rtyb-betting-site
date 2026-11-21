@@ -11022,8 +11022,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.44,
     "streakTeamName": "Hornets"
    },
    {
@@ -11252,8 +11252,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Coastal Carolina"
    },
    {
@@ -11340,8 +11340,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.43,
     "streakTeamName": "Kansas City"
    },
    {
