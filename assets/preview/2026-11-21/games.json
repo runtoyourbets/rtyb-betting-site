@@ -320,7 +320,7 @@
    },
    {
     "label": "NBA · Milwaukee Bucks at Philadelphia 76ers · 1:00 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401910023"
    },
    {
@@ -730,7 +730,7 @@
    },
    {
     "label": "NBA · Portland Trail Blazers at New York Knicks · 7:30 PM ET",
-    "trends": 11,
+    "trends": 15,
     "value": "nba:401910024"
    },
    {
@@ -770,12 +770,12 @@
    },
    {
     "label": "NBA · LA Clippers at Dallas Mavericks · 8:00 PM ET",
-    "trends": 14,
+    "trends": 17,
     "value": "nba:401910025"
    },
    {
     "label": "NBA · Memphis Grizzlies at Minnesota Timberwolves · 8:00 PM ET",
-    "trends": 11,
+    "trends": 15,
     "value": "nba:401910026"
    },
    {
@@ -880,22 +880,22 @@
   "games": [
    {
     "label": "Milwaukee Bucks at Philadelphia 76ers · 1:00 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401910023"
    },
    {
     "label": "Portland Trail Blazers at New York Knicks · 7:30 PM ET",
-    "trends": 11,
+    "trends": 15,
     "value": "nba:401910024"
    },
    {
     "label": "LA Clippers at Dallas Mavericks · 8:00 PM ET",
-    "trends": 14,
+    "trends": 17,
     "value": "nba:401910025"
    },
    {
     "label": "Memphis Grizzlies at Minnesota Timberwolves · 8:00 PM ET",
-    "trends": 11,
+    "trends": 15,
     "value": "nba:401910026"
    },
    {
