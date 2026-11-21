@@ -11797,6 +11797,52 @@
     "streakTeamName": "Georgia Tech"
    },
    {
+    "id": "ncaab|401909567|1h|ml|away",
+    "game": "ncaab|401909567",
+    "date": "2026-11-21",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-22T04:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Washington State @ Duke",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 1400,
+    "title": "Washington State 1H ML",
+    "est": 0.1288,
+    "edge": 0.0621,
+    "agree": 3,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "washington-state-cougars",
+    "angles": [
+     [
+      "Washington State 1H ML on the road",
+      "2-1"
+     ],
+     [
+      "Washington State 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Washington State 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Washington State"
+   },
+   {
     "id": "ncaaf|401858304|1h|ml|away",
     "game": "ncaaf|401858304",
     "date": "2026-11-21",
@@ -12170,54 +12216,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Clippers"
-   },
-   {
-    "id": "ncaaf|401858531|1h|ats|home",
-    "game": "ncaaf|401858531",
-    "date": "2026-11-21",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-21T17:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Ohio State @ Nebraska",
-    "href": "college-football/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 2.5,
-    "price": -110,
-    "title": "Nebraska 1H +2.5",
-    "est": 0.569,
-    "edge": 0.0452,
-    "agree": 3,
-    "sample": 10,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider",
-     "Early Bird"
-    ],
-    "streak": 10,
-    "streakTeam": "nebraska-cornhuskers",
-    "angles": [
-     [
-      "Nebraska 1H ATS at +2.5, season",
-      "10-0"
-     ],
-     [
-      "Nebraska 1H ATS at +2.5, last 8",
-      "8-0"
-     ],
-     [
-      "Nebraska 1H ATS at +2.5 at home",
-      "6-0"
-     ]
-    ],
-    "info": "Nebraska avg 1H margin at home: +11.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Nebraska"
    }
   ]
  }
