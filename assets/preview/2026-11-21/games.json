@@ -254,22 +254,22 @@
    },
    {
     "label": "NCAAF · Vanderbilt at Florida · 12:00 PM ET",
-    "trends": 21,
+    "trends": 24,
     "value": "ncaaf:401856748"
    },
    {
     "label": "NCAAF · BYU at Kansas · 12:00 PM ET",
-    "trends": 20,
+    "trends": 21,
     "value": "ncaaf:401856866"
    },
    {
     "label": "NCAAF · Colorado at Cincinnati · 12:00 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "ncaaf:401856867"
    },
    {
     "label": "NCAAF · Syracuse at Boston College · 12:00 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "ncaaf:401858309"
    },
    {
@@ -279,32 +279,32 @@
    },
    {
     "label": "NCAAF · Northwestern at Minnesota · 12:00 PM ET",
-    "trends": 15,
+    "trends": 20,
     "value": "ncaaf:401858530"
    },
    {
     "label": "NCAAF · Ohio State at Nebraska · 12:00 PM ET",
-    "trends": 18,
+    "trends": 21,
     "value": "ncaaf:401858531"
    },
    {
     "label": "NCAAF · Wisconsin at Purdue · 12:00 PM ET",
-    "trends": 16,
+    "trends": 21,
     "value": "ncaaf:401858533"
    },
    {
     "label": "NCAAF · East Carolina at Army · 12:00 PM ET",
-    "trends": 13,
+    "trends": 12,
     "value": "ncaaf:401862831"
    },
    {
     "label": "NCAAF · Memphis at Navy · 12:00 PM ET",
-    "trends": 13,
+    "trends": 15,
     "value": "ncaaf:401862834"
    },
    {
     "label": "NCAAF · North Texas at Tulane · 12:00 PM ET",
-    "trends": 25,
+    "trends": 26,
     "value": "ncaaf:401862835"
    },
    {
@@ -329,7 +329,7 @@
    },
    {
     "label": "NCAAB · Kent State at Cleveland State · 1:00 PM ET",
-    "trends": 5,
+    "trends": 6,
     "value": "ncaab:401921169"
    },
    {
@@ -404,7 +404,7 @@
    },
    {
     "label": "NCAAF · Charlotte at Tulsa · 2:00 PM ET",
-    "trends": 17,
+    "trends": 19,
     "value": "ncaaf:401862832"
    },
    {
@@ -414,17 +414,17 @@
    },
    {
     "label": "NCAAF · Middle Tennessee at Sam Houston · 2:00 PM ET",
-    "trends": 20,
+    "trends": 22,
     "value": "ncaaf:401871081"
    },
    {
     "label": "NCAAF · Iowa at Illinois · 2:30 PM ET",
-    "trends": 21,
+    "trends": 23,
     "value": "ncaaf:401858527"
    },
    {
     "label": "NCAAF · South Florida at Florida Atlantic · 2:30 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401862833"
    },
    {
@@ -454,17 +454,17 @@
    },
    {
     "label": "NCAAF · Coastal Carolina at Louisiana · 3:00 PM ET",
-    "trends": 17,
+    "trends": 19,
     "value": "ncaaf:401869946"
    },
    {
     "label": "NCAAF · Delaware at New Mexico State · 3:00 PM ET",
-    "trends": 19,
+    "trends": 18,
     "value": "ncaaf:401871077"
    },
    {
     "label": "NCAAF · Florida International at Kennesaw State · 3:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "ncaaf:401871078"
    },
    {
@@ -479,22 +479,22 @@
    },
    {
     "label": "NCAAF · LSU at Tennessee · 3:30 PM ET",
-    "trends": 11,
+    "trends": 14,
     "value": "ncaaf:401856754"
    },
    {
     "label": "NCAAF · Arkansas at Texas · 3:30 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401856755"
    },
    {
     "label": "NCAAF · Texas Tech at Baylor · 3:30 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "ncaaf:401856871"
    },
    {
     "label": "NCAAF · NC State at Florida State · 3:30 PM ET",
-    "trends": 11,
+    "trends": 14,
     "value": "ncaaf:401858304"
    },
    {
@@ -509,17 +509,17 @@
    },
    {
     "label": "NCAAF · Indiana at Washington · 3:30 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "ncaaf:401858535"
    },
    {
     "label": "NCAAF · Old Dominion at UConn · 3:30 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "ncaaf:401861968"
    },
    {
     "label": "NCAAF · Texas A&M at Oklahoma · 3:45 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401856752"
    },
    {
@@ -549,22 +549,22 @@
    },
    {
     "label": "NCAAF · Northern Illinois at North Dakota State · 4:00 PM ET",
-    "trends": 19,
+    "trends": 21,
     "value": "ncaaf:401864543"
    },
    {
     "label": "NCAAF · Georgia Southern at Troy · 4:00 PM ET",
-    "trends": 20,
+    "trends": 22,
     "value": "ncaaf:401869953"
    },
    {
     "label": "NCAAF · Georgia State at Marshall · 4:00 PM ET",
-    "trends": 13,
+    "trends": 17,
     "value": "ncaaf:401869958"
    },
    {
     "label": "NCAAF · South Alabama at Southern Miss · 4:00 PM ET",
-    "trends": 21,
+    "trends": 22,
     "value": "ncaaf:401871101"
    },
    {
@@ -624,12 +624,12 @@
    },
    {
     "label": "NCAAF · Washington State at Texas State · 6:00 PM ET",
-    "trends": 10,
+    "trends": 14,
     "value": "ncaaf:401860920"
    },
    {
     "label": "NCAAF · Maryland at USC · 6:15 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401858534"
    },
    {
@@ -709,12 +709,12 @@
    },
    {
     "label": "NCAAF · Arizona at Kansas State · 7:00 PM ET",
-    "trends": 22,
+    "trends": 23,
     "value": "ncaaf:401856865"
    },
    {
     "label": "NCAAF · Virginia Tech at Miami · 7:00 PM ET",
-    "trends": 17,
+    "trends": 23,
     "value": "ncaaf:401858302"
    },
    {
@@ -724,7 +724,7 @@
    },
    {
     "label": "NCAAF · Arkansas State at Louisiana Tech · 7:00 PM ET",
-    "trends": 16,
+    "trends": 18,
     "value": "ncaaf:401869938"
    },
    {
@@ -739,27 +739,27 @@
    },
    {
     "label": "NCAAF · Kentucky at Missouri · 7:30 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401856751"
    },
    {
     "label": "NCAAF · Georgia at South Carolina · 7:30 PM ET",
-    "trends": 23,
+    "trends": 26,
     "value": "ncaaf:401856753"
    },
    {
     "label": "NCAAF · Pittsburgh at Louisville · 7:30 PM ET",
-    "trends": 17,
+    "trends": 19,
     "value": "ncaaf:401858306"
    },
    {
     "label": "NCAAF · SMU at Notre Dame · 7:30 PM ET",
-    "trends": 20,
+    "trends": 21,
     "value": "ncaaf:401858307"
    },
    {
     "label": "NCAAF · Stanford at California · 7:30 PM ET",
-    "trends": 16,
+    "trends": 19,
     "value": "ncaaf:401858308"
    },
    {
@@ -794,7 +794,7 @@
    },
    {
     "label": "NCAAF · UTSA at UAB · 8:00 PM ET",
-    "trends": 11,
+    "trends": 16,
     "value": "ncaaf:401862836"
    },
    {
@@ -809,7 +809,7 @@
    },
    {
     "label": "NCAAF · Utah at TCU · 9:00 PM ET",
-    "trends": 18,
+    "trends": 20,
     "value": "ncaaf:401856872"
    },
    {
@@ -839,17 +839,17 @@
    },
    {
     "label": "NCAAF · Oklahoma State at Arizona State · 10:15 PM ET",
-    "trends": 20,
+    "trends": 21,
     "value": "ncaaf:401856870"
    },
    {
     "label": "NCAAF · Utah State at Oregon State · 10:30 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "ncaaf:401860919"
    },
    {
     "label": "NCAAF · Hawai'i at Nevada · 10:30 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaaf:401864541"
    },
    {
@@ -1044,7 +1044,7 @@
    },
    {
     "label": "Kent State at Cleveland State · 1:00 PM ET",
-    "trends": 5,
+    "trends": 6,
     "value": "ncaab:401921169"
    },
    {
@@ -1390,22 +1390,22 @@
   "games": [
    {
     "label": "Vanderbilt at Florida · 12:00 PM ET",
-    "trends": 21,
+    "trends": 24,
     "value": "ncaaf:401856748"
    },
    {
     "label": "BYU at Kansas · 12:00 PM ET",
-    "trends": 20,
+    "trends": 21,
     "value": "ncaaf:401856866"
    },
    {
     "label": "Colorado at Cincinnati · 12:00 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "ncaaf:401856867"
    },
    {
     "label": "Syracuse at Boston College · 12:00 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "ncaaf:401858309"
    },
    {
@@ -1415,32 +1415,32 @@
    },
    {
     "label": "Northwestern at Minnesota · 12:00 PM ET",
-    "trends": 15,
+    "trends": 20,
     "value": "ncaaf:401858530"
    },
    {
     "label": "Ohio State at Nebraska · 12:00 PM ET",
-    "trends": 18,
+    "trends": 21,
     "value": "ncaaf:401858531"
    },
    {
     "label": "Wisconsin at Purdue · 12:00 PM ET",
-    "trends": 16,
+    "trends": 21,
     "value": "ncaaf:401858533"
    },
    {
     "label": "East Carolina at Army · 12:00 PM ET",
-    "trends": 13,
+    "trends": 12,
     "value": "ncaaf:401862831"
    },
    {
     "label": "Memphis at Navy · 12:00 PM ET",
-    "trends": 13,
+    "trends": 15,
     "value": "ncaaf:401862834"
    },
    {
     "label": "North Texas at Tulane · 12:00 PM ET",
-    "trends": 25,
+    "trends": 26,
     "value": "ncaaf:401862835"
    },
    {
@@ -1460,7 +1460,7 @@
    },
    {
     "label": "Charlotte at Tulsa · 2:00 PM ET",
-    "trends": 17,
+    "trends": 19,
     "value": "ncaaf:401862832"
    },
    {
@@ -1470,17 +1470,17 @@
    },
    {
     "label": "Middle Tennessee at Sam Houston · 2:00 PM ET",
-    "trends": 20,
+    "trends": 22,
     "value": "ncaaf:401871081"
    },
    {
     "label": "Iowa at Illinois · 2:30 PM ET",
-    "trends": 21,
+    "trends": 23,
     "value": "ncaaf:401858527"
    },
    {
     "label": "South Florida at Florida Atlantic · 2:30 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401862833"
    },
    {
@@ -1490,37 +1490,37 @@
    },
    {
     "label": "Coastal Carolina at Louisiana · 3:00 PM ET",
-    "trends": 17,
+    "trends": 19,
     "value": "ncaaf:401869946"
    },
    {
     "label": "Delaware at New Mexico State · 3:00 PM ET",
-    "trends": 19,
+    "trends": 18,
     "value": "ncaaf:401871077"
    },
    {
     "label": "Florida International at Kennesaw State · 3:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "ncaaf:401871078"
    },
    {
     "label": "LSU at Tennessee · 3:30 PM ET",
-    "trends": 11,
+    "trends": 14,
     "value": "ncaaf:401856754"
    },
    {
     "label": "Arkansas at Texas · 3:30 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401856755"
    },
    {
     "label": "Texas Tech at Baylor · 3:30 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "ncaaf:401856871"
    },
    {
     "label": "NC State at Florida State · 3:30 PM ET",
-    "trends": 11,
+    "trends": 14,
     "value": "ncaaf:401858304"
    },
    {
@@ -1535,57 +1535,57 @@
    },
    {
     "label": "Indiana at Washington · 3:30 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "ncaaf:401858535"
    },
    {
     "label": "Old Dominion at UConn · 3:30 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "ncaaf:401861968"
    },
    {
     "label": "Texas A&M at Oklahoma · 3:45 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401856752"
    },
    {
     "label": "Northern Illinois at North Dakota State · 4:00 PM ET",
-    "trends": 19,
+    "trends": 21,
     "value": "ncaaf:401864543"
    },
    {
     "label": "Georgia Southern at Troy · 4:00 PM ET",
-    "trends": 20,
+    "trends": 22,
     "value": "ncaaf:401869953"
    },
    {
     "label": "Georgia State at Marshall · 4:00 PM ET",
-    "trends": 13,
+    "trends": 17,
     "value": "ncaaf:401869958"
    },
    {
     "label": "South Alabama at Southern Miss · 4:00 PM ET",
-    "trends": 21,
+    "trends": 22,
     "value": "ncaaf:401871101"
    },
    {
     "label": "Washington State at Texas State · 6:00 PM ET",
-    "trends": 10,
+    "trends": 14,
     "value": "ncaaf:401860920"
    },
    {
     "label": "Maryland at USC · 6:15 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401858534"
    },
    {
     "label": "Arizona at Kansas State · 7:00 PM ET",
-    "trends": 22,
+    "trends": 23,
     "value": "ncaaf:401856865"
    },
    {
     "label": "Virginia Tech at Miami · 7:00 PM ET",
-    "trends": 17,
+    "trends": 23,
     "value": "ncaaf:401858302"
    },
    {
@@ -1595,32 +1595,32 @@
    },
    {
     "label": "Arkansas State at Louisiana Tech · 7:00 PM ET",
-    "trends": 16,
+    "trends": 18,
     "value": "ncaaf:401869938"
    },
    {
     "label": "Kentucky at Missouri · 7:30 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401856751"
    },
    {
     "label": "Georgia at South Carolina · 7:30 PM ET",
-    "trends": 23,
+    "trends": 26,
     "value": "ncaaf:401856753"
    },
    {
     "label": "Pittsburgh at Louisville · 7:30 PM ET",
-    "trends": 17,
+    "trends": 19,
     "value": "ncaaf:401858306"
    },
    {
     "label": "SMU at Notre Dame · 7:30 PM ET",
-    "trends": 20,
+    "trends": 21,
     "value": "ncaaf:401858307"
    },
    {
     "label": "Stanford at California · 7:30 PM ET",
-    "trends": 16,
+    "trends": 19,
     "value": "ncaaf:401858308"
    },
    {
@@ -1630,12 +1630,12 @@
    },
    {
     "label": "UTSA at UAB · 8:00 PM ET",
-    "trends": 11,
+    "trends": 16,
     "value": "ncaaf:401862836"
    },
    {
     "label": "Utah at TCU · 9:00 PM ET",
-    "trends": 18,
+    "trends": 20,
     "value": "ncaaf:401856872"
    },
    {
@@ -1645,17 +1645,17 @@
    },
    {
     "label": "Oklahoma State at Arizona State · 10:15 PM ET",
-    "trends": 20,
+    "trends": 21,
     "value": "ncaaf:401856870"
    },
    {
     "label": "Utah State at Oregon State · 10:30 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "ncaaf:401860919"
    },
    {
     "label": "Hawai'i at Nevada · 10:30 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaaf:401864541"
    }
   ],
