@@ -211,7 +211,6 @@
    "UTSA",
    "UVA",
    "UVM",
-   "UVU",
    "VALP",
    "VAN",
    "VGK",
@@ -594,8 +593,8 @@
     "value": "ncaab:401925709"
    },
    {
-    "label": "NCAAB · Southern Illinois at Utah Valley · 5:30 PM ET",
-    "trends": 4,
+    "label": "NCAAB · Southern Illinois at East Carolina · 5:30 PM ET",
+    "trends": 5,
     "value": "ncaab:401920570"
    },
    {
@@ -937,6 +936,7 @@
    "DEN",
    "DRKE",
    "DUKE",
+   "ECU",
    "ELON",
    "EMU",
    "ETSU",
@@ -1005,7 +1005,6 @@
    "USM",
    "UTSA",
    "UVM",
-   "UVU",
    "VALP",
    "VILL",
    "VMI",
@@ -1184,8 +1183,8 @@
     "value": "ncaab:401925709"
    },
    {
-    "label": "Southern Illinois at Utah Valley · 5:30 PM ET",
-    "trends": 4,
+    "label": "Southern Illinois at East Carolina · 5:30 PM ET",
+    "trends": 5,
     "value": "ncaab:401920570"
    },
    {
