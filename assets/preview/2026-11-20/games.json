@@ -359,6 +359,11 @@
     "value": "ncaab:401909799"
    },
    {
+    "label": "NCAAB · East Carolina at Utah Valley · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401916125"
+   },
+   {
     "label": "NCAAB · Georgia at Georgia Tech · 8:00 PM ET",
     "trends": 7,
     "value": "ncaab:401906784"
@@ -392,11 +397,6 @@
     "label": "NCAAB · UCF at Vanderbilt · 8:00 PM ET",
     "trends": 4,
     "value": "ncaab:401921757"
-   },
-   {
-    "label": "NCAAB · Utah Valley at East Carolina · 8:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401916125"
    },
    {
     "label": "NCAAF · Oregon at Michigan State · 8:00 PM ET",
@@ -825,6 +825,11 @@
     "value": "ncaab:401909799"
    },
    {
+    "label": "East Carolina at Utah Valley · 8:00 PM ET",
+    "trends": 3,
+    "value": "ncaab:401916125"
+   },
+   {
     "label": "Georgia at Georgia Tech · 8:00 PM ET",
     "trends": 7,
     "value": "ncaab:401906784"
@@ -858,11 +863,6 @@
     "label": "UCF at Vanderbilt · 8:00 PM ET",
     "trends": 4,
     "value": "ncaab:401921757"
-   },
-   {
-    "label": "Utah Valley at East Carolina · 8:00 PM ET",
-    "trends": 3,
-    "value": "ncaab:401916125"
    },
    {
     "label": "Cal State Bakersfield at Idaho · 9:00 PM ET",

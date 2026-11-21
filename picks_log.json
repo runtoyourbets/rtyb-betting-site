@@ -11210,8 +11210,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.42,
     "streakTeamName": "Raptors"
    },
    {
@@ -11298,8 +11298,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.85,
     "streakTeamName": "Hornets"
    },
    {
@@ -11571,10 +11571,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -154,
+    "price": -155,
     "title": "Suns 1H ML",
-    "est": 0.6383,
-    "edge": 0.032,
+    "est": 0.6394,
+    "edge": 0.0315,
     "agree": 4,
     "sample": 13,
     "tier": "C",
