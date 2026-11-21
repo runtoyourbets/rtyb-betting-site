@@ -47,6 +47,7 @@ HIST_DIR = os.path.join(A.OUT_DIR, 'history')
 STATE = os.path.join(A.OUT_DIR, 'backfill_state.json')
 ORDER = ['nhl', 'nba', 'ncaab', 'nfl', 'ncaaf', 'mlb', 'wnba']
 MAX_ESTIMATE = 1_500_000
+BIG_ML = ('nba', 'nhl', 'nfl', 'wnba')   # a full-game ML of 1000+ (or both sides plus) here is flagged
 TIME_LIMIT = 5.5 * 3600
 COMMIT_EVERY = 30 * 60
 NHL_FINAL = ('FINAL', 'OFF')
@@ -270,6 +271,9 @@ def pending(run, sport, which):
     season, games = seasons[which]
     today = datetime.now(A.ET).date().isoformat()
     got, done = have(sport), run.done(sport, season)
+    for key, g in run.hist(sport, season)['games'].items():   # what earlier runs saved
+        for seg, markets in (g.get('segments') or {}).items():
+            got.setdefault(key, {}).setdefault(seg, set()).update(markets)
     keys = wanted(sport)
     days = {}
     for g in games:
@@ -316,7 +320,9 @@ def fill_day(run, sport, season, day, todo, rep):
         for t in times:
             data = A.historical_odds(sport, A.before(A.parse(t), 5), list(A.GAME.values())) or {}
             for e in data.get('data') or []:
-                bulk[e.get('id')] = e
+                # only the games starting at t: earlier ones in this snapshot are live (in-play prices)
+                if A.parse(e.get('commence_time')) == A.parse(t):
+                    bulk[e.get('id')] = e
     for e, g, flipped in pairs:
         key = f"{g['date']}|{g['away']}|{g['home']}"
         away_name, home_name = (e['home_team'], e['away_team']) if flipped else (e['away_team'], e['home_team'])
@@ -344,6 +350,9 @@ def fill_day(run, sport, season, day, todo, rep):
             for seg, v in books.items():
                 row['books'].setdefault(seg, {}).update(v)
             done[key] = 'filled'
+            ml = (lines.get('game') or {}).get('ml')
+            if ml and sport in BIG_ML and (max(abs(ml['away']), abs(ml['home'])) >= 1000 or min(ml['away'], ml['home']) > 0):
+                rep['big_ml'].append(f"{key} {ml['away']:+d}/{ml['home']:+d}")
             for seg, market, _ in g['_miss']:
                 if market not in (lines.get(seg) or {}):
                     rep['no_market'][f'{seg}.{market}'] = rep['no_market'].get(f'{seg}.{market}', 0) + 1
@@ -355,7 +364,7 @@ def fill_day(run, sport, season, day, todo, rep):
 def run_sport(run, sport, which):
     season, days = pending(run, sport, which)
     rep = {'sport': sport, 'season': season, 'games_todo': sum(len(v) for v in days.values()), 'filled': {},
-           'no_market': {}, 'unmatched': [], 'empty': [], 'credits': 0}
+           'no_market': {}, 'unmatched': [], 'empty': [], 'big_ml': [], 'credits': 0}
     if season is None:
         rep['note'] = f'no {which}-season games with scores in the repo'
         return rep
@@ -376,16 +385,38 @@ def run_sport(run, sport, which):
     return rep
 
 
+def clear_game(run, sport, season):
+    """Drops the saved full-game lines (segment "game") and their games' state,
+    so the next run pulls them again; the first segments stay. Returns how many."""
+    done, n = run.done(sport, season), 0
+    for key, g in run.hist(sport, season)['games'].items():
+        if 'game' in (g.get('segments') or {}):
+            g['segments'].pop('game')
+            (g.get('books') or {}).pop('game', None)
+            done.pop(key, None)
+            n += 1
+    return n
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--sport', default='all')
     ap.add_argument('--season', default='this', choices=('this', 'last', 'both'))
     ap.add_argument('--max-credits', type=int, default=400_000)
     ap.add_argument('--commit', action='store_true', help='commit and push every 30 minutes and at the end')
+    ap.add_argument('--clear-game', action='store_true', help='drop the saved full-game lines (no API calls)')
     args = ap.parse_args(argv)
     todo_sports = ORDER if args.sport == 'all' else [args.sport]
     whiches = ['this', 'last'] if args.season == 'both' else [args.season]
     run = Run(args.max_credits, args.commit)
+    if args.clear_game:
+        for s in todo_sports:
+            for w in whiches:
+                season = (seasons_for(s).get(w) or (None,))[0]
+                if season is not None:
+                    print(f'{s} {season}: cleared the full-game line of {clear_game(run, s, season)} games')
+        run.save()
+        return 0
     plan = [(s, w) for w in whiches for s in todo_sports]   # this season (all sports) first, then last
     est = {}
     for s, w in plan:
@@ -425,6 +456,8 @@ def summary(rep):
         lines.append(f"  unmatched games: {len(rep['unmatched'])} (e.g. {', '.join(rep['unmatched'][:5])})")
     if rep['empty']:
         lines.append(f"  matched but no lines: {len(rep['empty'])} (e.g. {', '.join(rep['empty'][:5])})")
+    if rep['big_ml']:
+        lines.append(f"  check: full-game ML 1000+ or both sides plus: {len(rep['big_ml'])} ({', '.join(rep['big_ml'][:10])})")
     if rep.get('stopped'):
         lines.append('  ' + rep['stopped'])
     return '\n'.join(lines)

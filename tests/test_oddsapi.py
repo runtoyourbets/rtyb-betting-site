@@ -97,6 +97,41 @@ class Matching(unittest.TestCase):
         self.assertEqual(len(A.match('ncaab', [ev], [game])[0]), 1)
 
 
+class FullGame(unittest.TestCase):
+    def test_bulk_snapshot_takes_only_its_own_start_time(self):
+        """The 8 PM snapshot also lists the 7 PM game, live by then: its in-play
+        prices never become the 7 PM game's closing line."""
+        early = {'id': 'e1', 'commence_time': '2026-11-15T00:00:00Z', 'away_team': AWAY, 'home_team': HOME}
+        late = {'id': 'e2', 'commence_time': '2026-11-15T01:00:00Z', 'away_team': 'Denver Nuggets', 'home_team': 'Utah Jazz'}
+
+        def ml(e, a, h):
+            return dict(e, bookmakers=[book('draftkings', h2h=[{'name': e['away_team'], 'price': a}, {'name': e['home_team'], 'price': h}])])
+        snaps = {'2026-11-14T23:55:00Z': [ml(early, -150, 130)],
+                 '2026-11-15T00:55:00Z': [ml(early, 3500, -10000), ml(late, 110, -130)]}
+        games = [({'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T00:00Z'}, [('game', 'ml', 'h2h')]),
+                 ({'date': '2026-11-14', 'away': 'den', 'home': 'utah', 'start': '2026-11-15T01:00Z'}, [('game', 'ml', 'h2h')])]
+        run = B.Run(None, False)
+        run.files[('nba', 2027)], run.state = {'games': {}}, {}
+        rep = {'filled': {}, 'no_market': {}, 'unmatched': [], 'empty': [], 'big_ml': []}
+        with mock.patch.object(A, 'historical_events', return_value={'data': [early, late]}), \
+                mock.patch.object(A, 'historical_odds', side_effect=lambda sport, at, markets: {'data': snaps[A.iso(at)]}):
+            B.fill_day(run, 'nba', 2027, '2026-11-14', games, rep)
+        saved = run.files[('nba', 2027)]['games']
+        self.assertEqual(saved['2026-11-14|bos|mia']['segments']['game']['ml'], {'away': -150, 'home': 130, 'books': 1})
+        self.assertEqual(saved['2026-11-14|den|utah']['segments']['game']['ml'], {'away': 110, 'home': -130, 'books': 1})
+        self.assertEqual(rep['big_ml'], [])
+
+    def test_saved_full_game_lines_are_pregame(self):
+        """No saved full-game moneyline has both sides plus (an in-play price)."""
+        for path in glob.glob(os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', '*', '*.json')):
+            with open(path, encoding='utf-8') as f:
+                games = json.load(f).get('games') or {}
+            for key, g in games.items():
+                ml = ((g.get('segments') or {}).get('game') or {}).get('ml')
+                if ml:
+                    self.assertFalse(ml['away'] > 0 and ml['home'] > 0, f'{path}: {key} {ml}')
+
+
 class Merge(unittest.TestCase):
     def test_priority_market_by_market(self):
         def game(segs):

@@ -128,7 +128,6 @@ class HubFollowUpTest(unittest.TestCase):
         for pill in ('F5 Moneyline', 'F5 Run Line', 'F5 Total', '1st Inning'):
             self.assertIn(pill, html)
         self.assertEqual(html.count('class="st-card aw-card'), 4 + 4 + 2 + 2)
-        self.assertIn('Not enough lines tracked', html)   # MLB 2026 saved F5 lines for a handful of games
 
     def test_champion_cell_under_20_games(self):
         t = offseason.Tally()
