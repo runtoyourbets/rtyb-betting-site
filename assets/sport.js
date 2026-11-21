@@ -1243,12 +1243,13 @@
       return tmSection('Game Log', segBtns + (list.length ? '<div class="st-card tp-card tp-log"><table class="tp-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>' + more
         : emptyNote('No games played yet.')), 'tmLog', tpFinalNote());
     }
-    // a game log cell: the side that settled the bet (spread / run line: the
-    // team's side), its closing price under it ("-" when none was saved)
+    // a game log cell: ML, 3-way and spread / run line show the page team's
+    // own side and price, graded from its side; Total, BTTS and NRFI the side
+    // that happened. No saved price: "-" in a plain cell, never a result color
     function logCell(g, p) {
-      var sides = lastSides(g, p, D.sport === 'nhl'), x = p.m === 'ats' ? sides[0] : settledSide(sides);
-      if (x && !x.cls && p.m !== 'ats') x = null;
-      return '<div class="tp-res">' + (x && x.cls ? lastSideCell(x) : '<span class="cell tp-rc"><span class="mc-dash">-</span></span>') + '</div>';
+      var sides = lastSides(g, p, D.sport === 'nhl');
+      var x = p.m === 'ml' || p.m === 'ml3' || p.m === 'ats' ? sides.filter(function(y) { return y.mine; })[0] : settledSide(sides);
+      return '<div class="tp-res">' + (x && x.cls && typeof x.pr === 'number' ? lastSideCell(x) : '<span class="cell tp-rc"><span class="mc-dash">-</span></span>') + '</div>';
     }
     // HOME / AWAY: desktop every market side by side; phones one market (pills)
     function homeAwayHtml() {
@@ -3118,7 +3119,7 @@
       function teamCell(g, sd, k) {
         if (sd[1]) return '<span class="ob-team"><span class="ob-tie">' + esc(sd[1]) + '</span></span>';
         var side = sd[2] || sd[0], slug = g[side], sc = g.state !== 'pre' && g.score && g.score[k];
-        return '<span class="ob-team">' + badge(slug, 20) + '<span class="tn-full">' + esc(shortName(slug)) + '</span><span class="tn-short">' + esc(code(slug)) + '</span>' +
+        return '<span class="ob-team">' + teamLink(slug, badge(slug, 20) + '<span class="tn-full">' + esc(shortName(slug)) + '</span><span class="tn-short">' + esc(code(slug)) + '</span>') +
           (sc ? '<span class="ob-sc mono">' + esc(sc[side === 'away' ? 0 : 1]) + '</span>' : '') + '</span>';
       }
       // Team, Open and one column per source

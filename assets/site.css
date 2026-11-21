@@ -1808,6 +1808,8 @@
   .ob-team .tn-full { overflow: hidden; text-overflow: ellipsis; }
   .ob-team .tn-short { display: none; }
   .ob-tie { color: var(--text-muted); padding-left: 26px; }
+  .ob-team .gm-team { display: flex; align-items: center; gap: 6px; min-width: 0; overflow: hidden; color: inherit; text-decoration: none; }
+  .ob-team a.gm-team:hover { color: var(--accent); }
   .ob-cell a, .ob-cell > span:first-child { color: var(--text); text-decoration: none; }
   .ob-cell a { display: block; border-radius: var(--cell-radius); }
   .ob-cell a:hover .ob-ln { text-decoration: underline; }
