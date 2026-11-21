@@ -11041,10 +11041,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 104,
+    "price": 105,
     "title": "Rockets 1H ML",
-    "est": 0.5623,
-    "edge": 0.0721,
+    "est": 0.5607,
+    "edge": 0.0729,
     "agree": 4,
     "sample": 14,
     "tier": "B",
@@ -11183,10 +11183,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 140,
+    "price": 142,
     "title": "Raptors 1Q ML",
-    "est": 0.4744,
-    "edge": 0.0577,
+    "est": 0.4721,
+    "edge": 0.0589,
     "agree": 3,
     "sample": 15,
     "tier": "B",
@@ -11563,6 +11563,99 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Wyoming"
+   },
+   {
+    "id": "nba|401909309|1q|ml|away",
+    "game": "nba|401909309",
+    "date": "2026-11-20",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Wizards @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -102,
+    "title": "Wizards 1Q ML",
+    "est": 0.5382,
+    "edge": 0.0332,
+    "agree": 2,
+    "sample": 16,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "wsh",
+    "angles": [
+     [
+      "Wizards 1Q ML on the road",
+      "6-3"
+     ],
+     [
+      "Bulls\u2019s opponents 1Q ML, Bulls at home",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Wizards"
+   },
+   {
+    "id": "nba|401909308|1h|total|over",
+    "game": "nba|401909308",
+    "date": "2026-11-20",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-21T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Raptors @ Pistons",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 104.5,
+    "price": -110,
+    "title": "1H Over 104.5",
+    "est": 0.5541,
+    "edge": 0.0302,
+    "agree": 5,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "det",
+    "angles": [
+     [
+      "Pistons 1H overs, last 8 (104.5)",
+      "7-1"
+     ],
+     [
+      "Raptors 1H overs on the road (104.5)",
+      "6-1"
+     ],
+     [
+      "Raptors 1H overs, season (104.5)",
+      "11-4"
+     ],
+     [
+      "Pistons 1H overs, season (104.5)",
+      "9-5"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Pistons 111.6 \u00b7 Raptors 112.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pistons"
    }
   ]
  }
