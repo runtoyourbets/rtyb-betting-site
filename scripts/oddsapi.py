@@ -212,8 +212,14 @@ def match(sport, api_events, games):
     """Odds API events -> our games: the same ET date and both teams (the
     Unabated feed's aliases and match_event). Returns ([(event, game,
     flipped)], [unmatched events]); unmatched events are listed, never guessed.
-    games: [{away, home, start}]."""
-    aliases = U.team_aliases(sport)
+    games: [{away, home, start, away_name?, home_name?}]."""
+    aliases = {slug: set(names) for slug, names in U.team_aliases(sport).items()}
+    for names in aliases.values():   # "LA Clippers" is "Los Angeles Clippers" here
+        names |= {'los angeles ' + n[3:] for n in names if n.startswith('la ')}
+    for g in games:   # teams outside the league (non-Division I opponents): the game's own names
+        for side in ('away', 'home'):
+            if g.get(side) not in aliases and g.get(side + '_name'):
+                aliases[g[side]] = {U.norm(g[side + '_name'])}
     pool = []
     for g in games:
         t = parse(g.get('start'))

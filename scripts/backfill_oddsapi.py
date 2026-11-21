@@ -23,7 +23,7 @@ Writes data_feed/oddsapi/history/{sport}/{season}.json:
   {"games": {"date|away|home": {date, away, home, start, source: "oddsapi",
      snapshot, segments: {seg: {market: line}}, books: {seg: {market: {book: row}}}}}}
 and data_feed/oddsapi/backfill_state.json (every game done, or tried and
-empty, is skipped by the next run). sport_build.merge_odds and build_site.py
+empty, is skipped by the next run; unmatched games are tried again). sport_build.merge_odds and build_site.py
 read the history files under admin and Unabated.
 
 Budget: --max-credits per run (oddsapi.py stops before a call would pass it)
@@ -85,7 +85,8 @@ def seasons_for(sport):
         if year is None:
             continue
         doc = read_json(os.path.join(d, f'{year}.json'), {})
-        games = [{'date': g['date'], 'away': g['away'], 'home': g['home'], 'start': g.get('start')}
+        games = [{'date': g['date'], 'away': g['away'], 'home': g['home'], 'start': g.get('start'),
+                  'away_name': g.get('away_name'), 'home_name': g.get('home_name')}
                  for g in (doc.get('games') or {}).values()
                  if g.get('season_type') in (2, 3) and g.get('final') and g.get('away_score') is not None
                  and (league is None or g['away'] in league or g['home'] in league)]
@@ -273,7 +274,7 @@ def pending(run, sport, which):
     days = {}
     for g in games:
         key = f"{g['date']}|{g['away']}|{g['home']}"
-        if g['date'] >= today or key in done:
+        if g['date'] >= today or done.get(key) in ('filled', 'empty'):   # unmatched games are tried again
             continue
         has = got.get(key) or {}
         missing = [x for x in keys if x[1] not in has.get(x[0], set())]
@@ -307,8 +308,7 @@ def fill_day(run, sport, season, day, todo, rep):
         key = f"{g['date']}|{g['away']}|{g['home']}"
         if key not in matched:
             rep['unmatched'].append(key)
-            if evs:   # a listed day without this game: not on the API, don't retry
-                done[key] = 'unmatched'
+            done[key] = 'unmatched'
     # the full game: one bulk snapshot per start time
     bulk = {}
     if sport != 'mlb':

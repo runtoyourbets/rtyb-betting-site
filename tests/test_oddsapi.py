@@ -86,6 +86,17 @@ class Closing(unittest.TestCase):
         self.assertEqual(lines, {})
 
 
+class Matching(unittest.TestCase):
+    def test_la_and_teams_outside_the_league(self):
+        ev = {'commence_time': '2026-10-22T02:00:00Z', 'away_team': 'Los Angeles Lakers', 'home_team': 'Los Angeles Clippers'}
+        pairs, missed = A.match('nba', [ev], [{'date': '2026-10-21', 'away': 'lal', 'home': 'lac', 'start': '2026-10-22T02:00Z'}])
+        self.assertEqual((pairs[0][1]['home'], pairs[0][2], missed), ('lac', False, []))
+        ev = {'commence_time': '2026-11-03T00:00:00Z', 'away_team': 'Bellarmine Knights', 'home_team': 'Louisville Cardinals'}
+        game = {'date': '2026-11-02', 'away': 'espn-91', 'home': 'louisville-cardinals', 'start': '2026-11-03T00:00Z',
+                'away_name': 'Bellarmine Knights', 'home_name': 'Louisville Cardinals'}
+        self.assertEqual(len(A.match('ncaab', [ev], [game])[0]), 1)
+
+
 class Merge(unittest.TestCase):
     def test_priority_market_by_market(self):
         def game(segs):
