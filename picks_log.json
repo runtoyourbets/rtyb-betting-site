@@ -13065,48 +13065,6 @@
     "streakTeamName": "UMass Lowell"
    },
    {
-    "id": "nba|401910032|1h|ml|home",
-    "game": "nba|401910032",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Nuggets @ Bulls",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 225,
-    "title": "Bulls 1H ML",
-    "est": 0.3548,
-    "edge": 0.0471,
-    "agree": 2,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1H ML at home",
-      "5-1"
-     ],
-     [
-      "Bulls 1H ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
-   },
-   {
     "id": "nba|401910034|1h|total|over",
     "game": "nba|401910034",
     "date": "2026-11-22",
@@ -13121,10 +13079,10 @@
     "market": "total",
     "side": "over",
     "line": 103.5,
-    "price": -115,
+    "price": -110,
     "title": "1H Over 103.5",
-    "est": 0.5789,
-    "edge": 0.044,
+    "est": 0.5717,
+    "edge": 0.0479,
     "agree": 5,
     "sample": 16,
     "tier": "B",
@@ -13156,6 +13114,94 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Pacers"
+   },
+   {
+    "id": "nba|401910032|1h|ml|home",
+    "game": "nba|401910032",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Nuggets @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 215,
+    "title": "Bulls 1H ML",
+    "est": 0.3613,
+    "edge": 0.0439,
+    "agree": 2,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H ML at home",
+      "5-1"
+     ],
+     [
+      "Bulls 1H ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
+   },
+   {
+    "id": "nba|401910033|1q|ml|home",
+    "game": "nba|401910033",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -102,
+    "title": "Jazz 1Q ML",
+    "est": 0.5464,
+    "edge": 0.0414,
+    "agree": 3,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -2,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "5-1-1"
+     ],
+     [
+      "Jazz 1Q ML at home",
+      "5-4"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "8-7-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
    },
    {
     "id": "nhl|2026020374|1p|btts|yes",
@@ -13244,52 +13290,6 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "UAlbany"
-   },
-   {
-    "id": "nba|401910033|1q|ml|home",
-    "game": "nba|401910033",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -105,
-    "title": "Jazz 1Q ML",
-    "est": 0.5512,
-    "edge": 0.039,
-    "agree": 3,
-    "sample": 15,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -2,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
-      "5-1-1"
-     ],
-     [
-      "Jazz 1Q ML at home",
-      "5-4"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "8-7-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
    },
    {
     "id": "ncaab|401918455|1h|ml|away",
