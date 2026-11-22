@@ -13163,6 +13163,48 @@
     "streakTeamName": "Ravens"
    },
    {
+    "id": "nba|401910032|1h|ml|home",
+    "game": "nba|401910032",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Nuggets @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 194,
+    "title": "Bulls 1H ML",
+    "est": 0.3764,
+    "edge": 0.0363,
+    "agree": 2,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H ML at home",
+      "5-1"
+     ],
+     [
+      "Bulls 1H ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
+   },
+   {
     "id": "nfl|401873070|1h|ats|away",
     "game": "nfl|401873070",
     "date": "2026-11-22",
@@ -13364,48 +13406,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Texas State"
-   },
-   {
-    "id": "nba|401910032|1h|ml|home",
-    "game": "nba|401910032",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Nuggets @ Bulls",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 186,
-    "title": "Bulls 1H ML",
-    "est": 0.3828,
-    "edge": 0.0331,
-    "agree": 2,
-    "sample": 15,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1H ML at home",
-      "5-1"
-     ],
-     [
-      "Bulls 1H ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
    },
    {
     "id": "nba|401910034|1h|total|over",
