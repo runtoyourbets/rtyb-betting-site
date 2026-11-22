@@ -13065,57 +13065,6 @@
     "streakTeamName": "Southern Indiana"
    },
    {
-    "id": "nba|401910034|1h|total|over",
-    "game": "nba|401910034",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Pacers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 104.5,
-    "price": -102,
-    "title": "1H Over 104.5",
-    "est": 0.553,
-    "edge": 0.0481,
-    "agree": 4,
-    "sample": 16,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 9,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1H overs on the road (104.5)",
-      "8-0"
-     ],
-     [
-      "Pacers 1H overs, last 8 (104.5)",
-      "8-0"
-     ],
-     [
-      "Pacers 1H overs, season (104.5)",
-      "15-1"
-     ],
-     [
-      "Knicks 1H overs, last 8 (104.5)",
-      "5-3"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
-   },
-   {
     "id": "nba|401910032|1h|ml|home",
     "game": "nba|401910032",
     "date": "2026-11-22",
@@ -13156,6 +13105,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
+   },
+   {
+    "id": "nba|401910034|1h|total|over",
+    "game": "nba|401910034",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Pacers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 104.5,
+    "price": -105,
+    "title": "1H Over 104.5",
+    "est": 0.5578,
+    "edge": 0.0456,
+    "agree": 4,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 9,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1H overs on the road (104.5)",
+      "8-0"
+     ],
+     [
+      "Pacers 1H overs, last 8 (104.5)",
+      "8-0"
+     ],
+     [
+      "Pacers 1H overs, season (104.5)",
+      "15-1"
+     ],
+     [
+      "Knicks 1H overs, last 8 (104.5)",
+      "5-3"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
    },
    {
     "id": "nhl|2026020374|1p|btts|yes",
@@ -13377,52 +13377,6 @@
     "streakTeamName": "Pistons"
    },
    {
-    "id": "nba|401910033|1q|ml|home",
-    "game": "nba|401910033",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -110,
-    "title": "Jazz 1Q ML",
-    "est": 0.559,
-    "edge": 0.0352,
-    "agree": 3,
-    "sample": 15,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -2,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
-      "5-1-1"
-     ],
-     [
-      "Jazz 1Q ML at home",
-      "5-4"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "8-7-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
-   },
-   {
     "id": "ncaab|401929202|1h|ats|home",
     "game": "ncaab|401929202",
     "date": "2026-11-22",
@@ -13468,6 +13422,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Texas State"
+   },
+   {
+    "id": "nba|401910033|1q|ml|home",
+    "game": "nba|401910033",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -112,
+    "title": "Jazz 1Q ML",
+    "est": 0.562,
+    "edge": 0.0337,
+    "agree": 3,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -2,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "5-1-1"
+     ],
+     [
+      "Jazz 1Q ML at home",
+      "5-4"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "8-7-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
    }
   ]
  }
