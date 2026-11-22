@@ -161,9 +161,10 @@ NO_BEST = {'60'}   # theScore CA (RTYB is for US bettors)
 BOOK_KEYS = {'1': 'draftkings', '2': 'fanduel', '4': 'betmgm', '80': 'betmgm', '20': 'caesars',
              '36': 'thescore', '118': 'thescore', '86': 'fanatics', '121': 'underdog'}
 LOGO_EXTS = ('svg', 'png', 'webp', 'jpg')
-# The Odds API's books (backfill_oddsapi.py history rows) -> the Odds page's
-# source ids: the books Unabated also carries keep its ids, the rest are new
-# sources (no logo yet: the page shows the name)
+# The Odds API's books (the backfill's history rows and the live feed,
+# fetch_odds_theoddsapi.py) -> the Odds page's source ids: the books Unabated
+# also carries keep its ids (Unabated's row, with its Gambly link, wins), the
+# rest are new sources (no logo yet: the page shows the name)
 ODDSAPI_BOOKS = {'draftkings': '1', 'fanduel': '2', 'betmgm': '4', 'williamhill_us': '20', 'fanatics': '86',
                  'espnbet': 'espnbet', 'betrivers': 'betrivers', 'hardrockbet': 'hardrockbet', 'bovada': 'bovada',
                  'betonlineag': 'betonlineag'}
@@ -224,7 +225,9 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
     Games that haven't started carry every source's live price (links have the
     partner code, fetch_odds_unabated.tag_link); started and finished games
     carry each source's closing line (`books`) and opening line (`opens`) from
-    data_feed/unabated/history/, without links. `best` is the best price per
+    data_feed/unabated/history/, without links; The Odds API's books
+    (data_feed/oddsapi/{sport}.json, then its history/{sport}/{date}.json)
+    sit next to them, Unabated's row winning for a book both carry. `best` is the best price per
     side (the green outline), `open` the best opening price (the Open column).
 
     schedule: {date: [{away, home, start, state, score?, detail?, res?}]}, state
@@ -239,6 +242,8 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
     index_path = os.path.join(slug_dir, 'odds.json')
     live = {(g['date'], g['away'], g['home']): g for g in (feed.get('games') or {}).values()}
     backfill = oddsapi_books(sp['key'])
+    oa_live = oddsapi_live(sp['key'])
+    oa_hist_dir = os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', sp['key'])
     admin = read_json(os.path.join(ROOT, 'data_admin', 'odds', f"{sp['key']}.json"), {})
     extras = {}
     for x in extra or []:
@@ -258,6 +263,15 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
             out.setdefault(seg, {}).update(mk)
         return out
 
+    def under(a, b):
+        """a with b's books where a has none for that book (both sources side by side; a wins)"""
+        out = {seg: {m: dict(by) for m, by in mk.items()} for seg, mk in (a or {}).items()}
+        for seg, mk in (b or {}).items():
+            for m, by in mk.items():
+                for book, row in (by or {}).items():
+                    out.setdefault(seg, {}).setdefault(m, {}).setdefault(book, row)
+        return out
+
     def bests(books):
         return {seg: {m: v for m, v in ((m, best_price(m, by)) for m, by in mk.items()) if v}
                 for seg, mk in books.items()}
@@ -267,6 +281,7 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
     os.makedirs(out_dir, exist_ok=True)
     for d in sorted(dates):
         hist = (read_json(os.path.join(hist_dir, f'{d}.json'), {}).get('games') or {})
+        oa_hist = (read_json(os.path.join(oa_hist_dir, f'{d}.json'), {}).get('games') or {})
         rows = []
         for sg in sorted(schedule[d], key=lambda x: (x.get('start') or '', x['away'])):
             key = (d, sg['away'], sg['home'])
@@ -286,6 +301,10 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
                 books = merge(clean(h.get('close') or _unlinked(lg.get('books'))), plain_extra)
             # the Open column keeps the opening line before, during and after the game
             opens = merge(clean(h.get('open') or lg.get('opens')), plain_extra)
+            # The Odds API's books next to Unabated's (live until the start, then its closing rows)
+            oh, ol = oa_hist.get(f"{sg['away']}|{sg['home']}") or {}, oa_live.get('|'.join(key)) or {}
+            books = under(books, clean(oddsapi_rows(ol.get('books') if state == 'pre' else oh.get('close') or ol.get('books'))))
+            opens = under(opens, clean(oddsapi_rows(oh.get('open') or ol.get('opens'))))
             best = bests(books)
             if state != 'pre':
                 bf = backfill.get('|'.join(key)) or {}
@@ -351,18 +370,40 @@ def seg_scores(sp, g):
     return out or None
 
 
+def oddsapi_seasons(sport):
+    """The backfill's season files (history/{sport}/{season}.json); the live
+    feed's day files (history/{sport}/{date}.json) sit next to them."""
+    return sorted(glob.glob(os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', sport, '[0-9][0-9][0-9][0-9].json')))
+
+
+def oddsapi_live(sport):
+    """{game key: game} of The Odds API's live feed (fetch_odds_theoddsapi.py)."""
+    return read_json(os.path.join(ROOT, 'data_feed', 'oddsapi', f'{sport}.json'), {}).get('games') or {}
+
+
+def oddsapi_rows(books):
+    """{seg: {market: {book: row}}} from The Odds API under the Odds page's
+    source ids and market keys (NRFI / YRFI is rfi)."""
+    return {seg: {{'nrfi_yrfi': 'rfi'}.get(m, m): {ODDSAPI_BOOKS[b]: row for b, row in (by or {}).items() if b in ODDSAPI_BOOKS}
+                  for m, by in mk.items()} for seg, mk in (books or {}).items()}
+
+
 def oddsapi_odds(sport, segs=None):
-    """{game key: {date, away, home, segments}} from The Odds API backfill
-    (scripts/backfill_oddsapi.py, data_feed/oddsapi/history/{sport}/*.json),
-    every season; segs: only these segments. Each line's `books` count stays
-    in the history file."""
+    """{game key: {date, away, home, segments}} from The Odds API: the
+    backfill (scripts/backfill_oddsapi.py, data_feed/oddsapi/history/{sport}/
+    {season}.json, every season) and, over it market by market, the live feed
+    (data_feed/oddsapi/{sport}.json); segs: only these segments. Each line's
+    `books` count stays in the history file."""
     out = {}
-    for path in sorted(glob.glob(os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', sport, '*.json'))):
-        for key, g in (read_json(path, {}).get('games') or {}).items():
+    live = [{'games': oddsapi_live(sport)}]
+    for doc in [read_json(p, {}) for p in oddsapi_seasons(sport)] + live:
+        for key, g in (doc.get('games') or {}).items():
             seg_odds = {seg: {m: {k: v for k, v in line.items() if k != 'books'} for m, line in markets.items()}
                         for seg, markets in (g.get('segments') or {}).items() if segs is None or seg in segs}
             if seg_odds:
-                out[key] = {'date': g.get('date'), 'away': g.get('away'), 'home': g.get('home'), 'segments': seg_odds}
+                was = out.setdefault(key, {'date': g.get('date'), 'away': g.get('away'), 'home': g.get('home'), 'segments': {}})
+                for seg, mk in seg_odds.items():
+                    was['segments'].setdefault(seg, {}).update(mk)
     return out
 
 
@@ -373,10 +414,9 @@ def oddsapi_books(sport):
     NRFI / YRFI under the page's market key (rfi)."""
     mkey = {'nrfi_yrfi': 'rfi'}
     out = {}
-    for path in sorted(glob.glob(os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', sport, '*.json'))):
+    for path in oddsapi_seasons(sport):
         for key, g in (read_json(path, {}).get('games') or {}).items():
-            books = {seg: {mkey.get(m, m): {ODDSAPI_BOOKS[b]: row for b, row in (by or {}).items() if b in ODDSAPI_BOOKS}
-                           for m, by in mk.items()} for seg, mk in (g.get('books') or {}).items()}
+            books = oddsapi_rows(g.get('books'))
             lines = {seg: {mkey.get(m, m): {k: v for k, v in line.items() if k != 'books'} for m, line in mk.items()}
                      for seg, mk in (g.get('segments') or {}).items()}
             out[key] = {'books': books, 'lines': lines}

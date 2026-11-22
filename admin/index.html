@@ -834,6 +834,7 @@
   var TEAM_INDEX = {};      // lowercased name / code / city -> [slugs]
   var ODDS = {};            // data_admin/odds/{sport}.json
   var FEED = {};            // data_feed/unabated/{sport}.json -- auto-published odds (fetch_odds_unabated.py)
+  var OA_STATUS = {};       // data_feed/oddsapi/status.json -- The Odds API's live credits (fetch_odds_theoddsapi.py)
   var SCHEDULE = {};        // {slug}/data.json games by date, once loaded
   var WEEKS = [];           // football: [{key, label, start, end}] from data.json
   var SEGMENT = null;
@@ -917,8 +918,10 @@
       fetchJson('../data_admin/odds/' + key + '.json', {}),
       fetchJson('../' + SPORT.slug + '/data.json', {}),
       fetchJson('../data_feed/unabated/' + key + '.json', {}),
+      fetchJson('../data_feed/oddsapi/status.json', {}),
     ]).then(function(r) {
       if (!SPORT || SPORT.key !== key) return;
+      OA_STATUS = r[4] || {};
       setTeams((r[0] && r[0].teams) || []);
       ODDS = r[1] || {};
       FEED = r[3] || {};
@@ -1075,6 +1078,11 @@
       if (failed.length) html += ' <span class="gap">(' + failed.map(function(k) { return { 1: 'ML', 2: 'spreads', 3: 'totals' }[k] || k; }).join(', ') + ' didn&rsquo;t load that time - earlier numbers kept)</span>';
     } else {
       html += ' &middot; no auto odds pulled yet';
+    }
+    if (OA_STATUS.updated) {
+      var n = function(x) { return x == null ? '-' : Number(x).toLocaleString('en-US'); };
+      html += ' &middot; The Odds API: ' + n(OA_STATUS.today) + ' credits used today / ' + n(OA_STATUS.month) +
+        ' this month / ' + n(OA_STATUS.remaining) + ' remaining';
     }
     if (missing.length) html += '<div class="gap">Missing:</div><ul><li>' + missing.join('</li><li>') + '</li></ul>';
     if ((FEED.unmatched || []).length) {

@@ -526,9 +526,10 @@ def note_opens(rec, seg, market, books):
         opens.setdefault(b, unlinked(row))
 
 
-def archive_started(sport, games_doc, now):
+def archive_started(sport, games_doc, now, history_dir=None):
     """Move started games' per-source opens and closing lines into the day's
-    history file, then drop them from the live feed. Returns how many moved."""
+    history file (history_dir/{sport}/{date}.json), then drop them from the
+    live feed. Returns how many moved."""
     by_date = {}
     for key, g in games_doc.items():
         start = parse_time(g.get('start'))
@@ -536,7 +537,7 @@ def archive_started(sport, games_doc, now):
             continue
         by_date.setdefault(g['date'], []).append(g)
     for day, games in by_date.items():
-        path = os.path.join(HISTORY_DIR, sport, f'{day}.json')
+        path = os.path.join(history_dir or HISTORY_DIR, sport, f'{day}.json')
         doc = read_json(path, {'games': {}})
         for g in games:
             row = doc['games'].setdefault(f"{g['away']}|{g['home']}", {'away': g['away'], 'home': g['home']})

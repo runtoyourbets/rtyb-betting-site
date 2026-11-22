@@ -217,6 +217,8 @@ def closing(sport, bookmakers, keys, away_name, home_name):
                 continue
             m = next((x for x in b.get('markets') or [] if x.get('key') == api_key), None)
             row = m and book_row(market, api_key, m.get('outcomes'), away_name, home_name)
+            if row and sport == 'mlb' and market == 'ats' and abs(row['away']['line']) != 0.5:
+                row = None   # RTYB's F5 run line is always 0.5 (as the Unabated feed keeps it)
             if row:
                 rows[b['key']] = row
         if not rows:

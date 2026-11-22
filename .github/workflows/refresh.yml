@@ -70,33 +70,34 @@ jobs:
       - name: Fetch other sports' team logos (cached; only new teams are requested)
         run: python3 scripts/fetch_sport_logos.py || echo "logo fetch failed; teams keep their color badges"
 
-      - name: Decide whether this run also fetches odds
+      - name: Decide whether this run is the hourly odds pull
         id: gate
         run: |
-          # Odds cost API quota (both providers' free tiers are limited);
-          # scores/schedule don't (the NHL API is free and unlimited). So
-          # scores refresh every 10 minutes, but odds only refresh once an
-          # hour -- specifically on the run landing in the first 10 minutes
-          # after the hour. Force it with workflow_dispatch when you want an
-          # odds refresh on demand.
+          # The Odds API bills per market returned, so the full pull (every
+          # game in the next 36 hours) runs once an hour: on the run landing
+          # in the first 10 minutes after the hour. Every run still does the
+          # closing capture (games starting in the next 20 minutes). The
+          # Cloudflare timer starts runs as workflow_dispatch, so that event
+          # doesn't force the hourly pull.
           minute=$(date -u +%M)
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$minute" -lt 10 ]; then
-            echo "fetch_odds=true" >> "$GITHUB_OUTPUT"
+          if [ "$minute" -lt 10 ]; then
+            echo "hourly=true" >> "$GITHUB_OUTPUT"
           else
-            echo "fetch_odds=false" >> "$GITHUB_OUTPUT"
+            echo "hourly=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Fetch 1P moneyline / totals odds (The Odds API)
-        if: steps.gate.outputs.fetch_odds == 'true'
+      - name: Fetch odds for every sport (The Odds API; hourly, plus the closing capture every run)
+        # Writes data_feed/oddsapi/{sport}.json, the break lines for grading
+        # and the usage status; SportsGameOdds' BTTS fetcher is switched off
+        # (The Odds API carries 1P BTTS). A failure keeps the saved odds.
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python3 scripts/fetch_odds_theoddsapi.py
-
-      - name: Fetch 1P BTTS odds (SportsGameOdds)
-        if: steps.gate.outputs.fetch_odds == 'true'
-        env:
-          SPORTSGAMEODDS_API_KEY: ${{ secrets.SPORTSGAMEODDS_API_KEY }}
-        run: python3 scripts/fetch_odds_sportsgameodds.py
+        run: |
+          if [ "${{ steps.gate.outputs.hourly }}" = "true" ]; then
+            python3 scripts/fetch_odds_theoddsapi.py --hourly || echo "The Odds API fetch failed; keeping saved odds"
+          else
+            python3 scripts/fetch_odds_theoddsapi.py || echo "The Odds API fetch failed; keeping saved odds"
+          fi
 
       - name: Fetch 1Q / 1H / F5 odds for the other sports (Unabated, auto-published)
         # Every run, not just hourly: the free tier has no quota, only a

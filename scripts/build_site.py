@@ -15,8 +15,9 @@ Inputs (all relative to repo root, where this runs from in CI):
                               so closing odds already saved on now-completed
                               games survive even once an odds API stops
                               returning them for a finished game.
-  odds_theoddsapi.json    -- fresh 1P moneyline + totals, keyed "date|away|home"
-  odds_sportsgameodds.json -- fresh 1P BTTS yes price, same key shape
+  data_feed/oddsapi/nhl.json -- The Odds API's live 1P moneyline, totals,
+                              3-way and BTTS (fetch_odds_theoddsapi.py),
+                              keyed "date|away|home"
   template.html           -- shared site shell (head/nav/CSS/JS) with
                               per-page content marked off with
                               <!-- PAGE:<key> --> ... <!-- /PAGE:<key> -->
@@ -1123,6 +1124,35 @@ def nhl_oddsapi(key, oddsapi):
     return out
 
 
+def nhl_live_odds(games):
+    """The Odds API's live feed (data_feed/oddsapi/nhl.json) in the schedule's
+    odds shape: {key: {ml: {AWAY: price, HOME: price}, totals: {line: {over,
+    under}}, ml3, btts_yes, btts_no}}. Totals carry every line a book posts
+    (the best price at each; the pages read 1.5) while the books are there,
+    then the closing line."""
+    import fetch_odds_unabated as feed
+    out = {}
+    for key, g in (games or {}).items():
+        p = (g.get('segments') or {}).get('1p') or {}
+        o = {}
+        if p.get('ml'):
+            o['ml'] = {g['away']: p['ml']['away'], g['home']: p['ml']['home']}
+        rows = ((g.get('books') or {}).get('1p') or {}).get('total') or {}
+        for line in sorted({r['line'] for r in rows.values()}):
+            best = feed.best_of('total', {b: r for b, r in rows.items() if r['line'] == line}, ())
+            if best:
+                o.setdefault('totals', {})[f'{line:g}'] = {'over': best['over'], 'under': best['under']}
+        if not o.get('totals') and p.get('total'):
+            o['totals'] = {f"{p['total']['line']:g}": {'over': p['total']['over'], 'under': p['total']['under']}}
+        if p.get('ml3'):
+            o['ml3'] = p['ml3']
+        if p.get('btts'):
+            o['btts_yes'], o['btts_no'] = p['btts'].get('yes'), p['btts'].get('no')
+        if o:
+            out[key] = o
+    return out
+
+
 def fill_from_oddsapi(games, key_of, oddsapi):
     """Each game's odds the other sources left empty, field by field, from
     The Odds API backfill (under the admin and Unabated; admin overrides are
@@ -1143,8 +1173,9 @@ def main():
     base = load('base_data.json', {'summary': {}, 'streaks': {}, 'gamelog': {}})
     fresh_schedule = load('schedule_fresh.json', {'gameCounts': {}, 'games': {}})
     prev_schedule = load('schedule_data.json', {'gameCounts': {}, 'games': {}})
-    odds_oddsapi = load('odds_theoddsapi.json', {})
-    odds_sgo = load('odds_sportsgameodds.json', {})
+    # The Odds API's live feed (fetch_odds_theoddsapi.py; it replaced
+    # SportsGameOdds for BTTS, whose fetcher is switched off)
+    odds_oddsapi = nhl_live_odds((load('data_feed/oddsapi/nhl.json', {}) or {}).get('games'))
     odds_unabated = (load('data_feed/unabated/nhl.json', {}) or {}).get('games') or {}
     odds_overrides = load('data_admin/odds_overrides.json', {})
     results_overrides = load('data_admin/results_overrides.json', {})
@@ -1175,16 +1206,16 @@ def main():
                         line: {'over': prices.get('over'), 'under': prices.get('under')}
                         for line, prices in oa['totals'].items()
                     }
-            sgo = odds_sgo.get(key)
-            if sgo and sgo.get('btts_yes') is not None:
-                odds['btts_yes'] = sgo['btts_yes']
-            if sgo and sgo.get('btts_no') is not None:
-                odds['btts_no'] = sgo['btts_no']
+                for k in ('btts_yes', 'btts_no'):
+                    if oa.get(k) is not None:
+                        odds[k] = oa[k]
             # Unabated (fetch_odds_unabated.py): the 1st-period 3-way
             # moneyline, and the 2-way ML / total when The Odds API had none
             un = ((odds_unabated.get(key) or {}).get('segments') or {}).get('1p') or {}
             if un.get('ml3'):
                 odds['ml3'] = un['ml3']
+            elif oa and oa.get('ml3'):
+                odds['ml3'] = oa['ml3']
             if not odds.get('ml') and un.get('ml'):
                 odds['ml'] = {g['away']: un['ml']['away'], g['home']: un['ml']['home']}
             if not odds.get('totals') and un.get('total'):
@@ -1328,15 +1359,19 @@ def main():
 
     # /nhl/odds/: the book-by-book Odds page, rendered by assets/sport.js
     # like the other sports' (nhl/odds.json carries the team names and logos)
-    # BTTS isn't on the feed: it's the price entered in the admin (or
-    # SportsGameOdds), shown as one price column, under the sportsbook the
-    # admin copies it from (data_admin/settings.json; default "Consensus")
+    # BTTS isn't on the Unabated feed: The Odds API's books show it (its
+    # live feed and history, sport_build.write_odds_page); a game without
+    # them shows the price entered in the admin as one price column, under
+    # the sportsbook the admin copies it from (data_admin/settings.json;
+    # default "Consensus")
     btts_book = str((load('data_admin/settings.json', {}) or {}).get('bttsSourceBook') or 'consensus')
     btts = []
+    oa_btts = {k for k, g in ((load('data_feed/oddsapi/nhl.json', {}) or {}).get('games') or {}).items()
+               if ((g.get('books') or {}).get('1p') or {}).get('btts') or ((g.get('segments') or {}).get('1p') or {}).get('btts')}
     for date_str, games in merged_games.items():
         for g in games:
             o = g.get('odds') or {}
-            if o.get('btts_yes') is None and o.get('btts_no') is None:
+            if o.get('btts_yes') is None and o.get('btts_no') is None or f"{date_str}|{g['away']}|{g['home']}" in oa_btts:
                 continue
             row = {'yes': {'price': o['btts_yes']} if o.get('btts_yes') is not None else None,
                    'no': {'price': o['btts_no']} if o.get('btts_no') is not None else None}

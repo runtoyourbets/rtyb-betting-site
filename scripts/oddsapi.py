@@ -4,8 +4,9 @@ the backfill and the live pulls.
 
 The key comes from env ODDS_API_KEY (a GitHub Actions secret) and is never
 printed, logged or written to a file: every call's usage goes to
-data_feed/oddsapi/usage.jsonl as {time, endpoint, sport, credits, remaining}
-with the endpoint's path only.
+data_feed/oddsapi/usage.jsonl as {time, endpoint, sport, credits, remaining,
+job} with the endpoint's path only (job: "live" for the live pulls, whose
+budget counts only those rows).
 
 Safety: BUDGET (credits this run) raises BudgetExceeded before a call that
 could pass it; nothing is called once x-requests-remaining is under FLOOR
@@ -58,6 +59,7 @@ BOOKS = ('draftkings', 'fanduel', 'betmgm', 'williamhill_us', 'espnbet', 'fanati
 
 FLOOR = 250_000      # never call below this many credits remaining
 BUDGET = None        # credits this run may use (None: no cap); set by the caller
+JOB = None           # "live" for fetch_odds_theoddsapi.py (its budget reads these rows)
 TRIES = 3
 
 
@@ -94,6 +96,8 @@ def log_usage(endpoint, sport, credits, left):
     os.makedirs(OUT_DIR, exist_ok=True)
     row = {'time': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'endpoint': endpoint, 'sport': sport,
            'credits': credits, 'remaining': left}
+    if JOB:
+        row['job'] = JOB
     with open(USAGE, 'a', encoding='utf-8') as f:
         f.write(json.dumps(row, sort_keys=True) + '\n')
 
