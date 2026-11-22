@@ -13112,6 +13112,53 @@
     "streakTeamName": "Ravens"
    },
    {
+    "id": "nfl|401873076|1h|ml|home",
+    "game": "nfl|401873076",
+    "date": "2026-11-22",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-22T18:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Steelers @ Eagles",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 150,
+    "title": "Eagles 1H ML",
+    "est": 0.4381,
+    "edge": 0.0381,
+    "agree": 3,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Early Bird"
+    ],
+    "streak": 1,
+    "streakTeam": "phi",
+    "angles": [
+     [
+      "Steelers\u2019s opponents 1H ML, Steelers on the road",
+      "4-1"
+     ],
+     [
+      "Eagles 1H ML at home",
+      "3-2"
+     ],
+     [
+      "Eagles 1H ML, season",
+      "5-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Eagles"
+   },
+   {
     "id": "ncaab|401918455|1h|ml|away",
     "game": "ncaab|401918455",
     "date": "2026-11-22",
@@ -13248,53 +13295,6 @@
     "streakTeamName": "Bulls"
    },
    {
-    "id": "nfl|401873076|1h|ml|home",
-    "game": "nfl|401873076",
-    "date": "2026-11-22",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-22T18:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Steelers @ Eagles",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 145,
-    "title": "Eagles 1H ML",
-    "est": 0.4443,
-    "edge": 0.0362,
-    "agree": 3,
-    "sample": 9,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Early Bird"
-    ],
-    "streak": 1,
-    "streakTeam": "phi",
-    "angles": [
-     [
-      "Steelers\u2019s opponents 1H ML, Steelers on the road",
-      "4-1"
-     ],
-     [
-      "Eagles 1H ML at home",
-      "3-2"
-     ],
-     [
-      "Eagles 1H ML, season",
-      "5-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Eagles"
-   },
-   {
     "id": "nfl|401873070|1h|ats|away",
     "game": "nfl|401873070",
     "date": "2026-11-22",
@@ -13405,10 +13405,10 @@
     "market": "ats",
     "side": "away",
     "line": 2.5,
-    "price": -113,
+    "price": -112,
     "title": "Pacers 1Q +2.5",
-    "est": 0.5648,
-    "edge": 0.0343,
+    "est": 0.5634,
+    "edge": 0.0351,
     "agree": 3,
     "sample": 16,
     "tier": "C",
