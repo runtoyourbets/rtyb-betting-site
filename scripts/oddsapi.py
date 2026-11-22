@@ -227,9 +227,17 @@ def api_name(sport, name):
     return n
 
 
+def tbd(t):
+    """ESPN's placeholder start for a game with no time yet: 11:59 PM ET."""
+    t = t.astimezone(ET)
+    return (t.hour, t.minute) == (23, 59)
+
+
 def match(sport, api_events, games):
     """Odds API events -> our games: the same ET date and both teams (the
-    Unabated feed's aliases and match_event). Returns ([(event, game,
+    Unabated feed's aliases and match_event, which wants the starts within 4
+    hours; a game whose start is ESPN's 11:59 PM ET placeholder matches on the
+    date and both teams alone). Returns ([(event, game,
     flipped)], [unmatched events]); unmatched events are listed, never guessed.
     games: [{away, home, start, away_name?, home_name?}]."""
     aliases = {slug: set(names) for slug, names in U.team_aliases(sport).items()}
@@ -248,7 +256,8 @@ def match(sport, api_events, games):
     for e in api_events or []:
         t = parse(e.get('commence_time'))
         day = t.astimezone(ET).date() if t else None
-        same_day = [g for g in pool if day and g['_start'].astimezone(ET).date() == day]
+        same_day = [dict(g, _start=t) if tbd(g['_start']) else g
+                    for g in pool if day and g['_start'].astimezone(ET).date() == day]
         g, flipped = U.match_event(api_name(sport, e.get('away_team')), api_name(sport, e.get('home_team')), t, same_day, aliases) if t else (None, False)
         if g:
             pairs.append((e, {k: v for k, v in g.items() if k != '_start'}, flipped))

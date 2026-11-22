@@ -1,0 +1,3 @@
+# The refresh and the Odds API backfill both append to the usage log:
+# a rebase keeps both sides' lines instead of conflicting
+data_feed/oddsapi/usage.jsonl merge=union

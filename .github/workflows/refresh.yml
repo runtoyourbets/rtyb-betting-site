@@ -169,11 +169,16 @@ jobs:
             echo "Push rejected (attempt $attempt) -- rebasing onto latest remote and retrying..."
             git fetch origin main
             if ! git rebase origin/main; then
-              # both runs rewrote the same generated files; the newer one is
-              # already live and the next run rebuilds everything anyway
+              # both rewrote the same files (another refresh, or the Odds API
+              # backfill): this run's scores and odds are the newest, so its
+              # side of each conflict wins (in a rebase, "theirs" is this
+              # run's commit) instead of skipping the publish
               git rebase --abort
-              echo "::warning::Another refresh published first; skipping this push (the next run catches up)."
-              exit 0
+              if ! git rebase -X theirs origin/main; then
+                git rebase --abort
+                echo "::warning::Could not rebase this run's commit; skipping this push (the next run catches up)."
+                exit 0
+              fi
             fi
             sleep 3
           done

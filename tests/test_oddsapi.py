@@ -195,6 +195,26 @@ class FullGame(unittest.TestCase):
         run, rep = fill([], [stray], {})
         self.assertEqual(rep['unmatched_events'], ['2026-11-14 UMKC Kangaroos @ Nowhere Owls'])
 
+    def test_indoor_game_starts_by_espns_time(self):
+        """SA @ SAC, Mar 17: the API listed the tip an hour after ESPN's
+        start, so its 'pregame' snapshot was in-play. Indoor sports take the
+        earlier of the two."""
+        late = {'id': 'e1', 'commence_time': '2026-11-15T01:00:00Z', 'away_team': AWAY, 'home_team': HOME}
+        snaps = {'2026-11-14T23:55:00Z': [ml(late, -150, 130)], '2026-11-15T00:55:00Z': [ml(late, -10000, 3300)]}
+        games = [({'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T00:00Z'}, [('game', 'ml', 'h2h')])]
+        run, rep = fill(games, [late], snaps)
+        g = run.files[('nba', 2027)]['games']['2026-11-14|bos|mia']
+        self.assertEqual(g['segments']['game']['ml'], {'away': -150, 'home': 130, 'books': 1})
+        self.assertEqual(g['game_snapshot'], '2026-11-14T23:55:00Z')
+
+    def test_tbd_start_matches_on_the_date(self):
+        """ESPN's 11:59 PM ET placeholder is hours from the real tip: the date
+        and both teams match it; a real start still needs the 4 hours."""
+        ev = {'commence_time': '2026-11-15T00:00:00Z', 'away_team': AWAY, 'home_team': HOME}
+        tbd = {'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T04:59Z'}
+        self.assertEqual(len(A.match('nba', [ev], [tbd])[0]), 1)
+        self.assertEqual(len(A.match('nba', [ev], [dict(tbd, start='2026-11-15T04:30Z')])[0]), 0)
+
     def test_saved_full_game_lines_are_pregame(self):
         """No saved full-game moneyline has both sides plus (an in-play price),
         except a pick'em: the best prices across books can both be plus when
@@ -282,3 +302,50 @@ class NoKey(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class Outliers(unittest.TestCase):
+    """fetch_odds_unabated.best_of drops a book more than 8 points of implied
+    probability from the other books' median on a side (Morehead State @ UL
+    Monroe: BetOnline +219 while six books sat near even)."""
+
+    def test_stale_book_is_dropped(self):
+        rows = {b: {'away': {'price': -130}, 'home': {'price': 100}} for b in ('dk', 'fd', 'mgm')}
+        rows['bol'] = {'away': {'price': -265}, 'home': {'price': 219}}
+        self.assertEqual(best_of('ml', rows, ()), {'away': -130, 'home': 100})
+
+    def test_two_books_are_kept(self):
+        rows = {'dk': {'away': {'price': -130}, 'home': {'price': 100}}, 'bol': {'away': {'price': -265}, 'home': {'price': 219}}}
+        self.assertEqual(best_of('ml', rows, ()), {'away': -130, 'home': 219})
+
+    def test_spread_outlier_at_the_chosen_line(self):
+        rows = {b: {'away': {'line': -3.5, 'price': -110}, 'home': {'line': 3.5, 'price': -110}} for b in ('dk', 'fd', 'mgm')}
+        rows['hr'] = {'away': {'line': -3.5, 'price': 150}, 'home': {'line': 3.5, 'price': -190}}
+        self.assertEqual(best_of('ats', rows, ())['away'], {'line': -3.5, 'price': -110})
+
+    def test_tied_lines_pick_the_one_nearest_even_whatever_the_order(self):
+        a = {'line': 57.5, 'over': {'price': -104}, 'under': {'price': -115}}
+        b = {'line': 58.5, 'over': {'price': -110}, 'under': {'price': -110}}
+        c = {'line': 59.5, 'over': {'price': -110}, 'under': {'price': -110}}
+        one = best_of('total', {'x': a, 'y': c, 'z': b, 'w': a, 'v': c}, ())
+        two = best_of('total', {'v': c, 'w': a, 'z': b, 'y': c, 'x': a}, ())
+        self.assertEqual(one, two)
+        self.assertEqual(one['line'], 59.5)
+
+
+class RefreshWins(unittest.TestCase):
+    """Run #4's Morehead State line stopped the refresh for an hour (its tests
+    gate the publish): the backfill never saves a full-game ML with both
+    sides past a pick'em."""
+
+    def test_both_plus_ml_is_not_saved(self):
+        e = {'id': 'e1', 'commence_time': '2026-11-15T00:00:00Z', 'away_team': AWAY, 'home_team': HOME}
+        snaps = {'2026-11-14T23:55:00Z': [ml(e, 100, 219)]}
+        games = [({'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T00:00Z'}, [('game', 'ml', 'h2h')])]
+        run, rep = fill(games, [e], snaps)
+        self.assertNotIn('2026-11-14|bos|mia', run.files[('nba', 2027)]['games'])
+        self.assertEqual(rep['big_ml'], ['2026-11-14|bos|mia +100/+219 (not saved)'])
+
+    def test_usage_log_merges_as_a_union(self):
+        with open(os.path.join(ROOT, '.gitattributes'), encoding='utf-8') as f:
+            self.assertIn('data_feed/oddsapi/usage.jsonl merge=union', f.read())

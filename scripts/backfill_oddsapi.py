@@ -1,7 +1,8 @@
 """
 The Odds API backfill (step 2 of 3): closing lines for every finished game
-we have scores for, this season and last, where Chris's admin saves and the
-Unabated feed have nothing (market by market). Run by hand from Actions (the
+we have scores for, this season and last, where the Unabated feed has no
+book rows (market by market; a market only the admin saved still gets its
+book rows here, and the admin's line stays the graded one). Run by hand from Actions (the
 "oddsapi-backfill" job, .github/workflows/oddsapi.yml).
 
 Per sport, per game day (newest first):
@@ -28,7 +29,8 @@ Writes data_feed/oddsapi/history/{sport}/{season}.json:
      books: {seg: {market: {book: row}}}}}}
 and data_feed/oddsapi/backfill_state.json (every game done, or tried and
 empty, is skipped by the next run; unmatched games are tried again; --retry-game
-clears the games with no full-game line) and data_feed/oddsapi/backfill_report.json
+clears the games with no full-game line, --retry-missing the games still missing
+a market no source has book rows for) and data_feed/oddsapi/backfill_report.json
 (the last run's report, with the API's names for events that matched no game). sport_build.merge_odds and build_site.py
 read the history files under admin and Unabated.
 
@@ -38,6 +40,7 @@ and stops if it's over 1,500,000. Stops cleanly at 5h30m; with --commit it
 commits and pushes the files every 30 minutes and at the end.
 """
 import argparse
+import glob
 import os
 import subprocess
 import sys
@@ -54,7 +57,10 @@ STATE = os.path.join(A.OUT_DIR, 'backfill_state.json')
 REPORT = os.path.join(A.OUT_DIR, 'backfill_report.json')   # the last run's report per sport and season
 ORDER = ['nhl', 'nba', 'ncaab', 'nfl', 'ncaaf', 'mlb', 'wnba']
 MAX_ESTIMATE = 1_500_000
-BIG_ML = ('nba', 'nhl', 'nfl', 'wnba')   # a full-game ML of 1000+ (or both sides plus) here is flagged
+INDOOR = ('nba', 'wnba', 'ncaab', 'nhl')   # no weather delays: the game starts by ESPN's time
+LATE = 15   # minutes after ESPN's start: an indoor game's snapshot this late is in-play
+BIG_ML = ('nba', 'nhl', 'nfl', 'wnba')
+PICKEM = 130   # a full-game ML with both sides plus is a pick'em up to +130 a side   # a full-game ML of 1000+ (or both sides plus) here is flagged
 TIME_LIMIT = 5.5 * 3600
 COMMIT_EVERY = 30 * 60
 NHL_FINAL = ('FINAL', 'OFF')
@@ -103,8 +109,11 @@ def seasons_for(sport):
 
 
 def have(sport):
-    """{game key: {seg: {markets}}} the admin and the Unabated feed already have
-    (what the site grades from today; the backfill only fills the rest)."""
+    """{game key: {seg: {markets}}} that already have book rows on the Odds
+    page: the Unabated feed (live and its history) and, for the NHL, the
+    schedule's odds. The admin's saved lines don't count: they're one price
+    with no books behind them, so the backfill fetches the book rows for
+    those games too (the admin's line stays the graded one)."""
     out = {}
 
     def add(key, seg, market):
@@ -123,15 +132,19 @@ def have(sport):
                 if o.get('btts_yes') is not None:
                     add(key, '1p', 'btts')
         return out
-    for path in (os.path.join(A.ROOT, 'data_admin', 'odds', f'{sport}.json'),
-                 os.path.join(A.ROOT, 'data_feed', 'unabated', f'{sport}.json')):
-        doc = read_json(path, {})
-        games = doc.get('games') if 'games' in doc and isinstance(doc.get('games'), dict) else doc
-        for key, g in (games or {}).items():
-            for seg, markets in ((g or {}).get('segments') or {}).items():
-                for m, v in (markets or {}).items():
-                    if v is not None:
-                        add(key, seg, m)
+    doc = read_json(os.path.join(A.ROOT, 'data_feed', 'unabated', f'{sport}.json'), {})
+    for key, g in (doc.get('games') or {}).items():
+        for seg, markets in ((g or {}).get('segments') or {}).items():
+            for m, v in (markets or {}).items():
+                if v is not None:
+                    add(key, seg, m)
+    for path in glob.glob(os.path.join(A.ROOT, 'data_feed', 'unabated', 'history', sport, '*.json')):
+        day = os.path.basename(path)[:-5]
+        for teams, g in (read_json(path, {}).get('games') or {}).items():
+            for seg, markets in ((g or {}).get('close') or {}).items():
+                for m, by in (markets or {}).items():
+                    if by:
+                        add(f'{day}|{teams}', seg, m)
     return out
 
 
@@ -269,7 +282,7 @@ def git_push():
         git('fetch', '-q', 'origin', 'main')
         if git('rebase', 'origin/main').returncode != 0:
             git('rebase', '--abort')
-            git('pull', '--no-rebase', '-X', 'ours', 'origin', 'main', '--no-edit')
+            git('pull', '--no-rebase', '-X', 'theirs', 'origin', 'main', '--no-edit')   # a conflict: the refresh's side wins
         time.sleep(3)
     print('backfill: push failed; the files are saved and the next push takes them')
 
@@ -363,6 +376,11 @@ def fill_day(run, sport, season, day, todo, rep):
         if key not in matched:
             rep['unmatched'].append(key)
             done[key] = 'unmatched'
+    if sport in INDOOR:   # an indoor game starts by ESPN's time even when the API lists it later (SA @ SAC, Mar 17)
+        for i, (e, g, flipped) in enumerate(pairs):
+            ours, theirs = A.parse(g.get('start')), A.parse(e.get('commence_time'))
+            if ours and theirs and not A.tbd(ours) and ours < theirs:
+                pairs[i] = (dict(e, commence_time=A.iso(ours)), g, flipped)
     # the full game: one bulk snapshot per start time
     bulk = {} if sport == 'mlb' else bulk_game_lines(sport, [e for e, g, _ in pairs if any(s == 'game' for s, _, _ in g['_miss'])])
     for e, g, flipped in pairs:
@@ -388,6 +406,15 @@ def fill_day(run, sport, season, day, todo, rep):
                 lines.setdefault(seg, {}).update(v)
             for seg, v in bk.items():
                 books.setdefault(seg, {}).update(v)
+        ml = (lines.get('game') or {}).get('ml')
+        if ml and min(ml['away'], ml['home']) > 0 and max(ml['away'], ml['home']) > PICKEM:
+            # both sides plus past a pick'em: in-play or mixed books. Never saved, so
+            # the refresh's check (tests/test_oddsapi.py) can't stop the publish
+            rep['big_ml'].append(f"{key} {ml['away']:+d}/{ml['home']:+d} (not saved)")
+            lines['game'].pop('ml')
+            books.get('game', {}).pop('ml', None)
+            if not lines['game']:
+                lines.pop('game')
         if lines:
             row = hist.setdefault(key, {'date': g['date'], 'away': g['away'], 'home': g['home'], 'start': g.get('start'),
                                         'source': 'oddsapi', 'segments': {}, 'books': {}})
@@ -468,6 +495,65 @@ def retry_game(run, sport, season):
     return n
 
 
+def retry_missing(run, sport, season):
+    """Clears the state of every filled game still missing a market that no
+    source has book rows for (the games only the admin had lines for), so the
+    next run asks for just those markets. Returns how many."""
+    done, hist, got, n = run.done(sport, season), run.hist(sport, season)['games'], have(sport), 0
+    for key in [k for k, v in done.items() if v == 'filled']:
+        saved = ((hist.get(key) or {}).get('segments') or {})
+        if any(m not in saved.get(seg, {}) and m not in got.get(key, {}).get(seg, set()) for seg, m, _ in wanted(sport)):
+            done.pop(key)
+            n += 1
+    return n
+
+
+def regrade(run, sport, season):
+    """Picks a saved game's line again from its saved book rows wherever
+    best_of's outlier guard changes it (a line the guard doesn't touch stays
+    as saved); a market every book was dropped from loses its line. Returns
+    {changed, dropped (lines)}."""
+    import fetch_odds_unabated as U
+    out = {'changed': 0, 'dropped': 0}
+    for g in run.hist(sport, season)['games'].values():
+        for seg, mk in (g.get('books') or {}).items():
+            for market, rows in mk.items():
+                m = 'ml' if market in ('btts', 'nrfi_yrfi') else market
+                guard, U.OUTLIER = U.OUTLIER, float('inf')
+                unguarded = rows and best_of(m, rows, ())
+                U.OUTLIER = guard
+                best = rows and best_of(m, rows, ())
+                if best == unguarded:
+                    continue
+                new = dict(best, books=len(rows)) if best else None
+                out['changed'] += 1
+                if new:
+                    g.setdefault('segments', {}).setdefault(seg, {})[market] = new
+                else:
+                    out['dropped'] += 1
+                    g.get('segments', {}).get(seg, {}).pop(market, None)
+    return out
+
+
+def retry_late(run, sport, season):
+    """Indoor sports: drops every saved game whose snapshot is more than LATE
+    minutes after ESPN's start (in-play prices) and clears its state, so the
+    next run asks again at ESPN's start minus 5. Returns the keys."""
+    if sport not in INDOOR:
+        return []
+    done, hist, out = run.done(sport, season), run.hist(sport, season)['games'], []
+    for key, g in list(hist.items()):
+        ours = A.parse(g.get('start'))
+        if not ours or A.tbd(ours):
+            continue
+        snaps = [A.parse(g.get(f)) for f in ('snapshot', 'game_snapshot') if g.get(f)]
+        if any(t and (t - ours).total_seconds() > LATE * 60 for t in snaps):
+            hist.pop(key)
+            done.pop(key, None)
+            out.append(key)
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--sport', default='all')
@@ -476,18 +562,44 @@ def main(argv=None):
     ap.add_argument('--commit', action='store_true', help='commit and push every 30 minutes and at the end')
     ap.add_argument('--clear-game', action='store_true', help='drop the saved full-game lines (no API calls)')
     ap.add_argument('--retry-game', action='store_true', help='retry the games with no full-game line (no API calls)')
+    ap.add_argument('--retry-late', action='store_true',
+                    help='drop and retry the indoor games saved from a snapshot after ESPN\'s start (no API calls)')
+    ap.add_argument('--regrade', action='store_true', help='pick every saved line again from its book rows (no API calls)')
+    ap.add_argument('--retry-missing', action='store_true',
+                    help='retry the filled games still missing a market with no book rows (no API calls)')
     args = ap.parse_args(argv)
     todo_sports = ORDER if args.sport == 'all' else [args.sport]
     whiches = ['this', 'last'] if args.season == 'both' else [args.season]
     run = Run(args.max_credits, args.commit)
-    if args.clear_game or args.retry_game:
+    if args.regrade:
+        import fetch_odds_unabated as U
+        for s in todo_sports:
+            for w in whiches:
+                season = (seasons_for(s).get(w) or (None,))[0]
+                if season is not None:
+                    print(f'{s} {season}: {regrade(run, s, season)}')
+        print('books dropped as outliers (rows): ' + ', '.join(f'{b} {n}' for b, n in sorted(U.OUTLIERS.items(), key=lambda x: -x[1])))
+        run.save()
+        return 0
+    if args.retry_late:
+        for s in todo_sports:
+            for w in whiches:
+                season = (seasons_for(s).get(w) or (None,))[0]
+                keys = retry_late(run, s, season) if season is not None else []
+                if keys:
+                    print(f'{s} {season}: {len(keys)} games saved after the start will be tried again: {", ".join(keys)}')
+        run.save()
+        return 0
+    if args.clear_game or args.retry_game or args.retry_missing:
         for s in todo_sports:
             for w in whiches:
                 season = (seasons_for(s).get(w) or (None,))[0]
                 if season is not None and args.clear_game:
                     print(f'{s} {season}: cleared the full-game line of {clear_game(run, s, season)} games')
-                elif season is not None:
+                elif season is not None and args.retry_game:
                     print(f'{s} {season}: {retry_game(run, s, season)} games with no full-game line will be tried again')
+                elif season is not None:
+                    print(f'{s} {season}: {retry_missing(run, s, season)} games missing a market will be tried again')
         run.save()
         return 0
     plan = [(s, w) for w in whiches for s in todo_sports]   # this season (all sports) first, then last

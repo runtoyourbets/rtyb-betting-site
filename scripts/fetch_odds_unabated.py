@@ -383,24 +383,69 @@ def books_for(bet, sides, flipped):
     return out
 
 
+OUTLIER = 0.08          # a book this far (implied probability) from the other books' median is dropped
+OUTLIERS = {}           # {book: rows dropped} this process, for the reports
+
+
+def implied(price):
+    return 100 / (price + 100) if price > 0 else -price / (-price + 100)
+
+
+def drop_outliers(rows, sides):
+    """`rows` ({book: row}) without the books whose price on any side is more
+    than OUTLIER from the median of the other books' implied probability
+    for that side (a stale or flipped line). Needs 3 books: with 2 there's
+    no telling which one is off."""
+    if len(rows) < 3:
+        return rows
+
+    def price(v, side):
+        x = v[side]
+        return x['price'] if isinstance(x, dict) else x
+    keep = {}
+    for b, v in rows.items():
+        off = False
+        for side in sides:
+            others = sorted(implied(price(o, side)) for k, o in rows.items() if k != b)
+            mid = len(others) // 2
+            median = others[mid] if len(others) % 2 else (others[mid - 1] + others[mid]) / 2
+            off = off or abs(implied(price(v, side)) - median) > OUTLIER
+        if off:
+            OUTLIERS[b] = OUTLIERS.get(b, 0) + 1
+        else:
+            keep[b] = v
+    return keep
+
+
 def best_of(market, books, sharp):
-    """Best odds from the sportsbooks in `sharp` (all books if that's empty)."""
+    """Best odds from the sportsbooks in `sharp` (all books if that's empty),
+    after drop_outliers (moneylines across every book; spreads and totals
+    across the books at the chosen line)."""
     use = {b: v for b, v in books.items() if not sharp or b in sharp}
     if not use and market == 'ml3':
         use = books   # the free tier's 3-way comes only from exchanges (Underdog)
     if not use:
         return None
     if market in ('ml', 'ml3'):
-        return {side: max(v[side]['price'] for v in use.values()) for side in next(iter(use.values()))}
+        sides = list(next(iter(use.values())))
+        use = drop_outliers(use, sides)
+        return {side: max(v[side]['price'] for v in use.values()) for side in sides} if use else None
     key = (lambda v: v['away']['line']) if market == 'ats' else (lambda v: v['line'])
     counts = {}
     for v in use.values():
         counts[key(v)] = counts.get(key(v), 0) + 1
-    # most books; ties go to the line nearest the median of all posted lines
+    sides = ('away', 'home') if market == 'ats' else ('over', 'under')
+
+    def evenness(x):   # how far from even the books at line x price it, on average (the main line is nearest)
+        at = [v for v in use.values() if key(v) == x]
+        return sum(abs(implied(v[sides[0]]['price']) - implied(v[sides[1]]['price'])) for v in at) / len(at)
+    # most books; ties go to the line nearest the median of all posted lines, then the one priced nearest even
     posted = sorted(key(v) for v in use.values())
     median = posted[len(posted) // 2]
-    line = max(counts, key=lambda x: (counts[x], -abs(x - median)))
-    at = [v for v in use.values() if key(v) == line]
+    line = max(counts, key=lambda x: (counts[x], -abs(x - median), -evenness(x), -x))
+    at = list(drop_outliers({b: v for b, v in use.items() if key(v) == line}, sides).values())
+    if not at:
+        return None
     if market == 'ats':
         return {'away': {'line': line, 'price': max(v['away']['price'] for v in at)},
                 'home': {'line': -line if line else 0, 'price': max(v['home']['price'] for v in at)}}
