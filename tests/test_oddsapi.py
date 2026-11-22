@@ -104,6 +104,23 @@ class Matching(unittest.TestCase):
         self.assertEqual((len(pairs), missed), (1, []))
         self.assertEqual(A.api_name('wnba', 'Connecticut Sun'), 'Connecticut Sun')   # college only
 
+    def test_run_4_unmatched_names(self):
+        """The API names run #4 left unmatched, each against its school here."""
+        for sport, api, slug in (('ncaab', "Mt. St. Mary's Mountaineers", 'mount-st-marys-mountaineers'),
+                                 ('ncaab', 'Seattle Redhawks', 'seattle-u-redhawks'),
+                                 ('ncaab', 'Cal Baptist Lancers', 'california-baptist-lancers'),
+                                 ('ncaab', 'Albany Great Danes', 'ualbany-great-danes'),
+                                 ('ncaab', 'Boston Univ. Terriers', 'boston-university-terriers'),
+                                 ('ncaab', 'Loyola (Chi) Ramblers', 'loyola-chicago-ramblers'),
+                                 ('ncaab', 'CSU Bakersfield Roadrunners', 'cal-state-bakersfield-roadrunners'),
+                                 ('ncaab', 'CSU Fullerton Titans', 'cal-state-fullerton-titans'),
+                                 ('ncaaf', 'Southern Mississippi Golden Eagles', 'southern-miss-golden-eagles')):
+            other = 'duke-blue-devils' if sport == 'ncaab' else 'mississippi-state-bulldogs'
+            ev = {'commence_time': '2026-11-15T00:00:00Z', 'away_team': api,
+                  'home_team': 'Duke Blue Devils' if sport == 'ncaab' else 'Mississippi State Bulldogs'}
+            game = {'date': '2026-11-14', 'away': slug, 'home': other, 'start': '2026-11-15T00:00Z'}
+            self.assertEqual(len(A.match(sport, [ev], [game])[0]), 1, api)
+
 
 def ml(e, a, h):
     return dict(e, bookmakers=[book('draftkings', h2h=[{'name': e['away_team'], 'price': a}, {'name': e['home_team'], 'price': h}])])

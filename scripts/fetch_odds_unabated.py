@@ -104,6 +104,11 @@ ALIASES = {
     'nicholls state': 'nicholls', 'cs fullerton': 'cal state fullerton', 'unc charlotte': 'charlotte',
     'new orleans': 'lsu new orleans', 'connecticut': 'uconn', 'central florida': 'ucf',
     'appalachian state': 'app state', 'albany ny': 'ualbany',
+    # The Odds API's spellings (after oddsapi.api_name turns " St" into " State")
+    'mt state marys': 'mount st marys', 'seattle redhawks': 'seattle u redhawks', 'cal baptist': 'california baptist',
+    'albany great danes': 'ualbany great danes', 'boston univ': 'boston university', 'loyola chi': 'loyola chicago',
+    'csu bakersfield': 'cal state bakersfield', 'csu fullerton': 'cal state fullerton',
+    'southern mississippi': 'southern miss',
 }
 
 
