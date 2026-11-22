@@ -2655,7 +2655,15 @@ __THEME_HEAD__
   .tp-team a { color: var(--text); text-decoration: none; }
   .tp-at { color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .tp-where { margin: 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
-  .tp-odds, .tp-cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cell-gap) 12px; }
+  .tp-cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cell-gap) 12px; }
+  /* Next game odds: a row per segment (its label at the left), its markets as
+     columns, the same columns on every row; phones: the label above the blocks */
+  .tp-odds { display: grid; gap: 12px; }
+  .tp-orow { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: end; gap: 12px; }
+  .tp-orow + .tp-orow { padding-top: 12px; border-top: 1px solid var(--border-soft); }
+  .tp-oseg { align-self: center; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--title-text); }
+  .tp-ocols { display: grid; grid-template-columns: repeat(var(--n), max-content); gap: var(--cell-gap) 16px; min-width: 0; }
+  .tp-ob { min-width: 0; }
   .tp-ob-row { display: flex; gap: var(--cell-gap); }
   .tp-book { display: flex; align-items: center; justify-content: center; flex: none; width: var(--book-tile-w); min-height: var(--cell-min-h); padding: var(--cell-pad); border-radius: var(--cell-radius); background: var(--cell); box-sizing: border-box; }
   .tp-book .sl-book { height: 22px; max-width: 100%; object-fit: contain; }
@@ -2686,6 +2694,14 @@ __THEME_HEAD__
   .tp-lgp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; }
   .tp-lgp .tp-res { display: grid; gap: 2px; }
   @media (max-width: 899px) { .tp-lgd { display: none; } }
+  @media (max-width: 899px) {
+    .tp-orow { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .tp-oseg { align-self: start; }
+    .tp-ocols { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: var(--cell-gap); }
+    .tp-n4 .tp-ocols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tp-orow .tp-ob-row > .tp-book, .tp-orow .tp-ob .cell { flex: 1 1 0; width: auto; min-width: 0; }
+    .tp-orow .tp-book .sl-book { height: 18px; }
+  }
   @media (min-width: 900px) { .tp-lgp { display: none; } }
   .tp-log .tp-table .tp-sc { padding-right: 22px; }
   .tp-line { margin: 0 0 12px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-num); color: var(--text); }
@@ -2747,7 +2763,7 @@ __THEME_HEAD__
     .tp-log .tp-lc .cell { min-height: 40px; }
   }
   @media (min-width: 900px) {
-    .tp-odds, .tp-cells { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .tp-cells { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .tp-mks { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .tp-pills-phone, .ts-pills-phone, .ts-mob { display: none; }
     .tp-hists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }

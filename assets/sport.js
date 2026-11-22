@@ -961,50 +961,98 @@
         '<div class="fr-links"><a class="fr-more" href="' + href + '">All odds for this game &rarr;</a></div></div>');
     }
     // the team's side in a market: its own (ML, spread, 3-way), else the
-    // side its season leans to (Over / Under, BTTS Yes / No, NRFI / YRFI)
+    // side its season leans to (Over / Under, BTTS Yes / No, NRFI / YRFI).
+    // The segment is at the row's left, so labels leave it out.
     function oddsSide(p) {
-      var home = next.home === slug, side = home ? 'home' : 'away';
-      if (p.m === 'ml' || p.m === 'ats' || p.m === 'ml3') return { key: side, label: tpName(p) + ' · ' + tcode(slug) };
-      var a = tmAgg(slug, p.k, p.m, 'all', graded), first = a.pct == null || a.pct >= 0.5;
-      if (p.m === 'total') return { key: first ? 'over' : 'under', label: (D.sportType === 'baseball' ? 'F5' : seg(p.k).tag) + ' ' + (first ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '') };
+      var home = next.home === slug, side = home ? 'home' : 'away', mine = ' · ' + tcode(slug);
+      if (p.m === 'ml' || p.m === 'ats' || p.m === 'ml3') return { key: side, label: { ml: 'ML', ml3: '3-Way', ats: D.sportType === 'baseball' ? 'Run Line' : D.sport === 'nhl' ? 'Puck Line' : 'Spread' }[p.m] + mine };
+      var first = p.k === 'game' ? gameOverLean() : (function(a) { return a.pct == null || a.pct >= 0.5; })(tmAgg(slug, p.k, p.m, 'all', graded));
+      if (p.m === 'total') return { key: first ? 'over' : 'under', label: (first ? 'Over' : 'Under') + (D.sport === 'nhl' && p.k !== 'game' ? ' 1.5' : '') };
       if (p.m === 'btts') return { key: first ? 'yes' : 'no', label: 'BTTS ' + (first ? 'Yes' : 'No') };
       return { key: first ? 'nrfi' : 'yrfi', label: first ? 'NRFI' : 'YRFI' };
     }
-    function oddsBlocks(g, og, sources) {
-      var any = false;
-      var html = all.map(function(p) {
-        var s = oddsSide(p), mk = p.m === 'rfi' ? 'nrfi_yrfi' : p.m;
-        var best = og ? ((og.best || {})[p.k] || {})[mk] : null, mine = ((g.odds || {})[p.k] || {})[mk];
-        var o = best || mine, top = null, sub = null, line = null;
-        if (o) {
-          if (p.m === 'ats') { var a = o[s.key] || {}; if (typeof a.line === 'number') { top = signedLine(a.line); sub = priceTxt(a.price); line = a.line; } }
-          else if (p.m === 'total') { if (o[s.key] != null) { top = (s.key === 'over' ? 'o' : 'u') + (o.line != null ? num1(o.line) : ''); sub = priceTxt(o[s.key]); line = o.line; } }
-          else if (o[s.key] != null) top = priceTxt(o[s.key]);
-        }
-        var book = '';
-        if (best && og && sources && top) {
-          var price = p.m === 'ats' ? (o[s.key] || {}).price : o[s.key], rows = (((og.books || {})[p.k] || {})[mk]) || {}, id = null;
-          // sportsbooks, then exchanges, then the Consensus price (a market only it prices)
-          ['book', 'exch', 'consensus'].forEach(function(pass) {
-            Object.keys(rows).forEach(function(b) {
-              if (id || b === '60' || (b === 'consensus') !== (pass === 'consensus')) return;
-              if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
-              var r = rows[b], v = r && r[s.key], vp = v && typeof v === 'object' ? v.price : v;
-              if (vp !== price) return;
-              if (p.m === 'ats' && v.line !== line) return;
-              if (p.m === 'total' && r.line !== line) return;
-              id = b;
-            });
+    // the full game's total: the side the team's finals went to against the
+    // closing full-game total (ESPN), else its first segment's lean
+    function gameOverLean() {
+      var o = 0, u = 0;
+      finals.forEach(function(g) { if (typeof g.ft === 'number' && g.as != null && g.hs != null) { if (g.as + g.hs > g.ft) o++; else if (g.as + g.hs < g.ft) u++; } });
+      if (o + u) return o >= u;
+      var t = all.filter(function(p) { return p.m === 'total'; })[0], a = t ? tmAgg(slug, t.k, 'total', 'all', graded) : {};
+      return a.pct == null || a.pct >= 0.5;
+    }
+    // the full-game line: the backfill's "game" segment once it's on the
+    // game, else ESPN's closing line (fs = the home spread, ft, fml)
+    function gameLine(g) {
+      var o = (g.odds || {}).game;
+      if (o) return o;
+      o = {};
+      if (g.fml && g.fml.away != null) o.ml = { away: g.fml.away, home: g.fml.home };
+      if (typeof g.fs === 'number') o.ats = { away: { line: -g.fs, price: null }, home: { line: g.fs, price: null } };
+      if (typeof g.ft === 'number') o.total = { line: g.ft, over: null, under: null };
+      return Object.keys(o).length ? o : null;
+    }
+    // one market's block: its label, the book with the best price and the price
+    function oddsBlock(p, g, og, sources, gameOdds) {
+      var s = oddsSide(p), mk = p.m === 'rfi' ? 'nrfi_yrfi' : p.m;
+      var best = og && p.k !== 'game' ? ((og.best || {})[p.k] || {})[mk] : null;
+      var mine = p.k === 'game' ? (gameOdds || {})[p.m] : ((g.odds || {})[p.k] || {})[mk];
+      var o = best || mine, top = null, sub = null, line = null;
+      if (o) {
+        if (p.m === 'ats') { var a = o[s.key] || {}; if (typeof a.line === 'number') { top = signedLine(a.line); sub = a.price != null ? priceTxt(a.price) : null; line = a.line; } }
+        else if (p.m === 'total') { if (o[s.key] != null || (p.k === 'game' && o.line != null)) { top = (s.key === 'over' ? 'o' : 'u') + (o.line != null ? num1(o.line) : ''); sub = o[s.key] != null ? priceTxt(o[s.key]) : null; line = o.line; } }
+        else if (o[s.key] != null) top = priceTxt(o[s.key]);
+      }
+      var book = '';
+      if (best && og && sources && top) {
+        var price = p.m === 'ats' ? (o[s.key] || {}).price : o[s.key], rows = (((og.books || {})[p.k] || {})[mk]) || {}, id = null;
+        // sportsbooks, then exchanges, then the Consensus price (a market only it prices)
+        ['book', 'exch', 'consensus'].forEach(function(pass) {
+          Object.keys(rows).forEach(function(b) {
+            if (id || b === '60' || (b === 'consensus') !== (pass === 'consensus')) return;
+            if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
+            var r = rows[b], v = r && r[s.key], vp = v && typeof v === 'object' ? v.price : v;
+            if (vp !== price) return;
+            if (p.m === 'ats' && v.line !== line) return;
+            if (p.m === 'total' && r.line !== line) return;
+            id = b;
           });
-          var src = id ? sources[id] || {} : null;
-          if (src) book = src.logo ? '<img class="sl-book" src="' + ROOT + esc(src.logo) + '" alt="' + esc(src.name || id) + '" title="' + esc(src.name || id) + '" loading="lazy">' : '<span class="sl-bname">' + esc(src.name || id) + '</span>';
-        }
-        if (top) any = true;
-        var cell = top ? '<span class="cell tp-best"><span class="ob-ln">' + esc(top) + '</span>' + (sub ? '<span class="ob-pr">' + esc(sub) + '</span>' : '') + '</span>'
-          : '<span class="cell"><span class="mc-dash">-</span></span>';
-        return '<div class="tp-ob"><span class="tp-gl">' + esc(s.label) + '</span><span class="tp-ob-row"><span class="tp-book">' + book + '</span>' + cell + '</span></div>';
-      }).join('');
-      return any ? '<div class="tp-odds">' + html + '</div>' : '<p class="tp-none">Lines not posted yet.</p>';
+        });
+        var src = id ? sources[id] || {} : null;
+        if (src) book = src.logo ? '<img class="sl-book" src="' + ROOT + esc(src.logo) + '" alt="' + esc(src.name || id) + '" title="' + esc(src.name || id) + '" loading="lazy">' : '<span class="sl-bname">' + esc(src.name || id) + '</span>';
+      }
+      // ESPN's full-game line is DraftKings' close
+      if (p.k === 'game' && top && !(g.odds || {}).game && sources && sources['1']) {
+        var dk = sources['1'];
+        book = dk.logo ? '<img class="sl-book" src="' + ROOT + esc(dk.logo) + '" alt="' + esc(dk.name) + '" title="' + esc(dk.name) + '" loading="lazy">' : '<span class="sl-bname">' + esc(dk.name) + '</span>';
+      }
+      var cell = top ? '<span class="cell tp-best"><span class="ob-ln">' + esc(top) + '</span>' + (sub ? '<span class="ob-pr">' + esc(sub) + '</span>' : '') + '</span>'
+        : '<span class="cell"><span class="mc-dash">-</span></span>';
+      return { top: !!top, html: '<div class="tp-ob"><span class="tp-gl">' + esc(s.label) + '</span><span class="tp-ob-row"><span class="tp-book">' + book + '</span>' + cell + '</span></div>' };
+    }
+    // a row per segment (its label at the left, its markets as columns),
+    // then the full game; every row has the same columns so they line up
+    function oddsBlocks(g, og, sources) {
+      var rows = D.segments.filter(function(sg) { return tmMarkets(sg.key).length; }).map(function(sg) {
+        return { label: sg.key === '1i' ? '1st Inning' : sg.key === 'f5' ? 'F5' : sg.tag, ps: tmMarkets(sg.key) };
+      });
+      var any = false;
+      var segHtml = rows.map(function(r) {
+        return { label: r.label, blocks: r.ps.map(function(p) { var b = oddsBlock(p, g, og, sources); if (b.top) any = true; return b.html; }) };
+      });
+      var gl = gameLine(g);
+      if (gl) {
+        // the full game's markets: NHL and MLB moneyline, puck / run line, total;
+        // the spread sports in their segments' order
+        var order = D.sport === 'nhl' || D.sportType === 'baseball' ? ['ml', 'ats', 'total'] : rows[0].ps.map(function(p) { return p.m; }).filter(function(m) { return m === 'ml' || m === 'ats' || m === 'total'; });
+        var gb = order.map(function(m) { return oddsBlock({ k: 'game', m: m }, g, og, sources, gl); });
+        if (gb.some(function(b) { return b.top; })) segHtml.push({ label: 'Game', blocks: gb.map(function(b) { return b.html; }) });
+      }
+      if (!any) return '<p class="tp-none">Lines not posted yet.</p>';
+      var n = Math.max.apply(null, segHtml.map(function(r) { return r.blocks.length; }));
+      return '<div class="tp-odds' + (n > 3 ? ' tp-n4' : '') + '" style="--n:' + n + '">' + segHtml.map(function(r) {
+        while (r.blocks.length < n) r.blocks.push('<div class="tp-ob tp-ob-empty" aria-hidden="true"></div>');
+        return '<div class="tp-orow"><span class="tp-oseg">' + esc(r.label) + '</span><div class="tp-ocols">' + r.blocks.join('') + '</div></div>';
+      }).join('') + '</div>';
     }
     function loadOdds() {
       if (!next) return;
@@ -1012,7 +1060,7 @@
       Promise.all([fetch(ROOT + SPORT_SLUG + '/odds.json').then(function(r) { return r.ok ? r.json() : {}; }),
                    fetch(ROOT + SPORT_SLUG + '/odds/' + day + '.json').then(function(r) { return r.ok ? r.json() : { games: [] }; })]).then(function(x) {
         var og = (x[1].games || []).filter(function(o) { return o.away === next.away && o.home === next.home; })[0], box = document.getElementById('tpOdds');
-        if (og && box) box.innerHTML = oddsBlocks(next, og, x[0].sources || {});
+        if (box) box.innerHTML = oddsBlocks(next, og || null, x[0].sources || {});   // the sources name the Game row's book too
       }).catch(function() {});
     }
     // between seasons: one section, "[YEAR] SEASON MARKETS · FINAL"; its title
