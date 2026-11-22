@@ -756,6 +756,7 @@
    "BAY",
    "BC",
    "BGSU",
+   "BOIS",
    "BUFF",
    "BYU",
    "CAL",
@@ -766,6 +767,7 @@
    "CMU",
    "COLO",
    "CONN",
+   "CSU",
    "DEL",
    "DUKE",
    "ECU",
@@ -773,6 +775,7 @@
    "FAU",
    "FIU",
    "FLA",
+   "FRES",
    "FSU",
    "GASO",
    "GAST",
@@ -820,6 +823,7 @@
    "OHIO",
    "OKST",
    "ORE",
+   "ORST",
    "OSU",
    "OU",
    "PITT",
@@ -829,6 +833,7 @@
    "RUTG",
    "SAC",
    "SC",
+   "SDSU",
    "SHSU",
    "SJSU",
    "SMU",
@@ -844,6 +849,7 @@
    "TROY",
    "TTU",
    "TULN",
+   "TXST",
    "UAB",
    "UCF",
    "UCLA",
@@ -859,6 +865,7 @@
    "USC",
    "USF",
    "USM",
+   "USU",
    "UTAH",
    "UTEP",
    "UTSA",
@@ -870,6 +877,7 @@
    "WIS",
    "WKU",
    "WMU",
+   "WSU",
    "WVU",
    "WYO"
   ],
@@ -1150,9 +1158,19 @@
     "value": "ncaaf:401858542"
    },
    {
+    "label": "Boise State at Colorado State · 6:00 PM ET",
+    "trends": 15,
+    "value": "ncaaf:401860926"
+   },
+   {
     "label": "Kansas at Oklahoma State · 6:15 PM ET",
     "trends": 14,
     "value": "ncaaf:401856877"
+   },
+   {
+    "label": "San Diego State at Washington State · 6:30 PM ET",
+    "trends": 6,
+    "value": "ncaaf:401860929"
    },
    {
     "label": "Tennessee at Vanderbilt · 7:00 PM ET",
@@ -1193,6 +1211,16 @@
     "label": "Baylor at Houston · 9:30 PM ET",
     "trends": 12,
     "value": "ncaaf:401856874"
+   },
+   {
+    "label": "Texas State at Utah State · 9:30 PM ET",
+    "trends": 15,
+    "value": "ncaaf:401860928"
+   },
+   {
+    "label": "Oregon State at Fresno State · 10:00 PM ET",
+    "trends": 14,
+    "value": "ncaaf:401860927"
    },
    {
     "label": "Sacramento State at Hawai'i · 11:00 PM ET",
