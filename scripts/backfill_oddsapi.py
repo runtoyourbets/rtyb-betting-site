@@ -11,6 +11,9 @@ Per sport, per game day (newest first):
 - The full game (segment "game", every sport but MLB): one bulk
   /historical/sports/{sport}/odds snapshot (h2h, spreads, totals) per start
   time, 5 minutes before it, covers every game starting then (30 credits).
+  A game is taken only from its own start time's snapshot, and only if that
+  snapshot is before its start; one the bulk pass misses gets the full-game
+  markets in its own historical_event_odds call (5 minutes before its start).
 - The first segments: historical_event_odds per game, 5 minutes before its
   start, with only the markets still missing (10 x markets returned).
 - The closing line per market by fetch_odds_unabated.best_of (spread / total:
@@ -21,9 +24,12 @@ Per sport, per game day (newest first):
 
 Writes data_feed/oddsapi/history/{sport}/{season}.json:
   {"games": {"date|away|home": {date, away, home, start, source: "oddsapi",
-     snapshot, segments: {seg: {market: line}}, books: {seg: {market: {book: row}}}}}}
+     snapshot, game_snapshot (the full-game line's), segments: {seg: {market: line}},
+     books: {seg: {market: {book: row}}}}}}
 and data_feed/oddsapi/backfill_state.json (every game done, or tried and
-empty, is skipped by the next run; unmatched games are tried again). sport_build.merge_odds and build_site.py
+empty, is skipped by the next run; unmatched games are tried again; --retry-game
+clears the games with no full-game line) and data_feed/oddsapi/backfill_report.json
+(the last run's report, with the API's names for events that matched no game). sport_build.merge_odds and build_site.py
 read the history files under admin and Unabated.
 
 Budget: --max-credits per run (oddsapi.py stops before a call would pass it)
@@ -45,6 +51,7 @@ from fetch_odds_unabated import best_of, read_json, write_json  # noqa: E402
 
 HIST_DIR = os.path.join(A.OUT_DIR, 'history')
 STATE = os.path.join(A.OUT_DIR, 'backfill_state.json')
+REPORT = os.path.join(A.OUT_DIR, 'backfill_report.json')   # the last run's report per sport and season
 ORDER = ['nhl', 'nba', 'ncaab', 'nfl', 'ncaaf', 'mlb', 'wnba']
 MAX_ESTIMATE = 1_500_000
 BIG_ML = ('nba', 'nhl', 'nfl', 'wnba')   # a full-game ML of 1000+ (or both sides plus) here is flagged
@@ -236,6 +243,10 @@ class Run:
         for (sport, season), doc in self.files.items():
             write_json(os.path.join(HIST_DIR, sport, f'{season}.json'), doc)
         write_json(STATE, self.state)
+        if self.report:
+            write_json(REPORT, {'generated': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                                'credits_used': A.used(), 'credits_remaining': A.remaining(),
+                                'sports': list(self.report.values())})
         if push and self.commit:
             git_push()
             self.last_commit = time.monotonic()
@@ -298,6 +309,43 @@ def estimate(days, sport):
     return total
 
 
+def start_of(e, seen=None):
+    """An event's start: the earliest commence_time the events list or a snapshot gave it."""
+    times = [t for t in (A.parse(e.get('commence_time')), A.parse((seen or {}).get('commence_time'))) if t]
+    return min(times) if times else None
+
+
+def pregame(snapshot, e, seen=None):
+    t, start = A.parse(snapshot) if snapshot else None, start_of(e, seen)
+    return bool(t and start and t < start)
+
+
+def minutes_before(snapshot, e):
+    t, start = A.parse(snapshot) if snapshot else None, start_of(e)
+    return round((start - t).total_seconds() / 60) if t and start else None
+
+
+def bulk_game_lines(sport, events):
+    """{event id: (snapshot time, event)} from one bulk full-game snapshot per
+    start time, 5 minutes before it. An event is taken (by id) only from the
+    snapshot for its own start time, the latest one before it starts: an
+    earlier one isn't its closing line, and one at or after its start is live
+    (in-play prices). Events it misses get their own call (fill_day)."""
+    by_start = {}
+    for e in events:
+        if start_of(e):
+            by_start.setdefault(start_of(e), {})[e['id']] = e
+    out = {}
+    for t in sorted(by_start):
+        data = A.historical_odds(sport, A.before(t, 5), list(A.GAME.values())) or {}
+        snap = data.get('timestamp') or A.iso(A.before(t, 5))
+        for ev in data.get('data') or []:
+            e = by_start[t].get(ev.get('id'))
+            if e and pregame(snap, e, ev):
+                out[e['id']] = (snap, ev)
+    return out
+
+
 def fill_day(run, sport, season, day, todo, rep):
     """One ET day: events, the bulk full-game snapshots, then each game's first segments."""
     start = datetime.fromisoformat(day).replace(tzinfo=A.ET)
@@ -305,7 +353,9 @@ def fill_day(run, sport, season, day, todo, rep):
                                start, start + timedelta(days=1)) or {}
     evs = snap.get('data') or []
     games = [dict(g, _miss=miss) for g, miss in todo]
-    pairs, _ = A.match(sport, evs, games)
+    pairs, missed = A.match(sport, evs, games)
+    for e in missed:   # the API's names, so missing aliases can be added
+        rep['unmatched_events'].append(f"{day} {e.get('away_team')} @ {e.get('home_team')}")
     matched = {f"{g['date']}|{g['away']}|{g['home']}" for _, g, _ in pairs}
     done, hist = run.done(sport, season), run.hist(sport, season)['games']
     for g in games:
@@ -314,27 +364,26 @@ def fill_day(run, sport, season, day, todo, rep):
             rep['unmatched'].append(key)
             done[key] = 'unmatched'
     # the full game: one bulk snapshot per start time
-    bulk = {}
-    if sport != 'mlb':
-        times = sorted({e['commence_time'] for e, g, _ in pairs if any(s == 'game' for s, _, _ in g['_miss'])})
-        for t in times:
-            data = A.historical_odds(sport, A.before(A.parse(t), 5), list(A.GAME.values())) or {}
-            for e in data.get('data') or []:
-                # only the games starting at t: earlier ones in this snapshot are live (in-play prices)
-                if A.parse(e.get('commence_time')) == A.parse(t):
-                    bulk[e.get('id')] = e
+    bulk = {} if sport == 'mlb' else bulk_game_lines(sport, [e for e, g, _ in pairs if any(s == 'game' for s, _, _ in g['_miss'])])
     for e, g, flipped in pairs:
         key = f"{g['date']}|{g['away']}|{g['home']}"
         away_name, home_name = (e['home_team'], e['away_team']) if flipped else (e['away_team'], e['home_team'])
-        lines, books, snapshot = {}, {}, None
+        lines, books, snapshot, game_snapshot = {}, {}, None, None
         game_keys = [x for x in g['_miss'] if x[0] == 'game']
         if game_keys and e['id'] in bulk:
-            lines, books = closing(sport, bulk[e['id']].get('bookmakers'), game_keys, away_name, home_name)
+            game_snapshot, ev = bulk[e['id']]
+            lines, books = closing(sport, ev.get('bookmakers'), game_keys, away_name, home_name)
         first = [x for x in g['_miss'] if x[0] != 'game']
+        if game_keys and 'game' not in lines:   # not in a pregame bulk snapshot: ask for it with the event's own call
+            first += game_keys
         if first:
             resp = A.historical_event_odds(sport, e['id'], A.before(A.parse(e['commence_time']), 5), [k for _, _, k in first]) or {}
             snapshot = resp.get('timestamp')
+            if snapshot and not pregame(snapshot, e):   # never a live price
+                resp = {}
             ln, bk = closing(sport, (resp.get('data') or {}).get('bookmakers'), first, away_name, home_name)
+            if 'game' in ln and 'game' not in lines:
+                game_snapshot = snapshot
             for seg, v in ln.items():
                 lines.setdefault(seg, {}).update(v)
             for seg, v in bk.items():
@@ -343,6 +392,11 @@ def fill_day(run, sport, season, day, todo, rep):
             row = hist.setdefault(key, {'date': g['date'], 'away': g['away'], 'home': g['home'], 'start': g.get('start'),
                                         'source': 'oddsapi', 'segments': {}, 'books': {}})
             row['snapshot'] = snapshot or row.get('snapshot') or A.iso(A.before(A.parse(e['commence_time']), 5))
+            if 'game' in lines:   # which snapshot the full-game line came from, and how long before the start
+                row['game_snapshot'] = game_snapshot
+                gap = minutes_before(game_snapshot, e)
+                if gap is not None:
+                    rep['game_minutes'].append(gap)
             for seg, v in lines.items():
                 row['segments'].setdefault(seg, {}).update(v)
                 for m in v:
@@ -364,7 +418,9 @@ def fill_day(run, sport, season, day, todo, rep):
 def run_sport(run, sport, which):
     season, days = pending(run, sport, which)
     rep = {'sport': sport, 'season': season, 'games_todo': sum(len(v) for v in days.values()), 'filled': {},
-           'no_market': {}, 'unmatched': [], 'empty': [], 'big_ml': [], 'credits': 0}
+           'no_market': {}, 'unmatched': [], 'unmatched_events': [], 'empty': [], 'big_ml': [], 'game_minutes': [],
+           'credits': 0}
+    run.report[(sport, which)] = rep
     if season is None:
         rep['note'] = f'no {which}-season games with scores in the repo'
         return rep
@@ -398,6 +454,20 @@ def clear_game(run, sport, season):
     return n
 
 
+def retry_game(run, sport, season):
+    """Clears the state of every game that has no full-game line saved, so
+    the next run asks for it again (it pulls only what's still missing; the
+    first segments stay). Returns how many."""
+    if sport == 'mlb':
+        return 0
+    done, hist, n = run.done(sport, season), run.hist(sport, season)['games'], 0
+    for key in [k for k, v in done.items() if v in ('filled', 'empty')]:
+        if 'game' not in ((hist.get(key) or {}).get('segments') or {}):
+            done.pop(key)
+            n += 1
+    return n
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--sport', default='all')
@@ -405,16 +475,19 @@ def main(argv=None):
     ap.add_argument('--max-credits', type=int, default=400_000)
     ap.add_argument('--commit', action='store_true', help='commit and push every 30 minutes and at the end')
     ap.add_argument('--clear-game', action='store_true', help='drop the saved full-game lines (no API calls)')
+    ap.add_argument('--retry-game', action='store_true', help='retry the games with no full-game line (no API calls)')
     args = ap.parse_args(argv)
     todo_sports = ORDER if args.sport == 'all' else [args.sport]
     whiches = ['this', 'last'] if args.season == 'both' else [args.season]
     run = Run(args.max_credits, args.commit)
-    if args.clear_game:
+    if args.clear_game or args.retry_game:
         for s in todo_sports:
             for w in whiches:
                 season = (seasons_for(s).get(w) or (None,))[0]
-                if season is not None:
+                if season is not None and args.clear_game:
                     print(f'{s} {season}: cleared the full-game line of {clear_game(run, s, season)} games')
+                elif season is not None:
+                    print(f'{s} {season}: {retry_game(run, s, season)} games with no full-game line will be tried again')
         run.save()
         return 0
     plan = [(s, w) for w in whiches for s in todo_sports]   # this season (all sports) first, then last
@@ -456,6 +529,12 @@ def summary(rep):
         lines.append(f"  unmatched games: {len(rep['unmatched'])} (e.g. {', '.join(rep['unmatched'][:5])})")
     if rep['empty']:
         lines.append(f"  matched but no lines: {len(rep['empty'])} (e.g. {', '.join(rep['empty'][:5])})")
+    if rep['unmatched_events']:
+        lines.append(f"  API events with no game of ours: {len(rep['unmatched_events'])}")
+        lines += ['    ' + x for x in rep['unmatched_events']]
+    if rep['game_minutes']:
+        m = sorted(rep['game_minutes'])
+        lines.append(f"  full-game snapshot before the start: median {m[len(m) // 2]} min, max {m[-1]} min")
     if rep['big_ml']:
         lines.append(f"  check: full-game ML 1000+ or both sides plus: {len(rep['big_ml'])} ({', '.join(rep['big_ml'][:10])})")
     if rep.get('stopped'):

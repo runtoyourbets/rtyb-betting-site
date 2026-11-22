@@ -96,6 +96,31 @@ class Matching(unittest.TestCase):
                 'away_name': 'Bellarmine Knights', 'home_name': 'Louisville Cardinals'}
         self.assertEqual(len(A.match('ncaab', [ev], [game])[0]), 1)
 
+    def test_college_names_the_api_spells_differently(self):
+        """IUPUI is IU Indianapolis here; "St" is "State" inside a name."""
+        ev = {'commence_time': '2026-11-15T00:00:00Z', 'away_team': 'IUPUI Jaguars', 'home_team': 'Morehead St Eagles'}
+        game = {'date': '2026-11-14', 'away': 'iu-indianapolis-jaguars', 'home': 'morehead-state-eagles', 'start': '2026-11-15T00:00Z'}
+        pairs, missed = A.match('ncaab', [ev], [game])
+        self.assertEqual((len(pairs), missed), (1, []))
+        self.assertEqual(A.api_name('wnba', 'Connecticut Sun'), 'Connecticut Sun')   # college only
+
+
+def ml(e, a, h):
+    return dict(e, bookmakers=[book('draftkings', h2h=[{'name': e['away_team'], 'price': a}, {'name': e['home_team'], 'price': h}])])
+
+
+def fill(games, events, snaps, day='2026-11-14', event_odds=None):
+    """backfill_oddsapi.fill_day for one NBA day with the API calls faked."""
+    run = B.Run(None, False)
+    run.files[('nba', 2027)], run.state = {'games': {}}, {}
+    rep = {'filled': {}, 'no_market': {}, 'unmatched': [], 'unmatched_events': [], 'empty': [], 'big_ml': [], 'game_minutes': []}
+    with mock.patch.object(A, 'historical_events', return_value={'data': events}), \
+            mock.patch.object(A, 'historical_odds', side_effect=lambda sport, at, markets: {
+                'timestamp': A.iso(at), 'data': snaps.get(A.iso(at), [])}), \
+            mock.patch.object(A, 'historical_event_odds', side_effect=event_odds or (lambda *a: None)):
+        B.fill_day(run, 'nba', 2027, day, games, rep)
+    return run, rep
+
 
 class FullGame(unittest.TestCase):
     def test_bulk_snapshot_takes_only_its_own_start_time(self):
@@ -103,23 +128,55 @@ class FullGame(unittest.TestCase):
         prices never become the 7 PM game's closing line."""
         early = {'id': 'e1', 'commence_time': '2026-11-15T00:00:00Z', 'away_team': AWAY, 'home_team': HOME}
         late = {'id': 'e2', 'commence_time': '2026-11-15T01:00:00Z', 'away_team': 'Denver Nuggets', 'home_team': 'Utah Jazz'}
-
-        def ml(e, a, h):
-            return dict(e, bookmakers=[book('draftkings', h2h=[{'name': e['away_team'], 'price': a}, {'name': e['home_team'], 'price': h}])])
         snaps = {'2026-11-14T23:55:00Z': [ml(early, -150, 130)],
                  '2026-11-15T00:55:00Z': [ml(early, 3500, -10000), ml(late, 110, -130)]}
         games = [({'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T00:00Z'}, [('game', 'ml', 'h2h')]),
                  ({'date': '2026-11-14', 'away': 'den', 'home': 'utah', 'start': '2026-11-15T01:00Z'}, [('game', 'ml', 'h2h')])]
-        run = B.Run(None, False)
-        run.files[('nba', 2027)], run.state = {'games': {}}, {}
-        rep = {'filled': {}, 'no_market': {}, 'unmatched': [], 'empty': [], 'big_ml': []}
-        with mock.patch.object(A, 'historical_events', return_value={'data': [early, late]}), \
-                mock.patch.object(A, 'historical_odds', side_effect=lambda sport, at, markets: {'data': snaps[A.iso(at)]}):
-            B.fill_day(run, 'nba', 2027, '2026-11-14', games, rep)
+        run, rep = fill(games, [early, late], snaps)
         saved = run.files[('nba', 2027)]['games']
         self.assertEqual(saved['2026-11-14|bos|mia']['segments']['game']['ml'], {'away': -150, 'home': 130, 'books': 1})
+        self.assertEqual(saved['2026-11-14|bos|mia']['game_snapshot'], '2026-11-14T23:55:00Z')
         self.assertEqual(saved['2026-11-14|den|utah']['segments']['game']['ml'], {'away': 110, 'home': -130, 'books': 1})
         self.assertEqual(rep['big_ml'], [])
+
+    def test_night_game_takes_its_own_snapshot_not_the_afternoon_one(self):
+        """An 8 PM game is listed in the 12:55 PM snapshot too: it takes 7:55."""
+        day = {'id': 'e1', 'commence_time': '2026-11-15T18:00:00Z', 'away_team': AWAY, 'home_team': HOME}
+        night = {'id': 'e2', 'commence_time': '2026-11-16T01:00:00Z', 'away_team': 'Denver Nuggets', 'home_team': 'Utah Jazz'}
+        snaps = {'2026-11-15T17:55:00Z': [ml(day, -150, 130), ml(night, -120, 100)],
+                 '2026-11-16T00:55:00Z': [ml(night, -180, 150)]}
+        games = [({'date': '2026-11-15', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T18:00Z'}, [('game', 'ml', 'h2h')]),
+                 ({'date': '2026-11-15', 'away': 'den', 'home': 'utah', 'start': '2026-11-16T01:00Z'}, [('game', 'ml', 'h2h')])]
+        run, rep = fill(games, [day, night], snaps, day='2026-11-15')
+        g = run.files[('nba', 2027)]['games']['2026-11-15|den|utah']
+        self.assertEqual(g['segments']['game']['ml'], {'away': -180, 'home': 150, 'books': 1})
+        self.assertEqual(g['game_snapshot'], '2026-11-16T00:55:00Z')
+        self.assertEqual(sorted(rep['game_minutes']), [5, 5])
+
+    def test_moved_start_and_the_fallback_call(self):
+        """A start the snapshot moved (7:00 listed, 7:03 there) is still taken
+        by id; a game the bulk pass misses gets its own call at its start - 5."""
+        moved = {'id': 'e1', 'commence_time': '2026-11-15T00:00:00Z', 'away_team': AWAY, 'home_team': HOME}
+        gone = {'id': 'e2', 'commence_time': '2026-11-15T00:00:00Z', 'away_team': 'Denver Nuggets', 'home_team': 'Utah Jazz'}
+        snaps = {'2026-11-14T23:55:00Z': [dict(ml(moved, -150, 130), commence_time='2026-11-15T00:03:00Z')]}
+        games = [({'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T00:00Z'}, [('game', 'ml', 'h2h')]),
+                 ({'date': '2026-11-14', 'away': 'den', 'home': 'utah', 'start': '2026-11-15T00:00Z'}, [('game', 'ml', 'h2h')])]
+        calls = []
+
+        def event_odds(sport, event_id, at, markets):
+            calls.append((event_id, A.iso(at), markets))
+            return {'timestamp': '2026-11-14T23:54:30Z', 'data': {'bookmakers': ml(gone, 120, -140)['bookmakers']}}
+        run, rep = fill(games, [moved, gone], snaps, event_odds=event_odds)
+        saved = run.files[('nba', 2027)]['games']
+        self.assertEqual(saved['2026-11-14|bos|mia']['segments']['game']['ml']['away'], -150)
+        self.assertEqual(calls, [('e2', '2026-11-14T23:55:00Z', ['h2h'])])
+        self.assertEqual(saved['2026-11-14|den|utah']['segments']['game']['ml']['away'], 120)
+        self.assertEqual(saved['2026-11-14|den|utah']['game_snapshot'], '2026-11-14T23:54:30Z')
+
+    def test_unmatched_events_keep_the_api_names(self):
+        stray = {'id': 'e9', 'commence_time': '2026-11-15T00:00:00Z', 'away_team': 'UMKC Kangaroos', 'home_team': 'Nowhere Owls'}
+        run, rep = fill([], [stray], {})
+        self.assertEqual(rep['unmatched_events'], ['2026-11-14 UMKC Kangaroos @ Nowhere Owls'])
 
     def test_saved_full_game_lines_are_pregame(self):
         """No saved full-game moneyline has both sides plus (an in-play price),

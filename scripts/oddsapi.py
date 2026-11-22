@@ -19,6 +19,7 @@ event odds 1 x markets returned, historical event odds 10 x markets returned.
 """
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -208,6 +209,24 @@ def parse(s):
     return U.parse_time(s)
 
 
+COLLEGE = ('ncaab', 'ncaaf')
+
+
+def api_name(sport, name):
+    """An event's team name as our names read it. College only: "St" is
+    "State" anywhere in the name ("Morehead St Eagles"), and a school the
+    feeds spell differently is renamed by its leading words (U.ALIASES:
+    "IUPUI Jaguars" -> "iu indianapolis jaguars")."""
+    n = U.norm(name)
+    if sport not in COLLEGE:
+        return name
+    n = re.sub(r' st(?= |$)', ' state', n)
+    for k in sorted(U.ALIASES, key=len, reverse=True):
+        if n == k or n.startswith(k + ' '):
+            return U.ALIASES[k] + n[len(k):]
+    return n
+
+
 def match(sport, api_events, games):
     """Odds API events -> our games: the same ET date and both teams (the
     Unabated feed's aliases and match_event). Returns ([(event, game,
@@ -230,7 +249,7 @@ def match(sport, api_events, games):
         t = parse(e.get('commence_time'))
         day = t.astimezone(ET).date() if t else None
         same_day = [g for g in pool if day and g['_start'].astimezone(ET).date() == day]
-        g, flipped = U.match_event(e.get('away_team'), e.get('home_team'), t, same_day, aliases) if t else (None, False)
+        g, flipped = U.match_event(api_name(sport, e.get('away_team')), api_name(sport, e.get('home_team')), t, same_day, aliases) if t else (None, False)
         if g:
             pairs.append((e, {k: v for k, v in g.items() if k != '_start'}, flipped))
         else:
