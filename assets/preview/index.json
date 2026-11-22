@@ -1,22 +1,22 @@
 {
  "2026-11-18": {
-  "all": "61b977c441a3",
-  "nba": "49068b39a7b0",
-  "ncaab": "d6a4fa747d61",
-  "nhl": "63f308b0caea"
+  "all": "dfe75a00bd99",
+  "nba": "1b0ea8739f21",
+  "ncaab": "b4a2cabc29d1",
+  "nhl": "68e0440db00c"
  },
  "2026-11-19": {
-  "all": "8a5601efa6a4",
-  "nba": "30c34c7ee8cb",
-  "ncaab": "2b926f650ec9",
-  "ncaaf": "0b3ded618ca4",
-  "nfl": "3e706917c494",
-  "nhl": "d7efe5a6de18"
+  "all": "1d9ed12dd4e4",
+  "nba": "dffdf8fa0bf8",
+  "ncaab": "7f38b633e25e",
+  "ncaaf": "ed29d45b3b2d",
+  "nfl": "d2137042c2db",
+  "nhl": "d7b4410c829a"
  },
  "2026-11-20": {
-  "all": "c460d211a2a7",
-  "nba": "6a5cedbc6504",
-  "ncaab": "b6f84d8e6d4d"
+  "all": "f2d0f57f26c3",
+  "nba": "d4443c103e80",
+  "ncaab": "1276960f4cca"
  },
  "2026-11-21": {
   "all": "c203b090b1f9",
@@ -25,9 +25,9 @@
   "nhl": "83997b4be104"
  },
  "2026-11-22": {
-  "all": "fd51b7328d3d",
-  "nba": "febb53597e57",
-  "ncaab": "b4bda6653f39",
-  "nhl": "bf9a8980ae1c"
+  "all": "bee563dff9fe",
+  "nba": "6f0a0e309f26",
+  "ncaab": "a0f10ad547e9",
+  "nhl": "a3e0a1784474"
  }
 }
