@@ -13069,6 +13069,53 @@
     "streakTeamName": "Pacers"
    },
    {
+    "id": "ncaab|401902281|1h|ml|home",
+    "game": "ncaab|401902281",
+    "date": "2026-11-22",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-22T17:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Nebraska @ Butler",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 330,
+    "title": "Butler 1H ML",
+    "est": 0.2705,
+    "edge": 0.038,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Early Bird"
+    ],
+    "streak": 3,
+    "streakTeam": "butler-bulldogs",
+    "angles": [
+     [
+      "Butler 1H ML at home",
+      "5-0"
+     ],
+     [
+      "Butler 1H ML, season",
+      "5-1"
+     ],
+     [
+      "Butler 1H ML, last 8",
+      "5-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Butler"
+   },
+   {
     "id": "nfl|401873068|1h|ml|away",
     "game": "nfl|401873068",
     "date": "2026-11-22",
@@ -13406,57 +13453,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Texas State"
-   },
-   {
-    "id": "nba|401910034|1h|total|over",
-    "game": "nba|401910034",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Pacers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 105.5,
-    "price": -106,
-    "title": "1H Over 105.5",
-    "est": 0.5466,
-    "edge": 0.0321,
-    "agree": 4,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1H overs on the road (105.5)",
-      "8-0"
-     ],
-     [
-      "Pacers 1H overs, season (105.5)",
-      "13-3"
-     ],
-     [
-      "Pacers 1H overs, last 8 (105.5)",
-      "6-2"
-     ],
-     [
-      "Knicks 1H overs, last 8 (105.5)",
-      "5-3"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
    }
   ]
  }
