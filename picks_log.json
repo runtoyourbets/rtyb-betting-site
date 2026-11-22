@@ -12889,6 +12889,52 @@
  "2026-11-22": {
   "plays": [
    {
+    "id": "nhl|2026020375|1p|ml|away",
+    "game": "nhl|2026020375",
+    "date": "2026-11-22",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-23T00:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Edmonton @ St. Louis",
+    "href": "nhl/matchups/?date=2026-11-22",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 106,
+    "title": "Edmonton 1P ML",
+    "est": 0.5565,
+    "edge": 0.0711,
+    "agree": 3,
+    "sample": 16,
+    "tier": "A",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "EDM",
+    "angles": [
+     [
+      "Edmonton 1P ML, last 8",
+      "4-0-4"
+     ],
+     [
+      "Edmonton 1P ML on the road",
+      "9-1-3"
+     ],
+     [
+      "Edmonton 1P ML, season",
+      "13-3-9"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Edmonton"
+   },
+   {
     "id": "nfl|401873075|1h|ml|away",
     "game": "nfl|401873075",
     "date": "2026-11-22",
@@ -12929,52 +12975,6 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "Raiders"
-   },
-   {
-    "id": "nhl|2026020375|1p|ml|away",
-    "game": "nhl|2026020375",
-    "date": "2026-11-22",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-23T00:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Edmonton @ St. Louis",
-    "href": "nhl/matchups/?date=2026-11-22",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 100,
-    "title": "Edmonton 1P ML",
-    "est": 0.566,
-    "edge": 0.066,
-    "agree": 3,
-    "sample": 16,
-    "tier": "A",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "EDM",
-    "angles": [
-     [
-      "Edmonton 1P ML, last 8",
-      "4-0-4"
-     ],
-     [
-      "Edmonton 1P ML on the road",
-      "9-1-3"
-     ],
-     [
-      "Edmonton 1P ML, season",
-      "13-3-9"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Edmonton"
    },
    {
     "id": "ncaab|401906868|1h|ml|away",
