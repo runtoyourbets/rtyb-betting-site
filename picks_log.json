@@ -12977,6 +12977,52 @@
     "streakTeamName": "Edmonton"
    },
    {
+    "id": "nba|401910034|1q|ats|away",
+    "game": "nba|401910034",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pacers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 2.5,
+    "price": -105,
+    "title": "Pacers 1Q +2.5",
+    "est": 0.5529,
+    "edge": 0.0407,
+    "agree": 3,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1Q ATS at +2.5 on the road",
+      "8-0"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, season",
+      "12-4"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Pacers avg 1Q margin on the road: +3.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
+   },
+   {
     "id": "nfl|401873068|1h|ml|away",
     "game": "nfl|401873068",
     "date": "2026-11-22",
@@ -13022,52 +13068,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Ravens"
-   },
-   {
-    "id": "nba|401910034|1q|ats|away",
-    "game": "nba|401910034",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pacers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 2.5,
-    "price": -108,
-    "title": "Pacers 1Q +2.5",
-    "est": 0.5575,
-    "edge": 0.0382,
-    "agree": 3,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1Q ATS at +2.5 on the road",
-      "8-0"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, season",
-      "12-4"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Pacers avg 1Q margin on the road: +3.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
    },
    {
     "id": "ncaab|401902281|1h|ml|home",
@@ -13354,58 +13354,6 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "nfl|401873071|1q|ats|home",
-    "game": "nfl|401873071",
-    "date": "2026-11-22",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-22T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Saints @ Bears",
-    "href": "nfl/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": -3.5,
-    "price": 108,
-    "title": "Bears 1Q -3.5",
-    "est": 0.5158,
-    "edge": 0.035,
-    "agree": 4,
-    "sample": 9,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider",
-     "Early Bird"
-    ],
-    "streak": 4,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Saints\u2019s opponents 1Q ATS at -3.5, Saints on the road",
-      "3-0"
-     ],
-     [
-      "Bears 1Q ATS at -3.5 at home",
-      "4-1"
-     ],
-     [
-      "Bears 1Q ATS at -3.5, season",
-      "7-2"
-     ],
-     [
-      "Bears 1Q ATS at -3.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Bears avg 1Q margin at home: +7.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bears"
-   },
-   {
     "id": "ncaab|401929202|1h|ats|home",
     "game": "ncaab|401929202",
     "date": "2026-11-22",
@@ -13451,6 +13399,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Texas State"
+   },
+   {
+    "id": "ncaab|401921206|1h|ats|away",
+    "game": "ncaab|401921206",
+    "date": "2026-11-22",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "UT Martin @ Utah Valley",
+    "href": "college-basketball/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": 100,
+    "title": "UT Martin 1H +3.5",
+    "est": 0.5337,
+    "edge": 0.0337,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "ut-martin-skyhawks",
+    "angles": [
+     [
+      "UT Martin 1H ATS at +3.5, season",
+      "6-0"
+     ],
+     [
+      "UT Martin 1H ATS at +3.5, last 8",
+      "6-0"
+     ],
+     [
+      "UT Martin 1H ATS at +3.5 on the road",
+      "4-0"
+     ]
+    ],
+    "info": "UT Martin avg 1H margin on the road: +6.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "UT Martin"
    }
   ]
  }
