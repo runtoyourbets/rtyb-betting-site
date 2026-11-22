@@ -884,7 +884,7 @@
   "games": [
    {
     "label": "Kent State at Eastern Michigan · 7:00 PM ET",
-    "trends": 15,
+    "trends": 14,
     "value": "ncaaf:401866470"
    },
    {
@@ -964,12 +964,12 @@
    },
    {
     "label": "Louisville at Kentucky · 12:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401856761"
    },
    {
     "label": "Boston College at Miami · 12:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401858311"
    },
    {
@@ -979,7 +979,7 @@
    },
    {
     "label": "Notre Dame at Syracuse · 12:00 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401858314"
    },
    {
@@ -989,22 +989,22 @@
    },
    {
     "label": "UConn at Wyoming · 12:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401861969"
    },
    {
     "label": "Navy at Charlotte · 12:00 PM ET",
-    "trends": 16,
+    "trends": 17,
     "value": "ncaaf:401862842"
    },
    {
     "label": "Central Michigan at Ball State · 12:00 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "ncaaf:401866474"
    },
    {
     "label": "Louisiana Tech at Georgia Southern · 12:00 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401869954"
    },
    {
@@ -1019,17 +1019,17 @@
    },
    {
     "label": "Florida Atlantic at East Carolina · 1:00 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "ncaaf:401862837"
    },
    {
     "label": "Kennesaw State at Western Kentucky · 1:00 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401870804"
    },
    {
     "label": "Marshall at UL Monroe · 1:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401871102"
    },
    {
@@ -1229,7 +1229,7 @@
    }
   ],
   "lead": "ncaaf:401864550",
-  "motd": "ncaaf:401856762",
+  "motd": "ncaaf:401862842",
   "week": 13
  },
  "nfl": {
