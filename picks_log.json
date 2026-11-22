@@ -13154,6 +13154,58 @@
     "streakTeamName": "William & Mary"
    },
    {
+    "id": "nfl|401873070|1q|ats|away",
+    "game": "nfl|401873070",
+    "date": "2026-11-22",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-22T18:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Dolphins @ Bills",
+    "href": "nfl/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": 115,
+    "title": "Dolphins 1Q +3.5",
+    "est": 0.5029,
+    "edge": 0.0378,
+    "agree": 4,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider",
+     "Early Bird"
+    ],
+    "streak": 7,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Dolphins 1Q ATS at +3.5, last 8",
+      "7-1"
+     ],
+     [
+      "Dolphins 1Q ATS at +3.5, season",
+      "7-2"
+     ],
+     [
+      "Bills\u2019s opponents 1Q ATS at +3.5, Bills at home",
+      "3-1"
+     ],
+     [
+      "Dolphins 1Q ATS at +3.5 on the road",
+      "3-2"
+     ]
+    ],
+    "info": "Dolphins avg 1Q margin on the road: -2.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Dolphins"
+   },
+   {
     "id": "nba|401910032|1h|ml|home",
     "game": "nba|401910032",
     "date": "2026-11-22",
@@ -13295,58 +13347,6 @@
     "streakTeamName": "Dolphins"
    },
    {
-    "id": "nfl|401873070|1q|ats|away",
-    "game": "nfl|401873070",
-    "date": "2026-11-22",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-22T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Dolphins @ Bills",
-    "href": "nfl/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 3.5,
-    "price": 110,
-    "title": "Dolphins 1Q +3.5",
-    "est": 0.5114,
-    "edge": 0.0352,
-    "agree": 4,
-    "sample": 9,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider",
-     "Early Bird"
-    ],
-    "streak": 7,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "Dolphins 1Q ATS at +3.5, last 8",
-      "7-1"
-     ],
-     [
-      "Dolphins 1Q ATS at +3.5, season",
-      "7-2"
-     ],
-     [
-      "Bills\u2019s opponents 1Q ATS at +3.5, Bills at home",
-      "3-1"
-     ],
-     [
-      "Dolphins 1Q ATS at +3.5 on the road",
-      "3-2"
-     ]
-    ],
-    "info": "Dolphins avg 1Q margin on the road: -2.0",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Dolphins"
-   },
-   {
     "id": "nba|401910033|1q|ml|home",
     "game": "nba|401910033",
     "date": "2026-11-22",
@@ -13405,10 +13405,10 @@
     "market": "ats",
     "side": "away",
     "line": 2.5,
-    "price": -112,
+    "price": -113,
     "title": "Pacers 1Q +2.5",
-    "est": 0.5634,
-    "edge": 0.0351,
+    "est": 0.5648,
+    "edge": 0.0343,
     "agree": 3,
     "sample": 16,
     "tier": "C",
