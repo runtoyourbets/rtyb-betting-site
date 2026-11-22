@@ -884,82 +884,82 @@
   "games": [
    {
     "label": "Kent State at Eastern Michigan · 7:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "ncaaf:401866470"
    },
    {
     "label": "Miami (OH) at Western Michigan · 7:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401866471"
    },
    {
     "label": "TCU at Texas Tech · 8:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaaf:401856879"
    },
    {
     "label": "Mississippi State at Ole Miss · 12:00 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401856762"
    },
    {
     "label": "Nebraska at Iowa · 12:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaaf:401858536"
    },
    {
     "label": "Tulsa at UTSA · 12:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaaf:401862840"
    },
    {
     "label": "Buffalo at Akron · 12:00 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401866472"
    },
    {
     "label": "Toledo at Ohio · 12:00 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401866473"
    },
    {
     "label": "App State at South Alabama · 3:00 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401869930"
    },
    {
     "label": "Florida at Florida State · 3:30 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "ncaaf:401856759"
    },
    {
     "label": "Temple at Memphis · 3:30 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaaf:401862838"
    },
    {
     "label": "North Dakota State at San José State · 3:30 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "ncaaf:401864549"
    },
    {
     "label": "Air Force at New Mexico · 4:30 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401864546"
    },
    {
     "label": "Texas at Texas A&M · 7:30 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "ncaaf:401856756"
    },
    {
     "label": "Minnesota at Wisconsin · 7:30 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaaf:401858544"
    },
    {
     "label": "West Virginia at Utah · 9:00 PM ET",
-    "trends": 11,
+    "trends": 12,
     "value": "ncaaf:401856880"
    },
    {
@@ -1229,7 +1229,7 @@
    }
   ],
   "lead": "ncaaf:401864550",
-  "motd": null,
+  "motd": "ncaaf:401856762",
   "week": 13
  },
  "nfl": {
