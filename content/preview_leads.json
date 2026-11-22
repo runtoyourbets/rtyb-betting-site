@@ -195,5 +195,61 @@
    "start": "2026-11-22T00:00:00Z",
    "trend": "PHI has gone BTTS No"
   }
+ },
+ "2026-11-22": {
+  "all": {
+   "away": "EDM",
+   "chip": "EDM BTTS NO 1P · 20 OF 25",
+   "home": "STL",
+   "id": "2026020375",
+   "sport": "nhl",
+   "start": "2026-11-23T00:00:00Z",
+   "trend": "EDM has gone BTTS No"
+  },
+  "nba": {
+   "away": "dal",
+   "chip": "UTA LOST 1H · 13 OF 17",
+   "home": "utah",
+   "id": "401910033",
+   "sport": "nba",
+   "start": "2026-11-23T00:00Z",
+   "trend": "UTA has lost the 1st half"
+  },
+  "ncaab": {
+   "away": "william-and-mary-tribe",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 61% (234-150)",
+   "home": "youngstown-state-penguins",
+   "id": "401918455",
+   "sport": "ncaab",
+   "start": "2026-11-22T19:00Z",
+   "trend": "Fade teams off a blowout (1H ML)"
+  },
+  "ncaaf": {
+   "away": "utep-miners",
+   "chip": "NIU LOST 1H · 11 OF 11",
+   "home": "northern-illinois-huskies",
+   "id": "401864550",
+   "sport": "ncaaf",
+   "start": "2026-11-28T20:30Z",
+   "trend": "NIU has lost the 1st half"
+  },
+  "nfl": {
+   "away": "bal",
+   "chip": "BAL OVER 1Q TOTAL · 8 OF 10",
+   "home": "car",
+   "id": "401873068",
+   "sport": "nfl",
+   "start": "2026-11-22T18:00Z",
+   "trend": "BAL has gone Over the 1st quarter total"
+  },
+  "nhl": {
+   "away": "EDM",
+   "chip": "EDM BTTS NO 1P · 20 OF 25",
+   "home": "STL",
+   "id": "2026020375",
+   "sport": "nhl",
+   "start": "2026-11-23T00:00:00Z",
+   "trend": "EDM has gone BTTS No"
+  }
  }
 }
