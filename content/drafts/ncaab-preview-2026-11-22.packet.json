@@ -1,0 +1,1258 @@
+{
+ "sport": "College Basketball",
+ "segments": "1st half",
+ "date": "2026-11-22",
+ "games_on_the_slate": 37,
+ "lead_game": "William & Mary at Youngstown State",
+ "matchup_of_the_day": "Utah at Minnesota",
+ "games": [
+  {
+   "id": "401902281",
+   "matchup": "Nebraska at Butler",
+   "away": {
+    "code": "NEB",
+    "name": "Nebraska"
+   },
+   "home": {
+    "code": "BTLR",
+    "name": "Butler"
+   },
+   "start": "12:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "83-72",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Nebraska have won the 1st half 5 straight",
+    "Butler have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "NEB": {
+       "open": -410,
+       "now": -410,
+       "best_book": "DraftKings"
+      },
+      "BTLR": {
+       "open": 330,
+       "now": 330,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "NEB": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": -115,
+       "best_book": "Caesars"
+      },
+      "BTLR": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": -105,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 72.5,
+      "now": 72.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920736",
+   "matchup": "Dayton at Northwestern",
+   "away": {
+    "code": "DAY",
+    "name": "Dayton"
+   },
+   "home": {
+    "code": "NU",
+    "name": "Northwestern"
+   },
+   "start": "1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "75-58",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "75-60",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "83-72",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Northwestern have lost the 1st half 3 straight",
+    "Northwestern have failed to cover the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "DAY": {
+       "open": -148,
+       "now": -148,
+       "best_book": "FanDuel"
+      },
+      "NU": {
+       "open": 130,
+       "now": 130,
+       "best_book": "TheScore US"
+      }
+     },
+     "spread": {
+      "DAY": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -112,
+       "best_book": "FanDuel"
+      },
+      "NU": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 63.5,
+      "now": 63.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401911200",
+   "matchup": "San Diego at Fordham",
+   "away": {
+    "code": "USD",
+    "name": "San Diego"
+   },
+   "home": {
+    "code": "FORD",
+    "name": "Fordham"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "75-58",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "75-60",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Fordham have won the 1st half 4 straight",
+    "Fordham have covered the 1st half spread 3 straight",
+    "San Diego have covered the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "USD": {
+       "open": 126,
+       "now": 126,
+       "best_book": "Caesars"
+      },
+      "FORD": {
+       "open": -148,
+       "now": -148,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "USD": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -110,
+       "best_book": "Caesars"
+      },
+      "FORD": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -110,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 67.5,
+      "now": 67.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401918455",
+   "matchup": "William & Mary at Youngstown State",
+   "away": {
+    "code": "WM",
+    "name": "William & Mary"
+   },
+   "home": {
+    "code": "YSU",
+    "name": "Youngstown State"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "75-58",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "75-60",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "83-72",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Youngstown State have lost the 1st half 5 straight",
+    "William & Mary have covered the 1st half spread 4 straight",
+    "Youngstown State have failed to cover the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "WM": {
+       "open": -140,
+       "now": -140,
+       "best_book": "Caesars"
+      },
+      "YSU": {
+       "open": 118,
+       "now": 118,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "WM": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -105,
+       "best_book": "Caesars"
+      },
+      "YSU": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 80.5,
+      "now": 78.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401925066",
+   "matchup": "Troy at Nicholls",
+   "away": {
+    "code": "TROY",
+    "name": "Troy"
+   },
+   "home": {
+    "code": "NICH",
+    "name": "Nicholls"
+   },
+   "start": "3:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "83-72",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1H": {
+     "spread": {
+      "TROY": {
+       "open": -1.5,
+       "now": -3.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "NICH": {
+       "open": 1.5,
+       "now": 3.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 64.5,
+      "now": 63.5,
+      "over": -115,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401923323",
+   "matchup": "Mercyhurst at UAlbany",
+   "away": {
+    "code": "MERC",
+    "name": "Mercyhurst"
+   },
+   "home": {
+    "code": "UALB",
+    "name": "UAlbany"
+   },
+   "start": "3:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Mercyhurst have lost the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "MERC": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -150,
+       "best_book": "Fanatics"
+      },
+      "UALB": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": 120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 60.5,
+      "now": 60.5,
+      "over": -120,
+      "under": 100,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920381",
+   "matchup": "Virginia Tech at Oklahoma State",
+   "away": {
+    "code": "VT",
+    "name": "Virginia Tech"
+   },
+   "home": {
+    "code": "OKST",
+    "name": "Oklahoma State"
+   },
+   "start": "3:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "75-58",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "75-60",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "83-72",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Virginia Tech have won the 1st half 6 straight",
+    "Oklahoma State 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "VT": {
+       "open": -125,
+       "now": -125,
+       "best_book": "Caesars"
+      },
+      "OKST": {
+       "open": 105,
+       "now": 105,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "VT": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      },
+      "OKST": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -105,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 75.5,
+      "now": 74.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401926795",
+   "matchup": "Richmond at Liberty",
+   "away": {
+    "code": "RICH",
+    "name": "Richmond"
+   },
+   "home": {
+    "code": "LIB",
+    "name": "Liberty"
+   },
+   "start": "4:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "75-58",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "75-60",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Liberty have won the 1st half 4 straight",
+    "Richmond have failed to cover the 1st half spread 3 straight",
+    "Liberty 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "RICH": {
+       "open": 105,
+       "now": 105,
+       "best_book": "DraftKings"
+      },
+      "LIB": {
+       "open": -125,
+       "now": -125,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "RICH": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -105,
+       "best_book": "Caesars"
+      },
+      "LIB": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 67.5,
+      "now": 67.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909556",
+   "matchup": "NJIT at Boston College",
+   "away": {
+    "code": "NJIT",
+    "name": "NJIT"
+   },
+   "home": {
+    "code": "BC",
+    "name": "Boston College"
+   },
+   "start": "5:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Boston College have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "NJIT": {
+       "open": 11.5,
+       "now": 13.5,
+       "price": 105,
+       "best_book": "Fanatics"
+      },
+      "BC": {
+       "open": -11.5,
+       "now": -13.5,
+       "price": -130,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 64.5,
+      "now": 64.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921205",
+   "matchup": "Temple at Stephen F. Austin",
+   "away": {
+    "code": "TEM",
+    "name": "Temple"
+   },
+   "home": {
+    "code": "SFA",
+    "name": "Stephen F. Austin"
+   },
+   "start": "5:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "75-58",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "75-60",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "83-72",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Temple 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "TEM": {
+       "open": -130,
+       "now": -130,
+       "best_book": "DraftKings"
+      },
+      "SFA": {
+       "open": 100,
+       "now": 100,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "TEM": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "SFA": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -110,
+       "best_book": "TheScore US"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921420",
+   "matchup": "Utah at Minnesota",
+   "away": {
+    "code": "UTAH",
+    "name": "Utah"
+   },
+   "home": {
+    "code": "MINN",
+    "name": "Minnesota"
+   },
+   "start": "6:00 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Utah have lost the 1st half 3 straight",
+    "Minnesota have won the 1st half 3 straight",
+    "Utah have failed to cover the 1st half spread 3 straight",
+    "Minnesota have covered the 1st half spread 6 straight",
+    "Utah 1st halves have gone Under 5 straight",
+    "Minnesota 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "UTAH": {
+       "open": 310,
+       "now": 310,
+       "best_book": "Caesars"
+      },
+      "MINN": {
+       "open": -375,
+       "now": -375,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "UTAH": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": -120,
+       "best_book": "DraftKings"
+      },
+      "MINN": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": 100,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 61.5,
+      "now": 61.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401917541",
+   "matchup": "California Baptist at Portland",
+   "away": {
+    "code": "CBU",
+    "name": "California Baptist"
+   },
+   "home": {
+    "code": "PORT",
+    "name": "Portland"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    }
+   ],
+   "streaks": [
+    "California Baptist have failed to cover the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "CBU": {
+       "open": 250,
+       "now": 250,
+       "best_book": "DraftKings"
+      },
+      "PORT": {
+       "open": -345,
+       "now": -345,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "CBU": {
+       "open": 5.5,
+       "now": 5.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "PORT": {
+       "open": -5.5,
+       "now": -5.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 69.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401919020",
+   "matchup": "Rhode Island at UAB",
+   "away": {
+    "code": "URI",
+    "name": "Rhode Island"
+   },
+   "home": {
+    "code": "UAB",
+    "name": "UAB"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back small favorites (1H ML)",
+     "season_record": "75-58",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back small favorites (1H Spread)",
+     "season_record": "75-60",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "83-72",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Rhode Island have failed to cover the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "URI": {
+       "open": -140,
+       "now": -140,
+       "best_book": "DraftKings"
+      },
+      "UAB": {
+       "open": 110,
+       "now": 110,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "URI": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      },
+      "UAB": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -120,
+       "best_book": "TheScore US"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401926774",
+   "matchup": "Louisiana at USC",
+   "away": {
+    "code": "UL",
+    "name": "Louisiana"
+   },
+   "home": {
+    "code": "USC",
+    "name": "USC"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "234-151",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "USC have won the 1st half 3 straight",
+    "Louisiana have failed to cover the 1st half spread 3 straight",
+    "USC have covered the 1st half spread 3 straight",
+    "Louisiana 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "UL": {
+       "open": 3300,
+       "now": 3300,
+       "best_book": "TheScore US"
+      },
+      "USC": {
+       "open": -10000,
+       "now": -10000,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "UL": {
+       "open": 18.5,
+       "now": 18.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "USC": {
+       "open": -18.5,
+       "now": -18.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 69.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401911233",
+   "matchup": "San José State at Loyola Chicago",
+   "away": {
+    "code": "SJSU",
+    "name": "San José State"
+   },
+   "home": {
+    "code": "LUC",
+    "name": "Loyola Chicago"
+   },
+   "start": "11:59 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1H Spread)",
+     "season_record": "190-154",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "San José State have failed to cover the 1st half spread 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "SJSU": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "LUC": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  }
+ ],
+ "trends_page": "/college-basketball/trends/",
+ "teams": {
+  "BC": {
+   "name": "Boston College",
+   "rates": []
+  },
+  "BTLR": {
+   "name": "Butler",
+   "rates": []
+  },
+  "CBU": {
+   "name": "California Baptist",
+   "rates": []
+  },
+  "DAY": {
+   "name": "Dayton",
+   "rates": []
+  },
+  "FORD": {
+   "name": "Fordham",
+   "rates": []
+  },
+  "LIB": {
+   "name": "Liberty",
+   "rates": []
+  },
+  "UL": {
+   "name": "Louisiana",
+   "rates": []
+  },
+  "LUC": {
+   "name": "Loyola Chicago",
+   "rates": []
+  },
+  "MERC": {
+   "name": "Mercyhurst",
+   "rates": []
+  },
+  "MINN": {
+   "name": "Minnesota",
+   "rates": []
+  },
+  "NEB": {
+   "name": "Nebraska",
+   "rates": []
+  },
+  "NICH": {
+   "name": "Nicholls",
+   "rates": []
+  },
+  "NJIT": {
+   "name": "NJIT",
+   "rates": []
+  },
+  "NU": {
+   "name": "Northwestern",
+   "rates": []
+  },
+  "OKST": {
+   "name": "Oklahoma State",
+   "rates": []
+  },
+  "PORT": {
+   "name": "Portland",
+   "rates": []
+  },
+  "URI": {
+   "name": "Rhode Island",
+   "rates": []
+  },
+  "RICH": {
+   "name": "Richmond",
+   "rates": []
+  },
+  "USD": {
+   "name": "San Diego",
+   "rates": []
+  },
+  "SJSU": {
+   "name": "San José State",
+   "rates": []
+  },
+  "SFA": {
+   "name": "Stephen F. Austin",
+   "rates": []
+  },
+  "TEM": {
+   "name": "Temple",
+   "rates": []
+  },
+  "TROY": {
+   "name": "Troy",
+   "rates": []
+  },
+  "UAB": {
+   "name": "UAB",
+   "rates": []
+  },
+  "UALB": {
+   "name": "UAlbany",
+   "rates": []
+  },
+  "USC": {
+   "name": "USC",
+   "rates": []
+  },
+  "UTAH": {
+   "name": "Utah",
+   "rates": []
+  },
+  "VT": {
+   "name": "Virginia Tech",
+   "rates": []
+  },
+  "WM": {
+   "name": "William & Mary",
+   "rates": []
+  },
+  "YSU": {
+   "name": "Youngstown State",
+   "rates": []
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H ML",
+   "record": "234-151",
+   "pct": "61%",
+   "games": 385,
+   "fits_tonight": [
+    "Dayton at Northwestern",
+    "William & Mary at Youngstown State",
+    "Troy at Nicholls",
+    "Virginia Tech at Oklahoma State",
+    "Mercyhurst at UAlbany",
+    "Richmond at Liberty",
+    "NJIT at Boston College",
+    "Utah at Minnesota",
+    "California Baptist at Portland",
+    "Louisiana at USC"
+   ]
+  },
+  {
+   "trend": "Back small favorites",
+   "market": "1H ML",
+   "record": "75-58",
+   "pct": "56%",
+   "games": 133,
+   "fits_tonight": [
+    "Dayton at Northwestern",
+    "San Diego at Fordham",
+    "William & Mary at Youngstown State",
+    "Virginia Tech at Oklahoma State",
+    "Richmond at Liberty",
+    "Temple at Stephen F. Austin",
+    "Rhode Island at UAB"
+   ]
+  },
+  {
+   "trend": "Back small favorites",
+   "market": "1H Spread",
+   "record": "75-60",
+   "pct": "56%",
+   "games": 135,
+   "fits_tonight": [
+    "Dayton at Northwestern",
+    "San Diego at Fordham",
+    "William & Mary at Youngstown State",
+    "Virginia Tech at Oklahoma State",
+    "Richmond at Liberty",
+    "Temple at Stephen F. Austin",
+    "Rhode Island at UAB"
+   ]
+  },
+  {
+   "trend": "Over: home underdog games",
+   "market": "1H O/U",
+   "record": "83-72",
+   "pct": "54%",
+   "games": 155,
+   "fits_tonight": [
+    "Nebraska at Butler",
+    "Dayton at Northwestern",
+    "William & Mary at Youngstown State",
+    "Troy at Nicholls",
+    "Virginia Tech at Oklahoma State",
+    "Temple at Stephen F. Austin",
+    "Rhode Island at UAB"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "1H Spread",
+   "record": "190-154",
+   "pct": "55%",
+   "games": 344,
+   "fits_tonight": [
+    "Dayton at Northwestern",
+    "William & Mary at Youngstown State",
+    "Virginia Tech at Oklahoma State",
+    "Mercyhurst at UAlbany",
+    "Richmond at Liberty",
+    "NJIT at Boston College",
+    "Utah at Minnesota",
+    "Rhode Island at UAB",
+    "Louisiana at USC",
+    "San José State at Loyola Chicago"
+   ]
+  }
+ ],
+ "edge_plays": [],
+ "boxes": {
+  "league_trend": {
+   "sport": "ncaab",
+   "number": "61%",
+   "line": "Fade teams off a blowout · 1H ML · 234-151",
+   "text": "Fade teams off a blowout 234-151 this season; tonight it fits Towson at American University and 12 more games.",
+   "id": "off_loss3:1h:ml:fade"
+  }
+ }
+}
