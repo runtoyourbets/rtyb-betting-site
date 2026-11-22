@@ -199,12 +199,12 @@
    },
    {
     "label": "NCAAB · San Diego at Fordham · 2:00 PM ET",
-    "trends": 6,
+    "trends": 8,
     "value": "ncaab:401911200"
    },
    {
     "label": "NCAAB · South Dakota at Utah Tech · 2:00 PM ET",
-    "trends": 4,
+    "trends": 6,
     "value": "ncaab:401925942"
    },
    {
@@ -214,7 +214,7 @@
    },
    {
     "label": "NCAAB · William & Mary at Youngstown State · 2:00 PM ET",
-    "trends": 10,
+    "trends": 12,
     "value": "ncaab:401918455"
    },
    {
@@ -254,7 +254,7 @@
    },
    {
     "label": "NCAAB · Virginia Tech at Oklahoma State · 3:30 PM ET",
-    "trends": 8,
+    "trends": 10,
     "value": "ncaab:401920381"
    },
    {
@@ -279,7 +279,7 @@
    },
    {
     "label": "NCAAB · Richmond at Liberty · 4:30 PM ET",
-    "trends": 8,
+    "trends": 10,
     "value": "ncaab:401926795"
    },
    {
@@ -314,7 +314,7 @@
    },
    {
     "label": "NCAAB · Temple at Stephen F. Austin · 5:30 PM ET",
-    "trends": 6,
+    "trends": 8,
     "value": "ncaab:401921205"
    },
    {
@@ -369,7 +369,7 @@
    },
    {
     "label": "NCAAB · Rhode Island at UAB · 7:00 PM ET",
-    "trends": 7,
+    "trends": 10,
     "value": "ncaab:401919020"
    },
    {
@@ -598,12 +598,12 @@
    },
    {
     "label": "San Diego at Fordham · 2:00 PM ET",
-    "trends": 6,
+    "trends": 8,
     "value": "ncaab:401911200"
    },
    {
     "label": "South Dakota at Utah Tech · 2:00 PM ET",
-    "trends": 4,
+    "trends": 6,
     "value": "ncaab:401925942"
    },
    {
@@ -613,7 +613,7 @@
    },
    {
     "label": "William & Mary at Youngstown State · 2:00 PM ET",
-    "trends": 10,
+    "trends": 12,
     "value": "ncaab:401918455"
    },
    {
@@ -648,7 +648,7 @@
    },
    {
     "label": "Virginia Tech at Oklahoma State · 3:30 PM ET",
-    "trends": 8,
+    "trends": 10,
     "value": "ncaab:401920381"
    },
    {
@@ -658,7 +658,7 @@
    },
    {
     "label": "Richmond at Liberty · 4:30 PM ET",
-    "trends": 8,
+    "trends": 10,
     "value": "ncaab:401926795"
    },
    {
@@ -688,7 +688,7 @@
    },
    {
     "label": "Temple at Stephen F. Austin · 5:30 PM ET",
-    "trends": 6,
+    "trends": 8,
     "value": "ncaab:401921205"
    },
    {
@@ -713,7 +713,7 @@
    },
    {
     "label": "Rhode Island at UAB · 7:00 PM ET",
-    "trends": 7,
+    "trends": 10,
     "value": "ncaab:401919020"
    },
    {

@@ -12903,10 +12903,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 310,
+    "price": 340,
     "title": "Raiders 1H ML",
-    "est": 0.3076,
-    "edge": 0.0637,
+    "est": 0.2949,
+    "edge": 0.0676,
     "agree": 2,
     "sample": 9,
     "tier": "C",
@@ -12929,6 +12929,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Raiders"
+   },
+   {
+    "id": "ncaab|401906868|1h|ml|away",
+    "game": "ncaab|401906868",
+    "date": "2026-11-22",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-22T20:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Southern Indiana @ Texas",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 3500,
+    "title": "Southern Indiana 1H ML",
+    "est": 0.0843,
+    "edge": 0.0566,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "southern-indiana-screaming-eagles",
+    "angles": [
+     [
+      "Southern Indiana 1H ML, season",
+      "4-2"
+     ],
+     [
+      "Southern Indiana 1H ML, last 8",
+      "4-2"
+     ],
+     [
+      "Southern Indiana 1H ML on the road",
+      "2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Southern Indiana"
    },
    {
     "id": "nhl|2026020375|1p|ml|away",
@@ -13354,98 +13400,46 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "ncaab|401929202|1h|ats|home",
-    "game": "ncaab|401929202",
+    "id": "ncaab|401918455|1h|ml|away",
+    "game": "ncaab|401918455",
     "date": "2026-11-22",
     "sport": "ncaab",
     "label": "NCAAB",
     "slug": "college-basketball",
-    "start": "2026-11-22T20:30Z",
+    "start": "2026-11-22T19:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "McNeese @ Texas State",
+    "matchup": "William & Mary @ Youngstown State",
     "href": "college-basketball/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": -1.5,
-    "price": 100,
-    "title": "Texas State 1H -1.5",
-    "est": 0.5337,
-    "edge": 0.0337,
-    "agree": 3,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider"
-    ],
-    "streak": 6,
-    "streakTeam": "texas-state-bobcats",
-    "angles": [
-     [
-      "Texas State 1H ATS at -1.5, season",
-      "6-0"
-     ],
-     [
-      "Texas State 1H ATS at -1.5, last 8",
-      "6-0"
-     ],
-     [
-      "Texas State 1H ATS at -1.5 at home",
-      "4-0"
-     ]
-    ],
-    "info": "Texas State avg 1H margin at home: +15.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Texas State"
-   },
-   {
-    "id": "ncaab|401921206|1h|ats|away",
-    "game": "ncaab|401921206",
-    "date": "2026-11-22",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "UT Martin @ Utah Valley",
-    "href": "college-basketball/matchups/",
-    "market": "ats",
+    "market": "ml",
     "side": "away",
-    "line": 3.5,
-    "price": 100,
-    "title": "UT Martin 1H +3.5",
-    "est": 0.5337,
-    "edge": 0.0337,
-    "agree": 3,
+    "line": null,
+    "price": -145,
+    "title": "William & Mary 1H ML",
+    "est": 0.6269,
+    "edge": 0.035,
+    "agree": 2,
     "sample": 6,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Chalk Eater"
     ],
-    "streak": 6,
-    "streakTeam": "ut-martin-skyhawks",
+    "streak": 2,
+    "streakTeam": "william-and-mary-tribe",
     "angles": [
      [
-      "UT Martin 1H ATS at +3.5, season",
-      "6-0"
+      "William & Mary 1H ML, season",
+      "5-1"
      ],
      [
-      "UT Martin 1H ATS at +3.5, last 8",
-      "6-0"
-     ],
-     [
-      "UT Martin 1H ATS at +3.5 on the road",
-      "4-0"
+      "William & Mary 1H ML, last 8",
+      "5-1"
      ]
     ],
-    "info": "UT Martin avg 1H margin on the road: +6.5",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "UT Martin"
+    "streakTeamName": "William & Mary"
    }
   ]
  }
