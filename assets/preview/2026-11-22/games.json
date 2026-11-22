@@ -244,12 +244,12 @@
    },
    {
     "label": "NCAAB · McNeese at Texas State · 3:30 PM ET",
-    "trends": 4,
+    "trends": 6,
     "value": "ncaab:401929202"
    },
    {
     "label": "NCAAB · Mercyhurst at UAlbany · 3:30 PM ET",
-    "trends": 9,
+    "trends": 8,
     "value": "ncaab:401923323"
    },
    {
@@ -304,7 +304,7 @@
    },
    {
     "label": "NCAAB · Rice at Lamar · 5:00 PM ET",
-    "trends": 1,
+    "trends": 3,
     "value": "ncaab:401925013"
    },
    {
@@ -638,12 +638,12 @@
    },
    {
     "label": "McNeese at Texas State · 3:30 PM ET",
-    "trends": 4,
+    "trends": 6,
     "value": "ncaab:401929202"
    },
    {
     "label": "Mercyhurst at UAlbany · 3:30 PM ET",
-    "trends": 9,
+    "trends": 8,
     "value": "ncaab:401923323"
    },
    {
@@ -678,7 +678,7 @@
    },
    {
     "label": "Rice at Lamar · 5:00 PM ET",
-    "trends": 1,
+    "trends": 3,
     "value": "ncaab:401925013"
    },
    {
