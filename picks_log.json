@@ -13121,10 +13121,10 @@
     "market": "total",
     "side": "over",
     "line": 104.5,
-    "price": -110,
+    "price": -106,
     "title": "1H Over 104.5",
-    "est": 0.5653,
-    "edge": 0.0415,
+    "est": 0.5593,
+    "edge": 0.0448,
     "agree": 4,
     "sample": 16,
     "tier": "B",
@@ -13335,52 +13335,6 @@
     "streakTeamName": "Ravens"
    },
    {
-    "id": "nba|401910034|1q|ats|away",
-    "game": "nba|401910034",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pacers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 2.5,
-    "price": -111,
-    "title": "Pacers 1Q +2.5",
-    "est": 0.5619,
-    "edge": 0.0359,
-    "agree": 3,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1Q ATS at +2.5 on the road",
-      "8-0"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, season",
-      "12-4"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Pacers avg 1Q margin on the road: +3.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
-   },
-   {
     "id": "nba|401910029|1q|ml|away",
     "game": "nba|401910029",
     "date": "2026-11-22",
@@ -13421,6 +13375,99 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Pistons"
+   },
+   {
+    "id": "nba|401910033|1q|ml|home",
+    "game": "nba|401910033",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -110,
+    "title": "Jazz 1Q ML",
+    "est": 0.559,
+    "edge": 0.0352,
+    "agree": 3,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -2,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "5-1-1"
+     ],
+     [
+      "Jazz 1Q ML at home",
+      "5-4"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "8-7-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
+    "id": "ncaab|401929202|1h|ats|home",
+    "game": "ncaab|401929202",
+    "date": "2026-11-22",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-22T20:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "McNeese @ Texas State",
+    "href": "college-basketball/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": -1.5,
+    "price": 100,
+    "title": "Texas State 1H -1.5",
+    "est": 0.5337,
+    "edge": 0.0337,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "texas-state-bobcats",
+    "angles": [
+     [
+      "Texas State 1H ATS at -1.5, season",
+      "6-0"
+     ],
+     [
+      "Texas State 1H ATS at -1.5, last 8",
+      "6-0"
+     ],
+     [
+      "Texas State 1H ATS at -1.5 at home",
+      "4-0"
+     ]
+    ],
+    "info": "Texas State avg 1H margin at home: +15.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Texas State"
    }
   ]
  }
