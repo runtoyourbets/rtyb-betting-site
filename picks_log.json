@@ -12991,13 +12991,13 @@
     "market": "ats",
     "side": "away",
     "line": 2.5,
-    "price": -102,
+    "price": -106,
     "title": "Pacers 1Q +2.5",
-    "est": 0.5482,
-    "edge": 0.0432,
+    "est": 0.5544,
+    "edge": 0.0399,
     "agree": 3,
     "sample": 16,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Dog Hunter"
     ],
