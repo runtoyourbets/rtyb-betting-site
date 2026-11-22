@@ -204,7 +204,7 @@
    },
    {
     "label": "NCAAB · South Dakota at Utah Tech · 2:00 PM ET",
-    "trends": 6,
+    "trends": 4,
     "value": "ncaab:401925942"
    },
    {
@@ -224,7 +224,7 @@
    },
    {
     "label": "NCAAB · Robert Morris at New Mexico State · 2:30 PM ET",
-    "trends": 4,
+    "trends": 6,
     "value": "ncaab:401928790"
    },
    {
@@ -339,7 +339,7 @@
    },
    {
     "label": "NHL · Pittsburgh Penguins at Dallas Stars · 7:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "nhl:2026020376"
    },
    {
@@ -354,7 +354,7 @@
    },
    {
     "label": "NBA · Orlando Magic at Washington Wizards · 7:00 PM ET",
-    "trends": 14,
+    "trends": 13,
     "value": "nba:401910031"
    },
    {
@@ -456,7 +456,7 @@
    },
    {
     "label": "Orlando Magic at Washington Wizards · 7:00 PM ET",
-    "trends": 14,
+    "trends": 13,
     "value": "nba:401910031"
    },
    {
@@ -603,7 +603,7 @@
    },
    {
     "label": "South Dakota at Utah Tech · 2:00 PM ET",
-    "trends": 6,
+    "trends": 4,
     "value": "ncaab:401925942"
    },
    {
@@ -623,7 +623,7 @@
    },
    {
     "label": "Robert Morris at New Mexico State · 2:30 PM ET",
-    "trends": 4,
+    "trends": 6,
     "value": "ncaab:401928790"
    },
    {
@@ -1356,7 +1356,7 @@
    },
    {
     "label": "Pittsburgh Penguins at Dallas Stars · 7:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "nhl:2026020376"
    },
    {
@@ -1366,6 +1366,6 @@
    }
   ],
   "lead": "nhl:2026020375",
-  "motd": "nhl:2026020375"
+  "motd": "nhl:2026020376"
  }
 }
