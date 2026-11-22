@@ -884,22 +884,22 @@
   "games": [
    {
     "label": "Kent State at Eastern Michigan · 7:00 PM ET",
-    "trends": 14,
+    "trends": 13,
     "value": "ncaaf:401866470"
    },
    {
     "label": "Miami (OH) at Western Michigan · 7:00 PM ET",
-    "trends": 12,
+    "trends": 11,
     "value": "ncaaf:401866471"
    },
    {
     "label": "TCU at Texas Tech · 8:00 PM ET",
-    "trends": 9,
+    "trends": 8,
     "value": "ncaaf:401856879"
    },
    {
     "label": "Mississippi State at Ole Miss · 12:00 PM ET",
-    "trends": 12,
+    "trends": 11,
     "value": "ncaaf:401856762"
    },
    {
@@ -934,7 +934,7 @@
    },
    {
     "label": "Temple at Memphis · 3:30 PM ET",
-    "trends": 8,
+    "trends": 7,
     "value": "ncaaf:401862838"
    },
    {
@@ -944,7 +944,7 @@
    },
    {
     "label": "Air Force at New Mexico · 4:30 PM ET",
-    "trends": 14,
+    "trends": 13,
     "value": "ncaaf:401864546"
    },
    {
@@ -959,7 +959,7 @@
    },
    {
     "label": "West Virginia at Utah · 9:00 PM ET",
-    "trends": 12,
+    "trends": 11,
     "value": "ncaaf:401856880"
    },
    {
@@ -969,7 +969,7 @@
    },
    {
     "label": "Boston College at Miami · 12:00 PM ET",
-    "trends": 10,
+    "trends": 9,
     "value": "ncaaf:401858311"
    },
    {
@@ -1054,7 +1054,7 @@
    },
    {
     "label": "Coastal Carolina at James Madison · 2:00 PM ET",
-    "trends": 16,
+    "trends": 15,
     "value": "ncaaf:401869947"
    },
    {
@@ -1069,7 +1069,7 @@
    },
    {
     "label": "Sam Houston at Florida International · 2:00 PM ET",
-    "trends": 7,
+    "trends": 6,
     "value": "ncaaf:401871082"
    },
    {
@@ -1094,17 +1094,17 @@
    },
    {
     "label": "Georgia Tech at Georgia · 3:30 PM ET",
-    "trends": 10,
+    "trends": 9,
     "value": "ncaaf:401856760"
    },
    {
     "label": "Cincinnati at BYU · 3:30 PM ET",
-    "trends": 10,
+    "trends": 9,
     "value": "ncaaf:401856876"
    },
    {
     "label": "Duke at Wake Forest · 3:30 PM ET",
-    "trends": 17,
+    "trends": 16,
     "value": "ncaaf:401858312"
    },
    {
@@ -1229,7 +1229,7 @@
    }
   ],
   "lead": "ncaaf:401864550",
-  "motd": "ncaaf:401858312",
+  "motd": "ncaaf:401862842",
   "week": 13
  },
  "nfl": {
