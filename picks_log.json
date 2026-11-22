@@ -12446,8 +12446,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "P",
+    "units": 0.0,
     "streakTeamName": "Minnesota"
    },
    {
@@ -13225,6 +13225,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bears"
+   },
+   {
+    "id": "ncaab|401929202|1h|ats|home",
+    "game": "ncaab|401929202",
+    "date": "2026-11-22",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-22T20:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "McNeese @ Texas State",
+    "href": "college-basketball/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": -1.5,
+    "price": 100,
+    "title": "Texas State 1H -1.5",
+    "est": 0.5337,
+    "edge": 0.0337,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "texas-state-bobcats",
+    "angles": [
+     [
+      "Texas State 1H ATS at -1.5, season",
+      "6-0"
+     ],
+     [
+      "Texas State 1H ATS at -1.5, last 8",
+      "6-0"
+     ],
+     [
+      "Texas State 1H ATS at -1.5 at home",
+      "4-0"
+     ]
+    ],
+    "info": "Texas State avg 1H margin at home: +15.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Texas State"
    }
   ]
  }

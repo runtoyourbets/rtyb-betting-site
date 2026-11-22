@@ -339,7 +339,7 @@
    },
    {
     "label": "NHL · Pittsburgh Penguins at Dallas Stars · 7:00 PM ET",
-    "trends": 7,
+    "trends": 6,
     "value": "nhl:2026020376"
    },
    {
@@ -374,7 +374,7 @@
    },
    {
     "label": "NHL · Chicago Blackhawks at Vancouver Canucks · 8:00 PM ET",
-    "trends": 9,
+    "trends": 7,
     "value": "nhl:2026020377"
    },
    {
@@ -886,7 +886,7 @@
    },
    {
     "label": "TCU at Texas Tech · 8:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaaf:401856879"
    },
    {
@@ -951,7 +951,7 @@
    },
    {
     "label": "West Virginia at Utah · 9:00 PM ET",
-    "trends": 13,
+    "trends": 11,
     "value": "ncaaf:401856880"
    },
    {
@@ -1328,16 +1328,16 @@
    },
    {
     "label": "Pittsburgh Penguins at Dallas Stars · 7:00 PM ET",
-    "trends": 7,
+    "trends": 6,
     "value": "nhl:2026020376"
    },
    {
     "label": "Chicago Blackhawks at Vancouver Canucks · 8:00 PM ET",
-    "trends": 9,
+    "trends": 7,
     "value": "nhl:2026020377"
    }
   ],
   "lead": "nhl:2026020375",
-  "motd": "nhl:2026020377"
+  "motd": "nhl:2026020375"
  }
 }
