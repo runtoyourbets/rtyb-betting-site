@@ -193,14 +193,14 @@
     "value": "ncaab:401918988"
    },
    {
+    "label": "NCAAB · Fordham at San Diego · 2:00 PM ET",
+    "trends": 8,
+    "value": "ncaab:401911200"
+   },
+   {
     "label": "NCAAB · George Washington at Western Kentucky · 2:00 PM ET",
     "trends": 8,
     "value": "ncaab:401928802"
-   },
-   {
-    "label": "NCAAB · San Diego at Fordham · 2:00 PM ET",
-    "trends": 8,
-    "value": "ncaab:401911200"
    },
    {
     "label": "NCAAB · South Dakota at Utah Tech · 2:00 PM ET",
@@ -239,7 +239,7 @@
    },
    {
     "label": "NBA · Detroit Pistons at Atlanta Hawks · 3:30 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "nba:401910029"
    },
    {
@@ -344,7 +344,7 @@
    },
    {
     "label": "NBA · Dallas Mavericks at Utah Jazz · 7:00 PM ET",
-    "trends": 14,
+    "trends": 20,
     "value": "nba:401910033"
    },
    {
@@ -436,7 +436,7 @@
   "games": [
    {
     "label": "Detroit Pistons at Atlanta Hawks · 3:30 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "nba:401910029"
    },
    {
@@ -446,7 +446,7 @@
    },
    {
     "label": "Dallas Mavericks at Utah Jazz · 7:00 PM ET",
-    "trends": 14,
+    "trends": 20,
     "value": "nba:401910033"
    },
    {
@@ -592,14 +592,14 @@
     "value": "ncaab:401918988"
    },
    {
+    "label": "Fordham at San Diego · 2:00 PM ET",
+    "trends": 8,
+    "value": "ncaab:401911200"
+   },
+   {
     "label": "George Washington at Western Kentucky · 2:00 PM ET",
     "trends": 8,
     "value": "ncaab:401928802"
-   },
-   {
-    "label": "San Diego at Fordham · 2:00 PM ET",
-    "trends": 8,
-    "value": "ncaab:401911200"
    },
    {
     "label": "South Dakota at Utah Tech · 2:00 PM ET",
@@ -884,12 +884,12 @@
   "games": [
    {
     "label": "Kent State at Eastern Michigan · 7:00 PM ET",
-    "trends": 12,
+    "trends": 15,
     "value": "ncaaf:401866470"
    },
    {
     "label": "Miami (OH) at Western Michigan · 7:00 PM ET",
-    "trends": 10,
+    "trends": 12,
     "value": "ncaaf:401866471"
    },
    {

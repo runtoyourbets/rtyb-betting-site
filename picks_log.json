@@ -13246,6 +13246,52 @@
     "streakTeamName": "UAlbany"
    },
    {
+    "id": "nba|401910033|1q|ml|home",
+    "game": "nba|401910033",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -105,
+    "title": "Jazz 1Q ML",
+    "est": 0.5512,
+    "edge": 0.039,
+    "agree": 3,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -2,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "5-1-1"
+     ],
+     [
+      "Jazz 1Q ML at home",
+      "5-4"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "8-7-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
     "id": "ncaab|401918455|1h|ml|away",
     "game": "ncaab|401918455",
     "date": "2026-11-22",
@@ -13424,50 +13470,97 @@
     "streakTeamName": "Texas State"
    },
    {
-    "id": "nba|401910033|1q|ml|home",
-    "game": "nba|401910033",
+    "id": "ncaab|401921206|1h|ats|away",
+    "game": "ncaab|401921206",
+    "date": "2026-11-22",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "UT Martin @ Utah Valley",
+    "href": "college-basketball/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": -105,
+    "title": "UT Martin 1H +3.5",
+    "est": 0.5439,
+    "edge": 0.0317,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "ut-martin-skyhawks",
+    "angles": [
+     [
+      "UT Martin 1H ATS at +3.5, season",
+      "6-0"
+     ],
+     [
+      "UT Martin 1H ATS at +3.5, last 8",
+      "6-0"
+     ],
+     [
+      "UT Martin 1H ATS at +3.5 on the road",
+      "4-0"
+     ]
+    ],
+    "info": "UT Martin avg 1H margin on the road: +6.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "UT Martin"
+   },
+   {
+    "id": "nba|401910034|1q|ats|away",
+    "game": "nba|401910034",
     "date": "2026-11-22",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-23T00:00Z",
+    "start": "2026-11-23T01:00Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Mavericks @ Jazz",
+    "matchup": "Pacers @ Knicks",
     "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -112,
-    "title": "Jazz 1Q ML",
-    "est": 0.562,
-    "edge": 0.0337,
+    "market": "ats",
+    "side": "away",
+    "line": 2.5,
+    "price": -118,
+    "title": "Pacers 1Q +2.5",
+    "est": 0.5719,
+    "edge": 0.0306,
     "agree": 3,
-    "sample": 15,
+    "sample": 16,
     "tier": "C",
     "tags": [
-     "Chalk Eater"
+     "Dog Hunter"
     ],
-    "streak": -2,
-    "streakTeam": "utah",
+    "streak": 1,
+    "streakTeam": "ind",
     "angles": [
      [
-      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
-      "5-1-1"
+      "Pacers 1Q ATS at +2.5 on the road",
+      "8-0"
      ],
      [
-      "Jazz 1Q ML at home",
-      "5-4"
+      "Pacers 1Q ATS at +2.5, season",
+      "12-4"
      ],
      [
-      "Jazz 1Q ML, season",
-      "8-7-2"
+      "Pacers 1Q ATS at +2.5, last 8",
+      "6-2"
      ]
     ],
-    "info": null,
+    "info": "Pacers avg 1Q margin on the road: +3.5",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Jazz"
+    "streakTeamName": "Pacers"
    }
   ]
  }
