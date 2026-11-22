@@ -225,3 +225,40 @@ class LeadCutsTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+def nfl_game(i, day, wk, state='final', away_wins=True):
+    """A week's game: the away team favored and covering the 1Q and 1H, Overs."""
+    g = {'id': i, 'state': state, 'away': f'a{i}', 'home': f'h{i}', 'start': day + 'T17:00:00Z', 'wk': wk,
+         'odds': {k: {'ml': {'away': -180, 'home': 150}, 'ats': {'away': {'line': -1.5, 'price': -110}, 'home': {'line': 1.5, 'price': -110}},
+                      'total': {'line': 9.5, 'over': -110, 'under': -110}} for k in ('1q', '1h')}}
+    if state == 'final':
+        w = 'W' if away_wins else 'L'
+        g['as'], g['hs'] = (24, 10) if away_wins else (10, 24)
+        g['res'] = {k: {'sc': [10, 3] if away_wins else [3, 10], 'su': w, 'ats': w, 'tot': 'O',
+                        'u': {'su': [0.56, -1.0], 'ats': [0.91, -1.0], 'tot': [0.91, -1.0]}} for k in ('1q', '1h')}
+    return g
+
+
+class WeekResults(unittest.TestCase):
+    """Football hubs between weeks: Week N Results, not Yesterday's Best."""
+    def hub(self, now):
+        S = FakeSport('nfl', {'2026-09-13': [nfl_game(i, '2026-09-13', '2-1', away_wins=i % 4 != 0) for i in range(12)],
+                              '2026-09-20': [nfl_game(20 + i, '2026-09-20', '2-2', state='pre') for i in range(2)]})
+        S.weekly = True
+        S.doc['weeks'] = [{'key': '2-1', 'label': 'Week 1', 'start': '2026-09-13', 'end': '2026-09-13', 'games': 12},
+                          {'key': '2-2', 'label': 'Week 2', 'start': '2026-09-20', 'end': '2026-09-20', 'games': 2}]
+        S.odds_page = 'nfl/odds/'
+        return front.hub_hero({'nfl': S}, {'layout': 'no_games', 'next': '2026-09-20'}, '', now)
+
+    def test_between_weeks(self):
+        html = self.hub(datetime(2026, 9, 15, 16, tzinfo=timezone.utc))   # Tuesday
+        self.assertIn('Week 1 Results', html)
+        self.assertNotIn('Yesterday', html)
+        self.assertIn('1Q</span><span class="yb-dot">&middot;</span><span class="yb-mk">Favorites ATS', html)
+        self.assertIn('75% (9-3)', html)                                      # the guides' fav_ats numbers
+        self.assertIn('href="nfl/odds/?week=2-1#og-', html)                   # each result links to its game
+        self.assertIn('Week 2 preview coming Thu, Sep 17', html)
+
+    def test_game_day_of_the_week_is_not_between_weeks(self):
+        self.assertNotIn('Week 1 Results', self.hub(datetime(2026, 9, 13, 23, tzinfo=timezone.utc)))

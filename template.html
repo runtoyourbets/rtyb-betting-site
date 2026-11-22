@@ -2444,6 +2444,14 @@ __THEME_HEAD__
   .yb-rec { flex: none; font-weight: var(--fw-num); }
   .yb-u { flex: none; color: var(--good); font-weight: var(--fw-num); }
   @media (max-width: 400px) { .yb-row { gap: 4px; } }
+  /* football hub between weeks: Week N Results (Yesterday's Best's card) */
+  .wr-h { margin: 14px 0 8px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .wr .st-head + .wr-h { margin-top: 0; }
+  .wr-bet { flex: none; color: var(--text); text-decoration: none; font-weight: var(--fw-team); }
+  .wr-bet:hover { color: var(--accent); }
+  .wr .u-pill { flex: none; }
+  .wr .sk-len { min-width: 26px; padding: 1px 6px; }
+  .wr-next { margin: 14px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   /* Matchup of the Day: the label chip and its "i", TREND TO WATCH, BEST ODDS, the trend rows */
   .mo-chip { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 5px 8px 5px 12px; border-radius: 999px; background: var(--title-bg); color: var(--title-text); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
   .lbl-chip .mo-chip { margin: 0; padding-right: 12px; }

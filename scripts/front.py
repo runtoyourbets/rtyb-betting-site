@@ -1472,6 +1472,83 @@ def last_week(sport, today):
     return done
 
 
+WR_ROWS = 3   # Week N Results: best / worst results shown
+WR_STREAKS = 4   # ... and streaks that grew, and that ended
+
+
+def between_weeks(sport, today):
+    """Football: the week just finished when `today` is after its last game
+    (the hub shows its results until the next week's preview is up), else None."""
+    wk = last_week(sport, today)
+    return wk if wk and wk['end'] < today else None
+
+
+def week_results(sport, wk, now_utc, root=''):
+    """A football hub between weeks: "Week 11 Results", the week's
+    first-segment records (favorite ATS, Overs, home team; the Betting
+    Guides' lastweek numbers), the best and worst results (each linked to
+    its game on the Odds page), the streaks that grew or ended, and when the
+    next week's preview comes. Same card as Yesterday's Best."""
+    import daily_content as dc
+    import guide_stats
+    import preview as pv
+    D = sport.doc
+    games = [(d, g) for d, g in guide_stats.finals(D, sport.key) if g.get('wk') == wk['key']]
+    rec = ''
+    for s in sport.segments:
+        rows = [(g, (g.get('res') or {}).get(s['key'])) for _, g in games]
+        rows = [(g, x) for g, x in rows if x and x.get('sc') and not x.get('na')]
+        for stat, word in (('fav_ats', 'Favorites ATS'), ('over', 'Overs'), ('home_ml', 'Home teams')):
+            v = guide_stats.value(stat, rows, s['key'])
+            if v != guide_stats.EMPTY:
+                rec += (f'<li class="yb-row"><span class="yb-sp">{esc(s["tag"])}</span><span class="yb-dot">&middot;</span>'
+                        f'<span class="yb-mk">{word}</span><span class="yb-dot">&middot;</span><span class="yb-rec">{esc(v)}</span></li>')
+    # every moneyline / spread / total bet of the week, with its game
+    finals = [g for _, g in sport.all_games() if g.get('wk') == wk['key'] and g.get('state') == 'final' and g.get('res')]
+    bets = []
+    for g in finals:
+        for b in dc.results_packet(sport.key, D, [g])[1]:
+            if b.get('units') is not None:
+                bets.append((b, g))
+    best = sorted([x for x in bets if x[0]['units'] > 0], key=lambda x: -x[0]['units'])[:WR_ROWS]
+    worst = sorted([x for x in bets if x[0]['units'] < 0 and (x[0].get('price') or 0) < -150], key=lambda x: x[0]['price'])[:WR_ROWS]
+
+    def bet_row(b, g):
+        href = f"{root}{sport.odds_page}?week={g['wk']}#og-{g['away']}-{g['home']}"
+        price = f' ({price_txt(b["price"])})' if isinstance(b.get('price'), (int, float)) else ''
+        return (f'<li class="yb-row"><a class="wr-bet" href="{esc(href)}">{esc(b["bet"])}{price}</a><span class="yb-dot">&middot;</span>'
+                f'<span class="yb-mk">{esc(sport.code(g["away"]))} @ {esc(sport.code(g["home"]))}</span><span class="yb-dot">&middot;</span>'
+                f'{units_pill(b["units"], True)}</li>')
+    # streaks the week's game grew or ended (3+ games)
+    played = {dc.team_of(D, g[x])[1] for g in finals for x in ('away', 'home')}
+    changes = dc.streak_changes(dc.seqs_of(D, wk['end']), played, dc.labels_of(D))
+
+    def n_of(c):
+        return int(c['streak'].split()[-2])
+
+    def streak_row(c):
+        n = n_of(c)
+        return (f'<li class="yb-row"><span class="sk-len {heat_cls(n)}">{n}</span><span class="yb-sp">{esc(c["team"])}</span>'
+                f'<span class="yb-mk">{esc(c["streak"])}</span></li>')
+    grew = sorted([c for c in changes if c['change'] == 'extended'], key=lambda c: -n_of(c))[:WR_STREAKS]
+    ended = sorted([c for c in changes if c['change'] == 'snapped'], key=lambda c: -n_of(c))[:WR_STREAKS]
+
+    def part(title, rows):
+        return f'<p class="wr-h">{title}</p><ul class="yb-rows">{rows}</ul>' if rows else ''
+    nxt = next((w for w in D.get('weeks') or [] if w['start'] > wk['end']), None)
+    coming = ''
+    if nxt and pv.weekly(sport):
+        today = now_utc.astimezone(ET).date()
+        thu = today + timedelta(days=(3 - today.weekday()) % 7)   # the Week Preview is drafted Thursday
+        coming = f'<p class="wr-next">{esc(nxt["label"])} preview coming {esc(day_label(thu.isoformat()))}</p>'
+    inner = (part('Records', rec) + part('Best results', ''.join(bet_row(*x) for x in best))
+             + part('Biggest misses', ''.join(bet_row(*x) for x in worst))
+             + part('Streaks that grew', ''.join(streak_row(c) for c in grew))
+             + part('Streaks that ended', ''.join(streak_row(c) for c in ended)) + coming)
+    return (f'<section class="fr-sec yb yb-hero wr" id="week-results"><div class="st-card yb-card">'
+            f'<div class="st-head"><h4>{esc(wk["label"])} Results</h4></div>{inner}</div></section>')
+
+
 def yesterdays_results(S, yday, root='', hub=False, week=None):
     """Pills per sport that played yesterday (home), then that sport's
     segment pills; each pane is the Matchups page's Results box. yday can be
@@ -1765,6 +1842,19 @@ def off_sections(sport, st, now_utc, root):
             + box('fv-results', b['guide']) + box('fv-tab', b['tab']) + f'</div>{FRONT_JS}')
 
 
+def hub_hero(S, st, pv, now_utc, root=''):
+    """A hub's hero: its Preview; football between weeks, the finished
+    week's results until the next week's preview is up; else (no games
+    today: "Next games: [day]" +) Yesterday's Best."""
+    if pv:
+        return pv
+    sport = next(iter(S.values())) if S else None
+    wk = between_weeks(sport, now_utc.astimezone(ET).date().isoformat()) if sport and sport.weekly else None
+    if wk:
+        return week_results(sport, wk, now_utc, root)
+    return (next_games(st) if st and st['layout'] == 'no_games' else '') + best_hero(S, yesterday(now_utc), True)
+
+
 def sections(S, now_utc, root='', hub=False, learn=''):
     """The front page, home and every hub (a hub: that sport only), six
     slots in this order on phones; desktop places them by grid area
@@ -1780,6 +1870,9 @@ def sections(S, now_utc, root='', hub=False, learn=''):
       no games today   "Next games: [day]" + Yesterday's Best (the next game
                        day's Preview once it shows), the next game day's
                        games, the last game day's results
+      football between weeks  "Week N Results" (week_results) from the day
+                       after the week's last game until the next week's
+                       preview is up
       between seasons  off_sections"""
     import bignums
     import preview
@@ -1794,7 +1887,7 @@ def sections(S, now_utc, root='', hub=False, learn=''):
     no_games = bool(st) and st['layout'] == 'no_games'
     if hub:
         pv = preview.hub_section(next(iter(S)), now_utc, root, day=st['next'] if no_games else None) if sports.PREVIEW_LIVE and S else ''
-        hero = pv or ((next_games(st) if no_games else '') + best_hero(S, yday, hub))
+        hero = hub_hero(S, st, pv, now_utc, root)
         best = ''
     else:
         p = preview.hero(now_utc, root) if sports.PREVIEW_LIVE else ''
