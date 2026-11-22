@@ -278,14 +278,14 @@
     "value": "ncaab:401921176"
    },
    {
+    "label": "NCAAB · Loyola Marymount at UC Irvine · 4:30 PM ET",
+    "trends": 4,
+    "value": "ncaab:401917540"
+   },
+   {
     "label": "NCAAB · Richmond at Liberty · 4:30 PM ET",
     "trends": 10,
     "value": "ncaab:401926795"
-   },
-   {
-    "label": "NCAAB · UC Irvine at Loyola Marymount · 4:30 PM ET",
-    "trends": 4,
-    "value": "ncaab:401917540"
    },
    {
     "label": "NHL · Buffalo Sabres at Tampa Bay Lightning · 5:00 PM ET",
@@ -657,14 +657,14 @@
     "value": "ncaab:401921176"
    },
    {
+    "label": "Loyola Marymount at UC Irvine · 4:30 PM ET",
+    "trends": 4,
+    "value": "ncaab:401917540"
+   },
+   {
     "label": "Richmond at Liberty · 4:30 PM ET",
     "trends": 10,
     "value": "ncaab:401926795"
-   },
-   {
-    "label": "UC Irvine at Loyola Marymount · 4:30 PM ET",
-    "trends": 4,
-    "value": "ncaab:401917540"
    },
    {
     "label": "Cal State Fullerton at Portland State · 5:00 PM ET",
