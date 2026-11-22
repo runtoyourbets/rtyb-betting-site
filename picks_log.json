@@ -13120,12 +13120,12 @@
     "href": "nba/matchups/",
     "market": "total",
     "side": "over",
-    "line": 104.5,
-    "price": -105,
-    "title": "1H Over 104.5",
-    "est": 0.5578,
-    "edge": 0.0456,
-    "agree": 4,
+    "line": 103.5,
+    "price": -115,
+    "title": "1H Over 103.5",
+    "est": 0.5789,
+    "edge": 0.044,
+    "agree": 5,
     "sample": 16,
     "tier": "B",
     "tags": [
@@ -13136,20 +13136,20 @@
     "streakTeam": "ind",
     "angles": [
      [
-      "Pacers 1H overs on the road (104.5)",
+      "Pacers 1H overs on the road (103.5)",
       "8-0"
      ],
      [
-      "Pacers 1H overs, last 8 (104.5)",
+      "Pacers 1H overs, last 8 (103.5)",
       "8-0"
      ],
      [
-      "Pacers 1H overs, season (104.5)",
+      "Pacers 1H overs, season (103.5)",
       "15-1"
      ],
      [
-      "Knicks 1H overs, last 8 (104.5)",
-      "5-3"
+      "Knicks 1H overs, last 8 (103.5)",
+      "6-2"
      ]
     ],
     "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
@@ -13511,8 +13511,8 @@
      ]
     ],
     "info": "Texas State avg 1H margin at home: +15.5",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.0,
     "streakTeamName": "Texas State"
    }
   ]

@@ -1069,17 +1069,17 @@
    },
    {
     "label": "Sam Houston at Florida International · 2:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaaf:401871082"
    },
    {
     "label": "New Mexico State at Middle Tennessee · 2:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401871083"
    },
    {
     "label": "South Carolina at Clemson · 3:00 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401856764"
    },
    {
@@ -1089,22 +1089,22 @@
    },
    {
     "label": "Troy at Arkansas State · 3:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaaf:401869939"
    },
    {
     "label": "Georgia Tech at Georgia · 3:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401856760"
    },
    {
     "label": "Cincinnati at BYU · 3:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401856876"
    },
    {
     "label": "Duke at Wake Forest · 3:30 PM ET",
-    "trends": 16,
+    "trends": 17,
     "value": "ncaaf:401858312"
    },
    {
@@ -1139,7 +1139,7 @@
    },
    {
     "label": "Jacksonville State at Delaware · 3:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401871062"
    },
    {
@@ -1229,7 +1229,7 @@
    }
   ],
   "lead": "ncaaf:401864550",
-  "motd": "ncaaf:401862842",
+  "motd": "ncaaf:401858312",
   "week": 13
  },
  "nfl": {
