@@ -13288,48 +13288,6 @@
     "streakTeamName": "William & Mary"
    },
    {
-    "id": "nba|401910029|1q|ml|away",
-    "game": "nba|401910029",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-22T20:30Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pistons @ Hawks",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -112,
-    "title": "Pistons 1Q ML",
-    "est": 0.5662,
-    "edge": 0.0379,
-    "agree": 2,
-    "sample": 14,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -1,
-    "streakTeam": "det",
-    "angles": [
-     [
-      "Hawks\u2019s opponents 1Q ML, Hawks at home",
-      "7-0"
-     ],
-     [
-      "Pistons 1Q ML on the road",
-      "6-2-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pistons"
-   },
-   {
     "id": "nfl|401873068|1h|ml|away",
     "game": "nfl|401873068",
     "date": "2026-11-22",
@@ -13421,6 +13379,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Pacers"
+   },
+   {
+    "id": "nba|401910029|1q|ml|away",
+    "game": "nba|401910029",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-22T20:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pistons @ Hawks",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -115,
+    "title": "Pistons 1Q ML",
+    "est": 0.5707,
+    "edge": 0.0358,
+    "agree": 2,
+    "sample": 14,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "det",
+    "angles": [
+     [
+      "Hawks\u2019s opponents 1Q ML, Hawks at home",
+      "7-0"
+     ],
+     [
+      "Pistons 1Q ML on the road",
+      "6-2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pistons"
    }
   ]
  }
