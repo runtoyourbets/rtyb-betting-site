@@ -13408,46 +13408,55 @@
     "streakTeamName": "Bulls"
    },
    {
-    "id": "nba|401910029|1q|ml|away",
-    "game": "nba|401910029",
+    "id": "nba|401910034|1h|total|over",
+    "game": "nba|401910034",
     "date": "2026-11-22",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-22T20:30Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pistons @ Hawks",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Pacers @ Knicks",
     "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -122,
-    "title": "Pistons 1Q ML",
-    "est": 0.5807,
-    "edge": 0.0312,
-    "agree": 2,
-    "sample": 14,
+    "market": "total",
+    "side": "over",
+    "line": 105.5,
+    "price": -106,
+    "title": "1H Over 105.5",
+    "est": 0.5466,
+    "edge": 0.0321,
+    "agree": 4,
+    "sample": 16,
     "tier": "C",
     "tags": [
-     "Chalk Eater"
+     "Over Lover",
+     "Streak Rider"
     ],
-    "streak": -1,
-    "streakTeam": "det",
+    "streak": 4,
+    "streakTeam": "ind",
     "angles": [
      [
-      "Hawks\u2019s opponents 1Q ML, Hawks at home",
-      "7-0"
+      "Pacers 1H overs on the road (105.5)",
+      "8-0"
      ],
      [
-      "Pistons 1Q ML on the road",
-      "6-2-1"
+      "Pacers 1H overs, season (105.5)",
+      "13-3"
+     ],
+     [
+      "Pacers 1H overs, last 8 (105.5)",
+      "6-2"
+     ],
+     [
+      "Knicks 1H overs, last 8 (105.5)",
+      "5-3"
      ]
     ],
-    "info": null,
+    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Pistons"
+    "streakTeamName": "Pacers"
    }
   ]
  }
