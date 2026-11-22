@@ -13158,52 +13158,6 @@
     "streakTeamName": "Pacers"
    },
    {
-    "id": "nba|401910033|1q|ml|home",
-    "game": "nba|401910033",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Jazz",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -102,
-    "title": "Jazz 1Q ML",
-    "est": 0.5464,
-    "edge": 0.0414,
-    "agree": 3,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -2,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
-      "5-1-1"
-     ],
-     [
-      "Jazz 1Q ML at home",
-      "5-4"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "8-7-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
-   },
-   {
     "id": "nhl|2026020374|1p|btts|yes",
     "game": "nhl|2026020374",
     "date": "2026-11-22",
@@ -13287,9 +13241,55 @@
      ]
     ],
     "info": null,
+    "status": "L",
+    "units": -1.0,
+    "streakTeamName": "UAlbany"
+   },
+   {
+    "id": "nba|401910033|1q|ml|home",
+    "game": "nba|401910033",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -105,
+    "title": "Jazz 1Q ML",
+    "est": 0.5512,
+    "edge": 0.039,
+    "agree": 3,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -2,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "5-1-1"
+     ],
+     [
+      "Jazz 1Q ML at home",
+      "5-4"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "8-7-2"
+     ]
+    ],
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "UAlbany"
+    "streakTeamName": "Jazz"
    },
    {
     "id": "ncaab|401918455|1h|ml|away",
@@ -13381,6 +13381,52 @@
     "streakTeamName": "Ravens"
    },
    {
+    "id": "nba|401910034|1q|ats|away",
+    "game": "nba|401910034",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pacers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 2.5,
+    "price": -113,
+    "title": "Pacers 1Q +2.5",
+    "est": 0.5648,
+    "edge": 0.0343,
+    "agree": 3,
+    "sample": 16,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1Q ATS at +2.5 on the road",
+      "8-0"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, season",
+      "12-4"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Pacers avg 1Q margin on the road: +3.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
+   },
+   {
     "id": "nba|401910029|1q|ml|away",
     "game": "nba|401910029",
     "date": "2026-11-22",
@@ -13468,52 +13514,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Texas State"
-   },
-   {
-    "id": "nba|401910034|1q|ats|away",
-    "game": "nba|401910034",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pacers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 2.5,
-    "price": -118,
-    "title": "Pacers 1Q +2.5",
-    "est": 0.5719,
-    "edge": 0.0306,
-    "agree": 3,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1Q ATS at +2.5 on the road",
-      "8-0"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, season",
-      "12-4"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Pacers avg 1Q margin on the road: +3.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
    }
   ]
  }

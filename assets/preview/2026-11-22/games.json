@@ -194,7 +194,7 @@
    },
    {
     "label": "NCAAB · Fordham at San Diego · 2:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401911200"
    },
    {
@@ -234,7 +234,7 @@
    },
    {
     "label": "NCAAB · Troy at Nicholls · 3:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401925066"
    },
    {
@@ -279,7 +279,7 @@
    },
    {
     "label": "NCAAB · Loyola Marymount at UC Irvine · 4:30 PM ET",
-    "trends": 4,
+    "trends": 9,
     "value": "ncaab:401917540"
    },
    {
@@ -324,7 +324,7 @@
    },
    {
     "label": "NCAAB · Southern Miss at Valparaiso · 6:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaab:401928999"
    },
    {
@@ -359,7 +359,7 @@
    },
    {
     "label": "NCAAB · California Baptist at Portland · 7:00 PM ET",
-    "trends": 8,
+    "trends": 7,
     "value": "ncaab:401917541"
    },
    {
@@ -593,7 +593,7 @@
    },
    {
     "label": "Fordham at San Diego · 2:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401911200"
    },
    {
@@ -633,7 +633,7 @@
    },
    {
     "label": "Troy at Nicholls · 3:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401925066"
    },
    {
@@ -658,7 +658,7 @@
    },
    {
     "label": "Loyola Marymount at UC Irvine · 4:30 PM ET",
-    "trends": 4,
+    "trends": 9,
     "value": "ncaab:401917540"
    },
    {
@@ -693,7 +693,7 @@
    },
    {
     "label": "Southern Miss at Valparaiso · 6:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaab:401928999"
    },
    {
@@ -703,7 +703,7 @@
    },
    {
     "label": "California Baptist at Portland · 7:00 PM ET",
-    "trends": 8,
+    "trends": 7,
     "value": "ncaab:401917541"
    },
    {
@@ -899,7 +899,7 @@
    },
    {
     "label": "Mississippi State at Ole Miss · 12:00 PM ET",
-    "trends": 16,
+    "trends": 12,
     "value": "ncaaf:401856762"
    },
    {
@@ -1034,32 +1034,32 @@
    },
    {
     "label": "Southern Miss at Old Dominion · 1:00 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401871103"
    },
    {
     "label": "UCF at Colorado · 2:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaaf:401856875"
    },
    {
     "label": "Kansas State at Iowa State · 2:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401856878"
    },
    {
     "label": "Army at Rice · 2:00 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401862841"
    },
    {
     "label": "Coastal Carolina at James Madison · 2:00 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401869947"
    },
    {
     "label": "Louisiana at Georgia State · 2:00 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401869959"
    },
    {
@@ -1184,7 +1184,7 @@
    },
    {
     "label": "Auburn at Alabama · 7:30 PM ET",
-    "trends": 8,
+    "trends": 7,
     "value": "ncaaf:401856757"
    },
    {
