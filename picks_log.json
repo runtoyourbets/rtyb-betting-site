@@ -13121,10 +13121,10 @@
     "market": "total",
     "side": "over",
     "line": 104.5,
-    "price": -106,
+    "price": -105,
     "title": "1H Over 104.5",
-    "est": 0.5593,
-    "edge": 0.0448,
+    "est": 0.5578,
+    "edge": 0.0456,
     "agree": 4,
     "sample": 16,
     "tier": "B",
@@ -13153,6 +13153,52 @@
      ]
     ],
     "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
+   },
+   {
+    "id": "nba|401910034|1q|ats|away",
+    "game": "nba|401910034",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pacers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 2.5,
+    "price": -105,
+    "title": "Pacers 1Q +2.5",
+    "est": 0.5529,
+    "edge": 0.0407,
+    "agree": 3,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1Q ATS at +2.5 on the road",
+      "8-0"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, season",
+      "12-4"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Pacers avg 1Q margin on the road: +3.5",
     "status": "pending",
     "units": null,
     "streakTeamName": "Pacers"
@@ -13421,53 +13467,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
-   },
-   {
-    "id": "ncaab|401929202|1h|ats|home",
-    "game": "ncaab|401929202",
-    "date": "2026-11-22",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-22T20:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "McNeese @ Texas State",
-    "href": "college-basketball/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": -1.5,
-    "price": 100,
-    "title": "Texas State 1H -1.5",
-    "est": 0.5337,
-    "edge": 0.0337,
-    "agree": 3,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider"
-    ],
-    "streak": 6,
-    "streakTeam": "texas-state-bobcats",
-    "angles": [
-     [
-      "Texas State 1H ATS at -1.5, season",
-      "6-0"
-     ],
-     [
-      "Texas State 1H ATS at -1.5, last 8",
-      "6-0"
-     ],
-     [
-      "Texas State 1H ATS at -1.5 at home",
-      "4-0"
-     ]
-    ],
-    "info": "Texas State avg 1H margin at home: +15.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Texas State"
    }
   ]
  }
