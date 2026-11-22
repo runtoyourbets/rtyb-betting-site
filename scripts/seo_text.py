@@ -11,7 +11,10 @@ content/seo/_team-pages.md). seo.finish runs apply() on every built page:
   "Updated 1:05 PM ET"        under it (index and sport pages): the build
                               that last changed the page's numbers
                               (seo_updated_log.json); Odds and Matchups:
-                              the last odds pull
+                              the last odds pull; the home page and the
+                              sport hubs: the last build that changed
+                              anything on the page, odds included (a hash
+                              of the page, the log's "pages")
   About block                 the body, closed (How to read's pattern), at
                               the page bottom above Betting Guides; "## More
                               ..." links become pills, "## ... in other
@@ -337,7 +340,7 @@ def updated_times(now_iso):
     except (OSError, ValueError):
         log = {}
     out = {}
-    for sp in sports.SPORTS:
+    for sp in sports.SPORTS:   # the log's "pages" (page_updated) stay as they are
         doc = context(sp).doc
         h = hashlib.sha1(json.dumps([(g.get('id'), g.get('res')) for _, g in guide_stats.finals(doc, sp['key'])],
                                     sort_keys=True).encode()).hexdigest()
@@ -355,6 +358,30 @@ def updated_times(now_iso):
         json.dump(log, f, indent=1, sort_keys=True)
         f.write('\n')
     return out
+
+
+def page_updated(rel, page_html, now_iso):
+    """A hub's time: the last build whose page differed (the log's "pages":
+    {rel: {hash, updated}}), so a Slate odds move or a new final counts."""
+    try:
+        with open(LOG, encoding='utf-8') as f:
+            log = json.load(f)
+    except (OSError, ValueError):
+        log = {}
+    pages = log.setdefault('pages', {})
+    # the off-season countdown's numbers tick every build: not a change
+    h = hashlib.sha1(re.sub(r'(data-cd="\w+">)[^<]*', r'\1', page_html).encode()).hexdigest()
+    row = pages.get(rel or '/')
+    if not row or row.get('hash') != h:
+        pages[rel or '/'] = row = {'hash': h, 'updated': now_iso}
+        with open(LOG, 'w', encoding='utf-8') as f:
+            json.dump(log, f, indent=1, sort_keys=True)
+            f.write('\n')
+    return row['updated']
+
+
+def is_hub(rel, sp):
+    return rel == '' or (sp is not None and rel == sp['slug'] + '/')
 
 
 def norm(iso):
@@ -768,7 +795,8 @@ class Pass:
         self.h1s = h1s
         self.base = guide_stats.table()
         self.preview = preview_info or {}
-        self.times = updated_times(datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'))
+        self.now = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+        self.times = updated_times(self.now)
         self.counts = {'title': 0, 'description': 0, 'about': 0}
 
     def apply(self, rel, page_html):
@@ -796,6 +824,8 @@ class Pass:
             if meta.get('intro'):
                 page_html = set_intro(page_html, daily.inline(guide_stats.fill(str(meta['intro']), vals, name)))
             when = when_for(rel, sp, self.times)
+            if when and is_hub(rel, sp):
+                when = et_time(page_updated(rel, page_html, self.now))
             if when and rel:
                 page_html = set_updated(page_html, when)
             graph += faq_graph(body)

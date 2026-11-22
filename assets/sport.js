@@ -419,11 +419,12 @@
   function dayName(d) { return new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }); }
   // A day (football: a week) with no games: one card with the game days on
   // either side. keys: the game days (or weeks) in order; name(key) its words.
-  function noGamesCard(cur, keys, name, weekly, scheduled) {
+  function noGamesCard(cur, keys, name, weekly, scheduled, past) {
     var prev = keys.filter(function(x) { return x < cur; }).pop(), next = keys.filter(function(x) { return x > cur; })[0];
     if (weekly) { var i = WEEK_ORDER.indexOf(cur); prev = keys.filter(function(x) { return WEEK_ORDER.indexOf(x) < i; }).pop(); next = keys.filter(function(x) { return WEEK_ORDER.indexOf(x) > i; })[0]; }
-    // scheduled: games on the day, none with a saved line yet
-    return '<div class="st-card no-games-card"><p>' + (scheduled ? 'No ' + esc(D.label) + ' lines posted yet for ' : 'No ' + esc(D.label) + ' games ' + (weekly ? 'in ' : 'on ')) + esc(name(cur)) + '.</p><div class="ngc-nav">' +
+    // scheduled: games on the day, none with a saved line yet; past (Odds):
+    // a day or week already over with no lines says none were saved
+    return '<div class="st-card no-games-card"><p>' + (past ? 'No lines saved for ' : scheduled ? 'No ' + esc(D.label) + ' lines posted yet for ' : 'No ' + esc(D.label) + ' games ' + (weekly ? 'in ' : 'on ')) + esc(name(cur)) + '.</p><div class="ngc-nav">' +
       (prev ? '<button type="button" class="tr-link" data-go="' + esc(prev) + '">&larr; ' + esc(name(prev)) + '</button>' : '<span></span>') +
       (next ? '<button type="button" class="tr-link" data-go="' + esc(next) + '">Next games: ' + esc(name(next)) + ' &rarr;</button>' : '') + '</div></div>';
   }
@@ -689,7 +690,7 @@
       var byU = side && list.filter(function(x) { return x.a.priced; }).length * 2 > list.length;
       var title = D.sportType === 'baseball' ? { ml: 'F5 ML', ats: 'F5 Run Line', rfi: 'NRFI', total: 'F5 Over' }[p.m]
         : D.sport === 'nhl' ? { ml: '1P Moneyline', total: '1P Over 1.5', btts: 'BTTS No', ml3: '3-Way' }[p.m]
-        : seg(p.k).tag + ' ' + { ml: 'Moneyline', ats: 'Spread', total: 'Over' }[p.m];
+        : seg(p.k).tag + ' ' + { ml: 'Moneyline', ats: spreadWord(), total: 'Over' }[p.m];
       function rate(a) { return p.m === 'btts' ? (a.w + a.l ? a.l / (a.w + a.l) : null) : a.pct; }   // BTTS No
       list = list.filter(function(x) { return byU ? x.a.priced : rate(x.a) != null; });
       list.sort(function(x, y) { return byU ? y.a.units - x.a.units : rate(y.a) - rate(x.a) || y.a.gp - x.a.gp; });
@@ -860,7 +861,7 @@
   // "1P ML", "1P Over 1.5", "F5 Run Line", "NRFI", "1Q Spread"
   function tpName(p) {
     if (D.sportType === 'baseball') return { rfi: 'NRFI', ml: 'F5 ML', ats: 'F5 Run Line', total: 'F5 Total' }[p.m];
-    return seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', ats: 'Spread', total: D.sport === 'nhl' ? 'Over 1.5' : 'Total', btts: 'BTTS' }[p.m];
+    return seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', ats: spreadWord(), total: D.sport === 'nhl' ? 'Over 1.5' : 'Total', btts: 'BTTS' }[p.m];
   }
   // the sides a record lists, first side = the %: "W-L-T", "O-U", "Y-N", "N-Y"
   function tpSides(m) { return { ml: tieSport() ? 'W-L-T' : 'W-L-P', ml3: 'W-L-T', ats: 'W-L-P', total: 'O-U', btts: 'Y-N', rfi: 'N-Y' }[m]; }
@@ -1030,22 +1031,24 @@
       return { top: !!top, html: '<div class="tp-ob"><span class="tp-gl">' + esc(s.label) + '</span><span class="tp-ob-row"><span class="tp-book">' + book + '</span>' + cell + '</span></div>' };
     }
     // a row per segment (its label at the left, its markets as columns),
-    // then the full game; every row has the same columns so they line up
+    // then the full game; every row has the same columns so they line up.
+    // A market with no line is left out, and a row with none at all
     function oddsBlocks(g, og, sources) {
       var rows = D.segments.filter(function(sg) { return tmMarkets(sg.key).length; }).map(function(sg) {
         return { label: sg.key === '1i' ? '1st Inning' : sg.key === 'f5' ? 'F5' : sg.tag, ps: tmMarkets(sg.key) };
       });
-      var any = false;
+      var shown = function(bs) { return bs.filter(function(b) { return b.top; }).map(function(b) { return b.html; }); };
       var segHtml = rows.map(function(r) {
-        return { label: r.label, blocks: r.ps.map(function(p) { var b = oddsBlock(p, g, og, sources); if (b.top) any = true; return b.html; }) };
-      });
+        return { label: r.label, blocks: shown(r.ps.map(function(p) { return oddsBlock(p, g, og, sources); })) };
+      }).filter(function(r) { return r.blocks.length; });
+      var any = segHtml.length > 0;
       var gl = gameLine(g);
       if (gl) {
         // the full game's markets: NHL and MLB moneyline, puck / run line, total;
         // the spread sports in their segments' order
         var order = D.sport === 'nhl' || D.sportType === 'baseball' ? ['ml', 'ats', 'total'] : rows[0].ps.map(function(p) { return p.m; }).filter(function(m) { return m === 'ml' || m === 'ats' || m === 'total'; });
-        var gb = order.map(function(m) { return oddsBlock({ k: 'game', m: m }, g, og, sources, gl); });
-        if (gb.some(function(b) { return b.top; })) segHtml.push({ label: 'Game', blocks: gb.map(function(b) { return b.html; }) });
+        var gb = shown(order.map(function(m) { return oddsBlock({ k: 'game', m: m }, g, og, sources, gl); }));
+        if (gb.length) segHtml.push({ label: 'Game', blocks: gb });
       }
       if (!any) return '<p class="tp-none">Lines not posted yet.</p>';
       var n = Math.max.apply(null, segHtml.map(function(r) { return r.blocks.length; }));
@@ -1140,7 +1143,7 @@
     function lastLabel(p) {
       if (D.sportType === 'baseball') return { rfi: 'NRFI / YRFI', ml: 'F5 ML', ats: 'F5 Run Line', total: 'F5 Total' }[p.m];
       if (D.sport === 'nhl') return seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', total: 'O/U 1.5', btts: 'BTTS' }[p.m];
-      return { ml: 'ML', ats: 'Spread', total: 'Total', btts: 'BTTS' }[p.m];
+      return { ml: 'ML', ats: spreadWord(), total: 'Total', btts: 'BTTS' }[p.m];
     }
     // every side of a market in the last game: the line, its closing price
     // ("-" when none was saved) and how it settled: w won, n lost (dimmed),
@@ -1680,7 +1683,7 @@
   // than one Splits filter at once; edgesPage: the whole Edges page.
   var PREMIUM = { board: false, edge1q: false, edge1h: false, edge1p: false, edgef5: false, edge1i: false, tonightOnly: false, splitCombine: false, edgesPage: false };
   function periodFamily() { return D.sport === 'nhl' || D.sport === 'mlb'; }
-  function spreadWord() { return 'Spread'; }
+  function spreadWord() { return D.sportType === 'baseball' ? 'Run Line' : 'Spread'; }   // MLB's F5 spread is the run line
   function totalWord(k) { return D.sport === 'nhl' && k === '1p' ? 'O/U 1.5' : 'O/U'; }
   function scoreUnit() { return D.sport === 'nhl' ? 'goals' : D.sportType === 'baseball' ? 'runs' : 'points'; }
   function pctOf(n, of) { return of ? Math.round(100 * n / of) : null; }
@@ -1766,11 +1769,11 @@
     }
     var ml = newCard('ml', pre + 'Moneyline', [['home', 'Home'], ['away', 'Away']], 'T');
     var mlfd = newCard('mlfd', pre + 'Favorites / Underdogs', [['fav', 'Favorite'], ['dog', 'Underdog']], 'T');
-    var sp = newCard('ats', pre + 'Spread', [['home', 'Home'], ['away', 'Away']], 'P');
+    var sp = newCard('ats', pre + spreadWord(), [['home', 'Home'], ['away', 'Away']], 'P');
     var tot = newCard('tot', pre + totalWord(k), [['over', 'Over'], ['under', 'Under']], nhl ? '' : 'P');
     var bt = newCard('btts', pre + 'BTTS', [['yes', 'Yes'], ['no', 'No']], '');
     var m3 = newCard('ml3', pre + '3-way ML', [['home', 'Home'], ['away', 'Away'], ['tie', 'Tie']], '');
-    var fd = newCard('fd', pre + 'Favorites / Underdogs', [['mlfav', 'ML Fav'], ['mldog', 'ML Dog'], ['spfav', 'Spread Fav'], ['spdog', 'Spread Dog']], '');
+    var fd = newCard('fd', pre + 'Favorites / Underdogs', [['mlfav', 'ML Fav'], ['mldog', 'ML Dog'], ['spfav', spreadWord() + ' Fav'], ['spdog', spreadWord() + ' Dog']], '');
     fd.rows[0].fmt = fd.rows[1].fmt = 'T'; fd.rows[2].fmt = fd.rows[3].fmt = 'P';
     var ha = newCard('ha', pre + 'Home / Away', [['hfav', 'Home Fav'], ['hdog', 'Home Dog'], ['rfav', 'Road Fav'], ['rdog', 'Road Dog']], 'P');
     // a tied segment: its own row on the Moneyline card; NHL's tie lives on
@@ -1944,14 +1947,14 @@
           break;
         }
       });
-      cards.push(boardCard('Favorites by line', s.tag + ' Spread cover rate', B.map(function(b, i) { return boardRow('Favored by ' + b[0], fav[i]); }), 'Pushes left out of cover %', 'W-L-P'));
+      cards.push(boardCard('Favorites by line', s.tag + ' ' + spreadWord() + ' cover rate', B.map(function(b, i) { return boardRow('Favored by ' + b[0], fav[i]); }), 'Pushes left out of cover %', 'W-L-P'));
       cards.push(boardCard('Underdogs by line', s.tag + ' Spread cover rate', B.map(function(b, i) { return boardRow('Getting ' + b[0], dog[i]); }), 'Units at the closing price (-110 when only the line was saved)', 'W-L-P'));
     }
     var pills = (canMl && canAts ? '<div class="seg-toggle" role="group" aria-label="Market"><button class="seg-btn" data-board-mk="ml" aria-pressed="' + (mk === 'ml') + '">Moneyline</button>' +
-        '<button class="seg-btn" data-board-mk="ats" aria-pressed="' + (mk === 'ats') + '">Spread</button></div>' : '') +
+        '<button class="seg-btn" data-board-mk="ats" aria-pressed="' + (mk === 'ats') + '">' + spreadWord() + '</button></div>' : '') +
       '<div class="seg-toggle" role="group" aria-label="Show"><button class="seg-btn" data-board-view="pct" aria-pressed="' + (boardState.view === 'pct') + '">Win %</button>' +
       '<button class="seg-btn" data-board-view="units" aria-pressed="' + (boardState.view === 'units') + '">Profit</button></div>';
-    return stSection('statsBoard', 'Money Board', pills, '<p class="st-sec-sub">' + esc(s.tag) + ' ' + (mk === 'ml' ? 'Moneyline' : 'Spread') + ' at closing prices</p>' +
+    return stSection('statsBoard', 'Money Board', pills, '<p class="st-sec-sub">' + esc(s.tag) + ' ' + (mk === 'ml' ? 'Moneyline' : spreadWord()) + ' at closing prices</p>' +
       '<div class="st-grid st-grid-2">' + cards.join('') + '</div>');
   }
 
@@ -2214,7 +2217,7 @@
       return '<div class="st-card tll-card"><div class="st-head"><h4>' + esc(title) + '</h4></div><ol class="tll-list">' + rows.join('') + '</ol></div>';
     }
     var pills = '<div class="seg-toggle" id="leadMkt">' + ps.map(function(x) {
-      return '<button class="seg-btn" data-lead="' + x.k + '|' + x.m + '" aria-pressed="' + (x === p) + '">' + esc((periodFamily() && ps.some(function(y) { return y.k !== x.k; }) ? seg(x.k).tag + ' ' : '') + x.label) + '</button>';
+      return '<button class="seg-btn" data-lead="' + x.k + '|' + x.m + '" aria-pressed="' + (x === p) + '">' + esc((periodFamily() && ps.some(function(y) { return y.k !== x.k; }) && x.label.indexOf(seg(x.k).tag) !== 0 ? seg(x.k).tag + ' ' : '') + x.label) + '</button>';
     }).join('') + '</div>';
     var n = Math.min(5, Math.floor(list.length / 2)), what = TM_INFO[p.m].pct;
     var body = list.length < 2 ? emptyNote('Leaders show once teams have played ' + LEAD_MIN + ' games.')
@@ -2316,7 +2319,7 @@
   // the site's market names: Spread · O/U · Moneyline; NHL Moneyline · O/U 1.5 · BTTS · 3-Way; MLB NRFI/YRFI · F5 ML · F5 Run Line · F5 Total
   function trMktLabel(x) {
     if (D.sportType === 'baseball') return { rfi: 'NRFI/YRFI', ml: 'F5 ML', ats: 'F5 Run Line', total: 'F5 Total' }[x[1]] || x[2];
-    return { ats: 'Spread', total: D.sport === 'nhl' ? 'O/U 1.5' : 'O/U', ml: 'Moneyline', btts: 'BTTS', ml3: '3-Way' }[x[1]] || x[2];
+    return { ats: spreadWord(), total: D.sport === 'nhl' ? 'O/U 1.5' : 'O/U', ml: 'Moneyline', btts: 'BTTS', ml3: '3-Way' }[x[1]] || x[2];
   }
   // the three rows under a section's heading (phones: each scrolls sideways)
   function trFilters(sec) {
@@ -2513,7 +2516,7 @@
   function mktHead(k, m) {
     var t = seg(k).tag;
     if (m === 'total') return t + ' O/U' + (D.sport === 'nhl' ? ' 1.5' : '');
-    return t + ' ' + ({ ml: 'ML', ats: 'Spread', btts: 'BTTS', rfi: 'NRFI' }[m] || m);
+    return t + ' ' + ({ ml: 'ML', ats: spreadWord(), btts: 'BTTS', rfi: 'NRFI' }[m] || m);
   }
   function sideWord(m, kind, k) {
     var t = seg(k).tag;
@@ -3232,9 +3235,10 @@
           var days = dates.filter(function(d) { return O.days[d]; }), sched = slate().some(function(d) { return O.days[d]; });
           if (weeks) {
             WEEK_ORDER = weeks.map(function(w) { return w.key; });
+            var cw = weeks.filter(function(w) { return w.key === cur; })[0];
             html += noGamesCard(cur, weeks.filter(function(w) { return days.some(function(d) { return d >= w.start && d <= w.end; }); }).map(function(w) { return w.key; }),
-              function(x) { return weeks.filter(function(w) { return w.key === x; })[0].label; }, true, sched);
-          } else html += noGamesCard(cur, days, dayName, false, sched);
+              function(x) { return weeks.filter(function(w) { return w.key === x; })[0].label; }, true, sched, !!cw && cw.end < todayET());
+          } else html += noGamesCard(cur, days, dayName, false, sched, cur < todayET());
         }
         else {
           if (!lined) html += '<div class="no-games-note">' + (first && first < todayET() ? 'Lines not available.' : 'No ' + esc(seg(k).label) + ' ' + (mk ? MKT_WORD[m] || esc(mk[2]) : 'lines') + ' posted yet.') + '</div>';

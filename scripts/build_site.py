@@ -780,7 +780,7 @@ def how_to_read_html(sp, section):
                  f'Green: the side that won. Yellow: a tie or push. The big number next to each team is the '
                  f'{seg_words} score; the full game is underneath.']
     elif section == 'stats':
-        lines = ['Each row is one side: its record (W-L-T on the moneyline, W-L-P on the spread and O/U), its win %, '
+        lines = [f"Each row is one side: its record (W-L-T on the moneyline, W-L-P on the {'run line' if sp['key'] == 'mlb' else 'spread'} and O/U), its win %, "
                  'then its units at the closing price. Win % leaves ties and pushes out.',
                  'Units: green is a profit, red a loss, yellow within half a unit either way.']
         if sp['family'] == 'spread' or sp['key'] == 'mlb':
@@ -874,6 +874,7 @@ def stats_meta(sp, page, season_label):
     segs = sports.segment_summary(sp)
     if page == 'stats':
         markets = ('moneyline, O/U 1.5, BTTS and 3-way ML' if sp['key'] == 'nhl'
+                   else 'moneyline, run line and O/U' if sp['key'] == 'mlb'   # MLB's F5 spread is the run line
                    else 'moneyline, spread and O/U' if any(sports.has_ml(s) for s in sp['segments']) else 'spread and O/U')
         return {'title': sports.sport_title(sp, 'stats'), 'h1': sports.h1(sp, 'stats'), 'section': 'stats',
                 'desc': f"{sp['label']} {segs} results league-wide: {markets} records with units, scoring and the Money Board."}

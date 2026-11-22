@@ -70,10 +70,23 @@ class PickTest(unittest.TestCase):
         r = self.rows([a])['ats']
         self.assertEqual((r['fav'], r['top'], r['sub']), ('home', '-0.5', '-110'))
 
-    def test_football_board_is_the_next_game_day(self):
+    def test_football_board_is_the_whole_week(self):
         S = FakeSport('nfl')
         S.weekly = True
-        games = [('2026-11-19', {'id': 1}), ('2026-11-22', {'id': 2})]
+        games = [('2026-11-19', {'id': 1, 'wk': '12'}), ('2026-11-22', {'id': 2, 'wk': '12'}), ('2026-11-26', {'id': 3, 'wk': '13'})]
+        orig = front.upcoming
+        front.upcoming = lambda sport, today, now: games
+        try:
+            from datetime import datetime, timezone
+            day, got = bignums.board(S, datetime(2026, 11, 19, 17, tzinfo=timezone.utc))
+        finally:
+            front.upcoming = orig
+        self.assertEqual((day, got), ('2026-11-19', games[:2]))   # this week's games, not next week's
+
+    def test_daily_board_is_the_next_game_day(self):
+        S = FakeSport('nba')
+        S.weekly = False
+        games = [('2026-11-19', {'id': 1}), ('2026-11-20', {'id': 2})]
         orig = front.upcoming
         front.upcoming = lambda sport, today, now: games
         try:

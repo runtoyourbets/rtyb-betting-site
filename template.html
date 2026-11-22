@@ -2451,6 +2451,21 @@ __THEME_HEAD__
   .wr-bet:hover { color: var(--accent); }
   .wr .u-pill { flex: none; }
   .wr .sk-len { min-width: 26px; padding: 1px 6px; }
+  .wr-grid { border-collapse: collapse; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-num); color: var(--text); }
+  .wr-grid th, .wr-grid td { padding: 4px 18px 4px 0; text-align: left; }
+  .wr-grid thead th { font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .wr-grid tbody th { font-weight: var(--fw-team); }
+  .wr-list { display: none; }
+  .wr-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+  .wr-two > div { min-width: 0; }
+  /* Week Results rows wrap rather than cut "streak ended at 11" short */
+  .wr-two .yb-row { flex-wrap: wrap; row-gap: 2px; }
+  .wr-two .yb-mk { overflow: visible; }
+  @media (max-width: 899px) {
+    .wr-grid { display: none; }
+    .wr-list { display: grid; }
+    .wr-two { grid-template-columns: 1fr; }
+  }
   .wr-next { margin: 14px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   /* Matchup of the Day: the label chip and its "i", TREND TO WATCH, BEST ODDS, the trend rows */
   .mo-chip { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 5px 8px 5px 12px; border-radius: 999px; background: var(--title-bg); color: var(--title-text); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }

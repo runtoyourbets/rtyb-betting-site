@@ -119,7 +119,7 @@ def streak_changes(seqs, played, labels):
             out.append({'team': team, 'market': market, 'streak': f'{word.get(r, r)} {n} straight', 'change': 'extended'})
         elif r != pr and pn >= STREAK_MIN:
             out.append({'team': team, 'market': market, 'streak': f'{word.get(pr, pr)} {pn} straight', 'change': 'snapped',
-                        'snapped_by': word.get(r, r)})
+                        'snapped_by': word.get(r, r), 'was': pr})
     return sorted(out, key=lambda x: (x['change'], x['team']))
 
 

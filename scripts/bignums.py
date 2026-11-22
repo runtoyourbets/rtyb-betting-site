@@ -1,7 +1,7 @@
 """
 The Big Numbers: the most extreme lines on the board for each market, games
 not started only (front.upcoming: today's, then the next game day's;
-football too: the next game day, not the whole week). Home (in Line Mover's old place, sport
+football: every game left in the current week with a line). Home (in Line Mover's old place, sport
 pills), each hub, and the top of every sport's Odds page.
 
 Rows per sport and segment:
@@ -178,12 +178,18 @@ def rows_for(sport, k, games):
 
 
 def board(sport, now_utc):
-    """(day, [(date, game)]): the games still to start on the board (front.upcoming)."""
+    """(day, [(date, game)]): the games still to start on the board
+    (front.upcoming): the next game day; football the whole current week
+    (the week of the next game with a line)."""
     today = now_utc.astimezone(ET).date().isoformat()
     games = front.upcoming(sport, today, now_utc)
     if not games:
         return None, []
-    games = [x for x in games if x[0] == games[0][0]]   # the next game day only (football too)
+    if sport.weekly:
+        wk = games[0][1].get('wk')
+        games = [x for x in games if x[1].get('wk') == wk]
+    else:
+        games = [x for x in games if x[0] == games[0][0]]
     return games[0][0], games
 
 
@@ -301,6 +307,8 @@ def odds_top(sp, now_utc, root):
     if not segs:
         return ''
     date = front.day_label(day)
+    if sport.weekly:   # the whole week: its label
+        date = next((w.get('label') for w in sport.doc.get('weeks') or [] if w.get('key') == games[0][1].get('wk')), date)
     return (f'<section class="bn bn-odds-top" id="big-numbers"><div class="fr-head fr-stack"><h2>The Big Numbers</h2>'
             f'<span class="fr-date">{esc(date)}</span></div><div class="st-card bn-card">{body}</div></section>')
 

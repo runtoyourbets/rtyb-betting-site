@@ -75,7 +75,7 @@ LEADS = os.path.join(ROOT, 'content', 'preview_leads.json')
 CARD_DIR = 'assets/preview'
 CARD_W, CARD_H = 600, 315   # CSS px, drawn at 2x: 1200x630
 BIG_LOGO = 320              # px, the card's logos (assets/logos/{sport}/lg/)
-CARD_VERSION = 2            # bump to redraw every card (a .pc-* style change)
+CARD_VERSION = 3            # bump to redraw every card (a .pc-* style change)
 FOOT = daily.FOOT
 
 
@@ -1510,6 +1510,11 @@ def big_trend(sp, g, t):
     st = re.search(r'(\d+) straight$', text)
     if t['kind'] == 'streak' and st:
         count = f'{st.group(1)} straight'
+    elif t['kind'] == 'league':   # the rate big, the record under it: "60%" / "202-133 · 1Q Unders"
+        w, l = t.get('w') or 0, t.get('l') or 0
+        count = f'{round(100 * w / (w + l))}%' if w + l else ''
+        name = text.rpartition(' (')[0] or text
+        return count.upper(), f'{w}-{l} · {league_market(sp, t)}'.upper(), name.upper()
     else:
         r = rate_of(t) if t['kind'] == 'matchup' else {'w': t.get('w') or 0, 'n': (t.get('w') or 0) + (t.get('l') or 0)}
         count = f"{r['w']} of {r['n']}" if r.get('n') else ''
@@ -1533,35 +1538,57 @@ def big_trend(sp, g, t):
     return count.upper(), lines[0].upper(), lines[1].upper()
 
 
+def league_market(sp, t):
+    """What a league trend's record counts: "1Q Unders", "1H ML", "F5 Run Line", "NRFI"."""
+    k, m, pick = t.get('seg'), t.get('mk'), str(t.get('pick') or '').lower()
+    tag = next((s['tag'] for s in sp.segments if s['key'] == k), '')
+    if m == 'total':
+        return f"{tag} {'Unders' if pick == 'under' else 'Overs'}"
+    if m == 'ats':
+        return f"{tag} {'Run Line' if sp.key == 'mlb' else 'ATS'}"
+    if m == 'btts':
+        return f"{tag} BTTS {'No' if pick == 'no' else 'Yes'}"
+    if m in ('rfi', 'nrfi_yrfi'):
+        return 'NRFI' if pick in ('nrfi', 'no', 'n') else 'YRFI'
+    return f'{tag} ML'
+
+
 def card_market(sp, g, t):
-    """(market label, current line or ''): "1H SPREAD" / "LAL -8.5", "1P BTTS NO" / "-190", "NRFI" / "-120"."""
+    """(market label, the line chip or ''). The chip is the segment's line:
+    "LAL -3.5 1Q" (spread sports: the trend side's spread, whatever the
+    trend's market; totals "Over 58.5 1Q"), "EDM -150 1P" / "Over 1.5 1P" /
+    "BTTS No -240 1P" (NHL: a moneyline only for a moneyline trend), "NRFI
+    -128" / "NYY -0.5 F5" / "Over 4.5 F5" (MLB). Never a moneyline when the
+    trend isn't a moneyline trend."""
     k, m, pick = t.get('seg'), t.get('mk'), str(t.get('pick') or '').lower()
     tag = next((s['tag'] for s in sp.segments if s['key'] == k), '')
     d = next((x for x, y in sp.all_games() if str(y.get('id')) == str(g.get('id'))), None)
     mk = sp.market(d, g, k) if d else {}
+    side = pick if pick in ('away', 'home') else None
+    code = sp.code(g[side]) if side else ''
+    num = lambda x: isinstance(x, (int, float))   # noqa: E731
     if m in ('ml', 'ats'):
-        side = pick if pick in ('away', 'home') else None
-        code = sp.code(g[side]) if side else ''
-        if m == 'ml':
+        label = f"{tag} {'ML' if m == 'ml' else 'Run Line' if sp.key == 'mlb' else 'Spread'}".upper()
+        if m == 'ml' and sp.key == 'nhl':
             p = (mk.get('ml') or {}).get(side)
-            return f'{tag} ML', (f'{code} {price_txt(p)}' if isinstance(p, (int, float)) and side else '')
-        a = (mk.get('ats') or {}).get(side) or {}
-        ln = a.get('line')
-        return f'{tag} Spread'.upper(), (f'{code} {"+" if ln > 0 else ""}{ln:g}' if isinstance(ln, (int, float)) and side else '')
+            return label, (f'{code} {price_txt(p)} {tag}' if num(p) and side else '')
+        ln = ((mk.get('ats') or {}).get(side) or {}).get('line')
+        return label, (f'{code} {"+" if ln > 0 else ""}{ln:g} {tag}' if num(ln) and side else '')
     if m == 'total':
         tot, over = mk.get('total') or {}, pick != 'under'
+        word = 'Over' if over else 'Under'
         if sp.key == 'nhl':
-            p = tot.get('over' if over else 'under')
-            return f"{tag} {'Over' if over else 'Under'} 1.5".upper(), (price_txt(p) if isinstance(p, (int, float)) else '')
+            return f'{tag} {word} 1.5'.upper(), f'{word} 1.5 {tag}'
         ln = tot.get('line')
-        return f'{tag} Total'.upper(), (f"{'O' if over else 'U'} {ln:g}" if isinstance(ln, (int, float)) else '')
+        return f'{tag} Total'.upper(), (f'{word} {ln:g} {tag}' if num(ln) else '')
     if m == 'btts':
         yes = pick != 'no'
         p = (mk.get('btts') or {}).get('yes' if yes else 'no')
-        return f"{tag} BTTS {'Yes' if yes else 'No'}".upper(), (price_txt(p) if isinstance(p, (int, float)) else '')
+        return f"{tag} BTTS {'Yes' if yes else 'No'}".upper(), (f"BTTS {'Yes' if yes else 'No'} {price_txt(p)} {tag}" if num(p) else '')
     nrfi = pick in ('nrfi', 'no', 'n')
     p = (mk.get('nrfi_yrfi') or {}).get('nrfi' if nrfi else 'yrfi')
-    return ('NRFI' if nrfi else 'YRFI'), (price_txt(p) if isinstance(p, (int, float)) else '')
+    word = 'NRFI' if nrfi else 'YRFI'
+    return word, (f'{word} {price_txt(p)}' if num(p) else '')
 
 
 def price_txt(p):

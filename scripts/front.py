@@ -1474,6 +1474,9 @@ def last_week(sport, today):
 
 WR_ROWS = 3   # Week N Results: best / worst results shown
 WR_STREAKS = 4   # ... and streaks that grew, and that ended
+# a streak that ended, by its market and the result it ran on: "1Q Under streak ended at 11"
+STREAK_WORD = {'su': {'W': 'win', 'L': 'losing'}, 'ats': {'W': 'cover', 'L': 'no-cover'}, 'tot': {'O': 'Over', 'U': 'Under'},
+               'rfi': {'Y': 'YRFI', 'N': 'NRFI'}}
 
 
 def between_weeks(sport, today):
@@ -1494,15 +1497,25 @@ def week_results(sport, wk, now_utc, root=''):
     import preview as pv
     D = sport.doc
     games = [(d, g) for d, g in guide_stats.finals(D, sport.key) if g.get('wk') == wk['key']]
+    stats = (('fav_ats', 'Favorites ATS'), ('over', 'Overs'), ('home_ml', 'Home teams'))
+    vals = {}
     rec = ''
     for s in sport.segments:
         rows = [(g, (g.get('res') or {}).get(s['key'])) for _, g in games]
         rows = [(g, x) for g, x in rows if x and x.get('sc') and not x.get('na')]
-        for stat, word in (('fav_ats', 'Favorites ATS'), ('over', 'Overs'), ('home_ml', 'Home teams')):
+        for stat, word in stats:
             v = guide_stats.value(stat, rows, s['key'])
             if v != guide_stats.EMPTY:
+                vals[(stat, s['key'])] = v
                 rec += (f'<li class="yb-row"><span class="yb-sp">{esc(s["tag"])}</span><span class="yb-dot">&middot;</span>'
                         f'<span class="yb-mk">{word}</span><span class="yb-dot">&middot;</span><span class="yb-rec">{esc(v)}</span></li>')
+    # desktop: the records as a grid (a row per record, a column per segment); phones keep the list
+    segs = [s for s in sport.segments if any((stat, s['key']) in vals for stat, _ in stats)]
+    grid = ''.join(f'<tr><th scope="row">{word}</th>' + ''.join(f'<td class="nw">{esc(vals.get((stat, s["key"]), "-"))}</td>' for s in segs) + '</tr>'
+                   for stat, word in stats if any((stat, s['key']) in vals for s in segs))
+    if grid:
+        grid = ('<table class="wr-grid"><thead><tr><th></th>' + ''.join(f'<th scope="col">{esc(s["tag"])}</th>' for s in segs)
+                + f'</tr></thead><tbody>{grid}</tbody></table>')
     # every moneyline / spread / total bet of the week, with its game
     finals = [g for _, g in sport.all_games() if g.get('wk') == wk['key'] and g.get('state') == 'final' and g.get('res')]
     bets = []
@@ -1511,14 +1524,19 @@ def week_results(sport, wk, now_utc, root=''):
             if b.get('units') is not None:
                 bets.append((b, g))
     best = sorted([x for x in bets if x[0]['units'] > 0], key=lambda x: -x[0]['units'])[:WR_ROWS]
-    worst = sorted([x for x in bets if x[0]['units'] < 0 and (x[0].get('price') or 0) < -150], key=lambda x: x[0]['price'])[:WR_ROWS]
+    # the biggest upsets: the shortest price that lost (every favorite's miss is -1u, so the price ranks them)
+    worst = sorted([x for x in bets if x[0]['units'] < 0 and isinstance(x[0].get('price'), (int, float))],
+                   key=lambda x: x[0]['price'])[:WR_ROWS]
 
-    def bet_row(b, g):
-        href = f"{root}{sport.odds_page}?week={g['wk']}#og-{g['away']}-{g['home']}"
-        price = f' ({price_txt(b["price"])})' if isinstance(b.get('price'), (int, float)) else ''
-        return (f'<li class="yb-row"><a class="wr-bet" href="{esc(href)}">{esc(b["bet"])}{price}</a><span class="yb-dot">&middot;</span>'
+    def game_href(g):
+        return f"{root}{sport.odds_page}?week={g['wk']}#og-{g['away']}-{g['home']}"
+
+    def bet_row(b, g, miss=False):
+        price = f' ({price_txt(b["price"])})' if isinstance(b.get('price'), (int, float)) and not miss else ''
+        tail = f'<span class="yb-rec">{price_txt(b["price"])}</span>' if miss else units_pill(b['units'], True)
+        return (f'<li class="yb-row"><a class="wr-bet" href="{esc(game_href(g))}">{esc(b["bet"])}{price}</a><span class="yb-dot">&middot;</span>'
                 f'<span class="yb-mk">{esc(sport.code(g["away"]))} @ {esc(sport.code(g["home"]))}</span><span class="yb-dot">&middot;</span>'
-                f'{units_pill(b["units"], True)}</li>')
+                f'{tail}</li>')
     # streaks the week's game grew or ended (3+ games)
     played = {dc.team_of(D, g[x])[1] for g in finals for x in ('away', 'home')}
     changes = dc.streak_changes(dc.seqs_of(D, wk['end']), played, dc.labels_of(D))
@@ -1528,6 +1546,15 @@ def week_results(sport, wk, now_utc, root=''):
 
     def streak_row(c):
         n = n_of(c)
+        if c['change'] == 'snapped':   # "SJSU · 1Q Under streak ended at 11", then the game that ended it
+            g = next((g for g in reversed(finals) if c['team'] in (dc.team_of(D, g['away'])[1], dc.team_of(D, g['home'])[1])), None)
+            seg, m = c['market'].split(':')
+            tag = next((s['tag'] for s in sport.segments if s['key'] == seg), seg)
+            what = STREAK_WORD.get(m, {}).get(c.get('was'), '')
+            game = (f'<span class="yb-dot">&middot;</span><a class="wr-bet" href="{esc(game_href(g))}">'
+                    f'{esc(sport.code(g["away"]))} @ {esc(sport.code(g["home"]))}</a>') if g else ''
+            return (f'<li class="yb-row"><span class="yb-sp">{esc(c["team"])}</span><span class="yb-dot">&middot;</span>'
+                    f'<span class="yb-mk">{esc(" ".join(x for x in ((tag if m != "rfi" else ""), what) if x))} streak ended at {n}</span>{game}</li>')
         return (f'<li class="yb-row"><span class="sk-len {heat_cls(n)}">{n}</span><span class="yb-sp">{esc(c["team"])}</span>'
                 f'<span class="yb-mk">{esc(c["streak"])}</span></li>')
     grew = sorted([c for c in changes if c['change'] == 'extended'], key=lambda c: -n_of(c))[:WR_STREAKS]
@@ -1541,10 +1568,15 @@ def week_results(sport, wk, now_utc, root=''):
         today = now_utc.astimezone(ET).date()
         thu = today + timedelta(days=(3 - today.weekday()) % 7)   # the Week Preview is drafted Thursday
         coming = f'<p class="wr-next">{esc(nxt["label"])} preview coming {esc(day_label(thu.isoformat()))}</p>'
-    inner = (part('Records', rec) + part('Best results', ''.join(bet_row(*x) for x in best))
-             + part('Biggest misses', ''.join(bet_row(*x) for x in worst))
-             + part('Streaks that grew', ''.join(streak_row(c) for c in grew))
-             + part('Streaks that ended', ''.join(streak_row(c) for c in ended)) + coming)
+    def pair(a, b):   # side by side on desktop, stacked on phones
+        return f'<div class="wr-two"><div>{a}</div><div>{b}</div></div>' if a and b else a or b
+    records = part('Records', rec)
+    if records and grid:
+        records = f'<p class="wr-h">Records</p>{grid}<ul class="yb-rows wr-list">{rec}</ul>'
+    inner = (records + pair(part('Best results', ''.join(bet_row(*x) for x in best)),
+                            part('Biggest misses', ''.join(bet_row(*x, miss=True) for x in worst)))
+             + pair(part('Streaks that grew', ''.join(streak_row(c) for c in grew)),
+                    part('Streaks that ended', ''.join(streak_row(c) for c in ended))) + coming)
     return (f'<section class="fr-sec yb yb-hero wr" id="week-results"><div class="st-card yb-card">'
             f'<div class="st-head"><h4>{esc(wk["label"])} Results</h4></div>{inner}</div></section>')
 
