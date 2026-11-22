@@ -11703,8 +11703,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 5.9,
     "streakTeamName": "Virginia Tech"
    },
    {
@@ -12345,8 +12345,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.65,
     "streakTeamName": "Florida"
    },
    {
@@ -12594,8 +12594,8 @@
      ]
     ],
     "info": "Arkansas State avg 1H margin on the road: +0.2",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Arkansas State"
    },
    {
@@ -12742,8 +12742,8 @@
      ]
     ],
     "info": "South Carolina avg 1Q margin at home: +9.2",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.8772,
     "streakTeamName": "South Carolina"
    },
    {
