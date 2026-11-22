@@ -12977,6 +12977,52 @@
     "streakTeamName": "Edmonton"
    },
    {
+    "id": "nba|401910034|1q|ats|away",
+    "game": "nba|401910034",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pacers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 2.5,
+    "price": -102,
+    "title": "Pacers 1Q +2.5",
+    "est": 0.5482,
+    "edge": 0.0432,
+    "agree": 3,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1Q ATS at +2.5 on the road",
+      "8-0"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, season",
+      "12-4"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Pacers avg 1Q margin on the road: +3.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
+   },
+   {
     "id": "nfl|401873076|1h|ml|home",
     "game": "nfl|401873076",
     "date": "2026-11-22",
@@ -13022,6 +13068,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Eagles"
+   },
+   {
+    "id": "nba|401910033|1q|ml|home",
+    "game": "nba|401910033",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Jazz",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -106,
+    "title": "Jazz 1Q ML",
+    "est": 0.5528,
+    "edge": 0.0382,
+    "agree": 3,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -2,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "5-1-1"
+     ],
+     [
+      "Jazz 1Q ML at home",
+      "5-4"
+     ],
+     [
+      "Jazz 1Q ML, season",
+      "8-7-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
    },
    {
     "id": "nfl|401873068|1h|ml|away",
@@ -13272,6 +13364,90 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Texas State"
+   },
+   {
+    "id": "nba|401910032|1h|ml|home",
+    "game": "nba|401910032",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Nuggets @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 186,
+    "title": "Bulls 1H ML",
+    "est": 0.3828,
+    "edge": 0.0331,
+    "agree": 2,
+    "sample": 15,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H ML at home",
+      "5-1"
+     ],
+     [
+      "Bulls 1H ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
+   },
+   {
+    "id": "nba|401910029|1q|ml|away",
+    "game": "nba|401910029",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-22T20:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pistons @ Hawks",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -122,
+    "title": "Pistons 1Q ML",
+    "est": 0.5807,
+    "edge": 0.0312,
+    "agree": 2,
+    "sample": 14,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "det",
+    "angles": [
+     [
+      "Hawks\u2019s opponents 1Q ML, Hawks at home",
+      "7-0"
+     ],
+     [
+      "Pistons 1Q ML on the road",
+      "6-2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pistons"
    }
   ]
  }

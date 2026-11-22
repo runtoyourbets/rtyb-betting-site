@@ -239,7 +239,7 @@
    },
    {
     "label": "NBA · Detroit Pistons at Atlanta Hawks · 3:30 PM ET",
-    "trends": 8,
+    "trends": 15,
     "value": "nba:401910029"
    },
    {
@@ -319,7 +319,7 @@
    },
    {
     "label": "NBA · Oklahoma City Thunder at Miami Heat · 6:00 PM ET",
-    "trends": 9,
+    "trends": 14,
     "value": "nba:401910030"
    },
    {
@@ -344,17 +344,17 @@
    },
    {
     "label": "NBA · Dallas Mavericks at Utah Jazz · 7:00 PM ET",
-    "trends": 14,
+    "trends": 16,
     "value": "nba:401910033"
    },
    {
     "label": "NBA · Denver Nuggets at Chicago Bulls · 7:00 PM ET",
-    "trends": 8,
+    "trends": 11,
     "value": "nba:401910032"
    },
    {
     "label": "NBA · Orlando Magic at Washington Wizards · 7:00 PM ET",
-    "trends": 8,
+    "trends": 14,
     "value": "nba:401910031"
    },
    {
@@ -379,7 +379,7 @@
    },
    {
     "label": "NBA · Indiana Pacers at New York Knicks · 8:00 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "nba:401910034"
    },
    {
@@ -399,7 +399,7 @@
    },
    {
     "label": "NBA · Boston Celtics at Golden State Warriors · 8:30 PM ET",
-    "trends": 20,
+    "trends": 23,
     "value": "nba:401910035"
    },
    {
@@ -436,37 +436,37 @@
   "games": [
    {
     "label": "Detroit Pistons at Atlanta Hawks · 3:30 PM ET",
-    "trends": 8,
+    "trends": 15,
     "value": "nba:401910029"
    },
    {
     "label": "Oklahoma City Thunder at Miami Heat · 6:00 PM ET",
-    "trends": 9,
+    "trends": 14,
     "value": "nba:401910030"
    },
    {
     "label": "Dallas Mavericks at Utah Jazz · 7:00 PM ET",
-    "trends": 14,
+    "trends": 16,
     "value": "nba:401910033"
    },
    {
     "label": "Denver Nuggets at Chicago Bulls · 7:00 PM ET",
-    "trends": 8,
+    "trends": 11,
     "value": "nba:401910032"
    },
    {
     "label": "Orlando Magic at Washington Wizards · 7:00 PM ET",
-    "trends": 8,
+    "trends": 14,
     "value": "nba:401910031"
    },
    {
     "label": "Indiana Pacers at New York Knicks · 8:00 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "nba:401910034"
    },
    {
     "label": "Boston Celtics at Golden State Warriors · 8:30 PM ET",
-    "trends": 20,
+    "trends": 23,
     "value": "nba:401910035"
    }
   ],
