@@ -1351,6 +1351,14 @@ def main():
                          'res': nhl_sport.game(g, d).get('res') if nhl_state.get(g.get('state')) in ('live', 'final') else None}
                         for g in games]
                     for d, games in merged_games.items() if d >= SEASON_START}
+    # last season's days too while the NHL is in season (the 2025-26 archive, every game final)
+    if sports.in_season(nhl):
+        for g in archive:
+            if g['date'] < SEASON_START and g.get('awayFinal') is not None:
+                nhl_schedule.setdefault(g['date'], []).append({
+                    'away': g['away'], 'home': g['home'], 'start': g.get('startTimeUTC'), 'state': 'final',
+                    'score': {'1p': [g['awayP1'], g['homeP1']]} if g.get('awayP1') is not None and g.get('homeP1') is not None else None,
+                    'detail': '', 'res': nhl_sport.game(dict(g, state='OFF'), g['date']).get('res')})
     two_word = ('Blue Jackets', 'Maple Leafs', 'Red Wings', 'Golden Knights')
     sport_build.write_odds_page(nhl, nhl_dir, datetime.now(timezone.utc), nhl_schedule, extra=btts, meta={
         'sport': 'nhl', 'label': 'NHL', 'sportType': 'period', 'segments': nhl['segments'],

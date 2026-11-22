@@ -133,7 +133,9 @@ def load_games(sport):
 BOOK_NAMES = {'1': 'DraftKings', '2': 'FanDuel', '4': 'BetMGM', '20': 'Caesars', '36': 'theScore',
               '60': 'theScore CA', '118': 'theScore', '86': 'Fanatics', '80': 'BetMGM', '89': 'Novig',
               '66': 'ProphetX', '105': 'Kalshi', '107': 'Polymarket', '111': 'Polymarket US',
-              '121': 'Underdog', '73': 'Underdog Fantasy', '72': 'PrizePicks', '84': 'DK Pick6'}
+              '121': 'Underdog', '73': 'Underdog Fantasy', '72': 'PrizePicks', '84': 'DK Pick6',
+              'espnbet': 'ESPN BET', 'betrivers': 'BetRivers', 'hardrockbet': 'Hard Rock Bet', 'bovada': 'Bovada',
+              'betonlineag': 'BetOnline'}
 # Exchanges, prediction markets and pick'em apps: shown after the
 # sportsbooks, and they never set the best price
 EXCHANGES = {'89', '66', '105', '107', '111', '121', '73', '72', '84'}
@@ -159,6 +161,12 @@ NO_BEST = {'60'}   # theScore CA (RTYB is for US bettors)
 BOOK_KEYS = {'1': 'draftkings', '2': 'fanduel', '4': 'betmgm', '80': 'betmgm', '20': 'caesars',
              '36': 'thescore', '118': 'thescore', '86': 'fanatics', '121': 'underdog'}
 LOGO_EXTS = ('svg', 'png', 'webp', 'jpg')
+# The Odds API's books (backfill_oddsapi.py history rows) -> the Odds page's
+# source ids: the books Unabated also carries keep its ids, the rest are new
+# sources (no logo yet: the page shows the name)
+ODDSAPI_BOOKS = {'draftkings': '1', 'fanduel': '2', 'betmgm': '4', 'williamhill_us': '20', 'fanatics': '86',
+                 'espnbet': 'espnbet', 'betrivers': 'betrivers', 'hardrockbet': 'hardrockbet', 'bovada': 'bovada',
+                 'betonlineag': 'betonlineag'}
 
 
 def book_logo(book_id):
@@ -230,6 +238,8 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
     out_dir = os.path.join(slug_dir, 'odds')
     index_path = os.path.join(slug_dir, 'odds.json')
     live = {(g['date'], g['away'], g['home']): g for g in (feed.get('games') or {}).values()}
+    backfill = oddsapi_books(sp['key'])
+    admin = read_json(os.path.join(ROOT, 'data_admin', 'odds', f"{sp['key']}.json"), {})
     extras = {}
     for x in extra or []:
         for seg, mk in x['books'].items():
@@ -276,8 +286,27 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
                 books = merge(clean(h.get('close') or _unlinked(lg.get('books'))), plain_extra)
             # the Open column keeps the opening line before, during and after the game
             opens = merge(clean(h.get('open') or lg.get('opens')), plain_extra)
+            best = bests(books)
+            if state != 'pre':
+                bf = backfill.get('|'.join(key)) or {}
+                only_backfill = not books and not opens
+                for seg, mk in clean(bf.get('books')).items():
+                    for m, by in mk.items():
+                        if by and not (books.get(seg) or {}).get(m):
+                            books.setdefault(seg, {})[m] = by
+                            line = ((bf.get('lines') or {}).get(seg) or {}).get(m)
+                            if line:
+                                best.setdefault(seg, {})[m] = line
+                # the admin's saved line is what the game is graded with
+                for seg, mk in ((admin.get('|'.join(key)) or {}).get('segments') or {}).items():
+                    for m, line in (mk or {}).items():
+                        m = {'nrfi_yrfi': 'rfi'}.get(m, m)
+                        if line and (seg, m) in shown and (books.get(seg) or {}).get(m):
+                            best.setdefault(seg, {})[m] = line
             game = {'books': books, 'away': sg['away'], 'home': sg['home'], 'start': sg.get('start'), 'state': state,
-                    'best': bests(books), 'open': bests(opens) if opens else {}}
+                    'best': best, 'open': bests(opens) if opens else {}}
+            if state != 'pre' and only_backfill and books:
+                game['close'] = 1   # closing lines only (The Odds API): no Open column
             if state != 'pre' and sg.get('score'):
                 game['score'] = sg['score']   # {segment: [away, home]} so far
             if state == 'final' and sg.get('res'):
@@ -334,6 +363,23 @@ def oddsapi_odds(sport, segs=None):
                         for seg, markets in (g.get('segments') or {}).items() if segs is None or seg in segs}
             if seg_odds:
                 out[key] = {'date': g.get('date'), 'away': g.get('away'), 'home': g.get('home'), 'segments': seg_odds}
+    return out
+
+
+def oddsapi_books(sport):
+    """{game key: {books: {seg: {market: {source id: row}}}, lines: {seg:
+    {market: line}}}} from The Odds API backfill's history files (every
+    season), the books under the Odds page's source ids (ODDSAPI_BOOKS) and
+    NRFI / YRFI under the page's market key (rfi)."""
+    mkey = {'nrfi_yrfi': 'rfi'}
+    out = {}
+    for path in sorted(glob.glob(os.path.join(ROOT, 'data_feed', 'oddsapi', 'history', sport, '*.json'))):
+        for key, g in (read_json(path, {}).get('games') or {}).items():
+            books = {seg: {mkey.get(m, m): {ODDSAPI_BOOKS[b]: row for b, row in (by or {}).items() if b in ODDSAPI_BOOKS}
+                           for m, by in mk.items()} for seg, mk in (g.get('books') or {}).items()}
+            lines = {seg: {mkey.get(m, m): {k: v for k, v in line.items() if k != 'books'} for m, line in mk.items()}
+                     for seg, mk in (g.get('segments') or {}).items()}
+            out[key] = {'books': books, 'lines': lines}
     return out
 
 
@@ -1087,6 +1133,13 @@ def week_list(games):
     return out
 
 
+def prior_weeks(games, season):
+    """Last season's weeks for the Odds page's week bar: keys and labels
+    carry the season ("2025-2-7", "Week 7 (2025)") so they never meet this
+    season's."""
+    return [dict(w, key=f"{season}-{w['key']}", label=f"{w['label']} ({season})") for w in week_list(games)]
+
+
 def logo_flag(sport_key, slug):
     """'d' = light + dark logos cached, 'l' = light only, None = no logo
     (assets/logos/{sport}/, scripts/fetch_sport_logos.py)."""
@@ -1202,13 +1255,20 @@ def build(sp, teams_list, now_utc=None):
     if prior and prior['cards']:
         trends_doc['lastSeason'] = prior
     write_json(os.path.join(slug_dir, 'trends.json'), trends_doc)
+    # the Odds page: this season, and last season's days too while the sport
+    # is in season (off-season, this season is the one that just ended)
+    odds_days, odds_weeks = dict(by_date), doc.get('weeks')
+    if prev is not None and sports.in_season(sp):
+        odds_days = dict(hist, **by_date)
+        if odds_weeks:
+            odds_weeks = prior_weeks(seasons[prev], prev) + odds_weeks
     odds_schedule = {d: [{'away': g['away'], 'home': g['home'], 'start': g.get('start'),
                           'state': {'in': 'live', 'final': 'final', 'post': 'final'}.get(g.get('state'), 'pre'),
                           'score': seg_scores(sp, g), 'detail': g.get('detail') or '',
                           # a segment is graded the moment it ends, live games included
                           'res': g.get('res') if g.get('state') in ('in', 'final', 'post') else None} for g in day]
-                     for d, day in by_date.items()}
-    write_odds_page(sp, slug_dir, now_utc, odds_schedule, weeks=doc.get('weeks'))
+                     for d, day in odds_days.items()}
+    write_odds_page(sp, slug_dir, now_utc, odds_schedule, weeks=odds_weeks)
     import hub   # the Arena hub (/{slug}/): Matchup of the Day, after the odds files it prices from
     hub.build(sp, doc, trends_doc, slug_dir, now_utc)
     today = now_utc.astimezone(ET).date().isoformat()

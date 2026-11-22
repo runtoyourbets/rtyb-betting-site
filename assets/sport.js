@@ -2970,7 +2970,8 @@
   // then exchanges and prediction markets). Games that haven't started link
   // each price to its source (Gambly links with the partner code); started
   // and finished games show each source's closing line; Open is always the
-  // opening line. The best price per side gets a green outline (the key at
+  // opening line (a game with only The Odds API's closing lines: Close, the
+  // closing line it's graded with). The best price per side gets a green outline (the key at
   // the bottom says so). The controls and the header row stay pinned.
   // ?mkt= opens a market (The Big Numbers' rows link to theirs, #og-away-home: the game)
   var MKT_CUR = new URLSearchParams(location.search).get('mkt');
@@ -3132,7 +3133,8 @@
       function table(games, k, m, kind, cols, lined) {
         var body = games.map(function(g) {
           var books = ((g.books || {})[k] || {})[m] || {};
-          var best = ((g.best || {})[k] || {})[m], open = ((g.open || {})[k] || {})[m];
+          // a game with only closing lines (The Odds API backfill): the column shows the close
+          var best = ((g.best || {})[k] || {})[m], open = g.close ? best : ((g.open || {})[k] || {})[m];
           var past = g.state !== 'pre';
           var rows = sides(m, kind).map(function(sd) {
             var s = sd[0], b = top(best, m, s), o = top(open, m, s);
@@ -3151,7 +3153,7 @@
           var day = weeks && g.start && !(D && D.schedule === 'week') ? new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }) + ' ' : '';
           // every game's time row carries Open and the book logos, over their columns
           return '<tbody class="ob-game" id="og-' + esc(g.away) + '-' + esc(g.home) + '"><tr class="ob-ghead"><th scope="col" class="ob-c-team"><span class="ob-time">' + esc(day) + (g.start ? esc(timeET(g.start)) : 'TBD') + oddsStatus(g) + '</span></th>' +
-            '<th scope="col" class="ob-c-open">Open</th>' + cols.map(function(b) { return '<th scope="col" class="ob-src">' + head(b) + '</th>'; }).join('') + '</tr>' + rows + '</tbody>';
+            '<th scope="col" class="ob-c-open">' + (g.close ? 'Close' : 'Open') + '</th>' + cols.map(function(b) { return '<th scope="col" class="ob-src">' + head(b) + '</th>'; }).join('') + '</tr>' + rows + '</tbody>';
         }).join('');
         return '<div class="ob-scroll" id="obBody"><table class="ob-grid" style="--n:' + cols.length + '">' + colgroup(cols) + body + '</table></div>';
       }
