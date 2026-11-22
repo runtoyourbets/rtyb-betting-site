@@ -13121,10 +13121,10 @@
     "market": "total",
     "side": "over",
     "line": 104.5,
-    "price": -108,
+    "price": -110,
     "title": "1H Over 104.5",
-    "est": 0.5624,
-    "edge": 0.0431,
+    "est": 0.5653,
+    "edge": 0.0415,
     "agree": 4,
     "sample": 16,
     "tier": "B",
@@ -13331,56 +13331,50 @@
     "streakTeamName": "Ravens"
    },
    {
-    "id": "nfl|401873070|1h|ats|away",
-    "game": "nfl|401873070",
+    "id": "ncaab|401923323|1h|ml|home",
+    "game": "ncaab|401923323",
     "date": "2026-11-22",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-22T18:00Z",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-22T20:30Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Dolphins @ Bills",
-    "href": "nfl/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 9.5,
-    "price": 105,
-    "title": "Dolphins 1H +9.5",
-    "est": 0.5238,
-    "edge": 0.036,
-    "agree": 4,
-    "sample": 9,
+    "matchup": "Mercyhurst @ UAlbany",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 100,
+    "title": "UAlbany 1H ML",
+    "est": 0.5367,
+    "edge": 0.0367,
+    "agree": 3,
+    "sample": 7,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider",
-     "Early Bird"
+     "Dog Hunter"
     ],
-    "streak": 4,
-    "streakTeam": "mia",
+    "streak": -1,
+    "streakTeam": "ualbany-great-danes",
     "angles": [
      [
-      "Dolphins 1H ATS at +9.5, last 8",
-      "7-1"
+      "Mercyhurst\u2019s opponents 1H ML, Mercyhurst on the road",
+      "5-0"
      ],
      [
-      "Dolphins 1H ATS at +9.5 on the road",
-      "4-1"
+      "UAlbany 1H ML, season",
+      "4-3"
      ],
      [
-      "Dolphins 1H ATS at +9.5, season",
-      "7-2"
-     ],
-     [
-      "Bills\u2019s opponents 1H ATS at +9.5, Bills at home",
-      "3-1"
+      "UAlbany 1H ML, last 8",
+      "4-3"
      ]
     ],
-    "info": "Dolphins avg 1H margin on the road: -4.2",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Dolphins"
+    "streakTeamName": "UAlbany"
    },
    {
     "id": "nba|401910033|1q|ml|home",
@@ -13397,16 +13391,14 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": -110,
+    "price": -108,
     "title": "Jazz 1Q ML",
-    "est": 0.559,
-    "edge": 0.0352,
+    "est": 0.5559,
+    "edge": 0.0367,
     "agree": 3,
     "sample": 15,
     "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
+    "tags": [],
     "streak": -2,
     "streakTeam": "utah",
     "angles": [
