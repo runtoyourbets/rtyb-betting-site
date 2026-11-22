@@ -12791,6 +12791,98 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "SMU"
+   },
+   {
+    "id": "nba|401910026|1h|ats|away",
+    "game": "nba|401910026",
+    "date": "2026-11-21",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-22T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Grizzlies @ Timberwolves",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": -112,
+    "title": "Grizzlies 1H +3.5",
+    "est": 0.5626,
+    "edge": 0.0343,
+    "agree": 3,
+    "sample": 16,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "mem",
+    "angles": [
+     [
+      "Grizzlies 1H ATS at +3.5 on the road",
+      "7-1"
+     ],
+     [
+      "Grizzlies 1H ATS at +3.5, season",
+      "13-3"
+     ],
+     [
+      "Grizzlies 1H ATS at +3.5, last 8",
+      "5-3"
+     ]
+    ],
+    "info": "Grizzlies avg 1H margin on the road: +3.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Grizzlies"
+   },
+   {
+    "id": "ncaaf|401856872|1h|ats|home",
+    "game": "ncaaf|401856872",
+    "date": "2026-11-21",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-22T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Utah @ TCU",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 5.5,
+    "price": -110,
+    "title": "TCU 1H +5.5",
+    "est": 0.5571,
+    "edge": 0.0333,
+    "agree": 3,
+    "sample": 10,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "tcu-horned-frogs",
+    "angles": [
+     [
+      "TCU 1H ATS at +5.5, season",
+      "9-1"
+     ],
+     [
+      "TCU 1H ATS at +5.5, last 8",
+      "7-1"
+     ],
+     [
+      "TCU 1H ATS at +5.5 at home",
+      "6-1"
+     ]
+    ],
+    "info": "TCU avg 1H margin at home: +3.3",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "TCU"
    }
   ]
  }

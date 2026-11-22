@@ -673,11 +673,6 @@
     "value": "ncaab:401911310"
    },
    {
-    "label": "NCAAB · California Baptist at Loyola Marymount · 7:00 PM ET",
-    "trends": 8,
-    "value": "ncaab:401917539"
-   },
-   {
     "label": "NCAAB · Charleston Southern at Mercer · 7:00 PM ET",
     "trends": 5,
     "value": "ncaab:401911378"
@@ -686,6 +681,11 @@
     "label": "NCAAB · Gardner-Webb at VMI · 7:00 PM ET",
     "trends": 3,
     "value": "ncaab:401911394"
+   },
+   {
+    "label": "NCAAB · Loyola Marymount at California Baptist · 7:00 PM ET",
+    "trends": 8,
+    "value": "ncaab:401917539"
    },
    {
     "label": "NCAAB · Michigan at Villanova · 7:00 PM ET",
@@ -1208,11 +1208,6 @@
     "value": "ncaab:401911310"
    },
    {
-    "label": "California Baptist at Loyola Marymount · 7:00 PM ET",
-    "trends": 8,
-    "value": "ncaab:401917539"
-   },
-   {
     "label": "Charleston Southern at Mercer · 7:00 PM ET",
     "trends": 5,
     "value": "ncaab:401911378"
@@ -1221,6 +1216,11 @@
     "label": "Gardner-Webb at VMI · 7:00 PM ET",
     "trends": 3,
     "value": "ncaab:401911394"
+   },
+   {
+    "label": "Loyola Marymount at California Baptist · 7:00 PM ET",
+    "trends": 8,
+    "value": "ncaab:401917539"
    },
    {
     "label": "Michigan at Villanova · 7:00 PM ET",
