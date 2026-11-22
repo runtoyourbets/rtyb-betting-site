@@ -11839,8 +11839,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Pittsburgh"
    },
    {
@@ -12695,8 +12695,8 @@
      ]
     ],
     "info": "Pittsburgh avg 1H margin on the road: -9.7",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.0,
     "streakTeamName": "Pittsburgh"
    },
    {
