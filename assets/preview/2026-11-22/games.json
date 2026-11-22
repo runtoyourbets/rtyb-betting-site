@@ -239,7 +239,7 @@
    },
    {
     "label": "NBA · Detroit Pistons at Atlanta Hawks · 3:30 PM ET",
-    "trends": 15,
+    "trends": 14,
     "value": "nba:401910029"
    },
    {
@@ -344,7 +344,7 @@
    },
    {
     "label": "NBA · Dallas Mavericks at Utah Jazz · 7:00 PM ET",
-    "trends": 16,
+    "trends": 14,
     "value": "nba:401910033"
    },
    {
@@ -436,7 +436,7 @@
   "games": [
    {
     "label": "Detroit Pistons at Atlanta Hawks · 3:30 PM ET",
-    "trends": 15,
+    "trends": 14,
     "value": "nba:401910029"
    },
    {
@@ -446,7 +446,7 @@
    },
    {
     "label": "Dallas Mavericks at Utah Jazz · 7:00 PM ET",
-    "trends": 16,
+    "trends": 14,
     "value": "nba:401910033"
    },
    {
