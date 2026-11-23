@@ -135,7 +135,7 @@ class TeamScriptTest(unittest.TestCase):
     def test_spec_order_and_removed_pieces(self):
         js = read('assets', 'sport.js')
         body = js[js.index('function renderTeam()'):js.index('function tpUse(')]
-        self.assertIn("nextHtml() + lastHtml() + marketsHtml() + streaksHtml() + '<div id=\"tmLogBox\"></div><div id=\"tpHABox\"></div>' + sitHtml()", body)
+        self.assertIn("nextHtml() + lastHtml() + marketsHtml() + startersHtml() + streaksHtml() + '<div id=\"tmLogBox\"></div><div id=\"tpHABox\"></div>' + sitHtml()", body)
         self.assertIn('linesHtml() + resultsHtml()', body)
         for gone in ('Matchup trends', 'tm-edge-rank', 'sit-tag', '✓'):
             self.assertNotIn(gone, body)

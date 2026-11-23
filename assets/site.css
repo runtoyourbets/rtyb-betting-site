@@ -2737,6 +2737,10 @@
   .tp-team a { color: var(--text); text-decoration: none; }
   .tp-at { color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .tp-where { margin: 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  /* starters (MLB pitchers, NHL goalies): Next Game card, H2H header, Matchups cards */
+  .tp-sps { margin: 6px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text); }
+  .tp-sps .t-label { margin-right: 6px; }
+  .mc .tp-sps { margin-top: 10px; }
   .tp-cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cell-gap) 12px; }
   /* Next game odds: a row per segment (its label at the left), its markets as
      columns, the same columns on every row; phones: the label above the blocks */
