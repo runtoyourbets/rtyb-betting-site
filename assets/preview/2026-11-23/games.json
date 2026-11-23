@@ -74,11 +74,13 @@
    "SFA",
    "SIU",
    "SJ",
+   "SJSU",
    "SUU",
    "TEM",
    "TLSA",
    "TOR",
    "TULN",
+   "UCSD",
    "UMES",
    "UNC",
    "UNCG",
@@ -349,6 +351,11 @@
     "label": "NCAAB · Colorado State at Arizona · 11:30 PM ET",
     "trends": 9,
     "value": "ncaab:401909743"
+   },
+   {
+    "label": "NCAAB · San José State at UC San Diego · 11:59 PM ET",
+    "trends": 5,
+    "value": "ncaab:401921664"
    }
   ],
   "lead": "nba:401910039",
@@ -478,10 +485,12 @@
    "SF",
    "SFA",
    "SIU",
+   "SJSU",
    "SUU",
    "TEM",
    "TLSA",
    "TULN",
+   "UCSD",
    "UMES",
    "UNC",
    "UNCG",
@@ -659,6 +668,11 @@
     "label": "Colorado State at Arizona · 11:30 PM ET",
     "trends": 9,
     "value": "ncaab:401909743"
+   },
+   {
+    "label": "San José State at UC San Diego · 11:59 PM ET",
+    "trends": 5,
+    "value": "ncaab:401921664"
    }
   ],
   "lead": "ncaab:401913102",
