@@ -178,6 +178,36 @@ class PageTest(unittest.TestCase):
         self.assertNotIn('Hot', card)
 
 
+    def test_tonight_skips_small_samples(self):
+        m = df.groups(sports.BY_KEY['nba'])[0][2][2]
+        self.assertIsNone(df.coldest([(m, games_of(9), games_of(100), -31)]))
+        self.assertEqual(df.coldest([(m, games_of(15), games_of(100), -12)])[3], -12)
+
+
+class NflWeeklyTest(unittest.TestCase):
+    def test_nfl_weekly_meters_take_the_last_3_weeks(self):
+        """NFL: weeks 3-5 vs the season; NCAAF stays on the latest week."""
+        weeks = [{'key': f'2-{i}', 'label': f'Week {i}'} for i in range(1, 6)]
+        games = []
+        for i in range(1, 6):
+            for t in ('O', 'O', 'U') if i >= 3 else ('U', 'U', 'U'):
+                g = game(t, 'W')
+                g['odds'] = {'1q': dict(ML), '1h': dict(ML)}
+                g['wk'] = f'2-{i}'
+                games.append((f'2026-10-0{i}', g))
+        for key, n in (('nfl', 9), ('ncaaf', 3)):
+            df._CACHE.clear()
+            doc = {'seasonLabel': '2026', 'games': {}, 'weeks': weeks}
+            with mock.patch.object(df, 'season_games', lambda sp: (doc, games)):
+                g = df.compute(sports.BY_KEY[key], TODAY)['groups'][0]
+            w = next(w for m, w, s, _ in g['weekly'] if m.id == 'over')
+            with self.subTest(key):
+                self.assertEqual(w.n, n)
+                self.assertEqual(g['span'], 3 if key == 'nfl' else 1)
+        self.assertEqual((w.s, w.o), (2, 1))
+        self.assertEqual(df.span_txt([('2-3', 'Week 3', []), ('2-5', 'Week 5', [])]), 'Weeks 3-5')
+
+
 def games_of(n):
     c = df.Count()
     c.s = n

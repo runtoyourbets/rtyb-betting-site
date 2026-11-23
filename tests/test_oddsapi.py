@@ -260,7 +260,22 @@ class FullGame(unittest.TestCase):
         ev = {'commence_time': '2026-11-15T00:00:00Z', 'away_team': AWAY, 'home_team': HOME}
         tbd = {'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T04:59Z'}
         self.assertEqual(len(A.match('nba', [ev], [tbd])[0]), 1)
-        self.assertEqual(len(A.match('nba', [ev], [dict(tbd, start='2026-11-15T04:30Z')])[0]), 0)
+        self.assertEqual(len(A.match('nba', [ev], [dict(tbd, date='2026-11-15', start='2026-11-16T00:30Z')])[0]), 0)   # another day
+
+    def test_same_day_over_4_hours_apart(self):
+        """Louisiana @ App State (Jan 22, moved to noon ET): the API's time is
+        over 4 hours off. Same ET day, both names exact, the only game
+        between them: it matches, the event's start capped at ours. Two
+        games between the same teams that day (a doubleheader) never do."""
+        game = {'date': '2026-01-22', 'away': 'louisiana-ragin-cajuns', 'home': 'app-state-mountaineers', 'start': '2026-01-22T17:00Z'}
+        ev = {'commence_time': '2026-01-23T00:00:00Z', 'away_team': "Louisiana Ragin' Cajuns", 'home_team': 'Appalachian St Mountaineers'}
+        pairs, missed = A.match('ncaab', [ev], [game])
+        self.assertEqual((len(pairs), missed), (1, []))
+        self.assertEqual(A.parse(pairs[0][0]['commence_time']), A.parse('2026-01-22T17:00Z'))
+        mlb = [{'date': '2026-07-04', 'away': 'bos', 'home': 'nyy', 'start': t} for t in ('2026-07-04T17:05Z', '2026-07-04T23:05Z')]
+        ev2 = {'commence_time': '2026-07-05T03:30:00Z', 'away_team': 'Boston Red Sox', 'home_team': 'New York Yankees'}
+        self.assertEqual(len(A.match('mlb', [ev2], mlb)[0]), 0)
+        self.assertEqual(len(A.match('mlb', [ev2], mlb[:1])[0]), 1)
 
     def test_tbd_start_matches_a_tip_after_midnight(self):
         """Hawai'i's home games tip after midnight ET: ESPN's 11:59 PM

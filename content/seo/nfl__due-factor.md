@@ -15,11 +15,11 @@ The Due Factor tracks how the NFL first quarter & first half markets are running
 - **Hot / Cold:** 10 points or more.
 - **Small sample:** fewer than 15 graded games in the window, so no read yet.
 
-The Daily view adds last night's results, a day-by-day table and, on game days, the coldest side on today's games with the best price. The Weekly view shows every week of the regular season. A table cell 10+ points above its season rate is tinted.
+The Daily view adds last night's results, a day-by-day table and, on game days, the coldest side on today's games with the best price. The Weekly view's meters compare the last 3 weeks with the season (one week of NFL games is too few to read), and its table shows every week of the regular season. A table cell 10+ points above its season rate is tinted.
 
 ### Example
 
-Say the first quarter Over has hit 48% of the time this week, against 60% for the season. That is 12 points under the season rate, so the Total card reads Cold. Cold means the league is running under its season rate. It is not a sign that a side is about to hit: every game is its own bet.
+Say the first quarter Over has hit 48% of the time over the last 3 weeks, against 60% for the season. That is 12 points under the season rate, so the Total card reads Cold. Cold means the league is running under its season rate. It is not a sign that a side is about to hit: every game is its own bet.
 
 ### What I look for
 

@@ -18,14 +18,16 @@ Stats page's (the shorter segment moneyline, else the side laying points).
 
 Windows: Daily = game days in the last 7 days (ET), or the last 7 game days
 when there were none; Weekly = this week so far (the latest week with
-games), Monday-Sunday ET for the daily sports, the game week for football.
+games), Monday-Sunday ET for the daily sports, the game week for NCAAF;
+NFL's weekly meters take its last 3 weeks (16 games a week is too few;
+WEEKLY_SPAN). The Week by week table is a row per week everywhere.
 Off-season sports show last season's final days and weeks. Day by day is
 a row per game day of the meter's window, so its total row is the meter.
 
 The gap is the window's rate minus the season's, in points. Chip: under 5
 "On pace"; 5-9 "Leaning cold" (--heat-1) / "Leaning hot" (--heat-2); 10+
 "Cold" / "Hot" (--heat-3; 15+ --heat-4). Under MIN_GAMES graded games in
-the window there's no chip ("Small sample") and no strip entry. A table cell is tinted when the
+the window there's no chip ("Small sample"), no strip entry and no Tonight. A table cell is tinted when the
 side it shows is 10+ points above its season rate: side markets the win
 fill, Over / Yes / YRFI warm; a total whose Under is 10+ above shows cool.
 """
@@ -41,7 +43,8 @@ from front import esc
 WINDOW_DAYS = 7
 TINT = 10        # points above the season rate that tint a cell
 STRIP_MIN = 10   # the home / hub strip: only gaps this big
-MIN_GAMES = 15   # fewer graded games in the window: "Small sample", no strip entry
+MIN_GAMES = 15   # fewer graded games in the window: "Small sample", no strip entry or Tonight
+WEEKLY_SPAN = {'nfl': 3}   # weekly meters over the last N weeks (the rest: the latest week)
 
 
 # ---------------------------------------------------------------- markets
@@ -309,6 +312,7 @@ def compute(sp, today):
                                                        for gs in (doc.get('games') or {}).values() for g in gs)
         else:
             this_week = bool(cur) and not off and cur[0] == (today - timedelta(days=today.weekday())).isoformat()
+        span = WEEKLY_SPAN.get(sp['key'], 1)
         before = [d for d in all_days if d < today.isoformat()]
         last = before[-1] if before else (all_days[-1] if all_days else None)
         out['groups'].append({
@@ -316,7 +320,8 @@ def compute(sp, today):
             'win': win, 'win_label': win_label,
             'daily': meter(markets, days, win, season_keys),
             'weeks': weeks, 'week': cur, 'this_week': this_week,
-            'weekly': meter(markets, days, cur[2], season_keys) if cur else [],
+            'weekly': meter(markets, days, [d for w in weeks[-span:] for d in w[2]], season_keys) if cur else [],
+            'span': span, 'span_weeks': weeks[-span:],
             'last': last,
         })
     return out
@@ -368,8 +373,9 @@ def _price(sport, d, g, m, side):
 def coldest(rows):
     """(Market, the cold side's label, its book side key, gap): the biggest
     gap's cold side (the measured side when it runs cold, else its mirror).
-    Ties have no price on the Odds page's 2-way rows and stay out."""
-    rows = [r for r in rows if r[3] is not None and r[0].book]
+    Ties have no price on the Odds page's 2-way rows and stay out, and so
+    does a market under MIN_GAMES games in the window."""
+    rows = [r for r in rows if r[3] is not None and r[0].book and r[1].n >= MIN_GAMES]
     if not rows:
         return None
     m, _, _, gap = max(rows, key=lambda r: abs(r[3]))
@@ -510,12 +516,26 @@ def pane_html(sport, grp, data_, today, now, root, view):
         return '<p class="st-sec-sub">No games yet.</p>'
     wk = grp['week']
     when = 'This week so far' if grp['this_week'] else wk[1]
-    return (f'<section class="st-sec"><div class="st-sec-head"><h2>Due meter</h2></div><p class="st-sec-sub">{esc(off_lab + when)}{"" if when == wk[1] else " (" + esc(wk[1]) + ")"} vs the season rate</p>'
+    sub = f'{when}{"" if when == wk[1] else " (" + wk[1] + ")"}'
+    if grp['span'] > 1:
+        when = f'Last {grp["span"]} weeks'
+        sub = f'{when} ({span_txt(grp["span_weeks"])})'
+    return (f'<section class="st-sec"><div class="st-sec-head"><h2>Due meter</h2></div><p class="st-sec-sub">{esc(off_lab + sub)} vs the season rate</p>'
             + meter_html(grp['weekly'], when) + '</section>'
             + f'<section class="st-sec"><div class="st-sec-head"><h2>Week by week</h2></div>'
             + f'<p class="st-sec-sub">A cell 10+ pts above its season rate is tinted.</p>'
             + table_html(grp, [(lab, ds) for _, lab, ds in reversed(grp['weeks'])], 'Season', grp['season_keys'], 'Week')
             + '</section>')
+
+
+def span_txt(weeks):
+    """"Weeks 9-11", else "Week 9 to Week 11"."""
+    a, b = weeks[0][1], weeks[-1][1]
+    if a == b:
+        return a
+    if a.startswith('Week ') and b.startswith('Week '):
+        return f'Weeks {a[5:]}-{b[5:]}'
+    return f'{a} to {b}'
 
 
 TOGGLE_JS = """<script>

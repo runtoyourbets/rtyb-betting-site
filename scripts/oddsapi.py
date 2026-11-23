@@ -250,7 +250,9 @@ def match(sport, api_events, games):
     Unabated feed's aliases and match_event, which wants the starts within 4
     hours; a game whose start is ESPN's 11:59 PM ET placeholder matches on the
     date and both teams alone, or on both teams and a tip before NEXT_DAY_HOUR
-    ET the next day: Hawai'i and West Coast late tips). Returns ([(event, game,
+    ET the next day: Hawai'i and West Coast late tips; over 4 hours apart on
+    the same day, both names exact and the only game between the two
+    (same_day_only), the event's start capped at ours). Returns ([(event, game,
     flipped)], [unmatched events]); unmatched events are listed, never guessed.
     games: [{away, home, start, away_name?, home_name?}]."""
     aliases = {slug: set(names) for slug, names in U.team_aliases(sport).items()}
@@ -273,12 +275,32 @@ def match(sport, api_events, games):
         same_day = [dict(g, _start=t) if tbd(g['_start']) else g for g in pool if day and (
             g['_start'].astimezone(ET).date() == day
             or late and tbd(g['_start']) and g['_start'].astimezone(ET).date() == day - timedelta(days=1))]
-        g, flipped = U.match_event(api_name(sport, e.get('away_team')), api_name(sport, e.get('home_team')), t, same_day, aliases) if t else (None, False)
+        an, hn = api_name(sport, e.get('away_team')), api_name(sport, e.get('home_team'))
+        g, flipped = U.match_event(an, hn, t, same_day, aliases) if t else (None, False)
+        if not g and t:
+            g, flipped = same_day_only(an, hn, same_day, aliases)
+            if g and not tbd(g['_start']) and g['_start'] < t:   # never a snapshot after our start (in-play)
+                e = dict(e, commence_time=iso(g['_start']))
         if g:
             pairs.append((e, {k: v for k, v in g.items() if k != '_start'}, flipped))
         else:
             missed.append(e)
     return pairs, missed
+
+
+def same_day_only(away, home, games, aliases):
+    """(game, flipped) for an event over 4 hours from our start on the same
+    ET day (a game moved for weather, a tournament slot the API lists at
+    another time): both names exact, and the only game between the two that
+    day, so an MLB doubleheader never matches this way."""
+    hits = []
+    for g in games:
+        aa, ha = aliases.get(g['away'], set()), aliases.get(g['home'], set())
+        for flip, (x, y) in ((False, (aa, ha)), (True, (ha, aa))):
+            if U.similarity(away, x) == 1.0 and U.similarity(home, y) == 1.0:
+                hits.append((g, flip))
+                break
+    return hits[0] if len(hits) == 1 else (None, False)
 
 
 def before(t, minutes):
