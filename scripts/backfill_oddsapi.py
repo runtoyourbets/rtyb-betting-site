@@ -9,7 +9,7 @@ Per sport, per game day (newest first):
 - historical_events at 14:00 UTC for the ET day (1 credit); each event is
   matched to our game on the ET date and both teams (oddsapi.match).
   Unmatched events go to the report, never guessed.
-- The full game (segment "game", every sport but MLB): one bulk
+- The full game (segment "game", every sport): one bulk
   /historical/sports/{sport}/odds snapshot (h2h, spreads, totals) per start
   time, 5 minutes before it, covers every game starting then (30 credits).
   A game is taken only from its own start time's snapshot, and only if that
@@ -150,10 +150,7 @@ def have(sport):
 
 def wanted(sport):
     """[(seg, market, api key)]: the first segments, then the full game."""
-    out = [(seg, m, k) for seg, ms in A.MARKETS[sport].items() for m, k in ms.items()]
-    if sport != 'mlb':
-        out += [('game', m, k) for m, k in A.GAME.items()]
-    return out
+    return [(seg, m, k) for seg, ms in A.MARKETS[sport].items() for m, k in ms.items()] + [('game', m, k) for m, k in A.GAME.items()]
 
 
 # ------------------------------------------------------------ closing lines
@@ -214,14 +211,15 @@ def _gap(market, r):
     return abs(_prob(a['price']) - _prob(b['price']))
 
 
-def main_lines(market, rows, sport=None):
+def main_lines(market, rows, sport=None, seg=None):
     """Spreads and totals: drops a book whose only pair is an alternate (Hard
     Rock and BetRivers sometimes send just alternates in the main market):
     its line isn't the one most books post and it's priced ALT_GAP further
     from even than that line's books, or (spreads) it has the other team
     favored by a point or more. MLB's F5 run line is always 0.5 (closing
-    keeps only that), so it's left alone. {book: row} -> {book: row}."""
-    if market not in ('ats', 'total') or len(rows) < 2 or (sport == 'mlb' and market == 'ats'):
+    keeps only that), so it's left alone; the full game's run line (1.5)
+    isn't. {book: row} -> {book: row}."""
+    if market not in ('ats', 'total') or len(rows) < 2 or (sport == 'mlb' and market == 'ats' and seg != 'game'):
         return rows
     key = (lambda r: r['away']['line']) if market == 'ats' else (lambda r: r['line'])
     by = {}
@@ -253,11 +251,11 @@ def closing(sport, bookmakers, keys, away_name, home_name):
                 continue
             m = next((x for x in b.get('markets') or [] if x.get('key') == api_key), None)
             row = m and book_row(market, api_key, m.get('outcomes'), away_name, home_name)
-            if row and sport == 'mlb' and market == 'ats' and abs(row['away']['line']) != 0.5:
+            if row and sport == 'mlb' and seg == 'f5' and market == 'ats' and abs(row['away']['line']) != 0.5:
                 row = None   # RTYB's F5 run line is always 0.5 (as the Unabated feed keeps it)
             if row:
                 rows[b['key']] = row
-        rows = main_lines(market, rows, sport)
+        rows = main_lines(market, rows, sport, seg)
         if not rows:
             continue
         best = best_of('ml' if market in ('btts', 'nrfi_yrfi') else market, rows, ())
@@ -357,8 +355,7 @@ def estimate(days, sport):
     total = 0
     for gs in days.values():
         total += 1
-        if sport != 'mlb':
-            total += 10 * len(A.GAME) * len({g['start'] for g, miss in gs if any(s == 'game' for s, _, _ in miss)})
+        total += 10 * len(A.GAME) * len({g['start'] for g, miss in gs if any(s == 'game' for s, _, _ in miss)})
         total += sum(10 * sum(1 for s, _, _ in miss if s != 'game') for _, miss in gs)
     return total
 
@@ -427,7 +424,7 @@ def fill_day(run, sport, season, day, todo, rep):
             if ours and theirs and not A.tbd(ours) and ours < theirs:
                 pairs[i] = (dict(e, commence_time=A.iso(ours)), g, flipped)
     # the full game: one bulk snapshot per start time
-    bulk = {} if sport == 'mlb' else bulk_game_lines(sport, [e for e, g, _ in pairs if any(s == 'game' for s, _, _ in g['_miss'])])
+    bulk = bulk_game_lines(sport, [e for e, g, _ in pairs if any(s == 'game' for s, _, _ in g['_miss'])])
     for e, g, flipped in pairs:
         key = f"{g['date']}|{g['away']}|{g['home']}"
         away_name, home_name = (e['home_team'], e['away_team']) if flipped else (e['away_team'], e['home_team'])
@@ -530,8 +527,6 @@ def retry_game(run, sport, season):
     """Clears the state of every game that has no full-game line saved, so
     the next run asks for it again (it pulls only what's still missing; the
     first segments stay). Returns how many."""
-    if sport == 'mlb':
-        return 0
     done, hist, n = run.done(sport, season), run.hist(sport, season)['games'], 0
     for key in [k for k, v in done.items() if v in ('filled', 'empty')]:
         if 'game' not in ((hist.get(key) or {}).get('segments') or {}):
@@ -595,7 +590,7 @@ def alt_lines(sport):
             for field in ('books', 'close', 'open', 'opens'):
                 for seg, mk in (g.get(field) or {}).items():
                     for market, rows in (mk or {}).items():
-                        keep = main_lines(market, rows or {}, sport)
+                        keep = main_lines(market, rows or {}, sport, seg)
                         if keep == rows:
                             continue
                         for b in set(rows) - set(keep):

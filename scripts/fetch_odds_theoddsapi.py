@@ -23,7 +23,7 @@ Cadence (refresh.yml, every 10 minutes):
   every run: the closing capture, games starting in the next 20 minutes not
     pulled in the last 15
 Only the markets probe.json shows live for the sport (first segments plus the
-full game's h2h / spreads / totals, every sport but MLB), only games that
+full game's h2h / spreads / totals, every sport), only games that
 haven't started, only in-season sports and Division I / FBS college games.
 
 Budget: MONTHLY_BUDGET credits a month for the live pulls, a daily share of
@@ -141,7 +141,7 @@ def live_keys(sport):
     markets = probe.get('markets') or {}
     out = []
     for seg, m, k in B.wanted(sport):
-        if seg == 'game':   # the full game's h2h / spreads / totals: every sport but MLB (B.wanted)
+        if seg == 'game':   # the full game's h2h / spreads / totals, every sport (B.wanted)
             out.append((seg, m, k))
             continue
         info = markets.get(k)

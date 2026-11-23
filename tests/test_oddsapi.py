@@ -102,6 +102,18 @@ class Closing(unittest.TestCase):
         self.assertEqual(lines['1i']['nrfi_yrfi'], {'nrfi': -140, 'yrfi': 110, 'books': 1})
         self.assertEqual(list(books['1i']['nrfi_yrfi']), ['draftkings'])
 
+    def test_mlb_full_game_run_line_is_one_and_a_half(self):
+        """MLB's full game (h2h / spreads / totals) is wanted like every
+        sport's; its run line is 1.5, while the F5 run line stays 0.5."""
+        self.assertEqual([x for x in B.wanted('mlb') if x[0] == 'game'],
+                         [('game', 'ml', 'h2h'), ('game', 'ats', 'spreads'), ('game', 'total', 'totals')])
+        bm = [book(b, spreads=[{'name': AWAY, 'point': 1.5, 'price': -160}, {'name': HOME, 'point': -1.5, 'price': 135}],
+                   spreads_1st_5_innings=[{'name': AWAY, 'point': 0.5, 'price': -120}, {'name': HOME, 'point': -0.5, 'price': 100}])
+              for b in ('draftkings', 'fanduel')]
+        lines, _ = B.closing('mlb', bm, [('game', 'ats', 'spreads'), ('f5', 'ats', 'spreads_1st_5_innings')], AWAY, HOME)
+        self.assertEqual(lines['game']['ats']['away']['line'], 1.5)
+        self.assertEqual(lines['f5']['ats']['away']['line'], 0.5)
+
     def test_no_3way_rows_in_a_2way_market(self):
         bm = [book('draftkings', h2h_1st_5_innings=[{'name': AWAY, 'price': 150}, {'name': HOME, 'price': 120}, {'name': 'Draw', 'price': 450}])]
         lines, _ = B.closing('mlb', bm, [('f5', 'ml', 'h2h_1st_5_innings')], AWAY, HOME)
