@@ -13712,6 +13712,57 @@
     "streakTeamName": "Utah"
    },
    {
+    "id": "nba|401910041|1q|ats|home",
+    "game": "nba|401910041",
+    "date": "2026-11-23",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Cavaliers @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 2.5,
+    "price": -104,
+    "title": "Bulls 1Q +2.5",
+    "est": 0.554,
+    "edge": 0.0442,
+    "agree": 4,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 8,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1Q ATS at +2.5, last 8",
+      "8-0"
+     ],
+     [
+      "Bulls 1Q ATS at +2.5 at home",
+      "7-0"
+     ],
+     [
+      "Bulls 1Q ATS at +2.5, season",
+      "10-6"
+     ],
+     [
+      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
+      "4-3"
+     ]
+    ],
+    "info": "Bulls avg 1Q margin at home: +3.3",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
+   },
+   {
     "id": "nhl|2026020380|1p|ml|away",
     "game": "nhl|2026020380",
     "date": "2026-11-23",
@@ -13804,55 +13855,46 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "nba|401910041|1q|ats|home",
-    "game": "nba|401910041",
+    "id": "nba|401910044|1q|ml|away",
+    "game": "nba|401910044",
     "date": "2026-11-23",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-24T01:00Z",
+    "start": "2026-11-24T03:00Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Cavaliers @ Bulls",
+    "matchup": "Jazz @ Lakers",
     "href": "nba/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 2.5,
-    "price": -106,
-    "title": "Bulls 1Q +2.5",
-    "est": 0.5571,
-    "edge": 0.0425,
-    "agree": 4,
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 240,
+    "title": "Jazz 1Q ML",
+    "est": 0.334,
+    "edge": 0.0398,
+    "agree": 2,
     "sample": 16,
-    "tier": "B",
+    "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Dog Hunter"
     ],
-    "streak": 8,
-    "streakTeam": "chi",
+    "streak": 1,
+    "streakTeam": "utah",
     "angles": [
      [
-      "Bulls 1Q ATS at +2.5, last 8",
-      "8-0"
+      "Jazz 1Q ML, last 8",
+      "4-3-1"
      ],
      [
-      "Bulls 1Q ATS at +2.5 at home",
-      "7-0"
-     ],
-     [
-      "Bulls 1Q ATS at +2.5, season",
-      "10-6"
-     ],
-     [
-      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
-      "4-3"
+      "Jazz 1Q ML, season",
+      "9-7-2"
      ]
     ],
-    "info": "Bulls avg 1Q margin at home: +3.3",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Bulls"
+    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401910041|1h|ml|home",
@@ -13895,48 +13937,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
-   },
-   {
-    "id": "nba|401910044|1q|ml|away",
-    "game": "nba|401910044",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Jazz @ Lakers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 235,
-    "title": "Jazz 1Q ML",
-    "est": 0.3368,
-    "edge": 0.0383,
-    "agree": 2,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Jazz 1Q ML, last 8",
-      "4-3-1"
-     ],
-     [
-      "Jazz 1Q ML, season",
-      "9-7-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
    },
    {
     "id": "nba|401910036|1q|ml|home",
