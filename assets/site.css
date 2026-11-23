@@ -97,6 +97,13 @@
     --mkh-text: var(--gold);
     --mkh-bg: rgba(245, 197, 66, 0.10);
     --on-gold: #0B0F15;
+    /* The Full Run's Premium style (both themes): a thin gold left bar on
+       its rows, a PREMIUM chip (dark text on gold) on the row label, a
+       gold dot on its pills */
+    --fr-bar: var(--gold);
+    --fr-tag-bg: var(--gold);
+    --fr-tag-text: var(--on-gold);
+    --fr-dot: var(--gold);
     /* Streak heat (both themes): a run's count chip gets hotter with its
        length, the same in every market. 3-4, 5-6, 7-8, 9+. */
     --heat-1: #F8E3A0;
@@ -2746,6 +2753,12 @@
   .tp-big { font-family: var(--ff-display); font-size: var(--fs-big); font-weight: var(--fw-title); line-height: 1.05; color: var(--text); }
   .tp-rec { font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
   .tp-mk .tm-u { font-family: var(--ff-body); font-size: var(--fs-num); }
+  /* the Full Run (Premium): gold left bar, PREMIUM chip, gold dot on its pills */
+  .tp-mrow.fr-row { margin-left: -12px; padding-left: 10px; border-left: 2px solid var(--fr-bar); }   /* the bar sits in the gutter: cards stay aligned */
+  .fr-tag { display: block; width: max-content; margin-top: 4px; padding: 1px 5px; border-radius: 4px; background: var(--fr-tag-bg); color: var(--fr-tag-text); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); letter-spacing: var(--ls-label); text-transform: uppercase; }
+  .fr-note { grid-column: 1 / -1; margin: 0; font-family: var(--ff-body); font-size: var(--fs-price); color: var(--text-muted); }
+  .seg-btn.fr-pill::after { content: ''; display: inline-block; width: 6px; height: 6px; margin-left: 6px; border-radius: 50%; background: var(--fr-dot); vertical-align: middle; }
+  .fr-lock { margin-right: 4px; vertical-align: -1px; }
   .tp-foot { margin: 8px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .tp-chips { display: flex; flex-wrap: wrap; gap: 10px; }
   .tp-chip { display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 10px; border: 1px solid var(--card-border); border-radius: var(--card-radius); background: var(--panel); }

@@ -139,3 +139,42 @@ class TeamsIndexTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+@unittest.skipUnless(__import__('shutil').which('node'), 'node is not installed')
+class FullRunPremiumTest(unittest.TestCase):
+    """PREMIUM.fullRun (assets/sport.js): off (the default) shows every Full
+    Run row; on, a free visitor sees the first row, the rest blurred behind
+    "Unlock with Premium", and a lock on the Game Log's Full Run pills."""
+
+    def run_js(self, flag, premium, body):
+        import json
+        import subprocess
+        src = read('assets', 'sport.js')
+
+        def one(name):
+            m = re.search(r'^  function %s\([^)]*\) \{.*\}$' % name, src, re.M)
+            self.assertIsNotNone(m, name)
+            return m.group(0)
+        fr_lock = re.search(r"^  var FR_LOCK = .*;$", src, re.M).group(0)
+        js = ('var ROOT = "/", PREMIUM = {fullRun: %s}, IS_PREMIUM = %s;\n' % (json.dumps(flag), json.dumps(premium)) +
+              'function esc(s) { return String(s); }\n' + fr_lock + '\n' +
+              '\n'.join(one(n) for n in ('premiumLocked', 'lockFrom', 'segPill')) + '\n' + body)
+        return subprocess.run(['node', '-e', js], capture_output=True, text=True, check=True).stdout
+
+    ROWS = 'console.log(lockFrom(["<1Q>", "<1H>", "<2H>", "<GAME>"], 3, "fullRun"));'
+    PILL = 'console.log(segPill({key: "game", label: "Full Game"}, false, true, "data-log-seg"));'
+
+    def test_flag_off_shows_every_row(self):
+        self.assertEqual(self.run_js(False, False, self.ROWS).strip(), '<1Q><1H><2H><GAME>')
+        self.assertNotIn('fr-lock', self.run_js(False, False, self.PILL))
+        self.assertIn('fr-pill', self.run_js(False, False, self.PILL))   # the gold dot either way
+
+    def test_flag_on_shows_the_first_full_run_row_and_the_lock(self):
+        out = self.run_js(True, False, self.ROWS).strip()
+        self.assertTrue(out.startswith('<1Q><1H><2H><div class="pm-blur" aria-hidden="true"><GAME></div>'))
+        self.assertIn('Unlock with Premium', out)
+        self.assertIn('fr-lock', self.run_js(True, False, self.PILL))
+
+    def test_premium_visitors_see_everything(self):
+        self.assertEqual(self.run_js(True, True, self.ROWS).strip(), '<1Q><1H><2H><GAME>')
