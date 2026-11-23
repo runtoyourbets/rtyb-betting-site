@@ -13805,56 +13805,6 @@
     "streakTeamName": "North Florida"
    },
    {
-    "id": "nba|401910037|1q|total|under",
-    "game": "nba|401910037",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Trail Blazers @ 76ers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 59.5,
-    "price": -102,
-    "title": "1Q Under 59.5",
-    "est": 0.5518,
-    "edge": 0.0469,
-    "agree": 6,
-    "sample": 17,
-    "tier": "B",
-    "tags": [
-     "Under Grinder"
-    ],
-    "streak": -1,
-    "streakTeam": "por",
-    "angles": [
-     [
-      "76ers 1Q unders at home (59.5)",
-      "8-1"
-     ],
-     [
-      "76ers 1Q unders, season (59.5)",
-      "13-4"
-     ],
-     [
-      "Trail Blazers 1Q unders, last 8 (59.5)",
-      "6-2"
-     ],
-     [
-      "Trail Blazers 1Q unders, season (59.5)",
-      "11-5"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: 76ers 56.7 \u00b7 Trail Blazers 53.9",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Trail Blazers"
-   },
-   {
     "id": "nba|401910041|1q|ats|home",
     "game": "nba|401910041",
     "date": "2026-11-23",
@@ -14000,6 +13950,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
+   },
+   {
+    "id": "nba|401910037|1q|total|under",
+    "game": "nba|401910037",
+    "date": "2026-11-23",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Trail Blazers @ 76ers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 59.5,
+    "price": -108,
+    "title": "1Q Under 59.5",
+    "est": 0.5609,
+    "edge": 0.0417,
+    "agree": 6,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": -1,
+    "streakTeam": "por",
+    "angles": [
+     [
+      "76ers 1Q unders at home (59.5)",
+      "8-1"
+     ],
+     [
+      "76ers 1Q unders, season (59.5)",
+      "13-4"
+     ],
+     [
+      "Trail Blazers 1Q unders, last 8 (59.5)",
+      "6-2"
+     ],
+     [
+      "Trail Blazers 1Q unders, season (59.5)",
+      "11-5"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: 76ers 56.7 \u00b7 Trail Blazers 53.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Trail Blazers"
    },
    {
     "id": "nba|401910041|1h|ml|home",
