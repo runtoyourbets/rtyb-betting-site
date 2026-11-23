@@ -13534,10 +13534,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -155,
+    "price": -150,
     "title": "Minnesota 1P ML",
-    "est": 0.6754,
-    "edge": 0.0676,
+    "est": 0.6703,
+    "edge": 0.0703,
     "agree": 4,
     "sample": 16,
     "tier": "A",
@@ -13681,10 +13681,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 160,
+    "price": 165,
     "title": "Calgary 1P ML",
-    "est": 0.4382,
-    "edge": 0.0536,
+    "est": 0.4337,
+    "edge": 0.0563,
     "agree": 2,
     "sample": 18,
     "tier": "B",
@@ -13707,6 +13707,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Calgary"
+   },
+   {
+    "id": "nhl|2026020382|1p|ml|away",
+    "game": "nhl|2026020382",
+    "date": "2026-11-23",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-24T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Utah @ Winnipeg",
+    "href": "nhl/matchups/?date=2026-11-23",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -105,
+    "title": "Utah 1P ML",
+    "est": 0.564,
+    "edge": 0.0518,
+    "agree": 3,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "UTA",
+    "angles": [
+     [
+      "Utah 1P ML, season",
+      "8-5-11"
+     ],
+     [
+      "Winnipeg\u2019s opponents 1P ML, Winnipeg at home",
+      "3-2-8"
+     ],
+     [
+      "Utah 1P ML on the road",
+      "4-3-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Utah"
    },
    {
     "id": "nfl|401873078|1q|ml|home",
@@ -13805,48 +13851,55 @@
     "streakTeamName": "North Florida"
    },
    {
-    "id": "nhl|2026020382|1p|ml|away",
-    "game": "nhl|2026020382",
+    "id": "nba|401910041|1q|ats|home",
+    "game": "nba|401910041",
     "date": "2026-11-23",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-24T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Utah @ Winnipeg",
-    "href": "nhl/matchups/?date=2026-11-23",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -110,
-    "title": "Utah 1P ML",
-    "est": 0.5721,
-    "edge": 0.0483,
-    "agree": 3,
-    "sample": 13,
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Cavaliers @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 2.5,
+    "price": -102,
+    "title": "Bulls 1Q +2.5",
+    "est": 0.5508,
+    "edge": 0.0459,
+    "agree": 4,
+    "sample": 16,
     "tier": "B",
-    "tags": [],
-    "streak": 0,
-    "streakTeam": "UTA",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 8,
+    "streakTeam": "chi",
     "angles": [
      [
-      "Utah 1P ML, season",
-      "8-5-11"
+      "Bulls 1Q ATS at +2.5, last 8",
+      "8-0"
      ],
      [
-      "Winnipeg\u2019s opponents 1P ML, Winnipeg at home",
-      "3-2-8"
+      "Bulls 1Q ATS at +2.5 at home",
+      "7-0"
      ],
      [
-      "Utah 1P ML on the road",
-      "4-3-6"
+      "Bulls 1Q ATS at +2.5, season",
+      "10-6"
+     ],
+     [
+      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
+      "4-3"
      ]
     ],
-    "info": null,
+    "info": "Bulls avg 1Q margin at home: +3.3",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Utah"
+    "streakTeamName": "Bulls"
    },
    {
     "id": "nba|401910044|1q|ats|away",
@@ -13897,57 +13950,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
-   },
-   {
-    "id": "nba|401910041|1q|ats|home",
-    "game": "nba|401910041",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Cavaliers @ Bulls",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 2.5,
-    "price": -104,
-    "title": "Bulls 1Q +2.5",
-    "est": 0.554,
-    "edge": 0.0442,
-    "agree": 4,
-    "sample": 16,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 8,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1Q ATS at +2.5, last 8",
-      "8-0"
-     ],
-     [
-      "Bulls 1Q ATS at +2.5 at home",
-      "7-0"
-     ],
-     [
-      "Bulls 1Q ATS at +2.5, season",
-      "10-6"
-     ],
-     [
-      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
-      "4-3"
-     ]
-    ],
-    "info": "Bulls avg 1Q margin at home: +3.3",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
    },
    {
     "id": "nba|401910037|1q|total|under",
