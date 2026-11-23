@@ -43,6 +43,7 @@
    "LAC",
    "LAL",
    "LBSU",
+   "LUC",
    "MEM",
    "MIL",
    "MIN",
@@ -313,6 +314,11 @@
     "value": "ncaab:401909536"
    },
    {
+    "label": "NCAAB · Loyola Chicago at Seattle U · 9:30 PM ET",
+    "trends": 4,
+    "value": "ncaab:401921663"
+   },
+   {
     "label": "NCAAB · UNC Greensboro at Pepperdine · 9:30 PM ET",
     "trends": 3,
     "value": "ncaab:401926183"
@@ -470,6 +476,7 @@
    "IUI",
    "KU",
    "LBSU",
+   "LUC",
    "MISS",
    "MONM",
    "MTSU",
@@ -482,6 +489,7 @@
    "SBU",
    "SCST",
    "SCU",
+   "SEA",
    "SF",
    "SFA",
    "SIU",
@@ -648,6 +656,11 @@
     "label": "VCU at Providence · 9:00 PM ET",
     "trends": 5,
     "value": "ncaab:401909536"
+   },
+   {
+    "label": "Loyola Chicago at Seattle U · 9:30 PM ET",
+    "trends": 4,
+    "value": "ncaab:401921663"
    },
    {
     "label": "UNC Greensboro at Pepperdine · 9:30 PM ET",
