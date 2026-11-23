@@ -25,28 +25,28 @@
  },
  "pages": {
   "/": {
-   "hash": "0ff410e3533df9fbc78a2cb97c84e2d4ff8da14a",
-   "updated": "2026-11-23T15:39:29Z"
+   "hash": "7ad7d16ad18678ed9a851f0a296446cc25ed002a",
+   "updated": "2026-11-23T15:49:24Z"
   },
   "college-basketball/": {
-   "hash": "da7465e431c89b11fce5aa19f5cc1d72e2ef1b17",
-   "updated": "2026-11-23T15:39:29Z"
+   "hash": "0a4c006290e9504db9b72e431aa3c858c800860e",
+   "updated": "2026-11-23T15:49:24Z"
   },
   "college-football/": {
-   "hash": "754007831ff3def998c41350d3f7202d07bcc6e3",
-   "updated": "2026-11-23T15:39:29Z"
+   "hash": "9b48878417cdea01d9428ef508ad8a90af7ef9e4",
+   "updated": "2026-11-23T15:49:24Z"
   },
   "mlb/": {
    "hash": "e084d73ecab93807bad25a467c17a29a1500344e",
    "updated": "2026-11-22T23:58:51Z"
   },
   "nba/": {
-   "hash": "600f9781e76141b141ac4ef03fbab967545a9adf",
-   "updated": "2026-11-23T15:27:49Z"
+   "hash": "820663b109239f651bf6b52eda3e0bbeb17f6971",
+   "updated": "2026-11-23T15:49:24Z"
   },
   "nfl/": {
-   "hash": "7aae535a0eec0ed21a3caac1c530cae8540b9991",
-   "updated": "2026-11-23T15:39:29Z"
+   "hash": "168f4ab350f2ff8bda80eab8c84f3582b370db08",
+   "updated": "2026-11-23T15:49:24Z"
   },
   "nhl/": {
    "hash": "188ef0e883bba5dc948b0d46f78b398fa66ad8ad",
