@@ -3,7 +3,7 @@ The sportsbooks: one row per book from both odds sources (Unabated and The
 Odds API), set in the admin's Books tab and saved to data_admin/books.json:
 
   {"books": [{"id": "1", "name": "DraftKings", "group": "Sportsbook",
-              "show": true, "best": true, "link": true}, ...]}
+              "show": true, "best": true, "link": ""}, ...]}
 
   order   the list order is the column order everywhere (Odds pages, the
           Next game card's book, the Slate)
@@ -11,7 +11,9 @@ Odds API), set in the admin's Books tab and saved to data_admin/books.json:
   group   Sportsbook / Offshore / Exchange
   show    false: the book's column and rows are gone from every page
   best    false: the book never sets or outlines the best price
-  link    false: its cells don't link out; always off for offshore books
+  link    the book's affiliate URL: every one of its cells links there
+          (Odds pages); empty: its Gambly links (if it has any), else no
+          link; always empty for offshore books, which never link
 
 A book the file doesn't list yet (a new source) shows with the defaults
 below, after the listed ones. The build writes data_feed/books_status.json
@@ -55,7 +57,7 @@ class Settings:
         return {'id': b, 'name': r.get('name'), 'group': group,
                 'show': r.get('show', True) is not False,
                 'best': r.get('best', b not in DEFAULT_NO_BEST) is not False,
-                'link': group != 'Offshore' and r.get('link', True) is not False}
+                'link': '' if group == 'Offshore' else url(r.get('link'))}
 
     def shown(self, b):
         return self.row(b)['show']
@@ -66,6 +68,10 @@ class Settings:
         return r['show'] and r['best']
 
     def linked(self, b):
+        return self.row(b)['group'] != 'Offshore'
+
+    def url(self, b):
+        """The saved affiliate URL, or ''."""
         return self.row(b)['link']
 
     def name(self, b, fallback):
@@ -78,8 +84,9 @@ class Settings:
         return first + fallback([b for b in ids if b not in self.rows])
 
     def filter(self, books):
-        """{seg: {market: {book: row}}} without hidden books, and without the
-        links of books whose links are off."""
+        """{seg: {market: {book: row}}} without hidden books, offshore books
+        without links, and a book with an affiliate URL linking every cell
+        there."""
         out = {}
         for seg, mk in (books or {}).items():
             for m, by in (mk or {}).items():
@@ -87,9 +94,25 @@ class Settings:
                 for b, row in (by or {}).items():
                     if not self.shown(b):
                         continue
-                    keep[b] = row if self.linked(b) else unlinked(row)
+                    keep[b] = (relinked(row, self.url(b)) if self.url(b) else row) if self.linked(b) else unlinked(row)
                 out.setdefault(seg, {})[m] = keep
         return out
+
+
+def url(v):
+    """An https:// URL (the admin checks it too), else ''."""
+    v = v.strip() if isinstance(v, str) else ''
+    return v if v.startswith('https://') and len(v) <= 500 and not any(c.isspace() for c in v) else ''
+
+
+def relinked(row, link):
+    """Every priced side of a row links to `link`."""
+    if isinstance(row, dict):
+        out = {k: relinked(v, link) for k, v in row.items() if k != 'link'}
+        if 'price' in row:
+            out['link'] = link
+        return out
+    return row
 
 
 def unlinked(row):

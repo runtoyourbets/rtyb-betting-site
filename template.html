@@ -1831,7 +1831,8 @@ __THEME_HEAD__
   .ob-sc { margin-left: auto; padding-left: 6px; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
   .ob-na { color: var(--text-muted); }
   .ob-logo { height: 34px; width: 34px; object-fit: contain; vertical-align: middle; border-radius: 7px; -webkit-touch-callout: none; user-select: none; }
-  .ob-bname { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); text-transform: none; letter-spacing: 0; color: var(--text); white-space: normal; display: inline-block; max-width: 70px; line-height: 1.15; }
+  /* a book with no logo file: its name in a tile the logo's height, one line (ellipsis), so headers never wrap */
+  .ob-bname { display: inline-block; box-sizing: border-box; height: 34px; max-width: 64px; padding: 0 6px; line-height: 32px; vertical-align: middle; border: 1px solid var(--card-border); border-radius: 7px; background: var(--cell); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: none; letter-spacing: 0; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .rt-tip { position: absolute; z-index: 300; padding: 4px 8px; border-radius: 6px; background: var(--text); color: var(--bg); font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); pointer-events: none; white-space: nowrap; }
   /* "How to read this page" (build_site.how_to_read_html), under Odds and Matchups */
   .how-to-read { margin: 22px 0 8px; padding: var(--card-pad); border: 1px solid var(--card-border); border-radius: var(--card-radius); background: var(--panel); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text-muted); line-height: 1.5; }
@@ -1867,6 +1868,7 @@ __THEME_HEAD__
   @media (max-width: 640px) {
     .ob-grid { --ob-team: calc(96px + var(--odds-pad-x)); --ob-open: calc(58px + var(--open-gap)); --ob-src: 60px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
     .ob-logo { height: 30px; width: 30px; }
+    .ob-bname { height: 30px; line-height: 28px; max-width: 56px; }
     .ob-time { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); }
     .ob-team .tn-full { display: none; }
     .ob-team .tn-short { display: inline; }
@@ -2737,6 +2739,16 @@ __THEME_HEAD__
   .tp-rc-cool { background: var(--cool-bg); box-shadow: inset 0 0 0 1px var(--cool-line); }
   .tp-res .ob-ln { font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); }
   .tp-mks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  /* Season Markets: a row per segment, the label at the left (the Next Game card's rows) */
+  .tp-mrow { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center; gap: 12px; }
+  .tp-mrow + .tp-mrow { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-soft); }
+  .tp-mrows .tp-mks { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+  @media (max-width: 899px) {
+    .tp-mrow { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .tp-mrows .tp-mks { gap: var(--cell-gap); }
+    .tp-mrows.tp-n4 .tp-mks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tp-mk-empty { display: none; }
+  }
   .tp-mk { display: grid; align-content: start; gap: 2px; padding: 12px 14px; border: 1px solid var(--card-border); border-radius: var(--card-radius); background: var(--panel); min-width: 0; }
   .tp-card .tp-mk { border-color: transparent; background: var(--cell); }
   .tp-mk.tp-top, .tp-card .tp-mk.tp-top { border-color: var(--good); }

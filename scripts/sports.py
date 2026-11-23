@@ -110,7 +110,7 @@ def footer_on(is_home=False):
 # real Picks pages. (PICKS_LIVE is read above, with INDEX_FOLDERS.)
 
 # Preview (/preview/, /{sport}/preview/; was On Tap). True: drafted from
-# 8 AM ET, shown from 11 AM ET once published (the home hero, each hub's
+# 8 AM ET, shown as soon as it's published (the home hero, each hub's
 # Preview section). False: no drafts (no API calls) and Yesterday's Best is
 # the hero.
 PREVIEW_LIVE = bool(SWITCHES.get('PREVIEW_LIVE', True))

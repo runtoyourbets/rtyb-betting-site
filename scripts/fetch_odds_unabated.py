@@ -67,6 +67,11 @@ LOGO_DIR = os.path.join(ROOT, 'assets', 'books')
 LOGO_MANIFEST = os.path.join(LOGO_DIR, 'sources.json')
 LOGO_EXTS = ('svg', 'png', 'webp', 'jpg')
 LOGO_MAX_BYTES = 500_000
+# The Odds API's books by their /sources name (spaces out, lower case): a
+# thumbnail Unabated has for one saves as assets/books/{the Odds API id}.{ext},
+# unless a file Chris dropped in is already there (his file wins)
+ODDSAPI_LOGOS = {'betrivers': 'betrivers', 'hardrock': 'hardrockbet', 'hardrockbet': 'hardrockbet',
+                 'bovada': 'bovada', 'betonline': 'betonlineag', 'betonlineag': 'betonlineag'}
 
 PARTNER_CODE = 'rtyb'
 GAP = 5.5            # seconds between requests (limit is one per 5s)
@@ -474,6 +479,11 @@ def download_logos(sources, now, fetch=fetch_bytes):
     saved = 0
     for src in sources:
         sid, url = str(src.get('id')), src.get('thumbnailUrl')
+        mine = ODDSAPI_LOGOS.get(norm(src.get('name')).replace(' ', ''))
+        if mine:
+            if any(os.path.exists(os.path.join(LOGO_DIR, f'{mine}.{e}')) for e in LOGO_EXTS) and mine not in man:
+                continue
+            sid = mine
         ext = os.path.splitext(urllib.parse.urlparse(url or '').path)[1].lstrip('.').lower().replace('jpeg', 'jpg')
         if not url or ext not in LOGO_EXTS:
             continue
@@ -502,13 +512,30 @@ def download_logos(sources, now, fetch=fetch_bytes):
     return saved
 
 
+def full_sources(now):
+    """Unabated's whole /sources list (every source it knows, not only the
+    ones with a market in a league), tried once a day, a failure included;
+    saved with the league lists, so all_sources reads it."""
+    file = os.path.join(OUT_DIR, 'lookups', 'sources_all.json')
+    doc = read_json(file, {})
+    tried = parse_time(doc.get('tried'))
+    if tried and now - tried < SOURCES_MAX_AGE:
+        return doc.get('data') or []
+    data, err = get('/sources')
+    ok = err is None and isinstance(data, list)
+    write_json(file, {'tried': now.isoformat(timespec='seconds'), 'error': None if ok else err or 'not a list',
+                      'data': data if ok else doc.get('data') or []})
+    return data if ok else doc.get('data') or []
+
+
 def all_sources():
     """Every league's /sources list, one entry per source id."""
     out = {}
     for name in sorted(os.listdir(os.path.join(OUT_DIR, 'lookups'))) if os.path.isdir(os.path.join(OUT_DIR, 'lookups')) else []:
         if name.startswith('sources_'):
             for src in read_json(os.path.join(OUT_DIR, 'lookups', name), {}).get('data') or []:
-                out.setdefault(str(src.get('id')), src)
+                if isinstance(src, dict):
+                    out.setdefault(str(src.get('id')), src)
     return list(out.values())
 
 
@@ -641,6 +668,7 @@ def main():
         except Exception as e:   # one sport's surprise shouldn't stop the others
             print(f"{sp['key']}: skipped -- {e.__class__.__name__}: {e}", file=sys.stderr)
     try:
+        full_sources(now)
         print(f'logos: {download_logos(all_sources(), now)} saved')
     except Exception as e:   # logos are nice to have; odds aren't held up by them
         print(f'logos: skipped -- {e.__class__.__name__}: {e}', file=sys.stderr)

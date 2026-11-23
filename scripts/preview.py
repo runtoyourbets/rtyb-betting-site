@@ -1,7 +1,8 @@
 """
 Preview (was On Tap): the daily first-segment preview, written by Claude
 from the site's numbers (scripts/daily_content.py, drafted from 8 AM ET),
-approved in the admin's Preview tab and shown from 11 AM ET.
+approved in the admin's Preview tab and shown as soon as it's published
+(the next build).
 
 Pages (every one indexed and in the sitemap):
   /preview/                         today's all-sports preview (none today:
@@ -67,7 +68,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ET = front.ET
 INDEX = 'preview'
 ALL = daily.ALL
-SHOW_HOUR = 11          # a preview dated today shows from 11 AM ET
 MIN_TRENDS = 2          # the lead game needs 2+ trends
 RATE_MIN = 10           # a season rate counts with 10+ games
 PACKET_MAX = 15         # games in a sport's packet (college slates run 60+)
@@ -745,11 +745,9 @@ def more_data(key, day, ids=None):
 
 # ------------------------------------------------------------ the pieces
 def visible(now_utc):
-    """Published previews to show: today's only from 11 AM ET."""
-    now = now_utc.astimezone(ET)
-    today = now.date().isoformat()
-    return [p for p in daily.load() if p['kind'] == 'preview' and p['date'] <= today
-            and not (p['date'] == today and now.hour < SHOW_HOUR)]
+    """Published previews to show (today's as soon as it's published)."""
+    today = now_utc.astimezone(ET).date().isoformat()
+    return [p for p in daily.load() if p['kind'] == 'preview' and p['date'] <= today]
 
 
 def drafts(day):
@@ -1179,9 +1177,8 @@ def article(p, root, days, have):
 
 
 def empty(key, root):
-    who = 'today&rsquo;s first-segment preview' if key == ALL else f"the {esc(sports.seo_name(key))} preview"
-    return (f'<div class="pv"><article class="pv-main"><p class="pv-label">Preview</p><h1 class="pv-h1">Preview</h1>'
-            f'<p class="pv-dek">The first Preview lands at 11 AM ET: {who}.</p></article></div>')
+    return ('<div class="pv"><article class="pv-main"><p class="pv-label">Preview</p><h1 class="pv-h1">Preview</h1>'
+            '<p class="pv-dek">Today&rsquo;s preview is coming soon.</p></article></div>')
 
 
 def archive(key, pieces, root):
@@ -1233,7 +1230,7 @@ def pages(now_utc):
             out.append((key, page_dir(key) + 'archive/', title(key, '').replace(' | Run To Your Bets', ' Archive | Run To Your Bets'),
                         f"Every past {'first-segment' if key == ALL else sports.seo_name(key) + ' ' + sports.seg_words(key).lower()} preview, newest first.", (lambda root, mine=mine, key=key: archive(key, mine, root)), None, None, False))
         else:
-            out.append((key, page_dir(key), title(key, 'Coming at 11 AM ET'), 'Our daily first-segment preview, from 11 AM ET.',
+            out.append((key, page_dir(key), title(key, 'Coming Soon'), 'Our daily first-segment preview, coming soon.',
                         (lambda root, key=key: empty(key, root)), None, None, True))
     return out
 
@@ -1351,7 +1348,7 @@ def seo_url():
 def dated_keys():
     """(key, date, page dir) of every preview showing (for the old
     /on-tap/ forwards, and a weekly piece's dated page to its week's);
-    today's only from 11 AM ET, when its page goes up (visible)."""
+    today's as soon as it's published (visible)."""
     return [(p['sport'], p['date'], piece_dir(p)) for p in visible(datetime.now(timezone.utc)) if p['sport'] == ALL or p['sport'] in sports.BY_KEY]
 
 

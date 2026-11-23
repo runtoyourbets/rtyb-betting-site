@@ -7,7 +7,7 @@ Static -- the refresh job rebuilds them every run.
 
 Sections, top to bottom: nav, then the shared front sections
 (scripts/front.py sections, also on every Arena hub): the brand H1 (hubs:
-the slogan line), the all-sports Preview from 11 AM ET (else Yesterday's
+the slogan line), the all-sports Preview once published (else Yesterday's
 Best, large), Yesterday's Best, The Slate, Matchup of the Day, Hottest
 Trends, Streak to Watch, The Big Numbers, Get the Running Tab (hubs
 only), Yesterday's Results, then Betting Guides (3 guides); footer. Every

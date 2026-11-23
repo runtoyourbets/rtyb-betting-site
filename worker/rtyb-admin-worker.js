@@ -57,7 +57,7 @@
  *   /site/get           body: {} -- content/site_settings.json (menus, sports, switches)
  *   /site/save          body: the whole settings object -- checked (validateSite), then
  *                         written to content/site_settings.json; the next refresh rebuilds
- *   /books/save         body: {books: [{id, name, group, show, best, link}]} in column order --
+ *   /books/save         body: {books: [{id, name, group, show, best, link (affiliate URL or "")}]} in column order --
  *                         checked (validateBooks; offshore never links), written to
  *                         data_admin/books.json (the admin's Books tab); the next refresh rebuilds
  *   /definitions/save   body: {entries: {id: {name, category, sports, short, long, status, show_last}}}
@@ -281,8 +281,11 @@ function validateBooks(b) {
     const name = typeof r.name === "string" ? r.name.trim().replace(/[\u2012-\u2015-]/g, "-") : "";
     if (!name || name.length > 30) return `book ${id}: the name must be 1-30 characters`;
     if (!BOOK_GROUPS.includes(r.group)) return `book ${id}: the group must be ${BOOK_GROUPS.join(", ")}`;
-    for (const k of ["show", "best", "link"]) if (typeof r[k] !== "boolean") return `book ${id}: ${k} must be true or false`;
-    out.push({ id, name, group: r.group, show: r.show, best: r.best, link: r.group !== "Offshore" && r.link });
+    for (const k of ["show", "best"]) if (typeof r[k] !== "boolean") return `book ${id}: ${k} must be true or false`;
+    // link: the affiliate URL (empty: the book's Gambly link, if any); offshore books never link
+    const link = typeof r.link === "string" ? r.link.trim() : "";
+    if (link && (!/^https:\/\/[^\s]+$/.test(link) || link.length > 500)) return `book ${id}: the link must be an https:// URL (500 characters max)`;
+    out.push({ id, name, group: r.group, show: r.show, best: r.best, link: r.group === "Offshore" ? "" : link });
   }
   return { books: out };
 }

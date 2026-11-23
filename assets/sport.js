@@ -1087,7 +1087,7 @@
     // ("1P 0-0", "1Q BOS 30-24"), then every market with every side, the
     // closing price under the line; phones: only the side that settled each
     // bet, its market label above it (NHL a 2 x 2 grid; the rest a column
-    // per segment). Then "Final: TB 3-1 · closing prices".
+    // per segment).
     function lastHtml() {
       if (!last) return tmSection('Last Game', emptyNote('No games played yet.'));
       var g = last, fin = g.as != null && g.hs != null;
@@ -1134,10 +1134,8 @@
             tmMarkets(sg.key).map(settled).join('') + '</div>';
         }).join('');
       }
-      var win = fin && g.as !== g.hs ? (g.as > g.hs ? g.away : g.home) : null;
-      var foot = fin ? '<p class="tp-foot">Final: ' + (win ? esc(tcode(win)) + ' ' + Math.max(g.as, g.hs) + '-' + Math.min(g.as, g.hs) : 'tied ' + g.as + '-' + g.hs) + ot + ' &middot; closing prices</p>' : '';
       return tmSection('Last Game', '<div class="st-card tp-card"><div class="st-head"><h4>' + title + '</h4></div>' + teams +
-        '<div class="tp-lgd">' + desk + '</div><div class="tp-lgp tp-lgp-' + (D.sport === 'nhl' ? 1 : segs.length) + '">' + phone + '</div>' + foot + '</div>');
+        '<div class="tp-lgd">' + desk + '</div><div class="tp-lgp tp-lgp-' + (D.sport === 'nhl' ? 1 : segs.length) + '">' + phone + '</div></div>');
     }
     // the market's label, as the Next Game card names it: "1P ML", "1P O/U 1.5",
     // "1P BTTS", "1P 3-Way"; spread sports "Spread", "Total", "ML" (the
@@ -1201,17 +1199,32 @@
       return '<span class="cell tp-rc' + (x.cls ? ' tp-rc-' + x.cls : '') + '"><span class="ob-ln">' + esc(x.ln) + '</span><span class="ob-pr">' +
         (typeof x.pr === 'number' ? esc(priceTxt(x.pr)) : '-') + '</span></span>';
     }
-    // SEASON MARKETS: one card per market (green border: top 5 in the league)
+    // SEASON MARKETS: a row per segment, its label at the left (as the Next
+    // Game card), one card per market (green border: top 5 in the league);
+    // phones: each row stacks as its own group
     function marketCards() {
       var notes = [];
-      var cards = all.map(function(p) {
-        var a = tmAgg(slug, p.k, p.m, 'all', graded), top = a.gp && tpTop5(p)[slug];
-        var n = tpNote(p.m);
-        if (n && notes.indexOf(n) === -1) notes.push(n);
-        return '<div class="tp-mk' + (top ? ' tp-top' : '') + '"><span class="tp-gl">' + esc(tpName(p)) + '</span><span class="tp-big">' + tmPct(a.pct) + '</span>' +
-          '<span class="tp-rec">' + tpRec(a, p.m) + '</span>' + (p.m === 'ml' || p.m === 'ml3' || p.m === 'ats' || a.priced ? tmUnits(a) : '') + '</div>';
+      var rows = D.segments.filter(function(sg) { return tmMarkets(sg.key).length; }).map(function(sg) {
+        return { label: sg.key === '1i' ? '1st Inning' : sg.key === 'f5' ? 'F5' : sg.tag, ps: tmMarkets(sg.key) };
+      });
+      var n = Math.max.apply(null, rows.map(function(r) { return r.ps.length; }));
+      var html = rows.map(function(r) {
+        var cards = r.ps.map(function(p) {
+          var a = tmAgg(slug, p.k, p.m, 'all', graded), top = a.gp && tpTop5(p)[slug];
+          var nt = tpNote(p.m);
+          if (nt && notes.indexOf(nt) === -1) notes.push(nt);
+          return '<div class="tp-mk' + (top ? ' tp-top' : '') + '"><span class="tp-gl">' + esc(tpMkName(p)) + '</span><span class="tp-big">' + tmPct(a.pct) + '</span>' +
+            '<span class="tp-rec">' + tpRec(a, p.m) + '</span>' + (p.m === 'ml' || p.m === 'ml3' || p.m === 'ats' || a.priced ? tmUnits(a) : '') + '</div>';
+        });
+        while (cards.length < n) cards.push('<div class="tp-mk-empty" aria-hidden="true"></div>');
+        return '<div class="tp-mrow"><span class="tp-oseg">' + esc(r.label) + '</span><div class="tp-mks">' + cards.join('') + '</div></div>';
       }).join('');
-      return '<div class="tp-mks">' + cards + '</div><p class="tp-foot">' + esc(notes.join(' · ')) + '. Green border: top 5 in ' + esc(leagueIn()) + '.</p>';
+      return '<div class="tp-mrows' + (n > 3 ? ' tp-n4' : '') + '" style="--n:' + n + '">' + html + '</div><p class="tp-foot">' + esc(notes.join(' · ')) + '. Green border: top 5 in ' + esc(leagueIn()) + '.</p>';
+    }
+    // a market's name inside its segment's row: "ML", "O/U 1.5", "Run Line", "NRFI"
+    function tpMkName(p) {
+      if (D.sportType === 'baseball') return { rfi: 'NRFI', ml: 'ML', ats: 'Run Line', total: 'Total' }[p.m];
+      return { ml: 'ML', ml3: '3-Way', ats: spreadWord(), total: D.sport === 'nhl' ? 'O/U 1.5' : 'Total', btts: 'BTTS' }[p.m];
     }
     function marketsHtml() { return off ? finalHtml() : tmSection('Season Markets', marketCards(), 'tpMarkets', tpFinalNote()); }
     // CURRENT STREAKS: chips, 3+ only; between seasons, the season's longest per market
@@ -3168,7 +3181,7 @@
       // a book's logo (its name on hover, or on a long press on phones)
       function head(b) {
         var s = sources[b] || {};
-        return s.logo ? '<img class="ob-logo" src="' + ROOT + s.logo + '" alt="' + esc(name(b)) + '" title="' + esc(name(b)) + '" data-tip="' + esc(name(b)) + '" loading="lazy">' : '<span class="ob-bname">' + esc(name(b)) + '</span>';
+        return s.logo ? '<img class="ob-logo" src="' + ROOT + s.logo + '" alt="' + esc(name(b)) + '" title="' + esc(name(b)) + '" data-tip="' + esc(name(b)) + '" loading="lazy">' : '<span class="ob-bname" title="' + esc(name(b)) + '" data-tip="' + esc(name(b)) + '">' + esc(name(b)) + '</span>';
       }
       // the team (and, once the game starts, its score in the segment)
       function teamCell(g, sd, k) {

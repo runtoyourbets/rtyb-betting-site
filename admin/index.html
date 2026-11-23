@@ -108,12 +108,12 @@
   .ss-item input[type=text] { max-width: 240px; }
   .ss-item button { background: none; color: var(--text-muted); padding: 4px 8px; }
   .ss-switches { display: grid; gap: 8px; }
-  .bk-head, .bk-item { display: grid; grid-template-columns: 18px minmax(150px, 1.4fr) minmax(110px, 1fr) 128px minmax(170px, 1.6fr) 84px 44px 44px 44px 56px; align-items: center; gap: 8px; }
+  .bk-head, .bk-item { display: grid; grid-template-columns: 18px minmax(150px, 1.4fr) minmax(110px, 1fr) 128px minmax(170px, 1.6fr) 84px 44px 44px minmax(180px, 1.6fr) 56px; align-items: center; gap: 8px; }
   .bk-head { padding: 0 8px; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 14px; }
   .bk-item { background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 8px; padding: 6px 8px; cursor: grab; font-size: 0.8rem; }
   .bk-item.dragging { opacity: 0.5; }
   .bk-item.off { opacity: 0.55; }
-  .bk-item input[type=text] { width: 100%; }
+  .bk-item input[type=text], .bk-item input[type=url] { width: 100%; }
   .bk-item button { background: none; color: var(--text-muted); padding: 2px 4px; }
   .bk-grip { color: var(--text-muted); }
   .bk-src, .bk-seen { color: var(--text-muted); font-size: 0.75rem; }
@@ -121,7 +121,7 @@
   .bk-cov span { font-size: 0.7rem; color: var(--text-muted); background: var(--bg); border: 1px solid var(--border-soft); border-radius: 4px; padding: 1px 5px; }
   .bk-cov span.lo { opacity: 0.5; }
   .bk-wrap { overflow-x: auto; }
-  .bk-wrap .ss-list { min-width: 880px; }
+  .bk-wrap .ss-list { min-width: 1060px; }
   .ss-season { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-soft); }
   .ss-sname { margin: 0 0 6px; font-size: 0.85rem; font-weight: 600; }
   .ss-state { margin-left: 6px; font-weight: 400; color: var(--text-muted); }
@@ -245,17 +245,18 @@
     <h1>RTYB - Admin</h1>
     <p class="sub">Matchups Tool, Results Tool, Preview&rsquo;s drafts, Definitions, the sportsbooks and the site settings. <a href="#" id="signOut" style="color:var(--text-muted)">Sign out</a></p>
     <div class="seg-tabs" id="viewTabs" style="margin-bottom:14px">
-      <button type="button" data-view="tools" aria-pressed="true">Odds &amp; results</button>
       <button type="button" data-view="drafts" aria-pressed="false">Preview</button>
-      <button type="button" data-view="defs" aria-pressed="false">Definitions</button>
       <button type="button" data-view="books" aria-pressed="false">Books</button>
+      <button type="button" data-view="defs" aria-pressed="false">Definitions</button>
       <button type="button" data-view="site" aria-pressed="false">Site settings</button>
+      <button type="button" data-view="tools" aria-pressed="true">Odds &amp; results</button>
     </div>
 
     <div id="booksView" hidden>
       <div class="card">
         <h2>Books</h2>
-        <p class="sub" style="margin-bottom:0">Every sportsbook from both odds feeds (Unabated and The Odds API), saved to <code>data_admin/books.json</code>. Drag a row (or use its arrows): the order is the column order on every page. Hide a book and its column is gone everywhere; take it out of Best price and it never sets or outlines the best price. Offshore books never link out. Save, and the next refresh rebuilds every page with it, within about 10 minutes.</p>
+        <p class="sub" style="margin-bottom:0">Every sportsbook from both odds feeds (Unabated and The Odds API), saved to <code>data_admin/books.json</code>. Drag a row (or use its arrows): the order is the column order on every page. Hide a book and its column is gone everywhere; take it out of Best price and it never sets or outlines the best price. Link: the book&rsquo;s affiliate URL, used for every one of its links; empty uses its Gambly link if it has one, else no link. Offshore books never link out. Save, and the next refresh rebuilds every page with it, within about 10 minutes.</p>
+        <p class="note">The Odds API books&rsquo; coverage started Nov 22.</p>
         <p class="note">Credits: The Odds API charges per market per event, and the fetch asks for its books in one call (up to 10 books count as one region), so nothing here changes the credits used. Hiding a book only changes what the site shows.</p>
         <div id="booksForm"><p class="empty">Loading&hellip;</p></div>
         <div class="actions"><button class="save" id="booksReload" type="button">Reload</button><button class="publish" id="booksSave" type="button">Save</button></div>
@@ -2333,7 +2334,7 @@
     Object.keys(status).sort(function(a, b) { return (status[a].name || a).localeCompare(status[b].name || b); }).forEach(function(id) {
       if (seen[id]) return;
       var st = status[id];
-      out.push({ id: id, name: st.name || id, group: st.group || 'Sportsbook', show: true, best: id !== '60', link: st.group !== 'Offshore' });
+      out.push({ id: id, name: st.name || id, group: st.group || 'Sportsbook', show: true, best: id !== '60', link: '' });
     });
     return out;
   }
@@ -2351,12 +2352,13 @@
       '<select data-f="group" aria-label="Group">' + BK_GROUPS.map(function(g) { return '<option' + (g === group ? ' selected' : '') + '>' + g + '</option>'; }).join('') + '</select>' +
       '<span class="bk-cov">' + (cov || '<span>none in 7 days</span>') + '</span>' +
       '<span class="bk-seen">' + escHtml(st.last_seen || '-') + '</span>' +
-      box('show', r.show !== false) + box('best', r.best !== false) + box('link', !off && r.link !== false, off) +
+      box('show', r.show !== false) + box('best', r.best !== false) +
+      '<input type="url" data-f="link" maxlength="500" placeholder="' + (off ? 'Never links' : 'Gambly link') + '" value="' + escHtml(!off && typeof r.link === 'string' ? r.link : '') + '"' + (off ? ' disabled' : '') + ' aria-label="Affiliate link">' +
       '<span><button type="button" data-move="-1" aria-label="Move up">&uarr;</button><button type="button" data-move="1" aria-label="Move down">&darr;</button></span></li>';
   }
   function renderBooks() {
     var form = document.getElementById('booksForm');
-    form.innerHTML = '<div class="bk-wrap"><div class="bk-head"><span></span><span>Display name</span><span>Source</span><span>Group</span><span>Coverage, last 7 days</span><span>Last seen</span><span>Show</span><span>Best</span><span>Link</span><span></span></div>' +
+    form.innerHTML = '<div class="bk-wrap"><div class="bk-head"><span></span><span>Display name</span><span>Source</span><span>Group</span><span>Coverage, last 7 days</span><span>Last seen</span><span>Show</span><span>Best</span><span>Affiliate link</span><span></span></div>' +
       '<ul class="ss-list" id="bkList">' + BK.rows.map(bookItem).join('') + '</ul></div>';
     var list = document.getElementById('bkList'), dragged = null;
     list.addEventListener('dragstart', function(e) { if (e.target.closest('input,select')) return; dragged = e.target.closest('.bk-item'); if (dragged) dragged.classList.add('dragging'); });
@@ -2379,10 +2381,11 @@
       var li = e.target.closest('.bk-item');
       if (!li) return;
       if (e.target.getAttribute('data-f') === 'show') li.classList.toggle('off', !e.target.checked);
-      if (e.target.getAttribute('data-f') === 'group') {   // offshore: the link is locked off
+      if (e.target.getAttribute('data-f') === 'group') {   // offshore: the link is locked empty
         var link = li.querySelector('[data-f="link"]'), off = e.target.value === 'Offshore';
         link.disabled = off;
-        if (off) link.checked = false;
+        link.placeholder = off ? 'Never links' : 'Gambly link';
+        if (off) link.value = '';
       }
     });
   }
@@ -2390,7 +2393,7 @@
     return { books: Array.prototype.map.call(document.querySelectorAll('#bkList .bk-item'), function(li) {
       var f = function(n) { return li.querySelector('[data-f="' + n + '"]'); }, group = f('group').value;
       return { id: li.getAttribute('data-id'), name: f('name').value.trim(), group: group, show: f('show').checked,
-               best: f('best').checked, link: group !== 'Offshore' && f('link').checked };
+               best: f('best').checked, link: group !== 'Offshore' ? f('link').value.trim() : '' };
     }) };
   }
   function loadBooks() {

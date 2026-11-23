@@ -6,7 +6,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "2",
@@ -14,7 +14,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "4",
@@ -22,7 +22,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "20",
@@ -30,7 +30,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "betonlineag",
@@ -38,7 +38,7 @@
       "group": "Offshore",
       "show": true,
       "best": true,
-      "link": false
+      "link": ""
     },
     {
       "id": "betrivers",
@@ -46,7 +46,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "bovada",
@@ -54,7 +54,7 @@
       "group": "Offshore",
       "show": true,
       "best": true,
-      "link": false
+      "link": ""
     },
     {
       "id": "86",
@@ -62,7 +62,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "hardrockbet",
@@ -70,7 +70,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "36",
@@ -78,7 +78,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "60",
@@ -86,7 +86,7 @@
       "group": "Sportsbook",
       "show": true,
       "best": false,
-      "link": true
+      "link": ""
     },
     {
       "id": "105",
@@ -94,7 +94,7 @@
       "group": "Exchange",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "89",
@@ -102,7 +102,7 @@
       "group": "Exchange",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "107",
@@ -110,7 +110,7 @@
       "group": "Exchange",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "111",
@@ -118,7 +118,7 @@
       "group": "Exchange",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "66",
@@ -126,7 +126,7 @@
       "group": "Exchange",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     },
     {
       "id": "121",
@@ -134,7 +134,7 @@
       "group": "Exchange",
       "show": true,
       "best": true,
-      "link": true
+      "link": ""
     }
   ]
 }

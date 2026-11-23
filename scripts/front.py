@@ -1895,7 +1895,7 @@ def sections(S, now_utc, root='', hub=False, learn=''):
     (2/3) | Streaks to Watch (1/3), bottoms level; The Big Numbers full
     width; Hottest Trends; Yesterday's Results (2/3) with Betting Guides
     under it, the ad slot to their right (nothing while ADS_ON is off).
-    Home: the H1 first, the all-sports Preview (from 11 AM ET) as the hero
+    Home: the H1 first, the all-sports Preview (once published) as the hero
     with Yesterday's Best under it, else Yesterday's Best as the hero.
     A hub fills the slots by its season state (scripts/seasons.py):
       game day         the sport's Preview (Yesterday's Best before it's up),

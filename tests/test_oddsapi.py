@@ -63,6 +63,28 @@ class Closing(unittest.TestCase):
         self.assertEqual(lines['1q']['ats']['away'], {'line': -1.5, 'price': -105})
         self.assertEqual(lines['1q']['total'], {'line': 58.5, 'over': -110, 'under': -108, 'books': 3})
 
+    def test_two_spread_pairs_keep_the_mirrored_pair_nearest_even(self):
+        bm = [book('hardrockbet', spreads_q1=[
+            {'name': AWAY, 'point': -4.5, 'price': 170}, {'name': HOME, 'point': 4.5, 'price': -230},
+            {'name': AWAY, 'point': -1.5, 'price': -108}, {'name': HOME, 'point': 1.5, 'price': -112},
+            {'name': HOME, 'point': -3.5, 'price': 105}])]   # no mirror: never mixed into a pair
+        _, books = B.closing('nba', bm, KEYS[1:2], AWAY, HOME)
+        self.assertEqual(books['1q']['ats']['hardrockbet'],
+                         {'away': {'line': -1.5, 'price': -108}, 'home': {'line': 1.5, 'price': -112}})
+
+    def test_a_book_with_only_alternates_is_dropped(self):
+        """Hard Rock sends just an alternate pair (+275 / -375 at 66.5 when
+        the books post 60.5 near even): its row goes, the others stay."""
+        bm = BOOKMAKERS[:2] + [book('hardrockbet',
+            totals_q1=[{'name': 'Over', 'point': 66.5, 'price': 275}, {'name': 'Under', 'point': 66.5, 'price': -375}],
+            spreads_q1=[{'name': AWAY, 'point': 3.5, 'price': -175}, {'name': HOME, 'point': -3.5, 'price': 140}])]
+        _, books = B.closing('nba', bm, KEYS[1:], AWAY, HOME)
+        self.assertEqual(sorted(books['1q']['ats']), ['draftkings', 'fanduel'])
+        self.assertEqual(sorted(books['1q']['total']), ['draftkings', 'fanduel'])
+        # a different line priced near even is a real line, not an alternate
+        _, books = B.closing('nba', BOOKMAKERS, KEYS[1:], AWAY, HOME)
+        self.assertIn('betmgm', books['1q']['ats'])
+
     def test_flipped_event(self):
         """Our away team is the API's home team: sides follow the names."""
         lines, _ = B.closing('nba', BOOKMAKERS[:1], KEYS[:1], HOME, AWAY)

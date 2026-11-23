@@ -1,7 +1,7 @@
 """
 Preview's drafts (was On Tap), written by Claude from the site's own numbers:
 
-  preview  Preview: today's slate, drafted from 8 AM ET, shown from 11 AM ET
+  preview  Preview: today's slate, drafted from 8 AM ET, shown once published
   recap    The Morning Run: last night's results (off: daily.RECAP)
 
 for every sport with games that day (scripts/sports.py), plus one across
@@ -52,8 +52,8 @@ SPORTS = tuple(sp['key'] for sp in sports.SPORTS)   # a sport with no games that
 # kind -> (weekday, first ET hour, last ET hour) a scheduled run may write
 # it; weekday None is every day. Football's pieces are weekly: the Weekend
 # Recap on Monday, the Week Preview on Thursday. Preview is drafted from
-# 8 AM so it's waiting in the admin's Preview tab by 10 AM; it shows from
-# 11 AM once approved. The recap runs only while daily.RECAP is on.
+# 8 AM so it's waiting in the admin's Preview tab by 10 AM; it shows as
+# soon as it's published. The recap runs only while daily.RECAP is on.
 WINDOWS = {'recap': (None, 8, 14), 'preview': (None, 8, 18)}
 WEEKLY_WINDOWS = {'recap': (0, 8, 14), 'preview': (3, 8, 18)}
 MODEL = 'claude-opus-5-5'

@@ -2,7 +2,7 @@
 The admin's Books tab (data_admin/books.json, scripts/books.py): hiding a
 book removes its column everywhere, a book out of the best price never sets
 or outlines it, and the saved order is the column order. Offshore books
-never link out.
+never link out; a saved affiliate URL is every one of the book's links.
 """
 import os
 import sys
@@ -18,8 +18,8 @@ import test_odds_past_days as past  # noqa: E402
 
 ML, ATS = past.ML, past.ATS
 
-ROWS = [{'id': 'betrivers', 'name': 'BetRivers', 'group': 'Sportsbook', 'show': True, 'best': True, 'link': True},
-        {'id': '1', 'name': 'DK', 'group': 'Sportsbook', 'show': True, 'best': True, 'link': True}]
+ROWS = [{'id': 'betrivers', 'name': 'BetRivers', 'group': 'Sportsbook', 'show': True, 'best': True, 'link': ''},
+        {'id': '1', 'name': 'DK', 'group': 'Sportsbook', 'show': True, 'best': True, 'link': ''}]
 
 
 def using(rows):
@@ -58,10 +58,23 @@ class Books(unittest.TestCase):
 
 class Settings(unittest.TestCase):
     def test_offshore_never_links(self):
-        cfg = books.Settings([{'id': 'bovada', 'name': 'Bovada', 'group': 'Offshore', 'show': True, 'best': True, 'link': True}])
+        cfg = books.Settings([{'id': 'bovada', 'name': 'Bovada', 'group': 'Offshore', 'show': True, 'best': True, 'link': ''}])
         self.assertFalse(cfg.linked('bovada'))
         out = cfg.filter({'game': {'ml': {'bovada': {'away': {'price': 100, 'link': 'https://x'}}}}})
         self.assertNotIn('link', out['game']['ml']['bovada']['away'])
+
+    def test_a_saved_url_links_every_cell_there(self):
+        url = 'https://partner.example.com/rtyb?ref=chris'
+        cfg = books.Settings([dict(ROWS[0], link=url), ROWS[1]])
+        out = cfg.filter({'1q': {'ml': {'betrivers': {'away': {'price': 150}, 'home': {'price': -170}},
+                                        '1': {'away': {'price': 140, 'link': 'https://www.gambly.com/x?utm_campaign=rtyb'}}}}})
+        self.assertEqual(out['1q']['ml']['betrivers']['away']['link'], url)
+        self.assertEqual(out['1q']['ml']['betrivers']['home']['link'], url)
+        # empty: the Gambly link stays (with its partner code)
+        self.assertEqual(out['1q']['ml']['1']['away']['link'], 'https://www.gambly.com/x?utm_campaign=rtyb')
+        # offshore: locked empty, never links
+        cfg = books.Settings([{'id': 'bovada', 'name': 'Bovada', 'group': 'Offshore', 'show': True, 'best': True, 'link': url}])
+        self.assertEqual(cfg.url('bovada'), '')
 
     def test_unlisted_books_follow_the_listed_ones(self):
         cfg = books.Settings(ROWS)
@@ -73,8 +86,37 @@ class Settings(unittest.TestCase):
         for r in rows:
             self.assertEqual(set(r), {'id', 'name', 'group', 'show', 'best', 'link'})
             self.assertIn(r['group'], books.GROUPS)
+            self.assertIsInstance(r['link'], str)
+            self.assertTrue(r['link'] == '' or r['link'].startswith('https://'))
             if r['group'] == 'Offshore':
-                self.assertFalse(r['link'])
+                self.assertEqual(r['link'], '')
+
+
+class Logos(unittest.TestCase):
+    def test_a_dropped_in_file_is_the_logo(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, 'assets', 'books'))
+            with mock.patch.object(sport_build, 'ROOT', d):
+                self.assertIsNone(sport_build.book_logo('betrivers'))   # none: the page shows the name badge
+                open(os.path.join(d, 'assets', 'books', 'betrivers.webp'), 'wb').close()
+                self.assertEqual(sport_build.book_logo('betrivers'), 'assets/books/betrivers.webp')
+
+    def test_unabated_thumbnail_saves_under_the_odds_api_id_unless_chris_has_one(self):
+        import tempfile
+        import fetch_odds_unabated as U
+        from datetime import datetime, timezone
+        src = [{'id': 99, 'name': 'Hard Rock', 'thumbnailUrl': 'https://x.test/hr.png', 'modifiedOn': '1'}]
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(U, 'LOGO_DIR', d), \
+                mock.patch.object(U, 'LOGO_MANIFEST', os.path.join(d, 'sources.json')):
+            U.download_logos(src, datetime.now(timezone.utc), fetch=lambda url: b'png')
+            self.assertTrue(os.path.exists(os.path.join(d, 'hardrockbet.png')))
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(U, 'LOGO_DIR', d), \
+                mock.patch.object(U, 'LOGO_MANIFEST', os.path.join(d, 'sources.json')):
+            with open(os.path.join(d, 'hardrockbet.svg'), 'w') as f:
+                f.write('<svg/>')
+            U.download_logos(src, datetime.now(timezone.utc), fetch=lambda url: b'png')
+            self.assertFalse(os.path.exists(os.path.join(d, 'hardrockbet.png')))   # Chris's file wins
 
 
 if __name__ == '__main__':

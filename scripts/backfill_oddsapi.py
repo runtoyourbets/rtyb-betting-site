@@ -206,6 +206,42 @@ def book_row(market, api_key, outcomes, away_name, home_name):
     return min(pairs, key=lambda r: abs(_prob(r[side[0]]['price']) - _prob(r[side[1]]['price'])))
 
 
+ALT_GAP = 0.15   # implied probability: this much further from even than the main line = an alternate
+
+
+def _gap(market, r):
+    a, b = (r['away'], r['home']) if market == 'ats' else (r['over'], r['under'])
+    return abs(_prob(a['price']) - _prob(b['price']))
+
+
+def main_lines(market, rows, sport=None):
+    """Spreads and totals: drops a book whose only pair is an alternate (Hard
+    Rock and BetRivers sometimes send just alternates in the main market):
+    its line isn't the one most books post and it's priced ALT_GAP further
+    from even than that line's books, or (spreads) it has the other team
+    favored by a point or more. MLB's F5 run line is always 0.5 (closing
+    keeps only that), so it's left alone. {book: row} -> {book: row}."""
+    if market not in ('ats', 'total') or len(rows) < 2 or (sport == 'mlb' and market == 'ats'):
+        return rows
+    key = (lambda r: r['away']['line']) if market == 'ats' else (lambda r: r['line'])
+    by = {}
+    for b, r in rows.items():
+        by.setdefault(key(r), []).append(b)
+
+    def evenness(x):
+        return sum(_gap(market, rows[b]) for b in by[x]) / len(by[x])
+    main = max(by, key=lambda x: (len(by[x]), -evenness(x)))
+    even = evenness(main)
+    out = {}
+    for b, r in rows.items():
+        x = key(r)
+        flipped = market == 'ats' and x * main < 0 and min(abs(x), abs(main)) >= 1
+        if x != main and (flipped or _gap(market, r) > even + ALT_GAP):
+            continue
+        out[b] = r
+    return out
+
+
 def closing(sport, bookmakers, keys, away_name, home_name):
     """{seg: {market: line}}, {seg: {market: {book: row}}} from a bookmakers list.
     keys: [(seg, market, api key)]."""
@@ -221,6 +257,7 @@ def closing(sport, bookmakers, keys, away_name, home_name):
                 row = None   # RTYB's F5 run line is always 0.5 (as the Unabated feed keeps it)
             if row:
                 rows[b['key']] = row
+        rows = main_lines(market, rows, sport)
         if not rows:
             continue
         best = best_of('ml' if market in ('btts', 'nrfi_yrfi') else market, rows, ())
@@ -537,6 +574,47 @@ def regrade(run, sport, season):
     return out
 
 
+def alt_lines(sport):
+    """Runs main_lines over every saved book row of the sport (the live file,
+    the day files and the season files) and picks a game's saved line again
+    where its rows changed. No API calls. Returns {games, rows: {book: n},
+    lines (saved lines that changed)}."""
+    out = {'games': 0, 'rows': {}, 'lines': 0}
+    paths = [os.path.join(A.OUT_DIR, sport + '.json')] + sorted(glob.glob(os.path.join(HIST_DIR, sport, '*.json')))
+    for path in paths:
+        doc = read_json(path, {})
+        touched = False
+        for g in (doc.get('games') or {}).values():
+            hit = False
+            for field in ('books', 'close', 'open', 'opens'):
+                for seg, mk in (g.get(field) or {}).items():
+                    for market, rows in (mk or {}).items():
+                        keep = main_lines(market, rows or {}, sport)
+                        if keep == rows:
+                            continue
+                        for b in set(rows) - set(keep):
+                            out['rows'][b] = out['rows'].get(b, 0) + 1
+                        mk[market] = keep
+                        hit = True
+                        saved = (g.get('segments') or {}).get(seg) or {}
+                        if field == 'books' and market in saved:
+                            best = keep and best_of(market, keep, ())
+                            new = best and (dict(best, books=len(keep)) if 'books' in saved[market] else best)
+                            if new != saved[market]:
+                                strip = lambda v: {k: x for k, x in (v or {}).items() if k != 'books'}
+                                out['lines'] += strip(new) != strip(saved[market])
+                                if new:
+                                    saved[market] = new
+                                else:
+                                    saved.pop(market)
+            if hit:
+                out['games'] += 1
+                touched = True
+        if touched:
+            write_json(path, doc)
+    return out
+
+
 def retry_late(run, sport, season):
     """Indoor sports: drops every saved game whose snapshot is more than LATE
     minutes after ESPN's start (in-play prices) and clears its state, so the
@@ -569,8 +647,16 @@ def main(argv=None):
     ap.add_argument('--regrade', action='store_true', help='pick every saved line again from its book rows (no API calls)')
     ap.add_argument('--retry-missing', action='store_true',
                     help='retry the filled games still missing a market with no book rows (no API calls)')
+    ap.add_argument('--alt-lines', action='store_true',
+                    help='drop the saved alternate spread / total rows and pick those lines again (no API calls)')
     args = ap.parse_args(argv)
     todo_sports = ORDER if args.sport == 'all' else [args.sport]
+    if args.alt_lines:
+        for s in todo_sports:
+            r = alt_lines(s)
+            print(f"{s}: {r['games']} games, {r['lines']} saved lines changed, rows dropped: "
+                  + (', '.join(f'{b} {n}' for b, n in sorted(r['rows'].items(), key=lambda x: -x[1])) or 'none'))
+        return 0
     whiches = ['this', 'last'] if args.season == 'both' else [args.season]
     run = Run(args.max_credits, args.commit)
     if args.regrade:

@@ -85,7 +85,7 @@ class BestTest(unittest.TestCase):
 
 
 class PreviewHeroTest(unittest.TestCase):
-    def test_shows_from_11am(self):
+    def test_shows_once_published(self):
         import daily
         import preview
         old = daily.load
@@ -93,8 +93,8 @@ class PreviewHeroTest(unittest.TestCase):
                                'title': 'T', 'body': '# Suns at Kings tops the night\n> One line.\n\nBody.'}]
         try:
             at = lambda h, d=17: datetime(2026, 11, d, h, 0, tzinfo=timezone.utc)   # UTC; ET is 5 hours behind
-            self.assertEqual(preview.hero(at(15)), '')                   # 10 AM ET: Yesterday's Best stays the hero
-            self.assertIn('Suns at Kings tops the night', preview.hero(at(16)))   # 11 AM ET
+            self.assertIn('Suns at Kings tops the night', preview.hero(at(14)))   # 9 AM ET: published, so it shows
+            self.assertIn('Suns at Kings tops the night', preview.hero(at(16)))
             self.assertIn('Preview &middot; Tuesday, Nov 17, 2026', preview.hero(at(16)))
             self.assertEqual(preview.hero(at(16, 18)), '')               # the next day: not today's
         finally:
