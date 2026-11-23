@@ -1,0 +1,1068 @@
+{
+ "sport": "College Basketball",
+ "segments": "1st half",
+ "date": "2026-11-23",
+ "games_on_the_slate": 34,
+ "lead_game": "Monmouth at North Carolina",
+ "matchup_of_the_day": "Monmouth at North Carolina",
+ "games": [
+  {
+   "id": "401921700",
+   "matchup": "Northern Iowa at Davidson",
+   "away": {
+    "code": "UNI",
+    "name": "Northern Iowa"
+   },
+   "home": {
+    "code": "DAV",
+    "name": "Davidson"
+   },
+   "start": "11:00 AM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Davidson 1st halves have gone Under 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "UNI": {
+       "open": 158,
+       "now": 158,
+       "best_book": "Caesars"
+      },
+      "DAV": {
+       "open": -190,
+       "now": -190,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "UNI": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -102,
+       "best_book": "FanDuel"
+      },
+      "DAV": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 66.5,
+      "now": 66.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401927397",
+   "matchup": "St. Bonaventure at App State",
+   "away": {
+    "code": "SBU",
+    "name": "St. Bonaventure"
+   },
+   "home": {
+    "code": "APP",
+    "name": "App State"
+   },
+   "start": "11:00 AM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "93-79",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "App State have covered the 1st half spread 3 straight",
+    "St. Bonaventure have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "SBU": {
+       "open": -176,
+       "now": -176,
+       "best_book": "FanDuel"
+      },
+      "APP": {
+       "open": 154,
+       "now": 154,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "SBU": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -110,
+       "best_book": "Caesars"
+      },
+      "APP": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 63.5,
+      "now": 63.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921701",
+   "matchup": "Charlotte at Florida Gulf Coast",
+   "away": {
+    "code": "CLT",
+    "name": "Charlotte"
+   },
+   "home": {
+    "code": "FGCU",
+    "name": "Florida Gulf Coast"
+   },
+   "start": "1:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "243-157",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "93-79",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Florida Gulf Coast 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "CLT": {
+       "open": -210,
+       "now": -210,
+       "best_book": "Bovada"
+      },
+      "FGCU": {
+       "open": 180,
+       "now": 180,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "CLT": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "FGCU": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 69.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921658",
+   "matchup": "Tulsa at Oregon State",
+   "away": {
+    "code": "TLSA",
+    "name": "Tulsa"
+   },
+   "home": {
+    "code": "ORST",
+    "name": "Oregon State"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "243-157",
+     "season_pct": "61%"
+    }
+   ],
+   "streaks": [
+    "Tulsa have lost the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "TLSA": {
+       "open": 180,
+       "now": 178,
+       "best_book": "Caesars"
+      },
+      "ORST": {
+       "open": -215,
+       "now": -215,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "TLSA": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -110,
+       "best_book": "Caesars"
+      },
+      "ORST": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -105,
+       "best_book": "BetOnline"
+      }
+     },
+     "total": {
+      "open": 72.5,
+      "now": 72.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401918076",
+   "matchup": "Ole Miss at Clemson",
+   "away": {
+    "code": "MISS",
+    "name": "Ole Miss"
+   },
+   "home": {
+    "code": "CLEM",
+    "name": "Clemson"
+   },
+   "start": "2:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "93-79",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Ole Miss have covered the 1st half spread 3 straight",
+    "Clemson have failed to cover the 1st half spread 4 straight",
+    "Ole Miss 1st halves have gone Under 3 straight",
+    "Ole Miss have won the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "MISS": {
+       "open": -196,
+       "now": -196,
+       "best_book": "FanDuel"
+      },
+      "CLEM": {
+       "open": 170,
+       "now": 170,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "MISS": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "CLEM": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 69.5,
+      "over": -110,
+      "under": -105,
+      "best_book_over": "BetOnline"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921177",
+   "matchup": "William & Mary at IU Indianapolis",
+   "away": {
+    "code": "WM",
+    "name": "William & Mary"
+   },
+   "home": {
+    "code": "IUI",
+    "name": "IU Indianapolis"
+   },
+   "start": "3:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "93-79",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "William & Mary have covered the 1st half spread 5 straight",
+    "William & Mary have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "WM": {
+       "open": -175,
+       "now": -175,
+       "best_book": "Bovada"
+      },
+      "IUI": {
+       "open": 150,
+       "now": 150,
+       "best_book": "Bovada"
+      }
+     },
+     "spread": {
+      "WM": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "IUI": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -105,
+       "best_book": "Bovada"
+      }
+     },
+     "total": {
+      "open": 77.5,
+      "now": 77.5,
+      "over": -110,
+      "under": -105,
+      "best_book_over": "Bovada"
+     }
+    }
+   }
+  },
+  {
+   "id": "401919006",
+   "matchup": "Tulane at Georgia State",
+   "away": {
+    "code": "TULN",
+    "name": "Tulane"
+   },
+   "home": {
+    "code": "GAST",
+    "name": "Georgia State"
+   },
+   "start": "4:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Georgia State have covered the 1st half spread 4 straight",
+    "Tulane 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "TULN": {
+       "open": 110,
+       "now": 110,
+       "best_book": "FanDuel"
+      },
+      "GAST": {
+       "open": -130,
+       "now": -130,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "TULN": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -102,
+       "best_book": "FanDuel"
+      },
+      "GAST": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 69.5,
+      "now": 69.5,
+      "over": -105,
+      "under": -113,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921210",
+   "matchup": "Temple at UT Martin",
+   "away": {
+    "code": "TEM",
+    "name": "Temple"
+   },
+   "home": {
+    "code": "UTM",
+    "name": "UT Martin"
+   },
+   "start": "5:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "93-79",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "Temple 1st halves have gone Over 4 straight",
+    "UT Martin 1st halves have gone Over 3 straight",
+    "UT Martin have covered the 1st half spread 3 straight",
+    "UT Martin have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "TEM": {
+       "open": -178,
+       "now": -178,
+       "best_book": "FanDuel"
+      },
+      "UTM": {
+       "open": 170,
+       "now": 170,
+       "best_book": "Bovada"
+      }
+     },
+     "spread": {
+      "TEM": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": 100,
+       "best_book": "Bovada"
+      },
+      "UTM": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -120,
+       "best_book": "Bovada"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": -105,
+      "under": -113,
+      "best_book_over": "Bovada"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920752",
+   "matchup": "Maryland Eastern Shore at Youngstown State",
+   "away": {
+    "code": "UMES",
+    "name": "Maryland Eastern Shore"
+   },
+   "home": {
+    "code": "YSU",
+    "name": "Youngstown State"
+   },
+   "start": "6:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Maryland Eastern Shore have failed to cover the 1st half spread 3 straight",
+    "Youngstown State have failed to cover the 1st half spread 4 straight",
+    "Youngstown State 1st halves have gone Under 3 straight",
+    "Youngstown State have lost the 1st half 6 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "UMES": {
+       "open": 7.5,
+       "now": 7.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "YSU": {
+       "open": -7.5,
+       "now": -7.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 63.5,
+      "now": 63.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401917919",
+   "matchup": "Central Arkansas at North Florida",
+   "away": {
+    "code": "CARK",
+    "name": "Central Arkansas"
+   },
+   "home": {
+    "code": "UNF",
+    "name": "North Florida"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "93-79",
+     "season_pct": "54%"
+    }
+   ],
+   "streaks": [
+    "North Florida have covered the 1st half spread 3 straight",
+    "North Florida have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "CARK": {
+       "open": -270,
+       "now": -270,
+       "best_book": "Bovada"
+      },
+      "UNF": {
+       "open": 220,
+       "now": 220,
+       "best_book": "Bovada"
+      }
+     },
+     "spread": {
+      "CARK": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": -120,
+       "best_book": "theScore Bet"
+      },
+      "UNF": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": 100,
+       "best_book": "Bovada"
+      }
+     },
+     "total": {
+      "open": 78.5,
+      "now": 78.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401919761",
+   "matchup": "Fairleigh Dickinson at Iona",
+   "away": {
+    "code": "FDU",
+    "name": "Fairleigh Dickinson"
+   },
+   "home": {
+    "code": "IONA",
+    "name": "Iona"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Fairleigh Dickinson have covered the 1st half spread 3 straight",
+    "Iona 1st halves have gone Under 3 straight",
+    "Iona have lost the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "FDU": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "IONA": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 62.5,
+      "now": 62.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921029",
+   "matchup": "Georgia Southern at Northern Kentucky",
+   "away": {
+    "code": "GASO",
+    "name": "Georgia Southern"
+   },
+   "home": {
+    "code": "NKU",
+    "name": "Northern Kentucky"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Georgia Southern have covered the 1st half spread 6 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "GASO": {
+       "open": 120,
+       "now": 120,
+       "best_book": "DraftKings"
+      },
+      "NKU": {
+       "open": -140,
+       "now": -140,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "GASO": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "NKU": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 78.5,
+      "now": 78.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401913102",
+   "matchup": "Monmouth at North Carolina",
+   "away": {
+    "code": "MONM",
+    "name": "Monmouth"
+   },
+   "home": {
+    "code": "UNC",
+    "name": "North Carolina"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "243-157",
+     "season_pct": "61%"
+    }
+   ],
+   "streaks": [
+    "Monmouth have lost the 1st half 5 straight",
+    "North Carolina have failed to cover the 1st half spread 3 straight",
+    "Monmouth 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "MONM": {
+       "open": 600,
+       "now": 600,
+       "best_book": "DraftKings"
+      },
+      "UNC": {
+       "open": -1050,
+       "now": -1050,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "MONM": {
+       "open": 10.5,
+       "now": 10.5,
+       "price": -105,
+       "best_book": "BetOnline"
+      },
+      "UNC": {
+       "open": -10.5,
+       "now": -10.5,
+       "price": -115,
+       "best_book": "BetOnline"
+      }
+     },
+     "total": {
+      "open": 72.5,
+      "now": 72.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "BetOnline"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920721",
+   "matchup": "Eastern Washington at UNLV",
+   "away": {
+    "code": "EWU",
+    "name": "Eastern Washington"
+   },
+   "home": {
+    "code": "UNLV",
+    "name": "UNLV"
+   },
+   "start": "10:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "243-157",
+     "season_pct": "61%"
+    }
+   ],
+   "streaks": [
+    "UNLV have lost the 1st half 3 straight",
+    "UNLV have failed to cover the 1st half spread 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "EWU": {
+       "open": 195,
+       "now": 190,
+       "best_book": "DraftKings"
+      },
+      "UNLV": {
+       "open": -260,
+       "now": -250,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "EWU": {
+       "open": 4.0,
+       "now": 4.0,
+       "price": -105,
+       "best_book": "BetOnline"
+      },
+      "UNLV": {
+       "open": -4.0,
+       "now": -4.0,
+       "price": -115,
+       "best_book": "BetOnline"
+      }
+     },
+     "total": {
+      "open": 75.5,
+      "now": 75.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401909743",
+   "matchup": "Colorado State at Arizona",
+   "away": {
+    "code": "CSU",
+    "name": "Colorado State"
+   },
+   "home": {
+    "code": "ARIZ",
+    "name": "Arizona"
+   },
+   "start": "11:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [],
+   "streaks": [
+    "Arizona have covered the 1st half spread 4 straight",
+    "Colorado State 1st halves have gone Under 4 straight",
+    "Arizona have won the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "CSU": {
+       "open": 500,
+       "now": 500,
+       "best_book": "DraftKings"
+      },
+      "ARIZ": {
+       "open": -750,
+       "now": -750,
+       "best_book": "Bovada"
+      }
+     },
+     "spread": {
+      "CSU": {
+       "open": 9.5,
+       "now": 9.5,
+       "price": 100,
+       "best_book": "Bovada"
+      },
+      "ARIZ": {
+       "open": -9.5,
+       "now": -9.5,
+       "price": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 75.5,
+      "now": 75.5,
+      "over": 100,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  }
+ ],
+ "trends_page": "/college-basketball/trends/",
+ "teams": {
+  "APP": {
+   "name": "App State",
+   "rates": []
+  },
+  "ARIZ": {
+   "name": "Arizona",
+   "rates": []
+  },
+  "CARK": {
+   "name": "Central Arkansas",
+   "rates": []
+  },
+  "CLT": {
+   "name": "Charlotte",
+   "rates": []
+  },
+  "CLEM": {
+   "name": "Clemson",
+   "rates": []
+  },
+  "CSU": {
+   "name": "Colorado State",
+   "rates": []
+  },
+  "DAV": {
+   "name": "Davidson",
+   "rates": []
+  },
+  "EWU": {
+   "name": "Eastern Washington",
+   "rates": []
+  },
+  "FDU": {
+   "name": "Fairleigh Dickinson",
+   "rates": []
+  },
+  "FGCU": {
+   "name": "Florida Gulf Coast",
+   "rates": []
+  },
+  "GASO": {
+   "name": "Georgia Southern",
+   "rates": []
+  },
+  "GAST": {
+   "name": "Georgia State",
+   "rates": []
+  },
+  "IONA": {
+   "name": "Iona",
+   "rates": []
+  },
+  "IUI": {
+   "name": "IU Indianapolis",
+   "rates": []
+  },
+  "UMES": {
+   "name": "Maryland Eastern Shore",
+   "rates": []
+  },
+  "MONM": {
+   "name": "Monmouth",
+   "rates": []
+  },
+  "UNC": {
+   "name": "North Carolina",
+   "rates": []
+  },
+  "UNF": {
+   "name": "North Florida",
+   "rates": []
+  },
+  "UNI": {
+   "name": "Northern Iowa",
+   "rates": []
+  },
+  "NKU": {
+   "name": "Northern Kentucky",
+   "rates": []
+  },
+  "MISS": {
+   "name": "Ole Miss",
+   "rates": []
+  },
+  "ORST": {
+   "name": "Oregon State",
+   "rates": []
+  },
+  "SBU": {
+   "name": "St. Bonaventure",
+   "rates": []
+  },
+  "TEM": {
+   "name": "Temple",
+   "rates": []
+  },
+  "TULN": {
+   "name": "Tulane",
+   "rates": []
+  },
+  "TLSA": {
+   "name": "Tulsa",
+   "rates": []
+  },
+  "UNLV": {
+   "name": "UNLV",
+   "rates": []
+  },
+  "UTM": {
+   "name": "UT Martin",
+   "rates": []
+  },
+  "WM": {
+   "name": "William & Mary",
+   "rates": []
+  },
+  "YSU": {
+   "name": "Youngstown State",
+   "rates": []
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H ML",
+   "record": "243-157",
+   "pct": "61%",
+   "games": 400,
+   "fits_tonight": [
+    "Charlotte at Florida Gulf Coast",
+    "Tulsa at Oregon State",
+    "Monmouth at North Carolina",
+    "Eastern Washington at UNLV"
+   ]
+  },
+  {
+   "trend": "Over: home underdog games",
+   "market": "1H O/U",
+   "record": "93-79",
+   "pct": "54%",
+   "games": 172,
+   "fits_tonight": [
+    "St. Bonaventure at App State",
+    "Charlotte at Florida Gulf Coast",
+    "Ole Miss at Clemson",
+    "William & Mary at IU Indianapolis",
+    "Temple at UT Martin",
+    "Central Arkansas at North Florida"
+   ]
+  }
+ ],
+ "edge_plays": [],
+ "boxes": {
+  "league_trend": {
+   "sport": "ncaab",
+   "number": "61%",
+   "line": "Fade teams off a blowout · 1H ML · 243-157",
+   "text": "Fade teams off a blowout 243-157 this season; tonight it fits Charlotte at Florida Gulf Coast and 7 more games.",
+   "id": "off_loss3:1h:ml:fade"
+  }
+ }
+}
