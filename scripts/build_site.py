@@ -460,6 +460,21 @@ def site_css(template):
 SPLIT_DEPS = {'nba': ['basketball'], 'wnba': ['basketball']}
 
 
+_JS_VERSION = []
+
+
+def js_version():
+    """A short hash of assets/sport.js: on its script tag, and sport.js adds it
+    to every data file it fetches (?v=), so a deploy never pairs the new code
+    with a cached data file. It changes only when the code does, so the
+    10-minute refresh doesn't rewrite every page."""
+    if not _JS_VERSION:
+        import hashlib
+        with open(os.path.join(ROOT, 'assets', 'sport.js'), 'rb') as f:
+            _JS_VERSION.append(hashlib.sha1(f.read()).hexdigest()[:10])
+    return _JS_VERSION[0]
+
+
 def lighten(html, page_dir):
     """Swap the inline styles for the shared stylesheet and NHL's page code
     for SHELL_JS. page_dir is the page's folder relative to the site root."""
@@ -474,7 +489,7 @@ def lighten(html, page_dir):
             for dep in SPLIT_DEPS.get(key, []) + [key]:
                 shell += f'\n<script src="{prefix}assets/splits/{dep}.js"></script>'
             shell += f'\n<script src="{prefix}assets/situational.js"></script>'
-        shell += f'\n<script src="{prefix}assets/sport.js"></script>'
+        shell += f'\n<script src="{prefix}assets/sport.js?v={js_version()}"></script>'
         html = html.replace('<body ', f'<body data-sport-slug="{page_dir.split("/")[0]}" ', 1)
     html = html.replace('__ROOT__/', prefix)   # team logo paths (icons.team_logo)
     start = html.rindex(MAIN_SCRIPT_START)

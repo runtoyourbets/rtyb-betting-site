@@ -14,6 +14,10 @@
   if (!app) return;
   var ROOT = (document.currentScript && document.currentScript.src || '').replace(/assets\/sport\.js.*$/, '');
   var SPORT_SLUG = document.body.getAttribute('data-sport-slug');
+  // the build's code version (scripts/build_site.py js_version) on every data
+  // fetch, so new code never reads a data file cached from before the deploy
+  var VER = ((document.currentScript && document.currentScript.src || '').match(/[?&]v=(\w+)/) || [])[1] || '';
+  function dataUrl(path) { return ROOT + path + (VER ? (path.indexOf('?') === -1 ? '?' : '&') + 'v=' + VER : ''); }
   var SECTION = app.getAttribute('data-section');
   var TEAM = app.getAttribute('data-team');
   var D = null;
@@ -1094,8 +1098,8 @@
     function loadOdds() {
       if (!next) return;
       var day = gameDay(next);
-      Promise.all([fetch(ROOT + SPORT_SLUG + '/odds.json').then(function(r) { return r.ok ? r.json() : {}; }),
-                   fetch(ROOT + SPORT_SLUG + '/odds/' + day + '.json').then(function(r) { return r.ok ? r.json() : { games: [] }; })]).then(function(x) {
+      Promise.all([fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : {}; }),
+                   fetch(dataUrl(SPORT_SLUG + '/odds/' + day + '.json')).then(function(r) { return r.ok ? r.json() : { games: [] }; })]).then(function(x) {
         var og = (x[1].games || []).filter(function(o) { return o.away === next.away && o.home === next.home; })[0], box = document.getElementById('tpOdds');
         if (box) box.innerHTML = oddsBlocks(next, og || null, x[0].sources || {});   // the sources name the Game row's book too
       }).catch(function() {});
@@ -1283,11 +1287,12 @@
       return '<div class="tp-mk"><span class="tp-gl">Goals per game</span><span class="tp-big">' + (n ? (f / n).toFixed(1) : '-') + '</span>' +
         '<span class="tp-rec">' + (n ? 'Allowed ' + (a / n).toFixed(1) : '-') + '</span></div>';
     }
-    // a market's name inside its segment's row: "ML", "O/U 1.5", "Run Line", "NRFI"
+    // a market's name inside its segment's row: "ML", "Over 1.5", "Run Line",
+    // "NRFI"; the total box is the Over rate, so it says Over
     function tpMkName(p) {
       if (p.m === 'per' || p.m === 'su') return 'Won the ' + segTag(p.k);
-      if (D.sportType === 'baseball') return { rfi: 'NRFI', ml: 'ML', ats: 'Run Line', total: 'Total' }[p.m];
-      return { ml: 'ML', ml3: '3-Way', ats: spreadWord(), total: D.sport === 'nhl' && p.k === '1p' ? 'O/U 1.5' : 'Total', btts: 'BTTS' }[p.m];
+      if (D.sportType === 'baseball') return { rfi: 'NRFI', ml: 'ML', ats: 'Run Line', total: 'Over' }[p.m];
+      return { ml: 'ML', ml3: '3-Way', ats: spreadWord(), total: D.sport === 'nhl' && p.k === '1p' ? 'Over 1.5' : 'Over', btts: 'BTTS' }[p.m];
     }
     function marketsHtml() { return off ? finalHtml() : tmSection('Season Markets', marketCards(), 'tpMarkets', tpFinalNote()); }
     // CURRENT STREAKS: chips, 3+ only; between seasons, the season's longest per market
@@ -1541,7 +1546,7 @@
     }
     if (which === 'this') { go(TP.cur); return; }
     if (TP.prev) { go(TP.prev); return; }
-    fetch(ROOT + SPORT_SLUG + '/history.json').then(function(r) { return r.ok ? r.json() : {}; }).then(function(h) {
+    fetch(dataUrl(SPORT_SLUG + '/history.json')).then(function(r) { return r.ok ? r.json() : {}; }).then(function(h) {
       if (h && h.games && !Array.isArray(h.games) && Object.keys(h.games).length) { TP.prev = h.games; go(TP.prev); }
       else document.querySelectorAll('.tp-season').forEach(function(t) { t.insertAdjacentHTML('afterend', '<p class="tp-none">Not tracked last season.</p>'); t.remove(); });
     }).catch(function() {});
@@ -2986,7 +2991,7 @@
   function longDay(d) { return new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', timeZone: 'UTC' }); }
 
   function renderTrends() {
-    fetch(ROOT + SPORT_SLUG + '/trends.json').then(function(r) { return r.json(); }).then(function(tr) {
+    fetch(dataUrl(SPORT_SLUG + '/trends.json')).then(function(r) { return r.json(); }).then(function(tr) {
       TR = tr;
       if (D.schedule === 'week') renderTrendsByWeek(); else renderTrendsByDay();
       // the hub's "See the full matchup" link: #mt-<game id>; the hubs' "All streaks" link: #streak-trends
@@ -3082,7 +3087,7 @@
   // the split definitions, as a glossary in the page's How to read box
   // the Live definitions (assets/definitions.json, from the admin's Definitions tab)
   var DEFS_P = null;
-  function defs() { return DEFS_P || (DEFS_P = fetch(ROOT + 'assets/definitions.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })); }
+  function defs() { return DEFS_P || (DEFS_P = fetch(dataUrl('assets/definitions.json')).then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })); }
   function sitGlossary(k) {
     defs().then(function(d) { sitGlossaryNow(k, d); });
   }
@@ -3255,7 +3260,7 @@
   // head page): no date bar, the segment and market tabs only
   function renderOdds(one) {
     var box = one ? one.box : app;
-    fetch(ROOT + SPORT_SLUG + '/odds.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(O) {
+    fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : null; }).then(function(O) {
       // NHL's data.json has its own shape: its odds.json carries what this page needs
       if (O && O.segments && !(D && D.segments)) D = { sport: O.sport, label: O.label, sportType: O.sportType, segments: O.segments, teams: O.teams || {}, otherTeams: {} };
       if (!D) return;
@@ -3267,7 +3272,7 @@
       function load(ds) {
         return Promise.all(ds.map(function(d) {
           if (cache[d]) return cache[d];
-          cache[d] = fetch(ROOT + SPORT_SLUG + '/odds/' + d + '.json').then(function(r) { return r.ok ? r.json() : { games: [] }; });
+          cache[d] = fetch(dataUrl(SPORT_SLUG + '/odds/' + d + '.json')).then(function(r) { return r.ok ? r.json() : { games: [] }; });
           return cache[d];
         }));
       }
@@ -3463,10 +3468,12 @@
   }
   function h2Finals(slug) { return teamGames(slug).filter(function(g) { return g.state === 'final'; }); }
   function h2Day(g) { return gameDay(g) || (g.start ? new Date(g.start).toLocaleDateString('en-CA', { timeZone: 'America/New_York' }) : ''); }
-  function h2LongDate(g) {
+  // "Sat, Mar 21, 2026": the head to head log always has the year; the
+  // header only for last season's game
+  function h2LongDate(g, year) {
     if (!g.start) return '';
     var o = { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'America/New_York' };
-    if (!findGame(g.id)) o.year = 'numeric';   // last season's
+    if (year || !findGame(g.id)) o.year = 'numeric';
     return new Date(g.start).toLocaleDateString('en-US', o);
   }
   function h2Rec(a, m) { return !a.gp ? '-' : a.w + '-' + a.l + (a.t ? '-' + a.t : ''); }
@@ -3669,7 +3676,7 @@
       var sc = segRes(g, k).sc, a = sc[0], h = sc[1];
       var segSc = a === h ? 'Tied ' + a + '-' + h : tcode(a > h ? g.away : g.home) + ' ' + Math.max(a, h) + '-' + Math.min(a, h);
       var fin = g.as != null && g.hs != null ? (g.as === g.hs ? 'Tied ' : tcode(g.as > g.hs ? g.away : g.home) + ' ') + Math.max(g.as, g.hs) + '-' + Math.min(g.as, g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '-';
-      return '<tr><td class="tp-d">' + esc(h2LongDate(g)) + '</td><td>' + esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home)) + '</td><td class="num">' + esc(segSc) + '</td>' +
+      return '<tr><td class="tp-d">' + esc(h2LongDate(g, true)) + '</td><td>' + esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home)) + '</td><td class="num">' + esc(segSc) + '</td>' +
         ms.map(function(p) { return '<td class="tp-lc"><div class="tp-res">' + h2MeetCell(g, k, p.m) + '</div></td>'; }).join('') + '<td class="num tp-fin">' + fin + '</td></tr>';
     }).join('');
     return (sum.length ? '<p class="tp-line">' + sum.join(' &middot; ') + '</p>' : '') +
@@ -3724,6 +3731,7 @@
       row(G.away, x, 'on the road') + row(G.home, y, 'at home') + '</tbody></table></div>';
   }
   // the 3-5 strongest Situational splits tonight's game fits, both teams
+  var H2_SPOTS_PER = 2;
   function h2Spots(G, k) {
     var e = sitEngine();
     if (!e || G.state !== 'pre' || !findGame(G.id)) return '';
@@ -3733,8 +3741,15 @@
         (e.spots(k, slug, G.id, mk.id) || []).forEach(function(x) { if (x.pct != null) out.push({ slug: slug, mk: mk, x: x }); });
       });
     });
+    // the strongest spots, at most 2 per team and 2 per market (so both teams show)
     out.sort(function(a, b) { return Math.abs(b.x.pct - 0.5) - Math.abs(a.x.pct - 0.5); });
-    out = out.slice(0, 5);
+    var per = {};
+    out = out.filter(function(o) {
+      var t = 't:' + o.slug, m = 'm:' + o.mk.id;
+      if ((per[t] || 0) >= H2_SPOTS_PER || (per[m] || 0) >= H2_SPOTS_PER) return false;
+      per[t] = (per[t] || 0) + 1; per[m] = (per[m] || 0) + 1;
+      return true;
+    });
     if (!out.length) return '<p class="tp-none">No situational edges for tonight&rsquo;s spot.</p>';
     return '<div class="st-card tp-card h2h-x"><table class="tp-table"><thead><tr><th>Team</th><th>Spot</th><th>Market</th><th class="num">Rate</th></tr></thead><tbody>' + out.map(function(o) {
       return '<tr><td>' + badge(o.slug, 20) + ' ' + esc(tcode(o.slug)) + '</td><td>' + esc(o.x.label) + '</td><td>' + esc(segTag(k) + ' ' + o.mk.label) + ' <span class="tp-hr2">' + esc(o.mk.pctHead) + '</span></td>' +
@@ -3788,9 +3803,9 @@
     drawSeg();
     wireTips(app);
     var day = h2Day(G);
-    Promise.all([fetch(ROOT + SPORT_SLUG + '/odds.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
-                 fetch(ROOT + SPORT_SLUG + '/odds/' + day + '.json').then(function(r) { return r.ok ? r.json() : { games: [] }; }).catch(function() { return { games: [] }; }),
-                 fetch(ROOT + SPORT_SLUG + '/h2h.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })]).then(function(x) {
+    Promise.all([fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
+                 fetch(dataUrl(SPORT_SLUG + '/odds/' + day + '.json')).then(function(r) { return r.ok ? r.json() : { games: [] }; }).catch(function() { return { games: [] }; }),
+                 fetch(dataUrl(SPORT_SLUG + '/h2h.json')).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })]).then(function(x) {
       H2.sources = x[0].sources || {};
       H2.og = (x[1].games || []).filter(function(o) { return o.away === G.away && o.home === G.home; })[0] || null;
       H2.data = x[2] || {};
@@ -3808,7 +3823,7 @@
   // NHL's data.json is its own shape; its Matchups, Stats, Trends and Teams pages read the shared shape (nhl/sport.json)
   var DATA_FILE = SPORT_SLUG === 'nhl' && ['games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team', 'h2h'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
   // the hub (/{sport}/) is all static HTML (scripts/front.py sections)
-  if (SECTION !== 'hub') fetch(ROOT + SPORT_SLUG + '/' + DATA_FILE).then(function(r) { return r.json(); }).then(function(data) {
+  if (SECTION !== 'hub') fetch(dataUrl(SPORT_SLUG + '/' + DATA_FILE)).then(function(r) { return r.json(); }).then(function(data) {
     D = data;
     if (SECTION === 'odds') { renderOdds(); return; }   // works from odds.json alone for NHL
     if (!D.segments || !D.segments.length) return;

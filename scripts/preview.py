@@ -36,7 +36,10 @@ the first short paragraph the dek.
 
 The image card (assets/preview/{date}/{key}.png, 1200x630): the lead game's
 sport and start, the RTYB wordmark, both teams' logos and full names, and a
-yellow chip from its lead trend, on the brand purple. It's the page's
+yellow chip from its lead trend, on the brand purple. The packet gives the
+lead game that trend as `headline_trend`; the headline is written from it
+(content/preview_writing_guide.md) and a headline without its number is
+flagged in the draft's check. It's the page's
 og:image too. Drawn from the site's own stylesheet (template.html .pc-*)
 with headless Chrome; redrawn only when what's on it changes.
 
@@ -400,8 +403,23 @@ def packet_games(key, day, ids=None):
             'trends': [{'trend': x['text'], 'season_record': f"{x['w']}-{x['l']}", 'season_pct': f"{round(x['pct'] * 100)}%"}
                        for x in items if x['pct'] is not None and x['n'] >= RATE_MIN],
             'streaks': [x['text'] for x in items if x['kind'] == 'streak'],
-            'lines': lines_of(sp, day, g), **extra})
+            'lines': lines_of(sp, day, g), **extra,
+            **headline_trend(lead if lead and lead['id'] == str(g['id']) else None)})
     return out
+
+
+def headline_trend(lead):
+    """{'headline_trend': ...} on the lead game: the trend the share card
+    prints (its chip), so the headline and the art tell the same number."""
+    return {'headline_trend': {'trend': lead['trend'], 'card': lead['chip']}} if lead and lead.get('trend') else {}
+
+
+def card_number(chip):
+    """The card chip's main number: "MIL UNDER 1Q · 10 STRAIGHT" -> "10",
+    "SAC LOST 1H · 11 OF 13" -> "11"; segment tags (1Q, F5) don't count."""
+    rest = re.sub(r'\b(?:[1-4][QHPI]|F5)\b', '', chip or '')
+    m = re.search(r'\d+', rest)
+    return m.group(0) if m else None
 
 
 def kickoff_window(t):

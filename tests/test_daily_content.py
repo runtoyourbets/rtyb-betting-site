@@ -39,6 +39,24 @@ class NumberCheckTest(unittest.TestCase):
         self.assertEqual(dc.unchecked_numbers('+330, 70% and -170, but 80.', packet), ['80'])
 
 
+class HeadlineCardTest(unittest.TestCase):
+    """The share card prints the lead game's trend; the headline must carry
+    its number (Chris's QA: headline "8 straight first halves", art "15 of 17
+    1Q Unders")."""
+    def test_card_number(self):
+        self.assertEqual(dc.pv.card_number('MIL UNDER 1Q · 10 STRAIGHT'), '10')
+        self.assertEqual(dc.pv.card_number('SAC LOST 1H · 11 OF 13'), '11')
+        self.assertEqual(dc.pv.card_number('NYY NRFI F5 · 15 OF 17'), '15')
+
+    def test_headline_without_the_cards_number_is_flagged(self):
+        packet = {'games': [{'id': '1'}, {'id': '2', 'headline_trend': {'trend': 'MIL has gone Under the 1st quarter total in 15 of 17', 'card': 'MIL UNDER 1Q · 15 OF 17'}}]}
+        self.assertEqual(dc.headline_check('# Bucks Have Lost 8 Straight First Halves\n> Dek.', packet),
+                         ["headline isn't the card's trend (MIL UNDER 1Q · 15 OF 17)"])
+        self.assertEqual(dc.headline_check('# Bucks 1Q Unders Hit in 15 of 17\n> Dek.', packet), [])
+        home = {'sports': {'NBA': {'games': packet['games']}}}
+        self.assertEqual(len(dc.headline_check('# Eight straight\n', home)), 1)
+
+
 class EverySportTest(unittest.TestCase):
     def test_titles_follow_the_sport(self):
         self.assertEqual(dc.title('recap', 'ncaab', '2026-11-12'), 'NCAAB First Half Betting Recap - Nov 12, 2026')

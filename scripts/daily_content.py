@@ -379,6 +379,8 @@ def all_preview(day):
         if x:
             for g in x['games']:   # the home page's own lead and Matchup of the Day
                 g['lead_game'] = bool(lead and (lead['sport'], lead['id']) == (sp['key'], g['id']))
+                g.pop('headline_trend', None)
+                g.update(pv.headline_trend(lead if g['lead_game'] else None))
                 g['matchup_of_the_day'] = bool(motd and tuple(motd) == (sp['key'], g['id']))
             x.pop('lead_game', None)
             x.pop('matchup_of_the_day', None)
@@ -623,6 +625,18 @@ def write_piece(kind, sport, day, packet):
     return body, response.model
 
 
+def headline_check(body, packet):
+    """[a note] when the headline leaves out the number of the trend the
+    share card prints (the lead game's headline_trend)."""
+    games = packet.get('games') or [g for x in (packet.get('sports') or {}).values() for g in x.get('games') or []]
+    ht = next((g['headline_trend'] for g in games if g.get('headline_trend')), None)
+    n = pv.card_number(ht['card']) if ht else None
+    head = next((l[2:] for l in body.split('\n') if l.startswith('# ')), '')
+    if n and not re.search(rf'(?<![\d-]){n}(?![\d])', head):
+        return [f"headline isn't the card's trend ({ht['card']})"]
+    return []
+
+
 def draft_path(kind, sport, day):
     return os.path.join(DRAFTS, f'{sport}-{kind}-{day}.md')
 
@@ -649,6 +663,8 @@ def box_front(body, packet):
 def save(kind, sport, day, body, model, packet):
     os.makedirs(DRAFTS, exist_ok=True)
     check = unchecked_numbers(body, packet)   # the box sentences too
+    if kind == 'preview':
+        check += headline_check(body, packet)
     body, boxes = box_front(body, packet) if kind == 'preview' else (body, [])
     front = ['---', f'title: {json.dumps(title(kind, sport, day, packet), ensure_ascii=False)}', f'sport: {sport}', f'kind: {kind}',
              f'date: {day}', f"written: {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%MZ')}", f'model: {model}',

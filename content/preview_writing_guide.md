@@ -93,7 +93,9 @@ After the three lines:
 > The dek: one sentence under the headline.
 ```
 
-The headline is about the lead game (`lead_game: true`), 12 words at most. The
+The headline is about the lead game (`lead_game: true`), 12 words at most, and
+is built on its `headline_trend`: the share card prints that trend (`card`), so
+the headline uses that trend and its number, never another one. The
 Matchup of the Day (`matchup_of_the_day: true`) is never the lead. The dek is one
 full sentence of 150 characters at most, spaces included: the share card
 prints it whole, and a longer one gets cut.
