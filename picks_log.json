@@ -13769,10 +13769,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 164,
+    "price": 168,
     "title": "Commanders 1Q ML",
-    "est": 0.4286,
-    "edge": 0.0498,
+    "est": 0.424,
+    "edge": 0.0509,
     "agree": 3,
     "sample": 7,
     "tier": "C",
@@ -14044,46 +14044,54 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "ncaab|401909743|1h|ml|away",
-    "game": "ncaab|401909743",
+    "id": "nba|401910036|1h|total|over",
+    "game": "nba|401910036",
     "date": "2026-11-23",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-24T04:30Z",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T00:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Colorado State @ Arizona",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 550,
-    "title": "Colorado State 1H ML",
-    "est": 0.1909,
-    "edge": 0.0371,
-    "agree": 2,
-    "sample": 5,
+    "matchup": "Grizzlies @ Hornets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 108.5,
+    "price": -110,
+    "title": "1H Over 108.5",
+    "est": 0.5637,
+    "edge": 0.0399,
+    "agree": 6,
+    "sample": 17,
     "tier": "C",
     "tags": [
-     "Dog Hunter"
+     "Over Lover"
     ],
     "streak": -2,
-    "streakTeam": "colorado-state-rams",
+    "streakTeam": "mem",
     "angles": [
      [
-      "Colorado State 1H ML, season",
-      "3-2"
+      "Grizzlies 1H overs on the road (108.5)",
+      "8-1"
      ],
      [
-      "Colorado State 1H ML, last 8",
-      "3-2"
+      "Hornets 1H overs at home (108.5)",
+      "6-1"
+     ],
+     [
+      "Grizzlies 1H overs, season (108.5)",
+      "14-3"
+     ],
+     [
+      "Grizzlies 1H overs, last 8 (108.5)",
+      "6-2"
      ]
     ],
-    "info": null,
+    "info": "Avg 1H total in their games: Hornets 109.4 \u00b7 Grizzlies 118.1",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Colorado State"
+    "streakTeamName": "Grizzlies"
    }
   ]
  }
