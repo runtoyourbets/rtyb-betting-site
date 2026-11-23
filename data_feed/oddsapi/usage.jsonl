@@ -39068,3 +39068,5 @@
 {"credits": 1, "endpoint": "/historical/sports/basketball_wnba/events", "remaining": 3792902, "sport": "wnba", "time": "2026-11-23T22:58:48+00:00"}
 {"credits": 30, "endpoint": "/historical/sports/basketball_wnba/events/c7db2f0db11446494ff839980a54c9b6/odds", "remaining": 3792872, "sport": "wnba", "time": "2026-11-23T22:58:48+00:00"}
 {"credits": 30, "endpoint": "/historical/sports/basketball_wnba/events/142358c5abfeae4f06bb840fd960570e/odds", "remaining": 3792842, "sport": "wnba", "time": "2026-11-23T22:58:48+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "job": "live", "remaining": 3796861, "sport": "ncaab", "time": "2026-11-23T22:55:04+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/c247dff2509498dedc2b2408ad1d5dd4/odds", "job": "live", "remaining": 3796855, "sport": "ncaab", "time": "2026-11-23T22:55:05+00:00"}
