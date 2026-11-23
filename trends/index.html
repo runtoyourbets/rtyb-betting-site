@@ -308,6 +308,24 @@
   countdown();
   setInterval(countdown, 30000);
 })();
+</script><script>
+window.rtybBnPick = function(mb) {
+  if (mb === undefined) { try { mb = JSON.parse(localStorage.getItem('rtyb-mybooks') || 'null'); } catch (e) { mb = null; } }
+  if (!mb || !mb.on || !mb.known) return;
+  document.querySelectorAll('[data-bn-books]').forEach(function(card) {
+    var books = {}; try { books = JSON.parse(card.getAttribute('data-bn-books')); } catch (e) {}
+    function on(b) { return mb.known.indexOf(b) !== -1 ? mb.on.indexOf(b) !== -1 : !!(books[b] || [])[1]; }
+    card.querySelectorAll('[data-bn-px]').forEach(function(el) {
+      var px = {}; try { px = JSON.parse(el.getAttribute('data-bn-px')); } catch (e) {}
+      var best = null;
+      Object.keys(px).forEach(function(b) { if (on(b) && (best === null || px[b][0] > px[best][0])) best = b; });
+      var slot = el.querySelector(el.getAttribute('data-bn-slot') === 'top' ? '.ob-ln' : '.ob-pr'), bk = el.querySelector('.bn-book');
+      if (slot) slot.textContent = best === null ? '-' : px[best][1];
+      if (bk) bk.innerHTML = best === null ? '' : (books[best] || [''])[0];
+    });
+  });
+};
+window.rtybBnPick();
 </script><details class="how-to-read seo-about"><summary><h2>Run To Your Bets Trends</h2><i class="htr-caret" aria-hidden="true">&#9662;</i></summary><div class="gd-page"><div class="dp-body"><p>Run To Your Bets grades every first-segment trend every night at the closing line. A trend is a situation and how it has done this season, like road favorites in the first period or the Over in divisional games. Every one shows the league average beside it, so you can see if it&#x27;s real or noise.</p>
 <h3>Example</h3>
 <p>If home teams have won the first quarter 55% of the time and a trend says &quot;home favorites of 3 or more win the first quarter 66%&quot;, that&#x27;s 11 points better than the league. Over 50 games, that&#x27;s a spot. Over 6 games, it&#x27;s a story.</p>
