@@ -185,7 +185,7 @@
   "betrivers": {
    "coverage": {
     "nba": 10,
-    "ncaab": 9,
+    "ncaab": 10,
     "ncaaf": 0,
     "nfl": 8,
     "nhl": 6
@@ -198,7 +198,7 @@
   "bovada": {
    "coverage": {
     "nba": 10,
-    "ncaab": 9,
+    "ncaab": 10,
     "ncaaf": 0,
     "nfl": 8,
     "nhl": 6
@@ -211,7 +211,7 @@
   "hardrockbet": {
    "coverage": {
     "nba": 10,
-    "ncaab": 10,
+    "ncaab": 11,
     "ncaaf": 0,
     "nfl": 8,
     "nhl": 6
