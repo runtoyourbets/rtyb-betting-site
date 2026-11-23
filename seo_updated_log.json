@@ -4,12 +4,12 @@
   "updated": "2026-11-22T23:33:26Z"
  },
  "nba": {
-  "hash": "49dde912569b3990e45719fcab2dd1d18233e8b0",
-  "updated": "2026-11-23T00:47:47Z"
+  "hash": "5f775a0ed16cd6598882002e296251a77233799d",
+  "updated": "2026-11-23T01:00:21Z"
  },
  "ncaab": {
-  "hash": "991af31e686d2fec2cfb92d354fa5c635a193238",
-  "updated": "2026-11-23T00:31:44Z"
+  "hash": "ba6b687328f9b249eca31ce0467e95c912b9202b",
+  "updated": "2026-11-23T01:00:21Z"
  },
  "ncaaf": {
   "hash": "a78a448ec443bca768f32eeb9e5e4be00e56e87b",
@@ -20,17 +20,17 @@
   "updated": "2026-11-22T23:20:48Z"
  },
  "nhl": {
-  "hash": "055729fe51d5e56450f0a2e8cd47b2da98bb7411",
-  "updated": "2026-11-22T23:04:58Z"
+  "hash": "619ad407fce07d830c0dc96417dcc8f2db7ce2f7",
+  "updated": "2026-11-23T01:00:21Z"
  },
  "pages": {
   "/": {
-   "hash": "19ef3a01282b8814b93ddc7547416fe221a51dbd",
-   "updated": "2026-11-23T00:47:47Z"
+   "hash": "34f3bc8a26f5e529da5489afb4fc1718b3145fb4",
+   "updated": "2026-11-23T01:00:21Z"
   },
   "college-basketball/": {
-   "hash": "4c69b25b972e311f2d04db3511f4c0bbd7e82490",
-   "updated": "2026-11-23T00:47:47Z"
+   "hash": "a457de54886a4d4ee111c8ff5d789f1c2c8924c9",
+   "updated": "2026-11-23T01:00:21Z"
   },
   "college-football/": {
    "hash": "823199766a00783e317a583057dee48d777f6020",
@@ -41,16 +41,16 @@
    "updated": "2026-11-22T23:58:51Z"
   },
   "nba/": {
-   "hash": "9f6b87ef9fbf936d56adcb37b1d639ff2d82d19a",
-   "updated": "2026-11-23T00:47:47Z"
+   "hash": "22ce1aa8e30ee9f8c246af516ca6b78be64e38af",
+   "updated": "2026-11-23T01:00:21Z"
   },
   "nfl/": {
-   "hash": "e9fe77b83221e8fc7abe80e5acf0fdeab1c338eb",
-   "updated": "2026-11-23T00:31:44Z"
+   "hash": "a021d0f800310a6df9f333301a5fc0798075947d",
+   "updated": "2026-11-23T01:00:21Z"
   },
   "nhl/": {
-   "hash": "109c89fe08aa73c4864d8f6aeca05bac2cc73923",
-   "updated": "2026-11-23T00:31:44Z"
+   "hash": "55b225253cd1657a1faaad1070acba8458ee8f25",
+   "updated": "2026-11-23T01:00:21Z"
   },
   "wnba/": {
    "hash": "d813d776663c34f22523016f076143ccb4ffd69c",
