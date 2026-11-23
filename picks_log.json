@@ -13947,6 +13947,48 @@
     "streakTeamName": "Bulls"
    },
    {
+    "id": "nba|401910036|1q|ml|home",
+    "game": "nba|401910036",
+    "date": "2026-11-23",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T00:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Grizzlies @ Hornets",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 116,
+    "title": "Hornets 1Q ML",
+    "est": 0.5014,
+    "edge": 0.0384,
+    "agree": 2,
+    "sample": 14,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "cha",
+    "angles": [
+     [
+      "Grizzlies\u2019s opponents 1Q ML, Grizzlies on the road",
+      "5-3-1"
+     ],
+     [
+      "Hornets 1Q ML, season",
+      "8-6-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Hornets"
+   },
+   {
     "id": "nba|401910044|1q|ml|away",
     "game": "nba|401910044",
     "date": "2026-11-23",
@@ -13987,48 +14029,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
-   },
-   {
-    "id": "nba|401910036|1q|ml|home",
-    "game": "nba|401910036",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Grizzlies @ Hornets",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 114,
-    "title": "Hornets 1Q ML",
-    "est": 0.5043,
-    "edge": 0.037,
-    "agree": 2,
-    "sample": 14,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "cha",
-    "angles": [
-     [
-      "Grizzlies\u2019s opponents 1Q ML, Grizzlies on the road",
-      "5-3-1"
-     ],
-     [
-      "Hornets 1Q ML, season",
-      "8-6-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Hornets"
    },
    {
     "id": "nba|401910042|1q|total|under",
