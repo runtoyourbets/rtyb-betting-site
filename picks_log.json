@@ -13570,6 +13570,57 @@
     "streakTeamName": "Minnesota"
    },
    {
+    "id": "nba|401910044|1h|total|over",
+    "game": "nba|401910044",
+    "date": "2026-11-23",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Jazz @ Lakers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 109.5,
+    "price": -105,
+    "title": "1H Over 109.5",
+    "est": 0.5787,
+    "edge": 0.0665,
+    "agree": 6,
+    "sample": 18,
+    "tier": "A",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 8,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Lakers 1H overs at home (109.5)",
+      "9-0"
+     ],
+     [
+      "Jazz 1H overs, last 8 (109.5)",
+      "8-0"
+     ],
+     [
+      "Lakers 1H overs, last 8 (109.5)",
+      "7-1"
+     ],
+     [
+      "Lakers 1H overs, season (109.5)",
+      "14-3"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Lakers 120.3 \u00b7 Jazz 112.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
+   },
+   {
     "id": "ncaab|401909788|1h|ml|away",
     "game": "ncaab|401909788",
     "date": "2026-11-23",
@@ -13614,57 +13665,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Denver"
-   },
-   {
-    "id": "nba|401910044|1h|total|over",
-    "game": "nba|401910044",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T03:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Jazz @ Lakers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 109.5,
-    "price": -110,
-    "title": "1H Over 109.5",
-    "est": 0.586,
-    "edge": 0.0622,
-    "agree": 6,
-    "sample": 18,
-    "tier": "A",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 8,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Lakers 1H overs at home (109.5)",
-      "9-0"
-     ],
-     [
-      "Jazz 1H overs, last 8 (109.5)",
-      "8-0"
-     ],
-     [
-      "Lakers 1H overs, last 8 (109.5)",
-      "7-1"
-     ],
-     [
-      "Lakers 1H overs, season (109.5)",
-      "14-3"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Lakers 120.3 \u00b7 Jazz 112.9",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
    },
    {
     "id": "nhl|2026020380|1p|ml|away",
@@ -13950,48 +13950,6 @@
     "streakTeamName": "Bulls"
    },
    {
-    "id": "nba|401910041|1h|ml|home",
-    "game": "nba|401910041",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Cavaliers @ Bulls",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 195,
-    "title": "Bulls 1H ML",
-    "est": 0.3828,
-    "edge": 0.0438,
-    "agree": 2,
-    "sample": 16,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": -1,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1H ML at home",
-      "5-2"
-     ],
-     [
-      "Bulls 1H ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
-   },
-   {
     "id": "nba|401910037|1q|total|under",
     "game": "nba|401910037",
     "date": "2026-11-23",
@@ -14040,6 +13998,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Trail Blazers"
+   },
+   {
+    "id": "nba|401910041|1h|ml|home",
+    "game": "nba|401910041",
+    "date": "2026-11-23",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Cavaliers @ Bulls",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 190,
+    "title": "Bulls 1H ML",
+    "est": 0.3866,
+    "edge": 0.0417,
+    "agree": 2,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H ML at home",
+      "5-2"
+     ],
+     [
+      "Bulls 1H ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
    },
    {
     "id": "ncaab|401909743|1h|ml|away",
