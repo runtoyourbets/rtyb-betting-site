@@ -113,7 +113,7 @@ ALIASES = {
     'mt state marys': 'mount st marys', 'seattle redhawks': 'seattle u redhawks', 'cal baptist': 'california baptist',
     'albany great danes': 'ualbany great danes', 'boston univ': 'boston university', 'loyola chi': 'loyola chicago',
     'csu bakersfield': 'cal state bakersfield', 'csu fullerton': 'cal state fullerton',
-    'southern mississippi': 'southern miss',
+    'southern mississippi': 'southern miss', 'liu': 'long island university', 'florida intl': 'florida international',
 }
 
 

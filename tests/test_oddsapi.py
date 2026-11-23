@@ -250,6 +250,24 @@ class FullGame(unittest.TestCase):
         self.assertEqual(len(A.match('nba', [ev], [tbd])[0]), 1)
         self.assertEqual(len(A.match('nba', [ev], [dict(tbd, start='2026-11-15T04:30Z')])[0]), 0)
 
+    def test_tbd_start_matches_a_tip_after_midnight(self):
+        """Hawai'i's home games tip after midnight ET: ESPN's 11:59 PM
+        placeholder matches the API's next-day tip up to 6 AM ET, not later."""
+        game = {'date': '2025-11-12', 'away': 'mississippi-valley-state-delta-devils', 'home': 'hawaii-rainbow-warriors',
+                'start': '2025-11-13T04:59Z'}
+        ev = {'commence_time': '2025-11-13T05:00:00Z', 'away_team': 'Miss Valley St Delta Devils', 'home_team': "Hawai'i Rainbow Warriors"}
+        self.assertEqual(len(A.match('ncaab', [ev], [game])[0]), 1)
+        self.assertEqual(len(A.match('ncaab', [dict(ev, commence_time='2025-11-13T12:00:00Z')], [game])[0]), 0)
+        self.assertEqual(len(A.match('ncaab', [ev], [dict(game, start='2025-11-13T00:00Z')])[0]), 0)   # a real start: 4 hours
+
+    def test_liu_fiu_and_albany(self):
+        for sport, (api_a, api_h), (a, h) in (
+                ('ncaab', ('LIU Sharks', "Florida Int'l Golden Panthers"), ('long-island-university-sharks', 'florida-international-panthers')),
+                ('ncaaf', ('Albany', 'Buffalo Bulls'), ('espn-399', 'buffalo-bulls'))):   # FCS: ESPN's name
+            ev = {'commence_time': '2025-12-20T22:00:00Z', 'away_team': api_a, 'home_team': api_h}
+            game = {'date': '2025-12-20', 'away': a, 'home': h, 'start': '2025-12-20T22:00Z', 'away_name': 'UAlbany Great Danes'}
+            self.assertEqual(len(A.match(sport, [ev], [game])[0]), 1, api_a)
+
     def test_saved_full_game_lines_are_pregame(self):
         """No saved full-game moneyline has both sides plus (an in-play price),
         except a pick'em: the best prices across books can both be plus when

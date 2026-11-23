@@ -225,10 +225,18 @@ def api_name(sport, name):
     if sport not in COLLEGE:
         return name
     n = re.sub(r' st(?= |$)', ' state', n)
+    if n in WHOLE_NAMES:
+        return WHOLE_NAMES[n]
     for k in sorted(U.ALIASES, key=len, reverse=True):
         if n == k or n.startswith(k + ' '):
             return U.ALIASES[k] + n[len(k):]
     return n
+
+
+# a college name the API gives with no nickname, renamed only when it's the whole name
+# ("Albany", never "Albany State Golden Rams")
+WHOLE_NAMES = {'albany': 'ualbany great danes'}
+NEXT_DAY_HOUR = 6   # a placeholder-start game can tip after midnight ET, up to this hour
 
 
 def tbd(t):
@@ -241,7 +249,8 @@ def match(sport, api_events, games):
     """Odds API events -> our games: the same ET date and both teams (the
     Unabated feed's aliases and match_event, which wants the starts within 4
     hours; a game whose start is ESPN's 11:59 PM ET placeholder matches on the
-    date and both teams alone). Returns ([(event, game,
+    date and both teams alone, or on both teams and a tip before NEXT_DAY_HOUR
+    ET the next day: Hawai'i and West Coast late tips). Returns ([(event, game,
     flipped)], [unmatched events]); unmatched events are listed, never guessed.
     games: [{away, home, start, away_name?, home_name?}]."""
     aliases = {slug: set(names) for slug, names in U.team_aliases(sport).items()}
@@ -260,8 +269,10 @@ def match(sport, api_events, games):
     for e in api_events or []:
         t = parse(e.get('commence_time'))
         day = t.astimezone(ET).date() if t else None
-        same_day = [dict(g, _start=t) if tbd(g['_start']) else g
-                    for g in pool if day and g['_start'].astimezone(ET).date() == day]
+        late = t and t.astimezone(ET).hour < NEXT_DAY_HOUR
+        same_day = [dict(g, _start=t) if tbd(g['_start']) else g for g in pool if day and (
+            g['_start'].astimezone(ET).date() == day
+            or late and tbd(g['_start']) and g['_start'].astimezone(ET).date() == day - timedelta(days=1))]
         g, flipped = U.match_event(api_name(sport, e.get('away_team')), api_name(sport, e.get('home_team')), t, same_day, aliases) if t else (None, False)
         if g:
             pairs.append((e, {k: v for k, v in g.items() if k != '_start'}, flipped))
