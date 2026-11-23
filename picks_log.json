@@ -13570,6 +13570,52 @@
     "streakTeamName": "Minnesota"
    },
    {
+    "id": "ncaab|401909788|1h|ml|away",
+    "game": "ncaab|401909788",
+    "date": "2026-11-23",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-24T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Denver @ Kansas",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 3500,
+    "title": "Denver 1H ML",
+    "est": 0.09,
+    "edge": 0.0622,
+    "agree": 3,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "denver-pioneers",
+    "angles": [
+     [
+      "Denver 1H ML on the road",
+      "2-1"
+     ],
+     [
+      "Denver 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Denver 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Denver"
+   },
+   {
     "id": "nfl|401873078|1q|ml|home",
     "game": "nfl|401873078",
     "date": "2026-11-23",
@@ -14029,56 +14075,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
-   },
-   {
-    "id": "nba|401910042|1q|total|under",
-    "game": "nba|401910042",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Suns @ Pelicans",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -104,
-    "title": "1Q Under 60.5",
-    "est": 0.5422,
-    "edge": 0.0324,
-    "agree": 5,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Under Grinder"
-    ],
-    "streak": -3,
-    "streakTeam": "no",
-    "angles": [
-     [
-      "Suns 1Q unders, last 8 (60.5)",
-      "7-1"
-     ],
-     [
-      "Suns 1Q unders on the road (60.5)",
-      "5-1"
-     ],
-     [
-      "Suns 1Q unders, season (60.5)",
-      "12-3"
-     ],
-     [
-      "Pelicans 1Q unders at home (60.5)",
-      "7-4"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Pelicans 58.3 \u00b7 Suns 55.4",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pelicans"
    }
   ]
  }

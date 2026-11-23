@@ -180,7 +180,7 @@
    },
    {
     "label": "NCAAB · Temple at UT Martin · 5:30 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401921210"
    },
    {
@@ -594,7 +594,7 @@
    },
    {
     "label": "Temple at UT Martin · 5:30 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401921210"
    },
    {
@@ -689,7 +689,7 @@
    }
   ],
   "lead": "ncaab:401913102",
-  "motd": "ncaab:401921177"
+  "motd": "ncaab:401913102"
  },
  "ncaaf": {
   "codes": [
