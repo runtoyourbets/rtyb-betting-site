@@ -13681,10 +13681,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 165,
+    "price": 160,
     "title": "Calgary 1P ML",
-    "est": 0.4337,
-    "edge": 0.0563,
+    "est": 0.4382,
+    "edge": 0.0536,
     "agree": 2,
     "sample": 18,
     "tier": "B",
@@ -13805,6 +13805,50 @@
     "streakTeamName": "North Florida"
    },
    {
+    "id": "nhl|2026020382|1p|ml|away",
+    "game": "nhl|2026020382",
+    "date": "2026-11-23",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-24T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Utah @ Winnipeg",
+    "href": "nhl/matchups/?date=2026-11-23",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -110,
+    "title": "Utah 1P ML",
+    "est": 0.5721,
+    "edge": 0.0483,
+    "agree": 3,
+    "sample": 13,
+    "tier": "B",
+    "tags": [],
+    "streak": 0,
+    "streakTeam": "UTA",
+    "angles": [
+     [
+      "Utah 1P ML, season",
+      "8-5-11"
+     ],
+     [
+      "Winnipeg\u2019s opponents 1P ML, Winnipeg at home",
+      "3-2-8"
+     ],
+     [
+      "Utah 1P ML on the road",
+      "4-3-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Utah"
+   },
+   {
     "id": "nba|401910041|1q|ats|home",
     "game": "nba|401910041",
     "date": "2026-11-23",
@@ -13854,52 +13898,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
-   },
-   {
-    "id": "nhl|2026020382|1p|ml|away",
-    "game": "nhl|2026020382",
-    "date": "2026-11-23",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-24T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Utah @ Winnipeg",
-    "href": "nhl/matchups/?date=2026-11-23",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -114,
-    "title": "Utah 1P ML",
-    "est": 0.5783,
-    "edge": 0.0456,
-    "agree": 3,
-    "sample": 13,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 0,
-    "streakTeam": "UTA",
-    "angles": [
-     [
-      "Utah 1P ML, season",
-      "8-5-11"
-     ],
-     [
-      "Winnipeg\u2019s opponents 1P ML, Winnipeg at home",
-      "3-2-8"
-     ],
-     [
-      "Utah 1P ML on the road",
-      "4-3-6"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Utah"
    },
    {
     "id": "nba|401910044|1q|ats|away",
