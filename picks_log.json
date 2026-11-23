@@ -13520,57 +13520,6 @@
  "2026-11-23": {
   "plays": [
    {
-    "id": "nba|401910044|1h|total|over",
-    "game": "nba|401910044",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T03:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Jazz @ Lakers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 109.5,
-    "price": -105,
-    "title": "1H Over 109.5",
-    "est": 0.5787,
-    "edge": 0.0665,
-    "agree": 6,
-    "sample": 18,
-    "tier": "A",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 8,
-    "streakTeam": "utah",
-    "angles": [
-     [
-      "Lakers 1H overs at home (109.5)",
-      "9-0"
-     ],
-     [
-      "Jazz 1H overs, last 8 (109.5)",
-      "8-0"
-     ],
-     [
-      "Lakers 1H overs, last 8 (109.5)",
-      "7-1"
-     ],
-     [
-      "Lakers 1H overs, season (109.5)",
-      "14-3"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Lakers 120.3 \u00b7 Jazz 112.9",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Jazz"
-   },
-   {
     "id": "nhl|2026020384|1p|ml|away",
     "game": "nhl|2026020384",
     "date": "2026-11-23",
@@ -13665,6 +13614,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Denver"
+   },
+   {
+    "id": "nba|401910044|1h|total|over",
+    "game": "nba|401910044",
+    "date": "2026-11-23",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Jazz @ Lakers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 109.5,
+    "price": -110,
+    "title": "1H Over 109.5",
+    "est": 0.586,
+    "edge": 0.0622,
+    "agree": 6,
+    "sample": 18,
+    "tier": "A",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 8,
+    "streakTeam": "utah",
+    "angles": [
+     [
+      "Lakers 1H overs at home (109.5)",
+      "9-0"
+     ],
+     [
+      "Jazz 1H overs, last 8 (109.5)",
+      "8-0"
+     ],
+     [
+      "Lakers 1H overs, last 8 (109.5)",
+      "7-1"
+     ],
+     [
+      "Lakers 1H overs, season (109.5)",
+      "14-3"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Lakers 120.3 \u00b7 Jazz 112.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Jazz"
    },
    {
     "id": "ncaab|401917919|1h|ml|home",
@@ -13818,11 +13818,11 @@
     "href": "nba/matchups/",
     "market": "total",
     "side": "under",
-    "line": 60.5,
-    "price": -118,
-    "title": "1Q Under 60.5",
-    "est": 0.5877,
-    "edge": 0.0464,
+    "line": 59.5,
+    "price": -102,
+    "title": "1Q Under 59.5",
+    "est": 0.5518,
+    "edge": 0.0469,
     "agree": 6,
     "sample": 17,
     "tier": "B",
@@ -13833,20 +13833,20 @@
     "streakTeam": "por",
     "angles": [
      [
-      "76ers 1Q unders at home (60.5)",
+      "76ers 1Q unders at home (59.5)",
       "8-1"
      ],
      [
-      "Trail Blazers 1Q unders, last 8 (60.5)",
-      "7-1"
-     ],
-     [
-      "Trail Blazers 1Q unders, season (60.5)",
-      "13-3"
-     ],
-     [
-      "76ers 1Q unders, season (60.5)",
+      "76ers 1Q unders, season (59.5)",
       "13-4"
+     ],
+     [
+      "Trail Blazers 1Q unders, last 8 (59.5)",
+      "6-2"
+     ],
+     [
+      "Trail Blazers 1Q unders, season (59.5)",
+      "11-5"
      ]
     ],
     "info": "Avg 1Q total in their games: 76ers 56.7 \u00b7 Trail Blazers 53.9",
