@@ -119,21 +119,21 @@
   },
   "60": {
    "coverage": {
-    "nba": 100,
-    "ncaab": 80,
-    "ncaaf": 94,
-    "nfl": 100,
-    "nhl": 100
+    "nba": 0,
+    "ncaab": 0,
+    "ncaaf": 0,
+    "nfl": 0,
+    "nhl": 0
    },
    "group": "Sportsbook",
-   "last_seen": "2026-11-23",
+   "last_seen": null,
    "name": "theScore CA",
    "source": "Unabated"
   },
   "66": {
    "coverage": {
     "nba": 100,
-    "ncaab": 86,
+    "ncaab": 87,
     "ncaaf": 94,
     "nfl": 92,
     "nhl": 0
