@@ -62,7 +62,7 @@
     </div>
     </div>
   </div>
-</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/mlb/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><circle class="bi-baseball" cx="16" cy="16" r="13" stroke-width="1.1"/><g class="bi-stitch" fill="none" stroke-linecap="round"><path d="M8.6 5.4 Q14.2 16 8.6 26.6" stroke-width="1"/><path d="M23.4 5.4 Q17.8 16 23.4 26.6" stroke-width="1"/><path d="M8.6 5.4 Q14.2 16 8.6 26.6" stroke-width="2.6" stroke-dasharray="0.9 1.9" stroke-linecap="butt" opacity="0.9"/><path d="M23.4 5.4 Q17.8 16 23.4 26.6" stroke-width="2.6" stroke-dasharray="0.9 1.9" stroke-linecap="butt" opacity="0.9"/></g></svg>MLB</a><nav class="hr2-links hr2-pages" aria-label="MLB pages"><a class="hr2-link" href="/mlb/preview/">Picks</a><a class="hr2-link" href="/mlb/matchups/">Matchups</a><a class="hr2-link" href="/mlb/odds/">Odds</a><a class="hr2-link" href="/mlb/trends/">Trends</a><a class="hr2-link" href="/mlb/due-factor/" aria-current="page">Due Factor</a><a class="hr2-link" href="/mlb/stats/">Stats</a><a class="hr2-link" href="/mlb/teams/">Teams</a></nav></div></div>
+</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/mlb/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><circle class="bi-baseball" cx="16" cy="16" r="13" stroke-width="1.1"/><g class="bi-stitch" fill="none" stroke-linecap="round"><path d="M8.6 5.4 Q14.2 16 8.6 26.6" stroke-width="1"/><path d="M23.4 5.4 Q17.8 16 23.4 26.6" stroke-width="1"/><path d="M8.6 5.4 Q14.2 16 8.6 26.6" stroke-width="2.6" stroke-dasharray="0.9 1.9" stroke-linecap="butt" opacity="0.9"/><path d="M23.4 5.4 Q17.8 16 23.4 26.6" stroke-width="2.6" stroke-dasharray="0.9 1.9" stroke-linecap="butt" opacity="0.9"/></g></svg>MLB</a><nav class="hr2-links hr2-pages" aria-label="MLB pages"><a class="hr2-link" href="/mlb/preview/">Picks</a><a class="hr2-link" href="/mlb/matchups/">Matchups</a><a class="hr2-link" href="/mlb/odds/">Odds</a><a class="hr2-link" href="/mlb/trends/">Trends</a><a class="hr2-link" href="/mlb/due-factor/" aria-current="page"><span class="nm-full">Due Factor</span><span class="nm-abbr">Due</span></a><a class="hr2-link" href="/mlb/stats/">Stats</a><a class="hr2-link" href="/mlb/teams/">Teams</a></nav></div></div>
 <div class="hm" id="hnMenu" hidden>
   <div class="hm-body">
     <p class="hm-label">All sports</p>
@@ -108,6 +108,13 @@
         document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
       });
     });
+  });
+  // the sport row on phones fades at the right edge until it's scrolled to the end
+  document.querySelectorAll('.hr2-pages').forEach(function(r) {
+    function edge() { r.classList.toggle('hr2-end', r.scrollLeft + r.clientWidth >= r.scrollWidth - 2); }
+    r.addEventListener('scroll', edge, { passive: true });
+    window.addEventListener('resize', edge);
+    edge();
   });
   // dark is the default; the choice is kept on the device
   var root = document.documentElement, tb = document.querySelector('.hn-theme');
@@ -239,7 +246,7 @@
   
   <details class="how-to-read seo-about"><summary><h2>Run To Your Bets MLB Due Factor</h2><i class="htr-caret" aria-hidden="true">&#9662;</i></summary><div class="gd-page"><div class="dp-body"><p>The Due Factor tracks how the MLB first inning &amp; first five markets are running against their own season rate. Each market is measured on one side: NRFI (the YRFI rate), the First 5 Total (Over), First 5 Moneyline (home team) and First 5 Run Line (favorite). The gap is the rate over the last 7 days minus the season rate, in points, and the cards are ordered by the biggest gap.</p>
 <h3>How to read it</h3>
-<ul><li><strong>On pace:</strong> under 5 points from the season rate.</li><li><strong>Leaning hot / Leaning cold:</strong> 5 to 9 points above or below.</li><li><strong>Hot / Cold:</strong> 10 points or more.</li></ul>
+<ul><li><strong>On pace:</strong> under 5 points from the season rate.</li><li><strong>Leaning hot / Leaning cold:</strong> 5 to 9 points above or below.</li><li><strong>Hot / Cold:</strong> 10 points or more.</li><li><strong>Small sample:</strong> fewer than 15 graded games in the window, so no read yet.</li></ul>
 <p>The Daily view adds last night&#x27;s results, a day-by-day table and, on game days, the coldest side on today&#x27;s games with the best price. The Weekly view shows every week of the regular season. A table cell 10+ points above its season rate is tinted.</p>
 <h3>Example</h3>
 <p>Say first innings have had a run 44% of the time over the last 7 days, against 51% for the season. That is 7 points under, so the NRFI card reads Leaning cold. Cold means the league is running under its season rate. It is not a sign that a side is about to hit: every game is its own bet.</p>

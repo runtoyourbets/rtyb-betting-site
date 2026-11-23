@@ -62,7 +62,7 @@
     </div>
     </div>
   </div>
-</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/college-basketball/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><circle class="bi-cbb-dark" cx="16" cy="16" r="13"/><path class="bi-cbb-light" d="M7.2 6.4 Q12.5 16 7.2 25.6 A13 13 0 0 1 7.2 6.4 Z"/><path class="bi-cbb-light" d="M24.8 6.4 Q19.5 16 24.8 25.6 A13 13 0 0 0 24.8 6.4 Z"/><g class="bi-seam" fill="none" stroke-width="1.3" stroke-linecap="round"><line x1="16" y1="3" x2="16" y2="29"/><line x1="3" y1="16" x2="29" y2="16"/><path d="M7.2 6.4 Q12.5 16 7.2 25.6"/><path d="M24.8 6.4 Q19.5 16 24.8 25.6"/></g><circle class="bi-cbb-edge" cx="16" cy="16" r="13" fill="none" stroke-width="1.1"/></svg><span class="nm-full">College Basketball</span><span class="nm-abbr">NCAAB</span></a><nav class="hr2-links hr2-pages" aria-label="College Basketball pages"><a class="hr2-link" href="/college-basketball/preview/">Picks</a><a class="hr2-link" href="/college-basketball/matchups/">Matchups</a><a class="hr2-link" href="/college-basketball/odds/">Odds</a><a class="hr2-link" href="/college-basketball/trends/">Trends</a><a class="hr2-link" href="/college-basketball/due-factor/">Due Factor</a><a class="hr2-link" href="/college-basketball/stats/" aria-current="page">Stats</a><a class="hr2-link" href="/college-basketball/teams/">Teams</a></nav></div></div>
+</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/college-basketball/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><circle class="bi-cbb-dark" cx="16" cy="16" r="13"/><path class="bi-cbb-light" d="M7.2 6.4 Q12.5 16 7.2 25.6 A13 13 0 0 1 7.2 6.4 Z"/><path class="bi-cbb-light" d="M24.8 6.4 Q19.5 16 24.8 25.6 A13 13 0 0 0 24.8 6.4 Z"/><g class="bi-seam" fill="none" stroke-width="1.3" stroke-linecap="round"><line x1="16" y1="3" x2="16" y2="29"/><line x1="3" y1="16" x2="29" y2="16"/><path d="M7.2 6.4 Q12.5 16 7.2 25.6"/><path d="M24.8 6.4 Q19.5 16 24.8 25.6"/></g><circle class="bi-cbb-edge" cx="16" cy="16" r="13" fill="none" stroke-width="1.1"/></svg><span class="nm-full">College Basketball</span><span class="nm-abbr">NCAAB</span></a><nav class="hr2-links hr2-pages" aria-label="College Basketball pages"><a class="hr2-link" href="/college-basketball/preview/">Picks</a><a class="hr2-link" href="/college-basketball/matchups/">Matchups</a><a class="hr2-link" href="/college-basketball/odds/">Odds</a><a class="hr2-link" href="/college-basketball/trends/">Trends</a><a class="hr2-link" href="/college-basketball/due-factor/"><span class="nm-full">Due Factor</span><span class="nm-abbr">Due</span></a><a class="hr2-link" href="/college-basketball/stats/" aria-current="page">Stats</a><a class="hr2-link" href="/college-basketball/teams/">Teams</a></nav></div></div>
 <div class="hm" id="hnMenu" hidden>
   <div class="hm-body">
     <p class="hm-label">All sports</p>
@@ -108,6 +108,13 @@
         document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
       });
     });
+  });
+  // the sport row on phones fades at the right edge until it's scrolled to the end
+  document.querySelectorAll('.hr2-pages').forEach(function(r) {
+    function edge() { r.classList.toggle('hr2-end', r.scrollLeft + r.clientWidth >= r.scrollWidth - 2); }
+    r.addEventListener('scroll', edge, { passive: true });
+    window.addEventListener('resize', edge);
+    edge();
   });
   // dark is the default; the choice is kept on the device
   var root = document.documentElement, tb = document.querySelector('.hn-theme');
@@ -193,7 +200,7 @@
     <h1 class="page-title"><span>College Basketball First Half Stats</span></h1>
     
     <p>NCAAB 1st Half results league-wide: moneyline, spread and O/U records with units, scoring and the Money Board.</p>
-    <p class="seo-upd t-price">Updated 2:59 PM ET</p>
+    <p class="seo-upd t-price">Updated 3:41 PM ET</p>
   </div>
 
   
@@ -213,7 +220,7 @@
   
 
   
-  <details class="how-to-read seo-about"><summary><h2>Run To Your Bets College Basketball First Half Stats</h2><i class="htr-caret" aria-hidden="true">&#9662;</i></summary><div class="gd-page"><div class="dp-body"><p>Run To Your Bets tracks every College Basketball first half result this season: home and away, favorites and underdogs, Overs and Unders, with units at the closing price. As of Monday, Nov 23, favorites have covered the first half spread 48% (<span class="nw">439-474</span>) this season, the first half has gone Over 48% (<span class="nw">441-473</span>), and home teams have led at halftime 71% (<span class="nw">652-272</span>).</p>
+  <details class="how-to-read seo-about"><summary><h2>Run To Your Bets College Basketball First Half Stats</h2><i class="htr-caret" aria-hidden="true">&#9662;</i></summary><div class="gd-page"><div class="dp-body"><p>Run To Your Bets tracks every College Basketball first half result this season: home and away, favorites and underdogs, Overs and Unders, with units at the closing price. As of Monday, Nov 23, favorites have covered the first half spread 48% (<span class="nw">440-474</span>) this season, the first half has gone Over 48% (<span class="nw">442-473</span>), and home teams have led at halftime 70% (<span class="nw">652-273</span>).</p>
 <h3>Example</h3>
 <p>For example, a row that reads &quot;Home 1H ML 61% (<span class="nw">1,120-716-88</span>) +9.7u&quot; means home teams have led at halftime 1,120 times, trailed 716 times and been tied 88, and betting every one at the closing price is up 9.7 units.</p>
 <h3>What I look for</h3>

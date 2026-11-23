@@ -43,7 +43,7 @@
     </div>
     </div>
   </div>
-</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/nhl/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><ellipse class="bi-puck-side" cx="16" cy="21" rx="14.5" ry="6"/><rect class="bi-puck-side" x="1.5" y="12" width="29" height="9"/><g class="bi-puck-grip" stroke-width="1" stroke-linecap="round"><line x1="5" y1="15.2" x2="5" y2="20.6"/><line x1="8.7" y1="15.2" x2="8.7" y2="20.6"/><line x1="12.4" y1="15.2" x2="12.4" y2="20.6"/><line x1="16" y1="15.2" x2="16" y2="20.6"/><line x1="19.6" y1="15.2" x2="19.6" y2="20.6"/><line x1="23.3" y1="15.2" x2="23.3" y2="20.6"/><line x1="27" y1="15.2" x2="27" y2="20.6"/></g><ellipse class="bi-puck-top" cx="16" cy="12" rx="14.5" ry="6"/><ellipse class="bi-puck-shine" cx="12" cy="10.6" rx="5.5" ry="1.8"/><path class="bi-rim" d="M1.5 12 V21 A14.5 6 0 0 0 30.5 21 V12" fill="none" stroke-width="1"/></svg>NHL</a><nav class="hr2-links hr2-pages" aria-label="NHL pages"><a class="hr2-link" href="/nhl/preview/" aria-current="page">Picks</a><a class="hr2-link" href="/nhl/matchups/">Matchups</a><a class="hr2-link" href="/nhl/odds/">Odds</a><a class="hr2-link" href="/nhl/trends/">Trends</a><a class="hr2-link" href="/nhl/due-factor/">Due Factor</a><a class="hr2-link" href="/nhl/stats/">Stats</a><a class="hr2-link" href="/nhl/teams/">Teams</a></nav></div></div>
+</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/nhl/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><ellipse class="bi-puck-side" cx="16" cy="21" rx="14.5" ry="6"/><rect class="bi-puck-side" x="1.5" y="12" width="29" height="9"/><g class="bi-puck-grip" stroke-width="1" stroke-linecap="round"><line x1="5" y1="15.2" x2="5" y2="20.6"/><line x1="8.7" y1="15.2" x2="8.7" y2="20.6"/><line x1="12.4" y1="15.2" x2="12.4" y2="20.6"/><line x1="16" y1="15.2" x2="16" y2="20.6"/><line x1="19.6" y1="15.2" x2="19.6" y2="20.6"/><line x1="23.3" y1="15.2" x2="23.3" y2="20.6"/><line x1="27" y1="15.2" x2="27" y2="20.6"/></g><ellipse class="bi-puck-top" cx="16" cy="12" rx="14.5" ry="6"/><ellipse class="bi-puck-shine" cx="12" cy="10.6" rx="5.5" ry="1.8"/><path class="bi-rim" d="M1.5 12 V21 A14.5 6 0 0 0 30.5 21 V12" fill="none" stroke-width="1"/></svg>NHL</a><nav class="hr2-links hr2-pages" aria-label="NHL pages"><a class="hr2-link" href="/nhl/preview/" aria-current="page">Picks</a><a class="hr2-link" href="/nhl/matchups/">Matchups</a><a class="hr2-link" href="/nhl/odds/">Odds</a><a class="hr2-link" href="/nhl/trends/">Trends</a><a class="hr2-link" href="/nhl/due-factor/"><span class="nm-full">Due Factor</span><span class="nm-abbr">Due</span></a><a class="hr2-link" href="/nhl/stats/">Stats</a><a class="hr2-link" href="/nhl/teams/">Teams</a></nav></div></div>
 <div class="hm" id="hnMenu" hidden>
   <div class="hm-body">
     <p class="hm-label">All sports</p>
@@ -89,6 +89,13 @@
         document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
       });
     });
+  });
+  // the sport row on phones fades at the right edge until it's scrolled to the end
+  document.querySelectorAll('.hr2-pages').forEach(function(r) {
+    function edge() { r.classList.toggle('hr2-end', r.scrollLeft + r.clientWidth >= r.scrollWidth - 2); }
+    r.addEventListener('scroll', edge, { passive: true });
+    window.addEventListener('resize', edge);
+    edge();
   });
   // dark is the default; the choice is kept on the device
   var root = document.documentElement, tb = document.querySelector('.hn-theme');

@@ -62,7 +62,7 @@
     </div>
     </div>
   </div>
-</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/college-football/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><g transform="rotate(-35 16 16) translate(16 16) scale(1.16) translate(-16 -16)"><path class="bi-leather-rim" d="M2.5 16 Q16 3 29.5 16 Q16 29 2.5 16 Z" fill="none" stroke-width="2.4" stroke-linejoin="round"/><path class="bi-leather" d="M2.5 16 Q16 3 29.5 16 Q16 29 2.5 16 Z" stroke-width="1" stroke-linejoin="round"/><path class="bi-stripe" d="M7.2 11.4 Q8.7 16 7.2 20.6 M24.8 11.4 Q23.3 16 24.8 20.6" fill="none" stroke-width="1.4"/><g class="bi-lace" stroke-width="1.2" stroke-linecap="round"><line x1="11.3" y1="16" x2="20.7" y2="16"/><line x1="12.6" y1="14.4" x2="12.6" y2="17.6"/><line x1="14.9" y1="14.4" x2="14.9" y2="17.6"/><line x1="17.1" y1="14.4" x2="17.1" y2="17.6"/><line x1="19.4" y1="14.4" x2="19.4" y2="17.6"/></g></g></svg><span class="nm-full">College Football</span><span class="nm-abbr">NCAAF</span></a><nav class="hr2-links hr2-pages" aria-label="College Football pages"><a class="hr2-link" href="/college-football/preview/">Picks</a><a class="hr2-link" href="/college-football/matchups/">Matchups</a><a class="hr2-link" href="/college-football/odds/">Odds</a><a class="hr2-link" href="/college-football/trends/">Trends</a><a class="hr2-link" href="/college-football/due-factor/" aria-current="page">Due Factor</a><a class="hr2-link" href="/college-football/stats/">Stats</a><a class="hr2-link" href="/college-football/teams/">Teams</a></nav></div></div>
+</header><div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="/college-football/"><svg class="sport-icon" viewBox="1 1 30 30" aria-hidden="true" focusable="false"><g transform="rotate(-35 16 16) translate(16 16) scale(1.16) translate(-16 -16)"><path class="bi-leather-rim" d="M2.5 16 Q16 3 29.5 16 Q16 29 2.5 16 Z" fill="none" stroke-width="2.4" stroke-linejoin="round"/><path class="bi-leather" d="M2.5 16 Q16 3 29.5 16 Q16 29 2.5 16 Z" stroke-width="1" stroke-linejoin="round"/><path class="bi-stripe" d="M7.2 11.4 Q8.7 16 7.2 20.6 M24.8 11.4 Q23.3 16 24.8 20.6" fill="none" stroke-width="1.4"/><g class="bi-lace" stroke-width="1.2" stroke-linecap="round"><line x1="11.3" y1="16" x2="20.7" y2="16"/><line x1="12.6" y1="14.4" x2="12.6" y2="17.6"/><line x1="14.9" y1="14.4" x2="14.9" y2="17.6"/><line x1="17.1" y1="14.4" x2="17.1" y2="17.6"/><line x1="19.4" y1="14.4" x2="19.4" y2="17.6"/></g></g></svg><span class="nm-full">College Football</span><span class="nm-abbr">NCAAF</span></a><nav class="hr2-links hr2-pages" aria-label="College Football pages"><a class="hr2-link" href="/college-football/preview/">Picks</a><a class="hr2-link" href="/college-football/matchups/">Matchups</a><a class="hr2-link" href="/college-football/odds/">Odds</a><a class="hr2-link" href="/college-football/trends/">Trends</a><a class="hr2-link" href="/college-football/due-factor/" aria-current="page"><span class="nm-full">Due Factor</span><span class="nm-abbr">Due</span></a><a class="hr2-link" href="/college-football/stats/">Stats</a><a class="hr2-link" href="/college-football/teams/">Teams</a></nav></div></div>
 <div class="hm" id="hnMenu" hidden>
   <div class="hm-body">
     <p class="hm-label">All sports</p>
@@ -108,6 +108,13 @@
         document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
       });
     });
+  });
+  // the sport row on phones fades at the right edge until it's scrolled to the end
+  document.querySelectorAll('.hr2-pages').forEach(function(r) {
+    function edge() { r.classList.toggle('hr2-end', r.scrollLeft + r.clientWidth >= r.scrollWidth - 2); }
+    r.addEventListener('scroll', edge, { passive: true });
+    window.addEventListener('resize', edge);
+    edge();
   });
   // dark is the default; the choice is kept on the device
   var root = document.documentElement, tb = document.querySelector('.hn-theme');
@@ -239,7 +246,7 @@
   
   <details class="how-to-read seo-about"><summary><h2>Run To Your Bets College Football Due Factor</h2><i class="htr-caret" aria-hidden="true">&#9662;</i></summary><div class="gd-page"><div class="dp-body"><p>The Due Factor tracks how the College Football first quarter &amp; first half markets are running against their own season rate. Each market is measured on one side: the first quarter &amp; first half Spread (home team and favorite against the spread), Total (Over) and Moneyline (home team, ties out). The gap is the rate over this week so far (the game week) minus the season rate, in points, and the cards are ordered by the biggest gap.</p>
 <h3>How to read it</h3>
-<ul><li><strong>On pace:</strong> under 5 points from the season rate.</li><li><strong>Leaning hot / Leaning cold:</strong> 5 to 9 points above or below.</li><li><strong>Hot / Cold:</strong> 10 points or more.</li></ul>
+<ul><li><strong>On pace:</strong> under 5 points from the season rate.</li><li><strong>Leaning hot / Leaning cold:</strong> 5 to 9 points above or below.</li><li><strong>Hot / Cold:</strong> 10 points or more.</li><li><strong>Small sample:</strong> fewer than 15 graded games in the window, so no read yet.</li></ul>
 <p>The Daily view adds last night&#x27;s results, a day-by-day table and, on game days, the coldest side on today&#x27;s games with the best price. The Weekly view shows every week of the regular season. A table cell 10+ points above its season rate is tinted.</p>
 <h3>Example</h3>
 <p>Say the first quarter Over has hit 48% of the time this week, against 60% for the season. That is 12 points under the season rate, so the Total card reads Cold. Cold means the league is running under its season rate. It is not a sign that a side is about to hit: every game is its own bet.</p>
