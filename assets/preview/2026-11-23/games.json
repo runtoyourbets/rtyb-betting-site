@@ -352,7 +352,7 @@
    }
   ],
   "lead": "nba:401910039",
-  "motd": "ncaab:401921177"
+  "motd": "nba:401910036"
  },
  "nba": {
   "codes": [
@@ -430,7 +430,7 @@
    }
   ],
   "lead": "nba:401910039",
-  "motd": null
+  "motd": "nba:401910036"
  },
  "ncaab": {
   "codes": [
@@ -1133,7 +1133,7 @@
    },
    {
     "label": "Baylor at Houston · 9:30 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401856874"
    },
    {
