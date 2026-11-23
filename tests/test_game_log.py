@@ -40,7 +40,7 @@ function num1(n) { return String(n); }
 
 def run(games, market, nhl=False):
     js = STUBS + (("D.sport = 'nhl';") if nhl else '') + '\n'.join(
-        function(SRC, n) for n in ('lastSides', 'settledSide', 'lastSideCell', 'logCell')) + """
+        function(SRC, n) for n in ('frSeg', 'segRes', 'segOdds', 'lastSides', 'settledSide', 'lastSideCell', 'logCell')) + """
 var games = %s;
 console.log(JSON.stringify(games.map(function(g) {
   return {log: logCell(g, {k: '1q', m: '%s'}), last: (settledSide(lastSides(g, {k: '1q', m: '%s'})) || {}).ln};
