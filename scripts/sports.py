@@ -237,10 +237,10 @@ SPORTS = [
 # 'odds' is the book-by-book comparison page (Unabated feed). The 'games'
 # section is the Matchups page (/{slug}/matchups/; /{slug}/games/ forwards).
 DEFAULT_SECTIONS = {'games': 'matchups', 'stats': 'stats', 'trends': 'trends', 'odds': 'odds', 'teams': 'teams'}
-SECTION_LABELS = {'games': 'Matchups', 'stats': 'Stats', 'trends': 'Trends', 'odds': 'Odds', 'teams': 'Teams'}
+SECTION_LABELS = {'games': 'Matchups', 'stats': 'Stats', 'trends': 'Trends', 'odds': 'Odds', 'teams': 'Teams', 'due': 'Due Factor'}
 OLD_SECTION_DIRS = {'games': 'games'}   # moved sections: old folder -> a forwarding stub
 # Every sport's pages, in the order they're listed everywhere (menus, pills,
-# the sport bar): Picks · Matchups · Odds · Trends · Stats · Teams. Picks
+# the sport bar): Picks · Matchups · Odds · Trends · Due Factor · Stats · Teams. Picks
 # only while PICKS_LIVE.
 SITE_SECTIONS = ['picks', 'games', 'odds', 'trends', 'stats', 'teams']
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -250,6 +250,7 @@ for _s in SPORTS:
     _s['full_run'] = [seg for seg in _s['segments'] if seg.get('full_run')]
     _s['segments'] = [seg for seg in _s['segments'] if not seg.get('full_run')]
     _s.setdefault('sections', dict(DEFAULT_SECTIONS))
+    _s['sections'].setdefault('due', 'due-factor')   # /{slug}/due-factor/ (scripts/due_factor.py)
     _s.setdefault('schedule', 'day')
 
 # order, menu labels and switches from the settings file; sports it doesn't
@@ -409,7 +410,7 @@ def section_path(sport, section):
 def page_links(sport):
     """[(section, label, root-relative path)] for the sport's pages in the
     settings' order and labels (sport_pages): Picks · Matchups · Odds ·
-    Trends · Stats · Teams. Picks opens the Preview while PICKS_LIVE is False."""
+    Trends · Due Factor · Stats · Teams. Picks opens the Preview while PICKS_LIVE is False."""
     s = BY_KEY[sport] if isinstance(sport, str) else sport
     out = []
     for x in SETTINGS['sport_pages']:
@@ -418,6 +419,8 @@ def page_links(sport):
             out.append(('picks', x.get('label') or 'Picks', picks_path(s) if PICKS_LIVE else preview_path(s)))
         elif sec in s['sections']:
             out.append((sec, x.get('label') or SECTION_LABELS[sec], section_path(s, sec)))
+        if sec == 'trends':   # Due Factor sits right after Trends
+            out.append(('due', SECTION_LABELS['due'], section_path(s, 'due')))
     return out
 
 

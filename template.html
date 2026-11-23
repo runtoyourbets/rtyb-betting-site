@@ -1621,6 +1621,57 @@ __THEME_HEAD__
   .sk-n2 { background: color-mix(in srgb, var(--text) 22%, transparent); color: var(--text); }
   .sk-n3 { background: color-mix(in srgb, var(--text) 40%, transparent); color: var(--text); }
   /* streak heat chips (Streak Trends, Streaks to Watch, team pages) */
+  /* Due Factor (/{sport}/due-factor/, scripts/due_factor.py): the meter
+     cards (the side, last 7 vs season, a bar with a tick at the season
+     rate, the heat chip), Last night, the day / week tables (a cell 10+
+     pts over its season rate tinted: win fill, Over warm, Under cool),
+     Tonight; and the home / hub strip. The chip's heat colors are the
+     .heat-* rules right under these. */
+  .df-ctrl { display: flex; flex-wrap: wrap; gap: 0 16px; }
+  .df-note { margin: 0 0 18px; max-width: 720px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .df-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .df-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .df-side { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
+  .df-chip { display: inline-block; border-radius: 5px; padding: 2px 7px; white-space: nowrap; background: var(--cell); color: var(--text-muted);
+    font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
+  .df-vs { margin: 6px 0 10px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .df-bar { position: relative; height: 8px; border-radius: 999px; background: var(--cell); }
+  .df-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; background: var(--accent-purple-text); }
+  .df-tick { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--text); }
+  .df-gap { display: flex; justify-content: space-between; gap: 8px; margin: 10px 0 0; font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
+  .df-gap .nw { color: var(--text-muted); font-size: var(--fs-price); font-weight: var(--fw-price); }
+  .df-ln { list-style: none; margin: 0; padding: 0; }
+  .df-ln li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--border-soft); }
+  .df-ln li:first-child { border-top: 0; padding-top: 0; }
+  .df-ln li:last-child { padding-bottom: 0; }
+  .df-ln-m { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .df-ln-c { font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
+  .df-scroll { overflow-x: auto; overflow-y: hidden; }
+  .df-table { width: 100%; border-collapse: separate; border-spacing: var(--cell-gap); }
+  .df-table th { padding: 0; text-align: left; white-space: nowrap; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .df-table thead th:not(:first-child) { text-align: center; padding: 0 4px; }
+  .df-table tbody th { font-size: var(--fs-body); font-weight: var(--fw-body); text-transform: none; letter-spacing: 0; color: var(--text); }
+  .df-c { padding: 6px 8px; text-align: center; white-space: nowrap; border-radius: var(--cell-radius); background: var(--cell); font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
+  .df-p { font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .df-c.df-win { background: var(--good-dim); }
+  .df-c.df-warm { background: var(--warm-bg); box-shadow: inset 0 0 0 1px var(--warm-line); }
+  .df-c.df-cool { background: var(--cool-bg); box-shadow: inset 0 0 0 1px var(--cool-line); }
+  .df-total th[scope="row"] { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--title-text); }
+  .df-total .df-c { box-shadow: inset 0 0 0 1px var(--card-border); }
+  .df-tn { max-width: 620px; }
+  .df-tn-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(96px, auto); align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border-soft); color: var(--text); text-decoration: none; }
+  .df-tn-row:first-child { border-top: 0; padding-top: 0; }
+  .df-tn-row:last-child { padding-bottom: 0; }
+  .df-tn-teams { display: inline-flex; align-items: center; gap: 6px; min-width: 0; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
+  .df-at, .df-tn-time { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .df-tn-row:hover .ob-ln { text-decoration: underline; }
+  .df-pills { margin: 0 0 16px; }
+  .df-pill { padding: 6px 16px; }
+  .df-strip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .df-strip-item { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 10px 6px 12px; border: 1px solid var(--card-border); border-radius: 999px; background: var(--panel); color: var(--text); text-decoration: none; box-sizing: border-box;
+    font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); }
+  .df-strip-item:hover { border-color: var(--accent); }
+  .df-strip-item .sport-icon { width: 16px; height: 16px; }
   .heat-1 { background: var(--heat-1); color: var(--on-gold); }
   .heat-2 { background: var(--heat-2); color: var(--on-gold); }
   .heat-3 { background: var(--heat-3); color: var(--on-gold); }
@@ -2366,10 +2417,10 @@ __THEME_HEAD__
      so it sits right under Yesterday's Best however tall the hero is. */
   @media (min-width: 900px) {
     .fv { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); column-gap: 24px; align-items: start;
-      grid-template-rows: auto auto auto 1fr auto auto auto auto auto;
-      grid-template-areas: "slogan slogan" "pv pv" "hero yb" "hero tab" "slate slate" "motd pair" "trends trends" "results ." "learn ."; }
+      grid-template-rows: auto auto auto 1fr auto auto auto auto auto auto;
+      grid-template-areas: "slogan slogan" "pv pv" "hero yb" "hero tab" "slate slate" "df df" "motd pair" "trends trends" "results ." "learn ."; }
     /* home: no Running Tab card, the hero takes its row */
-    .fv.fv-home { grid-template-rows: none; grid-template-areas: "slogan slogan" "hero hero" "yb yb" "slate slate" "motd pair" "trends trends" "results ." "learn ."; }
+    .fv.fv-home { grid-template-rows: none; grid-template-areas: "slogan slogan" "hero hero" "yb yb" "slate slate" "df df" "motd pair" "trends trends" "results ." "learn ."; }
     .fv-slogan { grid-area: slogan; } .fv-pv { grid-area: pv; } .fv-hero { grid-area: hero; } .fv-yb { grid-area: yb; } .fv-tab { grid-area: tab; }
     .fv-slate { grid-area: slate; } .fv-motd { grid-area: motd; } .fv-pair { grid-area: pair; } .fv-trends { grid-area: trends; }
     .fv-results { grid-area: results; } .fv-learn { grid-area: learn; }
@@ -2571,10 +2622,10 @@ __THEME_HEAD__
      the ad slot to their right. Between seasons (.fv-off): Champions |
      Countdown, Best Bet | Season in Review, the Awards, the Guide | the Running Tab. */
   @media (min-width: 900px) {
-    .fv { grid-template-rows: none; grid-template-areas: "hero hero" "slate slate" "motd pair" "bn bn" "trends trends" "results ad" "learn ad"; }
-    .fv.fv-home { grid-template-areas: "slogan slogan" "hero hero" "yb yb" "slate slate" "motd pair" "bn bn" "trends trends" "results ad" "learn ad"; }
+    .fv { grid-template-rows: none; grid-template-areas: "hero hero" "slate slate" "df df" "motd pair" "bn bn" "trends trends" "results ad" "learn ad"; }
+    .fv.fv-home { grid-template-areas: "slogan slogan" "hero hero" "yb yb" "slate slate" "df df" "motd pair" "bn bn" "trends trends" "results ad" "learn ad"; }
     .fv.fv-off { grid-template-areas: "champ cd" "motd pair" "trends trends" "results tab"; }
-    .fv-bn { grid-area: bn; } .fv-ad { grid-area: ad; } .fv-cd { grid-area: cd; } .fv-champ { grid-area: champ; }
+    .fv-bn { grid-area: bn; } .fv-df { grid-area: df; } .fv-ad { grid-area: ad; } .fv-cd { grid-area: cd; } .fv-champ { grid-area: champ; }
     .fv-motd, .fv-pair { align-self: stretch; display: flex; flex-direction: column; }
     .fv-motd > .fr-sec, .fv-pair > .fr-sec { flex: 1; display: flex; flex-direction: column; }
     .fv-motd .st-card, .fv-pair .st-card { flex: 1; }

@@ -66,6 +66,7 @@ import periods  # noqa: E402
 import picks  # noqa: E402
 import seo  # noqa: E402
 import daily  # noqa: E402
+import due_factor  # noqa: E402
 import preview  # noqa: E402
 import home  # noqa: E402
 import front  # noqa: E402
@@ -841,9 +842,26 @@ def sport_app_body(sp, section):
     How to read box where the page type has one. The Odds page opens with
     The Big Numbers (scripts/bignums.py), under the H1."""
     top = bignums.odds_top(sp, datetime.now(timezone.utc), '__ROOT__/') if section == 'odds' else ''
-    return (top + (bignums.ODDS_JS if top else '') + f'<div id="sportApp" data-section="{section}"><div class="no-games-note">Loading&hellip;</div>'
+    return (top + (bignums.ODDS_JS if top else '') + (due_link(sp) if section == 'trends' else '') + f'<div id="sportApp" data-section="{section}"><div class="no-games-note">Loading&hellip;</div>'
             f'<noscript>This page needs JavaScript.</noscript></div>' + how_to_read_html(sp, section)
             + (front.running_tab() if section == 'trends' else ''))   # the Get the Tab lock's signup box
+
+
+def due_link(sp):
+    """The Trends page's pill to the sport's Due Factor."""
+    return (f'<div class="gd-pills df-pills"><a class="gd-pill df-pill" href="__ROOT__{sports.section_path(sp, "due")}">'
+            'Due Factor <span aria-hidden="true">&rarr;</span></a></div>')
+
+
+def write_due_pages(template):
+    """/{slug}/due-factor/ for every sport (scripts/due_factor.py): static
+    HTML, hidden and off-season sports included."""
+    now = datetime.now(timezone.utc)
+    today = now.astimezone(front.ET).date()
+    for sp in sports.SPORTS:
+        html = render_page(template, 'sport', '', meta=due_factor.page_meta(sp), sport=sp,
+                           sport_body=due_factor.page_body(sp, today, now))
+        write_light(html, f"{sp['slug']}/{sp['sections']['due']}")
 
 
 # The Stats pages: (data-section, folder under /{slug}/stats/, tab name, line under it)
@@ -1421,7 +1439,7 @@ def main():
     trends_meta = {'title': section_title(nhl, 'trends'), 'h1': sports.h1(nhl, 'trends'), 'section': 'trends',
                    'desc': SECTION_DESC['trends'].format(label='NHL', segs='1st Period')}
     write_light(render_page(template, 'sport', teams_menu_html, meta=trends_meta, sport=nhl,
-                            sport_body='<div id="sportApp" data-section="trends"><div class="no-games-note">Loading&hellip;</div>'
+                            sport_body=due_link(nhl) + '<div id="sportApp" data-section="trends"><div class="no-games-note">Loading&hellip;</div>'
                                        '<noscript>This page needs JavaScript.</noscript></div>' + front.running_tab()), 'nhl/trends')
     # /nhl/teams/ and /nhl/teams/<code>/: the shared Teams list and team
     # pages (assets/sport.js), from nhl/sport.json like every sport's
@@ -1442,6 +1460,7 @@ def main():
 
     write_hub(template, nhl, teams_menu_html)
     other = build_other_sports(template)
+    write_due_pages(template)
     import seasons   # every sport's season state, logged (and assets/seasons.json for the admin)
     seasons.all_states()
     # Preview's image cards (the home hero and hubs show them), then the

@@ -1892,7 +1892,8 @@ def sections(S, now_utc, root='', hub=False, learn=''):
     """The front page, home and every hub (a hub: that sport only), six
     slots in this order on phones; desktop places them by grid area
     (template.html .fv): the hero full width; The Slate; Matchup of the Day
-    (2/3) | Streaks to Watch (1/3), bottoms level; The Big Numbers full
+    (2/3) | Streaks to Watch (1/3), bottoms level (the Due Factor strip
+    above them, when a sport's gap is 10+); The Big Numbers full
     width; Hottest Trends; Yesterday's Results (2/3) with Betting Guides
     under it, the ad slot to their right (nothing while ADS_ON is off).
     Home: the H1 first, the all-sports Preview (once published) as the hero
@@ -1908,6 +1909,7 @@ def sections(S, now_utc, root='', hub=False, learn=''):
                        preview is up
       between seasons  off_sections"""
     import bignums
+    import due_factor
     import preview
     import seasons
     yday = yesterday(now_utc)
@@ -1936,7 +1938,8 @@ def sections(S, now_utc, root='', hub=False, learn=''):
     ad = preview.ad_slot('front')
     pair = streaks_watch(S, now_utc, root, hub)
     return (f'<div class="fv{"" if hub else " fv-home"}{"" if pair else " sw-none"}">' + ('' if hub else box('fv-slogan', slogan(S))) + box('fv-hero', hero) + box('fv-yb', best)
-            + box('fv-slate', slate(S, now_utc, root, hub)) + box('fv-motd', motd(S, now_utc, root, hub))
+            + box('fv-slate', slate(S, now_utc, root, hub)) + box('fv-df', due_factor.strip(S, now_utc.astimezone(ET).date(), root))
+            + box('fv-motd', motd(S, now_utc, root, hub))
             + box('fv-pair', pair) + box('fv-bn', bignums.section(S, now_utc, root, hub))
             + box('fv-trends', hottest_trends(S, now_utc, root, hub, early=bool(st) and st['key'] == 'early'))
             + box('fv-results', yesterdays_results(S, res_day, root, hub, week=res_week)) + box('fv-learn', learn) + (f'<div class="fv-ad">{ad}</div>' if ad else '')

@@ -46,7 +46,7 @@ def team_page(rel):
 class FilesTest(unittest.TestCase):
     def test_every_file_has_a_path_title_and_description(self):
         got = seo_text.files()
-        self.assertEqual(len(got), 62)
+        self.assertEqual(len(got), 69)
         for rel, (name, meta, body) in got.items():
             with self.subTest(name):
                 self.assertTrue(meta.get('title') and meta.get('description'))

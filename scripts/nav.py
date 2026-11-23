@@ -40,7 +40,7 @@ import icons
 import sports
 
 # a sport page's section -> the main-menu item it lights up
-SECTION_TAB = {'games': 'matchups', 'odds': 'odds', 'trends': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'picks',
+SECTION_TAB = {'games': 'matchups', 'odds': 'odds', 'trends': 'trends', 'due': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'picks',
                'hub': 'sports', 'teams': 'sports', 'guide': 'sports'}
 # the sport page each index page's sports row opens
 INDEX_SECTION = {'matchups': 'games', 'odds': 'odds', 'trends': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'preview'}
