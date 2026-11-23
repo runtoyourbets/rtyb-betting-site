@@ -1301,6 +1301,10 @@ def build(sp, teams_list, now_utc=None):
         doc['rivals'] = (read_json(os.path.join(ROOT, 'data_seed', 'rivalries', 'ncaaf.json'), {}) or {}).get('pairs') or []
     if sp['key'] == 'ncaab':
         doc['conf'] = season_file('conferences', 'ncaab', current)
+    # Situational Results: arena time zones (time zones crossed; MLB local start times)
+    tz = (read_json(os.path.join(ROOT, 'data_seed', 'conferences', f"{sp['key']}_timezones.json"), {}) or {}).get('zones')
+    if tz:
+        doc['tz'] = tz
     # Situational Results "total size" rows: thirds of this season's posted
     # segment totals (the cutoffs show in the row descriptions)
     cuts = {}

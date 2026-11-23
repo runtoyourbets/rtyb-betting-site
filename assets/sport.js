@@ -1418,7 +1418,8 @@
         return { k: p.k, id: SID[p.m], head: tpHead(p), short: tpName(p), priced: p.m === 'ml' || p.m === 'ml3' || p.m === 'ats' };
       });
       var nx = next ? { id: next.id, label: tpNextLabel(next, slug), dow: window.RTYBSit.etParts(next.start).dow } : null;
-      e.team(box, { slug: slug, cols: cols, segs: periodFamily() ? null : D.segments, next: nx,
+      var tm = team(slug);
+      e.team(box, { slug: slug, cols: cols, segs: periodFamily() ? null : D.segments, next: nx, name: { d: shortName(slug), m: tm.code || shortName(slug) },
         onSeg: function(x) { TP.sitK = x; drawSit(); } });
     }
     // LINE HISTORY + RESULTS HISTORY: tiles (label strip, one big value, one muted line)
@@ -1859,6 +1860,8 @@
     var fd = newCard('fd', pre + 'Favorites / Underdogs', [['mlfav', 'ML Fav'], ['mldog', 'ML Dog'], ['spfav', spreadWord() + ' Fav'], ['spdog', spreadWord() + ' Dog']], '');
     fd.rows[0].fmt = fd.rows[1].fmt = 'T'; fd.rows[2].fmt = fd.rows[3].fmt = 'P';
     var ha = newCard('ha', pre + 'Home / Away', [['hfav', 'Home Fav'], ['hdog', 'Home Dog'], ['rfav', 'Road Fav'], ['rdog', 'Road Dog']], 'P');
+    // NHL: Home / Away by the segment's moneyline (no 1P spread)
+    var haMl = newCard('ha', pre + 'Home / Away', [['hfav', 'Home Fav'], ['hdog', 'Home Dog'], ['rfav', 'Road Fav'], ['rdog', 'Road Dog']], 'T');
     // a tied segment: its own row on the Moneyline card; NHL's tie lives on
     // the 3-way ML card instead (the ML record stays W-L-T)
     if (!nhl) ml.tie = 0;
@@ -1876,6 +1879,9 @@
           sAdd(mlfd.by.fav.r, fRes, us ? us[fi] : null); sAdd(mlfd.by.dog.r, flipRes(fRes), us ? us[1 - fi] : null);
           sAdd(fd.by.mlfav.r, fRes, us ? us[fi] : null); sAdd(fd.by.mldog.r, flipRes(fRes), us ? us[1 - fi] : null);
           fdSeen[g.id] = 1;
+          haMl.gp++;
+          sAdd(haMl.by[f === 'home' ? 'hfav' : 'hdog'].r, hRes, us ? us[1] : null);
+          sAdd(haMl.by[f === 'away' ? 'rfav' : 'rdog'].r, aRes, us ? us[0] : null);
         }
         if (u.ml3) {
           m3.gp++;
@@ -1908,9 +1914,9 @@
     });
     fd.gp = Object.keys(fdSeen).length;
     // NHL: Moneyline, O/U 1.5, BTTS, 3-way ML, Scoring, then Moneyline by
-    // favorite. Spread family (and MLB's F5): Moneyline, Spread, O/U,
-    // Favorites/Underdogs, Home/Away.
-    var cards = nhl ? [ml, tot, bt, m3, scoringCard(list, k), mlfd] : [ml, sp, tot, fd, ha];
+    // favorite and Home / Away. Spread family (and MLB's F5): Moneyline,
+    // Spread, O/U, Favorites/Underdogs, Home/Away.
+    var cards = nhl ? [ml, tot, bt, m3, scoringCard(list, k), mlfd, haMl] : [ml, sp, tot, fd, ha];
     return cards.filter(function(c) { return c.stat || c.gp; });
   }
   // NHL's Scoring card: the average 1st-period goals, 0-0 and tied rates
@@ -1981,15 +1987,41 @@
     if (res === 'W') a.w++; else if (res === 'L') a.l++; else a.t++;
     if (u != null) { a.u += u; a.pr++; }
   }
-  function boardRow(label, a) {
-    return stRow(label, a.w + '-' + a.l + '-' + a.t, boardState.view === 'pct' ? stPct(a.w, a.l) : '', boardState.view === 'pct' ? null : stUnits(a));
+  function boardRow(label, a, twoWay) {
+    return stRow(label, a.w + '-' + a.l + (twoWay ? '' : '-' + a.t), boardState.view === 'pct' ? stPct(a.w, a.l) : '', boardState.view === 'pct' ? null : stUnits(a));
   }
   function boardCard(title, sub, rows, note, fmt) {
     return stCard(title, sub, stHead(fmt, boardState.view === 'pct' ? 'Win %' : '', boardState.view === 'pct' ? '' : 'Units') +
       lockRows(rows, 'board') + (note ? '<div class="st-note">' + note + '</div>' : ''));
   }
+  // MLB's 1st inning: NRFI / YRFI by which side was favored, and the NRFI by its closing price
+  function rfiBoard(list) {
+    var sides = [['NRFI as favorite', 'n', 1], ['NRFI as underdog', 'n', 0], ['YRFI as favorite', 'y', 1], ['YRFI as underdog', 'y', 0]];
+    var by = sides.map(newRec), priced = 0;
+    var tiers = [['-150 or shorter', function(p) { return p <= -150; }], ['-149 to -101', function(p) { return p > -150 && p <= -101; }],
+                 ['+100 to +149', function(p) { return (p >= 100 && p <= 149) || p === -100; }], ['+150 or longer', function(p) { return p >= 150; }]];
+    var tr = tiers.map(newRec);
+    list.forEach(function(g) {
+      var r = g.res['1i'], u = (r.u || {}).rfi, o = ((g.odds || {})['1i'] || {}).nrfi_yrfi || {};
+      var f = mlFavSide({ away: o.yrfi, home: o.nrfi });   // 'home' = the NRFI was favored
+      if ((r.rfi !== 'Y' && r.rfi !== 'N') || !u || !f) return;
+      priced++;
+      var nRes = r.rfi === 'N' ? 'W' : 'L', nFav = f === 'home';
+      sides.forEach(function(x, i) {
+        if ((x[2] === 1) !== (x[1] === 'n' ? nFav : !nFav)) return;
+        addRec(by[i], x[1] === 'n' ? nRes : flipRes(nRes), x[1] === 'n' ? u[1] : u[0]);
+      });
+      for (var i = 0; i < tiers.length; i++) if (tiers[i][1](o.nrfi)) { addRec(tr[i], nRes, u[1]); break; }
+    });
+    var cards = [boardCard('NRFI / YRFI', 'by the favored side', sides.map(function(x, i) { return boardRow(x[0], by[i], true); }), priced + ' games with a closing NRFI / YRFI price', 'W-L'),
+                 boardCard('Odds Tiers', 'NRFI by closing price', tiers.map(function(t, i) { return boardRow(t[0], tr[i], true); }), 'NRFI can&rsquo;t push', 'W-L')];
+    var pills = '<div class="seg-toggle" role="group" aria-label="Show"><button class="seg-btn" data-board-view="pct" aria-pressed="' + (boardState.view === 'pct') + '">Win %</button>' +
+      '<button class="seg-btn" data-board-view="units" aria-pressed="' + (boardState.view === 'units') + '">Profit</button></div>';
+    return stSection('statsBoard', 'Money Board', pills, '<p class="st-sec-sub">NRFI / YRFI at closing prices</p><div class="st-grid st-grid-2">' + cards.join('') + '</div>');
+  }
   function moneyBoard(games, k) {
     var list = graded(games, k), s = anySeg(k);
+    if (isRfi(k)) return rfiBoard(list);
     var canMl = hasMl(k) && !isRfi(k), canAts = !periodFamily() || D.sportType === 'baseball' || k === 'game';
     canAts = canAts && list.some(function(g) { var r = g.res[k]; return r.ats && r.ats !== 'NA'; });
     if (!canMl && !canAts) return '';

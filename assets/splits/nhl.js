@@ -13,9 +13,25 @@
     { id: 'ha', label: 'Home / Away / Favorite / Underdog',
       note: 'Away and Underdog rows are the mirror of Home and Favorite (W and L swapped). Favorite / underdog by the closing 1st-period moneyline (the full-game one when there’s no 1P price); a pick’em is neither.' },
     { id: 'opp', label: 'Opponent' }, { id: 'drop', label: 'Puck Drop Window' }, { id: 'rest', label: 'Rest & Schedule' },
-    { id: 'prev', label: 'Previous Game' }, { id: 'goalie', label: 'Goalie', hidden: true },
+    { id: 'prev', label: 'Previous Game' }, { id: 'size', label: 'Total Size' }, { id: 'goalie', label: 'Goalie', hidden: true },
   ];
   function lost(p) { return p && p.res === 'L'; }
+  function third(c, n) {
+    if (c.segTotal == null || !c.cuts) return false;
+    return n === 0 ? c.segTotal < c.cuts[0] : n === 1 ? c.segTotal >= c.cuts[0] && c.segTotal < c.cuts[1] : c.segTotal >= c.cuts[1];
+  }
+  function mid(k) { return k[1] - 0.5 <= k[0] ? String(k[0]) : k[0] + ' to ' + (k[1] - 0.5); }
+  // a total-size row's name with its range: "Low game total (under 6.5)"
+  function cutLabel(name, n) {
+    return function(C2, info) { var k = info.cuts; return k ? name + ' (' + ['under ' + k[0], mid(k), k[1] + '+'][n] + ')' : name; };
+  }
+  function cutDef(n) {
+    return function(C2, info) {
+      var k = info.cuts;
+      if (!k) return 'Not enough posted game totals this season to split into thirds yet.';
+      return ['Full-game total under ' + k[0] + ' (bottom third this season).', 'Full-game total ' + mid(k) + ' (middle third).', 'Full-game total ' + k[1] + ' or higher (top third this season).'][n];
+    };
+  }
   var rows = [
     { id: 'home', label: 'Home', short: 'Home', group: 'ha', own: true, def: 'Games as the home team.', test: function(c) { return c.home; } },
     { id: 'away', label: 'Away', short: 'Away', group: 'ha', own: true, def: 'Games as the road team.', test: function(c) { return !c.home; } },
@@ -32,6 +48,10 @@
     { id: 'early', label: 'Early (5 to 7:59 PM ET)', short: 'Early', group: 'drop', def: 'Puck drop 5:00 to 7:59 PM ET.', test: function(c) { return c.mins >= 17 * 60 && c.mins < 20 * 60; } },
     { id: 'late', label: 'Late (8 to 9:59 PM ET)', short: 'Late', group: 'drop', def: 'Puck drop 8:00 to 9:59 PM ET.', test: function(c) { return c.mins >= 20 * 60 && c.mins < 22 * 60; } },
     { id: 'west', label: 'West Coast late (10 PM ET+)', short: 'West late', group: 'drop', def: 'Puck drop at 10:00 PM ET or later.', test: function(c) { return c.mins >= 22 * 60; } },
+
+    { id: 'wkday', label: 'Weekday', short: 'Weekday', group: 'drop', def: 'Monday through Friday.', test: function(c) { return c.dow >= 1 && c.dow <= 5; } },
+    { id: 'sat', label: 'Saturday', short: 'Saturday', group: 'drop', def: 'Saturday games.', test: function(c) { return c.dow === 6; } },
+    { id: 'sun', label: 'Sunday', short: 'Sunday', group: 'drop', def: 'Sunday games.', test: function(c) { return c.dow === 0; } },
 
     { id: 'rested', label: 'Rested', short: 'Rested', group: 'rest', leagueOnly: true, own: true, def: 'More rest days than the opponent.', test: function(c) { return c.restDays != null && c.oppRestDays != null && c.restDays > c.oppRestDays; } },
     { id: 'tired', label: 'Tired', short: 'Tired', group: 'rest', leagueOnly: true, own: true, def: 'Fewer rest days than the opponent.', test: function(c) { return c.restDays != null && c.oppRestDays != null && c.restDays < c.oppRestDays; } },
@@ -52,11 +72,17 @@
     { id: 'pa5', label: 'After allowing 5+', short: 'Off 5+ GA', group: 'prev', own: true, def: 'Allowed 5 or more last game.', test: function(c) { return c.prev && c.prev.pa >= C.scored; } },
     { id: 'pshut', label: 'After a shutout (scored 0)', short: 'Off shut out', group: 'prev', own: true, def: 'Was shut out last game (a shootout loss doesn’t count).', test: function(c) { return c.prev && c.prev.pf === 0 && c.prev.otType !== 'SO'; } },
     { id: 'pshutw', label: 'After a shutout win', short: 'Off shutout W', group: 'prev', own: true, def: 'Won its last game without allowing a goal.', test: function(c) { return c.prev && c.prev.res === 'W' && c.prev.pa === 0; } },
+    { id: 'pseg1p', label: 'After losing the 1st period last game', short: '1P bounce', group: 'prev', own: true, def: 'Lost the 1st period last game.',
+      test: function(c) { return c.prev && c.prev.segRes === 'L'; } },
     { id: 'pfirst', label: 'Scored first last game', short: 'Scored 1st last', group: 'prev', own: true, def: 'Scored the first goal of its previous game.', test: function(c) { return c.prev && c.prev.scoredFirst === true; } },
     { id: 'pfirsta', label: 'Allowed first goal last game', short: 'Allowed 1st last', group: 'prev', own: true, def: 'Allowed the first goal of its previous game.', test: function(c) { return c.prev && c.prev.scoredFirst === false; } },
     { id: 'eloss', label: 'Either team off a loss', short: 'Any off L', group: 'prev', def: 'At least one team lost its previous game.', test: function(c) { return lost(c.prev) || lost(c.oppPrev); } },
     { id: 'eloss3', label: 'Either team off a loss by 3+', short: 'Any off L by 3+', group: 'prev', def: 'At least one team lost its previous game by 3 or more.',
       test: function(c) { return (c.prev && c.prev.pa - c.prev.pf >= C.lossBy) || (c.oppPrev && c.oppPrev.pa - c.oppPrev.pf >= C.lossBy); } },
+
+    { id: 'tlow', label: cutLabel('Low game total', 0), short: 'Low total', group: 'size', def: cutDef(0), test: function(c) { return third(c, 0); } },
+    { id: 'tmid', label: cutLabel('Middle game total', 1), short: 'Mid total', group: 'size', def: cutDef(1), test: function(c) { return third(c, 1); } },
+    { id: 'thigh', label: cutLabel('High game total', 2), short: 'High total', group: 'size', def: cutDef(2), test: function(c) { return third(c, 2); } },
 
     { id: 'starter', label: 'Starter', short: 'Starter', group: 'goalie', own: true, def: 'Started the team’s most-used goalie this season (to date).', test: function(c) { return c.starter === true; } },
     { id: 'backup', label: 'Backup', short: 'Backup', group: 'goalie', own: true, def: 'Started anyone else.', test: function(c) { return c.starter === false; } },
@@ -71,6 +97,8 @@
   ];
   window.RTYB_SPLITS = window.RTYB_SPLITS || {};
   window.RTYB_SPLITS.nhl = { config: C, groups: groups, rows: rows, favBy: 'seg-ml', periods: 3, smallSample: 10, pairUnits: 'both',
+    // Total Size: thirds of the full-game total (the 1st period's is always 1.5)
+    sizeTotal: function(g) { return ((((g.fo || {}).game || {}).total) || {}).line; },
     markets: [{ id: 'su', label: 'Moneyline' }, { id: 'ml3' }, { id: 'tot', label: 'O/U 1.5', head: 'W-L', url: 'over15', pctHead: 'Over %' }, { id: 'btts', label: 'BTTS', url: 'btts' }],
     perspectives: [['home', 'Home team'], ['fav', 'Favorite']] };
 })();

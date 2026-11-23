@@ -61,6 +61,9 @@
       { id: 'aft', label: 'Afternoon (before 6 PM ET)', short: 'Afternoon', group: 'tip', def: 'Tip-off before 6:00 PM ET.', test: function(c) { return c.mins < 18 * 60; } },
       { id: 'early', label: 'Early night (6 to 8:59 PM ET)', short: 'Early night', group: 'tip', def: 'Tip-off 6:00 to 8:59 PM ET.', test: function(c) { return c.mins >= 18 * 60 && c.mins < 21 * 60; } },
       { id: 'late', label: 'Late (9 PM ET+)', short: 'Late', group: 'tip', def: 'Tip-off at 9:00 PM ET or later.', test: function(c) { return c.mins >= 21 * 60; } },
+      { id: 'wkday', label: 'Weekday', short: 'Weekday', group: 'tip', def: 'Monday through Friday.', test: function(c) { return c.dow >= 1 && c.dow <= 5; } },
+      { id: 'sat', label: 'Saturday', short: 'Saturday', group: 'tip', def: 'Saturday games.', test: function(c) { return c.dow === 6; } },
+      { id: 'sun', label: 'Sunday', short: 'Sunday', group: 'tip', def: 'Sunday games.', test: function(c) { return c.dow === 0; } },
       { id: 'tv', label: 'National TV', short: 'National TV', group: 'tip', def: 'On a national broadcast.', test: function(c) { return c.tvn; } },
       o.cup ? { id: 'cup', label: o.cup.label, short: o.cup.short, group: 'tip', def: o.cup.def, test: function(c) { return o.cup.re.test(c.note); } } : null,
 
@@ -76,6 +79,8 @@
       { id: 'r4', label: 'After 4+ days off', short: '4+ days off', group: 'rest', own: true, def: 'Four or more days off before the game.', test: function(c) { return c.restDays != null && c.restDays >= 4; } },
       { id: 'trip3', label: '3rd+ game of a road trip', short: 'Road trip 3+', group: 'rest', own: true, def: 'At least the 3rd straight road game.', test: function(c) { return c.trip >= 3; } },
       { id: 'homeback', label: 'First home game after a road trip', short: 'Home from trip', group: 'rest', own: true, def: 'Home after two or more straight road games.', test: function(c) { return c.home && c.tripEnded >= 2; } },
+      o.tz ? { id: 'tz', label: 'Crossed 2+ time zones', short: '2+ time zones', group: 'rest', own: true, def: 'Two or more time zones from the last game’s arena.',
+        test: function(c) { return c.tzCrossed != null && c.tzCrossed >= 2; } } : null,
       o.altitude ? { id: 'alt', label: 'At altitude', short: 'Altitude', group: 'rest', own: true, def: 'Road games in Denver or Utah.',
         test: function(c) { return !c.home && C.altitude.indexOf(c.g.home) !== -1; } } : null,
 

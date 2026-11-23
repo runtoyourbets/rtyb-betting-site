@@ -1,0 +1,10 @@
+{
+ "note": "Each MLB team's home park time zone (UTC offset in standard time). Used for 'Crossed 2+ time zones' and local start times (day / night games). A game's venue is its home team's park.",
+ "zones": {
+  "ath": -8, "laa": -8, "lad": -8, "sd": -8, "sf": -8, "sea": -8,
+  "ari": -7, "col": -7,
+  "chc": -6, "chw": -6, "hou": -6, "kc": -6, "mil": -6, "min": -6, "stl": -6, "tex": -6,
+  "atl": -5, "bal": -5, "bos": -5, "cin": -5, "cle": -5, "det": -5, "mia": -5, "nym": -5, "nyy": -5,
+  "phi": -5, "pit": -5, "tb": -5, "tor": -5, "wsh": -5
+ }
+}

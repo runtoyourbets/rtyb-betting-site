@@ -34,14 +34,34 @@
   function sun(c) { return c.dow === 0; }
   function prime(c) { return c.mins >= C.primetime; }
   function margin(p) { return p.pf - p.pa; }
+  function fav(c, lo, hi) { return c.fs != null && c.fs < 0 && -c.fs >= lo && -c.fs <= hi; }
+  function dog(c, lo, hi) { return c.fs != null && c.fs > 0 && c.fs >= lo && c.fs <= hi; }
+  function third(c, n) {
+    if (c.segTotal == null || !c.cuts) return false;
+    return n === 0 ? c.segTotal < c.cuts[0] : n === 1 ? c.segTotal >= c.cuts[0] && c.segTotal < c.cuts[1] : c.segTotal >= c.cuts[1];
+  }
+  function mid(k) { return k[1] - 0.5 <= k[0] ? String(k[0]) : k[0] + ' to ' + (k[1] - 0.5); }
+  // a total-size row's name with its range: "Low 1H total (under 21)"
+  function cutLabel(name, n) {
+    return function(C2, info) { var k = info.cuts; return k ? name + ' (' + ['under ' + k[0], mid(k), k[1] + '+'][n] + ')' : name; };
+  }
+  function cutDef(n) {
+    return function(C2, info) {
+      var k = info.cuts;
+      if (!k) return 'Not enough posted totals this season to split into thirds yet.';
+      return ['Posted total under ' + k[0] + ' (bottom third this season).', 'Posted total ' + mid(k) + ' (middle third).', 'Posted total ' + k[1] + ' or higher (top third this season).'][n];
+    };
+  }
 
   var groups = [
     { id: 'ha', label: 'Home / Away · Favorite / Underdog',
       note: 'League view: Away and Underdog rows are the mirror of Home and Favorite (W and L swapped); Away favorite mirrors Home underdog and Away underdog mirrors Home favorite.' },
+    { id: 'spread', label: 'Spread Size (closing full-game spread)' },
     { id: 'opp', label: 'Opponent' },
     { id: 'ko', label: 'Kickoff Window' },
     { id: 'rest', label: 'Rest & Schedule' },
     { id: 'prev', label: 'Previous Game' },
+    { id: 'size', label: 'Total Size' },
   ];
 
   var rows = [
@@ -64,6 +84,20 @@
       test: function(c) { return c.home && c.fav === false; } },
     { id: 'adog', label: 'Away underdog', short: 'Away dog', group: 'ha', indent: 1, own: true, def: 'Road team and the underdog.',
       test: function(c) { return !c.home && c.fav === false; } },
+
+    // SPREAD SIZE (closing full-game spread; a pick'em is neither)
+    { id: 'fs0', label: 'Favorite 0-3', short: 'Fav 0-3', group: 'spread', own: true, def: 'Favored by 0.5 to 3 points (full game).',
+      test: function(c) { return fav(c, 0.5, 3); } },
+    { id: 'fs3', label: 'Favorite 3.5-6.5', short: 'Fav 3.5-6.5', group: 'spread', own: true, def: 'Favored by 3.5 to 6.5 points (full game).',
+      test: function(c) { return fav(c, 3.5, 6.5); } },
+    { id: 'fs7', label: 'Favorite 7+', short: 'Fav 7+', group: 'spread', own: true, def: 'Favored by 7 or more points (full game).',
+      test: function(c) { return fav(c, 7, 999); } },
+    { id: 'ds0', label: 'Underdog 0-3', short: 'Dog 0-3', group: 'spread', own: true, def: 'Getting 0.5 to 3 points (full game).',
+      test: function(c) { return dog(c, 0.5, 3); } },
+    { id: 'ds3', label: 'Underdog 3.5-6.5', short: 'Dog 3.5-6.5', group: 'spread', own: true, def: 'Getting 3.5 to 6.5 points (full game).',
+      test: function(c) { return dog(c, 3.5, 6.5); } },
+    { id: 'ds7', label: 'Underdog 7+', short: 'Dog 7+', group: 'spread', own: true, def: 'Getting 7 or more points (full game).',
+      test: function(c) { return dog(c, 7, 999); } },
 
     // OPPONENT (the three rows don't overlap)
     { id: 'div', label: 'Division', short: 'Div', group: 'opp', def: 'Against a division rival.',
@@ -108,6 +142,10 @@
       test: function(c) { return c.rest != null && c.oppRest != null && c.oppRest - c.rest >= 2; } },
     { id: 'road2', label: '2nd straight road game', short: '2nd road', group: 'rest', own: true, def: 'A road game right after another road game.',
       test: function(c) { return !c.home && c.prev && c.prev.side === 'away'; } },
+    { id: 'altden', label: 'At altitude (Denver)', short: 'Altitude', group: 'rest', own: true, def: 'Road games in Denver.',
+      test: function(c) { return !c.home && c.g.home === 'den'; } },
+    { id: 'tz', label: 'Crossed 2+ time zones', short: '2+ time zones', group: 'rest', own: true, def: 'Two or more time zones from the last game’s stadium.',
+      test: function(c) { return c.tzCrossed != null && c.tzCrossed >= 2; } },
 
     // PREVIOUS GAME (full-game result)
     { id: 'pwin', label: 'After a win', short: 'Off W', group: 'prev', def: 'The team won its previous game.',
@@ -130,6 +168,11 @@
       test: function(c) { return c.oppW > c.oppL; } },
     { id: 'vu500', label: 'Vs. teams under .500', short: 'vs <.500', group: 'opp', own: true, def: 'The opponent was under .500 going into the game.',
       test: function(c) { return c.oppW < c.oppL; } },
+    { id: 'pseg', label: 'After losing the segment last game', short: 'Segment bounce', group: 'prev', own: true, def: 'Lost the same segment (1Q or 1H) last game.',
+      test: function(c) { return c.prev && c.prev.segRes === 'L'; } },
+    { id: 'tlow', label: cutLabel('Low total', 0), short: 'Low total', group: 'size', def: cutDef(0), test: function(c) { return third(c, 0); } },
+    { id: 'tmid', label: cutLabel('Middle total', 1), short: 'Mid total', group: 'size', def: cutDef(1), test: function(c) { return third(c, 1); } },
+    { id: 'thigh', label: cutLabel('High total', 2), short: 'High total', group: 'size', def: cutDef(2), test: function(c) { return third(c, 2); } },
     { id: 'pl14', label: 'After a loss by 14+', short: 'Off L by 14+', group: 'prev', own: true, def: 'Lost its previous game by 14 or more points.',
       test: function(c) { return c.prev && c.prev.pa - c.prev.pf >= 14; } },
   ];

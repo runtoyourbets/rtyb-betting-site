@@ -1,0 +1,10 @@
+{
+ "note": "Each NBA team's home arena time zone (UTC offset in standard time; only differences matter). Used for 'Crossed 2+ time zones'. A game's venue is its home team's arena.",
+ "zones": {
+  "gs": -8, "lac": -8, "lal": -8, "por": -8, "sac": -8,
+  "den": -7, "phx": -7, "utah": -7,
+  "chi": -6, "dal": -6, "hou": -6, "mem": -6, "mil": -6, "min": -6, "no": -6, "okc": -6, "sa": -6,
+  "atl": -5, "bos": -5, "bkn": -5, "cha": -5, "cle": -5, "det": -5, "ind": -5, "mia": -5, "ny": -5,
+  "orl": -5, "phi": -5, "tor": -5, "wsh": -5
+ }
+}

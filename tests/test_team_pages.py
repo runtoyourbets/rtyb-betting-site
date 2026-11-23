@@ -1,8 +1,10 @@
 """Team pages (Chris's Nov 19 spec): the header, the season state the build
 hands assets/sport.js, the champion's badge, and the Situational splits each
 sport's registry (assets/splits/) adds."""
+import json
 import os
 import re
+import subprocess
 import sys
 import unittest
 
@@ -75,11 +77,52 @@ class SplitsTest(unittest.TestCase):
             self.assertTrue({'vo500', 'vu500', 'pl14'} <= self.ids(f), f)
         self.assertTrue({'home', 'away', 'fav', 'dog', 'vo500', 'vu500', 'dan', 'pw', 'pl', 'pl3', 'pshut'} <= self.ids('mlb'))
 
-    def test_mlb_registry_is_team_pages_only(self):
+    def test_mlb_registry_on_the_splits_page(self):
         js = read('assets', 'splits', 'mlb.js')
-        self.assertIn('teamOnly: true', js)
+        self.assertNotIn('teamOnly: true', js)   # Stats consistency: /mlb/stats/splits/ is on
         self.assertIn("id: 'rfi'", js)
         self.assertIn('function leagueSit()', read('assets', 'sport.js'))
+
+    def test_consistency_splits(self):
+        # Stats consistency spec: the same groups in every sport
+        self.assertTrue({'dayg', 'nightg', 'wkday', 'wkend', 'offday', 'dh2', 'tripl', 'hometrip', 'tz', 'coors', 'psegf5', 'tlow', 'tmid', 'thigh'} <= self.ids('mlb'))
+        self.assertTrue({'pseg', 'fs0', 'fs3', 'fs7', 'ds0', 'ds3', 'ds7', 'tlow', 'tmid', 'thigh', 'altden', 'tz'} <= self.ids('nfl'))
+        self.assertTrue({'pseg', 'tlow', 'tmid', 'thigh'} <= self.ids('ncaaf'))
+        self.assertTrue({'pseg1p', 'tlow', 'tmid', 'thigh', 'wkday', 'sat', 'sun'} <= self.ids('nhl'))
+        self.assertTrue({'wkday', 'sat', 'sun', 'tz'} <= self.ids('basketball'))
+        self.assertIn('tz: true', read('assets', 'splits', 'nba.js'))
+        self.assertNotIn('tz: true', read('assets', 'splits', 'wnba.js'))
+        for key in ('nba', 'nfl', 'mlb'):
+            zones = json.load(open(os.path.join(ROOT, 'data_seed', 'conferences', f'{key}_timezones.json')))['zones']
+            self.assertEqual(len(zones), 30 if key != 'nfl' else 32, key)
+
+    def test_mlb_local_time_and_rest_buckets(self):
+        # Day / Night by the park's clock (Arizona keeps standard time); each
+        # sport's Rest buckets and Day of week tiles
+        script = (read('assets', 'splits', 'mlb.js') + '''
+          var R = window.RTYB_SPLITS.mlb, day = R.rows.filter(function(r) { return r.id === 'dayg'; })[0];
+          function ctx(home, tz, mins, month) { return { g: { home: home }, venueTz: tz, mins: mins, month: month }; }
+          var out = { nyy4pm: day.test(ctx('nyy', -5, 16 * 60, 6)), sea740: day.test(ctx('sea', -8, 19 * 60 + 40, 6)),
+                      ari740: day.test(ctx('ari', -7, 19 * 60 + 40, 6)), ari840: day.test(ctx('ari', -7, 20 * 60 + 40, 6)) };
+          console.log(JSON.stringify(out));
+        ''')
+        out = subprocess.run(['node', '-e', 'global.window = global; global.document = {};' + script], capture_output=True, text=True, timeout=30)
+        self.assertEqual(out.returncode, 0, out.stderr)
+        got = json.loads(out.stdout.strip().splitlines()[-1])
+        # 4:00 PM ET in New York: day; 7:40 PM ET in Seattle is 4:40 PM there: day;
+        # 7:40 PM ET in June is 4:40 PM in Phoenix: day; 8:40 PM ET is 5:40 PM: night
+        self.assertEqual(got, {'nyy4pm': True, 'sea740': True, 'ari740': True, 'ari840': False})
+        js = read('assets', 'situational.js')
+        self.assertIn("nfl: [4, 6, 0, 1], ncaaf: [2, 3, 4, 5, 6]", js)
+        for bucket in ("['Short week', between(0, 5)], ['Normal', between(6, 7)], ['Extra rest', between(8, 999)]",
+                       "['Short week', between(0, 5)], ['Normal', between(6, 8)], ['Extra rest', between(9, 999)]",
+                       "['1 day', between(-1, 1)], ['2-3 days', between(2, 3)], ['4+ days', between(4, 999)]",
+                       "['No off day', between(-1, 0)], ['After an off day', between(1, 999)]",
+                       "['Back-to-back', between(0, 0)], ['1 day', between(1, 1)], ['2 days', between(2, 2)], ['3+ days', between(3, 999)]"):
+            self.assertIn(bucket, js)
+        self.assertIn("'Next game'", js)
+        self.assertIn(' record by day of the week.', js)
+        self.assertIn(' record by rest.', js)
 
     def test_goalie_group_hidden(self):
         self.assertIn("{ id: 'goalie', label: 'Goalie', hidden: true }", read('assets', 'splits', 'nhl.js'))
@@ -148,8 +191,6 @@ class FullRunPremiumTest(unittest.TestCase):
     "Unlock with Premium", and a lock on the Game Log's Full Run pills."""
 
     def run_js(self, flag, premium, body):
-        import json
-        import subprocess
         src = read('assets', 'sport.js')
 
         def one(name):

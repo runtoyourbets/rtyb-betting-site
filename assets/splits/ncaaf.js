@@ -28,6 +28,22 @@
   function dog(c, lo, hi) { return c.fs != null && c.fs > 0 && c.fs >= lo && c.fs <= hi; }
   function margin(p) { return p.pf - p.pa; }
   function ranked(r) { return r != null; }
+  function third(c, n) {
+    if (c.segTotal == null || !c.cuts) return false;
+    return n === 0 ? c.segTotal < c.cuts[0] : n === 1 ? c.segTotal >= c.cuts[0] && c.segTotal < c.cuts[1] : c.segTotal >= c.cuts[1];
+  }
+  function mid(k) { return k[1] - 0.5 <= k[0] ? String(k[0]) : k[0] + ' to ' + (k[1] - 0.5); }
+  // a total-size row's name with its range: "Low 1H total (under 24.5)"
+  function cutLabel(name, n) {
+    return function(C2, info) { var k = info.cuts; return k ? name + ' (' + ['under ' + k[0], mid(k), k[1] + '+'][n] + ')' : name; };
+  }
+  function cutDef(n) {
+    return function(C2, info) {
+      var k = info.cuts;
+      if (!k) return 'Not enough posted totals this season to split into thirds yet.';
+      return ['Posted total under ' + k[0] + ' (bottom third this season).', 'Posted total ' + mid(k) + ' (middle third).', 'Posted total ' + k[1] + ' or higher (top third this season).'][n];
+    };
+  }
 
   var groups = [
     { id: 'ha', label: 'Home / Away · Favorite / Underdog',
@@ -38,6 +54,7 @@
     { id: 'ko', label: 'Kickoff Window' },
     { id: 'rest', label: 'Rest & Schedule' },
     { id: 'prev', label: 'Previous Game' },
+    { id: 'size', label: 'Total Size' },
   ];
 
   var rows = [
@@ -162,6 +179,11 @@
       test: function(c) { return c.oppW > c.oppL; } },
     { id: 'vu500', label: 'Vs. teams under .500', short: 'vs <.500', group: 'opp', own: true, def: 'The opponent was under .500 going into the game.',
       test: function(c) { return c.oppW < c.oppL; } },
+    { id: 'pseg', label: 'After losing the segment last game', short: 'Segment bounce', group: 'prev', own: true, def: 'Lost the same segment (1Q or 1H) last game.',
+      test: function(c) { return c.prev && c.prev.segRes === 'L'; } },
+    { id: 'tlow', label: cutLabel('Low total', 0), short: 'Low total', group: 'size', def: cutDef(0), test: function(c) { return third(c, 0); } },
+    { id: 'tmid', label: cutLabel('Middle total', 1), short: 'Mid total', group: 'size', def: cutDef(1), test: function(c) { return third(c, 1); } },
+    { id: 'thigh', label: cutLabel('High total', 2), short: 'High total', group: 'size', def: cutDef(2), test: function(c) { return third(c, 2); } },
     { id: 'pl14', label: 'After a loss by 14+', short: 'Off L by 14+', group: 'prev', own: true, def: 'Lost its previous game by 14 or more points.',
       test: function(c) { return c.prev && c.prev.pa - c.prev.pf >= 14; } },
   ];

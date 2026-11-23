@@ -143,6 +143,23 @@
       return segFav((g.odds || {})[k]) || (g.fs ? (g.fs < 0 ? 'home' : 'away') : null);
     }
 
+    // Total Size rows: thirds of this season's posted totals. The build
+    // writes the segment totals' cutoffs (src.totalCuts); a registry with
+    // sizeTotal(g) (NHL's full-game total, MLB's F5 total) splits that line
+    // instead, on every segment, cut the same way (sport_build.py)
+    var SIZE = null;
+    function cutsFor(k) {
+      if (!REG.sizeTotal) return (src.totalCuts || {})[k] || null;
+      if (!SIZE) {
+        var cur = (src.seasons || []).filter(function(s) { return s.key === 'current'; })[0] || {}, lines = [];
+        Object.keys(cur.games || {}).forEach(function(d) {
+          (cur.games[d] || []).forEach(function(g) { var v = REG.sizeTotal(g); if (typeof v === 'number') lines.push(v); });
+        });
+        lines.sort(function(a, b) { return a - b; });
+        SIZE = { v: lines.length >= 6 ? [lines[Math.floor(lines.length / 3)], lines[Math.floor(2 * lines.length / 3)]] : null };
+      }
+      return SIZE.v;
+    }
     var cache = {}, todayCtx = {}, upcoming = {};
     // [{c, r}] for one season's games in segment k
     function seasonContexts(games, k, seasonKey) {
@@ -162,7 +179,7 @@
           var p = list[i - 1], n = list[i + 1], prev = null;
           if (p && p.g.state === 'final' && p.g.as != null && p.g.hs != null) {
             var pf = p.side === 'away' ? p.g.as : p.g.hs, pa = p.side === 'away' ? p.g.hs : p.g.as, pe = etParts(p.g.start);
-            var pr = (p.g.res || {})[k];
+            var pr = (p.g.res || {})[REG.bounceSeg || k];   // MLB: the F5 on every segment
             prev = { res: pf > pa ? 'W' : pf < pa ? 'L' : 'T', pf: pf, pa: pa, side: p.side, dow: pe.dow, mins: pe.mins,
                      ot: !!p.g.ot || Math.max((p.g.als || []).length, (p.g.hls || []).length) > (REG.periods || 4),
                      otType: typeof p.g.ot === 'string' ? p.g.ot : '', neutral: !!p.g.neutral,
@@ -183,6 +200,7 @@
             next: n ? { rival: isRival(n.g.away, n.g.home), oppRank: n.side === 'away' ? n.g.hr : n.g.ar } : null,
             w: w, l: l, streak: streak,
             trip: e.side === 'away' ? trip + 1 : 0, tripEnded: e.side === 'home' ? trip : 0,
+            tripLast: e.side === 'away' && !!n && n.side === 'home',
             goalie: mine ? mine.id : null, starter: mine ? (top == null || String(mine.id) === top) : null
           };
           // after this game: record, streak, road trip, goalie starts
@@ -203,7 +221,7 @@
           var done = r && r.sc && !r.na;
           if (!done && !pending) return;
           var fav = fullFav(g, k), et = etParts(g.start), o = (g.odds || {})[k] || {}, date = etDate(g.start);
-          var segTotal = (o.total || {}).line;
+          var segTotal = REG.sizeTotal ? REG.sizeTotal(g) : (o.total || {}).line;
           ['away', 'home'].forEach(function(side) {
             var team = g[side], opp = side === 'away' ? g.home : g.away, i = side === 'away' ? 0 : 1;
             var mi = info[g.id + '|' + team] || {}, oi = info[g.id + '|' + opp] || {};
@@ -217,11 +235,11 @@
               rest: mi.days, oppRest: oi.days,
               restDays: mi.days == null ? null : mi.days - 1, oppRestDays: oi.days == null ? null : oi.days - 1,
               b2b: mi.days === 1, b2bFirst: mi.nextDays === 1, oppB2b: oi.days === 1,
-              threeIn4: !!mi.threeIn4, trip: mi.trip || 0, tripEnded: mi.tripEnded || 0,
-              tzCrossed: tzPrev != null && tzNow != null ? Math.abs(tzPrev - tzNow) : null,
+              threeIn4: !!mi.threeIn4, trip: mi.trip || 0, tripEnded: mi.tripEnded || 0, tripLast: !!mi.tripLast,
+              tzCrossed: tzPrev != null && tzNow != null ? Math.abs(tzPrev - tzNow) : null, venueTz: tzNow != null ? tzNow : null,
               w: mi.w || 0, l: mi.l || 0, streak: mi.streak || 0, oppW: oi.w || 0, oppL: oi.l || 0,
               rank: side === 'away' ? g.ar : g.hr, oppRank: side === 'away' ? g.hr : g.ar,
-              fs: fgLine(g, side), segTotal: typeof segTotal === 'number' ? segTotal : null, cuts: (src.totalCuts || {})[k] || null,
+              fs: fgLine(g, side), segTotal: typeof segTotal === 'number' ? segTotal : null, cuts: cutsFor(k),
               tvn: !!g.tvn, note: g.note || '', post: !!g.post,
               goalie: mi.goalie, starter: mi.starter,
               teamConf: confOf(team), oppConf: confOf(opp), oppFcs: !src.teams[opp], oppP4: isP4(opp),
@@ -349,7 +367,7 @@
     // the team's favor, -1 = against it (the team page's 60% / 40% over 10+
     // games, or more than 5 units either way)
     // a row's name: a string, or a function of the segment's total cuts ("Low total (under 221.5)")
-    function lab(row, k) { return typeof row.label === 'function' ? row.label(C, { cuts: (src.totalCuts || {})[k] }) : row.label; }
+    function lab(row, k) { return typeof row.label === 'function' ? row.label(C, { cuts: cutsFor(k) }) : row.label; }
     function spots(k, slug, gameId, marketId) {
       var fit = {}, out = [];
       nextFits(k, slug, gameId).forEach(function(r) { fit[r.id] = 1; });
@@ -606,7 +624,7 @@
         if (!row || !row.def || row.teamOnly) return;
         var name = GROUP_OF[row.group] || ((REG.groups.filter(function(G) { return G.id === row.group; })[0] || {}).label) || '';
         if (!by[name]) { by[name] = []; order.push(name); }
-        var own = typeof row.def === 'function' ? row.def(C, { cuts: (src.totalCuts || {})[k] }) : row.def, id = 'split:' + row.id;
+        var own = typeof row.def === 'function' ? row.def(C, { cuts: cutsFor(k) }) : row.def, id = 'split:' + row.id;
         // a row whose wording depends on the season (total cuts) keeps its own
         var said = !defs || typeof row.def === 'function' || (defs.known || []).indexOf(id) === -1 ? own : ((defs.live || {})[id] || {}).short || '';
         by[name].push('<dt>' + esc(lab(row, k)) + '</dt><dd>' + esc(said) + '</dd>');
@@ -625,33 +643,55 @@
     var TEAM_GROUP = { ha: 'Matchup', spread: 'Matchup', size: 'Matchup', opp: 'Opponent', rank: 'Opponent',
                        tip: 'Schedule', drop: 'Schedule', ko: 'Schedule', rest: 'Schedule', prev: 'Bounce-back' };
     var TEAM_ORDER = ['Matchup', 'Opponent', 'Schedule', 'Bounce-back'];
-    var DOW = [[1, 'Mon'], [2, 'Tue'], [3, 'Wed'], [4, 'Thu'], [5, 'Fri'], [6, 'Sat'], [0, 'Sun']];
+    // DAY OF WEEK: the days the sport plays (football: its week, Thursday first), else Monday first
+    var DAY_NAME = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var PLAYS = { nfl: [4, 6, 0, 1], ncaaf: [2, 3, 4, 5, 6] }[src.sport] || [1, 2, 3, 4, 5, 6, 0];
+    var DOW = PLAYS.map(function(d) { return [d, DAY_NAME[d]]; });
     var ts = { col: 0, next: false };
-    // REST strips (team pages and the Splits page; not MLB): days off before
-    // the game, 0 = played yesterday. Football: short / normal week / extra
-    // rest. One strip for the team, one for the opponent, in the selected
-    // market; under 5 games a cell shows "-" with its record; the next game's
-    // cell (team pages) gets the purple outline.
-    var FOOTBALL = src.sport === 'nfl' || src.sport === 'ncaaf';
-    var REST_CELLS = FOOTBALL
-      ? [['Short week', function(d) { return d <= 4; }], ['Normal week', function(d) { return d === 5 || d === 6; }], ['Extra rest', function(d) { return d >= 7; }]]
-      : [['0 days · B2B', function(d) { return d === 0; }], ['1 day', function(d) { return d === 1; }], ['2 days', function(d) { return d === 2; }], ['3+ days', function(d) { return d >= 3; }]];
+    // REST strips (team pages and the Splits page), per sport (Stats
+    // consistency spec): football counts the days since the last game, the
+    // rest the days off (rest days = days between games minus 1). One strip
+    // for the team, one for the opponent, in the selected market; under 5
+    // games a cell shows "-" with its record; the next game's cell (team
+    // pages) gets the purple outline.
+    function between(lo, hi) { return function(d) { return d >= lo && d <= hi; }; }
+    var DAILY_REST = { field: 'restDays', cells: [['Back-to-back', between(0, 0)], ['1 day', between(1, 1)], ['2 days', between(2, 2)], ['3+ days', between(3, 999)]],
+      def: 'Back-to-back: played the day before (0 days off) · 1 day, 2 days, 3+ days: days off since the last game.' };
+    var REST = {
+      nfl: { field: 'rest', cells: [['Short week', between(0, 5)], ['Normal', between(6, 7)], ['Extra rest', between(8, 999)]],
+             def: 'Short week: under 6 days since the last game (e.g. Thursday after Sunday) · Normal: 6-7 days · Extra rest: 8+ days, incl. after a bye.' },
+      ncaaf: { field: 'rest', cells: [['Short week', between(0, 5)], ['Normal', between(6, 8)], ['Extra rest', between(9, 999)]],
+               def: 'Short week: under 6 days since the last game · Normal: 6-8 days · Extra rest: 9+ days, incl. after a bye.' },
+      ncaab: { field: 'restDays', cells: [['1 day', between(-1, 1)], ['2-3 days', between(2, 3)], ['4+ days', between(4, 999)]],
+               def: '1 day: 1 day off or fewer since the last game · 2-3 days · 4+ days off.' },
+      mlb: { field: 'restDays', cells: [['No off day', between(-1, 0)], ['After an off day', between(1, 999)]],
+             def: 'No off day: played the day before (or earlier the same day) · After an off day: 1 or more days off.' },
+    }[src.sport] || DAILY_REST;
+    var OPP_FIELD = { rest: 'oppRest', restDays: 'oppRestDays' };
     // on team pages the strips replace these rows
     var TEAM_SKIP = { tb2b: 1, nb2b: 1, b2b2: 1 };
-    // the next game's cell (the Splits page: today's) keeps a purple outline, no tag
-    function restHtml(pool, m, mHead, teamLabel, next, pctOf, recOf) {
-      if (src.sport === 'mlb') return '';
+    // one Day of week / Rest tile: label, %, record (the sample size), units
+    // (priced markets); tag: the team page's "Next game" chip
+    function dayTile(label, x, p, rec, units, on, tag) {
+      return '<div class="ts-day' + (on ? ' ts-today' : '') + '"><span class="ts-dl">' + esc(label) + '</span>' + (tag ? '<span class="sit-tn">' + tag + '</span>' : '') +
+        '<span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span><span class="ts-dr">' + (x.n ? rec : '') + '</span>' + (units || '') + '</div>';
+    }
+    // what the % leaves out, by market
+    function pctNote(id) { return id === 'su' ? ' Ties don’t count in the %.' : id === 'ats' || id === 'tot' ? ' Pushes don’t count in the %.' : ''; }
+    // the team's name for a sentence: the name on desktop, the code on phones
+    function possessive(n) { return esc(n) + (/s$/i.test(n) ? '’' : '’s'); }
+    function nameHtml2(nm) { return nm ? '<span class="ts-nm-d">' + possessive(nm.d) + '</span><span class="ts-nm-m">' + possessive(nm.m) + '</span> ' : ''; }
+    function restHtml(pool, m, mHead, next, pctOf, recOf, unitsOf, intro) {
       function strip(label, field) {
         var nv = next ? next[field] : null;
-        return '<p class="ts-rl">' + esc(label) + '</p><div class="ts-strip ts-strip-' + REST_CELLS.length + '">' + REST_CELLS.map(function(cell) {
+        return '<p class="ts-rl">' + esc(label) + '</p><div class="ts-strip ts-strip-' + REST.cells.length + '">' + REST.cells.map(function(cell) {
           var a = agg(pool.filter(function(e) { return e.c[field] != null && cell[1](e.c[field]); }), [m]), x = a[m.id], p = pctOf(x);
-          var on = nv != null && cell[1](nv);
-          return '<div class="ts-day' + (on ? ' ts-today' : '') + '"><span class="ts-dl">' + esc(cell[0]) + '</span><span class="ts-dp">' + (a.gp >= 5 && p != null ? p + '%' : '-') + '</span>' +
-            '<span class="ts-dr">' + (x.n ? '(' + recOf(m.id, x) + ')' : '') + '</span></div>';
+          return dayTile(cell[0], x, a.gp >= 5 ? p : null, recOf(m.id, x), a.gp >= 5 && unitsOf ? unitsOf(x) : '', nv != null && cell[1](nv));
         }).join('') + '</div>';
       }
       return '<div class="ts-dow ts-rest"><div class="ts-dow-head"><span class="ts-gl">Rest</span><span class="ts-dow-m">' + esc(mHead || '') + '</span></div>' +
-        strip(FOOTBALL ? (teamLabel ? teamLabel + ' rest' : 'Rest') : (teamLabel || 'Team') + ' rest', 'restDays') + strip('Opponent rest', 'oppRestDays') + '</div>';
+        (intro ? '<p class="ts-note">' + intro + '</p>' : '') +
+        strip('Team rest', REST.field) + strip('Opponent rest', OPP_FIELD[REST.field]) + '<p class="ts-note">' + esc(REST.def) + ' Opponent rest: the same buckets for the other team.</p></div>';
     }
     function teamView(box, view) {
       if (!box) return;
@@ -742,16 +782,17 @@
             '<span class="ts-val">' + cellHtml(sel, x.a.x[ts.col]) + '</span></li>';
         }).join('') + '</ul>';
       }).join('') + '</div>';
-      // DAY OF WEEK: Mon-Thu, then Fri-Sun, the selected market, the next game's day outlined
-      var nd = view.next && view.next.dow != null ? view.next.dow : null;
+      // DAY OF WEEK: the days the sport plays, the selected market; the next game's day gets the Next game tag
+      var nd = view.next && view.next.dow != null ? view.next.dow : null, m0 = ms[ts.col], nm = nameHtml2(view.name);
+      function tileUnits(x) { return unitsOf(sel, x).replace(/^ /, '').replace('class="ts-u', 'class="ts-u ts-du'); }
       var strip = DOW.map(function(d) {
-        var a = agg(pools[sel.k].filter(function(e) { return e.c.dow === d[0]; }), [ms[ts.col]]), x = a[sel.id], p = pctOf(x);
-        return '<div class="ts-day' + (d[0] === nd ? ' ts-today' : '') + '"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
-          '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
+        var x = agg(pools[sel.k].filter(function(e) { return e.c.dow === d[0]; }), [m0])[sel.id];
+        return dayTile(d[1], x, pctOf(x), recOf(sel.id, x), tileUnits(x), d[0] === nd, d[0] === nd ? 'Next game' : '');
       }).join('');
-      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.head) + '</span></div><div class="ts-strip ts-strip-dow">' + strip + '</div></div>';
+      h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.head) + '</span></div>' +
+        '<p class="ts-note">' + nm + esc(sel.short) + ' record by day of the week.' + pctNote(sel.id) + '</p><div class="ts-strip ts-strip-dow">' + strip + '</div></div>';
       var nextCtx = view.next ? upcoming[sel.k + '|' + view.next.id + '|' + view.slug] : null;
-      h += restHtml(pools[sel.k], ms[ts.col], sel.head, ((src.teams[view.slug] || {}).code || '').toUpperCase(), nextCtx, pctOf, recOf);
+      h += restHtml(pools[sel.k], m0, sel.head, nextCtx, pctOf, recOf, tileUnits, nm + esc(sel.short) + ' record by rest.' + pctNote(sel.id));
       box.innerHTML = h;
       box.querySelectorAll('[data-ts-col]').forEach(function(b) { b.onclick = function() { ts.col = +b.getAttribute('data-ts-col'); teamView(box, view); }; });
       box.querySelectorAll('[data-ts-next]').forEach(function(b) { b.onclick = function() { ts.next = b.getAttribute('data-ts-next') === '1'; teamView(box, view); }; });
@@ -770,7 +811,7 @@
     // the league's side rows: Home team, Favorite, Team with more rest (their
     // mirrors, Away / Underdog / Tired, say the same thing from the other side)
     var LEAGUE_NAME = { home: 'Home team', fav: 'Favorite', rested: 'Team with more rest', radv: 'Team with more rest', restadv: 'Team with more rest' };
-    function leagueSkip(id) { return { away: 1, dog: 1, tired: 1, rdis: 1, restdis: 1 }[id] || /^d\d+$/.test(id); }
+    function leagueSkip(id) { return { away: 1, dog: 1, tired: 1, rdis: 1, restdis: 1 }[id] || /^ds?\d+$/.test(id); }
     var LEAGUE_EXTRA = [
       { id: 'better', label: 'Better record team', short: 'Better record', group: 'opp', own: true, def: 'The team with the better win % going into the game.',
         test: function(c) { var a = c.w + c.l, b = c.oppW + c.oppL; return a && b && c.w / a > c.oppW / b; } }
@@ -789,6 +830,9 @@
       });
       var ms = markets.filter(function(m) { return m.label; });
       if (lg.col >= ms.length) lg.col = 0;
+      // a market with no games in this segment (MLB's F5 markets on the 1st inning): the first one that has some
+      function has(i) { return pool.some(function(e) { return e.r[ms[i].id] != null; }); }
+      if (!has(lg.col)) for (var mi = 0; mi < ms.length; mi++) if (has(mi)) { lg.col = mi; break; }
       var priced = ms.map(function(m) { return pool.some(function(e) { return e.r[m.id + 'U'] != null || e.r[m.id + 'A'] != null; }); });
       function pctOf(x) { var d = x.a + x.b; return d ? Math.round(100 * x.a / d) : null; }
       function recOf(id, x) {
@@ -848,17 +892,17 @@
             '<span class="ts-val">' + cellHtml(lg.col, x.a[sel.id]) + '</span></li>';
         }).join('') + '</ul>';
       }).join('') + '</div>';
-      // DAY OF WEEK: Mon-Thu, then Fri-Sun, in the selected market (home team's side); today outlined
-      var td = etParts(new Date().toISOString()).dow;
+      // DAY OF WEEK: the days the sport plays, in the selected market (home team's side); today outlined
+      var td = etParts(new Date().toISOString()).dow, si = lg.col;
+      function tileUnits(x) { return unitsOf(si, x).replace(/^ /, '').replace('class="ts-u', 'class="ts-u ts-du'); }
       var strip = DOW.map(function(d) {
-        var x = agg(pool.filter(function(e) { return e.c.home && e.c.dow === d[0]; }), [sel])[sel.id], p = pctOf(x);
-        return '<div class="ts-day' + (d[0] === td ? ' ts-today' : '') + '"><span class="ts-dl">' + d[1] + '</span><span class="ts-dp">' + (p == null ? '-' : p + '%') + '</span>' +
-          '<span class="ts-dr">' + (x.n ? '(' + recOf(sel.id, x) + ')' : '') + '</span></div>';
+        var x = agg(pool.filter(function(e) { return e.c.home && e.c.dow === d[0]; }), [sel])[sel.id];
+        return dayTile(d[1], x, pctOf(x), recOf(sel.id, x), tileUnits(x), d[0] === td);
       }).join('');
       h += '<div class="ts-dow"><div class="ts-dow-head"><span class="ts-gl">Day of week</span>' + pills('ts-pills-desk') + '<span class="ts-dow-m">' + esc(sel.pctHead || '') + '</span></div><div class="ts-strip ts-strip-dow">' + strip + '</div></div>';
       // REST: every team's side (the team, then its opponent)
-      h += restHtml(pool, sel, sel.pctHead, 'Team', null, pctOf, recOf) + '</div>';
-      h += '<p class="st-foot">Team rows count each team in the spot' + (PER ? ' (<sup>*</sup> one game can count twice)' : '') + '; matchup-wide rows and the day strip count the home team&rsquo;s side, the rest strips every team&rsquo;s. Units count games with a saved price.</p></div>';
+      h += restHtml(pool, sel, sel.pctHead, null, pctOf, recOf, tileUnits) + '</div>';
+      h += (PER ? '<p class="st-foot"><sup>*</sup> Per team: each team&rsquo;s game counts, so one game can count twice.</p>' : '') + '<p class="st-foot">Team rows count each team in the spot; matchup-wide rows and the day strip count the home team&rsquo;s side, the rest strips every team&rsquo;s. Units count games with a saved price.</p></div>';
       var locked = src.locked && src.locked();
       box.className = 'adv-section' + (locked ? ' locked' : '');
       box.innerHTML = h + (locked && src.lockHtml ? src.lockHtml() : '');
