@@ -31,6 +31,7 @@ from zoneinfo import ZoneInfo
 
 import definitions
 import books as books_cfg
+import h2h
 import icons
 import sports
 
@@ -737,6 +738,9 @@ def slate_card(sport, d, g, today, now, root, odds=False, show_sport=True, full=
     live_or_done = g.get('state') in ('in', 'final')
     a_sc, h_sc = (g.get('as'), g.get('hs')) if live_or_done else (None, None)
     href = f"{root}{sport.odds_page if odds else sport.matchups}" + (f"?week={g['wk']}" if sport.weekly and g.get('wk') else f'?date={d}')
+    pair = None if odds else h2h.path(sport.sp, sport.doc, g['away'], g['home'])
+    if pair:   # the game's head to head page (scripts/h2h.py)
+        href = root + pair.lstrip('/')
     sp_lbl = f'<span class="sl-sport">{icons.sport_icon(sport.sp)}{esc(sport.label)}</span>' if show_sport else ''
     return (f'<a class="st-card sl-card" href="{esc(href)}" data-sport="{sport.key}" data-day="{d}" data-start="{esc(g.get("start") or "")}"'
             f' data-state="{esc(g.get("state") or "pre")}"{" data-weekly" if sport.weekly else ""}>'

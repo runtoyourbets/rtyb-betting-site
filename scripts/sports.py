@@ -489,3 +489,18 @@ def segment_summary(sport):
     """'1st Quarter and 1st Half' -- for page descriptions."""
     labels = [seg['label'] for seg in sport['segments']]
     return labels[0] if len(labels) == 1 else ', '.join(labels[:-1]) + ' and ' + labels[-1]
+
+
+def team_slug(name):
+    """One team's part of a matchup URL: the pro nickname or the college
+    school's short name, lowercased (Miami (OH) -> miami-oh)."""
+    s = (name or '').lower().replace('&', ' and ')
+    s = re.sub(r"['.]", '', s)
+    return re.sub(r'[^a-z0-9]+', '-', s).strip('-')
+
+
+def matchup_slug(a, b):
+    """/{sport}/matchups/{a}-vs-{b}/: the two names in alphabetical order, so
+    both orders give the same page."""
+    x, y = sorted((team_slug(a), team_slug(b)))
+    return f'{x}-vs-{y}'

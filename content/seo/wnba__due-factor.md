@@ -13,6 +13,7 @@ The Due Factor tracks how the WNBA first quarter & first half markets are runnin
 - **On pace:** under 5 points from the season rate.
 - **Leaning hot / Leaning cold:** 5 to 9 points above or below.
 - **Hot / Cold:** 10 points or more.
+- **Small sample:** fewer than 15 graded games in the window, so no read yet.
 
 The Daily view adds last night's results, a day-by-day table and, on game days, the coldest side on today's games with the best price. The Weekly view shows every week of the regular season. A table cell 10+ points above its season rate is tinted.
 

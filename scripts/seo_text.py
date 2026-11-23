@@ -294,10 +294,19 @@ def crumbs(rel, sp, team_name=None):
             items.append(('Teams', f"{base}{sp['slug']}/teams/"))
             if team_name:
                 items.append((team_name, base + rel))
+        elif pair_page(rel):   # Matchups › Celtics vs Kings (scripts/h2h.py)
+            items.append(('Matchups', f"{base}{sp['slug']}/matchups/"))
+            items.append((team_name, base + rel))
         elif sub:
             items.append((PAGE_NAME.get(sub, sub.strip('/').title()), base + rel))
     return {'@type': 'BreadcrumbList', 'itemListElement': [
         {'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u} for i, (n, u) in enumerate(items)]}
+
+
+def pair_page(rel):
+    """/{sport}/matchups/{a}-vs-{b}/: a head to head page."""
+    parts = rel.strip('/').split('/')
+    return len(parts) == 3 and parts[1] == 'matchups' and '-vs-' in parts[2]
 
 
 def seo_site():
@@ -830,6 +839,8 @@ class Pass:
                 page_html = set_updated(page_html, when)
             graph += faq_graph(body)
             graph += home_graph() if rel == '' else [crumbs(rel, sp)] if sp else []
+        elif sp and pair_page(rel):   # its own title and description (scripts/h2h.py); the breadcrumb data
+            return page_html.replace('</head>', ld([crumbs(rel, sp, self.h1s.get(rel, '').split(':')[0])]) + '</head>', 1)
         else:
             return page_html
         self.counts['title'] += 1

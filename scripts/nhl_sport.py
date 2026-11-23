@@ -121,7 +121,7 @@ def doc(games_by_date, season_start, season_label, summary, divisions, colors, t
     for div, codes in divisions.items():
         for code in codes:
             name = (summary.get(code) or {}).get('name') or code
-            teams[code] = {'name': name, 'short': nickname(name), 'code': code, 'svg': 1,
+            teams[code] = {'name': name, 'short': nickname(name), 'mu': sports.team_slug(nickname(name)), 'code': code, 'svg': 1,
                            'color': (colors.get(code) or '').lstrip('#') or None,
                            'division': div, 'conference': CONFERENCE.get(div)}
     return {

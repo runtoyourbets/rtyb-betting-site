@@ -24,7 +24,8 @@ a row per game day of the meter's window, so its total row is the meter.
 
 The gap is the window's rate minus the season's, in points. Chip: under 5
 "On pace"; 5-9 "Leaning cold" (--heat-1) / "Leaning hot" (--heat-2); 10+
-"Cold" / "Hot" (--heat-3; 15+ --heat-4). A table cell is tinted when the
+"Cold" / "Hot" (--heat-3; 15+ --heat-4). Under MIN_GAMES graded games in
+the window there's no chip ("Small sample") and no strip entry. A table cell is tinted when the
 side it shows is 10+ points above its season rate: side markets the win
 fill, Over / Yes / YRFI warm; a total whose Under is 10+ above shows cool.
 """
@@ -40,6 +41,7 @@ from front import esc
 WINDOW_DAYS = 7
 TINT = 10        # points above the season rate that tint a cell
 STRIP_MIN = 10   # the home / hub strip: only gaps this big
+MIN_GAMES = 15   # fewer graded games in the window: "Small sample", no strip entry
 
 
 # ---------------------------------------------------------------- markets
@@ -254,8 +256,10 @@ def pts(win, season):
     return None if win is None or season is None else round(100 * (win - season))
 
 
-def chip(gap):
-    """(text, heat class) for a gap of the measured side."""
+def chip(gap, n=None):
+    """(text, heat class) for a gap of the measured side over n graded games."""
+    if n is not None and n < MIN_GAMES:
+        return 'Small sample', ''
     if gap is None or abs(gap) < 5:
         return 'On pace', ''
     if abs(gap) < 10:
@@ -429,7 +433,7 @@ def rec_txt(m, c):
 
 
 def meter_card(m, w, s, gap, when):
-    text, heat = chip(gap)
+    text, heat = chip(gap, w.n)
     fill = 0 if w.rate is None else round(100 * w.rate)
     tick = None if s.rate is None else round(100 * s.rate)
     gap_txt = '-' if gap is None else f'{"+" if gap > 0 else ""}{gap} pts'
@@ -574,7 +578,7 @@ def page_meta(sp):
 # --------------------------------------------------------- home / hub strip
 def strip_item(sp, today):
     """(text, gap, href) for the sport's biggest gap in its default view, or
-    None under STRIP_MIN."""
+    None under STRIP_MIN (markets with MIN_GAMES+ games in the window)."""
     d = data(sp, today)
     if d['off']:
         return None
@@ -582,7 +586,7 @@ def strip_item(sp, today):
     best = None
     for g in d['groups']:
         for m, w, s, gap in g[view]:
-            if gap is not None and (best is None or abs(gap) > abs(best[1])):
+            if gap is not None and w.n >= MIN_GAMES and (best is None or abs(gap) > abs(best[1])):
                 best = (m, gap)
     if not best or abs(best[1]) < STRIP_MIN:
         return None

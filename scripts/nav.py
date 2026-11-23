@@ -136,9 +136,18 @@ def index_row(base, key, sps):
             f'<nav class="hr2-links hr2-sports{" hr2-many" if n > 5 else ""}" aria-label="Sports">{links}</nav></div></div>')
 
 
+PHONE_PAGE_NAMES = {'due': 'Due'}   # the sport row on phones: "Due" for Due Factor
+
+
+def _page_name(sec, label):
+    if sec not in PHONE_PAGE_NAMES:
+        return esc(label)
+    return f'<span class="nm-full">{esc(label)}</span><span class="nm-abbr">{esc(PHONE_PAGE_NAMES[sec])}</span>'
+
+
 def sport_row(base, sp, section):
     """Row 2 on a sport page: the sport (its hub), then its pages."""
-    links = ''.join(f'<a class="hr2-link" href="{href}"{CUR if sec == section or (sec, section) == ("picks", "preview") else ""}>{esc(label)}</a>'
+    links = ''.join(f'<a class="hr2-link" href="{href}"{CUR if sec == section or (sec, section) == ("picks", "preview") else ""}>{_page_name(sec, label)}</a>'
                     for sec, label, href in _pages(base, sp))
     return (f'<div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="{base}{sp["slug"]}/">{icons.sport_icon(sp)}{_names(sp)}</a>'
             f'<nav class="hr2-links hr2-pages" aria-label="{esc(sp["menu_label"])} pages">{links}</nav></div></div>')
@@ -229,6 +238,13 @@ JS = '''
         document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
       });
     });
+  });
+  // the sport row on phones fades at the right edge until it's scrolled to the end
+  document.querySelectorAll('.hr2-pages').forEach(function(r) {
+    function edge() { r.classList.toggle('hr2-end', r.scrollLeft + r.clientWidth >= r.scrollWidth - 2); }
+    r.addEventListener('scroll', edge, { passive: true });
+    window.addEventListener('resize', edge);
+    edge();
   });
   // dark is the default; the choice is kept on the device
   var root = document.documentElement, tb = document.querySelector('.hn-theme');

@@ -1295,6 +1295,8 @@ def build(sp, teams_list, now_utc=None):
         'trendRules': trend_rules.for_page(),
         'trends': {d: e for d, e in trends.items()},
     }
+    for t in doc['teams'].values():   # the head to head pages' URL names (sports.matchup_slug)
+        t['mu'] = sports.team_slug(t.get('short') or t.get('name'))
     if sp['key'] == 'ncaaf':
         # Situational Results: conference membership by season, rivalries
         doc['conf'] = season_file('conferences', 'ncaaf', current)
@@ -1360,6 +1362,8 @@ def build(sp, teams_list, now_utc=None):
     write_odds_page(sp, slug_dir, now_utc, odds_schedule, weeks=odds_weeks)
     import hub   # the Arena hub (/{slug}/): Matchup of the Day, after the odds files it prices from
     hub.build(sp, doc, trends_doc, slug_dir, now_utc)
+    import h2h   # the head to head pages' angle ({slug}/h2h.json)
+    h2h.build_data(sp, doc, trends_doc, slug_dir, now_utc)
     today = now_utc.astimezone(ET).date().isoformat()
     return {'season': current, 'seasonLabel': doc['seasonLabel'], 'games': len(games), 'graded': sum(1 for g in games if g.get('final')),
             'today': len(by_date.get(today, []))}

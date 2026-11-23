@@ -190,6 +190,11 @@
       return Object.keys(o).some(function(m) { var v = o[m]; return v != null && (typeof v !== 'object' || Object.keys(v).some(function(s) { return v[s] != null; })); });
     });
   }
+  // the same for one segment, the Full Run's included (team Game Log)
+  function segLined(g, k) {
+    var o = segOdds(g, k) || {};
+    return Object.keys(o).some(function(m) { var v = o[m]; return v != null && (typeof v !== 'object' || Object.keys(v).some(function(s) { return v[s] != null; })); });
+  }
   // W (won) / L (lost) / P (tie or push) -> the cell's highlight
   function resultCls(r) { return r === 'W' ? ' mc-w' : r === 'L' ? ' mc-l' : r === 'P' ? ' mc-p' : ''; }
   // Total, BTTS and NRFI/YRFI cells are never win/loss colored: the outcome
@@ -266,7 +271,8 @@
     return '<div class="game-card mc" data-game="' + esc(g.id) + '" style="--mc-n:' + cols.length + '">' +
       '<table class="mc-grid"><thead><tr><th scope="col" class="mc-st">' + cardStatus(g, k) + '</th>' +
       cols.map(function(c) { return '<th scope="col"><span class="mk-h">' + esc(c[1]) + '</span></th>'; }).join('') + '</tr></thead>' +
-      '<tbody>' + teamRow(g.away, 0) + teamRow(g.home, 1) + tie + '</tbody></table>' + fullGameRow(g) + '</div>';
+      '<tbody>' + teamRow(g.away, 0) + teamRow(g.home, 1) + tie + '</tbody></table>' + fullGameRow(g) +
+      (h2hUrl(g.away, g.home) && SECTION !== 'h2h' ? '<a class="mc-more" href="' + h2hUrl(g.away, g.home) + '">Full matchup &rarr;</a>' : '') + '</div>';
   }
 
   var GAME_INDEX = null, GAME_DAY = {};
@@ -984,7 +990,8 @@
         esc(new Date(g.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })) + ' ET</h4></div>' +
         '<div class="tp-ng">' + teams + (where ? '<p class="tp-where">' + where + '</p>' : '') + '</div>' +
         '<div id="tpOdds">' + oddsBlocks(g, null, null) + '</div>' +
-        '<div class="fr-links"><a class="fr-more" href="' + href + '">All odds for this game &rarr;</a></div></div>');
+        '<div class="fr-links">' + (h2hUrl(g.away, g.home) ? '<a class="fr-more" href="' + h2hUrl(g.away, g.home) + '">Full matchup &rarr;</a>' : '') +
+        '<a class="fr-more" href="' + href + '">All odds for this game &rarr;</a></div></div>');
     }
     // the team's side in a market: its own (ML, spread, 3-way), else the
     // side its season leans to (Over / Under, BTTS Yes / No, NRFI / YRFI).
@@ -1349,12 +1356,18 @@
       var k = tm.logK && anySeg(tm.logK) ? tm.logK : segs[0].key;
       var ms = frSeg(k) ? (k === '2p' || k === '3p' ? [{ k: k, m: 'per' }] : frMarkets(k)) : tmMarkets(k), sk = k;
       var locked = !!frSeg(k) && premiumLocked('fullRun');
-      var list = finals.slice().reverse(), shown = list.slice(0, TP.log);
+      // only games with a saved line for the segment (CLAUDE.md); the NHL
+      // periods have no lines, and the 2nd Half keeps every game while its
+      // row still shows only won / lost the 2H (frRows)
+      var all = k === '2p' || k === '3p' || k === '2h' && frMarkets('2h').some(function(p) { return tmAgg(slug, p.k, p.m, 'all', graded).gp < FR_MIN; });
+      var list = finals.filter(function(g) { return all || segLined(g, k); }).reverse(), shown = list.slice(0, TP.log);
       var rows = shown.map(function(g) {
         var home = g.home === slug, opp = home ? g.away : g.home;
         var fin = g.as != null && g.hs != null ? (home ? g.hs + '-' + g.as : g.as + '-' + g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '-';
         var oppHtml = '<span class="tp-vs">' + (home ? 'vs' : '@') + '</span>' + badge(opp, 20) + '<span class="tp-oc">' + esc(tcode(opp)) + '</span>';
-        return '<tr><td class="tp-d"><span class="tn-full">' + esc(shortDate(g)) + '</span><span class="tn-short">' + esc(numDate(g)) + '</span></td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) + '</td>' +
+        var pair = h2hUrl(slug, opp);
+        return '<tr><td class="tp-d"><span class="tn-full">' + esc(shortDate(g)) + '</span><span class="tn-short">' + esc(numDate(g)) + '</span></td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) +
+          (pair ? '<a class="tp-h2h" href="' + pair + '" title="Head to head"><span class="tn-full">Head to head</span><span class="tn-short">H2H</span></a>' : '') + '</td>' +
           '<td class="num tp-sc">' + (tmScore(g, sk, slug) || '-') + '</td>' + ms.map(function(p) { return '<td class="tp-lc">' + logCell(g, p) + '</td>'; }).join('') +
           '<td class="num tp-fin">' + fin + '</td></tr>';
       }).join('');
@@ -1367,7 +1380,7 @@
         '<th class="num tp-fin">Final</th></tr>';
       var table = lockFrom(['<div class="st-card tp-card tp-log"><table class="tp-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>'], locked ? 0 : 1, 'fullRun');
       return tmSection('Game Log', segBtns + (list.length ? table + (locked ? '' : more)
-        : emptyNote('No games played yet.')), 'tmLog', tpFinalNote());
+        : emptyNote(finals.length ? 'No games with a ' + segTag(k) + ' line yet.' : 'No games played yet.')), 'tmLog', tpFinalNote());
     }
     // a game log cell: ML, 3-way and spread / run line show the page team's
     // own side and price, graded from its side; Total, BTTS and NRFI the side
@@ -3238,14 +3251,17 @@
   }
   var MKT_WORD = { ml: 'moneyline', ml3: '3-way moneyline', ats: 'spread', total: 'total', btts: 'BTTS', rfi: 'NRFI / YRFI' };
   var YN_SIDES = { total: ['over', 'under'], btts: ['yes', 'no'], rfi: ['yrfi', 'nrfi'] };
-  function renderOdds() {
+  // one: {box, day, away, home} draws one game's table into box (the head to
+  // head page): no date bar, the segment and market tabs only
+  function renderOdds(one) {
+    var box = one ? one.box : app;
     fetch(ROOT + SPORT_SLUG + '/odds.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(O) {
       // NHL's data.json has its own shape: its odds.json carries what this page needs
       if (O && O.segments && !(D && D.segments)) D = { sport: O.sport, label: O.label, sportType: O.sportType, segments: O.segments, teams: O.teams || {}, otherTeams: {} };
       if (!D) return;
       var dates = O ? Object.keys(O.days || {}).sort() : [];
-      if (!dates.length) { app.innerHTML = emptyNote('No ' + esc(D.label) + ' games on the schedule yet.'); return; }
-      var weeks = O.calendar === 'weekly' && (O.weeks || []).length ? O.weeks : null;
+      if (!dates.length) { box.innerHTML = emptyNote('No ' + esc(D.label) + ' games on the schedule yet.'); return; }
+      var weeks = !one && O.calendar === 'weekly' && (O.weeks || []).length ? O.weeks : null;
       var sources = O.sources || {}, order = O.order || [];
       var cache = {};
       function load(ds) {
@@ -3263,7 +3279,7 @@
         var wantW = new URLSearchParams(location.search).get('week');
         cur = keys.indexOf(wantW) !== -1 ? wantW : thisWeek;
       } else {
-        var want = urlDate();
+        var want = one ? one.day : urlDate();
         cur = want || defaultDate(dates);
       }
       function slate() {
@@ -3344,7 +3360,9 @@
           // timeET already names the day in week view
           var day = weeks && g.start && !(D && D.schedule === 'week') ? new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }) + ' ' : '';
           // every game's time row carries Open and the book logos, over their columns
-          return '<tbody class="ob-game" id="og-' + esc(g.away) + '-' + esc(g.home) + '"><tr class="ob-ghead"><th scope="col" class="ob-c-team"><span class="ob-time">' + esc(day) + (g.start ? esc(timeET(g.start)) : 'TBD') + oddsStatus(g) + '</span></th>' +
+          var pair = one ? null : h2hUrl(g.away, g.home);
+          return '<tbody class="ob-game" id="og-' + esc(g.away) + '-' + esc(g.home) + '"><tr class="ob-ghead"><th scope="col" class="ob-c-team"><span class="ob-time">' + esc(day) + (g.start ? esc(timeET(g.start)) : 'TBD') + oddsStatus(g) + '</span>' +
+            (pair ? '<a class="ob-h2h" href="' + pair + '">Matchup &rarr;</a>' : '') + '</th>' +
             '<th scope="col" class="ob-c-open">' + (g.close ? 'Close' : 'Open') + '</th>' + cols.map(function(b) { return '<th scope="col" class="ob-src">' + head(b) + '</th>'; }).join('') + '</tr>' + rows + '</tbody>';
         }).join('');
         return '<div class="ob-scroll" id="obBody"><table class="ob-grid" style="--n:' + cols.length + '">' + colgroup(cols) + body + '</table></div>';
@@ -3355,6 +3373,7 @@
         docs.forEach(function(doc) { (doc.games || []).forEach(function(g) { games.push(g); }); });
         // a game with no line in any of the segment's markets doesn't show
         games = games.filter(function(g) { var s = (g.books || {})[k] || {}; return Object.keys(s).some(function(m) { return s[m] && Object.keys(s[m]).length; }); });
+        if (one) games = games.filter(function(g) { return g.away === one.away && g.home === one.home; });
         // football weeks: finished games drop to the bottom, in start order
         if (weeks) games = games.filter(function(g) { return g.state !== 'final'; }).concat(games.filter(function(g) { return g.state === 'final'; }));
         if (!ms.some(function(x) { return x[1] === MKT_CUR; })) {
@@ -3366,13 +3385,14 @@
         var m = mk ? mk[1] : null;
         var lined = mk && games.some(function(g) { var b = ((g.books || {})[k] || {})[m]; return b && Object.keys(b).length; });
         var cols = games.length ? columns(games, k, m) : [];
-        var html = weeks ? weekBar(weeks, cur, thisWeek) : dateBar(cur, dates, true);
+        var html = one ? '' : weeks ? weekBar(weeks, cur, thisWeek) : dateBar(cur, dates, true);
         html += '<div class="ob-stick" id="obStick"><div class="sport-seg-row odds-controls">' + (D.segments.length > 1 ? segToggle('pageSeg', k) : '') +
           '<div class="seg-toggle" id="oddsMkt">' + ms.map(function(x) {
             return '<button class="seg-btn" data-mkt="' + x[1] + '" aria-pressed="' + (x[1] === MKT_CUR) + '">' + esc(pillLabel(x)) + '</button>';
           }).join('') + '</div></div></div>';
         var first = slate()[0];
-        if (!games.length) {
+        if (!games.length && one) html += '<p class="tp-none">No ' + esc(seg(k).label) + ' lines for this game.</p>';
+        else if (!games.length) {
           var days = dates.filter(function(d) { return O.days[d]; }), sched = slate().some(function(d) { return O.days[d]; });
           if (weeks) {
             WEEK_ORDER = weeks.map(function(w) { return w.key; });
@@ -3386,7 +3406,14 @@
           html += table(games, k, m, mk ? mk[3] : 'side', cols, lined);
         }
         if (m === 'btts') html += '<p class="odds-note">Both teams to score in the 1st period. BTTS isn&rsquo;t on our odds feed, so our team enters ' + (cols[0] && cols[0] !== 'consensus' ? esc(name(cols[0])) + '&rsquo;s price' : 'a consensus price across the books') + '.</p>';
-        app.innerHTML = html;
+        box.innerHTML = html;
+        if (one) {
+          wireTips(box);
+          var ops = box.querySelector('#pageSeg');
+          if (ops) ops.onclick = function(e) { var b = e.target.closest('[data-seg]'); if (b) { setSeg(b.getAttribute('data-seg')); show(); } };
+          box.querySelector('#oddsMkt').onclick = function(e) { var b = e.target.closest('[data-mkt]'); if (b) { MKT_CUR = b.getAttribute('data-mkt'); show(); } };
+          return;
+        }
         wireNoGames(go);
         stickBelowNav(document.getElementById('obStick'));
         wireTips(app);
@@ -3408,14 +3435,378 @@
       function show() { load(slate()).then(draw); }
       show();
     }).catch(function(e) {
-      app.innerHTML = emptyNote('Couldn&rsquo;t load the odds. Try reloading.');
+      box.innerHTML = emptyNote('Couldn&rsquo;t load the odds. Try reloading.');
       if (window.console) console.error(e);
+    });
+  }
+
+  // ------------------------------------------------- head to head page
+  // /{sport}/matchups/{a}-vs-{b}/ (scripts/h2h.py writes the page, its
+  // breadcrumb and H1, and last season's meetings as #h2hPrev). Top to
+  // bottom: the header (the next meeting, else the last), best lines now
+  // (after the game: the closing lines and the result), the angle, side by
+  // side in tonight's roles, head to head, streaks and Last 5, scoring,
+  // situational spots, the Odds page's table for the game, the Preview link.
+  // Phones: a tab row under the header (Overview · Odds · H2H · Trends).
+  function h2hUrl(a, b) {
+    var ta = D.teams[a], tb = D.teams[b];
+    if (!ta || !tb || !ta.mu || !tb.mu || a === b) return null;
+    var x = [ta.mu, tb.mu].sort();
+    return ROOT + SPORT_SLUG + '/matchups/' + x[0] + '-vs-' + x[1] + '/';
+  }
+  var H2 = { k: null, prev: [], label: '', og: null, sources: {}, data: null };
+  function h2K() { return H2.k && seg(H2.k) ? H2.k : D.segments[0].key; }
+  // the segment's side market: the spread (NHL the ML, MLB's 1st inning NRFI)
+  function h2Main(k) {
+    var ms = tmMarkets(k).map(function(p) { return p.m; });
+    return ms.indexOf('ats') !== -1 ? 'ats' : ms.indexOf('ml') !== -1 ? 'ml' : ms[0];
+  }
+  function h2Finals(slug) { return teamGames(slug).filter(function(g) { return g.state === 'final'; }); }
+  function h2Day(g) { return gameDay(g) || (g.start ? new Date(g.start).toLocaleDateString('en-CA', { timeZone: 'America/New_York' }) : ''); }
+  function h2LongDate(g) {
+    if (!g.start) return '';
+    var o = { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'America/New_York' };
+    if (!findGame(g.id)) o.year = 'numeric';   // last season's
+    return new Date(g.start).toLocaleDateString('en-US', o);
+  }
+  function h2Rec(a, m) { return !a.gp ? '-' : a.w + '-' + a.l + (a.t ? '-' + a.t : ''); }
+  function h2Cell(ln, pr, cls) {
+    return '<span class="cell tp-rc' + (cls ? ' tp-rc-' + cls : '') + '"><span class="ob-ln">' + esc(ln) + '</span>' + (pr != null ? '<span class="ob-pr">' + esc(pr) + '</span>' : '') + '</span>';
+  }
+  var H2_DASH = '<span class="cell tp-rc"><span class="mc-dash">-</span></span>';
+  // full-game W-L (OT and shootouts included, as books grade it)
+  function h2Record(slug) {
+    var w = 0, l = 0, t = 0;
+    h2Finals(slug).forEach(function(g) {
+      if (g.as == null || g.hs == null) return;
+      var mine = g.home === slug ? g.hs : g.as, th = g.home === slug ? g.as : g.hs;
+      if (mine > th) w++; else if (mine < th) l++; else t++;
+    });
+    return w + '-' + l + (t ? '-' + t : '');
+  }
+  // "Back-to-back · Game 3 of a road trip"
+  function h2Rest(G, slug) {
+    if (!findGame(G.id)) return '';
+    var list = teamGames(slug), i = list.map(function(g) { return g.id; }).indexOf(G.id), out = [];
+    if (i < 1) return '';
+    var n = Math.round((Date.parse(h2Day(G) + 'T12:00:00Z') - Date.parse(h2Day(list[i - 1]) + 'T12:00:00Z')) / 864e5);
+    out.push(n === 0 ? 'Doubleheader' : n === 1 ? 'Back-to-back' : (n - 1) + (n === 2 ? ' day off' : ' days off'));
+    if (!G.neutral) {
+      var home = G.home === slug, run = 1;
+      for (var j = i - 1; j >= 0 && !list[j].neutral && (list[j].home === slug) === home; j--) run++;
+      out.push(run > 1 ? 'Game ' + run + ' of a ' + (home ? 'home stand' : 'road trip') : home ? 'Back home' : 'Starts a road trip');
+    }
+    return out.join(' &middot; ');
+  }
+  function h2Header(G, which) {
+    var fin = G.state === 'final' && G.as != null && G.hs != null;
+    var when = which === 'next' ? (h2Day(G) === todayET() ? 'Today' : h2LongDate(G)) + (G.start ? ' ' + timeET(G.start).replace(/^.* · /, '') : '') : h2LongDate(G) + ' &middot; Final' + (G.ot ? ' ' + esc(G.ot) : '');
+    var col = function(slug, i) {
+      var recs = D.segments.filter(function(s) { return tmMarkets(s.key).length; }).map(function(s) {
+        var m = h2Main(s.key);
+        return esc(tpName({ k: s.key, m: m })) + ' ' + h2Rec(tmAgg(slug, s.key, m, 'all', h2Finals(slug)), m);
+      });
+      if (D.sportType === 'baseball') recs = recs.slice(-1);   // F5 run line
+      var rest = which === 'next' ? h2Rest(G, slug) : '';
+      return '<div class="h2h-team">' + badge(slug, 48) + '<div class="h2h-tw"><span class="h2h-tn">' + teamLink(slug, nameHtml(slug)) +
+        (fin ? ' <span class="tp-lg-pts">' + (i ? G.hs : G.as) + '</span>' : '') + '</span>' +
+        '<span class="h2h-rec">' + h2Record(slug) + ' &middot; ' + recs.join(' &middot; ') + '</span>' +
+        (rest ? '<span class="h2h-rest">' + rest + '</span>' : '') + '</div></div>';
+    };
+    var where = [G.ven, (G.tv || []).join(', ')].filter(Boolean).map(esc).join(' &middot; ');
+    return '<div class="st-card h2h-head"><div class="st-head"><h4>' + (which === 'next' ? (G.state === 'in' ? 'Live' : 'Next meeting') : 'Last meeting') + ' &middot; ' + when + '</h4></div>' +
+      '<div class="h2h-teams">' + col(G.away, 0) + '<span class="tp-at">@</span>' + col(G.home, 1) + '</div>' +
+      (where ? '<p class="tp-where">' + where + '</p>' : '') + '</div>' +
+      '<nav class="h2h-tabs" aria-label="Sections"><a href="#h2Over">Overview</a><a href="#h2Odds">Odds</a><a href="#h2Meet">H2H</a><a href="#h2Trends">Trends</a></nav>';
+  }
+  // the best price per segment, market and side, its book and the open
+  function h2BestBlocks(G) {
+    var og = H2.og, sources = H2.sources;
+    if (!og) return '<p class="tp-none">Lines not posted yet.</p>';
+    function book(k, mk, s, v, m) {
+      var rows = (((og.books || {})[k] || {})[mk]) || {}, id = null;
+      ['book', 'exch', 'consensus'].forEach(function(pass) {
+        Object.keys(rows).forEach(function(b) {
+          if (id || (sources[b] || {}).nb || (b === 'consensus') !== (pass === 'consensus')) return;
+          if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
+          var r = rows[b], x = r && r[s], xp = x && typeof x === 'object' ? x.price : x;
+          if (xp !== v.price) return;
+          if (m === 'ats' && x.line !== v.line) return;
+          if (m === 'total' && r.line !== v.line) return;
+          id = b;
+        });
+      });
+      var src = id ? sources[id] || {} : null;
+      if (!src) return '';
+      return src.logo ? '<img class="sl-book" src="' + ROOT + esc(src.logo) + '" alt="' + esc(src.name || id) + '" title="' + esc(src.name || id) + '" loading="lazy">' : '<span class="sl-bname">' + esc(src.name || id) + '</span>';
+    }
+    function val(o, m, s) {
+      if (!o) return null;
+      if (m === 'ats') return o[s] && typeof o[s].line === 'number' ? { line: o[s].line, price: o[s].price, ln: signedLine(o[s].line) } : null;
+      if (m === 'total') return o[s] != null ? { line: o.line, price: o[s], ln: (s === 'over' ? 'o' : 'u') + num1(o.line) } : null;
+      return o[s] != null ? { line: null, price: o[s], ln: priceTxt(o[s]) } : null;
+    }
+    function sideLabel(m, s) {
+      if (s === 'away' || s === 'home') return tcode(G[s]);
+      return { draw: 'Tie', over: 'Over', under: 'Under', yes: 'Yes', no: 'No', nrfi: 'NRFI', yrfi: 'YRFI' }[s];
+    }
+    var rows = D.segments.filter(function(s) { return tmMarkets(s.key).length; }).map(function(sg) {
+      var k = sg.key;
+      var blocks = tmMarkets(k).map(function(p) {
+        var m = p.m, mk = m === 'rfi' ? 'nrfi_yrfi' : m;
+        var best = ((og.best || {})[k] || {})[mk], open = og.close ? null : ((og.open || {})[k] || {})[mk];
+        var sides = m === 'ml3' ? ['away', 'draw', 'home'] : m === 'total' ? ['over', 'under'] : m === 'btts' ? ['yes', 'no'] : m === 'rfi' ? ['nrfi', 'yrfi'] : ['away', 'home'];
+        var html = sides.map(function(s) {
+          var v = val(best, m, s), o = val(open, m, s);
+          if (!v) return '';
+          return '<div class="h2h-side"><span class="h2h-sl">' + esc(sideLabel(m, s)) + '</span><span class="tp-book">' + book(k, mk, s, v, m) + '</span>' +
+            '<span class="cell tp-best"><span class="ob-ln">' + esc(v.ln) + '</span>' + (m === 'ats' || m === 'total' ? '<span class="ob-pr">' + esc(priceTxt(v.price)) + '</span>' : '') + '</span>' +
+            '<span class="h2h-open">' + (o ? 'Open ' + esc(o.ln) + (m === 'ats' || m === 'total' ? ' ' + esc(priceTxt(o.price)) : '') : og.close ? 'Close' : '') + '</span></div>';
+        }).join('');
+        return html ? '<div class="h2h-mk"><span class="tp-gl">' + esc(tpName(p)) + '</span>' + html + '</div>' : '';
+      }).filter(Boolean);
+      return blocks.length ? '<div class="tp-orow"><span class="tp-oseg">' + esc(k === '1i' ? '1st Inning' : sg.tag) + '</span><div class="h2h-mks">' + blocks.join('') + '</div></div>' : '';
+    }).filter(Boolean);
+    return rows.length ? '<div class="tp-odds">' + rows.join('') + '</div>' : '<p class="tp-none">Lines not posted yet.</p>';
+  }
+  function h2Lines(G) {
+    if (G.state === 'pre') return '<div class="st-card tp-card" id="h2Best">' + h2BestBlocks(G) + '</div>';
+    // live or final: the Matchups card (the closing lines, the result by highlight)
+    var ks = D.sportType === 'baseball' ? ['f5'] : D.segments.map(function(s) { return s.key; });
+    return '<div class="h2h-cards">' + ks.map(function(k) {
+      return (ks.length > 1 ? '<p class="tp-gl">' + esc(seg(k).label) + '</p>' : '') + gameCard(G, k);
+    }).join('') + '</div>';
+  }
+  // the angle: the game's trends by bet, the most agreeing first; the
+  // RTYB badge when 2+ agree (scripts/h2h.py, the Matchups trends' rules)
+  function h2Angle(G) {
+    var bets = ((H2.data || {}).angle || {})[String(G.id)];
+    if (!bets || !bets.length) return '<p class="tp-none">No trends for this game yet.</p>';
+    return '<div class="st-card h2h-angle">' + bets.map(function(b) {
+      return '<div class="h2h-bet"><div class="h2h-bh"><span class="t-label">' + esc(b.bet) + '</span>' +
+        (b.n >= 2 ? '<span class="h2h-badge">RTYB</span><span class="tr-agree">' + b.n + ' trends agree</span>' : '') + '</div>' +
+        '<ul class="h2h-tl">' + b.trends.map(function(t) { return '<li><span>' + esc(t.t) + '</span><span class="h2h-tr">' + esc(t.r) + '</span></li>'; }).join('') + '</ul></div>';
+    }).join('') + '</div>';
+  }
+  // side by side: the away team on the road, the home team at home, in the
+  // segment's markets; its fav / dog role; the last 10; units
+  function h2Side(G, k) {
+    var fav = segFavSide(G, k), main = h2Main(k);
+    function role(side) { return (fav ? (fav === side ? (side === 'home' ? 'Home fav' : 'Road fav') : (side === 'home' ? 'Home dog' : 'Road dog')) : (side === 'home' ? 'Home' : 'Road')); }
+    function cell(a, m) {
+      if (!a.gp) return '-';
+      return '<span class="h2h-pct">' + tmPct(a.pct) + '</span> <span class="tp-hr2">(' + h2Rec(a, m) + ')</span>' + (a.priced ? ' ' + tmUnits(a) : '');
+    }
+    var sides = ['away', 'home'];
+    var rows = tmMarkets(k).map(function(p) {
+      return '<tr><th scope="row">' + esc(tpName(p)) + '</th>' + sides.map(function(sd) {
+        return '<td class="num">' + cell(tmAgg(G[sd], k, p.m, sd, h2Finals(G[sd])), p.m) + '</td>'; }).join('') + '</tr>';
+    });
+    if (fav) {
+      rows.push('<tr><th scope="row">' + esc(tpName({ k: k, m: main })) + ' as ' + '<span class="tn-full">tonight&rsquo;s role</span><span class="tn-short">role</span></th>' + sides.map(function(sd) {
+        var slug = G[sd], games = h2Finals(slug).filter(function(g) { return g[sd] === slug && (segFavSide(g, k) === sd) === (fav === sd); });
+        return '<td class="num">' + cell(tmAgg(slug, k, main, sd, games), main) + '</td>';
+      }).join('') + '</tr>');
+    }
+    rows.push('<tr><th scope="row">' + esc(tpName({ k: k, m: main })) + ', last 10</th>' + sides.map(function(sd) {
+      var slug = G[sd], games = h2Finals(slug).filter(function(g) { return tmBet(g, k, main, slug); }).slice(-10);
+      return '<td class="num">' + cell(tmAgg(slug, k, main, 'all', games), main) + '</td>';
+    }).join('') + '</tr>');
+    var head = '<tr><th></th>' + sides.map(function(sd) {
+      return '<th class="num"><span class="h2h-th">' + badge(G[sd], 20) + esc(tcode(G[sd])) + '</span><span class="h2h-role">' + role(sd) + '</span></th>';
+    }).join('') + '</tr>';
+    return '<div class="st-card tp-card h2h-sbs h2h-x"><table class="tp-table"><thead>' + head + '</thead><tbody>' + rows.join('') + '</tbody></table></div>' +
+      '<p class="tp-foot">Records in tonight&rsquo;s spots: ' + esc(tcode(G.away)) + ' on the road, ' + esc(tcode(G.home)) + ' at home' + (fav ? ', the role from the ' + esc(segTag(k)) + ' line' : '') + '.</p>';
+  }
+  // one graded cell of a meeting: the side that settled the bet ("-" when no line)
+  function h2MeetCell(g, k, m) {
+    var r = segRes(g, k) || {}, o = segOdds(g, k) || {};
+    if (!r.sc || r.na) return H2_DASH;
+    if (m === 'ats') {
+      if (!r.ats || r.ats === 'NA' || !o.ats) return H2_DASH;
+      var s = r.ats === 'L' ? 'home' : 'away', a = o.ats[s] || {};
+      return typeof a.line === 'number' ? h2Cell(tcode(g[s]) + ' ' + signedLine(a.line), a.price != null ? priceTxt(a.price) : null, r.ats === 'P' ? 'p' : 'w') : H2_DASH;
+    }
+    if (m === 'ml' || m === 'ml3') {
+      var ml = m === 'ml3' ? o.ml3 : o.ml;
+      if (!ml || !r.su || r.su === 'NA') return H2_DASH;
+      if (r.su === 'T') return m === 'ml3' ? h2Cell('Tie', priceTxt(ml.draw), 'w') : h2Cell('Tie', null, 'p');
+      var w = r.su === 'W' ? 'away' : 'home';
+      return h2Cell(tcode(g[w]), priceTxt(ml[w]), 'w');
+    }
+    if (m === 'total') {
+      var t = o.total;
+      if (!t || !r.tot || r.tot === 'NA') return H2_DASH;
+      var ln = typeof t.line === 'number' ? ' ' + num1(t.line) : '';
+      return r.tot === 'P' ? h2Cell('Push' + ln, null, 'p') : h2Cell((r.tot === 'O' ? 'O' : 'U') + ln, priceTxt(t[r.tot === 'O' ? 'over' : 'under']), r.tot === 'O' ? 'warm' : 'cool');
+    }
+    if (m === 'btts') return o.btts && (r.btts === 'Y' || r.btts === 'N') ? h2Cell(r.btts === 'Y' ? 'Yes' : 'No', priceTxt(o.btts[r.btts === 'Y' ? 'yes' : 'no']), r.btts === 'Y' ? 'warm' : 'cool') : H2_DASH;
+    if (m === 'rfi') return o.nrfi_yrfi && (r.rfi === 'Y' || r.rfi === 'N') ? h2Cell(r.rfi === 'Y' ? 'YRFI' : 'NRFI', priceTxt(o.nrfi_yrfi[r.rfi === 'Y' ? 'yrfi' : 'nrfi']), r.rfi === 'Y' ? 'warm' : 'cool') : H2_DASH;
+    return H2_DASH;
+  }
+  // head to head: every meeting this season and last, newest first; the
+  // summary from the header's away team ("BOS 1Q ATS 2-2 · 1Q Over 2-2 ·
+  // BOS won the 1Q 4 of 4"). Records count only the games with a line.
+  function h2Meet(G, k, meets) {
+    var list = meets.filter(function(g) { return g.state === 'final' && lined(g, k) && (segRes(g, k) || {}).sc; });
+    if (!list.length) return '<p class="tp-none">No meetings with ' + esc(segTag(k)) + ' lines since ' + esc(H2.label || 'last season') + '.</p>';
+    var X = G.away, tag = k === '1i' ? '1st inning' : segTag(k), ms = tmMarkets(k);
+    var withLine = function(m) { var mk = m === 'rfi' ? 'nrfi_yrfi' : m; return list.filter(function(g) { return (segOdds(g, k) || {})[mk]; }); };
+    var sum = [];
+    ms.forEach(function(p) {
+      var gs = withLine(p.m), n = 0, x = 0, y = 0;
+      if (!gs.length) return;
+      if (p.m === 'ats') { var a = tmAgg(X, k, 'ats', 'all', gs); if (a.gp) sum.push(esc(tcode(X)) + ' ' + esc(tag) + ' ATS ' + h2Rec(a, 'ats')); }
+      else if (p.m === 'total') { gs.forEach(function(g) { var r = segRes(g, k); if (r.tot === 'O') x++; else if (r.tot === 'U') y++; }); if (x + y) sum.push(esc(tag) + ' Over ' + x + '-' + y); }
+      else if (p.m === 'btts') { gs.forEach(function(g) { var r = segRes(g, k); if (r.btts === 'Y') x++; else if (r.btts === 'N') y++; }); if (x + y) sum.push(esc(tag) + ' BTTS Yes ' + x + '-' + y); }
+      else if (p.m === 'rfi') { gs.forEach(function(g) { var r = segRes(g, k); if (r.rfi === 'N') x++; else if (r.rfi === 'Y') y++; }); if (x + y) sum.push('NRFI ' + x + '-' + y); }
+      else if (p.m === 'ml') { gs.forEach(function(g) { var b = tmBet(g, k, 'ml', X); if (b) { n++; if (b.r === 'W') x++; } }); if (n) sum.push(esc(tcode(X)) + ' won the ' + esc(tag) + ' ' + x + ' of ' + n); }
+    });
+    var head = '<tr><th>Date</th><th>Game</th><th class="num">' + esc(k === '1i' ? '1st' : segTag(k)) + '</th>' + ms.map(function(p) {
+      return '<th class="tp-lc"><span class="tn-full">' + esc(tpName(p)) + '</span><span class="tn-short">' + esc({ ml: 'ML', ml3: '3W', ats: D.sportType === 'baseball' ? 'RL' : D.sport === 'nhl' ? 'PL' : 'Spread', total: 'Total', btts: 'BTTS', rfi: 'NRFI' }[p.m]) + '</span></th>';
+    }).join('') + '<th class="num tp-fin">Final</th></tr>';
+    var rows = list.slice().reverse().map(function(g) {
+      var sc = segRes(g, k).sc, a = sc[0], h = sc[1];
+      var segSc = a === h ? 'Tied ' + a + '-' + h : tcode(a > h ? g.away : g.home) + ' ' + Math.max(a, h) + '-' + Math.min(a, h);
+      var fin = g.as != null && g.hs != null ? (g.as === g.hs ? 'Tied ' : tcode(g.as > g.hs ? g.away : g.home) + ' ') + Math.max(g.as, g.hs) + '-' + Math.min(g.as, g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '-';
+      return '<tr><td class="tp-d">' + esc(h2LongDate(g)) + '</td><td>' + esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home)) + '</td><td class="num">' + esc(segSc) + '</td>' +
+        ms.map(function(p) { return '<td class="tp-lc"><div class="tp-res">' + h2MeetCell(g, k, p.m) + '</div></td>'; }).join('') + '<td class="num tp-fin">' + fin + '</td></tr>';
+    }).join('');
+    return (sum.length ? '<p class="tp-line">' + sum.join(' &middot; ') + '</p>' : '') +
+      '<div class="st-card tp-card tp-log h2h-x"><table class="tp-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>';
+  }
+  function h2StreakText(m, kind, k) {
+    var tag = D.sportType === 'baseball' ? (m === 'rfi' ? '' : 'F5 ') : seg(k).tag + ' ';
+    if (m === 'ml') return tag + (kind === 'W' ? 'wins' : 'losses');
+    if (m === 'ats') return tag + (kind === 'W' ? 'covers' : 'non-covers');
+    if (m === 'total') return tag + (kind === 'O' ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '');
+    if (m === 'btts') return 'BTTS ' + (kind === 'Y' ? 'Yes' : 'No');
+    return kind === 'Y' ? 'YRFI' : 'NRFI';
+  }
+  // current streaks (heat chips, 3+) and the last 5 in the segment's side market
+  function h2Form(G, k) {
+    var main = h2Main(k);
+    return '<div class="h2h-2col">' + [G.away, G.home].map(function(slug) {
+      var chips = [];
+      D.segments.forEach(function(s) {
+        var seqs = teamSeqs('9999-12-31', s.key), done = {};
+        tmMarkets(s.key).forEach(function(p) {
+          var m = p.m === 'ml3' ? 'ml' : p.m, st = !done[m] && HIT[m] ? streakOf(((seqs[slug] || {})[m]) || []) : null;
+          done[m] = 1;
+          if (st && st.n >= 3) chips.push({ n: st.n, html: '<div class="tp-chip"><span class="tp-cn ' + heatCls(st.n) + '">' + st.n + '</span><span class="tp-ct">' + st.n + ' straight ' + esc(h2StreakText(m, st.kind, s.key)) + '</span></div>' });
+        });
+      });
+      chips.sort(function(a, b) { return b.n - a.n; });
+      var last = h2Finals(slug).map(function(g) { return tmBet(g, k, main, slug); }).filter(Boolean).slice(-5);
+      var cells = last.map(function(b) { return h2Cell(tmLetter(b.r, main), null, b.r === 'W' ? 'w' : b.r === 'L' ? 'n' : 'p'); }).join('');
+      return '<div class="st-card tp-card"><div class="st-head"><h4>' + badge(slug, 20) + ' ' + esc(shortName(slug)) + '</h4></div>' +
+        (chips.length ? '<div class="tp-chips">' + chips.map(function(c) { return c.html; }).join('') + '</div>' : '<p class="tp-none">No active streaks of 3 or more.</p>') +
+        '<p class="tp-gl h2h-l5h">Last 5 &middot; ' + esc(tpName({ k: k, m: main })) + '</p>' +
+        (cells ? '<div class="h2h-l5">' + cells + '</div>' : '<p class="tp-none">No graded games yet.</p>') + '</div>';
+    }).join('') + '</div>';
+  }
+  // scoring in tonight's roles, and what the two averages add to vs the total
+  function h2Scoring(G, k) {
+    function avgs(slug, side) {
+      var f = 0, a = 0, n = 0, i = side === 'home' ? 1 : 0;
+      h2Finals(slug).forEach(function(g) { var r = segRes(g, k); if (g[side] !== slug || !r || !r.sc) return; f += r.sc[i]; a += r.sc[1 - i]; n++; });
+      return n ? { f: f / n, a: a / n, n: n } : null;
+    }
+    var x = avgs(G.away, 'away'), y = avgs(G.home, 'home'), tag = k === '1i' ? '1st inning' : segTag(k);
+    var row = function(slug, v, where) {
+      return '<tr><th scope="row">' + badge(slug, 20) + ' ' + esc(tcode(slug)) + ' <span class="tp-hr2">' + where + '</span></th><td class="num">' + (v ? num1(v.f) : '-') + '</td><td class="num">' + (v ? num1(v.a) : '-') + '</td><td class="num">' + (v ? v.n : 0) + '</td></tr>';
+    };
+    var t = ((segOdds(G, k) || {}).total || {}).line;
+    if (t == null && H2.og) t = ((((H2.og.best || {})[k] || {}).total) || {}).line;
+    if (t == null && D.sport === 'nhl') t = 1.5;
+    var line = x && y ? '<p class="tp-line">Their ' + esc(tag) + ' averages add to ' + num1(x.f + y.f) + (typeof t === 'number' ? ' vs the ' + num1(t) + ' total' : '') + '.</p>' : '';
+    return line + '<div class="st-card tp-card h2h-x"><table class="tp-table"><thead><tr><th></th><th class="num">' + esc(tag) + ' ' + esc(scoreWord()) + ' for</th><th class="num">Allowed</th><th class="num">Games</th></tr></thead><tbody>' +
+      row(G.away, x, 'on the road') + row(G.home, y, 'at home') + '</tbody></table></div>';
+  }
+  // the 3-5 strongest Situational splits tonight's game fits, both teams
+  function h2Spots(G, k) {
+    var e = sitEngine();
+    if (!e || G.state !== 'pre' || !findGame(G.id)) return '';
+    var out = [];
+    [G.away, G.home].forEach(function(slug) {
+      (e.markets || []).forEach(function(mk) {
+        (e.spots(k, slug, G.id, mk.id) || []).forEach(function(x) { if (x.pct != null) out.push({ slug: slug, mk: mk, x: x }); });
+      });
+    });
+    out.sort(function(a, b) { return Math.abs(b.x.pct - 0.5) - Math.abs(a.x.pct - 0.5); });
+    out = out.slice(0, 5);
+    if (!out.length) return '<p class="tp-none">No situational edges for tonight&rsquo;s spot.</p>';
+    return '<div class="st-card tp-card h2h-x"><table class="tp-table"><thead><tr><th>Team</th><th>Spot</th><th>Market</th><th class="num">Rate</th></tr></thead><tbody>' + out.map(function(o) {
+      return '<tr><td>' + badge(o.slug, 20) + ' ' + esc(tcode(o.slug)) + '</td><td>' + esc(o.x.label) + '</td><td>' + esc(segTag(k) + ' ' + o.mk.label) + ' <span class="tp-hr2">' + esc(o.mk.pctHead) + '</span></td>' +
+        '<td class="num">' + tmPct(o.x.pct) + ' <span class="tp-hr2">(' + esc(o.x.rec) + ')</span></td></tr>';
+    }).join('') + '</tbody></table></div>';
+  }
+  function h2Preview(G) {
+    var days = (H2.data || {}).previewDays || [], d = h2Day(G);
+    var hit = days.indexOf(d) !== -1 ? d : null;
+    if (!hit && D.schedule === 'week' && G.wk) hit = days.filter(function(x) { return x <= d && (D.weeks || []).some(function(w) { return w.key === G.wk && x >= w.start; }); }).pop() || null;
+    return hit ? '<div class="fr-links"><a class="fr-more" href="' + ROOT + SPORT_SLUG + '/preview/' + hit + '/">Read the ' + esc(D.label) + ' Preview &rarr;</a></div>' : '';
+  }
+  function renderH2H() {
+    var A = app.getAttribute('data-a'), B = app.getAttribute('data-b');
+    try { var p = JSON.parse((document.getElementById('h2hPrev') || {}).textContent || '{}'); H2.label = p.label || ''; H2.prev = p.games || []; } catch (e) { H2.prev = []; }
+    var cur = teamGames(A).filter(function(g) { return g.away === B || g.home === B; });
+    var meets = H2.prev.slice().sort(function(a, b) { return (a.start || '') < (b.start || '') ? -1 : 1; }).concat(cur);
+    var next = cur.filter(function(g) { return g.state === 'pre' || g.state === 'in'; })[0];
+    var done = meets.filter(function(g) { return g.state === 'final'; });
+    var G = next || done[done.length - 1];
+    if (!G) return;   // never met: the page's own text stays
+    var which = next ? 'next' : 'last';
+    var segBar = function(id) { return segToggle(id, h2K(), 'data-h2-seg'); };
+    function drawSeg() {
+      var k = h2K();
+      document.getElementById('h2SideBox').innerHTML = h2Side(G, k);
+      document.getElementById('h2MeetBox').innerHTML = h2Meet(G, k, meets);
+      document.getElementById('h2FormBox').innerHTML = h2Form(G, k);
+      document.getElementById('h2ScoreBox').innerHTML = h2Scoring(G, k);
+      var sp = document.getElementById('h2SpotBox');
+      if (sp) sp.innerHTML = h2Spots(G, k);
+      app.querySelectorAll('[data-h2-seg]').forEach(function(b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-h2-seg') === k)); });
+    }
+    var spots = splitReg() && G.state === 'pre' && findGame(G.id);
+    app.innerHTML = h2Header(G, which) +
+      '<div id="h2Over">' + tmSection(G.state === 'pre' ? 'Best lines now' : 'Closing lines and result', '<div id="h2LinesBox">' + h2Lines(G) + '</div>') +
+      (G.state === 'pre' ? tmSection('The angle', '<div id="h2AngleBox"><p class="tp-none">Loading&hellip;</p></div>') : '') +
+      '<div hidden data-h2h-soon="full-run"></div><div hidden data-h2h-soon="due-factor"></div>' +
+      tmSection('Side by side', '<div id="h2SideBox"></div>', null, segBar('h2Seg1')) + '</div>' +
+      '<div id="h2Meet">' + tmSection('Head to head', '<div id="h2MeetBox"></div>', null, segBar('h2Seg2')) + '</div>' +
+      '<div id="h2Trends">' + tmSection('Streaks and last 5', '<div id="h2FormBox"></div>', null, segBar('h2Seg3')) +
+      tmSection('Scoring by segment', '<div id="h2ScoreBox"></div>', null, segBar('h2Seg4')) +
+      (spots ? tmSection('Situational spots', '<div id="h2SpotBox"></div>', null, segBar('h2Seg5')) : '') + '</div>' +
+      '<div hidden data-h2h-soon="injuries"></div><div hidden data-h2h-soon="starters"></div>' +
+      '<div id="h2Odds">' + tmSection('Odds', '<div id="h2OddsBox"><p class="tp-none">Loading&hellip;</p></div>') + '</div>' +
+      '<div id="h2PrevBox"></div>';
+    app.addEventListener('click', function(e) {
+      var b = e.target.closest('[data-h2-seg]');
+      if (b) { H2.k = b.getAttribute('data-h2-seg'); drawSeg(); }
+    });
+    drawSeg();
+    wireTips(app);
+    var day = h2Day(G);
+    Promise.all([fetch(ROOT + SPORT_SLUG + '/odds.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }),
+                 fetch(ROOT + SPORT_SLUG + '/odds/' + day + '.json').then(function(r) { return r.ok ? r.json() : { games: [] }; }).catch(function() { return { games: [] }; }),
+                 fetch(ROOT + SPORT_SLUG + '/h2h.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })]).then(function(x) {
+      H2.sources = x[0].sources || {};
+      H2.og = (x[1].games || []).filter(function(o) { return o.away === G.away && o.home === G.home; })[0] || null;
+      H2.data = x[2] || {};
+      if (G.state === 'pre') document.getElementById('h2LinesBox').innerHTML = h2Lines(G);
+      var ab = document.getElementById('h2AngleBox');
+      if (ab) ab.innerHTML = h2Angle(G);
+      document.getElementById('h2PrevBox').innerHTML = h2Preview(G);
+      drawSeg();   // the scoring line's total, from the best line
+      if (H2.og) renderOdds({ box: document.getElementById('h2OddsBox'), day: day, away: G.away, home: G.home });
+      else document.getElementById('h2OddsBox').innerHTML = '<p class="tp-none">Lines not posted yet.</p>';
     });
   }
 
   // ---------------------------------------------------------------- boot
   // NHL's data.json is its own shape; its Matchups, Stats, Trends and Teams pages read the shared shape (nhl/sport.json)
-  var DATA_FILE = SPORT_SLUG === 'nhl' && ['games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
+  var DATA_FILE = SPORT_SLUG === 'nhl' && ['games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team', 'h2h'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
   // the hub (/{sport}/) is all static HTML (scripts/front.py sections)
   if (SECTION !== 'hub') fetch(ROOT + SPORT_SLUG + '/' + DATA_FILE).then(function(r) { return r.json(); }).then(function(data) {
     D = data;
@@ -3428,6 +3819,7 @@
     else if (SECTION === 'trends') renderTrends();
     else if (SECTION === 'team') renderTeam();
     else if (SECTION === 'teams') renderTeamsIndex();
+    else if (SECTION === 'h2h') renderH2H();
     else if (SECTION === 'odds') renderOdds();
   }).catch(function(e) {
     if (SECTION !== 'team' && SECTION !== 'teams') app.innerHTML = emptyNote('Couldn&rsquo;t load ' + esc(SPORT_SLUG) + ' data. Try reloading.');

@@ -964,7 +964,9 @@ def matchup_heads(body_html, key, day, root):
             return f'<h3><a href="{esc(href)}">{text}</a></h3>'
         logos = sport.badge(g['away'], 22, root) + sport.badge(g['home'], 22, root)
         line = venue_line(sport, g)
-        to = f"{root}{sport.sp['slug']}/#motd" if motd and motd[1] == str(g['id']) else href   # the Matchup of the Day card
+        import h2h
+        pair = h2h.path(sport.sp, sport.doc, g['away'], g['home'])   # the game's head to head page
+        to = root + pair.lstrip('/') if pair else f"{root}{sport.sp['slug']}/#motd" if motd and motd[1] == str(g['id']) else href
         return (f'<h3 class="pv-gh"><a href="{esc(to)}"><span class="pv-logos">{logos}</span><span>{text}</span></a></h3>'
                 + (f'<p class="pv-ven">{line}</p>' if line else ''))
     body_html, n = re.subn(r'<h3>(.*?)</h3>', head, body_html)

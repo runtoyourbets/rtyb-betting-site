@@ -2205,6 +2205,7 @@ __THEME_HEAD__
     .hr2-sports:not(.hr2-many) .hr2-link { flex: 1 1 0; }
     /* a sport's seven pages: never squeezed under their labels; the row scrolls sideways */
     .hr2-pages .hr2-link { flex: 1 0 auto; padding: 0 5px; }
+    .hr2-pages:not(.hr2-end) { -webkit-mask-image: linear-gradient(to right, black calc(100% - 32px), transparent); mask-image: linear-gradient(to right, black calc(100% - 32px), transparent); }
     .hr2-sports.hr2-many .hr2-link { flex: 0 0 auto; padding: 0 10px; }
     .hr2-sports .hr2-off { display: none; }
   }
@@ -2796,6 +2797,50 @@ __THEME_HEAD__
   }
   @media (min-width: 900px) { .tp-lgp { display: none; } }
   .tp-log .tp-table .tp-sc { padding-right: 22px; }
+  /* Head to head pages (/{sport}/matchups/{a}-vs-{b}/, assets/sport.js renderH2H) */
+  .h2h-static { margin: 0 0 6px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .h2h-teams { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 10px; }
+  .h2h-team { display: flex; align-items: center; gap: 12px; flex: 1 1 240px; min-width: 0; }
+  .h2h-tw { display: grid; gap: 2px; min-width: 0; }
+  .h2h-tn { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
+  .h2h-tn a { color: var(--text); text-decoration: none; }
+  .h2h-rec, .h2h-rest, .h2h-open { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .h2h-open { white-space: nowrap; }
+  .h2h-tabs { display: none; }
+  .h2h-mks { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px 20px; min-width: 0; }
+  .h2h-mk { display: grid; align-content: start; gap: var(--cell-gap); min-width: 0; }
+  .h2h-side { display: grid; grid-template-columns: 48px var(--book-tile-w) var(--book-tile-w) minmax(0, 1fr); align-items: center; gap: var(--cell-gap); }
+  .h2h-side .cell { width: var(--book-tile-w); box-sizing: border-box; }
+  .h2h-sl { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text); }
+  .h2h-cards { display: grid; gap: 8px; }
+  .h2h-angle { display: grid; gap: 14px; }
+  .h2h-bet + .h2h-bet { padding-top: 14px; border-top: 1px solid var(--border-soft); }
+  .h2h-bh { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .h2h-badge { padding: 2px 8px; border-radius: 999px; background: var(--gold); color: var(--on-gold); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); letter-spacing: var(--ls-label); }
+  .h2h-tl { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .h2h-tl li { display: flex; justify-content: space-between; gap: 12px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .h2h-tr { font-weight: var(--fw-num); white-space: nowrap; }
+  .h2h-th { display: inline-flex; align-items: center; gap: 6px; }
+  .h2h-role { display: block; margin-top: 2px; }
+  .h2h-pct { font-weight: var(--fw-num); }
+  /* tables scroll inside their card, never the page; their words may wrap */
+  .h2h-x { overflow-x: auto; }
+  .h2h-x tbody th, .h2h-x td:not(.num) { white-space: normal; }
+  .h2h-2col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .h2h-2col .st-head h4 { display: flex; align-items: center; gap: 6px; }
+  .h2h-l5h { margin-top: 14px; }
+  .h2h-l5 { display: flex; gap: var(--cell-gap); }
+  .h2h-l5 .cell { flex: 1 1 0; min-width: 0; justify-content: center; }
+  .mc-more { display: block; margin-top: 10px; color: var(--accent); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); text-decoration: none; }
+  .ob-h2h { margin-left: 10px; color: var(--accent); font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); text-decoration: none; white-space: nowrap; }
+  .tp-h2h { margin-left: 8px; color: var(--accent); font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); text-decoration: none; white-space: nowrap; }
+  @media (max-width: 760px) {
+    .h2h-team { flex-basis: 100%; }
+    .h2h-tabs { display: flex; gap: 6px; margin: 12px 0 0; overflow-x: auto; }
+    .h2h-tabs a { flex: 1 0 auto; padding: 8px 12px; border: 1px solid var(--card-border); border-radius: 999px; text-align: center; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); text-decoration: none; }
+    .h2h-2col { grid-template-columns: minmax(0, 1fr); }
+    .h2h-mks { grid-template-columns: minmax(0, 1fr); }
+  }
   .tp-line { margin: 0 0 12px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-num); color: var(--text); }
   /* result cells (Matchups style): green = the team's side happened, gold = tie / push, gray = it didn't */
   .tp-res .cell { display: flex; width: 100%; }

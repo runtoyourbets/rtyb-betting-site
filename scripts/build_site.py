@@ -67,6 +67,7 @@ import picks  # noqa: E402
 import seo  # noqa: E402
 import daily  # noqa: E402
 import due_factor  # noqa: E402
+import h2h  # noqa: E402
 import preview  # noqa: E402
 import home  # noqa: E402
 import front  # noqa: E402
@@ -864,6 +865,16 @@ def write_due_pages(template):
         write_light(html, f"{sp['slug']}/{sp['sections']['due']}")
 
 
+def write_h2h_pages(template):
+    """/{slug}/matchups/{a}-vs-{b}/ for every pair (scripts/h2h.py): one
+    shell per sport, rendered once, hidden and off-season sports included."""
+    for sp in sports.SPORTS:
+        folder = sports.section_path(sp, 'games').strip('/')
+        meta = {'title': h2h.TOKENS[0], 'h1': h2h.TOKENS[1], 'desc': '', 'section': 'games'}
+        shell = lighten(render_page(template, 'sport', '', meta=meta, sport=sp, sport_body=h2h.TOKENS[2]), f'{folder}/pair')
+        print(f"Head to head ({sp['key']}): {h2h.write_pages(sp, shell)} pages")
+
+
 # The Stats pages: (data-section, folder under /{slug}/stats/, tab name, line under it)
 STATS_PAGES = [('stats', '', 'Overview', 'The big picture'), ('splits', 'splits', 'Splits', 'Find your spot'),
                ('edges', 'edges', 'Edges', 'Live-bet angles')]
@@ -1419,6 +1430,7 @@ def main():
         'sport': 'nhl', 'label': 'NHL', 'sportType': 'period', 'segments': nhl['segments'],
         'teams': {code: {'name': info['name'], 'code': code,
                          'short': next((w for w in two_word if info['name'].endswith(w)), info['name'].split(' ')[-1]),
+                         'mu': sports.team_slug(nhl_sport.nickname(info['name'])),   # the head to head pages' URL names
                          'color': (team_colors.get(code) or '').lstrip('#') or None, 'svg': 1}
                   for code, info in full_data.get('summary', {}).items()}})
     odds_meta = {'title': section_title(nhl, 'odds'), 'h1': sports.h1(nhl, 'odds'), 'section': 'odds',
@@ -1436,6 +1448,7 @@ def main():
     nhl_trends = trends.page_doc(nhl, nhl_doc, datetime.now(timezone.utc))
     sport_build.write_json(os.path.join(nhl_dir, 'trends.json'), nhl_trends)
     hub.build(nhl, nhl_doc, nhl_trends, nhl_dir)   # /nhl/'s Matchup of the Day (nhl/hub.json)
+    h2h.build_data(nhl, nhl_doc, nhl_trends, nhl_dir)   # the head to head pages' angle (nhl/h2h.json)
     trends_meta = {'title': section_title(nhl, 'trends'), 'h1': sports.h1(nhl, 'trends'), 'section': 'trends',
                    'desc': SECTION_DESC['trends'].format(label='NHL', segs='1st Period')}
     write_light(render_page(template, 'sport', teams_menu_html, meta=trends_meta, sport=nhl,
@@ -1461,6 +1474,7 @@ def main():
     write_hub(template, nhl, teams_menu_html)
     other = build_other_sports(template)
     write_due_pages(template)
+    write_h2h_pages(template)
     import seasons   # every sport's season state, logged (and assets/seasons.json for the admin)
     seasons.all_states()
     # Preview's image cards (the home hero and hubs show them), then the

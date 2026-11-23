@@ -156,12 +156,32 @@ class PageTest(unittest.TestCase):
 
     def test_strip_only_for_gaps_of_10_or_more(self):
         df._CACHE.clear()
-        with mock.patch.object(df, 'compute', lambda sp, today: {'off': False, 'groups': [{'daily': [(df.groups(sp)[0][2][0], None, None, 9)], 'weekly': []}]}):
+        with mock.patch.object(df, 'compute', lambda sp, today: {'off': False, 'groups': [{'daily': [(df.groups(sp)[0][2][0], games_of(20), None, 9)], 'weekly': []}]}):
             self.assertIsNone(df.strip_item(sports.BY_KEY['nba'], TODAY))
         df._CACHE.clear()
-        with mock.patch.object(df, 'compute', lambda sp, today: {'off': False, 'groups': [{'daily': [(df.groups(sp)[0][2][2], None, None, -14)], 'weekly': []}]}):
+        with mock.patch.object(df, 'compute', lambda sp, today: {'off': False, 'groups': [{'daily': [(df.groups(sp)[0][2][2], games_of(20), None, -14)], 'weekly': []}]}):
             self.assertEqual(df.strip_item(sports.BY_KEY['nba'], TODAY)[0], 'NBA 1Q Over -14')
         df._CACHE.clear()
+
+    def test_small_sample_no_chip_and_no_strip_entry(self):
+        """NFL 1Q Home +31 on 8-1: under 15 graded games is "Small sample"."""
+        self.assertEqual(df.chip(31, 9), ('Small sample', ''))
+        self.assertEqual(df.chip(31, 14), ('Small sample', ''))
+        self.assertEqual(df.chip(31, 15), ('Hot', 'heat-4'))
+        df._CACHE.clear()
+        with mock.patch.object(df, 'compute', lambda sp, today: {'off': False, 'groups': [{'daily': [], 'weekly': [(df.groups(sp)[0][2][0], games_of(9), None, 31)]}]}):
+            self.assertIsNone(df.strip_item(sports.BY_KEY['nfl'], TODAY))
+        df._CACHE.clear()
+        m = df.groups(sports.BY_KEY['nfl'])[0][2][0]
+        card = df.meter_card(m, games_of(9), games_of(100), 31, 'This week')
+        self.assertIn('Small sample', card)
+        self.assertNotIn('Hot', card)
+
+
+def games_of(n):
+    c = df.Count()
+    c.s = n
+    return c
 
 
 if __name__ == '__main__':
