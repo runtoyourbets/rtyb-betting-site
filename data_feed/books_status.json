@@ -41,7 +41,7 @@
   },
   "111": {
    "coverage": {
-    "nba": 98,
+    "nba": 94,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 92,
@@ -198,7 +198,7 @@
   "bovada": {
    "coverage": {
     "nba": 9,
-    "ncaab": 9,
+    "ncaab": 10,
     "ncaaf": 0,
     "nfl": 15,
     "nhl": 19
