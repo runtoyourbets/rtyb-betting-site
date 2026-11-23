@@ -8,8 +8,8 @@
   "updated": "2026-11-23T02:50:27Z"
  },
  "ncaab": {
-  "hash": "786e5381702fc69f85e39c1724590909172cf7c7",
-  "updated": "2026-11-23T20:41:25Z"
+  "hash": "6afda884363011bab06836aba70ab27502ff64d4",
+  "updated": "2026-11-23T21:40:30Z"
  },
  "ncaaf": {
   "hash": "e55c53aece0ef1ea12d6e957f2fb587b4d99a9d8",
@@ -25,16 +25,16 @@
  },
  "pages": {
   "/": {
-   "hash": "4340a1381ec08852a5a0536535de3f907a778ba9",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "5dd86fa612e53a1f82e573fa0fa878a1cbbfcff3",
+   "updated": "2026-11-23T21:40:30Z"
   },
   "college-basketball/": {
-   "hash": "5057044fd599150c5f2616a3c025b715ff3cdb17",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "c00addfb2aa3316bdd86aafdc93ce093e539fd49",
+   "updated": "2026-11-23T21:40:30Z"
   },
   "college-football/": {
-   "hash": "b07e6e33dff82d09b6cc3911aa6b66e6903d554d",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "a328cf7d28a186cf9917b4b8586613efe44245cc",
+   "updated": "2026-11-23T21:40:30Z"
   },
   "mlb/": {
    "hash": "c516af53b0396421389be3a39a073ce03219f657",
