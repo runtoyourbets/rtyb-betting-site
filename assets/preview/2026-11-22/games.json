@@ -1064,7 +1064,7 @@
    },
    {
     "label": "Liberty at Missouri State · 2:00 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401871063"
    },
    {
@@ -1109,12 +1109,12 @@
    },
    {
     "label": "SMU at Stanford · 3:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaaf:401858316"
    },
    {
     "label": "Penn State at Maryland · 3:30 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401858539"
    },
    {
@@ -1129,12 +1129,12 @@
    },
    {
     "label": "UTEP at Northern Illinois · 3:30 PM ET",
-    "trends": 20,
+    "trends": 21,
     "value": "ncaaf:401864550"
    },
    {
     "label": "Massachusetts at Bowling Green · 3:30 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaaf:401866475"
    },
    {
@@ -1144,22 +1144,22 @@
    },
    {
     "label": "UAB at North Texas · 4:00 PM ET",
-    "trends": 3,
+    "trends": 4,
     "value": "ncaaf:401862843"
    },
    {
     "label": "Oklahoma at Missouri · 4:15 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaaf:401856763"
    },
    {
     "label": "Michigan State at Rutgers · 4:15 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401858542"
    },
    {
     "label": "Boise State at Colorado State · 6:00 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401860926"
    },
    {
@@ -1169,7 +1169,7 @@
    },
    {
     "label": "San Diego State at Washington State · 6:30 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaaf:401860929"
    },
    {
@@ -1189,7 +1189,7 @@
    },
    {
     "label": "Pittsburgh at California · 7:30 PM ET",
-    "trends": 12,
+    "trends": 13,
     "value": "ncaaf:401858315"
    },
    {
@@ -1204,7 +1204,7 @@
    },
    {
     "label": "Nevada at UNLV · 9:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaaf:401864548"
    },
    {
@@ -1214,12 +1214,12 @@
    },
    {
     "label": "Texas State at Utah State · 9:30 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401860928"
    },
    {
     "label": "Oregon State at Fresno State · 10:00 PM ET",
-    "trends": 14,
+    "trends": 15,
     "value": "ncaaf:401860927"
    },
    {
@@ -1229,7 +1229,7 @@
    }
   ],
   "lead": "ncaaf:401864550",
-  "motd": "ncaaf:401862842",
+  "motd": "ncaaf:401864550",
   "week": 13
  },
  "nfl": {
