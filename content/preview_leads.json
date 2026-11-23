@@ -251,5 +251,61 @@
    "start": "2026-11-23T00:00:00Z",
    "trend": "EDM has gone BTTS No"
   }
+ },
+ "2026-11-23": {
+  "all": {
+   "away": "mil",
+   "chip": "MIL UNDER 1Q TOTAL · 15 OF 17",
+   "home": "tor",
+   "id": "401910039",
+   "sport": "nba",
+   "start": "2026-11-24T00:30Z",
+   "trend": "MIL has gone Under the 1st quarter total"
+  },
+  "nba": {
+   "away": "mil",
+   "chip": "MIL UNDER 1Q TOTAL · 15 OF 17",
+   "home": "tor",
+   "id": "401910039",
+   "sport": "nba",
+   "start": "2026-11-24T00:30Z",
+   "trend": "MIL has gone Under the 1st quarter total"
+  },
+  "ncaab": {
+   "away": "monmouth-hawks",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 61% (243-157)",
+   "home": "north-carolina-tar-heels",
+   "id": "401913102",
+   "sport": "ncaab",
+   "start": "2026-11-24T01:00Z",
+   "trend": "Fade teams off a blowout (1H ML)"
+  },
+  "ncaaf": {
+   "away": "florida-atlantic-owls",
+   "chip": "ECU UNDER 1Q TOTAL · 11 OF 11",
+   "home": "east-carolina-pirates",
+   "id": "401862837",
+   "sport": "ncaaf",
+   "start": "2026-11-28T18:00Z",
+   "trend": "ECU has gone Under the 1st quarter total"
+  },
+  "nfl": {
+   "away": "cin",
+   "chip": "FADE BIG UNDERDOGS · 1H ML · 79% (23-6)",
+   "home": "wsh",
+   "id": "401873078",
+   "sport": "nfl",
+   "start": "2026-11-24T01:15Z",
+   "trend": "Fade big underdogs (1H ML)"
+  },
+  "nhl": {
+   "away": "ANH",
+   "chip": "SEA OVER 1.5 1P · 16 OF 20",
+   "home": "SEA",
+   "id": "2026020383",
+   "sport": "nhl",
+   "start": "2026-11-24T02:40:00Z",
+   "trend": "SEA has gone Over 1.5"
+  }
  }
 }
