@@ -8,8 +8,8 @@
   "updated": "2026-11-23T02:50:27Z"
  },
  "ncaab": {
-  "hash": "6afda884363011bab06836aba70ab27502ff64d4",
-  "updated": "2026-11-23T21:40:30Z"
+  "hash": "75619597577b38ce864c13f273a998c42154fd2d",
+  "updated": "2026-11-23T22:00:56Z"
  },
  "ncaaf": {
   "hash": "e55c53aece0ef1ea12d6e957f2fb587b4d99a9d8",
@@ -25,36 +25,36 @@
  },
  "pages": {
   "/": {
-   "hash": "5dd86fa612e53a1f82e573fa0fa878a1cbbfcff3",
-   "updated": "2026-11-23T21:40:30Z"
+   "hash": "df83c3654825e106cf90b236696e137e15a5b245",
+   "updated": "2026-11-23T22:00:56Z"
   },
   "college-basketball/": {
-   "hash": "c00addfb2aa3316bdd86aafdc93ce093e539fd49",
-   "updated": "2026-11-23T21:40:30Z"
+   "hash": "fd7dbe6417693b06ff9bc493497b992e744881e8",
+   "updated": "2026-11-23T22:00:56Z"
   },
   "college-football/": {
-   "hash": "a328cf7d28a186cf9917b4b8586613efe44245cc",
-   "updated": "2026-11-23T21:40:30Z"
+   "hash": "ff4fd4529f4aa0ca7b23343bd3aadd2ad4200aa3",
+   "updated": "2026-11-23T22:00:56Z"
   },
   "mlb/": {
-   "hash": "c516af53b0396421389be3a39a073ce03219f657",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "6a4358e5b700e7cd80c0bc82a9de1fadbb13da87",
+   "updated": "2026-11-23T22:00:56Z"
   },
   "nba/": {
-   "hash": "5e41f5688e05adc8c033b1c805e7c809c8542ed2",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "04788f5933d56a32b7168704b4e9fb99c0ebc00a",
+   "updated": "2026-11-23T22:00:56Z"
   },
   "nfl/": {
-   "hash": "64abf0ff608a894f2bb1acda00483b3ea40eba3e",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "9c15fd634ce881951b366e55a79161a69ef5e0bd",
+   "updated": "2026-11-23T22:00:56Z"
   },
   "nhl/": {
-   "hash": "849a91fb8d96a3a2ca07d157a6174916d2cb023e",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "227e0874c4c1bdd7d0e84767f978108d315af5ff",
+   "updated": "2026-11-23T22:00:56Z"
   },
   "wnba/": {
-   "hash": "dbdd1104f9f7d5dc5a0d44bad31fd51e62327656",
-   "updated": "2026-11-23T21:19:49Z"
+   "hash": "f5004af0a9fb160bcf9a7a08c63b5c67dee15e88",
+   "updated": "2026-11-23T22:00:56Z"
   }
  },
  "wnba": {
