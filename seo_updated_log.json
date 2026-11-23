@@ -25,16 +25,16 @@
  },
  "pages": {
   "/": {
-   "hash": "001f40aab3d1dae9c7c8d07a3e5a01b24450c15e",
-   "updated": "2026-11-23T11:47:36Z"
+   "hash": "4bb00d35ce309f6daaeded69f650f2fe62573221",
+   "updated": "2026-11-23T11:57:40Z"
   },
   "college-basketball/": {
    "hash": "31d04b4f471053c30000619cd52b4203a3a9bde2",
    "updated": "2026-11-23T10:47:41Z"
   },
   "college-football/": {
-   "hash": "44448004ab5c316577d8bfb143bf296484609396",
-   "updated": "2026-11-23T11:47:36Z"
+   "hash": "d0e332fcd927942a41aa4e4f37dfbe5c1bd9bfa5",
+   "updated": "2026-11-23T11:57:40Z"
   },
   "mlb/": {
    "hash": "e084d73ecab93807bad25a467c17a29a1500344e",

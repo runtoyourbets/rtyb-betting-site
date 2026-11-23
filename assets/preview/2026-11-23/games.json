@@ -890,7 +890,7 @@
    },
    {
     "label": "North Dakota State at San José State · 3:30 PM ET",
-    "trends": 11,
+    "trends": 13,
     "value": "ncaaf:401864549"
    },
    {
@@ -1110,7 +1110,7 @@
    },
    {
     "label": "Boise State at Colorado State · 6:00 PM ET",
-    "trends": 16,
+    "trends": 18,
     "value": "ncaaf:401860926"
    },
    {
@@ -1120,7 +1120,7 @@
    },
    {
     "label": "San Diego State at Washington State · 6:30 PM ET",
-    "trends": 7,
+    "trends": 6,
     "value": "ncaaf:401860929"
    },
    {
@@ -1130,7 +1130,7 @@
    },
    {
     "label": "Purdue at Indiana · 7:00 PM ET",
-    "trends": 10,
+    "trends": 12,
     "value": "ncaaf:401858538"
    },
    {
@@ -1145,37 +1145,37 @@
    },
    {
     "label": "Washington at Oregon · 7:30 PM ET",
-    "trends": 10,
+    "trends": 12,
     "value": "ncaaf:401858541"
    },
    {
     "label": "Arizona State at Arizona · 9:00 PM ET",
-    "trends": 11,
+    "trends": 13,
     "value": "ncaaf:401856873"
    },
    {
     "label": "Nevada at UNLV · 9:00 PM ET",
-    "trends": 8,
+    "trends": 10,
     "value": "ncaaf:401864548"
    },
    {
     "label": "Baylor at Houston · 9:30 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "ncaaf:401856874"
    },
    {
     "label": "Texas State at Utah State · 9:30 PM ET",
-    "trends": 16,
+    "trends": 18,
     "value": "ncaaf:401860928"
    },
    {
     "label": "Oregon State at Fresno State · 10:00 PM ET",
-    "trends": 15,
+    "trends": 16,
     "value": "ncaaf:401860927"
    },
    {
     "label": "Sacramento State at Hawai'i · 11:00 PM ET",
-    "trends": 15,
+    "trends": 17,
     "value": "ncaaf:401864547"
    }
   ],
