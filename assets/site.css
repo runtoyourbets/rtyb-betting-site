@@ -2186,7 +2186,9 @@
   @media (max-width: 640px) {
     .hr2-inner { padding: 0 12px; }
     .hr2-link { padding: 0 4px; min-width: 0; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); letter-spacing: 0.2px; }
-    .hr2-pages .hr2-link, .hr2-sports:not(.hr2-many) .hr2-link { flex: 1 1 0; }
+    .hr2-sports:not(.hr2-many) .hr2-link { flex: 1 1 0; }
+    /* a sport's seven pages: never squeezed under their labels; the row scrolls sideways */
+    .hr2-pages .hr2-link { flex: 1 0 auto; padding: 0 5px; }
     .hr2-sports.hr2-many .hr2-link { flex: 0 0 auto; padding: 0 10px; }
     .hr2-sports .hr2-off { display: none; }
   }

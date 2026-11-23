@@ -94,7 +94,6 @@ class WindowTest(unittest.TestCase):
         g = run(games, today=date(2026, 11, 23))['groups'][0]
         self.assertEqual(g['win_label'], 'last 7 game days')
         self.assertEqual(g['win'], days[-7:])
-        self.assertEqual(g['game_days'], days[-7:])
         w = next(w for m, w, _, _ in g['daily'] if m.id == 'over')
         self.assertEqual(w.n, 7)
 
@@ -127,7 +126,7 @@ class TintTest(unittest.TestCase):
 
     def test_tinted_cells_in_the_day_table(self):
         g = run(GAMES)['groups'][0]
-        html = df.table_html(g, [(df.day_name(d), [d]) for d in reversed(g['game_days'])], 'Last 7 days', g['win'], 'Day')
+        html = df.table_html(g, [(df.day_name(d), [d]) for d in reversed(g['win'])], 'Last 7 days', g['win'], 'Day')
         # Nov 20: Over 2-0 (100% vs 50%) warm, Home 2-0 (100% vs 43%) win fill
         nov20 = html.split('Fri, Nov 20')[1].split('</tr>')[0]
         self.assertIn('df-c df-warm', nov20)

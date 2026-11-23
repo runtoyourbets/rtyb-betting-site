@@ -20,7 +20,7 @@ Windows: Daily = game days in the last 7 days (ET), or the last 7 game days
 when there were none; Weekly = this week so far (the latest week with
 games), Monday-Sunday ET for the daily sports, the game week for football.
 Off-season sports show last season's final days and weeks. Day by day is
-a row per game day (the last 7) and the meter's window as its total row.
+a row per game day of the meter's window, so its total row is the meter.
 
 The gap is the window's rate minus the season's, in points. Chip: under 5
 "On pace"; 5-9 "Leaning cold" (--heat-1) / "Leaning hot" (--heat-2); 10+
@@ -309,7 +309,7 @@ def compute(sp, today):
         last = before[-1] if before else (all_days[-1] if all_days else None)
         out['groups'].append({
             'key': gk, 'label': glabel, 'markets': markets, 'days': days, 'gp': gp, 'season_keys': season_keys,
-            'win': win, 'win_label': win_label, 'game_days': [d for d in all_days if d <= today.isoformat()][-WINDOW_DAYS:],
+            'win': win, 'win_label': win_label,
             'daily': meter(markets, days, win, season_keys),
             'weeks': weeks, 'week': cur, 'this_week': this_week,
             'weekly': meter(markets, days, cur[2], season_keys) if cur else [],
@@ -460,7 +460,7 @@ def last_night(grp):
     d = grp['last']
     if not d:
         return ''
-    items = ''.join(f'<li><span class="df-ln-m">{esc(m.tag)} {esc(m.label)}</span><span class="df-ln-c nw">{esc(counts_txt(m, grp["days"][d].get(m.id) or Count()))}</span></li>'
+    items = ''.join(f'<li><span class="df-ln-m">{esc(m.tag)} {esc(m.label)}: {esc(m.side)}</span><span class="df-ln-c nw">{esc(counts_txt(m, grp["days"][d].get(m.id) or Count()))}</span></li>'
                     for m in grp['markets'])
     return (f'<section class="st-sec"><div class="st-sec-head"><h2>Last night</h2></div><p class="st-sec-sub">{esc(day_name(d))} · {grp["gp"].get(d, 0)} games</p>'
             f'<div class="st-card"><ul class="df-ln">{items}</ul></div></section>')
@@ -500,7 +500,7 @@ def pane_html(sport, grp, data_, today, now, root, view):
                 + last_night(grp)
                 + f'<section class="st-sec"><div class="st-sec-head"><h2>Day by day</h2></div>'
                 + f'<p class="st-sec-sub">A cell 10+ pts above its season rate is tinted.</p>'
-                + table_html(grp, [(day_name(d), [d]) for d in reversed(grp['game_days'])], 'Last 7 days' if grp['win_label'] == 'last 7 days' else 'Last 7 game days', grp['win'], 'Day')
+                + table_html(grp, [(day_name(d), [d]) for d in reversed(grp['win'])], 'Last 7 days' if grp['win_label'] == 'last 7 days' else 'Last 7 game days', grp['win'], 'Day')
                 + '</section>' + ('' if data_['off'] else tonight(sport, grp, today, now, root)))
     if not grp['week']:
         return '<p class="st-sec-sub">No games yet.</p>'
