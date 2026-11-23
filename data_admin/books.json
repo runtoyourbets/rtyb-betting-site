@@ -33,25 +33,9 @@
       "link": ""
     },
     {
-      "id": "betonlineag",
-      "name": "BetOnline",
-      "group": "Offshore",
-      "show": true,
-      "best": true,
-      "link": ""
-    },
-    {
-      "id": "betrivers",
-      "name": "BetRivers",
+      "id": "hardrockbet",
+      "name": "Hard Rock Bet",
       "group": "Sportsbook",
-      "show": true,
-      "best": true,
-      "link": ""
-    },
-    {
-      "id": "bovada",
-      "name": "Bovada",
-      "group": "Offshore",
       "show": true,
       "best": true,
       "link": ""
@@ -65,8 +49,8 @@
       "link": ""
     },
     {
-      "id": "hardrockbet",
-      "name": "Hard Rock Bet",
+      "id": "betrivers",
+      "name": "BetRivers",
       "group": "Sportsbook",
       "show": true,
       "best": true,
@@ -81,14 +65,6 @@
       "link": ""
     },
     {
-      "id": "60",
-      "name": "theScore CA",
-      "group": "Sportsbook",
-      "show": true,
-      "best": false,
-      "link": ""
-    },
-    {
       "id": "105",
       "name": "Kalshi",
       "group": "Exchange",
@@ -99,14 +75,6 @@
     {
       "id": "89",
       "name": "Novig",
-      "group": "Exchange",
-      "show": true,
-      "best": true,
-      "link": ""
-    },
-    {
-      "id": "107",
-      "name": "Polymarket",
       "group": "Exchange",
       "show": true,
       "best": true,
@@ -134,6 +102,38 @@
       "group": "Exchange",
       "show": true,
       "best": true,
+      "link": ""
+    },
+    {
+      "id": "betonlineag",
+      "name": "BetOnline",
+      "group": "Offshore",
+      "show": true,
+      "best": false,
+      "link": ""
+    },
+    {
+      "id": "bovada",
+      "name": "Bovada",
+      "group": "Offshore",
+      "show": true,
+      "best": false,
+      "link": ""
+    },
+    {
+      "id": "107",
+      "name": "Polymarket",
+      "group": "Exchange",
+      "show": true,
+      "best": true,
+      "link": ""
+    },
+    {
+      "id": "60",
+      "name": "theScore CA",
+      "group": "Sportsbook",
+      "show": false,
+      "best": false,
       "link": ""
     }
   ]
