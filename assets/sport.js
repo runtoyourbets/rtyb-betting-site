@@ -58,6 +58,114 @@
     return t;
   }
   function signed(n) { return n == null ? '' : (n > 0 ? '+' : '') + n; }
+
+  // ------------------------------------------------------------ My books
+  // The Books picker (Odds pages, the matchup page's odds table): the books
+  // the admin shows ({slug}/odds.json `picker`: the Books tab's groups and
+  // order). Sportsbooks are on by default, Offshore and Exchanges off. Saved
+  // in this browser as rtyb-mybooks {on, known}: a book not in `known` (new
+  // since the visitor saved) takes its group's default. Storage blocked: the
+  // picks last until the page closes. Until the visitor picks, every page
+  // shows the build's best price (the same books as the defaults).
+  var MB_KEY = 'rtyb-mybooks';
+  var MB_GROUPS = [['Sportsbook', 'Sportsbooks'], ['Offshore', 'Offshore'], ['Exchange', 'Exchanges & prediction markets']];
+  function mbLoad() {
+    try { var x = JSON.parse(localStorage.getItem(MB_KEY) || 'null'); return x && x.on && x.known ? x : null; } catch (e) { return null; }
+  }
+  var MB = mbLoad();
+  function mbSave(on, known) {
+    MB = { on: on, known: known };
+    try { localStorage.setItem(MB_KEY, JSON.stringify(MB)); } catch (e) {}
+  }
+  // is book b picked (dflt: its group's default)
+  function mbOn(b, dflt) { return MB && MB.known.indexOf(b) !== -1 ? MB.on.indexOf(b) !== -1 : !!dflt; }
+  // a book's default from the picker list ({id, g}) or, without it, the
+  // odds.json source (exchanges and offshore books off)
+  function mbDefault(b, picker, sources) {
+    var p = (picker || []).filter(function(x) { return x.id === b; })[0];
+    if (p) return p.g === 'Sportsbook';
+    var s = (sources || {})[b] || {};
+    return !s.x && !s.off;
+  }
+  function mbPicked(b, picker, sources) { return mbOn(b, mbDefault(b, picker, sources)); }
+  // the Odds table's columns: the source order, picked books only
+  function mbColumns(order, ids, picker, sources) {
+    return order.filter(function(b) { return ids[b] && mbPicked(b, picker, sources); });
+  }
+  function mbImplied(p) { return p > 0 ? 100 / (p + 100) : -p / (-p + 100); }
+  // fetch_odds_unabated.drop_outliers: a book this far (implied probability)
+  // from the other books' median on any side is dropped (3+ books)
+  function mbDropOutliers(rows, sides) {
+    var ids = Object.keys(rows);
+    if (ids.length < 3) return rows;
+    function pr(v, s) { var x = v[s]; return x && typeof x === 'object' ? x.price : x; }
+    var keep = {};
+    ids.forEach(function(b) {
+      var off = sides.some(function(s) {
+        var o = ids.filter(function(x) { return x !== b; }).map(function(x) { return mbImplied(pr(rows[x], s)); }).sort(function(a, c) { return a - c; });
+        var mid = o.length >> 1, med = o.length % 2 ? o[mid] : (o[mid - 1] + o[mid]) / 2;
+        return Math.abs(mbImplied(pr(rows[b], s)) - med) > 0.08;
+      });
+      if (!off) keep[b] = rows[b];
+    });
+    return keep;
+  }
+  // fetch_odds_unabated.best_of over the visitor's books: the picked
+  // sportsbooks with "counts for best price" on (no exchanges; the 3-way
+  // falls back to any picked book, like the build). Spreads and totals at
+  // the line most of them post.
+  function mbBest(m, books, picker, sources) {
+    var use = {}, all = {};
+    Object.keys(books || {}).forEach(function(b) {
+      var s = (sources || {})[b] || {}, r = books[b];
+      if (!r || typeof r !== 'object' || b === 'consensus' || !mbPicked(b, picker, sources)) return;
+      all[b] = r;
+      if (!s.nb && !s.x) use[b] = r;
+    });
+    if (!Object.keys(use).length && m === 'ml3') use = all;
+    var ids = Object.keys(use), out = null;
+    if (!ids.length) return null;
+    if (m !== 'ats' && m !== 'total') {
+      var sides = Object.keys(use[ids[0]]).filter(function(k) { return k !== 'line'; });
+      use = mbDropOutliers(use, sides);
+      if (!Object.keys(use).length) return null;
+      out = {};
+      sides.forEach(function(sd) {
+        Object.keys(use).forEach(function(b) {
+          var x = use[b][sd], p = x && typeof x === 'object' ? x.price : x;
+          if (typeof p === 'number' && (out[sd] == null || p > out[sd])) out[sd] = p;
+        });
+      });
+      return out;
+    }
+    var key = m === 'ats' ? function(v) { return v.away.line; } : function(v) { return v.line; };
+    var sides2 = m === 'ats' ? ['away', 'home'] : ['over', 'under'], counts = {};
+    ids.forEach(function(b) { var x = key(use[b]); counts[x] = (counts[x] || 0) + 1; });
+    function evenness(x) {
+      var at = ids.filter(function(b) { return key(use[b]) === x; });
+      return at.reduce(function(t, b) { return t + Math.abs(mbImplied(use[b][sides2[0]].price) - mbImplied(use[b][sides2[1]].price)); }, 0) / at.length;
+    }
+    var posted = ids.map(function(b) { return key(use[b]); }).sort(function(a, c) { return a - c; }), median = posted[posted.length >> 1];
+    // most books; ties: nearest the median, then priced nearest even, then the lower line
+    var line = Object.keys(counts).map(Number).sort(function(a, c) {
+      return counts[c] - counts[a] || Math.abs(a - median) - Math.abs(c - median) || evenness(a) - evenness(c) || a - c;
+    })[0];
+    var at = {};
+    ids.forEach(function(b) { if (key(use[b]) === line) at[b] = use[b]; });
+    at = mbDropOutliers(at, sides2);
+    var keep = Object.keys(at).map(function(b) { return at[b]; });
+    if (!keep.length) return null;
+    function top(sd) { return Math.max.apply(null, keep.map(function(v) { return v[sd].price; })); }
+    if (m === 'ats') return { away: { line: line, price: top('away') }, home: { line: line ? -line : 0, price: top('home') } };
+    return { line: line, over: top('over'), under: top('under') };
+  }
+  // one game's best price for a segment and market (an odds file's game):
+  // the build's until the visitor picks books (BTTS: the admin's one price)
+  function pickedBest(g, k, m, picker, sources) {
+    var b = (((g || {}).best || {})[k] || {})[m];
+    if (!MB || m === 'btts' || !g) return b || null;
+    return mbBest(m, ((g.books || {})[k] || {})[m], picker, sources);
+  }
   function fmtUnits(u) { var r = Math.round(u * 100) / 100; return (r > 0 ? '+' : '') + r.toFixed(2) + 'u'; }
   function unitsPill(u, priced) {
     if (!priced) return '<span class="u-pill u-none">-</span>';
@@ -1087,7 +1195,7 @@
     function oddsBlock(p, g, og, sources, gameOdds) {
       var s = oddsSide(p), mk = p.m === 'rfi' ? 'nrfi_yrfi' : p.m;
       og = p.k === 'game' ? (og && og.full) || null : og;
-      var best = og ? ((og.best || {})[p.k] || {})[mk] : null;
+      var best = og ? pickedBest(og, p.k, mk, null, sources) : null;   // the visitor's books (the Books picker)
       var mine = p.k === 'game' ? (gameOdds || {})[p.m] : ((g.odds || {})[p.k] || {})[mk];
       var o = best || mine, top = null, sub = null, line = null;
       if (o) {
@@ -1101,7 +1209,7 @@
         // sportsbooks, then exchanges, then the Consensus price (a market only it prices)
         ['book', 'exch', 'consensus'].forEach(function(pass) {
           Object.keys(rows).forEach(function(b) {
-            if (id || (sources[b] || {}).nb || (b === 'consensus') !== (pass === 'consensus')) return;
+            if (id || (sources[b] || {}).nb || (b === 'consensus') !== (pass === 'consensus') || (MB && b !== 'consensus' && !mbPicked(b, null, sources))) return;
             if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
             var r = rows[b], v = r && r[s.key], vp = v && typeof v === 'object' ? v.price : v;
             if (vp !== price) return;
@@ -3198,6 +3306,77 @@
     for (var i = 0; i < weeks.length; i++) if (d <= weeks[i].end) return weeks[i];
     return null;
   }
+  // "Books 8/16": the visitor's books of the ones the admin shows
+  function booksBtn(picker, sources) {
+    if (!picker.length) return '';
+    var n = picker.filter(function(b) { return mbPicked(b.id, picker, sources); }).length;
+    return '<button type="button" class="seg-btn mb-btn" id="mbBtn" aria-haspopup="dialog">Books ' + n + '/' + picker.length + '</button>';
+  }
+  // the Books picker: a modal (a bottom sheet on phones) with a block per
+  // Books tab group, a checkbox per book (its logo, else its name) and
+  // All / None; every change saves and redraws (onChange)
+  function openBooks(picker, sources, onChange) {
+    var wrap = document.createElement('div');
+    wrap.className = 'cal-modal';
+    wrap.setAttribute('role', 'dialog');
+    wrap.setAttribute('aria-modal', 'true');
+    wrap.setAttribute('aria-label', 'My books');
+    // (a change redraws the table, button too: focus goes back to the new one)
+    function close() { document.removeEventListener('keydown', onKey); wrap.remove(); var o = document.getElementById('mbBtn'); if (o) o.focus(); }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    function tile(b) {
+      return b.logo ? '<img class="mb-logo" src="' + ROOT + esc(b.logo) + '" alt="" loading="lazy">' : '<span class="mb-bname">' + esc(b.name) + '</span>';
+    }
+    function draw() {
+      wrap.innerHTML = '<div class="cal-back" data-close></div><div class="cal-sheet mb-sheet">' +
+        '<div class="cal-head"><b>My books</b><button type="button" class="cal-x" data-close aria-label="Close">&times;</button></div>' +
+        MB_GROUPS.map(function(gr) {
+          var bs = picker.filter(function(b) { return b.g === gr[0]; });
+          if (!bs.length) return '';
+          return '<div class="mb-group" role="group" aria-label="' + esc(gr[1]) + '"><div class="mb-gh"><span class="t-label">' + esc(gr[1]) + '</span>' +
+            '<span class="mb-all"><button type="button" class="adv-link" data-all="' + gr[0] + '">All</button> / <button type="button" class="adv-link" data-none="' + gr[0] + '">None</button></span></div>' +
+            '<div class="mb-list">' + bs.map(function(b) {
+              return '<label class="mb-book" title="' + esc(b.name) + '"><input type="checkbox" data-b="' + esc(b.id) + '"' + (mbPicked(b.id, picker, sources) ? ' checked' : '') +
+                ' aria-label="' + esc(b.name) + '">' + tile(b) + '</label>';
+            }).join('') + '</div></div>';
+        }).join('') +
+        '<p class="mb-note">Save your books on every device: free account (coming soon)</p></div>';
+    }
+    // set: {book: on}; the other sports' books the visitor already set stay
+    function save(set) {
+      var known = picker.map(function(b) { return b.id; });
+      var on = known.filter(function(b) { return b in set ? set[b] : mbPicked(b, picker, sources); });
+      (MB ? MB.known : []).forEach(function(b) {
+        if (known.indexOf(b) !== -1) return;
+        known.push(b);
+        if (MB.on.indexOf(b) !== -1) on.push(b);
+      });
+      mbSave(on, known);
+      onChange();
+    }
+    wrap.addEventListener('click', function(e) {
+      if (e.target.closest('[data-close]')) { close(); return; }
+      var a = e.target.closest('[data-all], [data-none]');
+      if (!a) return;
+      var all = a.hasAttribute('data-all'), gr = a.getAttribute(all ? 'data-all' : 'data-none'), set = {};
+      picker.forEach(function(b) { if (b.g === gr) set[b.id] = all; });
+      save(set);
+      draw();
+      var again = wrap.querySelector('[data-' + (all ? 'all' : 'none') + '="' + gr + '"]');
+      if (again) again.focus();
+    });
+    wrap.addEventListener('change', function(e) {
+      var c = e.target.closest('[data-b]'), set = {};
+      if (!c) return;
+      set[c.getAttribute('data-b')] = c.checked;
+      save(set);
+    });
+    document.addEventListener('keydown', onKey);
+    draw();
+    document.body.appendChild(wrap);
+    var first = wrap.querySelector('[data-b]');
+    if (first) first.focus();
+  }
   function openCalendar(opts) {
     var weeks = opts.weeks || null, days = opts.days || {};
     var curWeek = weeks ? weeks.filter(function(w) { return w.key === opts.cur; })[0] : null;
@@ -3343,8 +3522,9 @@
   }
   var MKT_WORD = { ml: 'moneyline', ml3: '3-way moneyline', ats: 'spread', total: 'total', btts: 'BTTS', rfi: 'NRFI / YRFI' };
   var YN_SIDES = { total: ['over', 'under'], btts: ['yes', 'no'], rfi: ['yrfi', 'nrfi'] };
-  // one: {box, day, away, home} draws one game's table into box (the head to
-  // head page): no date bar, the segment and market tabs only
+  // one: {box, day, away, home, onBooks} draws one game's table into box (the
+  // head to head page): no date bar, the segment and market tabs and the
+  // Books picker (onBooks: after a change)
   function renderOdds(one) {
     var box = one ? one.box : app;
     fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : null; }).then(function(O) {
@@ -3354,7 +3534,7 @@
       var dates = O ? Object.keys(O.days || {}).sort() : [];
       if (!dates.length) { box.innerHTML = emptyNote('No ' + esc(D.label) + ' games on the schedule yet.'); return; }
       var weeks = !one && O.calendar === 'weekly' && (O.weeks || []).length ? O.weeks : null;
-      var sources = O.sources || {}, order = O.order || [];
+      var sources = O.sources || {}, order = O.order || [], picker = O.picker || [];
       var cache = {};
       function load(ds) {
         return Promise.all(ds.map(function(d) {
@@ -3428,13 +3608,14 @@
       function columns(games, k, m) {
         var ids = {};
         games.forEach(function(g) { Object.keys((((g.books || {})[k] || {})[m]) || {}).forEach(function(b) { ids[b] = 1; }); });
-        return order.filter(function(b) { return ids[b]; });
+        return mbColumns(order, ids, picker, sources);
       }
       function table(games, k, m, kind, cols, lined) {
         var body = games.map(function(g) {
           var books = ((g.books || {})[k] || {})[m] || {};
           // a game with only closing lines (The Odds API backfill): the column shows the close
-          var best = ((g.best || {})[k] || {})[m], open = g.close ? best : ((g.open || {})[k] || {})[m];
+          // the best price among the visitor's books (the Books picker)
+          var best = pickedBest(g, k, m, picker, sources), open = g.close ? ((g.best || {})[k] || {})[m] : ((g.open || {})[k] || {})[m];
           var past = g.state !== 'pre';
           var rows = sides(m, kind).map(function(sd) {
             var s = sd[0], b = top(best, m, s), o = top(open, m, s);
@@ -3481,7 +3662,7 @@
         html += '<div class="ob-stick" id="obStick"><div class="sport-seg-row odds-controls">' + (D.segments.length > 1 ? segToggle('pageSeg', k) : '') +
           '<div class="seg-toggle" id="oddsMkt">' + ms.map(function(x) {
             return '<button class="seg-btn" data-mkt="' + x[1] + '" aria-pressed="' + (x[1] === MKT_CUR) + '">' + esc(pillLabel(x)) + '</button>';
-          }).join('') + '</div></div></div>';
+          }).join('') + '</div>' + booksBtn(picker, sources) + '</div></div>';
         var first = slate()[0];
         if (!games.length && one) html += '<p class="tp-none">No ' + esc(seg(k).label) + ' lines for this game.</p>';
         else if (!games.length) {
@@ -3499,6 +3680,8 @@
         }
         if (m === 'btts') html += '<p class="odds-note">Both teams to score in the 1st period. BTTS isn&rsquo;t on our odds feed, so our team enters ' + (cols[0] && cols[0] !== 'consensus' ? esc(name(cols[0])) + '&rsquo;s price' : 'a consensus price across the books') + '.</p>';
         box.innerHTML = html;
+        var mbb = box.querySelector('#mbBtn');
+        if (mbb) mbb.onclick = function() { openBooks(picker, sources, function() { show(); if (one && one.onBooks) one.onBooks(); if (window.rtybBnPick) window.rtybBnPick(MB); }); };
         if (one) {
           wireTips(box);
           var ops = box.querySelector('#pageSeg');
@@ -3621,7 +3804,7 @@
       var rows = (((og.books || {})[k] || {})[mk]) || {}, id = null;
       ['book', 'exch', 'consensus'].forEach(function(pass) {
         Object.keys(rows).forEach(function(b) {
-          if (id || (sources[b] || {}).nb || (b === 'consensus') !== (pass === 'consensus')) return;
+          if (id || (sources[b] || {}).nb || (b === 'consensus') !== (pass === 'consensus') || (MB && b !== 'consensus' && !mbPicked(b, null, sources))) return;
           if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
           var r = rows[b], x = r && r[s], xp = x && typeof x === 'object' ? x.price : x;
           if (xp !== v.price) return;
@@ -3648,7 +3831,7 @@
       var k = sg.key;
       var blocks = tmMarkets(k).map(function(p) {
         var m = p.m, mk = m === 'rfi' ? 'nrfi_yrfi' : m;
-        var best = ((og.best || {})[k] || {})[mk], open = og.close ? null : ((og.open || {})[k] || {})[mk];
+        var best = pickedBest(og, k, mk, null, sources), open = og.close ? null : ((og.open || {})[k] || {})[mk];
         var sides = m === 'ml3' ? ['away', 'draw', 'home'] : m === 'total' ? ['over', 'under'] : m === 'btts' ? ['yes', 'no'] : m === 'rfi' ? ['nrfi', 'yrfi'] : ['away', 'home'];
         var html = sides.map(function(s) {
           var v = val(best, m, s), o = val(open, m, s);
@@ -3901,7 +4084,11 @@
       if (ab) ab.innerHTML = h2Angle(G);
       document.getElementById('h2PrevBox').innerHTML = h2Preview(G);
       drawSeg();   // the scoring line's total, from the best line
-      if (H2.og) renderOdds({ box: document.getElementById('h2OddsBox'), day: day, away: G.away, home: G.home });
+      // a change in the Books picker redraws the best lines above too
+      if (H2.og) renderOdds({ box: document.getElementById('h2OddsBox'), day: day, away: G.away, home: G.home, onBooks: function() {
+        var b = document.getElementById('h2Best');
+        if (b) b.innerHTML = h2BestBlocks(G);
+      } });
       else document.getElementById('h2OddsBox').innerHTML = '<p class="tp-none">Lines not posted yet.</p>';
     });
   }

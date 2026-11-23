@@ -16,7 +16,10 @@ Rows per sport and segment:
 The line is the consensus across the sportsbooks (the line most books
 hang, never an alternate or one book's outlier; a spread's favorite is the
 side most books favor); the price shown is the best one at that line, with
-its book's logo.
+its book's logo. Each cell also carries every book's price at that line
+(data-bn-px) and the card the books' logos (data-bn-books), so a visitor's
+Books picker (assets/sport.js) re-picks the best price among their books
+(front.BN_PICK_JS).
 Ties: spread -> the more expensive favorite price, then the earlier start;
 moneyline -> the earlier start; total -> the higher Over price, then the
 earlier start.
@@ -75,6 +78,16 @@ def best_at(rows, side, line=None, line_of=None):
         if best is None or p > best[0]:
             best = (p, b)
     return best
+
+
+def prices_at(rows, side, line=None, line_of=None):
+    """{book: price} on one side (at that line): the cell's choices."""
+    out = {}
+    for b, r in rows.items():
+        p = price(r.get(side))
+        if p is not None and (line is None or line_of(r, side) == line):
+            out[b] = p
+    return out
 
 
 def side_line(r, side):
@@ -149,13 +162,15 @@ def rows_for(sport, k, games):
                 if not x:
                     continue
                 score = (x[0], x[1], start)            # most negative line, then the dearer price (-115 before -110), then earlier
-                row = {'top': front.signed(x[0]), 'sub': front.price_txt(x[1]), 'book': x[2], 'fav': x[3]}
+                row = {'top': front.signed(x[0]), 'sub': front.price_txt(x[1]), 'book': x[2], 'fav': x[3],
+                       'px': prices_at(books_of(sport, og, k, 'ats'), x[3], x[0], side_line)}
             elif m in ('ml', 'ml3'):
                 x = ml_pick(sport, og, k, m)
                 if not x:
                     continue
                 score = (x[0], start)
-                row = {'top': sport.code(g[x[3]]), 'sub': front.price_txt(x[1]), 'book': x[2], 'fav': x[3]}   # like the spread cells
+                row = {'top': sport.code(g[x[3]]), 'sub': front.price_txt(x[1]), 'book': x[2], 'fav': x[3],   # like the spread cells
+                       'px': prices_at(books_of(sport, og, k, m), x[3])}
             elif m == 'tie':
                 rows = books_of(sport, og, k, 'ml3')
                 ps = [price(r.get('draw')) for r in rows.values()]
@@ -164,14 +179,16 @@ def rows_for(sport, k, games):
                 if not ps or not got:
                     continue
                 score = (median(ps), start)
-                row = {'top': front.price_txt(got[0]), 'sub': 'Tie', 'book': got[1], 'fav': None}
+                row = {'top': front.price_txt(got[0]), 'sub': 'Tie', 'book': got[1], 'fav': None, 'slot': 'top',
+                       'px': prices_at(rows, 'draw')}
             else:
                 x = total_pick(sport, og, k, 1.5 if nhl else None)
                 if not x:
                     continue
                 # NHL: every total is 1.5, so the dearest Over wins; else the highest total, then the dearer Over
                 score = (x[1], start) if nhl else (-x[0], -x[2], start)
-                row = {'top': 'o' + front.line_txt(x[0]), 'sub': front.price_txt(x[2]), 'book': x[3], 'fav': None}
+                row = {'top': 'o' + front.line_txt(x[0]), 'sub': front.price_txt(x[2]), 'book': x[3], 'fav': None,
+                       'px': prices_at(books_of(sport, og, k, 'total'), 'over', x[0], lambda r, s: r.get('line'))}
             if best is None or score < best[0]:
                 best = (score, dict(row, game=g, day=d))
         if best:
@@ -227,7 +244,9 @@ def teams_html(sport, r, root, big=False):
 
 
 def odds_html(sport, r, root):
-    return (f'<span class="bn-odds"><span class="bn-book">{front.book_html(sport, r["book"], root)}</span>'
+    px = {b: [p, front.price_txt(p)] for b, p in (r.get('px') or {}).items()}
+    return (f'<span class="bn-odds" data-bn-px=\'{esc(json.dumps(px, separators=(",", ":")))}\' data-bn-slot="{r.get("slot", "sub")}">'
+            f'<span class="bn-book">{front.book_html(sport, r["book"], root)}</span>'
             f'<span class="bn-cell">{front.cell(r["top"], r["sub"])}</span></span>')
 
 
@@ -245,6 +264,14 @@ def card_html(sport, r, k, today, root):
     return (f'<a class="st-card bn-dcard" href="{esc(odds_href(sport, r, k, root))}"><span class="bn-label">{esc(r["long"])}</span>'
             f'{teams_html(sport, r, root, big=True)}{odds_html(sport, r, root)}'
             f'<span class="bn-time">{esc(when(sport, r["game"], today))}</span></a>')
+
+
+def books_attr(sport, segs, root):
+    """data-bn-books: {book: [logo html, on by default]} for the cells' books."""
+    cfg = books_cfg.settings()
+    ids = sorted({b for x in segs for r in x[3] for b in (r.get('px') or {})})
+    data = {b: [front.book_html(sport, b, root), cfg.row(b)['group'] == 'Sportsbook'] for b in ids}
+    return f" data-bn-books='{esc(json.dumps(data, separators=(',', ':')))}'"
 
 
 def seg_panes(sport, games, today, root, odds_page=False):
@@ -276,7 +303,7 @@ def sport_card(sport, now_utc, root):
         return '', None
     title = f'{icons.sport_icon(sport.sp)}{esc(sport.label)}'
     names = {k: label for k, _, label, _ in segs}
-    return (f'<div class="st-card bn-card" data-bn-names=\'{esc(json.dumps(names))}\'><div class="st-head"><h4>{title} &middot; <span data-bn-seg>{esc(segs[0][2])}</span></h4></div>'
+    return (f'<div class="st-card bn-card" data-bn-names=\'{esc(json.dumps(names))}\'{books_attr(sport, segs, root)}><div class="st-head"><h4>{title} &middot; <span data-bn-seg>{esc(segs[0][2])}</span></h4></div>'
             f'<div class="bn-body">{body}</div>'
             f'<div class="fr-links">{front.more_link(f"{root}{sport.odds_page}", f"All {esc(sport.label)} odds")}</div></div>'), day
 
@@ -312,7 +339,7 @@ def odds_top(sp, now_utc, root):
     if sport.weekly:   # the whole week: its label
         date = next((w.get('label') for w in sport.doc.get('weeks') or [] if w.get('key') == games[0][1].get('wk')), date)
     return (f'<section class="bn bn-odds-top" id="big-numbers"><div class="fr-head fr-stack"><h2>The Big Numbers</h2>'
-            f'<span class="fr-date">{esc(date)}</span></div><div class="st-card bn-card">{body}</div></section>')
+            f'<span class="fr-date">{esc(date)}</span></div><div class="st-card bn-card"{books_attr(sport, segs, root)}>{body}</div></section>')
 
 
 # the Odds page's segment toggle (sport pages run assets/sport.js, not front.FRONT_JS)
@@ -325,4 +352,4 @@ document.querySelectorAll('#big-numbers [data-pills]').forEach(function(g) {
     [].forEach.call(g.parentNode.children, function(el) { if (el.hasAttribute('data-pane')) el.hidden = el.getAttribute('data-pane') !== v; });
   });
 });
-</script>'''
+</script>''' + front.BN_PICK_JS

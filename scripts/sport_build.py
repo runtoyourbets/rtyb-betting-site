@@ -235,9 +235,10 @@ def best_price(market, books):
 def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, weeks=None):
     """The Odds page's data (assets/sport.js), for every scheduled game:
 
-      {slug}/odds.json          index: sources (name, logo, exchange), source
+      {slug}/odds.json          index: sources (name, logo, exchange, offshore), source
                                 order, markets with data, game counts per date
-                                (the calendar), weeks (weekly sports) and meta
+                                (the calendar), weeks (weekly sports), meta and
+                                the Books picker's list (picker_books)
       {slug}/odds/{date}.json   that date's games: {away, home, start, state,
                                 books, best, open, opens?}
 
@@ -389,7 +390,19 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
                                 sources={b: dict({'name': names.get(b, f'Source {b}')},
                                                  **({'logo': book_logo(b)} if book_logo(b) else {}),
                                                  **({'x': 1} if b in EXCHANGES else {}),
-                                                 **({} if cfg.counts(b) or b in EXTRA_BOOKS else {'nb': 1})) for b in used}))
+                                                 **({'off': 1} if cfg.row(b)['group'] == 'Offshore' else {}),
+                                                 **({} if cfg.counts(b) or b in EXTRA_BOOKS else {'nb': 1})) for b in used},
+                                picker=picker_books(cfg, used, names)))
+
+
+def picker_books(cfg, used, names):
+    """The Books picker (assets/sport.js): every book the admin shows, in the
+    Books tab's order (then a book it doesn't list yet that has lines here),
+    [{id, name, g (Sportsbook / Offshore / Exchange), logo?}]."""
+    ids = [b for b in cfg.listed if cfg.shown(b)] + [b for b in cfg.order(used, lambda x: source_order(x, names))
+                                                    if b not in cfg.rows and b not in EXTRA_BOOKS]
+    return [dict({'id': b, 'name': cfg.name(b, names.get(b, f'Source {b}')), 'g': cfg.row(b)['group']},
+                 **({'logo': book_logo(b)} if book_logo(b) else {})) for b in ids]
 
 
 def seg_scores(sp, g):

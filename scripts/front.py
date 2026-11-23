@@ -1652,6 +1652,31 @@ def index_body(S, now_utc, kind, root='../'):
 # Pills switch panes in place; the Slate keeps the next 3 games per tab
 # (today's first; none left today: the next day's), dropping each game as
 # it starts; trend rows flip to LIVE at their start time.
+# The Big Numbers follow the visitor's books (the Books picker in
+# assets/sport.js, saved as rtyb-mybooks {on, known}): each cell's price is
+# the best one among the picked books at its line (data-bn-px), with that
+# book's logo (data-bn-books: [logo, on by default]); none of them has it:
+# "-". Nothing saved: the build's cells stay. Home, hubs and Odds pages.
+BN_PICK_JS = '''<script>
+window.rtybBnPick = function(mb) {
+  if (mb === undefined) { try { mb = JSON.parse(localStorage.getItem('rtyb-mybooks') || 'null'); } catch (e) { mb = null; } }
+  if (!mb || !mb.on || !mb.known) return;
+  document.querySelectorAll('[data-bn-books]').forEach(function(card) {
+    var books = {}; try { books = JSON.parse(card.getAttribute('data-bn-books')); } catch (e) {}
+    function on(b) { return mb.known.indexOf(b) !== -1 ? mb.on.indexOf(b) !== -1 : !!(books[b] || [])[1]; }
+    card.querySelectorAll('[data-bn-px]').forEach(function(el) {
+      var px = {}; try { px = JSON.parse(el.getAttribute('data-bn-px')); } catch (e) {}
+      var best = null;
+      Object.keys(px).forEach(function(b) { if (on(b) && (best === null || px[b][0] > px[best][0])) best = b; });
+      var slot = el.querySelector(el.getAttribute('data-bn-slot') === 'top' ? '.ob-ln' : '.ob-pr'), bk = el.querySelector('.bn-book');
+      if (slot) slot.textContent = best === null ? '-' : px[best][1];
+      if (bk) bk.innerHTML = best === null ? '' : (books[best] || [''])[0];
+    });
+  });
+};
+window.rtybBnPick();
+</script>'''
+
 FRONT_JS = '''
 <script>
 (function() {
@@ -1853,6 +1878,7 @@ FRONT_JS = '''
   setInterval(countdown, 30000);
 })();
 </script>'''
+FRONT_JS += BN_PICK_JS
 
 
 def yesterday(now_utc):
