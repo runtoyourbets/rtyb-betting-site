@@ -13534,13 +13534,13 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -175,
+    "price": -160,
     "title": "Minnesota 1P ML",
-    "est": 0.694,
-    "edge": 0.0577,
+    "est": 0.6803,
+    "edge": 0.0649,
     "agree": 4,
     "sample": 16,
-    "tier": "B",
+    "tier": "A",
     "tags": [
      "Chalk Eater"
     ],
@@ -13666,6 +13666,94 @@
     "streakTeamName": "Trail Blazers"
    },
    {
+    "id": "nhl|2026020382|1p|ml|away",
+    "game": "nhl|2026020382",
+    "date": "2026-11-23",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-24T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Utah @ Winnipeg",
+    "href": "nhl/matchups/?date=2026-11-23",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -114,
+    "title": "Utah 1P ML",
+    "est": 0.5783,
+    "edge": 0.0456,
+    "agree": 3,
+    "sample": 13,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 0,
+    "streakTeam": "UTA",
+    "angles": [
+     [
+      "Utah 1P ML, season",
+      "8-5-11"
+     ],
+     [
+      "Winnipeg\u2019s opponents 1P ML, Winnipeg at home",
+      "3-2-8"
+     ],
+     [
+      "Utah 1P ML on the road",
+      "4-3-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Utah"
+   },
+   {
+    "id": "nhl|2026020380|1p|ml|away",
+    "game": "nhl|2026020380",
+    "date": "2026-11-23",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-24T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Calgary @ Ottawa",
+    "href": "nhl/matchups/?date=2026-11-23",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 143,
+    "title": "Calgary 1P ML",
+    "est": 0.455,
+    "edge": 0.0435,
+    "agree": 2,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "CGY",
+    "angles": [
+     [
+      "Ottawa\u2019s opponents 1P ML, Ottawa at home",
+      "5-3-4"
+     ],
+     [
+      "Calgary 1P ML, last 8",
+      "3-2-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Calgary"
+   },
+   {
     "id": "nba|401910044|1q|ats|away",
     "game": "nba|401910044",
     "date": "2026-11-23",
@@ -13765,94 +13853,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
-   },
-   {
-    "id": "nhl|2026020382|1p|ml|away",
-    "game": "nhl|2026020382",
-    "date": "2026-11-23",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-24T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Utah @ Winnipeg",
-    "href": "nhl/matchups/?date=2026-11-23",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -120,
-    "title": "Utah 1P ML",
-    "est": 0.5872,
-    "edge": 0.0418,
-    "agree": 3,
-    "sample": 13,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 0,
-    "streakTeam": "UTA",
-    "angles": [
-     [
-      "Utah 1P ML, season",
-      "8-5-11"
-     ],
-     [
-      "Winnipeg\u2019s opponents 1P ML, Winnipeg at home",
-      "3-2-8"
-     ],
-     [
-      "Utah 1P ML on the road",
-      "4-3-6"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Utah"
-   },
-   {
-    "id": "nhl|2026020380|1p|ml|away",
-    "game": "nhl|2026020380",
-    "date": "2026-11-23",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-24T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Calgary @ Ottawa",
-    "href": "nhl/matchups/?date=2026-11-23",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 140,
-    "title": "Calgary 1P ML",
-    "est": 0.4583,
-    "edge": 0.0416,
-    "agree": 2,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "CGY",
-    "angles": [
-     [
-      "Ottawa\u2019s opponents 1P ML, Ottawa at home",
-      "5-3-4"
-     ],
-     [
-      "Calgary 1P ML, last 8",
-      "3-2-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Calgary"
    },
    {
     "id": "nba|401910041|1h|ml|home",
@@ -14029,6 +14029,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Pelicans"
+   },
+   {
+    "id": "nhl|2026020383|1p|total|over",
+    "game": "nhl|2026020383",
+    "date": "2026-11-23",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-24T02:40:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Anaheim @ Seattle",
+    "href": "nhl/matchups/?date=2026-11-23",
+    "market": "total",
+    "side": "over",
+    "line": 1.5,
+    "price": -145,
+    "title": "1P Over 1.5",
+    "est": 0.622,
+    "edge": 0.0301,
+    "agree": 6,
+    "sample": 24,
+    "tier": "C",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "SEA",
+    "angles": [
+     [
+      "Seattle 1P overs, last 8 (1.5)",
+      "7-1"
+     ],
+     [
+      "Seattle 1P overs, season (1.5)",
+      "16-4"
+     ],
+     [
+      "Seattle 1P overs at home (1.5)",
+      "8-2"
+     ],
+     [
+      "Anaheim 1P overs, season (1.5)",
+      "17-7"
+     ]
+    ],
+    "info": "Avg 1P total in their games: Seattle 2.3 \u00b7 Anaheim 2.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Seattle"
    }
   ]
  }
