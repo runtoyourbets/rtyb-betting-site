@@ -56,3 +56,24 @@ class NhlSportTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class NhlFullRunTest(unittest.TestCase):
+    def test_periods_and_full_game(self):
+        lines = {'game': {'ml': {'away': 150, 'home': -170}, 'ats': {'away': {'line': 1.5, 'price': -180}, 'home': {'line': -1.5, 'price': 150}},
+                          'total': {'line': 6.5, 'over': -105, 'under': -115}}}
+        g = nhl_sport.game(GAME, '2026-11-10', lines)
+        self.assertEqual(g['fr']['2p'], {'sc': [1, 0], 'su': 'W'})   # results only, no lines
+        self.assertEqual(g['fr']['3p'], {'sc': [0, 3], 'su': 'L'})
+        fg = g['fr']['game']
+        self.assertEqual((fg['sc'], fg['su'], fg['ats'], fg['tot']), ([2, 4], 'L', 'L', 'U'))
+        self.assertEqual(g['fo'], lines)
+
+    def test_no_line_still_won_the_game(self):
+        fg = nhl_sport.game(GAME, '2026-11-10')['fr']['game']
+        self.assertEqual(fg['su'], 'L')
+        self.assertNotIn('u', fg)
+        self.assertNotIn('ats', fg)
+
+    def test_not_final_no_full_run(self):
+        self.assertNotIn('fr', nhl_sport.game(dict(GAME, state='LIVE'), '2026-11-10'))

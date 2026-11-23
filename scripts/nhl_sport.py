@@ -14,6 +14,7 @@ which counts OT goals and the shootout winner, the way books grade it.
 The same rules as nhlSitGame in template.html: a tied 1st period is a push
 on the moneyline (0 units), a loss for both teams on the 3-way.
 """
+import grading
 import sports
 from grading import bet_units, flip, num
 
@@ -31,7 +32,27 @@ def _won(yes):
     return 'W' if yes else 'L'
 
 
-def game(g, date):
+def full_run(g, odds):
+    """NHL's Full Run, once the game is final: fr['2p'] / fr['3p'] the
+    period's goals and who won it (W-L-T; results only, no lines) and
+    fr['game'] the final (OT and the shootout winner included, the way books
+    grade it) with the ML, puck line and total from `odds` (the merged
+    "game" segment, the other sports' shape)."""
+    import sport_build
+    fr = {}
+    for i, k in ((2, '2p'), (3, '3p')):
+        a, h = num(g.get(f'awayP{i}')), num(g.get(f'homeP{i}'))
+        if a is not None and h is not None:
+            fr[k] = {'sc': [a, h], 'su': 'W' if a > h else 'L' if a < h else 'T'}
+    a, h = num(g.get('awayFinal')), num(g.get('homeFinal'))
+    if a is not None and h is not None:
+        fr['game'] = sport_build.compact('game', 'period', grading.grade_spread_segment({'away': a, 'home': h}, odds))
+    return fr
+
+
+def game(g, date, full_odds=None):
+    """One game in the shared shape; full_odds: this game's Full Run lines
+    ({'game': {ml, ats, total}}, from The Odds API)."""
     out = {'id': g.get('id'), 'start': g.get('startTimeUTC') or date + 'T23:00:00Z',
            'state': STATE.get(g.get('state'), 'pre'), 'away': g['away'], 'home': g['home'],
            'as': g.get('awayFinal'), 'hs': g.get('homeFinal'), 'ot': g.get('ot') or '',
@@ -70,6 +91,10 @@ def game(g, date):
         odds['btts'] = {'yes': py, 'no': pn}
     if odds:
         out['odds'] = {'1p': odds}
+    if full_odds:
+        out['fo'] = full_odds
+    if out['state'] == 'final':
+        out['fr'] = full_run(g, (full_odds or {}).get('game')) or None
     a, h = periods[0]
     if a is None or h is None:
         return out
@@ -88,7 +113,10 @@ def game(g, date):
     return out
 
 
-def doc(games_by_date, season_start, season_label, summary, divisions, colors, tz, generated):
+def doc(games_by_date, season_start, season_label, summary, divisions, colors, tz, generated, full_odds=None):
+    """nhl/sport.json; full_odds: {"date|away|home": {segment: lines}}, the
+    Full Run's lines (sport_build.oddsapi_odds)."""
+    full_odds = full_odds or {}
     teams = {}
     for div, codes in divisions.items():
         for code in codes:
@@ -98,8 +126,10 @@ def doc(games_by_date, season_start, season_label, summary, divisions, colors, t
                            'division': div, 'conference': CONFERENCE.get(div)}
     return {
         'sport': 'nhl', 'label': 'NHL', 'slug': 'nhl', 'sportType': 'period', 'segments': SEGMENTS,
+        'fullRun': sports.BY_KEY['nhl']['full_run'],
         'markets': [list(m) for m in sports.BY_KEY['nhl']['family_markets']],
         'schedule': 'day', 'season': int(season_start[:4]) + 1, 'seasonLabel': season_label,
         'generated': generated, 'teams': teams, 'tz': tz,
-        'games': {d: [game(g, d) for g in gs] for d, gs in sorted(games_by_date.items()) if d >= season_start},
+        'games': {d: [game(g, d, (full_odds.get(f"{d}|{g['away']}|{g['home']}") or {}).get('segments')) for g in gs]
+                  for d, gs in sorted(games_by_date.items()) if d >= season_start},
     }

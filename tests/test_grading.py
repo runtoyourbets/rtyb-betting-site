@@ -221,3 +221,66 @@ class MLB(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class FullRun(unittest.TestCase):
+    """The Full Run (Premium): 2H and the full game, graded from the final."""
+
+    def ot_game(self):
+        # NBA: tied 100-100 after four, 12-8 in overtime; 1st half 55-50
+        return dict(game([30, 25, 20, 25, 12], [25, 25, 25, 25, 8]), away_score=112, home_score=108)
+
+    def test_second_half_includes_overtime(self):
+        r = g.grade_full_run('nba', ['2h'], self.ot_game(), {'segments': {'2h': spread_odds(1.5, ml=(110, -130), total=110.5)}})['2h']
+        self.assertEqual(r['score'], {'away': 57, 'home': 58})   # 45 + 12 OT, 50 + 8 OT
+        self.assertEqual(r['su']['away']['result'], 'L')
+        self.assertEqual(r['ats']['away']['result'], 'W')        # +1.5 covers a 1-point loss
+        self.assertEqual(r['total']['over']['result'], 'W')      # 115 > 110.5
+
+    def test_full_game_uses_the_final_with_overtime(self):
+        r = g.grade_full_run('nba', ['game'], self.ot_game(), {'segments': {'game': spread_odds(-2.5, total=215.5)}})['game']
+        self.assertEqual(r['score'], {'away': 112, 'home': 108})
+        self.assertEqual(r['su']['away']['result'], 'W')
+        self.assertEqual(r['ats']['away']['result'], 'W')        # won by 4 at -2.5
+        self.assertEqual(r['total']['over']['result'], 'W')      # 220 > 215.5
+
+    def test_ncaab_second_half_is_period_two_on(self):
+        r = g.grade_full_run('ncaab', ['2h'], dict(game([30, 35], [40, 20]), away_score=65, home_score=60), None)['2h']
+        self.assertEqual(r['score'], {'away': 35, 'home': 20})
+
+    def test_no_full_game_line_grades_su_only(self):
+        # in "won the game", out of the Full Game records (no units, no spread or total)
+        r = g.grade_full_run('nba', ['game'], self.ot_game(), None)['game']
+        self.assertEqual(r['su']['away'], {'result': 'W', 'units': None})
+        self.assertIsNone(r['ats'])
+        self.assertIsNone(r['total'])
+
+    def test_not_graded_until_final(self):
+        live = dict(game([30, 25, 20], [25, 25, 25], final=False), away_score=75, home_score=75)
+        self.assertEqual(g.grade_full_run('nba', ['2h', 'game'], live, None), {'2h': None, 'game': None})
+
+    def test_mlb_game_ml_run_line_total(self):
+        mlb = dict(game([0, 0, 1, 0, 0, 2, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 1]), away_score=3, home_score=2)
+        r = g.grade_full_run('mlb', ['game'], mlb, {'segments': {'game': spread_odds(1.5, ml=(120, -140), total=8.5, prices=(-170, 145))}})['game']
+        self.assertEqual(r['su']['away']['result'], 'W')
+        self.assertEqual(r['su']['away']['units'], 1.2)
+        self.assertEqual(r['ats']['away']['result'], 'W')
+        self.assertEqual(r['total']['over']['result'], 'L')
+
+
+class FullRunMerge(unittest.TestCase):
+    def test_mlb_game_segment_merges_and_grades(self):
+        import sport_build
+        import sports
+        mlb = sports.BY_KEY['mlb']
+        key = '2026-07-01|nyy|bos'
+        odds = sport_build.merge_odds({}, {}, {key: {'date': '2026-07-01', 'away': 'nyy', 'home': 'bos',
+                                                    'segments': {'game': spread_odds(-1.5, ml=(-150, 130), total=9.5)}}})
+        gm = dict(game([2, 0, 0, 1, 0, 0, 0, 3, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0]), date='2026-07-01', away='nyy', home='bos',
+                  away_score=6, home_score=1)
+        sport_build.grade_all(mlb, [gm], odds)
+        self.assertEqual(gm['_odds'], {})                       # the first segments' odds stay apart
+        self.assertEqual(set(gm['_fro']), {'game'})
+        fr = gm['_fr']['game']
+        self.assertEqual((fr['sc'], fr['su'], fr['ats'], fr['tot']), ([6, 1], 'W', 'W', 'U'))
+        self.assertEqual(sport_build.game_out(dict(gm, id='1', start=None, state='final', detail='', away_name='', home_name=''))['fr']['game']['su'], 'W')

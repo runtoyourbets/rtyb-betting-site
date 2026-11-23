@@ -1412,7 +1412,8 @@ def main():
     # sport's, from NHL's games in the shared shape (scripts/nhl_sport.py)
     sport_build.write_json(os.path.join(nhl_dir, 'sport.json'), nhl_sport.doc(
         merged_games, SEASON_START, full_data['seasonLabel'], full_data.get('summary', {}), full_data['divisions'],
-        team_colors, full_data.get('tz'), datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')))
+        team_colors, full_data.get('tz'), datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+        sport_build.oddsapi_odds('nhl', {'game'})))
     nhl_doc = json.load(open(os.path.join(nhl_dir, 'sport.json'), encoding='utf-8'))
     nhl_trends = trends.page_doc(nhl, nhl_doc, datetime.now(timezone.utc))
     sport_build.write_json(os.path.join(nhl_dir, 'trends.json'), nhl_trends)

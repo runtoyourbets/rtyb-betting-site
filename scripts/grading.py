@@ -194,6 +194,41 @@ def grade_first_five(game, odds):
     return grade_spread_segment(score, odds)
 
 
+# The Full Run (sports.py full_run): graded once the game is final. 2H is
+# the score after the half to the final, overtime included (books grade the
+# 2nd half with OT); game is the final with OT. Lines are the merged odds'
+# "2h" / "game" segments, so a market with no saved line grades SU only.
+def final_score(game):
+    """Away / home final (OT included), or None before the game is final."""
+    if not game.get('final'):
+        return None
+    a, h = num(game.get('away_score')), num(game.get('home_score'))
+    if a is None or h is None:
+        als, hls = game.get('away_ls') or [], game.get('home_ls') or []
+        if not als or not hls or any(num(x) is None for x in als + hls):
+            return None
+        a, h = sum(als), sum(hls)
+    return {'away': a, 'home': h}
+
+
+def grade_full_run(sport_key, segments, game, odds_game):
+    """{segment: result} for the Full Run segments of one game, in the
+    spread segments' shape (su / ats / total / score); None until final."""
+    seg_odds = (odds_game or {}).get('segments') or {}
+    fin = final_score(game)
+    out = {}
+    for seg in segments:
+        score = None
+        if fin and seg == 'game':
+            score = fin
+        elif fin and seg == '2h':
+            half = segment_score(dict(game, periods_done=99), SEGMENT_PERIODS.get(sport_key, SEGMENT_PERIODS['default'])['1h'])
+            if half:
+                score = {'away': fin['away'] - half['away'], 'home': fin['home'] - half['home']}
+        out[seg] = grade_spread_segment(score, seg_odds.get(seg)) if score else None
+    return out
+
+
 def grade_game(sport_key, sport_type, segments, game, odds_game):
     """Every segment of one game. `segments` are the registry's segment keys;
     `odds_game` is the admin entry for this game (or None)."""

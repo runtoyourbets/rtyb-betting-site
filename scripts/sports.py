@@ -15,6 +15,8 @@ Field reference
                  a label, a short tag for chips and cards, and its markets
                  (a segment without 'ML' shows no moneyline / SU anywhere:
                  game cards, stats, teams, trends, picks, home, admin)
+  full_run       the Premium segments after the first ones (2nd Half,
+                 NHL's 2nd / 3rd Period, Full Game), split out of segments
   season_start   month (1-12) the season starts, for "Soon" / return-month labels
   season_end     month (1-12) the last games are played (playoffs and bowls
                  included); between the two the sport is in season
@@ -93,6 +95,12 @@ BOTTOM_BAR = [(m['key'], m.get('label') or m['key'].title()) for m in SETTINGS['
 
 SPREAD_MARKETS = ['ATS', 'ML', 'Total']
 NO_ML_MARKETS = ['ATS', 'Total']
+# The Full Run (Premium): everything after the first segment. Marked
+# full_run: True here, then moved to sport['full_run'] (below), so
+# sport['segments'] stays the first segments every page, guide and trend
+# is built from. NHL's 2nd and 3rd periods are results only (no lines).
+SECOND_HALF = {'key': '2h', 'label': '2nd Half', 'tag': '2H', 'markets': SPREAD_MARKETS, 'full_run': True}
+FULL_GAME = {'key': 'game', 'label': 'Full Game', 'tag': 'GAME', 'markets': SPREAD_MARKETS, 'full_run': True}
 
 # The bottom block (newsletter signup, 21+ line, about and commission lines,
 # Privacy · Terms · email) on every page's footer. 'home-only' keeps it on
@@ -158,6 +166,9 @@ SPORTS = [
         'launched': True,
         'segments': [
             {'key': '1p', 'label': '1st Period', 'tag': '1P', 'markets': ['ML', 'O/U 1.5', 'BTTS']},
+            {'key': '2p', 'label': '2nd Period', 'tag': '2P', 'markets': [], 'full_run': True},
+            {'key': '3p', 'label': '3rd Period', 'tag': '3P', 'markets': [], 'full_run': True},
+            dict(FULL_GAME, markets=['ML', 'Puck Line', 'Total']),
         ],
         'season_start': 10, 'season_end': 6,
         'sections': {'games': 'matchups', 'stats': 'stats', 'trends': 'trends', 'odds': 'odds', 'teams': 'teams'},
@@ -168,6 +179,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
+            SECOND_HALF, FULL_GAME,
         ],
         'season_start': 10, 'season_end': 6,
     },
@@ -176,6 +188,7 @@ SPORTS = [
         'launched': True,
         'segments': [
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
+            SECOND_HALF, FULL_GAME,
         ],
         'season_start': 11, 'season_end': 4,
     },
@@ -185,6 +198,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
+            SECOND_HALF, FULL_GAME,
         ],
         'season_start': 9, 'season_end': 2,
     },
@@ -194,6 +208,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
+            SECOND_HALF, FULL_GAME,
         ],
         'season_start': 8, 'season_end': 1,
     },
@@ -203,6 +218,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
+            SECOND_HALF, FULL_GAME,
         ],
         'season_start': 5, 'season_end': 10,
     },
@@ -212,6 +228,7 @@ SPORTS = [
         'segments': [
             {'key': '1i', 'label': '1st Inning', 'tag': 'NRFI', 'markets': ['NRFI/YRFI']},
             {'key': 'f5', 'label': 'First Five Innings', 'tag': 'F5', 'markets': SPREAD_MARKETS},
+            dict(FULL_GAME, markets=['ML', 'Run Line', 'Total']),
         ],
         'season_start': 3, 'season_end': 10,
     },
@@ -230,6 +247,8 @@ MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
           'August', 'September', 'October', 'November', 'December']
 
 for _s in SPORTS:
+    _s['full_run'] = [seg for seg in _s['segments'] if seg.get('full_run')]
+    _s['segments'] = [seg for seg in _s['segments'] if not seg.get('full_run')]
     _s.setdefault('sections', dict(DEFAULT_SECTIONS))
     _s.setdefault('schedule', 'day')
 

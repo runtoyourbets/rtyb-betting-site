@@ -481,11 +481,18 @@ def merge_odds(admin, feed, oddsapi=None):
 
 def grade_all(sp, games, odds):
     segs = [s['key'] for s in sp['segments']]
+    fr = [s['key'] for s in sp.get('full_run') or []]
     for g in games:
         o = odds.get(f"{g['date']}|{g['away']}|{g['home']}")
-        g['_odds'] = (o or {}).get('segments') or {}
+        so = (o or {}).get('segments') or {}
+        # the Full Run's lines and results ride apart from the first
+        # segments' (fo / fr in data.json), so every first-segment page,
+        # guide and trend reads exactly what it did
+        g['_odds'] = {k: v for k, v in so.items() if k not in fr}
+        g['_fro'] = {k: so[k] for k in fr if so.get(k)}
         full = grading.grade_game(sp['key'], sp['sport_type'], segs, g, o)
         g['_res'] = {k: compact(k, sp['sport_type'], v) for k, v in full.items()}
+        g['_fr'] = {k: compact(k, sp['sport_type'], v) for k, v in grading.grade_full_run(sp['key'], fr, g, o).items()}
 
 
 # -------------------------------------------------------------------- stats
@@ -1144,6 +1151,8 @@ def game_out(g):
         'as': g['away_score'], 'hs': g['home_score'], 'als': g['away_ls'], 'hls': g['home_ls'],
         'note': g.get('note'), 'post': g.get('season_type') == 3, 'neutral': g.get('neutral') or False,
         'odds': g['_odds'] or None, 'res': {k: v for k, v in g['_res'].items() if v} or None,
+        # the Full Run (Premium): 2nd Half and Full Game lines and results
+        'fo': g.get('_fro') or None, 'fr': {k: v for k, v in (g.get('_fr') or {}).items() if v} or None,
         'wk': week_key(g),
         # outside the US (International games); None = not known yet
         'intl': None if g.get('country') is None else g['country'] not in ('USA', 'United States'),
@@ -1239,7 +1248,7 @@ def build(sp, teams_list, now_utc=None):
     seasons = load_games(sp['key'])
     odds = merge_odds(read_json(os.path.join(ROOT, 'data_admin', 'odds', f"{sp['key']}.json"), {}),
                       read_json(os.path.join(ROOT, 'data_feed', 'unabated', f"{sp['key']}.json"), {}).get('games') or {},
-                      oddsapi_odds(sp['key'], {s['key'] for s in sp['segments']}))
+                      oddsapi_odds(sp['key'], {s['key'] for s in sp['segments'] + sp['full_run']}))
     teams = {t['slug']: t for t in teams_list}
     slug_dir = os.path.join(ROOT, sp['slug'])
     current = max(seasons) if seasons else None
@@ -1262,6 +1271,7 @@ def build(sp, teams_list, now_utc=None):
     doc = {
         'sport': sp['key'], 'label': sp['label'], 'slug': sp['slug'], 'sportType': sp['sport_type'],
         'segments': sp['segments'],
+        'fullRun': sp['full_run'],
         # the market pills every page uses (sports.py family markets); no 3-way for the spread family
         'markets': page_markets(sp),
         'schedule': sp.get('schedule', 'day'),
