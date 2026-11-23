@@ -59,6 +59,9 @@ jobs:
         # retried on later runs; it never stops the NHL refresh.
         run: python3 scripts/fetch_sport_games.py daily || echo "other sports fetch failed; keeping saved games"
 
+      - name: Starting pitchers (MLB, once a day) and tonight's confirmed NHL goalies
+        run: python3 scripts/fetch_starters.py || echo "starters fetch failed; keeping saved starters"
+
       - name: College AP polls by week (for the rank at game time)
         run: |
           python3 scripts/fetch_rankings.py || echo "AP poll fetch failed; keeping saved polls"

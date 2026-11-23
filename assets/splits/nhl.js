@@ -13,7 +13,7 @@
     { id: 'ha', label: 'Home / Away / Favorite / Underdog',
       note: 'Away and Underdog rows are the mirror of Home and Favorite (W and L swapped). Favorite / underdog by the closing 1st-period moneyline (the full-game one when there’s no 1P price); a pick’em is neither.' },
     { id: 'opp', label: 'Opponent' }, { id: 'drop', label: 'Puck Drop Window' }, { id: 'rest', label: 'Rest & Schedule' },
-    { id: 'prev', label: 'Previous Game' }, { id: 'size', label: 'Total Size' }, { id: 'goalie', label: 'Goalie', hidden: true },
+    { id: 'prev', label: 'Previous Game' }, { id: 'size', label: 'Total Size' }, { id: 'goalie', label: 'Goalie' },
   ];
   function lost(p) { return p && p.res === 'L'; }
   function third(c, n) {

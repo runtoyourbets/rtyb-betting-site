@@ -123,6 +123,59 @@
   function anySeg(k) { return seg(k) || frSeg(k); }
   function segRes(g, k) { return (g.res || {})[k] || (frSeg(k) ? (g.fr || {})[k] : null); }
   function segOdds(g, k) { return (g.odds || {})[k] || (frSeg(k) ? (g.fo || {})[k] : null); }
+  // Starters (scripts/fetch_starters.py): MLB's starting pitcher (asp / hsp,
+  // prob: the probable), NHL's starting goalie (ag / hg, status: expected /
+  // confirmed on a game still to play). Other sports: none.
+  function hasStarters() { return D.sportType === 'baseball' || D.sport === 'nhl'; }
+  function starterOf(g, side) {
+    if (!g || !hasStarters()) return null;
+    return D.sportType === 'baseball' ? g[side === 'away' ? 'asp' : 'hsp'] : g[side === 'away' ? 'ag' : 'hg'];
+  }
+  function starterLast(p) { return p ? p.last || p.name || '' : ''; }
+  // a starter's games for one team (a pitcher traded mid-season: only this team's)
+  function starterGames(p, slug) {
+    return teamGames(slug).filter(function(g) {
+      var q = g.state === 'final' && starterOf(g, g.home === slug ? 'home' : 'away');
+      return q && String(q.id) === String(p.id);
+    });
+  }
+  // [{p, games}]: each starter of this team's side in these games (min+
+  // starts), most starts first; a traded pitcher counts only this team's
+  function starterRows(slug, games, min) {
+    var by = {}, ids = [];
+    games.forEach(function(g) {
+      if (g.away !== slug && g.home !== slug) return;
+      var p = starterOf(g, g.home === slug ? 'home' : 'away');
+      if (!p || p.id == null) return;
+      var id = String(p.id);
+      if (!by[id]) { by[id] = { p: p, games: [] }; ids.push(id); }
+      by[id].games.push(g);
+    });
+    return ids.map(function(id) { return by[id]; }).filter(function(r) { return r.games.length >= min; })
+      .sort(function(a, b) { return b.games.length - a.games.length; });
+  }
+  // "Probable: Skubal (NRFI 71%) vs Gausman (NRFI 48%)", "Goalies: Oettinger
+  // (expected · 1P 8-5-3) vs Hellebuyck (confirmed · 1P 9-4-2)": each with his
+  // record with this team; rec false: names only (Matchups cards)
+  function startersLine(g, rec) {
+    var ps = ['away', 'home'].map(function(side) { return { side: side, p: starterOf(g, side) }; });
+    if (!ps.some(function(x) { return x.p; })) return '';
+    var parts = ps.map(function(x) {
+      if (!x.p) return 'TBD';
+      var bits = [];
+      if (D.sport === 'nhl' && x.p.status) bits.push(x.p.status);
+      if (rec) {
+        var gs = starterGames(x.p, g[x.side]);
+        if (gs.length) {
+          if (D.sportType === 'baseball') bits.push('NRFI ' + tmPct(tmAgg(g[x.side], '1i', 'rfi', 'all', gs).pct));
+          else bits.push('1P ' + tpRec(tmAgg(g[x.side], '1p', 'ml', 'all', gs), 'ml'));
+        }
+      }
+      return esc(starterLast(x.p)) + (bits.length ? ' (' + bits.join(' &middot; ') + ')' : '');
+    });
+    var label = D.sport === 'nhl' ? 'Goalies' : g.state === 'pre' ? 'Probable' : 'Starters';
+    return '<p class="tp-sps"><span class="t-label">' + label + '</span> ' + parts.join(' vs ') + '</p>';
+  }
   // a segment's short name in text: "2H", "2P", "Game"
   function segTag(k) { return k === 'game' ? 'Game' : anySeg(k).tag; }
   function isRfi(k) { return D.sportType === 'baseball' && k === '1i'; }
@@ -275,7 +328,7 @@
     return '<div class="game-card mc" data-game="' + esc(g.id) + '" style="--mc-n:' + cols.length + '">' +
       '<table class="mc-grid"><thead><tr><th scope="col" class="mc-st">' + cardStatus(g, k) + '</th>' +
       cols.map(function(c) { return '<th scope="col"><span class="mk-h">' + esc(c[1]) + '</span></th>'; }).join('') + '</tr></thead>' +
-      '<tbody>' + teamRow(g.away, 0) + teamRow(g.home, 1) + tie + '</tbody></table>' + fullGameRow(g) +
+      '<tbody>' + teamRow(g.away, 0) + teamRow(g.home, 1) + tie + '</tbody></table>' + fullGameRow(g) + (SECTION === 'games' ? startersLine(g, false) : '') +
       (h2hUrl(g.away, g.home) && SECTION !== 'h2h' ? '<a class="mc-more" href="' + h2hUrl(g.away, g.home) + '">Full matchup &rarr;</a>' : '') + '</div>';
   }
 
@@ -992,7 +1045,7 @@
       var href = ROOT + SPORT_SLUG + '/odds/' + (D.schedule === 'week' && g.wk ? '?week=' + encodeURIComponent(g.wk) : '?date=' + day) + '#og-' + g.away + '-' + g.home;
       return tmSection('Next Game', '<div class="st-card tp-card"><div class="st-head"><h4>Next game &middot; ' + esc(when) + ' ' +
         esc(new Date(g.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })) + ' ET</h4></div>' +
-        '<div class="tp-ng">' + teams + (where ? '<p class="tp-where">' + where + '</p>' : '') + '</div>' +
+        '<div class="tp-ng">' + teams + (where ? '<p class="tp-where">' + where + '</p>' : '') + startersLine(g, true) + '</div>' +
         '<div id="tpOdds">' + oddsBlocks(g, null, null) + '</div>' +
         '<div class="fr-links">' + (h2hUrl(g.away, g.home) ? '<a class="fr-more" href="' + h2hUrl(g.away, g.home) + '">Full matchup &rarr;</a>' : '') +
         '<a class="fr-more" href="' + href + '">All odds for this game &rarr;</a></div></div>');
@@ -1295,6 +1348,40 @@
       return { ml: 'ML', ml3: '3-Way', ats: spreadWord(), total: D.sport === 'nhl' && p.k === '1p' ? 'Over 1.5' : 'Over', btts: 'BTTS' }[p.m];
     }
     function marketsHtml() { return off ? finalHtml() : tmSection('Season Markets', marketCards(), 'tpMarkets', tpFinalNote()); }
+    // BY STARTING PITCHER / GOALIE: a row per starter with 3+ starts for this
+    // team, most starts first; "Next game" on tonight's starter
+    var SP_MIN = 3;
+    function startersHtml() {
+      if (!hasStarters()) return '';
+      var rows = starterRows(slug, graded, SP_MIN);
+      var mlb = D.sportType === 'baseball', title = mlb ? 'By Starting Pitcher' : 'By Starting Goalie';
+      if (!rows.length) return tmSection(title, '<p class="tp-none">No ' + (mlb ? 'pitcher' : 'goalie') + ' with ' + SP_MIN + '+ starts yet.</p>', 'tpStarters', tpFinalNote());
+      var np = next ? starterOf(next, next.home === slug ? 'home' : 'away') : null;
+      function cell(a, m, units) {
+        if (!a.gp) return '-';
+        return '<span class="h2h-pct">' + tmPct(a.pct) + '</span> <span class="tp-hr2">(' + tpRec(a, m) + ')</span>' + (units ? ' ' + tmUnits(a) : '');
+      }
+      function ou(a) { return a.gp ? a.w + '-' + a.l : '-'; }
+      var cols = mlb ? [['NRFI %', function(gs) { return cell(tmAgg(slug, '1i', 'rfi', 'all', gs), 'rfi'); }],
+                        ['F5 ML %', function(gs) { return cell(tmAgg(slug, 'f5', 'ml', 'all', gs), 'ml', true); }],
+                        ['F5 Run Line %', function(gs) { return cell(tmAgg(slug, 'f5', 'ats', 'all', gs), 'ats', true); }],
+                        ['F5 O/U (O-U)', function(gs) { return ou(tmAgg(slug, 'f5', 'total', 'all', gs)); }]]
+        : [['1P ML % (W-L-T)', function(gs) { return cell(tmAgg(slug, '1p', 'ml', 'all', gs), 'ml'); }],
+           ['O/U 1.5 (O-U)', function(gs) { return ou(tmAgg(slug, '1p', 'total', 'all', gs)); }],
+           ['BTTS (Y-N)', function(gs) { return ou(tmAgg(slug, '1p', 'btts', 'all', gs)); }],
+           ['1P goals allowed', function(gs) {
+             var n = 0, ga = 0;
+             gs.forEach(function(g) { var r = segRes(g, '1p'); if (r && r.sc) { ga += r.sc[g.home === slug ? 0 : 1]; n++; } });
+             return n ? (ga / n).toFixed(2) : '-';
+           }]];
+      var head = '<tr><th>' + (mlb ? 'Pitcher' : 'Goalie') + '</th><th class="num">Starts</th>' + cols.map(function(c) { return '<th class="num">' + esc(c[0]) + '</th>'; }).join('') + '</tr>';
+      var body = rows.map(function(r) {
+        var tag = np && String(np.id) === String(r.p.id) ? ' <span class="sit-tn">Next game</span>' : '';
+        return '<tr><th scope="row"><span class="tn-full">' + esc(r.p.name || starterLast(r.p)) + '</span><span class="tn-short">' + esc(starterLast(r.p)) + '</span>' + tag + '</th>' +
+          '<td class="num">' + r.games.length + '</td>' + cols.map(function(c) { return '<td class="num">' + c[1](r.games) + '</td>'; }).join('') + '</tr>';
+      }).join('');
+      return tmSection(title, '<div class="st-card tp-card h2h-x"><table class="tp-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>', 'tpStarters', tpFinalNote());
+    }
     // CURRENT STREAKS: chips, 3+ only; between seasons, the season's longest per market
     function streakText(m, kind, k) {
       var tag = D.sportType === 'baseball' ? (m === 'rfi' ? '' : 'F5 ') : seg(k).tag + ' ';
@@ -1526,7 +1613,7 @@
     function wireSeason(root) {
       root.querySelectorAll('[data-tp-season]').forEach(function(b) { b.onclick = function() { tpUse(b.getAttribute('data-tp-season')); }; });
     }
-    app.innerHTML = nextHtml() + lastHtml() + marketsHtml() + streaksHtml() + '<div id="tmLogBox"></div><div id="tpHABox"></div>' + sitHtml() +
+    app.innerHTML = nextHtml() + lastHtml() + marketsHtml() + startersHtml() + streaksHtml() + '<div id="tmLogBox"></div><div id="tpHABox"></div>' + sitHtml() +
       '<div class="tp-hists">' + linesHtml() + resultsHtml() + '</div>';
     drawLog();
     drawHA();
@@ -3523,7 +3610,7 @@
     var where = [G.ven, (G.tv || []).join(', ')].filter(Boolean).map(esc).join(' &middot; ');
     return '<div class="st-card h2h-head"><div class="st-head"><h4>' + (which === 'next' ? (G.state === 'in' ? 'Live' : 'Next meeting') : 'Last meeting') + ' &middot; ' + when + '</h4></div>' +
       '<div class="h2h-teams">' + col(G.away, 0) + '<span class="tp-at">@</span>' + col(G.home, 1) + '</div>' +
-      (where ? '<p class="tp-where">' + where + '</p>' : '') + '</div>' +
+      (where ? '<p class="tp-where">' + where + '</p>' : '') + startersLine(G, true) + '</div>' +
       '<nav class="h2h-tabs" aria-label="Sections"><a href="#h2Over">Overview</a><a href="#h2Odds">Odds</a><a href="#h2Meet">H2H</a><a href="#h2Trends">Trends</a></nav>';
   }
   // the best price per segment, market and side, its book and the open

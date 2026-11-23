@@ -47,7 +47,7 @@ def main():
 
     todo = [(d, g) for d, gs in sorted(data.get('games', {}).items()) if d >= periods.SEASON_START
             for g in gs if g.get('state') in ('FINAL', 'OFF') and g.get('id')
-            and any(f not in g for f in ('awayP2', 'firstGoal') + EXTRA)]
+            and (any(f not in g for f in ('awayP2', 'firstGoal') + EXTRA) or not g.get('awayGoalie'))]
     todo = todo[:cap]
     # goalies (one request a game) and ESPN moneylines (one date at a time)
     lines = {}
@@ -55,7 +55,7 @@ def main():
         lines[d] = nhl_extras.espn_moneylines(d)
     extras = 0
     for d, g in todo:
-        if 'awayGoalie' not in g:
+        if not g.get('awayGoalie') or (g['awayGoalie'] or {}).get('status'):   # none yet, or tonight's confirmed one
             g['awayGoalie'], g['homeGoalie'] = nhl_extras.goalies(g['id'])
         if 'fgMl' not in g and lines.get(d) is not None and (g['away'], g['home']) in lines[d]:
             g['fgMl'] = lines[d][(g['away'], g['home'])]
@@ -83,7 +83,7 @@ def main():
     with open(PATH, 'w', encoding='utf-8') as f:
         json.dump(data, f, separators=(',', ':'))
     left = sum(1 for d, gs in data.get('games', {}).items() if d >= periods.SEASON_START for g in gs
-               if g.get('state') in ('FINAL', 'OFF') and any(f not in g for f in ('awayP2', 'firstGoal') + EXTRA))
+               if g.get('state') in ('FINAL', 'OFF') and (any(f not in g for f in ('awayP2', 'firstGoal') + EXTRA) or not g.get('awayGoalie')))
     print(f'backfill_periods: {done} games given period scores ({failed} failed the sanity rule, {fixed} 1P scores fixed), '
           f'{extras} given goalies / moneylines, {left} left')
 

@@ -50,13 +50,42 @@ def full_run(g, odds):
     return fr
 
 
+def goalie(x, status=None):
+    """A starting goalie: {id, name, last, status?} ("S. Knight" -> last
+    "Knight"); status "confirmed" (the NHL's box score lists him) or
+    "expected" (the team's last starter) on a game still to finish."""
+    if not x or not x.get('id'):
+        return None
+    name = x.get('name') or ''
+    out = {'id': x['id'], 'name': name, 'last': name.split('. ', 1)[-1] if '. ' in name else name.split(' ')[-1]}
+    if status or x.get('status'):
+        out['status'] = status or x['status']
+    return out
+
+
+def expected_goalies(games):
+    """Games still to finish (date order) get each team's last starter as
+    "expected", unless the box score already confirmed one."""
+    last = {}
+    for g in sorted(games, key=lambda g: g.get('start') or ''):
+        if g.get('state') == 'final':
+            for side, k in (('away', 'ag'), ('home', 'hg')):
+                if g.get(k):
+                    last[g[side]] = {x: g[k][x] for x in ('id', 'name', 'last')}
+        else:
+            for side, k in (('away', 'ag'), ('home', 'hg')):
+                if (g.get(k) or {}).get('status') == 'confirmed':
+                    continue
+                g[k] = dict(last[g[side]], status='expected') if g[side] in last else None
+
+
 def game(g, date, full_odds=None):
     """One game in the shared shape; full_odds: this game's Full Run lines
     ({'game': {ml, ats, total}}, from The Odds API)."""
     out = {'id': g.get('id'), 'start': g.get('startTimeUTC') or date + 'T23:00:00Z',
            'state': STATE.get(g.get('state'), 'pre'), 'away': g['away'], 'home': g['home'],
            'as': g.get('awayFinal'), 'hs': g.get('homeFinal'), 'ot': g.get('ot') or '',
-           'firstGoal': g.get('firstGoal'), 'ag': g.get('awayGoalie'), 'hg': g.get('homeGoalie'),
+           'firstGoal': g.get('firstGoal'), 'ag': goalie(g.get('awayGoalie')), 'hg': goalie(g.get('homeGoalie')),
            'fml': g.get('fgMl'), 'detail': g.get('detail') or '',
            'ven': g.get('venue'), 'tv': g.get('tv') or None,   # Preview's game lines
            # postseason: the NHL's game id carries the type (2025030111: 03 = playoffs)
@@ -124,12 +153,14 @@ def doc(games_by_date, season_start, season_label, summary, divisions, colors, t
             teams[code] = {'name': name, 'short': nickname(name), 'mu': sports.team_slug(nickname(name)), 'code': code, 'svg': 1,
                            'color': (colors.get(code) or '').lstrip('#') or None,
                            'division': div, 'conference': CONFERENCE.get(div)}
+    games = {d: [game(g, d, (full_odds.get(f"{d}|{g['away']}|{g['home']}") or {}).get('segments')) for g in gs]
+             for d, gs in sorted(games_by_date.items()) if d >= season_start}
+    expected_goalies([g for gs in games.values() for g in gs])
     return {
         'sport': 'nhl', 'label': 'NHL', 'slug': 'nhl', 'sportType': 'period', 'segments': SEGMENTS,
         'fullRun': sports.BY_KEY['nhl']['full_run'],
         'markets': [list(m) for m in sports.BY_KEY['nhl']['family_markets']],
         'schedule': 'day', 'season': int(season_start[:4]) + 1, 'seasonLabel': season_label,
         'generated': generated, 'teams': teams, 'tz': tz,
-        'games': {d: [game(g, d, (full_odds.get(f"{d}|{g['away']}|{g['home']}") or {}).get('segments')) for g in gs]
-                  for d, gs in sorted(games_by_date.items()) if d >= season_start},
+        'games': games,
     }

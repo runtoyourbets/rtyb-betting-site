@@ -124,9 +124,11 @@ class SplitsTest(unittest.TestCase):
         self.assertIn(' record by day of the week.', js)
         self.assertIn(' record by rest.', js)
 
-    def test_goalie_group_hidden(self):
-        self.assertIn("{ id: 'goalie', label: 'Goalie', hidden: true }", read('assets', 'splits', 'nhl.js'))
-        self.assertIn('if (G.hidden) HIDDEN[G.id] = 1;', read('assets', 'situational.js'))
+    def test_goalie_group_shows_with_real_starters(self):
+        """Starter / Backup from the box score starters (scripts/fetch_starters.py);
+        only finished games count toward the most-used goalie."""
+        self.assertIn("{ id: 'goalie', label: 'Goalie' }", read('assets', 'splits', 'nhl.js'))
+        self.assertIn("if (e.g.state === 'final' && mine && mine.id != null) starts[mine.id]", read('assets', 'situational.js'))
 
 
 class TeamScriptTest(unittest.TestCase):

@@ -1144,8 +1144,21 @@ def update_trends_log(sp, teams, games, log_path, now_utc):
 
 # --------------------------------------------------------------------- page
 
+def starter_out(p, probable=False):
+    """A starting pitcher on data.json: {id, name, last, throws, prob?}."""
+    if not p:
+        return None
+    out = {'id': p['id'], 'name': p.get('name'), 'last': p.get('last') or (p.get('name') or '').split(' ')[-1], 'throws': p.get('throws')}
+    if probable:
+        out['prob'] = True
+    return out
+
+
 def game_out(g):
-    return {
+    sp = g.get('_sp') or {}
+    starters = {k: starter_out(sp.get(f'{side}_sp'), sp.get('probable')) for k, side in (('asp', 'away'), ('hsp', 'home'))
+                if sp.get(f'{side}_sp')}
+    return {**starters,
         'id': g['id'], 'start': g['start'], 'state': g['state'], 'detail': g['detail'],
         'away': g['away'], 'home': g['home'], 'awayName': g['away_name'], 'homeName': g['home_name'],
         'as': g['away_score'], 'hs': g['home_score'], 'als': g['away_ls'], 'hls': g['home_ls'],
@@ -1246,6 +1259,12 @@ def build(sp, teams_list, now_utc=None):
     {season, games, graded, today}."""
     now_utc = now_utc or datetime.now(timezone.utc)
     seasons = load_games(sp['key'])
+    if sp['key'] == 'mlb':   # starting pitchers (scripts/fetch_starters.py)
+        import fetch_starters
+        for season, gs in seasons.items():
+            got = fetch_starters.load_mlb(season)
+            for g in gs:
+                g['_sp'] = got.get(str(g['id']))
     odds = merge_odds(read_json(os.path.join(ROOT, 'data_admin', 'odds', f"{sp['key']}.json"), {}),
                       read_json(os.path.join(ROOT, 'data_feed', 'unabated', f"{sp['key']}.json"), {}).get('games') or {},
                       oddsapi_odds(sp['key'], {s['key'] for s in sp['segments'] + sp['full_run']}))

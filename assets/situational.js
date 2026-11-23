@@ -93,8 +93,8 @@
   function create(src) {
     var REG = (window.RTYB_SPLITS || {})[src.sport];
     if (!REG) return null;
-    // groups marked hidden (NHL's Goalie, until the starter / backup data is
-    // checked) stay off every page: the Stats page, team pages, game log tags
+    // groups marked hidden stay off every page: the Stats page, team pages,
+    // game log tags
     var HIDDEN = {};
     REG.groups.forEach(function(G) { if (G.hidden) HIDDEN[G.id] = 1; });
     if (Object.keys(HIDDEN).length) {
@@ -209,7 +209,7 @@
             if (my > th) { w++; streak = streak > 0 ? streak + 1 : 1; } else if (my < th) { l++; streak = streak < 0 ? streak - 1 : -1; } else streak = 0;
           }
           trip = e.side === 'away' ? trip + 1 : 0;
-          if (mine && mine.id != null) starts[mine.id] = (starts[mine.id] || 0) + 1;
+          if (e.g.state === 'final' && mine && mine.id != null) starts[mine.id] = (starts[mine.id] || 0) + 1;   // tonight's expected goalie isn't a start yet
         });
       });
       var out = [], today = [];
