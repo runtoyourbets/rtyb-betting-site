@@ -3,7 +3,7 @@
   "1": {
    "coverage": {
     "nba": 64,
-    "ncaab": 95,
+    "ncaab": 96,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -16,7 +16,7 @@
   "105": {
    "coverage": {
     "nba": 100,
-    "ncaab": 12,
+    "ncaab": 13,
     "ncaaf": 94,
     "nfl": 0,
     "nhl": 100
@@ -68,7 +68,7 @@
   "2": {
    "coverage": {
     "nba": 100,
-    "ncaab": 55,
+    "ncaab": 56,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -81,7 +81,7 @@
   "20": {
    "coverage": {
     "nba": 81,
-    "ncaab": 75,
+    "ncaab": 76,
     "ncaaf": 96,
     "nfl": 100,
     "nhl": 100
@@ -133,7 +133,7 @@
   "66": {
    "coverage": {
     "nba": 100,
-    "ncaab": 83,
+    "ncaab": 84,
     "ncaaf": 94,
     "nfl": 92,
     "nhl": 0
@@ -159,7 +159,7 @@
   "89": {
    "coverage": {
     "nba": 100,
-    "ncaab": 79,
+    "ncaab": 83,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 0
