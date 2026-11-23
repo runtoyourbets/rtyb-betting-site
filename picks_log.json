@@ -13616,6 +13616,56 @@
     "streakTeamName": "Denver"
    },
    {
+    "id": "ncaab|401917919|1h|ml|home",
+    "game": "ncaab|401917919",
+    "date": "2026-11-23",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-24T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Central Arkansas @ North Florida",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 222,
+    "title": "North Florida 1H ML",
+    "est": 0.3615,
+    "edge": 0.051,
+    "agree": 4,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "north-florida-ospreys",
+    "angles": [
+     [
+      "North Florida 1H ML at home",
+      "3-0"
+     ],
+     [
+      "Central Arkansas\u2019s opponents 1H ML, Central Arkansas on the road",
+      "3-1"
+     ],
+     [
+      "North Florida 1H ML, season",
+      "4-2"
+     ],
+     [
+      "North Florida 1H ML, last 8",
+      "4-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "North Florida"
+   },
+   {
     "id": "nfl|401873078|1q|ml|home",
     "game": "nfl|401873078",
     "date": "2026-11-23",
@@ -13660,56 +13710,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Commanders"
-   },
-   {
-    "id": "ncaab|401917919|1h|ml|home",
-    "game": "ncaab|401917919",
-    "date": "2026-11-23",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-24T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Central Arkansas @ North Florida",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 210,
-    "title": "North Florida 1H ML",
-    "est": 0.3716,
-    "edge": 0.049,
-    "agree": 4,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "north-florida-ospreys",
-    "angles": [
-     [
-      "North Florida 1H ML at home",
-      "3-0"
-     ],
-     [
-      "Central Arkansas\u2019s opponents 1H ML, Central Arkansas on the road",
-      "3-1"
-     ],
-     [
-      "North Florida 1H ML, season",
-      "4-2"
-     ],
-     [
-      "North Florida 1H ML, last 8",
-      "4-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "North Florida"
    },
    {
     "id": "nba|401910037|1q|total|under",
