@@ -1665,6 +1665,11 @@ __THEME_HEAD__
   .df-tn-teams { display: inline-flex; align-items: center; gap: 6px; min-width: 0; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
   .df-at, .df-tn-time { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   .df-tn-row:hover .ob-ln { text-decoration: underline; }
+  @media (max-width: 640px) {   /* phones: the time under the teams, the price cell to their right */
+    .df-tn-row { grid-template-columns: minmax(0, 1fr) minmax(96px, auto); row-gap: 2px; }
+    .df-tn-time { grid-column: 1; grid-row: 2; }
+    .df-tn-bet { grid-column: 2; grid-row: 1 / span 2; }
+  }
   .df-pills { margin: 0 0 16px; }
   .df-pill { padding: 6px 16px; }
   .df-strip-row { display: flex; flex-wrap: wrap; gap: 8px; }
