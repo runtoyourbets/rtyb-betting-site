@@ -1359,7 +1359,7 @@
           '<td class="num tp-fin">' + fin + '</td></tr>';
       }).join('');
       var more = list.length > shown.length ? '<button class="seg-btn tp-more" id="tpLogMore" type="button">' + (TP.log === 5 ? 'Show 10 more' : 'Load more') + '</button>' : '';
-      var segBtns = segs.length > 1 ? '<div class="seg-toggle" id="tmLogSeg">' + segs.map(function(s) { return segPill(s, s.key === k, !!frSeg(s.key), 'data-log-seg'); }).join('') + '</div>' : '';
+      var segBtns = segs.length > 1 ? '<div class="seg-toggle" id="tmLogSeg">' + segs.map(function(s) { return segPill(s, s.key === k, !!frSeg(s.key), 'data-log-seg', s.key === 'f5' ? 'First 5' : s.label); }).join('') + '</div>' : '';
       var head = '<tr><th>Date</th><th>Opp</th><th class="num tp-sc">' + esc(sk === '1i' ? '1st' : segTag(sk)) + '</th>' + ms.map(function(p) {
         var short = { ml: 'ML', ml3: '3W', ats: D.sportType === 'baseball' ? 'RL' : D.sport === 'nhl' ? 'PL' : 'Spread', total: D.sport === 'nhl' && p.k === '1p' ? 'O/U' : 'Total', btts: 'BTTS', rfi: 'NRFI', per: 'Result' }[p.m];
         var full = D.sport === 'nhl' && p.k === '1p' ? seg(p.k).tag + ' ' + { ml: 'ML', ml3: '3-Way', total: 'O/U 1.5', btts: 'BTTS' }[p.m] : tpName(p);
@@ -1666,7 +1666,7 @@
       if (r && r.sc && !r.na) { sample.push(r.sc); if (r.rfi === 'Y' || r.rfi === 'N') { rfiN++; if (r.rfi === 'N') rfiY++; } }
       else if (g.state === 'final') missing++;
     });
-    var n = sample.length, s = seg(k), unit = scoreUnit();
+    var n = sample.length, s = anySeg(k), unit = scoreUnit();
     var totals = sample.map(function(sc) { return sc[0] + sc[1]; });
     var tied = sample.filter(function(sc) { return sc[0] === sc[1]; }).length;
     var avg = n ? totals.reduce(function(a, b) { return a + b; }, 0) / n : null;
@@ -1784,7 +1784,7 @@
   // rows[first..] blurred behind "Unlock with Premium" while `flag` locks them (the Full Run: from its second row)
   function lockFrom(rows, first, flag) { return !premiumLocked(flag) || rows.length <= first ? rows.join('') : rows.slice(0, first).join('') + '<div class="pm-blur" aria-hidden="true">' + rows.slice(first).join('') + '</div><a class="pm-unlock" href="' + ROOT + '#premium">Unlock with Premium</a>'; }
   // a segment pill; the Full Run's carry the gold dot, and a lock while PREMIUM.fullRun keeps them from free visitors
-  function segPill(s, on, fr, attr) { return '<button class="seg-btn' + (fr ? ' fr-pill' : '') + '" ' + attr + '="' + s.key + '" aria-pressed="' + on + '">' + (fr && premiumLocked('fullRun') ? FR_LOCK : '') + esc(s.key === 'f5' ? 'First 5' : s.label) + '</button>'; }
+  function segPill(s, on, fr, attr, label) { return '<button class="seg-btn' + (fr ? ' fr-pill' : '') + '" ' + attr + '="' + s.key + '" aria-pressed="' + on + '">' + (fr && premiumLocked('fullRun') ? FR_LOCK : '') + esc(label || s.label) + '</button>'; }
   function lockRows(rows, flag) {
     if (!premiumLocked(flag) || rows.length <= 2) return rows.join('');
     return rows.slice(0, 2).join('') + '<div class="pm-blur" aria-hidden="true">' + rows.slice(2).join('') + '</div>' +
@@ -1837,7 +1837,7 @@
     return c;
   }
   function seasonCards(games, k) {
-    var list = graded(games, k), t = seg(k).tag, nhl = D.sport === 'nhl';
+    var list = graded(games, k), t = segTag(k), nhl = D.sport === 'nhl' && k !== 'game';   // NHL's full game: the spread family's cards (puck line)
     var pre = isRfi(k) ? '' : t + ' ';
     if (isRfi(k)) {
       var rf = newCard('rfi', 'NRFI/YRFI', [['YRFI', 'YRFI'], ['NRFI', 'NRFI']], '');
@@ -1915,12 +1915,12 @@
   }
   // NHL's Scoring card: the average 1st-period goals, 0-0 and tied rates
   function scoringCard(list, k) {
-    var s = seg(k), n = list.length, pts = 0, zero = 0, tied = 0;
+    var s = anySeg(k), n = list.length, pts = 0, zero = 0, tied = 0;
     list.forEach(function(g) { var sc = g.res[k].sc, t = sc[0] + sc[1]; pts += t; if (!t) zero++; if (sc[0] === sc[1]) tied++; });
     return { id: 'scoring', title: s.tag + ' Scoring', gp: n, stat: [
       ['Avg ' + s.tag + ' goals', n ? (pts / n).toFixed(2) : '-'],
       ['0-0', n ? zero + ' <small>(' + pctCell(zero, n) + ')</small>' : '-'],
-      ['Tied after one', n ? tied + ' <small>(' + pctCell(tied, n) + ')</small>' : '-']] };
+      [k === '1p' ? 'Tied after one' : 'Tied ' + s.tag, n ? tied + ' <small>(' + pctCell(tied, n) + ')</small>' : '-']] };
   }
   function recOf(r, fmt) { return r.w + '-' + r.l + (fmt ? '-' + r.t : ''); }
   function cardHtml(c, total) {
@@ -1989,8 +1989,8 @@
       lockRows(rows, 'board') + (note ? '<div class="st-note">' + note + '</div>' : ''));
   }
   function moneyBoard(games, k) {
-    var list = graded(games, k), s = seg(k);
-    var canMl = hasMl(k) && !isRfi(k), canAts = !periodFamily() || D.sportType === 'baseball';
+    var list = graded(games, k), s = anySeg(k);
+    var canMl = hasMl(k) && !isRfi(k), canAts = !periodFamily() || D.sportType === 'baseball' || k === 'game';
     canAts = canAts && list.some(function(g) { var r = g.res[k]; return r.ats && r.ats !== 'NA'; });
     if (!canMl && !canAts) return '';
     var mk = boardState.market === 'ats' && canAts ? 'ats' : canMl ? 'ml' : 'ats';
@@ -2234,9 +2234,30 @@
     return m || b + ': ' + x.label.replace(/^./, function(c) { return c.toLowerCase(); });
   }
 
-  // the page's segment toggle, pinned under the header like Matchups / Odds
+  // the page's segment toggle, pinned under the header like Matchups / Odds;
+  // the Full Run's pills last, in the Premium style
   function statsSegBar(k) {
-    return D.segments.length > 1 ? '<div class="ob-stick st-stick" id="stStick"><div class="sport-seg-row odds-controls">' + segToggle('statsSeg', k) + '</div></div>' : '';
+    var segs = D.segments.concat(D.fullRun || []);
+    return segs.length > 1 ? '<div class="ob-stick st-stick" id="stStick"><div class="sport-seg-row odds-controls"><div class="seg-toggle" id="statsSeg">' +
+      segs.map(function(s) { return segPill(s, s.key === k, !!frSeg(s.key), 'data-seg'); }).join('') + '</div></div></div>' : '';
+  }
+  function statsK() { return frSeg(SEG_CUR) ? SEG_CUR : getSeg(); }
+  // a Full Run segment's games in the first segments' shape (res[k],
+  // odds[k]), so the Overview's cards count them the same way. lined: only
+  // the games with a line, the ML only where it was priced (records count
+  // only games with a line for the market); NHL's 2nd / 3rd period have no
+  // lines, so every game
+  function frView(games, k, lined) {
+    return games.map(function(g) {
+      var r = (g.fr || {})[k], res = {}, odds = {};
+      if (!r) return null;
+      if (lined && k !== '2p' && k !== '3p') {
+        if (!(r.u || {}).su) { r = Object.assign({}, r); delete r.su; }
+        if (!r.su && !r.ats && !r.tot) return null;
+      }
+      res[k] = r; odds[k] = (g.fo || {})[k];
+      return Object.assign({}, g, { res: res, odds: odds });
+    }).filter(Boolean);
   }
   function wireStatsSeg(draw) {
     var segEl = document.getElementById('statsSeg');
@@ -2254,21 +2275,23 @@
     if (!D.season || !allDates().length) { noStats(); return; }
     function draw(anchor) {
       var back = keepPlace(anchor);
-      var k = getSeg(), range = tfRange(), N = graded(range.games, k).length;
-      var cards = seasonCards(range.games, k);
+      var k = statsK(), fr = !!frSeg(k), range = tfRange(), games = fr ? frView(range.games, k, true) : range.games, N = graded(games, k).length;
+      var cards = seasonCards(games, k);
       var season = stSection('statsSeason', 'Season Results <small class="st-count">' + N + ' game' + (N === 1 ? '' : 's') + '</small>', tfControls(), range.line +
         (N ? '<div class="st-grid">' + cards.map(function(c) { return cardHtml(c, N); }).join('') + '</div>' +
           (seasonMarked(cards, N) ? '<p class="st-foot"><sup>*</sup> Games without a saved line aren&rsquo;t counted.</p>' : '')
           : emptyNote('No graded games in this range yet.')));
-      var scoring = stSection('statsScoring', 'Scoring', '', D.sport === 'nhl' ? goalStats(finalGames()) : '<div id="statsScoringBody"></div>');
-      app.innerHTML = statsSegBar(k) + season + statsLeaders(k) + moneyBoard(finalGames(), k) + scoring;
+      var scoring = stSection('statsScoring', 'Scoring', '', D.sport === 'nhl' && !fr ? goalStats(finalGames()) : '<div id="statsScoringBody"></div>');
+      var board = k === '2p' || k === '3p' ? '' : moneyBoard(fr ? frView(finalGames(), k, true) : finalGames(), k);
+      // PREMIUM.fullRun on: a Full Run pill's sections blurred for free visitors
+      app.innerHTML = statsSegBar(k) + lockFrom([season + statsLeaders(k) + board + scoring], fr ? 0 : 1, 'fullRun');
       var lm = document.getElementById('leadMkt');
       if (lm) lm.onclick = function(e) { var b = e.target.closest('[data-lead]'); if (b) { LEAD_MK = b.getAttribute('data-lead'); draw(document.getElementById('leaders')); } };
       wireStatsSeg(function() { draw(document.getElementById('statsSeason')); });
       wireTf(function() { draw(document.getElementById('statsSeason')); });
       app.querySelectorAll('[data-board-view]').forEach(function(b) { b.onclick = function() { boardState.view = b.getAttribute('data-board-view'); draw(document.getElementById('statsBoard')); }; });
       app.querySelectorAll('[data-board-mk]').forEach(function(b) { b.onclick = function() { boardState.market = b.getAttribute('data-board-mk'); draw(document.getElementById('statsBoard')); }; });
-      if (D.sport !== 'nhl') renderScoring(range.games, k);
+      if (D.sport !== 'nhl' || fr) renderScoring(fr ? frView(range.games, k, false) : range.games, k);
       wireTips(app);
       back();
     }
@@ -2282,7 +2305,9 @@
   // units. Ranked by units where most teams have prices, else by the %.
   var LEAD_MK = null, LEAD_MIN = 10;
   function statsLeaders(k) {
-    var ps = periodFamily() ? tmMarkets() : tmMarkets(k);
+    var ps = frSeg(k) ? frMarkets(k).filter(function(p) { return p.m !== 'gpg'; }).map(function(p) {
+      return { k: p.k, m: p.m, label: p.m === 'per' ? 'Result' : p.m === 'ml' ? 'Moneyline' : p.m === 'ats' ? spreadWord() : 'Total' };
+    }) : periodFamily() ? tmMarkets() : tmMarkets(k);
     if (!ps.length) return '';
     var p = ps.filter(function(x) { return x.k + '|' + x.m === LEAD_MK; })[0] || ps[0];
     LEAD_MK = p.k + '|' + p.m;
@@ -2300,7 +2325,7 @@
       return '<div class="st-card tll-card"><div class="st-head"><h4>' + esc(title) + '</h4></div><ol class="tll-list">' + rows.join('') + '</ol></div>';
     }
     var pills = '<div class="seg-toggle" id="leadMkt">' + ps.map(function(x) {
-      return '<button class="seg-btn" data-lead="' + x.k + '|' + x.m + '" aria-pressed="' + (x === p) + '">' + esc((periodFamily() && ps.some(function(y) { return y.k !== x.k; }) && x.label.indexOf(seg(x.k).tag) !== 0 ? seg(x.k).tag + ' ' : '') + x.label) + '</button>';
+      return '<button class="seg-btn" data-lead="' + x.k + '|' + x.m + '" aria-pressed="' + (x === p) + '">' + esc((periodFamily() && ps.some(function(y) { return y.k !== x.k; }) && x.label.indexOf(segTag(x.k)) !== 0 ? segTag(x.k) + ' ' : '') + x.label) + '</button>';
     }).join('') + '</div>';
     var n = Math.min(5, Math.floor(list.length / 2)), what = TM_INFO[p.m].pct;
     var body = list.length < 2 ? emptyNote('Leaders show once teams have played ' + LEAD_MIN + ' games.')
@@ -2418,7 +2443,7 @@
       row('side', [['all', 'All'], ['home', 'Home'], ['away', 'Away']], st.side, 'Side') + '</div>';
   }
   function tcode(slug) { var t = team(slug); return t.code || String(t.short || slug).slice(0, 4).toUpperCase(); }
-  function segWord(k) { return seg(k).label.toLowerCase(); }
+  function segWord(k) { return anySeg(k).label.toLowerCase(); }
   function segWords(k) { var w = segWord(k); return /innings$/.test(w) ? w : /half$/.test(w) ? w.replace(/half$/, 'halves') : w + 's'; }
   function flipR(x) { return x === 'W' ? 'L' : x === 'L' ? 'W' : x; }
   // One side's result in a segment: W / L / P (a tie or push), or null.
