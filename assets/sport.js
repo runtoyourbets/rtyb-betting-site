@@ -992,10 +992,13 @@
       if (typeof g.ft === 'number') o.total = { line: g.ft, over: null, under: null };
       return Object.keys(o).length ? o : null;
     }
-    // one market's block: its label, the book with the best price and the price
+    // one market's block: its label, the book with the best price and the price.
+    // The Game row of a game not started reads the Odds page's `full` block
+    // (the full game's books and best price, live from both feeds)
     function oddsBlock(p, g, og, sources, gameOdds) {
       var s = oddsSide(p), mk = p.m === 'rfi' ? 'nrfi_yrfi' : p.m;
-      var best = og && p.k !== 'game' ? ((og.best || {})[p.k] || {})[mk] : null;
+      og = p.k === 'game' ? (og && og.full) || null : og;
+      var best = og ? ((og.best || {})[p.k] || {})[mk] : null;
       var mine = p.k === 'game' ? (gameOdds || {})[p.m] : ((g.odds || {})[p.k] || {})[mk];
       var o = best || mine, top = null, sub = null, line = null;
       if (o) {
@@ -1009,7 +1012,7 @@
         // sportsbooks, then exchanges, then the Consensus price (a market only it prices)
         ['book', 'exch', 'consensus'].forEach(function(pass) {
           Object.keys(rows).forEach(function(b) {
-            if (id || b === '60' || (b === 'consensus') !== (pass === 'consensus')) return;
+            if (id || (sources[b] || {}).nb || (b === 'consensus') !== (pass === 'consensus')) return;
             if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
             var r = rows[b], v = r && r[s.key], vp = v && typeof v === 'object' ? v.price : v;
             if (vp !== price) return;
@@ -1022,7 +1025,7 @@
         if (src) book = src.logo ? '<img class="sl-book" src="' + ROOT + esc(src.logo) + '" alt="' + esc(src.name || id) + '" title="' + esc(src.name || id) + '" loading="lazy">' : '<span class="sl-bname">' + esc(src.name || id) + '</span>';
       }
       // ESPN's full-game line is DraftKings' close
-      if (p.k === 'game' && top && !(g.odds || {}).game && sources && sources['1']) {
+      if (p.k === 'game' && top && !best && !(g.odds || {}).game && sources && sources['1']) {
         var dk = sources['1'];
         book = dk.logo ? '<img class="sl-book" src="' + ROOT + esc(dk.logo) + '" alt="' + esc(dk.name) + '" title="' + esc(dk.name) + '" loading="lazy">' : '<span class="sl-bname">' + esc(dk.name) + '</span>';
       }
@@ -1041,8 +1044,7 @@
       var segHtml = rows.map(function(r) {
         return { label: r.label, blocks: shown(r.ps.map(function(p) { return oddsBlock(p, g, og, sources); })) };
       }).filter(function(r) { return r.blocks.length; });
-      var any = segHtml.length > 0;
-      var gl = gameLine(g);
+      var gl = gameLine(g) || (og && og.full ? {} : null);
       if (gl) {
         // the full game's markets: NHL and MLB moneyline, puck / run line, total;
         // the spread sports in their segments' order
@@ -1050,7 +1052,7 @@
         var gb = shown(order.map(function(m) { return oddsBlock({ k: 'game', m: m }, g, og, sources, gl); }));
         if (gb.length) segHtml.push({ label: 'Game', blocks: gb });
       }
-      if (!any) return '<p class="tp-none">Lines not posted yet.</p>';
+      if (!segHtml.length) return '<p class="tp-none">Lines not posted yet.</p>';
       var n = Math.max.apply(null, segHtml.map(function(r) { return r.blocks.length; }));
       return '<div class="tp-odds' + (n > 3 ? ' tp-n4' : '') + '" style="--n:' + n + '">' + segHtml.map(function(r) {
         while (r.blocks.length < n) r.blocks.push('<div class="tp-ob tp-ob-empty" aria-hidden="true"></div>');
@@ -3159,7 +3161,8 @@
         return src[s] != null ? { line: null, price: src[s] } : null;
       }
       function same(a, b) { return !!a && !!b && a.price === b.price && String(a.line) === String(b.line); }
-      function counts(b, m) { return m === 'ml3' || m === 'btts' || !(sources[b] || {}).x; }
+      // nb: the Books tab took it out of the best price, so it's never outlined
+      function counts(b, m) { var s = sources[b] || {}; return !s.nb && (m === 'ml3' || m === 'btts' || !s.x); }
       function cellTxt(v) { return oddsCell(v.line, v.price); }
       function name(b) { return (sources[b] || {}).name || 'Source ' + b; }
       // a book's logo (its name on hover, or on a long press on phones)

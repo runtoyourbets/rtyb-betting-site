@@ -30,6 +30,7 @@ from datetime import date as Date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 import definitions
+import books as books_cfg
 import icons
 import sports
 
@@ -562,7 +563,7 @@ def book_of(sport, og, k, m, side, price, line=None):
     books = ((og.get('books') or {}).get(k) or {}).get(m) or {}
     for exch in (False, True):
         for b, row in books.items():
-            if b in sport_build.NO_BEST or bool((sport.sources.get(b) or {}).get('x')) != exch:
+            if not books_cfg.settings().counts(b) or bool((sport.sources.get(b) or {}).get('x')) != exch:
                 continue
             v = row.get(side) if isinstance(row, dict) else None
             if not isinstance(v, dict) or v.get('price') != price:

@@ -57,6 +57,9 @@
  *   /site/get           body: {} -- content/site_settings.json (menus, sports, switches)
  *   /site/save          body: the whole settings object -- checked (validateSite), then
  *                         written to content/site_settings.json; the next refresh rebuilds
+ *   /books/save         body: {books: [{id, name, group, show, best, link}]} in column order --
+ *                         checked (validateBooks; offshore never links), written to
+ *                         data_admin/books.json (the admin's Books tab); the next refresh rebuilds
  *   /definitions/save   body: {entries: {id: {name, category, sports, short, long, status, show_last}}}
  *                        -- merges into content/definitions.json (the admin's Definitions tab)
  *   /definitions/draft  body: {items: [{id, name, category, sports, calc, short}]} (up to 25) -- asks Claude
@@ -264,6 +267,26 @@ const SITE_KEYS = {
   bottom_bar: ["matchups", "odds", "trends", "stats", "picks"],
 };
 // the settings object, cleaned, or a string saying what's wrong
+const BOOK_GROUPS = ["Sportsbook", "Offshore", "Exchange"];
+function validateBooks(b) {
+  const list = b && b.books;
+  if (!Array.isArray(list) || !list.length || list.length > 200) return "books must be a list of 1-200 rows";
+  const seen = new Set(), out = [];
+  for (const r of list) {
+    if (!r || typeof r !== "object") return "each book must be an object";
+    const id = String(r.id == null ? "" : r.id);
+    if (!/^[a-z0-9_]{1,24}$/.test(id)) return `bad book id: ${id.slice(0, 30)}`;
+    if (seen.has(id)) return `book ${id} is listed twice`;
+    seen.add(id);
+    const name = typeof r.name === "string" ? r.name.trim().replace(/[\u2012-\u2015\u2212]/g, "-") : "";
+    if (!name || name.length > 30) return `book ${id}: the name must be 1-30 characters`;
+    if (!BOOK_GROUPS.includes(r.group)) return `book ${id}: the group must be ${BOOK_GROUPS.join(", ")}`;
+    for (const k of ["show", "best", "link"]) if (typeof r[k] !== "boolean") return `book ${id}: ${k} must be true or false`;
+    out.push({ id, name, group: r.group, show: r.show, best: r.best, link: r.group !== "Offshore" && r.link });
+  }
+  return { books: out };
+}
+
 function validateSite(b) {
   if (!b || typeof b !== "object") return "settings must be an object";
   const out = {};
@@ -898,6 +921,12 @@ export default {
         const clean = validateSite(body);
         if (typeof clean === "string") return json({ ok: false, error: clean }, 400);
         result = await putText(env, SITE_SETTINGS, "Admin: site settings", JSON.stringify(clean, null, 2) + "\n");
+        break;
+      }
+      case "/books/save": {
+        const clean = validateBooks(body);
+        if (typeof clean === "string") return json({ ok: false, error: clean }, 400);
+        result = await putText(env, "data_admin/books.json", "Admin: sportsbooks", JSON.stringify(clean, null, 2) + "\n");
         break;
       }
       case "/content/list": {

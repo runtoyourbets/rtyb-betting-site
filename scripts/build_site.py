@@ -57,6 +57,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import account  # noqa: E402
+import books as books_cfg  # noqa: E402
 import definitions  # noqa: E402
 import guides  # noqa: E402
 import hyphens  # noqa: E402
@@ -1453,6 +1454,9 @@ def main():
     write_sport_extras(template)
     write_moved()   # /daily/, /on-tap/ -> /preview/, /learn/ -> /betting-guides/, /streaks/ -> /trends/
     definitions.write_meta()   # the admin's Definitions tab and the pages' Live text (assets/definitions*.json)
+    # the admin's Books tab: each book's source, 7-day coverage per sport, last seen
+    books_cfg.write_status(now_utc.astimezone(sport_build.ET).date().isoformat(), sport_build.all_book_names(),
+                           set(sport_build.ODDSAPI_BOOKS.values()), sport_build.unabated_ids())
     write_previews(template, now_utc)
     # Last: share tags, analytics and footer links on every page; sitemap.xml, robots.txt
     sitemap_urls = seo.finish()

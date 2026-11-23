@@ -1,0 +1,140 @@
+{
+  "books": [
+    {
+      "id": "1",
+      "name": "DraftKings",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "2",
+      "name": "FanDuel",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "4",
+      "name": "BetMGM",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "20",
+      "name": "Caesars",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "betonlineag",
+      "name": "BetOnline",
+      "group": "Offshore",
+      "show": true,
+      "best": true,
+      "link": false
+    },
+    {
+      "id": "betrivers",
+      "name": "BetRivers",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "bovada",
+      "name": "Bovada",
+      "group": "Offshore",
+      "show": true,
+      "best": true,
+      "link": false
+    },
+    {
+      "id": "86",
+      "name": "Fanatics",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "hardrockbet",
+      "name": "Hard Rock Bet",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "36",
+      "name": "theScore Bet",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "60",
+      "name": "theScore CA",
+      "group": "Sportsbook",
+      "show": true,
+      "best": false,
+      "link": true
+    },
+    {
+      "id": "105",
+      "name": "Kalshi",
+      "group": "Exchange",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "89",
+      "name": "Novig",
+      "group": "Exchange",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "107",
+      "name": "Polymarket",
+      "group": "Exchange",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "111",
+      "name": "Polymarket US",
+      "group": "Exchange",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "66",
+      "name": "ProphetX",
+      "group": "Exchange",
+      "show": true,
+      "best": true,
+      "link": true
+    },
+    {
+      "id": "121",
+      "name": "Underdog",
+      "group": "Exchange",
+      "show": true,
+      "best": true,
+      "link": true
+    }
+  ]
+}

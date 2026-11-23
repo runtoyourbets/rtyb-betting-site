@@ -26,6 +26,7 @@ from datetime import timedelta
 from statistics import median
 
 import front
+import books as books_cfg
 import icons
 import sports
 import sport_build
@@ -43,8 +44,9 @@ def books_of(sport, og, k, m):
     """{book: row} for one market from the sportsbooks (no exchanges, no
     book left out of the best price); the exchanges only when no book has it."""
     rows = ((og.get('books') or {}).get(k) or {}).get(m) or {}
-    keep = {b: r for b, r in rows.items() if isinstance(r, dict) and b not in sport_build.NO_BEST and not (sport.sources.get(b) or {}).get('x')}
-    return keep or {b: r for b, r in rows.items() if isinstance(r, dict) and b not in sport_build.NO_BEST}
+    cfg = books_cfg.settings()   # the Books tab: hidden books are already gone; some never set the best price
+    keep = {b: r for b, r in rows.items() if isinstance(r, dict) and cfg.counts(b) and not (sport.sources.get(b) or {}).get('x')}
+    return keep or {b: r for b, r in rows.items() if isinstance(r, dict) and cfg.counts(b)}
 
 
 def price(v):

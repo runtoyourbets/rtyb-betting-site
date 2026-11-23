@@ -94,7 +94,9 @@ After the three lines:
 ```
 
 The headline is about the lead game (`lead_game: true`), 12 words at most. The
-Matchup of the Day (`matchup_of_the_day: true`) is never the lead.
+Matchup of the Day (`matchup_of_the_day: true`) is never the lead. The dek is one
+full sentence of 150 characters at most, spaces included: the share card
+prints it whole, and a longer one gets cut.
 
 Then the body, short paragraphs, no bullet lists, no tables.
 

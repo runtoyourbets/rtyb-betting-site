@@ -138,5 +138,46 @@ class BoxesAndAdsTest(unittest.TestCase):
             preview.sports.ADS_ON = old
 
 
+
+class CardChip(unittest.TestCase):
+    """The share card's line chip shows the trend's own market, and the dek
+    ends at a full sentence or with an ellipsis."""
+    class Sport:
+        def __init__(self, key, segs, mk):
+            self.key, self.segments, self.mk = key, [{'key': k, 'tag': t} for k, t in segs], mk
+            self.g = {'id': 1, 'away': 'dal', 'home': 'uta'}
+
+        def all_games(self):
+            return [('2026-11-22', self.g)]
+
+        def market(self, d, g, k):
+            return self.mk
+
+        def code(self, t):
+            return t.upper()
+
+    MK = {'ml': {'away': -125, 'home': 105}, 'ats': {'away': {'line': -0.5}, 'home': {'line': 0.5}},
+          'total': {'line': 58.5}}
+
+    def chip(self, key, segs, k, m, pick):
+        sp = self.Sport(key, segs, self.MK)
+        return preview.card_market(sp, sp.g, {'seg': k, 'mk': m, 'pick': pick})
+
+    def test_moneyline_trend_shows_the_moneyline(self):
+        self.assertEqual(self.chip('nba', [('1h', '1H')], '1h', 'ml', 'away'), ('1H ML', 'DAL -125 1H'))
+        self.assertEqual(self.chip('mlb', [('f5', 'F5')], 'f5', 'ml', 'away'), ('F5 ML', 'DAL -125 F5'))
+
+    def test_spread_trend_shows_the_spread(self):
+        self.assertEqual(self.chip('nba', [('1h', '1H')], '1h', 'ats', 'away'), ('1H SPREAD', 'DAL -0.5 1H'))
+        self.assertEqual(self.chip('mlb', [('f5', 'F5')], 'f5', 'ats', 'away'), ('F5 RUN LINE', 'DAL -0.5 F5'))
+
+    def test_dek_ends_at_a_sentence_or_an_ellipsis(self):
+        long = 'Utah keeps its first quarters close but keeps losing the first half, and Dallas comes in as a small first-half favorite with the best price in town tonight.'
+        self.assertEqual(preview.card_dek('# H\n> Two games. ' + long + '\n\nBody.'), 'Two games.')
+        dek = preview.card_dek('# H\n> ' + long + '\n\nBody.')
+        self.assertTrue(dek.endswith('…') and len(dek) <= preview.DEK_MAX + 1, dek)
+        self.assertEqual(preview.card_dek('# H\n> Short and whole.\n\nBody.'), 'Short and whole.')
+
+
 if __name__ == '__main__':
     unittest.main()

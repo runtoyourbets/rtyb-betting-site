@@ -24,6 +24,7 @@ import os
 from datetime import date as Date, datetime, timezone
 from zoneinfo import ZoneInfo
 
+import books as books_cfg
 import grading
 import icons
 import sports
@@ -130,7 +131,7 @@ def load_games(sport):
 
 # Source names when the feed's /sources lookup hasn't loaded (ids are the
 # same across leagues).
-BOOK_NAMES = {'1': 'DraftKings', '2': 'FanDuel', '4': 'BetMGM', '20': 'Caesars', '36': 'theScore',
+BOOK_NAMES = {'1': 'DraftKings', '2': 'FanDuel', '4': 'BetMGM', '20': 'Caesars', '36': 'theScore Bet',
               '60': 'theScore CA', '118': 'theScore', '86': 'Fanatics', '80': 'BetMGM', '89': 'Novig',
               '66': 'ProphetX', '105': 'Kalshi', '107': 'Polymarket', '111': 'Polymarket US',
               '121': 'Underdog', '73': 'Underdog Fantasy', '72': 'PrizePicks', '84': 'DK Pick6',
@@ -144,6 +145,21 @@ EXCHANGES = {'89', '66', '105', '107', '111', '121', '73', '72', '84'}
 MAJOR_BOOKS = ['1', '2', '4', '80', '20']   # DraftKings, FanDuel, BetMGM (and BetMGM Direct), Caesars
 
 
+def all_book_names():
+    """Every source's display name: the Books tab's, else the feed's."""
+    names = dict(book_names(), **EXTRA_BOOKS)
+    cfg = books_cfg.settings()
+    return {b: cfg.name(b, n) for b, n in names.items()} | {b: cfg.name(b, b) for b in cfg.rows if b not in names}
+
+
+def unabated_ids():
+    """The source ids Unabated lists (its lookups)."""
+    ids = set()
+    for path in glob.glob(os.path.join(ROOT, 'data_feed', 'unabated', 'lookups', 'sources_*.json')):
+        ids.update(str(src.get('id')) for src in read_json(path, {}).get('data') or [])
+    return ids
+
+
 def book_names():
     names = dict(BOOK_NAMES)
     for path in sorted(glob.glob(os.path.join(ROOT, 'data_feed', 'unabated', 'lookups', 'sources_*.json'))):
@@ -153,8 +169,8 @@ def book_names():
 
 
 EXTRA_BOOKS = {'consensus': 'Consensus'}
-# Every source shows on the Odds page; these never set the best price
-NO_BEST = {'60'}   # theScore CA (RTYB is for US bettors)
+# Which books show, set the best price, link out and in what order: the
+# admin's Books tab (data_admin/books.json, scripts/books.py)
 # Logos: assets/books/{source id}.{ext}, downloaded from Unabated's /sources
 # thumbnails by fetch_odds_unabated.py; else a hand-made assets/books/{key}.svg
 # or .png. The page shows the source's name when there's neither.
@@ -164,9 +180,11 @@ LOGO_EXTS = ('svg', 'png', 'webp', 'jpg')
 # The Odds API's books (the backfill's history rows and the live feed,
 # fetch_odds_theoddsapi.py) -> the Odds page's source ids: the books Unabated
 # also carries keep its ids (Unabated's row, with its Gambly link, wins), the
-# rest are new sources (no logo yet: the page shows the name)
+# rest are new sources (no logo yet: the page shows the name). ESPN BET is
+# theScore Bet now: its rows matched Unabated's theScore US (36) price for
+# price on 2026-11-22, so they share one column
 ODDSAPI_BOOKS = {'draftkings': '1', 'fanduel': '2', 'betmgm': '4', 'williamhill_us': '20', 'fanatics': '86',
-                 'espnbet': 'espnbet', 'betrivers': 'betrivers', 'hardrockbet': 'hardrockbet', 'bovada': 'bovada',
+                 'espnbet': '36', 'betrivers': 'betrivers', 'hardrockbet': 'hardrockbet', 'bovada': 'bovada',
                  'betonlineag': 'betonlineag'}
 
 
@@ -206,7 +224,8 @@ def best_price(market, books):
     if market == 'btts':
         row = next(iter(books.values()))
         return {s: (row.get(s) or {}).get('price') for s in ('yes', 'no')}
-    sharp = {b for b in books if b not in EXCHANGES and b not in EXTRA_BOOKS and b not in NO_BEST}
+    cfg = books_cfg.settings()
+    sharp = {b for b in books if b not in EXCHANGES and b not in EXTRA_BOOKS and cfg.counts(b)}
     try:
         return feed.best_of(market, books, sharp)
     except (KeyError, TypeError, ValueError):
@@ -252,10 +271,17 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
 
     shown = {(x[0], x[1]) for x in sp['family_markets']}
 
-    def clean(books):
-        """Every source, in the markets this sport's pages show (3-way: NHL only)."""
+    cfg = books_cfg.settings()
+
+    def clean(books, segs=None):
+        """Every source the Books tab shows, in the markets this sport's pages
+        show (3-way: NHL only); `segs`: the full game's ml / ats / total instead."""
+        books = cfg.filter(books)
+        if segs:
+            return {seg: {m: dict(by) for m, by in mk.items() if m in ('ml', 'ats', 'total') and by}
+                    for seg, mk in books.items() if seg in segs}
         return {seg: {m: dict(by) for m, by in mk.items() if (seg, m) in shown}
-                for seg, mk in (books or {}).items()}
+                for seg, mk in books.items()}
 
     def merge(a, b):
         out = {seg: dict(mk) for seg, mk in (a or {}).items()}
@@ -306,6 +332,11 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
             books = under(books, clean(oddsapi_rows(ol.get('books') if state == 'pre' else oh.get('close') or ol.get('books'))))
             opens = under(opens, clean(oddsapi_rows(oh.get('open') or ol.get('opens'))))
             best = bests(books)
+            full = None
+            if state == 'pre':
+                # the full game's lines for the team page's Next game card (not an Odds page column)
+                full = under(clean(lg.get('books'), {'game'}), clean(oddsapi_rows(ol.get('books')), {'game'}))
+                full = {'books': full, 'best': bests(full)} if full.get('game') else None
             if state != 'pre':
                 bf = backfill.get('|'.join(key)) or {}
                 only_backfill = not books and not opens
@@ -324,6 +355,8 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
                             best.setdefault(seg, {})[m] = line
             game = {'books': books, 'away': sg['away'], 'home': sg['home'], 'start': sg.get('start'), 'state': state,
                     'best': best, 'open': bests(opens) if opens else {}}
+            if full and full['best'].get('game'):
+                game['full'] = full
             if state != 'pre' and only_backfill and books:
                 game['close'] = 1   # closing lines only (The Odds API): no Open column
             if state != 'pre' and sg.get('score'):
@@ -341,20 +374,22 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
                         used.update(by)
             rows.append(game)
         days[d] = len(rows)
+        books_cfg.note(sp['key'], d, rows)
         if any(g['books'] for g in rows):
             line_days.append(d)
         write_json(os.path.join(out_dir, f'{d}.json'), {'date': d, 'games': rows})
     for name in os.listdir(out_dir):
         if name.endswith('.json') and name[:-5] not in dates:
             os.remove(os.path.join(out_dir, name))
-    names = dict(book_names(), **EXTRA_BOOKS)
+    names = all_book_names()
     markets = [list(x) for x in sp['family_markets'] if not have or (x[0], x[1]) in have]
     write_json(index_path, dict(meta or {}, updated=feed.get('updated'), calendar=sp['calendar'],
                                 weeks=weeks or None, markets=markets, days=days, lineDays=line_days,
-                                order=source_order(used, names),
+                                order=cfg.order(used, lambda ids: source_order(ids, names)),
                                 sources={b: dict({'name': names.get(b, f'Source {b}')},
                                                  **({'logo': book_logo(b)} if book_logo(b) else {}),
-                                                 **({'x': 1} if b in EXCHANGES else {})) for b in used}))
+                                                 **({'x': 1} if b in EXCHANGES else {}),
+                                                 **({} if cfg.counts(b) or b in EXTRA_BOOKS else {'nb': 1})) for b in used}))
 
 
 def seg_scores(sp, g):

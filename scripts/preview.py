@@ -75,7 +75,7 @@ LEADS = os.path.join(ROOT, 'content', 'preview_leads.json')
 CARD_DIR = 'assets/preview'
 CARD_W, CARD_H = 600, 315   # CSS px, drawn at 2x: 1200x630
 BIG_LOGO = 320              # px, the card's logos (assets/logos/{sport}/lg/)
-CARD_VERSION = 3            # bump to redraw every card (a .pc-* style change)
+CARD_VERSION = 4            # bump to redraw every card (a .pc-* style change)
 FOOT = daily.FOOT
 
 
@@ -1460,7 +1460,7 @@ CARD_BG = {'nba': 'hardwood', 'wnba': 'hardwood', 'ncaab': 'hardwood', 'nhl': 'i
 SEGS_WORD = {'1p': 'first periods', '1q': 'first quarters', '1h': 'first halves', '1i': 'first innings', 'f5': 'first fives'}
 SEG_WORD = {'1p': 'first period', '1q': 'first quarter', '1h': 'first half', '1i': 'first inning', 'f5': 'first five'}
 MARKET_WORD = {'ml': 'moneyline', 'ats': 'spread', 'total': 'total', 'btts': 'BTTS', 'rfi': ''}
-DEK_MAX = 110
+DEK_MAX = 150
 
 
 def card_bg(key):
@@ -1482,11 +1482,16 @@ def card_title(key, day):
 
 
 def card_dek(body):
-    """The Preview's dek; past DEK_MAX characters, cut at the last full word (nothing added)."""
+    """The Preview's dek (the drafter keeps it to ~150 characters). Past
+    DEK_MAX: end at the last full sentence that fits, else at the last full
+    word with "…"."""
     dek = daily.plain(split(body or '')[1]).strip()
     if len(dek) > DEK_MAX:
-        cut = dek[:DEK_MAX + 1]
-        dek = (cut[:cut.rfind(' ')] if ' ' in cut else dek[:DEK_MAX]).rstrip(' ,;:-')
+        ends = [m.end() for m in re.finditer(r'[.!?](?=\s|$)', dek[:DEK_MAX + 1])]
+        if ends:
+            return dek[:ends[-1]]
+        cut = dek[:DEK_MAX]
+        dek = (cut[:cut.rfind(' ')] if ' ' in cut else cut).rstrip(' ,;:-') + '…'
     return dek
 
 
@@ -1554,12 +1559,12 @@ def league_market(sp, t):
 
 
 def card_market(sp, g, t):
-    """(market label, the line chip or ''). The chip is the segment's line:
-    "LAL -3.5 1Q" (spread sports: the trend side's spread, whatever the
-    trend's market; totals "Over 58.5 1Q"), "EDM -150 1P" / "Over 1.5 1P" /
-    "BTTS No -240 1P" (NHL: a moneyline only for a moneyline trend), "NRFI
-    -128" / "NYY -0.5 F5" / "Over 4.5 F5" (MLB). Never a moneyline when the
-    trend isn't a moneyline trend."""
+    """(market label, the line chip or ''). The chip is the trend's market
+    at the segment: a moneyline trend shows the moneyline ("DAL -125 1H",
+    "EDM -150 1P", "NYY -130 F5"), a spread trend the spread ("LAL -3.5 1Q",
+    "NYY -0.5 F5"), totals "Over 58.5 1Q" / "Over 1.5 1P", then "BTTS No
+    -240 1P", "NRFI -128". Never a moneyline when the trend isn't a
+    moneyline trend."""
     k, m, pick = t.get('seg'), t.get('mk'), str(t.get('pick') or '').lower()
     tag = next((s['tag'] for s in sp.segments if s['key'] == k), '')
     d = next((x for x, y in sp.all_games() if str(y.get('id')) == str(g.get('id'))), None)
@@ -1569,7 +1574,7 @@ def card_market(sp, g, t):
     num = lambda x: isinstance(x, (int, float))   # noqa: E731
     if m in ('ml', 'ats'):
         label = f"{tag} {'ML' if m == 'ml' else 'Run Line' if sp.key == 'mlb' else 'Spread'}".upper()
-        if m == 'ml' and sp.key == 'nhl':
+        if m == 'ml':
             p = (mk.get('ml') or {}).get(side)
             return label, (f'{code} {price_txt(p)} {tag}' if num(p) and side else '')
         ln = ((mk.get('ats') or {}).get(side) or {}).get('line')
