@@ -14,10 +14,10 @@
    {
     "date": "2026-11-23",
     "headline": "Milwaukee Bucks Have Lost 8 Straight First Halves Heading Into Toronto",
-    "live": false,
+    "live": true,
     "page": "admin/preview/all-2026-11-23/",
-    "path": "content/drafts/all-preview-2026-11-23.md",
-    "published": null,
+    "path": "content/published/all-preview-2026-11-23.md",
+    "published": "2026-11-23T14:11:41Z",
     "week": null,
     "written": "2026-11-23T13:12Z"
    },
@@ -76,10 +76,10 @@
    {
     "date": "2026-11-23",
     "headline": "Bucks Bring an 88% First-Quarter Under Rate to Toronto",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nba-2026-11-23/",
-    "path": "content/drafts/nba-preview-2026-11-23.md",
-    "published": null,
+    "path": "content/published/nba-preview-2026-11-23.md",
+    "published": "2026-11-23T14:11:54Z",
     "week": null,
     "written": "2026-11-23T13:10Z"
    },
@@ -138,10 +138,10 @@
    {
     "date": "2026-11-23",
     "headline": "Monmouth Carries a Five-Game First-Half Skid Into North Carolina",
-    "live": false,
+    "live": true,
     "page": "admin/preview/ncaab-2026-11-23/",
-    "path": "content/drafts/ncaab-preview-2026-11-23.md",
-    "published": null,
+    "path": "content/published/ncaab-preview-2026-11-23.md",
+    "published": "2026-11-23T14:11:58Z",
     "week": null,
     "written": "2026-11-23T13:10Z"
    },
@@ -224,10 +224,10 @@
    {
     "date": "2026-11-23",
     "headline": "Kraken and Ducks Bring Over Form to Seattle's First Period",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nhl-2026-11-23/",
-    "path": "content/drafts/nhl-preview-2026-11-23.md",
-    "published": null,
+    "path": "content/published/nhl-preview-2026-11-23.md",
+    "published": "2026-11-23T14:11:49Z",
     "week": null,
     "written": "2026-11-23T13:08Z"
    },
