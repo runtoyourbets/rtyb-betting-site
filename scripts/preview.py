@@ -1367,37 +1367,64 @@ def todays(key, now_utc, day=None):
     return next((p for p in pieces if p['date'] == today), None)
 
 
+def art(key, p, now_utc, root):
+    """The preview's art on our own pages, drawn in HTML (sharp at any size,
+    1200:630): the sport's background, the chip (sport, start ET), both
+    logos big and the card's gold number with its label. No words to read
+    but those: the headline and dek sit beside it. Links to the preview.
+    The share image (og:image) stays the PNG card."""
+    info = lead_of(key, p['date'], p.get('lead'), now_utc)
+    if not info:
+        return ''
+    c = card_info(key, p['date'], info, p.get('body'))
+    sp = sport_of(c['sport'])
+    bg = card_bg(c['key'] if c['key'] == ALL else c['sport'])
+    surface = (f'<img class="pa-bg" src="{root}{os.path.relpath(bg, ROOT)}" alt=""><span class="pa-over"></span>' if bg else '')
+    when = parse(info.get('start'))
+    when = when.astimezone(ET) if when else None
+    day = ((when.strftime('%a') if weekly(sp) else 'Tonight' if when.hour >= 17 else 'Today') + ' ' + when.strftime('%-I:%M %p')) if when else ''
+    chip = f'<span class="pa-chip">{icons.sport_icon(sp.sp)}{esc(sp.label)}{" · " + esc(day) if day else ""}</span>'
+
+    def logo(slug):
+        src = big_logo(sp, slug)
+        return (f'<img class="pa-logo" src="{root}{os.path.relpath(src, ROOT)}" alt="{esc(sp.full_name(slug))}">' if src
+                else f'<span class="pa-logo">{sp.badge(slug, 96, root)}</span>')
+    num = (f'<span class="pa-big">{esc(c["count"])}</span><span class="pa-what">{esc(" ".join(x for x in c["what"] if x))}</span>'
+           if c['count'] else '')
+    ice = ' pa-ice' if bg and c['bg'] == 'ice' else ''
+    return (f'<a class="pa{ice}" href="{root}{page_dir(key)}" aria-label="Read the full preview">{surface}{chip}'
+            f'<span class="pa-mid"><span class="pa-mu">{logo(c["away"])}<span class="pa-at">@</span>{logo(c["home"])}</span>{num}</span></a>')
+
+
 def hero(now_utc, root=''):
-    """The home hero once the all-sports preview is up: the image card left,
-    the label, headline, dek and link right (stacked on phones)."""
+    """The home hero once the all-sports preview is up: the art left, the
+    label, headline, dek and link right (stacked on phones)."""
     p = todays(ALL, now_utc)
     if not p:
         return ''
     head, dek, _ = split(p['body'])
-    img = (f'<img class="pv-hero-img" src="{root}{card_path(ALL, p["date"])}" width="1200" height="630" alt="">'
-           if has_card(ALL, p['date']) else '')
-    return (f'<section class="fr-sec pv-hero" id="preview">{img}<div class="pv-hero-copy"><p class="pv-label">{label(ALL, p["date"])}</p>'
-            f'<h2 class="pv-hero-h">{esc(head)}</h2>' + (f'<p class="pv-dek">{esc(dek)}</p>' if dek else '') +
+    return (f'<section class="fr-sec pv-hero" id="preview">{art(ALL, p, now_utc, root)}<div class="pv-hero-copy"><p class="pv-label">{label(ALL, p["date"])}</p>'
+            f'<h2 class="pv-hero-h"><a href="{root}{page_dir(ALL)}">{esc(head)}</a></h2>' + (f'<p class="pv-dek">{esc(dek)}</p>' if dek else '') +
             f'<a class="pv-go" href="{root}{page_dir(ALL)}">Read the full preview &rarr;</a></div></section>')
 
 
 def hub_section(key, now_utc, root='', day=None):
-    """A hub's "[SPORT] PREVIEW": the date, image card, headline, first
-    paragraph and the link. Nothing when the sport has no preview today
-    (day: that day's)."""
+    """A hub's "[SPORT] PREVIEW": the date above, then the art left and the
+    label, headline, dek (else the first paragraph) and link right, the
+    home hero's row. Nothing when the sport has no preview today (day: that
+    day's)."""
     p = todays(key, now_utc, day)
     if not p:
         return ''
     head, dek, md = split(p['body'])
-    first = next((b for b in re.split(r'\n\s*\n', md) if b.strip() and not b.strip().startswith(('#', '<<'))), '')
-    img = (f'<img class="pv-img" src="{root}{card_path(key, p["date"])}" width="1200" height="630" alt="">'
-           if has_card(key, p['date']) else '')
+    first = dek or next((b for b in re.split(r'\n\s*\n', md) if b.strip() and not b.strip().startswith(('#', '<<'))), '')
     name, wk = sports.seo_name(key), piece_week(p)
     when = f'Week {wk}' if wk else short_day(p['date'])   # a weekly preview shows all week
     return (f'<section class="fr-sec pv-hub" id="preview"><div class="fr-head fr-stack"><h2>{esc(name)} Preview</h2>'
-            f'<span class="fr-date">{esc(when)}</span></div><div class="st-card pv-hub-card">{img}'
-            f'<h3 class="pv-hub-h">{esc(head)}</h3><p class="pv-hub-p">{daily.inline(daily.plain(first))}</p>'
-            f'<a class="pv-go" href="{root}{page_dir(key)}">Read the full {esc(name)} {"Week " + str(wk) + " " if wk else ""}preview &rarr;</a></div></section>')
+            f'<span class="fr-date">{esc(when)}</span></div><div class="st-card pv-hub-card">{art(key, p, now_utc, root)}'
+            f'<div class="pv-hero-copy"><p class="pv-label">{label(key, p["date"], wk)}</p>'
+            f'<h3 class="pv-hub-h"><a href="{root}{page_dir(key)}">{esc(head)}</a></h3><p class="pv-hub-p">{daily.inline(daily.plain(first))}</p>'
+            f'<a class="pv-go" href="{root}{page_dir(key)}">Read the full {esc(name)} {"Week " + str(wk) + " " if wk else ""}preview &rarr;</a></div></div></section>')
 
 
 # ------------------------------------------------------------ image cards

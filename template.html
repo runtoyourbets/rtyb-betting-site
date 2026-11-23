@@ -40,6 +40,8 @@ __THEME_HEAD__
     --fs-pc-title: 24px; --fs-pc-dek: 13.5px; --fs-pc-big: 60px; --fs-pc-big-long: 50px;
     --fs-pc-what: 20px; --fs-pc-what-s: 17px; --fs-pc-url: 12px; --fs-pc-mk: 14px;
     --fs-pc-name: 14px; --fs-pc-name-s: 11px; --fs-pc-at: 18px;
+    /* the preview art on our pages (preview.art): sized to the art's width (cqw), so it scales */
+    --fs-pa-chip: 2.2cqw; --fs-pa-big: 9cqw; --fs-pa-what: 3.2cqw; --fs-pa-at: 5cqw; --pa-logo: 11cqw;
     /* solid unit pills (Yesterday's Results): the same in both themes, dark text */
     --pill-good: #4ADE80; --pill-bad: #F87171; --pill-push: var(--gold); --pill-ink: #0B0F15;
     --cell-gap: 8px;
@@ -3062,25 +3064,39 @@ __THEME_HEAD__
   .pv-ahead { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
   .pv-go { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--accent); text-decoration: none; }
   .pv-go:hover { text-decoration: underline; }
-  .pv-hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: center; }
-  .pv-hero-img { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; border-radius: var(--card-radius); border: 1px solid var(--card-border); }
+  .pv-hero { display: grid; grid-template-columns: 592px minmax(0, 1fr); gap: 28px; align-items: center; }
+  /* the preview art (preview.art): 1200:630, the share card without its words; dark in both themes */
+  .pa { position: relative; display: block; box-sizing: border-box; width: 100%; aspect-ratio: 1200 / 630; container-type: inline-size; overflow: hidden;
+    border-radius: var(--card-radius); border: 1px solid var(--card-border); background: var(--pc-grad); color: var(--pc-text); text-decoration: none; }
+  .pa-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .pa-over { position: absolute; inset: 0; background: var(--pc-over); }
+  .pa-ice .pa-over { background: var(--pc-over-ice); }
+  .pa-chip { position: absolute; left: 4.5cqw; top: 4.5cqw; display: inline-flex; align-items: center; gap: 0.9cqw; padding: 0.5cqw 1.6cqw; border: 1px solid var(--pc-box-line); border-radius: 999px; background: var(--pc-box-bg);
+    font-family: var(--ff-body); font-size: var(--fs-pa-chip); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--pc-text); white-space: nowrap; }
+  .pa-chip .sport-icon { width: 2.4cqw; height: 2.4cqw; }
+  .pa-mid { position: absolute; inset: 11cqw 4cqw 3cqw; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2cqw; text-align: center; }
+  .pa-mu { display: flex; align-items: center; justify-content: center; gap: 4cqw; }
+  .pa-logo, .pa-logo .team-badge, .pa-logo img { width: var(--pa-logo) !important; height: var(--pa-logo) !important; object-fit: contain; }
+  .pa-logo { display: inline-flex; align-items: center; justify-content: center; }
+  .pa-at { font-family: var(--ff-display); font-size: var(--fs-pa-at); font-weight: var(--fw-title); color: var(--pc-muted); }
+  .pa-big { font-family: var(--ff-display); font-size: var(--fs-pa-big); font-weight: var(--fw-pc-heavy); line-height: 0.95; text-transform: uppercase; white-space: nowrap; color: var(--gold); }
+  .pa-what { font-family: var(--ff-display); font-size: var(--fs-pa-what); font-weight: var(--fw-title); line-height: 1.1; text-transform: uppercase; color: var(--pc-text); }
+  .pv-hero-h a, .pv-hub-h a { color: inherit; text-decoration: none; }
+  .pv-hero-h a:hover, .pv-hub-h a:hover { text-decoration: underline; }
   .pv-hero-copy { display: flex; flex-direction: column; gap: 10px; }
   .pv-hero-copy .pv-label, .pv-hero-copy .pv-dek { margin: 0; }
   .fr-sec .pv-hero-h { margin: 0; font-family: var(--ff-display); font-size: var(--fs-hero); font-weight: var(--fw-title); line-height: 1.02; text-transform: none; letter-spacing: 0; color: var(--text); }
-  .pv-hub-card { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 22px; row-gap: 8px; padding: var(--card-pad); }
-  .pv-hub-card .pv-img { grid-row: 1 / 4; }
+  .pv-hub-card { display: grid; grid-template-columns: 592px minmax(0, 1fr); gap: 28px; align-items: center; padding: var(--card-pad); }
   .pv-hub-h { margin: 0; font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); color: var(--text); }
   .pv-hub-p { margin: 0; font-family: var(--ff-read); font-size: var(--fs-body); font-weight: var(--fw-body); line-height: 1.6; color: var(--text-muted); }
-  .pv-hub-card .pv-go { align-self: end; }
+  .pv-hub-card .pv-hero-copy .pv-label { margin: 0; }
   @media (max-width: 899px) {
     .pv { grid-template-columns: minmax(0, 1fr); gap: 24px; }
     .pv-side { position: static; }
-    .pv-hero { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .pv-hero, .pv-hub-card { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   }
   @media (max-width: 640px) {
     .pv-side { display: none; }
-    .pv-hub-card { grid-template-columns: minmax(0, 1fr); }
-    .pv-hub-card .pv-img { grid-row: auto; }
   }
   /* the image card (preview.card_html; headless Chrome at 600x315, 2x) */
   .pc-body { margin: 0; width: 600px; height: 315px; overflow: hidden; background: var(--bg); }

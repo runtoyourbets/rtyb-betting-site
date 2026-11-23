@@ -101,6 +101,43 @@ class PreviewHeroTest(unittest.TestCase):
             daily.load = old
 
 
+class PreviewArtTest(unittest.TestCase):
+    """The preview art on our pages: both logos and the gold number, no
+    headline inside it; the share image stays the PNG card."""
+    def test_home_hero_and_hub_draw_the_art(self):
+        import re
+        from unittest import mock
+        import daily
+        import preview
+        body = '# Suns at Kings tops the night\n> One line.\n\nBody.'
+        pieces = [{'kind': 'preview', 'sport': s, 'date': '2026-11-17', 'path': 'x/', 'title': 'T', 'body': body} for s in ('all', 'nba')]
+        info = {'sport': 'nba', 'id': '1', 'away': 'phx', 'home': 'sac', 'start': '2026-11-18T03:00:00Z'}
+        card = {'key': 'all', 'sport': 'nba', 'count': '12 OF 14', 'what': ['FIRST HALVES LOST BY', 'THE SACRAMENTO KINGS'],
+                'away': 'phx', 'home': 'sac', 'bg': 'hardwood'}
+        at = datetime(2026, 11, 17, 16, 0, tzinfo=timezone.utc)
+        with mock.patch.object(daily, 'load', return_value=pieces), mock.patch.object(preview, 'lead_of', return_value=info), \
+                mock.patch.object(preview, 'card_info', side_effect=lambda key, *a: dict(card, key=key)):
+            for out in (preview.hero(at), preview.hub_section('nba', at)):
+                a = re.search(r'<a class="pa[ "].*?</a>', out, re.S).group(0)
+                self.assertEqual(a.count('pa-logo'), 2)
+                self.assertIn('12 OF 14', a)
+                self.assertIn('FIRST HALVES LOST BY THE SACRAMENTO KINGS', a)
+                self.assertIn('NBA · Tonight 10:00 PM', a)
+                self.assertNotIn('Suns at Kings', a)        # the headline is beside the art, not in it
+                self.assertIn('Suns at Kings tops the night', out)
+            with mock.patch.object(preview, 'card_info', side_effect=lambda key, *a: dict(card, key=key, count='')):
+                a = re.search(r'<a class="pa[ "].*?</a>', preview.hero(at), re.S).group(0)
+                self.assertNotIn('pa-big', a)                # no lead trend: the logos only
+                self.assertEqual(a.count('pa-logo'), 2)
+
+    def test_share_image_is_still_the_png(self):
+        import preview
+        import seo
+        page = '<title>T</title>' + preview.share_meta('assets/preview/2026-11-17/all.png')
+        self.assertIn('<meta property="og:image" content="https://x.test/assets/preview/2026-11-17/all.png">',
+                      seo.head_block('preview/', page, 'https://x.test/', ''))
+
+
 class PriceTest(unittest.TestCase):
     def test_moneylines_past_2000_are_a_dash(self):
         self.assertEqual(front.price_txt(-2700), '-')
