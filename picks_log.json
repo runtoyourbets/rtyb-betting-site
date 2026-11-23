@@ -13855,43 +13855,52 @@
     "streakTeamName": "Trail Blazers"
    },
    {
-    "id": "nba|401910041|1h|ml|home",
+    "id": "nba|401910041|1q|ats|home",
     "game": "nba|401910041",
     "date": "2026-11-23",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
     "start": "2026-11-24T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
+    "seg": "1q",
+    "segTag": "1Q",
     "matchup": "Cavaliers @ Bulls",
     "href": "nba/matchups/",
-    "market": "ml",
+    "market": "ats",
     "side": "home",
-    "line": null,
-    "price": 200,
-    "title": "Bulls 1H ML",
-    "est": 0.3791,
-    "edge": 0.0457,
-    "agree": 2,
+    "line": 2.5,
+    "price": -102,
+    "title": "Bulls 1Q +2.5",
+    "est": 0.5508,
+    "edge": 0.0459,
+    "agree": 4,
     "sample": 16,
     "tier": "B",
     "tags": [
-     "Dog Hunter"
+     "Dog Hunter",
+     "Streak Rider"
     ],
-    "streak": -1,
+    "streak": 8,
     "streakTeam": "chi",
     "angles": [
      [
-      "Bulls 1H ML at home",
-      "5-2"
+      "Bulls 1Q ATS at +2.5, last 8",
+      "8-0"
      ],
      [
-      "Bulls 1H ML, last 8",
-      "5-3"
+      "Bulls 1Q ATS at +2.5 at home",
+      "7-0"
+     ],
+     [
+      "Bulls 1Q ATS at +2.5, season",
+      "10-6"
+     ],
+     [
+      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
+      "4-3"
      ]
     ],
-    "info": null,
+    "info": "Bulls avg 1Q margin at home: +3.3",
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
@@ -13993,52 +14002,43 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "nba|401910041|1q|ats|home",
+    "id": "nba|401910041|1h|ml|home",
     "game": "nba|401910041",
     "date": "2026-11-23",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
     "start": "2026-11-24T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
+    "seg": "1h",
+    "segTag": "1H",
     "matchup": "Cavaliers @ Bulls",
     "href": "nba/matchups/",
-    "market": "ats",
+    "market": "ml",
     "side": "home",
-    "line": 2.5,
-    "price": -104,
-    "title": "Bulls 1Q +2.5",
-    "est": 0.554,
-    "edge": 0.0442,
-    "agree": 4,
+    "line": null,
+    "price": 190,
+    "title": "Bulls 1H ML",
+    "est": 0.3866,
+    "edge": 0.0417,
+    "agree": 2,
     "sample": 16,
     "tier": "B",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Dog Hunter"
     ],
-    "streak": 8,
+    "streak": -1,
     "streakTeam": "chi",
     "angles": [
      [
-      "Bulls 1Q ATS at +2.5, last 8",
-      "8-0"
+      "Bulls 1H ML at home",
+      "5-2"
      ],
      [
-      "Bulls 1Q ATS at +2.5 at home",
-      "7-0"
-     ],
-     [
-      "Bulls 1Q ATS at +2.5, season",
-      "10-6"
-     ],
-     [
-      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
-      "4-3"
+      "Bulls 1H ML, last 8",
+      "5-3"
      ]
     ],
-    "info": "Bulls avg 1Q margin at home: +3.3",
+    "info": null,
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
