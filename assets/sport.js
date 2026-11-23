@@ -1377,7 +1377,7 @@
       var head = '<tr><th>' + (mlb ? 'Pitcher' : 'Goalie') + '</th><th class="num">Starts</th>' + cols.map(function(c) { return '<th class="num">' + esc(c[0]) + '</th>'; }).join('') + '</tr>';
       var body = rows.map(function(r) {
         var tag = np && String(np.id) === String(r.p.id) ? ' <span class="sit-tn">Next game</span>' : '';
-        return '<tr><th scope="row"><span class="tn-full">' + esc(r.p.name || starterLast(r.p)) + '</span><span class="tn-short">' + esc(starterLast(r.p)) + '</span>' + tag + '</th>' +
+        return '<tr><th scope="row" class="tp-pl"><span class="tn-full">' + esc(r.p.name || starterLast(r.p)) + '</span><span class="tn-short">' + esc(starterLast(r.p)) + '</span>' + tag + '</th>' +
           '<td class="num">' + r.games.length + '</td>' + cols.map(function(c) { return '<td class="num">' + c[1](r.games) + '</td>'; }).join('') + '</tr>';
       }).join('');
       return tmSection(title, '<div class="st-card tp-card h2h-x"><table class="tp-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>', 'tpStarters', tpFinalNote());
