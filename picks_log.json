@@ -13666,6 +13666,48 @@
     "streakTeamName": "North Florida"
    },
    {
+    "id": "nhl|2026020380|1p|ml|away",
+    "game": "nhl|2026020380",
+    "date": "2026-11-23",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-24T00:30:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Calgary @ Ottawa",
+    "href": "nhl/matchups/?date=2026-11-23",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 155,
+    "title": "Calgary 1P ML",
+    "est": 0.4429,
+    "edge": 0.0508,
+    "agree": 2,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "CGY",
+    "angles": [
+     [
+      "Ottawa\u2019s opponents 1P ML, Ottawa at home",
+      "5-3-4"
+     ],
+     [
+      "Calgary 1P ML, last 8",
+      "3-2-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Calgary"
+   },
+   {
     "id": "nfl|401873078|1q|ml|home",
     "game": "nfl|401873078",
     "date": "2026-11-23",
@@ -13760,48 +13802,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Trail Blazers"
-   },
-   {
-    "id": "nhl|2026020380|1p|ml|away",
-    "game": "nhl|2026020380",
-    "date": "2026-11-23",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-24T00:30:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Calgary @ Ottawa",
-    "href": "nhl/matchups/?date=2026-11-23",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 148,
-    "title": "Calgary 1P ML",
-    "est": 0.4499,
-    "edge": 0.0466,
-    "agree": 2,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "CGY",
-    "angles": [
-     [
-      "Ottawa\u2019s opponents 1P ML, Ottawa at home",
-      "5-3-4"
-     ],
-     [
-      "Calgary 1P ML, last 8",
-      "3-2-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Calgary"
    },
    {
     "id": "nhl|2026020382|1p|ml|away",
