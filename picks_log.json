@@ -13583,11 +13583,11 @@
     "href": "nba/matchups/",
     "market": "total",
     "side": "over",
-    "line": 108.5,
-    "price": -115,
-    "title": "1H Over 108.5",
-    "est": 0.5994,
-    "edge": 0.0645,
+    "line": 109.5,
+    "price": -105,
+    "title": "1H Over 109.5",
+    "est": 0.5787,
+    "edge": 0.0665,
     "agree": 6,
     "sample": 18,
     "tier": "A",
@@ -13595,30 +13595,30 @@
      "Over Lover",
      "Streak Rider"
     ],
-    "streak": 11,
-    "streakTeam": "lal",
+    "streak": 8,
+    "streakTeam": "utah",
     "angles": [
      [
-      "Lakers 1H overs at home (108.5)",
+      "Lakers 1H overs at home (109.5)",
       "9-0"
      ],
      [
-      "Lakers 1H overs, last 8 (108.5)",
+      "Jazz 1H overs, last 8 (109.5)",
       "8-0"
      ],
      [
-      "Jazz 1H overs, last 8 (108.5)",
-      "8-0"
+      "Lakers 1H overs, last 8 (109.5)",
+      "7-1"
      ],
      [
-      "Lakers 1H overs, season (108.5)",
-      "15-2"
+      "Lakers 1H overs, season (109.5)",
+      "14-3"
      ]
     ],
     "info": "Avg 1H total in their games: Lakers 120.3 \u00b7 Jazz 112.9",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Lakers"
+    "streakTeamName": "Jazz"
    },
    {
     "id": "ncaab|401909788|1h|ml|away",

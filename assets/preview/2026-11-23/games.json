@@ -149,14 +149,14 @@
     "value": "ncaab:401921207"
    },
    {
-    "label": "NCAAB · Southern Utah at Arkansas State · 3:30 PM ET",
-    "trends": 4,
-    "value": "ncaab:401929445"
-   },
-   {
     "label": "NCAAB · William & Mary at IU Indianapolis · 3:30 PM ET",
     "trends": 9,
     "value": "ncaab:401921177"
+   },
+   {
+    "label": "NCAAB · Southern Utah at Arkansas State · 3:45 PM ET",
+    "trends": 4,
+    "value": "ncaab:401929445"
    },
    {
     "label": "NCAAB · Tulane at Georgia State · 4:00 PM ET",
@@ -563,14 +563,14 @@
     "value": "ncaab:401921207"
    },
    {
-    "label": "Southern Utah at Arkansas State · 3:30 PM ET",
-    "trends": 4,
-    "value": "ncaab:401929445"
-   },
-   {
     "label": "William & Mary at IU Indianapolis · 3:30 PM ET",
     "trends": 9,
     "value": "ncaab:401921177"
+   },
+   {
+    "label": "Southern Utah at Arkansas State · 3:45 PM ET",
+    "trends": 4,
+    "value": "ncaab:401929445"
    },
    {
     "label": "Tulane at Georgia State · 4:00 PM ET",
