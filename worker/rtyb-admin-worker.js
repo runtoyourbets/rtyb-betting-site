@@ -278,7 +278,7 @@ function validateBooks(b) {
     if (!/^[a-z0-9_]{1,24}$/.test(id)) return `bad book id: ${id.slice(0, 30)}`;
     if (seen.has(id)) return `book ${id} is listed twice`;
     seen.add(id);
-    const name = typeof r.name === "string" ? r.name.trim().replace(/[\u2012-\u2015\u2212]/g, "-") : "";
+    const name = typeof r.name === "string" ? r.name.trim().replace(/[\u2012-\u2015-]/g, "-") : "";
     if (!name || name.length > 30) return `book ${id}: the name must be 1-30 characters`;
     if (!BOOK_GROUPS.includes(r.group)) return `book ${id}: the group must be ${BOOK_GROUPS.join(", ")}`;
     for (const k of ["show", "best", "link"]) if (typeof r[k] !== "boolean") return `book ${id}: ${k} must be true or false`;

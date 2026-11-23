@@ -1,0 +1,226 @@
+{
+ "books": {
+  "1": {
+   "coverage": {
+    "nba": 82,
+    "ncaab": 97,
+    "ncaaf": 100,
+    "nfl": 100,
+    "nhl": 100
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "DraftKings",
+   "source": "Unabated + The Odds API"
+  },
+  "105": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 12,
+    "ncaaf": 94,
+    "nfl": 0,
+    "nhl": 100
+   },
+   "group": "Exchange",
+   "last_seen": "2026-11-22",
+   "name": "Kalshi",
+   "source": "Unabated"
+  },
+  "107": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 0,
+    "ncaaf": 0,
+    "nfl": 0,
+    "nhl": 0
+   },
+   "group": "Exchange",
+   "last_seen": "2026-11-22",
+   "name": "Polymarket",
+   "source": "Unabated"
+  },
+  "111": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 0,
+    "ncaaf": 0,
+    "nfl": 92,
+    "nhl": 0
+   },
+   "group": "Exchange",
+   "last_seen": "2026-11-22",
+   "name": "Polymarket US",
+   "source": "Unabated"
+  },
+  "121": {
+   "coverage": {
+    "nba": 0,
+    "ncaab": 0,
+    "ncaaf": 94,
+    "nfl": 100,
+    "nhl": 100
+   },
+   "group": "Exchange",
+   "last_seen": "2026-11-22",
+   "name": "Underdog",
+   "source": "Unabated"
+  },
+  "2": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 59,
+    "ncaaf": 100,
+    "nfl": 100,
+    "nhl": 100
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "FanDuel",
+   "source": "Unabated + The Odds API"
+  },
+  "20": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 80,
+    "ncaaf": 96,
+    "nfl": 100,
+    "nhl": 100
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "Caesars",
+   "source": "Unabated + The Odds API"
+  },
+  "36": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 91,
+    "ncaaf": 100,
+    "nfl": 100,
+    "nhl": 100
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "theScore Bet",
+   "source": "Unabated + The Odds API"
+  },
+  "4": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 91,
+    "ncaaf": 94,
+    "nfl": 100,
+    "nhl": 100
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "BetMGM",
+   "source": "Unabated + The Odds API"
+  },
+  "60": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 81,
+    "ncaaf": 94,
+    "nfl": 100,
+    "nhl": 100
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "theScore CA",
+   "source": "Unabated"
+  },
+  "66": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 89,
+    "ncaaf": 94,
+    "nfl": 92,
+    "nhl": 0
+   },
+   "group": "Exchange",
+   "last_seen": "2026-11-22",
+   "name": "ProphetX",
+   "source": "Unabated"
+  },
+  "86": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 83,
+    "ncaaf": 100,
+    "nfl": 100,
+    "nhl": 96
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "Fanatics",
+   "source": "Unabated + The Odds API"
+  },
+  "89": {
+   "coverage": {
+    "nba": 100,
+    "ncaab": 87,
+    "ncaaf": 94,
+    "nfl": 100,
+    "nhl": 0
+   },
+   "group": "Exchange",
+   "last_seen": "2026-11-22",
+   "name": "Novig",
+   "source": "Unabated"
+  },
+  "betonlineag": {
+   "coverage": {
+    "nba": 10,
+    "ncaab": 7,
+    "ncaaf": 0,
+    "nfl": 8,
+    "nhl": 6
+   },
+   "group": "Offshore",
+   "last_seen": "2026-11-22",
+   "name": "BetOnline",
+   "source": "The Odds API"
+  },
+  "betrivers": {
+   "coverage": {
+    "nba": 10,
+    "ncaab": 9,
+    "ncaaf": 0,
+    "nfl": 8,
+    "nhl": 6
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "BetRivers",
+   "source": "The Odds API"
+  },
+  "bovada": {
+   "coverage": {
+    "nba": 10,
+    "ncaab": 9,
+    "ncaaf": 0,
+    "nfl": 8,
+    "nhl": 6
+   },
+   "group": "Offshore",
+   "last_seen": "2026-11-22",
+   "name": "Bovada",
+   "source": "The Odds API"
+  },
+  "hardrockbet": {
+   "coverage": {
+    "nba": 10,
+    "ncaab": 10,
+    "ncaaf": 0,
+    "nfl": 8,
+    "nhl": 6
+   },
+   "group": "Sportsbook",
+   "last_seen": "2026-11-22",
+   "name": "Hard Rock Bet",
+   "source": "The Odds API"
+  }
+ },
+ "updated": "2026-11-22"
+}

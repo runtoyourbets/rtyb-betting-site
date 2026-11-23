@@ -13065,57 +13065,6 @@
     "streakTeamName": "UMass Lowell"
    },
    {
-    "id": "nba|401910034|1h|total|over",
-    "game": "nba|401910034",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Pacers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 104.5,
-    "price": -105,
-    "title": "1H Over 104.5",
-    "est": 0.5578,
-    "edge": 0.0456,
-    "agree": 4,
-    "sample": 16,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 9,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1H overs on the road (104.5)",
-      "8-0"
-     ],
-     [
-      "Pacers 1H overs, last 8 (104.5)",
-      "8-0"
-     ],
-     [
-      "Pacers 1H overs, season (104.5)",
-      "15-1"
-     ],
-     [
-      "Knicks 1H overs, last 8 (104.5)",
-      "5-3"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
-   },
-   {
     "id": "nba|401910032|1h|ml|home",
     "game": "nba|401910032",
     "date": "2026-11-22",
@@ -13156,6 +13105,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
+   },
+   {
+    "id": "nba|401910034|1h|total|over",
+    "game": "nba|401910034",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Pacers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 104.5,
+    "price": -110,
+    "title": "1H Over 104.5",
+    "est": 0.5653,
+    "edge": 0.0415,
+    "agree": 4,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 9,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1H overs on the road (104.5)",
+      "8-0"
+     ],
+     [
+      "Pacers 1H overs, last 8 (104.5)",
+      "8-0"
+     ],
+     [
+      "Pacers 1H overs, season (104.5)",
+      "15-1"
+     ],
+     [
+      "Knicks 1H overs, last 8 (104.5)",
+      "5-3"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Pacers 113.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
    },
    {
     "id": "nba|401910033|1q|ml|home",
@@ -13381,52 +13381,6 @@
     "streakTeamName": "Ravens"
    },
    {
-    "id": "nba|401910034|1q|ats|away",
-    "game": "nba|401910034",
-    "date": "2026-11-22",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-23T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pacers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 2.5,
-    "price": -111,
-    "title": "Pacers 1Q +2.5",
-    "est": 0.5619,
-    "edge": 0.0359,
-    "agree": 3,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "ind",
-    "angles": [
-     [
-      "Pacers 1Q ATS at +2.5 on the road",
-      "8-0"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, season",
-      "12-4"
-     ],
-     [
-      "Pacers 1Q ATS at +2.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Pacers avg 1Q margin on the road: +3.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Pacers"
-   },
-   {
     "id": "nba|401910029|1q|ml|away",
     "game": "nba|401910029",
     "date": "2026-11-22",
@@ -13514,6 +13468,52 @@
     "status": "W",
     "units": 1.0,
     "streakTeamName": "Texas State"
+   },
+   {
+    "id": "nba|401910034|1q|ats|away",
+    "game": "nba|401910034",
+    "date": "2026-11-22",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-23T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Pacers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 2.5,
+    "price": -115,
+    "title": "Pacers 1Q +2.5",
+    "est": 0.5677,
+    "edge": 0.0328,
+    "agree": 3,
+    "sample": 16,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "ind",
+    "angles": [
+     [
+      "Pacers 1Q ATS at +2.5 on the road",
+      "8-0"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, season",
+      "12-4"
+     ],
+     [
+      "Pacers 1Q ATS at +2.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Pacers avg 1Q margin on the road: +3.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Pacers"
    }
   ]
  }
