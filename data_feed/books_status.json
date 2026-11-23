@@ -16,7 +16,7 @@
   "105": {
    "coverage": {
     "nba": 100,
-    "ncaab": 12,
+    "ncaab": 13,
     "ncaaf": 94,
     "nfl": 0,
     "nhl": 100
@@ -28,20 +28,20 @@
   },
   "107": {
    "coverage": {
-    "nba": 81,
+    "nba": 100,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
     "nhl": 0
    },
    "group": "Exchange",
-   "last_seen": "2026-11-22",
+   "last_seen": "2026-11-23",
    "name": "Polymarket",
    "source": "Unabated"
   },
   "111": {
    "coverage": {
-    "nba": 98,
+    "nba": 100,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 92,
@@ -80,8 +80,8 @@
   },
   "20": {
    "coverage": {
-    "nba": 81,
-    "ncaab": 77,
+    "nba": 96,
+    "ncaab": 79,
     "ncaaf": 96,
     "nfl": 100,
     "nhl": 100
@@ -93,8 +93,8 @@
   },
   "36": {
    "coverage": {
-    "nba": 98,
-    "ncaab": 88,
+    "nba": 100,
+    "ncaab": 89,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -106,11 +106,11 @@
   },
   "4": {
    "coverage": {
-    "nba": 85,
-    "ncaab": 82,
+    "nba": 100,
+    "ncaab": 89,
     "ncaaf": 94,
     "nfl": 100,
-    "nhl": 87
+    "nhl": 100
    },
    "group": "Sportsbook",
    "last_seen": "2026-11-23",
@@ -119,8 +119,8 @@
   },
   "60": {
    "coverage": {
-    "nba": 98,
-    "ncaab": 79,
+    "nba": 100,
+    "ncaab": 80,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 100
@@ -133,7 +133,7 @@
   "66": {
    "coverage": {
     "nba": 100,
-    "ncaab": 85,
+    "ncaab": 86,
     "ncaaf": 94,
     "nfl": 92,
     "nhl": 0
@@ -159,7 +159,7 @@
   "89": {
    "coverage": {
     "nba": 100,
-    "ncaab": 84,
+    "ncaab": 85,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 0

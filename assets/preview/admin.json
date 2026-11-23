@@ -12,6 +12,16 @@
  "pieces": {
   "all": [
    {
+    "date": "2026-11-23",
+    "headline": "Milwaukee Bucks Have Lost 8 Straight First Halves Heading Into Toronto",
+    "live": false,
+    "page": "admin/preview/all-2026-11-23/",
+    "path": "content/drafts/all-preview-2026-11-23.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-23T13:12Z"
+   },
+   {
     "date": "2026-11-22",
     "headline": "Oilers Carry Quiet First Periods Into St. Louis",
     "live": false,
@@ -64,6 +74,16 @@
   ],
   "nba": [
    {
+    "date": "2026-11-23",
+    "headline": "Bucks Bring an 88% First-Quarter Under Rate to Toronto",
+    "live": false,
+    "page": "admin/preview/nba-2026-11-23/",
+    "path": "content/drafts/nba-preview-2026-11-23.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-23T13:10Z"
+   },
+   {
     "date": "2026-11-22",
     "headline": "Jazz Cover Early, Then Lose the Half: Mavericks Visit Utah",
     "live": false,
@@ -115,6 +135,16 @@
    }
   ],
   "ncaab": [
+   {
+    "date": "2026-11-23",
+    "headline": "Monmouth Carries a Five-Game First-Half Skid Into North Carolina",
+    "live": false,
+    "page": "admin/preview/ncaab-2026-11-23/",
+    "path": "content/drafts/ncaab-preview-2026-11-23.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-23T13:10Z"
+   },
    {
     "date": "2026-11-22",
     "headline": "Youngstown State Has Dropped 5 Straight First Halves Before William & Mary",
@@ -191,6 +221,16 @@
    }
   ],
   "nhl": [
+   {
+    "date": "2026-11-23",
+    "headline": "Kraken and Ducks Bring Over Form to Seattle's First Period",
+    "live": false,
+    "page": "admin/preview/nhl-2026-11-23/",
+    "path": "content/drafts/nhl-preview-2026-11-23.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-23T13:08Z"
+   },
    {
     "date": "2026-11-22",
     "headline": "Oilers at Blues: First Periods Where One Side Stays Quiet",

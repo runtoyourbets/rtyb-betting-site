@@ -13676,10 +13676,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 210,
+    "price": 200,
     "title": "North Florida 1H ML",
-    "est": 0.3716,
-    "edge": 0.049,
+    "est": 0.3805,
+    "edge": 0.0472,
     "agree": 4,
     "sample": 6,
     "tier": "C",
@@ -13850,57 +13850,6 @@
     "streakTeamName": "Utah"
    },
    {
-    "id": "nba|401910041|1q|ats|home",
-    "game": "nba|401910041",
-    "date": "2026-11-23",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-24T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Cavaliers @ Bulls",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 2.5,
-    "price": -104,
-    "title": "Bulls 1Q +2.5",
-    "est": 0.554,
-    "edge": 0.0442,
-    "agree": 4,
-    "sample": 16,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 8,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1Q ATS at +2.5, last 8",
-      "8-0"
-     ],
-     [
-      "Bulls 1Q ATS at +2.5 at home",
-      "7-0"
-     ],
-     [
-      "Bulls 1Q ATS at +2.5, season",
-      "10-6"
-     ],
-     [
-      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
-      "4-3"
-     ]
-    ],
-    "info": "Bulls avg 1Q margin at home: +3.3",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
-   },
-   {
     "id": "nba|401910044|1q|ats|away",
     "game": "nba|401910044",
     "date": "2026-11-23",
@@ -13951,43 +13900,52 @@
     "streakTeamName": "Jazz"
    },
    {
-    "id": "nba|401910041|1h|ml|home",
+    "id": "nba|401910041|1q|ats|home",
     "game": "nba|401910041",
     "date": "2026-11-23",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
     "start": "2026-11-24T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
+    "seg": "1q",
+    "segTag": "1Q",
     "matchup": "Cavaliers @ Bulls",
     "href": "nba/matchups/",
-    "market": "ml",
+    "market": "ats",
     "side": "home",
-    "line": null,
-    "price": 184,
-    "title": "Bulls 1H ML",
-    "est": 0.3913,
-    "edge": 0.0392,
-    "agree": 2,
+    "line": 2.5,
+    "price": -106,
+    "title": "Bulls 1Q +2.5",
+    "est": 0.5571,
+    "edge": 0.0425,
+    "agree": 4,
     "sample": 16,
-    "tier": "C",
+    "tier": "B",
     "tags": [
-     "Dog Hunter"
+     "Dog Hunter",
+     "Streak Rider"
     ],
-    "streak": -1,
+    "streak": 8,
     "streakTeam": "chi",
     "angles": [
      [
-      "Bulls 1H ML at home",
-      "5-2"
+      "Bulls 1Q ATS at +2.5, last 8",
+      "8-0"
      ],
      [
-      "Bulls 1H ML, last 8",
-      "5-3"
+      "Bulls 1Q ATS at +2.5 at home",
+      "7-0"
+     ],
+     [
+      "Bulls 1Q ATS at +2.5, season",
+      "10-6"
+     ],
+     [
+      "Cavaliers\u2019s opponents 1Q ATS at +2.5, Cavaliers on the road",
+      "4-3"
      ]
     ],
-    "info": null,
+    "info": "Bulls avg 1Q margin at home: +3.3",
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
@@ -14075,6 +14033,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Jazz"
+   },
+   {
+    "id": "ncaab|401921210|1h|ml|home",
+    "game": "ncaab|401921210",
+    "date": "2026-11-23",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-23T22:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Temple @ UT Martin",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 160,
+    "title": "UT Martin 1H ML",
+    "est": 0.4226,
+    "edge": 0.038,
+    "agree": 2,
+    "sample": 7,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "ut-martin-skyhawks",
+    "angles": [
+     [
+      "UT Martin 1H ML, season",
+      "5-2"
+     ],
+     [
+      "UT Martin 1H ML, last 8",
+      "5-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "UT Martin"
    }
   ]
  }
