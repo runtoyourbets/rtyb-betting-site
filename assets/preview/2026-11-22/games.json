@@ -358,14 +358,14 @@
     "value": "nba:401910031"
    },
    {
-    "label": "NCAAB · California Baptist at Portland · 7:00 PM ET",
-    "trends": 7,
-    "value": "ncaab:401917541"
-   },
-   {
     "label": "NCAAB · Delaware at UCLA · 7:00 PM ET",
     "trends": 4,
     "value": "ncaab:401920905"
+   },
+   {
+    "label": "NCAAB · Portland at California Baptist · 7:00 PM ET",
+    "trends": 7,
+    "value": "ncaab:401917541"
    },
    {
     "label": "NCAAB · Rhode Island at UAB · 7:00 PM ET",
@@ -403,7 +403,7 @@
     "value": "nba:401910035"
    },
    {
-    "label": "NCAAB · Seattle U at UC San Diego · 9:30 PM ET",
+    "label": "NCAAB · UC San Diego at Seattle U · 9:30 PM ET",
     "trends": 5,
     "value": "ncaab:401917542"
    },
@@ -702,14 +702,14 @@
     "value": "ncaab:401921420"
    },
    {
-    "label": "California Baptist at Portland · 7:00 PM ET",
-    "trends": 7,
-    "value": "ncaab:401917541"
-   },
-   {
     "label": "Delaware at UCLA · 7:00 PM ET",
     "trends": 4,
     "value": "ncaab:401920905"
+   },
+   {
+    "label": "Portland at California Baptist · 7:00 PM ET",
+    "trends": 7,
+    "value": "ncaab:401917541"
    },
    {
     "label": "Rhode Island at UAB · 7:00 PM ET",
@@ -727,7 +727,7 @@
     "value": "ncaab:401921206"
    },
    {
-    "label": "Seattle U at UC San Diego · 9:30 PM ET",
+    "label": "UC San Diego at Seattle U · 9:30 PM ET",
     "trends": 5,
     "value": "ncaab:401917542"
    },
