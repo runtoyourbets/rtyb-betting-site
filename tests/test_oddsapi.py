@@ -217,6 +217,19 @@ class FullGame(unittest.TestCase):
         run, rep = fill([], [stray], {})
         self.assertEqual(rep['unmatched_events'], ['2026-11-14 UMKC Kangaroos @ Nowhere Owls'])
 
+    def test_a_game_an_earlier_run_did_is_not_unmatched(self):
+        """Celtics @ Heat was filled before (not in this run's todo): the
+        day's events list it, but it's one of our games, so it isn't a miss."""
+        done = {'id': 'e1', 'commence_time': '2026-11-15T00:00:00Z', 'away_team': AWAY, 'home_team': HOME}
+        run = B.Run(None, False)
+        run.day_games[('nba', '2026-11-14')] = [{'date': '2026-11-14', 'away': 'bos', 'home': 'mia', 'start': '2026-11-15T00:00Z'}]
+        run.files[('nba', 2027)], run.state = {'games': {}}, {}
+        rep = {'filled': {}, 'no_market': {}, 'unmatched': [], 'unmatched_events': [], 'empty': [], 'big_ml': [], 'game_minutes': []}
+        with mock.patch.object(A, 'historical_events', return_value={'data': [done]}), \
+                mock.patch.object(A, 'historical_odds', return_value={'data': []}):
+            B.fill_day(run, 'nba', 2027, '2026-11-14', [], rep)
+        self.assertEqual(rep['unmatched_events'], [])
+
     def test_indoor_game_starts_by_espns_time(self):
         """SA @ SAC, Mar 17: the API listed the tip an hour after ESPN's
         start, so its 'pregame' snapshot was in-play. Indoor sports take the

@@ -277,6 +277,7 @@ class Run:
         self.state = read_json(STATE, {})
         self.files = {}
         self.report = {}
+        self.day_games = {}   # (sport, date): every game of ours that day
         A.BUDGET = max_credits
 
     def out_of_time(self):
@@ -341,6 +342,7 @@ def pending(run, sport, which):
     days = {}
     for g in games:
         key = f"{g['date']}|{g['away']}|{g['home']}"
+        run.day_games.setdefault((sport, g['date']), []).append(g)   # every game, for unmatched_events
         if g['date'] >= today or done.get(key) in ('filled', 'empty'):   # unmatched games are tried again
             continue
         has = got.get(key) or {}
@@ -406,7 +408,11 @@ def fill_day(run, sport, season, day, todo, rep):
     evs = snap.get('data') or []
     games = [dict(g, _miss=miss) for g, miss in todo]
     pairs, missed = A.match(sport, evs, games)
-    for e in missed:   # the API's names, so missing aliases can be added
+    # an event that's one of our games an earlier run already did isn't a miss;
+    # the rest (no game of ours that day) are listed with the API's names, so
+    # missing aliases can be added
+    _, missed = A.match(sport, missed, [{k: v for k, v in g.items() if not k.startswith('_')} for g in run.day_games.get((sport, day), [])])
+    for e in missed:
         rep['unmatched_events'].append(f"{day} {e.get('away_team')} @ {e.get('home_team')}")
     matched = {f"{g['date']}|{g['away']}|{g['home']}" for _, g, _ in pairs}
     done, hist = run.done(sport, season), run.hist(sport, season)['games']
