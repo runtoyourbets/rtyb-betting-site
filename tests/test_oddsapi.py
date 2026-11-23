@@ -414,3 +414,50 @@ class RefreshWins(unittest.TestCase):
     def test_usage_log_merges_as_a_union(self):
         with open(os.path.join(ROOT, '.gitattributes'), encoding='utf-8') as f:
             self.assertIn('data_feed/oddsapi/usage.jsonl merge=union', f.read())
+
+
+class SecondHalfBackfill(unittest.TestCase):
+    """--second-half: a past game's 2H line at the start + the typical time
+    to the break, then +5, +10, +15; none is "no line"."""
+
+    def run_day(self, sport, game, answers):
+        from unittest import mock
+        run = B.Run(400_000, False)
+        run.state, run.files = {}, {(sport, 2027): {'games': {}}}
+        asked = []
+
+        def event_odds(sp, event_id, at, markets, books=None):
+            asked.append((at, tuple(markets)))
+            return answers.pop(0) if answers else {}
+        ev = {'id': 'e1', 'commence_time': game['start'].replace('Z', ':00Z'), 'away_team': AWAY, 'home_team': HOME}
+        rep = {'saved': 0, 'no_line': 0, 'unmatched': [], 'books': []}
+        with mock.patch.object(A, 'historical_events', return_value={'data': [ev]}), \
+                mock.patch.object(A, 'historical_event_odds', side_effect=event_odds), \
+                mock.patch.object(A, 'match', return_value=([(ev, game, False)], [])):
+            B.break_day(run, sport, 2027, game['date'], [game], rep)
+        return run, rep, asked
+
+    GAME = {'date': '2026-11-20', 'away': 'bos', 'home': 'nyk', 'start': '2026-11-21T00:30Z'}
+
+    def test_second_half_line_on_the_second_try(self):
+        bm = [book('draftkings', h2h_h2=[{'name': AWAY, 'price': -115}, {'name': HOME, 'price': -105}],
+                   spreads_h2=[{'name': AWAY, 'point': -0.5, 'price': -110}, {'name': HOME, 'point': 0.5, 'price': -110}],
+                   totals_h2=[{'name': 'Over', 'point': 112.5, 'price': -110}, {'name': 'Under', 'point': 112.5, 'price': -110}])]
+        run, rep, asked = self.run_day('nba', self.GAME, [{}, {'timestamp': 'x', 'data': {'bookmakers': bm}}])
+        self.assertEqual([a.strftime('%H:%M') for a, _ in asked], ['01:45', '01:50'])   # start + 75, then + 5
+        self.assertEqual(asked[0][1], ('h2h_h2', 'spreads_h2', 'totals_h2'))
+        seg = run.files[('nba', 2027)]['games']['2026-11-20|bos|nyk']['segments']['2h']
+        self.assertEqual(seg['ml'], {'away': -115, 'home': -105, 'books': 1})   # one book is enough
+        self.assertEqual(B.break_done(run, 'nba', 2027)['2026-11-20|bos|nyk'], 'filled')
+        self.assertEqual(rep['saved'], 1)
+
+    def test_no_line_after_four_tries(self):
+        run, rep, asked = self.run_day('ncaab', self.GAME, [])
+        self.assertEqual([a.strftime('%H:%M') for a, _ in asked], ['01:25', '01:30', '01:35', '01:40'])   # start + 55
+        self.assertEqual(B.break_done(run, 'ncaab', 2027)['2026-11-20|bos|nyk'], 'no line')
+        self.assertEqual(rep['no_line'], 1)
+
+    def test_nhl_full_game_after_the_first(self):
+        run, rep, asked = self.run_day('nhl', self.GAME, [])
+        self.assertEqual([a.strftime('%H:%M') for a, _ in asked], ['01:10', '01:15', '01:20'])   # start + 40
+        self.assertEqual(asked[0][1], ('h2h', 'spreads', 'totals'))

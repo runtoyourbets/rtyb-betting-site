@@ -7,13 +7,16 @@ name: The Odds API
 # - oddsapi-backfill: closing lines for finished games the admin and the
 #   Unabated feed don't have (scripts/backfill_oddsapi.py). Resumable; it
 #   commits every 30 minutes and at the end, and stops at 5h30m.
+# - second-half: the same job with --second-half: past games' 2nd half lines
+#   (NHL: the full game's line after the 1st) at the typical time to the
+#   break. Prints its estimate first; resumable, max_credits per run.
 on:
   workflow_dispatch:
     inputs:
       job:
-        description: "backfill or probe"
+        description: "backfill, second-half or probe"
         type: choice
-        options: [backfill, probe]
+        options: [backfill, second-half, probe]
         default: backfill
       sport:
         description: "backfill: nhl, nba, ncaab, nfl, ncaaf, mlb, wnba or all"
@@ -75,7 +78,7 @@ jobs:
           exit 1
 
   oddsapi-backfill:
-    if: github.event.inputs.job == 'backfill'
+    if: github.event.inputs.job == 'backfill' || github.event.inputs.job == 'second-half'
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
@@ -95,9 +98,12 @@ jobs:
           SPORT: ${{ github.event.inputs.sport }}
           SEASON: ${{ github.event.inputs.season }}
           MAX_CREDITS: ${{ github.event.inputs.max_credits }}
+          JOB: ${{ github.event.inputs.job }}
         run: |
           echo "$SPORT" | grep -Eqx 'nhl|nba|ncaab|nfl|ncaaf|mlb|wnba|all' || { echo "unknown sport"; exit 1; }
           echo "$MAX_CREDITS" | grep -Eqx '[0-9]+' || { echo "max_credits must be a number"; exit 1; }
           git config user.name "rtyb-bot"
           git config user.email "actions@users.noreply.github.com"
-          python3 scripts/backfill_oddsapi.py --sport "$SPORT" --season "$SEASON" --max-credits "$MAX_CREDITS" --commit
+          EXTRA=""
+          if [ "$JOB" = "second-half" ]; then EXTRA="--second-half"; fi
+          python3 scripts/backfill_oddsapi.py --sport "$SPORT" --season "$SEASON" --max-credits "$MAX_CREDITS" --commit $EXTRA

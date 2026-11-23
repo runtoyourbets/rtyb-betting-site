@@ -34,6 +34,9 @@ a market no source has book rows for) and data_feed/oddsapi/backfill_report.json
 (the last run's report, with the API's names for events that matched no game). sport_build.merge_odds and build_site.py
 read the history files under admin and Unabated.
 
+--second-half: the 2nd half lines of past games (NHL: the full game's line
+after the 1st), asked at the typical time to the break (see BREAK_AT below).
+
 Budget: --max-credits per run (oddsapi.py stops before a call would pass it)
 and oddsapi.py's 250,000 floor. Prints an estimate before the first paid call
 and stops if it's over 1,500,000. Stops cleanly at 5h30m; with --commit it
@@ -635,6 +638,162 @@ def retry_late(run, sport, season):
     return out
 
 
+# ------------------------------------------------------------ the 2nd half
+# (--second-half) Past games have no breaks.json, so each line is asked for
+# at the typical time to the break: the start + BREAK_AT minutes, asking only
+# the 2nd half's h2h_h2 / spreads_h2 / totals_h2, then +5, +10 and +15; none:
+# "no line". NHL: the full game's line after the 1st ("live_p1", h2h /
+# spreads / totals) at the start + 40, then +5 and +10. The same closing()
+# (best_of and the outlier guard); one book is enough (college 2H lines are
+# often one book). Saved under segment "2h" (NHL "live_p1") in
+# history/{sport}/{season}.json, as the refresh's next-day capture does.
+BREAK_AT = {'nba': 75, 'wnba': 75, 'ncaab': 55, 'nfl': 100, 'ncaaf': 100, 'nhl': 40}
+BREAK_TRIES = {'nhl': (0, 5, 10)}   # the rest: 0, 5, 10, 15
+BREAK_ORDER = ['nba', 'nfl', 'ncaaf', 'wnba', 'nhl', 'ncaab']   # NCAAB last: the most games
+H2 = {'ml': 'h2h_h2', 'ats': 'spreads_h2', 'total': 'totals_h2'}
+
+
+def break_seg(sport):
+    """(segment, {market: api key}) asked at the break."""
+    return ('live_p1', A.GAME) if sport == 'nhl' else ('2h', H2)
+
+
+def break_done(run, sport, season):
+    return run.state.setdefault('second_half', {}).setdefault(sport, {}).setdefault(str(season), {})
+
+
+def break_pending(run, sport, which):
+    """(season, {date: [game]}): finished games with no break line saved and
+    not tried yet (an unmatched game is tried again)."""
+    seasons = seasons_for(sport)
+    if which not in seasons:
+        return None, {}
+    season, games = seasons[which]
+    seg = break_seg(sport)[0]
+    today = datetime.now(A.ET).date().isoformat()
+    hist, done = run.hist(sport, season)['games'], break_done(run, sport, season)
+    days = {}
+    for g in games:
+        key = f"{g['date']}|{g['away']}|{g['home']}"
+        if g['date'] >= today or seg in ((hist.get(key) or {}).get('segments') or {}) or done.get(key) in ('filled', 'no line'):
+            continue
+        days.setdefault(g['date'], []).append(g)
+    return season, days
+
+
+def break_estimate(days, sport):
+    """(expected, most) credits: a day's events, then one call per game
+    (expected) or every try (most), 10 x 3 markets each."""
+    n, calls = len(days), sum(len(v) for v in days.values())
+    per = 10 * len(break_seg(sport)[1])
+    return n + per * calls, n + per * calls * len(BREAK_TRIES.get(sport, (0, 5, 10, 15)))
+
+
+def break_day(run, sport, season, day, games, rep):
+    seg, markets = break_seg(sport)
+    keys = [(seg, m, k) for m, k in markets.items()]
+    start = datetime.fromisoformat(day).replace(tzinfo=A.ET)
+    snap = A.historical_events(sport, datetime.fromisoformat(day).replace(hour=14, tzinfo=timezone.utc),
+                               start, start + timedelta(days=1)) or {}
+    pairs, _ = A.match(sport, snap.get('data') or [], games)
+    done, hist = break_done(run, sport, season), run.hist(sport, season)['games']
+    matched = {f"{g['date']}|{g['away']}|{g['home']}" for _, g, _ in pairs}
+    for g in games:
+        key = f"{g['date']}|{g['away']}|{g['home']}"
+        if key not in matched:
+            done[key] = 'unmatched'
+            rep['unmatched'].append(key)
+    for e, g, flipped in pairs:
+        key = f"{g['date']}|{g['away']}|{g['home']}"
+        away_name, home_name = (e['home_team'], e['away_team']) if flipped else (e['away_team'], e['home_team'])
+        ours = A.parse(g.get('start'))
+        t0 = (ours if ours and not A.tbd(ours) else A.parse(e.get('commence_time'))) + timedelta(minutes=BREAK_AT[sport])
+        got = None
+        for extra in BREAK_TRIES.get(sport, (0, 5, 10, 15)):
+            resp = A.historical_event_odds(sport, e['id'], t0 + timedelta(minutes=extra), list(markets.values())) or {}
+            lines, books = closing(sport, (resp.get('data') or {}).get('bookmakers'), keys, away_name, home_name)
+            if lines:
+                got = (lines, books, resp.get('timestamp'))
+                break
+        if not got:
+            done[key] = 'no line'
+            rep['no_line'] += 1
+            continue
+        lines, books, at = got
+        row = hist.setdefault(key, {'date': g['date'], 'away': g['away'], 'home': g['home'], 'start': g.get('start'),
+                                    'source': 'oddsapi', 'segments': {}, 'books': {}})
+        row['segments'][seg] = lines[seg]
+        row['books'][seg] = books[seg]
+        row[seg + '_snapshot'] = at
+        done[key] = 'filled'
+        rep['saved'] += 1
+        rep['books'].append(max(v.get('books') or 0 for v in lines[seg].values()))
+
+
+def break_sport(run, sport, which):
+    season, days = break_pending(run, sport, which)
+    rep = {'sport': sport, 'season': season, 'segment': break_seg(sport)[0], 'games_todo': sum(len(v) for v in days.values()),
+           'saved': 0, 'no_line': 0, 'unmatched': [], 'books': [], 'credits': 0}
+    run.report[(sport, which, 'break')] = rep
+    if season is None:
+        return rep
+    used0 = A.used()
+    try:
+        for day in sorted(days, reverse=True):   # newest day first
+            if run.out_of_time():
+                rep['stopped'] = 'time limit (5h30m); the next run resumes'
+                break
+            break_day(run, sport, season, day, days[day], rep)
+            rep['credits'] = A.used() - used0
+            run.save()
+            run.maybe_commit()
+    except (A.BudgetExceeded, A.BelowFloor) as e:
+        rep['credits'], rep['stopped'] = A.used() - used0, f'stopped: {e}; the next run resumes'
+        print(break_summary(run, rep))
+        raise
+    return rep
+
+
+def break_summary(run, rep):
+    """Games with a line per sport and season (all saved so far), and the books per line."""
+    seg = rep['segment']
+    saved = [g for g in run.hist(rep['sport'], rep['season'])['games'].values() if seg in (g.get('segments') or {})] if rep['season'] else []
+    counts = [max((v.get('books') or 0) for v in g['segments'][seg].values()) for g in saved]
+    out = [f"{rep['sport']} {rep['season']} {seg}: {rep['games_todo']} games to do, {rep['saved']} saved, {rep['no_line']} no line, "
+           f"{len(rep['unmatched'])} unmatched, {rep['credits']:,} credits",
+           f"  games with a {seg} line: {len(saved)}" + (f", {sum(counts) / len(counts):.1f} books on average" if counts else '')]
+    if rep.get('stopped'):
+        out.append('  ' + rep['stopped'])
+    return '\n'.join(out)
+
+
+def second_half(run, sports_, whiches):
+    """--second-half: the plan, its estimate before the first paid call, then the run."""
+    plan = [(s, w) for w in whiches for s in BREAK_ORDER if s in sports_]   # this season first
+    total = [0, 0]
+    for s, w in plan:
+        season, days = break_pending(run, s, w)
+        exp, most = break_estimate(days, s)
+        total = [total[0] + exp, total[1] + most]
+        print(f"estimate {s} {w} season ({season}) {break_seg(s)[0]}: {sum(len(v) for v in days.values())} games on {len(days)} days, "
+              f"about {exp:,} credits (at most {most:,})")
+    print(f'estimate total: about {total[0]:,} credits, at most {total[1]:,} (this run stops at {A.BUDGET:,})')
+    if total[0] > MAX_ESTIMATE:
+        print(f'stopped: the estimate is over {MAX_ESTIMATE:,}')
+        return 1
+    try:
+        for s, w in plan:
+            if run.out_of_time():
+                break
+            print(break_summary(run, break_sport(run, s, w)))
+    except (A.BudgetExceeded, A.BelowFloor) as e:
+        print(f'stopped: {e}')
+    finally:
+        run.save(push=True)
+    print(f'backfill: {A.used():,} credits used this run, {A.remaining() if A.remaining() is not None else "?"} remaining')
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--sport', default='all')
@@ -648,6 +807,8 @@ def main(argv=None):
     ap.add_argument('--regrade', action='store_true', help='pick every saved line again from its book rows (no API calls)')
     ap.add_argument('--retry-missing', action='store_true',
                     help='retry the filled games still missing a market with no book rows (no API calls)')
+    ap.add_argument('--second-half', action='store_true',
+                    help='the 2nd half lines (NHL: the full game after the 1st) of past games, at the typical time to the break')
     ap.add_argument('--alt-lines', action='store_true',
                     help='drop the saved alternate spread / total rows and pick those lines again (no API calls)')
     args = ap.parse_args(argv)
@@ -660,6 +821,8 @@ def main(argv=None):
         return 0
     whiches = ['this', 'last'] if args.season == 'both' else [args.season]
     run = Run(args.max_credits, args.commit)
+    if args.second_half:
+        return second_half(run, BREAK_ORDER if args.sport == 'all' else [args.sport], whiches)
     if args.regrade:
         import fetch_odds_unabated as U
         for s in todo_sports:
