@@ -300,7 +300,7 @@
    },
    {
     "label": "NBA · Detroit Pistons at Orlando Magic · 7:00 PM ET",
-    "trends": 9,
+    "trends": 13,
     "value": "nba:401909314"
    },
    {
@@ -455,7 +455,7 @@
    },
    {
     "label": "NBA · Boston Celtics at Washington Wizards · 8:00 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "nba:401909315"
    },
    {
@@ -550,7 +550,7 @@
    },
    {
     "label": "NBA · Dallas Mavericks at Denver Nuggets · 10:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "nba:401909316"
    },
    {
@@ -584,17 +584,17 @@
   "games": [
    {
     "label": "Detroit Pistons at Orlando Magic · 7:00 PM ET",
-    "trends": 9,
+    "trends": 13,
     "value": "nba:401909314"
    },
    {
     "label": "Boston Celtics at Washington Wizards · 8:00 PM ET",
-    "trends": 13,
+    "trends": 14,
     "value": "nba:401909315"
    },
    {
     "label": "Dallas Mavericks at Denver Nuggets · 10:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "nba:401909316"
    }
   ],
