@@ -4298,9 +4298,13 @@
   function skSeg(k) { return SK.segs.filter(function(x) { return x.k === k; })[0] || {}; }
   function skMkt(id) { return SK.markets.filter(function(x) { return x.id === id; })[0] || { label: id }; }
   // All: overall streaks plus home / road ones longer than the overall run
+  // NHL 2P / 3P Over 0.5 and Scored: a goal in a period is too common for
+  // those runs to mean much, so they show only when their market is picked
+  // (streaks.QUIET in Python, for the index)
+  var SK_QUIET = { o05: 1, scored: 1 };
   function skMatch(s) {
     if (SKF.seg !== 'all' && s.k !== SKF.seg) return false;
-    if (SKF.m !== 'all' && s.m !== SKF.m) return false;
+    if (SKF.m === 'all' ? SK_QUIET[s.m] : s.m !== SKF.m) return false;
     return SKF.v === 'all' ? s.v === 'all' || !!s.gt : s.v === SKF.v;
   }
   // "Game no cover", "1Q Under", "2H losses", "NRFI" (the chip is the count)
@@ -4380,7 +4384,7 @@
       var g = x.g, top = x.s.slice(0, 4);
       var rows = skRows(top, function(s) {
         return '<li class="sk-trow' + (skSeg(s.k).fr ? ' sk-fr' : '') + '"><span class="sk-l1"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span>' +
-          teamLink(s.t, badge(s.t, 20) + '<span class="sk-code">' + esc(tcode(s.t)) + '</span>') + '<span class="sk-what">' + esc(skWhat(s)) + '</span>' + skVenue(s) + skFrTag(s) + '</span>' +
+          teamLink(s.t, badge(s.t, 20) + '<span class="sk-code">' + esc(tcode(s.t)) + '</span>') + '<span class="sk-what">' + esc(skWhat(s)) + '</span>' + skVenue(s) + '</span>' +
           skButtons(s, g) + '</li>';
       });
       return '<div class="sk-game"><div class="sk-ghead"><span class="sk-gt">' + esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home)) + (g.start ? ' &middot; ' + esc(timeET(g.start)) : '') + '</span>' +

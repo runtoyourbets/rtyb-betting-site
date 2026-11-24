@@ -49,6 +49,9 @@ TOP = 5        # Records: the 5 longest per market
 INDEX_TOP = 10  # the index's Still Running across sports
 # mirrors assets/sport.js PREMIUM.fullRun (tests/test_streaks.py checks they agree)
 FULL_RUN_LOCKED = False
+# NHL 2P / 3P Over 0.5 and Scored: left out of All markets and the index
+# (sport.js SK_QUIET); they show only when their market pill is picked
+QUIET = ('o05', 'scored')
 VENUES = ('all', 'home', 'away')
 
 
@@ -438,7 +441,7 @@ def index_html(root=''):
         for s, _ in live)
 
     def shown(xs):
-        return [x for x in xs if x['v'] == 'all' or x.get('gt')]
+        return [x for x in xs if (x['v'] == 'all' or x.get('gt')) and x['m'] not in QUIET]
     run = sorted([(s, x) for s, d in live for x in shown(d['running'])], key=lambda p: -p[1]['n'])
     # the top INDEX_TOP across sports (All), and each sport's own top INDEX_TOP (its pill)
     per, rows = {}, ''

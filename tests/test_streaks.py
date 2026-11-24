@@ -46,7 +46,8 @@ class RunningTest(unittest.TestCase):
     def test_still_running_matches_the_team_pages_current_streaks(self):
         kind = {'W': 'W', 'L': 'L', 'Over': 'O', 'Under': 'U', 'YRFI': 'Y', 'NRFI': 'N'}
         for sp in sports.SPORTS:
-            data = json.load(open(os.path.join(ROOT, sp['slug'], 'sport.json' if sp['key'] == 'nhl' else 'data.json')))
+            with open(os.path.join(ROOT, sp['slug'], 'sport.json' if sp['key'] == 'nhl' else 'data.json')) as f:
+                data = json.load(f)
             doc = streaks.build(sp)
             if not doc['cur']:
                 continue
@@ -119,6 +120,32 @@ console.log(JSON.stringify(out));""")
         got = self.run_js("""var g = { away: 'a', home: 'b', odds: { '2p': { total: { line: 1.5, over: -110, under: -110 } } } };
 console.log(JSON.stringify(['2p', '3p'].map(function(k) { return ['su', 'tot', 'scored', 'o05'].map(function(m) { return skButtons({ t: 'a', k: k, m: m, kd: 'W' }, g); }); })));""")
         self.assertEqual(got, [['', '', '', ''], ['', '', '', '']])
+
+
+@unittest.skipUnless(NODE, 'node is not installed')
+class QuietTest(unittest.TestCase):
+    def test_nhl_over_05_and_scored_only_when_their_market_is_picked(self):
+        js = '\n'.join([function(SRC, 'skMatch').replace('function skMatch', 'var SK_QUIET = { o05: 1, scored: 1 };\nfunction skMatch'), """
+var rows = ['o05', 'scored', 'tot', 'su'].map(function(m) { return { k: '2p', m: m, v: 'all' }; }), out = {};
+[['all', 'all'], ['2p', 'all'], ['all', 'o05'], ['2p', 'scored']].forEach(function(f) {
+  SKF = { seg: f[0], m: f[1], v: 'all' };
+  out[f.join(' ')] = rows.filter(skMatch).map(function(s) { return s.m; });
+});
+console.log(JSON.stringify(out));"""])
+        out = subprocess.run([NODE, '-e', 'var SKF;' + js], capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stderr)
+        self.assertEqual(json.loads(out.stdout), {'all all': ['tot', 'su'], '2p all': ['tot', 'su'], 'all o05': ['o05'], '2p scored': ['scored']})
+        self.assertIn("var SK_QUIET = { o05: 1, scored: 1 };", SRC)
+        self.assertEqual(streaks.QUIET, ('o05', 'scored'))
+
+    def test_the_index_leaves_them_out(self):
+        html = streaks.index_html('../')
+        self.assertNotIn('Over 0.5', html)
+        self.assertNotIn('scored', html)
+
+    def test_tonight_rows_have_no_premium_tag(self):
+        body = function(SRC, 'skTonight')
+        self.assertNotIn('skFrTag', body)
 
 
 class HubTest(unittest.TestCase):
