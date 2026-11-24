@@ -219,14 +219,14 @@
     "value": "ncaab:401921029"
    },
    {
-    "label": "NCAAB · Illinois State at Santa Clara · 7:00 PM ET",
-    "trends": 6,
-    "value": "ncaab:401917543"
-   },
-   {
     "label": "NCAAB · North Carolina A&T at South Carolina State · 7:00 PM ET",
     "trends": 4,
     "value": "ncaab:401921157"
+   },
+   {
+    "label": "NCAAB · Santa Clara at Illinois State · 7:00 PM ET",
+    "trends": 6,
+    "value": "ncaab:401917543"
    },
    {
     "label": "NHL · Calgary Flames at Ottawa Senators · 7:30 PM ET",
@@ -618,14 +618,14 @@
     "value": "ncaab:401921029"
    },
    {
-    "label": "Illinois State at Santa Clara · 7:00 PM ET",
-    "trends": 6,
-    "value": "ncaab:401917543"
-   },
-   {
     "label": "North Carolina A&T at South Carolina State · 7:00 PM ET",
     "trends": 4,
     "value": "ncaab:401921157"
+   },
+   {
+    "label": "Santa Clara at Illinois State · 7:00 PM ET",
+    "trends": 6,
+    "value": "ncaab:401917543"
    },
    {
     "label": "Texas A&M-Corpus Christi at Wichita State · 7:30 PM ET",
