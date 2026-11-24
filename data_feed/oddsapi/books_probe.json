@@ -1,0 +1,369 @@
+{
+ "candidates": [
+  "ballybet",
+  "betparx",
+  "fliff",
+  "betus",
+  "lowvig",
+  "mybookieag",
+  "betanysports",
+  "rebet",
+  "windcreek",
+  "betopenly"
+ ],
+ "credits_remaining": 3576556,
+ "credits_used": 25,
+ "generated": "2026-11-24T01:17:20+00:00",
+ "sports": {
+  "nba": {
+   "books": {
+    "ballybet": {
+     "any": 6,
+     "first": 3,
+     "markets": [
+      "h2h_q1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "betanysports": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "h2h_h1",
+      "spreads_h1",
+      "totals_h1"
+     ]
+    },
+    "betopenly": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "betparx": {
+     "any": 6,
+     "first": 3,
+     "markets": [
+      "h2h_q1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "betus": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "h2h_h1",
+      "h2h_q1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "fliff": {
+     "any": 6,
+     "first": 3,
+     "markets": [
+      "h2h_h1",
+      "h2h_q1"
+     ]
+    },
+    "lowvig": {
+     "any": 6,
+     "first": 0,
+     "markets": []
+    },
+    "mybookieag": {
+     "any": 4,
+     "first": 3,
+     "markets": [
+      "h2h_h1",
+      "spreads_h1",
+      "totals_h1"
+     ]
+    },
+    "rebet": {
+     "any": 4,
+     "first": 0,
+     "markets": []
+    }
+   },
+   "events": 6,
+   "first_segment_markets": [
+    "h2h_h1",
+    "h2h_q1",
+    "spreads_h1",
+    "spreads_q1",
+    "totals_h1",
+    "totals_q1"
+   ]
+  },
+  "ncaab": {
+   "books": {
+    "ballybet": {
+     "any": 10,
+     "first": 0,
+     "markets": []
+    },
+    "betopenly": {
+     "any": 4,
+     "first": 0,
+     "markets": []
+    },
+    "betparx": {
+     "any": 10,
+     "first": 0,
+     "markets": []
+    },
+    "betus": {
+     "any": 9,
+     "first": 6,
+     "markets": [
+      "h2h_h1",
+      "spreads_h1",
+      "totals_h1"
+     ]
+    },
+    "fliff": {
+     "any": 3,
+     "first": 2,
+     "markets": [
+      "h2h_h1",
+      "spreads_h1",
+      "totals_h1"
+     ]
+    },
+    "lowvig": {
+     "any": 10,
+     "first": 0,
+     "markets": []
+    }
+   },
+   "events": 10,
+   "first_segment_markets": [
+    "h2h_h1",
+    "spreads_h1",
+    "totals_h1"
+   ]
+  },
+  "ncaaf": {
+   "books": {
+    "ballybet": {
+     "any": 3,
+     "first": 2,
+     "markets": [
+      "h2h_q1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "betanysports": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "betopenly": {
+     "any": 1,
+     "first": 0,
+     "markets": []
+    },
+    "betparx": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "betus": {
+     "any": 3,
+     "first": 2,
+     "markets": [
+      "h2h_h1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "lowvig": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "mybookieag": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "rebet": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    }
+   },
+   "events": 3,
+   "first_segment_markets": [
+    "h2h_h1",
+    "h2h_q1",
+    "spreads_h1",
+    "spreads_q1",
+    "totals_h1",
+    "totals_q1"
+   ]
+  },
+  "nfl": {
+   "books": {
+    "ballybet": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "h2h_q1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "betanysports": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "betopenly": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "betparx": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "h2h_q1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "betus": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "spreads_h1",
+      "totals_h1"
+     ]
+    },
+    "fliff": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "h2h_h1",
+      "h2h_q1",
+      "spreads_h1",
+      "spreads_q1",
+      "totals_h1",
+      "totals_q1"
+     ]
+    },
+    "lowvig": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "mybookieag": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "rebet": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    }
+   },
+   "events": 3,
+   "first_segment_markets": [
+    "h2h_h1",
+    "h2h_q1",
+    "spreads_h1",
+    "spreads_q1",
+    "totals_h1",
+    "totals_q1"
+   ]
+  },
+  "nhl": {
+   "books": {
+    "ballybet": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "btts_p1",
+      "h2h_3_way_p1",
+      "h2h_p1",
+      "totals_p1"
+     ]
+    },
+    "betanysports": {
+     "any": 2,
+     "first": 0,
+     "markets": []
+    },
+    "betopenly": {
+     "any": 2,
+     "first": 0,
+     "markets": []
+    },
+    "betparx": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "betus": {
+     "any": 3,
+     "first": 2,
+     "markets": [
+      "h2h_p1",
+      "totals_p1"
+     ]
+    },
+    "fliff": {
+     "any": 2,
+     "first": 0,
+     "markets": []
+    },
+    "lowvig": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "mybookieag": {
+     "any": 3,
+     "first": 0,
+     "markets": []
+    },
+    "rebet": {
+     "any": 3,
+     "first": 3,
+     "markets": [
+      "btts_p1",
+      "h2h_3_way_p1",
+      "totals_p1"
+     ]
+    }
+   },
+   "events": 3,
+   "first_segment_markets": [
+    "btts_p1",
+    "h2h_3_way_p1",
+    "h2h_p1",
+    "totals_p1"
+   ]
+  }
+ },
+ "stopped": null
+}

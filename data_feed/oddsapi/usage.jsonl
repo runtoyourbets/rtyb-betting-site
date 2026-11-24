@@ -46994,3 +46994,33 @@
 {"credits": 0, "endpoint": "/sports/americanfootball_nfl/events", "job": "live", "remaining": 3576599, "sport": "nfl", "time": "2026-11-24T00:58:03+00:00"}
 {"credits": 9, "endpoint": "/sports/americanfootball_nfl/events/3a60ed1d20004aa4d4772b2c1a2272e7/odds", "job": "live", "remaining": 3576590, "sport": "nfl", "time": "2026-11-24T00:58:03+00:00"}
 {"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "job": "live", "remaining": 3576590, "sport": "ncaab", "time": "2026-11-24T00:58:03+00:00"}
+{"credits": 0, "endpoint": "/sports/icehockey_nhl/events", "remaining": 3576581, "sport": "nhl", "time": "2026-11-24T01:17:20+00:00"}
+{"credits": 1, "endpoint": "/sports/icehockey_nhl/events/5074be0d13d60cc7fd82b06c4d8ddd31/markets", "remaining": 3576580, "sport": "nhl", "time": "2026-11-24T01:17:21+00:00"}
+{"credits": 1, "endpoint": "/sports/icehockey_nhl/events/43376208ec2111794696249fe50f5e84/markets", "remaining": 3576579, "sport": "nhl", "time": "2026-11-24T01:17:21+00:00"}
+{"credits": 1, "endpoint": "/sports/icehockey_nhl/events/155fbdda10b6474a41649023baadfdf3/markets", "remaining": 3576578, "sport": "nhl", "time": "2026-11-24T01:17:21+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_nba/events", "remaining": 3576578, "sport": "nba", "time": "2026-11-24T01:17:21+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_nba/events/db2311c331296d3328d71b842167dea4/markets", "remaining": 3576577, "sport": "nba", "time": "2026-11-24T01:17:21+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_nba/events/3e9dc52cb055c0154839c4aec417955b/markets", "remaining": 3576576, "sport": "nba", "time": "2026-11-24T01:17:22+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_nba/events/17f31499f145cd9d3232819395d29448/markets", "remaining": 3576575, "sport": "nba", "time": "2026-11-24T01:17:22+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_nba/events/42f48a4769eab3d1472d76aac0fd0fa7/markets", "remaining": 3576574, "sport": "nba", "time": "2026-11-24T01:17:22+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_nba/events/3167a4072c65c9314c71d0fe49be8e28/markets", "remaining": 3576573, "sport": "nba", "time": "2026-11-24T01:17:22+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_nba/events/6bfadbd22ed8a054cf82ec1b12b78243/markets", "remaining": 3576572, "sport": "nba", "time": "2026-11-24T01:17:22+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "remaining": 3576572, "sport": "ncaab", "time": "2026-11-24T01:17:23+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/bd51dcc9b4ceb556e17992c7f5fe7f75/markets", "remaining": 3576571, "sport": "ncaab", "time": "2026-11-24T01:17:23+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/cac32b9a0db74c5e4ff90ebbbbcaab93/markets", "remaining": 3576570, "sport": "ncaab", "time": "2026-11-24T01:17:23+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/69e165166aa1f48345e5bdd45029fb18/markets", "remaining": 3576569, "sport": "ncaab", "time": "2026-11-24T01:17:23+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/b7a4f6e90eb128b0d569dacbfe487e80/markets", "remaining": 3576568, "sport": "ncaab", "time": "2026-11-24T01:17:24+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/8236efa27962bd6d4b110bb43e861b07/markets", "remaining": 3576567, "sport": "ncaab", "time": "2026-11-24T01:17:24+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/b45e9d96ab3298d614e74c19902f3998/markets", "remaining": 3576566, "sport": "ncaab", "time": "2026-11-24T01:17:24+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/97b6bfd4b808fd6e1c2d0d35925cd0e2/markets", "remaining": 3576565, "sport": "ncaab", "time": "2026-11-24T01:17:24+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/9d626cb5f6f86d655376c21b250ef528/markets", "remaining": 3576564, "sport": "ncaab", "time": "2026-11-24T01:17:24+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/c431e5cece6a42f0acf8f2898b29e83e/markets", "remaining": 3576563, "sport": "ncaab", "time": "2026-11-24T01:17:24+00:00"}
+{"credits": 1, "endpoint": "/sports/basketball_ncaab/events/c027a1281dd4c9e8ac848bc06f0e29fb/markets", "remaining": 3576562, "sport": "ncaab", "time": "2026-11-24T01:17:24+00:00"}
+{"credits": 0, "endpoint": "/sports/americanfootball_nfl/events", "remaining": 3576562, "sport": "nfl", "time": "2026-11-24T01:17:25+00:00"}
+{"credits": 1, "endpoint": "/sports/americanfootball_nfl/events/5b612899d6dcdf998107f2c6c6e49a58/markets", "remaining": 3576561, "sport": "nfl", "time": "2026-11-24T01:17:25+00:00"}
+{"credits": 1, "endpoint": "/sports/americanfootball_nfl/events/9b825e6518156008da499be041975fdd/markets", "remaining": 3576560, "sport": "nfl", "time": "2026-11-24T01:17:25+00:00"}
+{"credits": 1, "endpoint": "/sports/americanfootball_nfl/events/ffaa06af56a7137d4b078c5c46c0b730/markets", "remaining": 3576559, "sport": "nfl", "time": "2026-11-24T01:17:25+00:00"}
+{"credits": 0, "endpoint": "/sports/americanfootball_ncaaf/events", "remaining": 3576559, "sport": "ncaaf", "time": "2026-11-24T01:17:26+00:00"}
+{"credits": 1, "endpoint": "/sports/americanfootball_ncaaf/events/4814277a6e26955eb1df064fed7a3bcb/markets", "remaining": 3576558, "sport": "ncaaf", "time": "2026-11-24T01:17:26+00:00"}
+{"credits": 1, "endpoint": "/sports/americanfootball_ncaaf/events/a82769fe54a0f8c714667b8720b67449/markets", "remaining": 3576557, "sport": "ncaaf", "time": "2026-11-24T01:17:26+00:00"}
+{"credits": 1, "endpoint": "/sports/americanfootball_ncaaf/events/b39108d2cfcd62d29954aee80bbf7b51/markets", "remaining": 3576556, "sport": "ncaaf", "time": "2026-11-24T01:17:26+00:00"}
