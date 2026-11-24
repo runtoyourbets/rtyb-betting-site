@@ -68,10 +68,10 @@
   "2": {
    "coverage": {
     "nba": 100,
-    "ncaab": 49,
+    "ncaab": 50,
     "ncaaf": 100,
     "nfl": 100,
-    "nhl": 98
+    "nhl": 100
    },
    "group": "Sportsbook",
    "last_seen": "2026-11-24",
