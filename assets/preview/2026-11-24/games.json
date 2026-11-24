@@ -313,11 +313,6 @@
     "value": "nba:401909314"
    },
    {
-    "label": "NCAAB · Bellarmine at Georgia Southern · 7:00 PM ET",
-    "trends": 6,
-    "value": "ncaab:401921030"
-   },
-   {
     "label": "NCAAB · Binghamton at Lehigh · 7:00 PM ET",
     "trends": 2,
     "value": "ncaab:401911279"
@@ -356,6 +351,11 @@
     "label": "NCAAB · Gardner-Webb at Bowling Green · 7:00 PM ET",
     "trends": 7,
     "value": "ncaab:401911027"
+   },
+   {
+    "label": "NCAAB · Georgia Southern at Bellarmine · 7:00 PM ET",
+    "trends": 6,
+    "value": "ncaab:401921030"
    },
    {
     "label": "NCAAB · Hampton at Old Dominion · 7:00 PM ET",
@@ -914,11 +914,6 @@
     "value": "ncaab:401925014"
    },
    {
-    "label": "Bellarmine at Georgia Southern · 7:00 PM ET",
-    "trends": 6,
-    "value": "ncaab:401921030"
-   },
-   {
     "label": "Binghamton at Lehigh · 7:00 PM ET",
     "trends": 2,
     "value": "ncaab:401911279"
@@ -957,6 +952,11 @@
     "label": "Gardner-Webb at Bowling Green · 7:00 PM ET",
     "trends": 7,
     "value": "ncaab:401911027"
+   },
+   {
+    "label": "Georgia Southern at Bellarmine · 7:00 PM ET",
+    "trends": 6,
+    "value": "ncaab:401921030"
    },
    {
     "label": "Hampton at Old Dominion · 7:00 PM ET",
