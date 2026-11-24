@@ -233,7 +233,7 @@
     "value": "ncaab:401906853"
    },
    {
-    "label": "NCAAB · Arkansas State at Long Beach State · 3:30 PM ET",
+    "label": "NCAAB · Arkansas State at Long Beach State · 3:45 PM ET",
     "trends": 10,
     "value": "ncaab:401924267"
    },
@@ -258,14 +258,14 @@
     "value": "ncaab:401909495"
    },
    {
+    "label": "NCAAB · Kent State at Wyoming · 5:30 PM ET",
+    "trends": 7,
+    "value": "ncaab:401921707"
+   },
+   {
     "label": "NCAAB · San Diego State at Iowa State · 5:30 PM ET",
     "trends": 5,
     "value": "ncaab:401909775"
-   },
-   {
-    "label": "NCAAB · Wyoming at Kent State · 5:30 PM ET",
-    "trends": 7,
-    "value": "ncaab:401921707"
    },
    {
     "label": "NCAAB · DePaul at Purdue · 6:00 PM ET",
@@ -839,7 +839,7 @@
     "value": "ncaab:401906853"
    },
    {
-    "label": "Arkansas State at Long Beach State · 3:30 PM ET",
+    "label": "Arkansas State at Long Beach State · 3:45 PM ET",
     "trends": 10,
     "value": "ncaab:401924267"
    },
@@ -864,14 +864,14 @@
     "value": "ncaab:401909495"
    },
    {
+    "label": "Kent State at Wyoming · 5:30 PM ET",
+    "trends": 7,
+    "value": "ncaab:401921707"
+   },
+   {
     "label": "San Diego State at Iowa State · 5:30 PM ET",
     "trends": 5,
     "value": "ncaab:401909775"
-   },
-   {
-    "label": "Wyoming at Kent State · 5:30 PM ET",
-    "trends": 7,
-    "value": "ncaab:401921707"
    },
    {
     "label": "DePaul at Purdue · 6:00 PM ET",
