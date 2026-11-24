@@ -19,6 +19,9 @@ Per sport:
   one call) to price it against per-event calls.
 
 BUDGET credits at most (oddsapi.py stops before a call would pass it).
+
+--books (the "books" job): first-segment coverage of the books we could add
+(probe_books, books_probe.json).
 """
 import json
 import os
@@ -184,7 +187,53 @@ def probe_bulk(sport, games, out):
                    'events_with_lines': sum(1 for e in evs if e.get('bookmakers'))}
 
 
+# --books: books The Odds API carries that Unabated doesn't, as candidates to
+# swap in for the 5 we pull from both (DraftKings, FanDuel, BetMGM, Caesars,
+# Fanatics); about 1 credit per event (event_markets)
+CANDIDATES = ['ballybet', 'betparx', 'fliff', 'betus', 'lowvig', 'mybookieag', 'betanysports', 'rebet',
+              'windcreek', 'betopenly']
+BOOKS_OUT = os.path.join(A.OUT_DIR, 'books_probe.json')
+BOOKS_EVENTS = 10
+
+
+def probe_books():
+    """Per in-season sport: the next BOOKS_EVENTS events, and per candidate
+    the events it lists any market for, the events it lists a first-segment
+    market for, and which first-segment markets (data_feed/oddsapi/books_probe.json)."""
+    A.BUDGET = 300
+    doc = {'generated': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'candidates': CANDIDATES, 'sports': {}, 'stopped': None}
+    try:
+        for sport in ['nhl', 'nba', 'ncaab', 'nfl', 'ncaaf', 'mlb', 'wnba']:
+            if not sports.in_season(sports.BY_KEY[sport]):
+                continue
+            now = datetime.now(timezone.utc)
+            evs = sorted((e for e in A.events(sport, now, now + timedelta(days=3)) if e.get('commence_time')),
+                         key=lambda e: e['commence_time'])[:BOOKS_EVENTS]
+            first = set(A.market_keys(sport))
+            out = doc['sports'][sport] = {'events': len(evs), 'first_segment_markets': sorted(first), 'books': {}}
+            for e in evs:
+                for book, keys in A.event_markets(sport, e['id'], CANDIDATES).items():
+                    b = out['books'].setdefault(book, {'any': 0, 'first': 0, 'markets': []})
+                    b['any'] += 1
+                    mine = sorted(first & set(keys))
+                    if mine:
+                        b['first'] += 1
+                    b['markets'] = sorted(set(b['markets']) | set(mine))
+            print(f'{sport}: {len(evs)} events, {A.used()} credits used')
+    except (A.BudgetExceeded, A.BelowFloor) as e:
+        doc['stopped'] = str(e)
+        print(f'stopped: {e}')
+    doc['credits_used'], doc['credits_remaining'] = A.used(), A.remaining()
+    os.makedirs(A.OUT_DIR, exist_ok=True)
+    with open(BOOKS_OUT, 'w', encoding='utf-8') as f:
+        json.dump(doc, f, indent=1, sort_keys=True)
+    print(f'books probe: {A.used()} credits used; wrote {os.path.relpath(BOOKS_OUT, A.ROOT)}')
+
+
 def main():
+    if '--books' in sys.argv[1:]:
+        probe_books()
+        return
     A.BUDGET = BUDGET
     order = ['nhl', 'nba', 'ncaab', 'nfl', 'ncaaf', 'mlb', 'wnba']
     doc = {'generated': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'budget': BUDGET,
