@@ -1610,54 +1610,90 @@
   .sk-n2 { background: color-mix(in srgb, var(--text) 22%, transparent); color: var(--text); }
   .sk-n3 { background: color-mix(in srgb, var(--text) 40%, transparent); color: var(--text); }
   /* streak heat chips (Streak Trends, Streaks to Watch, team pages) */
-  /* Due Factor (/{sport}/due-factor/, scripts/due_factor.py): the meter
-     cards (the side, last 7 vs season, a bar with a tick at the season
-     rate, the heat chip), Last night, the day / week tables (a cell 10+
-     pts over its season rate tinted: win fill, Over warm, Under cool),
-     Tonight; and the home / hub strip. The chip's heat colors are the
-     .heat-* rules right under these. */
-  .df-ctrl { display: flex; flex-wrap: wrap; gap: 0 16px; }
-  .df-note { margin: 0 0 18px; max-width: 720px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
-  .df-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-  .df-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .df-side { font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); color: var(--text); }
-  .df-chip { display: inline-block; border-radius: 5px; padding: 2px 7px; white-space: nowrap; background: var(--cell); color: var(--text-muted);
-    font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); }
-  .df-vs { margin: 6px 0 10px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
-  .df-bar { position: relative; height: 8px; border-radius: 999px; background: var(--cell); }
-  .df-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; background: var(--accent-purple-text); }
-  .df-tick { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--text); }
-  .df-gap { display: flex; justify-content: space-between; gap: 8px; margin: 10px 0 0; font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
-  .df-gap .nw { color: var(--text-muted); font-size: var(--fs-price); font-weight: var(--fw-price); }
-  .df-ln { list-style: none; margin: 0; padding: 0; }
-  .df-ln li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--border-soft); }
-  .df-ln li:first-child { border-top: 0; padding-top: 0; }
-  .df-ln li:last-child { padding-bottom: 0; }
-  .df-ln-m { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
-  .df-ln-c { font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
-  .df-scroll { overflow-x: auto; overflow-y: hidden; }
+  /* Due Factor (/{sport}/due-factor/, assets/sport.js renderDue): the
+     off-season note, the segmented bars (View + Season, segment, market:
+     every option in a bar the same width), the summary line, the day /
+     week tables (side A's % 10+ pts off its season rate tinted: win fill,
+     dimmed, Over warm, Under cool) and the month's calendar (each day
+     tinted by the side that won it); the Full Run's card keeps the gold
+     left bar; and the home / hub strip (sports.DUE_STRIP). */
+  .df2-off { margin: 0 0 16px; padding: 10px 14px; border: 1px solid var(--card-border); border-left: 3px solid var(--accent-purple-text); border-radius: var(--cell-radius); background: var(--panel);
+    font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .df2-ctrl { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; }
+  .df2-row1 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .df2-bar { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); border: 1px solid var(--border); border-radius: 8px; background: var(--panel-2); overflow: hidden; }
+  .df2-opt { min-width: 0; min-height: 38px; padding: 6px 8px; border: 0; border-left: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer;
+    font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); line-height: 1.2; }
+  .df2-opt:first-child { border-left: 0; }
+  .df2-opt[aria-pressed="true"] { background: var(--accent-dim); color: var(--text); box-shadow: inset 0 0 0 1px var(--accent); }
+  :root:not([data-theme="light"]) .df2-opt[aria-pressed="true"] { color: var(--accent); }
+  .df2-opt.fr-pill::after { content: ''; display: inline-block; width: 6px; height: 6px; margin-left: 6px; border-radius: 50%; background: var(--fr-dot); vertical-align: middle; }
+  .df2-sum { margin: 4px 0 4px; text-align: center; font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
+  .df2-ro { margin: 0 0 4px; text-align: center; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .df2-card { margin-top: 12px; }
+  .df2-fr { border-left: 3px solid var(--fr-bar); }
+  .df2-card .st-head .fr-tag { display: inline-block; margin-top: 0; }
+  .df2-table { table-layout: fixed; min-width: 0; }
+  .df2-table td, .df2-table th { padding: 0; border: 0; }
+  .df2-table th:first-child { width: 34%; }
   .df-table { width: 100%; border-collapse: separate; border-spacing: var(--cell-gap); }
   .df-table th { padding: 0; text-align: left; white-space: nowrap; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .df-table thead th:not(:first-child) { text-align: center; padding: 0 4px; }
-  .df-table tbody th { font-size: var(--fs-body); font-weight: var(--fw-body); text-transform: none; letter-spacing: 0; color: var(--text); }
-  .df-c { padding: 6px 8px; text-align: center; white-space: nowrap; border-radius: var(--cell-radius); background: var(--cell); font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
-  .df-p { font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
-  .df-c.df-win { background: var(--good-dim); }
-  .df-c.df-warm { background: var(--warm-bg); box-shadow: inset 0 0 0 1px var(--warm-line); }
-  .df-c.df-cool { background: var(--cool-bg); box-shadow: inset 0 0 0 1px var(--cool-line); }
+  .df-table tbody th { font-size: var(--fs-body); font-weight: var(--fw-body); text-transform: none; letter-spacing: 0; color: var(--text); overflow: hidden; text-overflow: ellipsis; }
+  .df-c { display: block; padding: 6px 8px; text-align: center; white-space: nowrap; border-radius: var(--cell-radius); background: var(--cell); font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); }
+  .df-win { background: var(--good-dim); }
+  .df-dim { opacity: 0.5; }
+  .df-warm { background: var(--warm-bg); box-shadow: inset 0 0 0 1px var(--warm-line); }
+  .df-cool { background: var(--cool-bg); box-shadow: inset 0 0 0 1px var(--cool-line); }
   .df-total th[scope="row"] { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--title-text); }
   .df-total .df-c { box-shadow: inset 0 0 0 1px var(--card-border); }
-  .df-tn { max-width: 620px; }
-  .df-tn-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(96px, auto); align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border-soft); color: var(--text); text-decoration: none; }
-  .df-tn-row:first-child { border-top: 0; padding-top: 0; }
-  .df-tn-row:last-child { padding-bottom: 0; }
-  .df-tn-teams { display: inline-flex; align-items: center; gap: 6px; min-width: 0; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
-  .df-at, .df-tn-time { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
-  .df-tn-row:hover .ob-ln { text-decoration: underline; }
-  @media (max-width: 640px) {   /* phones: the time under the teams, the price cell to their right */
-    .df-tn-row { grid-template-columns: minmax(0, 1fr) minmax(96px, auto); row-gap: 2px; }
-    .df-tn-time { grid-column: 1; grid-row: 2; }
-    .df-tn-bet { grid-column: 2; grid-row: 1 / span 2; }
+  .df-total .df-c.df-warm { box-shadow: inset 0 0 0 1px var(--warm-line); }
+  .df-total .df-c.df-cool { box-shadow: inset 0 0 0 1px var(--cool-line); }
+  .df2-cal-head { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 0 0 10px; }
+  .df2-month { min-width: 150px; text-align: center; font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); color: var(--text); }
+  .df2-nav { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel-2); color: var(--text); cursor: pointer; font-family: var(--ff-body); font-size: var(--fs-section); font-weight: var(--fw-body); line-height: 1; }
+  .df2-nav:disabled { opacity: 0.35; cursor: default; }
+  .df2-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .df2-dow { text-align: center; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .df2-day { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 76px; padding: 18px 4px 6px; box-sizing: border-box; border-radius: var(--cell-radius); background: var(--cell); color: var(--text); text-decoration: none; }
+  .df2-pad, .df2-future { background: transparent; }
+  .df2-none { background: transparent; border: 1px dashed var(--card-border); }
+  .df2-dn { position: absolute; top: 5px; left: 7px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .df2-rec { font-family: var(--ff-body); font-size: var(--fs-num); font-weight: var(--fw-num); color: var(--text); white-space: nowrap; }
+  .df2-pct, .df2-tl, .df2-go { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); white-space: nowrap; }
+  .df2-go { display: none; color: var(--accent-purple-text); }
+  .df2-tl { color: var(--accent-purple-text); }
+  .df2-narrow { display: none; }
+  a.df2-day:hover { box-shadow: inset 0 0 0 2px var(--accent-purple-text); opacity: 1; }
+  a.df2-day:hover .df2-go { display: block; }
+  a.df2-day:hover .df2-pct { display: none; }
+  .df2-today { box-shadow: inset 0 0 0 2px var(--accent-purple-text); }
+  .df2-post { position: absolute; top: 7px; right: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-purple-text); }
+  .df2-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 12px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
+  .df2-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .df2-legend .df2-post { position: static; }
+  .df2-sw { display: inline-block; width: 14px; height: 14px; border-radius: 4px; background: var(--cell); }
+  .df2-hint { margin-left: auto; }
+  @media (max-width: 640px) {
+    .df2-row1 { grid-template-columns: 1fr; }
+    .df2-markets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .df2-markets .df2-opt { border-left: 0; border-top: 1px solid var(--border); }
+    .df2-markets .df2-opt:nth-child(3n+2), .df2-markets .df2-opt:nth-child(3n) { border-left: 1px solid var(--border); }
+    .df2-markets .df2-opt:nth-child(-n+3) { border-top: 0; }
+    .df2-markets .df2-opt:only-child { grid-column: 1 / -1; }
+    .df2-opt { min-height: 44px; padding: 4px 4px; }
+    .df2-sum { text-align: left; }
+    .df2-ro { text-align: left; }
+    .df-table { border-spacing: 4px; }
+    .df-c { padding: 6px 2px; }
+    .df2-table th:first-child { width: 30%; }
+    .df2-grid { gap: 3px; }
+    .df2-day { min-height: 52px; padding: 16px 1px 4px; }
+    .df2-dn { top: 3px; left: 4px; }
+    .df2-pct, .df2-wide, a.df2-day:hover .df2-go { display: none; }
+    .df2-narrow { display: inline; }
+    .df2-rec { font-size: var(--fs-price); }
+    .df2-hint { margin-left: 0; }
   }
   .df-pills { margin: 0 0 16px; }
   .df-pill { padding: 6px 16px; }

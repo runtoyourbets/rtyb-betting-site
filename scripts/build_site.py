@@ -485,7 +485,7 @@ def lighten(html, page_dir):
     if 'id="sportApp"' in html:
         # the sport's Situational Results registry (assets/splits/), if it has one
         key = next((sp['key'] for sp in sports.SPORTS if sp['slug'] == page_dir.split('/')[0]), '')
-        if os.path.exists(os.path.join(ROOT, 'assets', 'splits', f'{key}.js')) and 'data-section="odds"' not in html:
+        if os.path.exists(os.path.join(ROOT, 'assets', 'splits', f'{key}.js')) and 'data-section="odds"' not in html and 'data-section="due"' not in html:
             for dep in SPLIT_DEPS.get(key, []) + [key]:
                 shell += f'\n<script src="{prefix}assets/splits/{dep}.js"></script>'
             shell += f'\n<script src="{prefix}assets/situational.js"></script>'

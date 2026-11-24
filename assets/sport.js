@@ -4113,11 +4113,188 @@
     });
   }
 
+  // ---------------------------------------------------------------- Due Factor
+  // /{sport}/due-factor/ from {slug}/due.json (scripts/due_factor.py). A
+  // market's counts are [side A, side B, tie / push] per day; every rate is
+  // side A's share of A + B. Controls: View, Season, segment, market.
+  var DUE = null, DF = { view: null, s: 0, seg: null, m: null, month: null };
+  var DF_TINT = { win: 'df-win', dim: 'df-dim', warm: 'df-warm', cool: 'df-cool' };
+  var DF_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function dfAdd(t, c) { if (c) { t[0] += c[0]; t[1] += c[1]; t[2] += c[2]; } return t; }
+  function dfSum(days, keys) { var t = [0, 0, 0]; keys.forEach(function(k) { dfAdd(t, days[k]); }); return t; }
+  function dfRate(c) { return c && c[0] + c[1] ? Math.round(100 * c[0] / (c[0] + c[1])) : null; }
+  function dfRec(c) { return c[0] + '-' + c[1] + (c[2] ? '-' + c[2] : ''); }
+  function dfShift(day, n) { return new Date(Date.parse(day + 'T12:00:00Z') + n * 864e5).toISOString().slice(0, 10); }
+  function dfDow(day) { return new Date(day + 'T12:00:00Z').getUTCDay(); }
+  function dfShort(day) { return new Date(day + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }); }
+  function dfDayLabel(day) { return new Date(day + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }); }
+  // the market's days with a graded game, in order
+  function dfGameDays(days) { return Object.keys(days).filter(function(k) { var c = days[k]; return c[0] + c[1] + c[2] > 0; }).sort(); }
+  // the tint of side A's rate against the season's: 10+ pts over = side A's, 10+ under = side B's
+  function dfTint(p, base, m) { return p == null || base == null ? '' : p - base >= 10 ? DF_TINT[m.ta] : base - p >= 10 ? DF_TINT[m.tb] : ''; }
+  // the side that won the day (the calendar): A's tint, B's, or '' when even
+  function dfDayTint(c, m) { return !c || c[0] === c[1] ? '' : DF_TINT[c[0] > c[1] ? m.ta : m.tb]; }
+  // Daily: the last 10 game days, newest first, and their total
+  function dfDaily(days) {
+    var rows = dfGameDays(days).slice(-10).reverse().map(function(k) { return { key: k, label: dfDayLabel(k), c: days[k] }; });
+    return { rows: rows, total: rows.reduce(function(t, r) { return dfAdd(t, r.c); }, [0, 0, 0]) };
+  }
+  // Weekly: football's game weeks, else Mon-Sun ET weeks, newest first, and the season total
+  function dfWeekly(days, weeks) {
+    var list = weeks ? weeks.map(function(w) { return { key: w[0], label: w[1], days: w[2] }; }) : [];
+    if (!weeks) {
+      var by = {};
+      dfGameDays(days).forEach(function(k) { var mon = dfShift(k, -((dfDow(k) + 6) % 7)); (by[mon] = by[mon] || []).push(k); });
+      list = Object.keys(by).sort().map(function(mon) {
+        var sun = dfShift(mon, 6), a = dfShort(mon), b = dfShort(sun);
+        return { key: mon, label: a + '-' + (a.slice(0, 3) === b.slice(0, 3) ? b.slice(4) : b), days: by[mon] };
+      });
+    }
+    var rows = list.map(function(w) { return { key: w.key, label: w.label, c: dfSum(days, w.days) }; }).filter(function(r) { return r.c[0] + r.c[1] + r.c[2]; }).reverse();
+    return { rows: rows, total: dfSum(days, Object.keys(days)) };
+  }
+  // the season's months 'YYYY-MM', first game month to last
+  function dfMonths(s) {
+    var out = [], y = +s.first.slice(0, 4), mo = +s.first.slice(5, 7), end = s.last.slice(0, 7);
+    for (;;) { var k = y + '-' + (mo < 10 ? '0' : '') + mo; out.push(k); if (k >= end) break; if (++mo > 12) { mo = 1; y++; } }
+    return out;
+  }
+  // Monthly: the Sun-Sat grid of `ym`; each cell {day, c, state: 'games' | 'none' | 'future' | 'today' | 'pad', post}
+  function dfMonth(days, ym, today, post) {
+    var first = ym + '-01', cells = [], d = first, lead = dfDow(first), i;
+    for (i = 0; i < lead; i++) cells.push({ state: 'pad' });
+    while (d.slice(0, 7) === ym) {
+      var c = days[d] && days[d][0] + days[d][1] + days[d][2] ? days[d] : null;
+      cells.push({ day: d, c: c, post: (post || []).indexOf(d) !== -1,
+                   state: today && d === today ? 'today' : today && d > today ? 'future' : c ? 'games' : 'none' });
+      d = dfShift(d, 1);
+    }
+    while (cells.length % 7) cells.push({ state: 'pad' });
+    return cells;
+  }
+  // the legend's words for a day won by side A / side B
+  function dfWins(side) {
+    return { Over: 'More Overs', Under: 'More Unders', Yes: 'More Yes', No: 'More No', NRFI: 'More NRFIs', YRFI: 'More YRFIs',
+             Home: 'Home wins', Away: 'Away wins', Fav: 'Favorites', Dog: 'Dogs', Tie: 'More ties', 'No tie': 'No ties',
+             OT: 'More OT', 'OT / SO': 'More OT / SO', Regulation: 'Regulation' }[side] || side;
+  }
+  // the summary line: [period]: [side A] [record] [%] · Season [record] [%] (early season: vs last season [%]) · [+/- pts]
+  function dfSummary(o) {
+    var p = dfRate(o.c), parts = [o.period + ': ' + o.side + ' ' + dfRec(o.c) + (p == null ? '' : ' ' + p + '%')];
+    parts.push(o.prevRate != null ? 'vs last season ' + o.prevRate + '%' : 'Season ' + dfRec(o.season) + (dfRate(o.season) == null ? '' : ' ' + dfRate(o.season) + '%'));
+    var base = o.prevRate != null ? o.prevRate : dfRate(o.season);
+    if (o.c[0] + o.c[1] < 15) parts.push('Small sample');
+    else if (p != null && base != null) parts.push((p - base > 0 ? '+' : '') + (p - base) + ' pts');
+    return parts.join(' · ');
+  }
+  // the view's period: its days and label
+  function dfPeriod(view, s, days, today, ym) {
+    var end = today && s.cur ? today : s.last;
+    if (view === 'monthly') return { label: DF_MONTHS[+ym.slice(5, 7) - 1] + (s.cur ? '' : ' (final)'), keys: Object.keys(days).filter(function(k) { return k.slice(0, 7) === ym; }) };
+    if (view === 'daily') return { label: 'Last 7 days', keys: Array.apply(null, Array(7)).map(function(_, i) { return dfShift(end, -i); }) };
+    if (s.weeks) return { label: 'Last 3 weeks', keys: [].concat.apply([], s.weeks.slice(-3).map(function(w) { return w[2]; })) };
+    var mon = dfShift(end, -((dfDow(end) + 6) % 7));
+    return { label: 'This week', keys: Array.apply(null, Array(7)).map(function(_, i) { return dfShift(mon, i); }) };
+  }
+  // NFL / NCAAF: Weekly only
+  function dfViews(weekly) { return weekly ? [{ k: 'weekly', label: 'Weekly' }] : [{ k: 'daily', label: 'Daily' }, { k: 'weekly', label: 'Weekly' }, { k: 'monthly', label: 'Monthly' }]; }
+  // the calendar opens on this month in season, else on the season's last month with games
+  function dfDefaultMonth(s, today) { var m = dfMonths(s); return s.cur && m.indexOf(today.slice(0, 7)) !== -1 ? today.slice(0, 7) : m[m.length - 1]; }
+  function dfSegOf(k) { return DUE.segs.filter(function(x) { return x.k === k; })[0]; }
+  // the segmented bar: every option the same width
+  function dfBar(name, attr, opts, cur, extra) {
+    return '<div class="df2-bar' + (extra || '') + '" role="group" aria-label="' + name + '" style="--n:' + opts.length + '">' + opts.map(function(o) {
+      return '<button type="button" class="df2-opt' + (o.fr ? ' fr-pill' : '') + '" ' + attr + '="' + esc(o.k) + '" aria-pressed="' + (o.k === cur) + '">' +
+        (o.fr && premiumLocked('fullRun') ? FR_LOCK : '') + esc(o.label) + '</button>';
+    }).join('') + '</div>';
+  }
+  function dfTable(first, m, data, totalLabel, base) {
+    function row(label, c, cls) {
+      var p = dfRate(c);
+      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><th scope="row">' + esc(label) + '</th><td><span class="df-c">' + (c[0] + c[1] + c[2]) + '</span></td>' +
+        '<td><span class="df-c">' + c[0] + '</span></td><td><span class="df-c">' + c[1] + '</span></td>' +
+        '<td><span class="df-c ' + dfTint(p, base, m) + '">' + (p == null ? '-' : p + '%') + '</span></td></tr>';
+    }
+    return '<table class="df-table df2-table"><thead><tr><th scope="col">' + first + '</th><th scope="col">GP</th><th scope="col">' + esc(m.a) + '</th><th scope="col">' + esc(m.b) + '</th><th scope="col">' + esc(m.a) + ' %</th></tr></thead><tbody>' +
+      data.rows.map(function(r) { return row(r.label, r.c); }).join('') + row(totalLabel, data.total, 'df-total') + '</tbody></table>';
+  }
+  function dfCalendar(s, seg, m, days, ym, today) {
+    var months = dfMonths(s), i = months.indexOf(ym), mu = ROOT + DUE.matchups, post = false;
+    var cells = dfMonth(days, ym, s.cur ? today : null, s.post).map(function(x) {
+      if (x.state === 'pad') return '<div class="df2-day df2-pad" aria-hidden="true"></div>';
+      var n = '<span class="df2-dn">' + (+x.day.slice(8)) + '</span>' + (x.post ? '<span class="df2-post" title="Postseason"></span>' : '');
+      post = post || x.post;
+      if (x.state === 'future') return '<div class="df2-day df2-future">' + n + '</div>';
+      if (x.state === 'none') return '<div class="df2-day df2-none">' + n + '<span class="df2-rec">-</span></div>';
+      var c = x.c, rec = c ? '<span class="df2-rec">' + dfRec(c) + '</span>' + (dfRate(c) == null ? '' : '<span class="df2-pct">' + dfRate(c) + '%</span>') : '';
+      if (x.state === 'today') return '<a class="df2-day df2-today ' + dfDayTint(c, m) + '" href="' + mu + '">' + n + rec +
+        '<span class="df2-tl"><span class="df2-wide">Today &middot; Matchups &rarr;</span><span class="df2-narrow">today</span></span></a>';
+      return '<a class="df2-day ' + dfDayTint(c, m) + '" href="' + mu + '?date=' + x.day + '" aria-label="' + esc(dfDayLabel(x.day) + ': ' + m.a + ' ' + dfRec(c)) + '">' + n + rec + '<span class="df2-go">Matchups &rarr;</span></a>';
+    }).join('');
+    var y = ym.slice(0, 4), name = DF_MONTHS[+ym.slice(5, 7) - 1] + ' ' + y;
+    return '<div class="df2-cal-head"><button type="button" class="df2-nav" data-df-month="' + (months[i - 1] || '') + '"' + (i > 0 ? '' : ' disabled') + ' aria-label="Previous month">&lsaquo;</button>' +
+      '<span class="df2-month">' + name + '</span><button type="button" class="df2-nav" data-df-month="' + (months[i + 1] || '') + '"' + (i < months.length - 1 ? '' : ' disabled') + ' aria-label="Next month">&rsaquo;</button></div>' +
+      '<div class="df2-grid">' + ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(function(d) { return '<span class="df2-dow">' + d + '</span>'; }).join('') + cells + '</div>' +
+      '<div class="df2-legend"><span><i class="df2-sw ' + DF_TINT[m.ta] + '"></i>' + dfWins(m.a) + '</span><span><i class="df2-sw ' + DF_TINT[m.tb] + '"></i>' + dfWins(m.b) + '</span>' +
+      '<span><i class="df2-sw"></i>Even</span>' + (post ? '<span><i class="df2-post"></i>Postseason</span>' : '') + '<span class="df2-hint">Click a day for that day&rsquo;s matchups</span></div>';
+  }
+  function drawDue() {
+    var s = DUE.seasons[DF.s], seg = dfSegOf(DF.seg), m = seg.m.filter(function(x) { return x.id === DF.m; })[0] || seg.m[0];
+    DF.m = m.id;
+    var cm = s.c[seg.k][m.id], days = cm.d, today = todayET(), months = dfMonths(s);
+    if (!DF.month || months.indexOf(DF.month) === -1) DF.month = dfDefaultMonth(s, today);
+    var per = dfPeriod(DF.view, s, days, today, DF.month), seasonC = dfSum(days, Object.keys(days));
+    // early season: this season's rate waits for 100 graded games; until then, last season's
+    var prev = DUE.seasons[DF.s + 1], prevRate = null;
+    if (s.cur && seasonC[0] + seasonC[1] < 100 && prev) { var pc = prev.c[seg.k] && prev.c[seg.k][m.id]; prevRate = pc ? dfRate(dfSum(pc.d, Object.keys(pc.d))) : null; }
+    var base = prevRate != null ? prevRate : dfRate(seasonC);
+    var views = dfViews(DUE.weekly);
+    var body = DF.view === 'daily' ? dfTable('Day', m, dfDaily(days), 'Last 10 days', base)
+      : DF.view === 'weekly' ? dfTable('Week', m, dfWeekly(days, s.weeks), 'Season', base)
+      : dfCalendar(s, seg, m, days, DF.month, today);
+    var title = { daily: 'Day by day', weekly: 'Week by week', monthly: 'Calendar' }[DF.view];
+    var card = '<div class="st-card df2-card' + (seg.fr ? ' df2-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + m.label + ' · ' + title) +
+      (seg.fr ? '<span class="fr-tag">Premium</span>' : '') + '</h4></div>' +
+      (seg.fr && premiumLocked('fullRun') ? '<div class="pm-blur" aria-hidden="true">' + body + '</div><a class="pm-unlock" href="' + ROOT + '#premium">Unlock with Premium</a>' : body) + '</div>';
+    app.innerHTML = '<div class="df2-ctrl"><div class="df2-row1">' +
+      dfBar('View', 'data-df-view', views, DF.view) +
+      dfBar('Season', 'data-df-season', DUE.seasons.map(function(x, i) { return { k: String(i), label: x.label }; }), String(DF.s)) + '</div>' +
+      dfBar('Segment', 'data-df-seg', DUE.segs.map(function(x) { return { k: x.k, label: x.label, fr: x.fr }; }), seg.k) +
+      dfBar('Market', 'data-df-m', seg.m.map(function(x) { return { k: x.id, label: x.label }; }), m.id, ' df2-markets') + '</div>' +
+      '<p class="df2-sum">' + (seasonC[0] + seasonC[1] + seasonC[2] ? esc(dfSummary({ period: per.label, side: m.a, c: dfSum(days, per.keys), season: seasonC, prevRate: prevRate }))
+        : 'No ' + esc(s.label) + ' games with a line for this market') + '</p>' +
+      (cm.ro ? '<p class="df2-ro">Results only: no lines for this market</p>' : '') + card;
+  }
+  function renderDue() {
+    DF.view = DUE.weekly ? 'weekly' : 'daily';
+    DF.seg = DUE.segs[0].k;
+    DF.m = DUE.segs[0].m[0].id;
+    app.addEventListener('click', function(e) {
+      var b = e.target.closest('[data-df-view],[data-df-season],[data-df-seg],[data-df-m],[data-df-month]');
+      if (!b || b.disabled) return;
+      if (b.hasAttribute('data-df-view')) DF.view = b.getAttribute('data-df-view');
+      else if (b.hasAttribute('data-df-season')) { DF.s = +b.getAttribute('data-df-season'); DF.month = null; }
+      else if (b.hasAttribute('data-df-seg')) DF.seg = b.getAttribute('data-df-seg');
+      else if (b.hasAttribute('data-df-m')) DF.m = b.getAttribute('data-df-m');
+      else DF.month = b.getAttribute('data-df-month');
+      drawDue();
+    });
+    drawDue();
+  }
+
   // ---------------------------------------------------------------- boot
   // NHL's data.json is its own shape; its Matchups, Stats, Trends and Teams pages read the shared shape (nhl/sport.json)
   var DATA_FILE = SPORT_SLUG === 'nhl' && ['games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team', 'h2h'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
   // the hub (/{sport}/) is all static HTML (scripts/front.py sections)
-  if (SECTION !== 'hub') fetch(dataUrl(SPORT_SLUG + '/' + DATA_FILE)).then(function(r) { return r.json(); }).then(function(data) {
+  if (SECTION === 'due') fetch(dataUrl(SPORT_SLUG + '/due.json')).then(function(r) { return r.json(); }).then(function(data) {
+    DUE = data;
+    if (DUE.seasons && DUE.seasons.length) renderDue();
+    else app.innerHTML = emptyNote('No graded games yet.');
+  }).catch(function(e) {
+    app.innerHTML = emptyNote('Couldn&rsquo;t load ' + esc(SPORT_SLUG) + ' data. Try reloading.');
+    if (window.console) console.error(e);
+  });
+  else if (SECTION !== 'hub') fetch(dataUrl(SPORT_SLUG + '/' + DATA_FILE)).then(function(r) { return r.json(); }).then(function(data) {
     D = data;
     if (SECTION === 'odds') { renderOdds(); return; }   // works from odds.json alone for NHL
     if (!D.segments || !D.segments.length) return;

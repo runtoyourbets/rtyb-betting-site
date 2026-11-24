@@ -327,6 +327,9 @@ def shown(day=None):
 # the sports shown on the site, in menu order (menus, home, index pages,
 # hubs' indexing, the sitemap): every page builds its list from this
 LAUNCHED = shown()
+# the "Due Factor today" strip on the home page and the hubs (due_factor.strip):
+# off, nothing of it renders; True brings it back (in-season sports only)
+DUE_STRIP = False
 # ...of those, the ones in season now (the phone sports row on index pages)
 IN_SEASON = [s for s in LAUNCHED if in_season(s)]
 
@@ -410,7 +413,7 @@ def section_path(sport, section):
 def page_links(sport):
     """[(section, label, root-relative path)] for the sport's pages in the
     settings' order and labels (sport_pages): Picks · Matchups · Odds ·
-    Trends · Due Factor · Stats · Teams. Picks opens the Preview while PICKS_LIVE is False."""
+    Trends · Stats · Due Factor · Teams. Picks opens the Preview while PICKS_LIVE is False."""
     s = BY_KEY[sport] if isinstance(sport, str) else sport
     out = []
     for x in SETTINGS['sport_pages']:
@@ -419,7 +422,7 @@ def page_links(sport):
             out.append(('picks', x.get('label') or 'Picks', picks_path(s) if PICKS_LIVE else preview_path(s)))
         elif sec in s['sections']:
             out.append((sec, x.get('label') or SECTION_LABELS[sec], section_path(s, sec)))
-        if sec == 'trends':   # Due Factor sits right after Trends
+        if sec == 'stats':   # Due Factor sits right after Stats
             out.append(('due', SECTION_LABELS['due'], section_path(s, 'due')))
     return out
 

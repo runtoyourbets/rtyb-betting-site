@@ -6,20 +6,21 @@ description_offseason: "MLB first inning & first five Due Factor from last seaso
 ---
 ## Run To Your Bets MLB Due Factor
 
-The Due Factor tracks how the MLB first inning & first five markets are running against their own season rate. Each market is measured on one side: NRFI (the YRFI rate), the First 5 Total (Over), First 5 Moneyline (home team) and First 5 Run Line (favorite). The gap is the rate over the last 7 days minus the season rate, in points, and the cards are ordered by the biggest gap.
+The Due Factor tracks how every MLB market is running against its own season rate: NRFI / YRFI in the 1st inning; the moneyline (home or away, favorite or dog), the run line, the total and ties for the First 5; the same without ties for the full game. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
 
 ### How to read it
 
-- **On pace:** under 5 points from the season rate.
-- **Leaning hot / Leaning cold:** 5 to 9 points above or below.
-- **Hot / Cold:** 10 points or more.
-- **Small sample:** fewer than 15 graded games in the window, so no read yet.
+Pick the view and the season (this one or last), then the segment and the market. The segments run 1st Inning and First 5, then the Full Run: Full Game; the Full Run segments carry a gold dot. One market shows at a time.
 
-The Daily view adds last night's results, a day-by-day table and, on game days, the coldest side on today's games with the best price. The Weekly view shows every week of the regular season. A table cell 10+ points above its season rate is tinted.
+- **Daily:** the last 10 game days, newest first: games played, each side's count and the first side's %, with a Last 10 days total. The summary line compares the last 7 days with the season.
+- **Weekly:** one row per Monday-Sunday week of the season, with a Season total. The summary line compares this week.
+- **Monthly:** a calendar of the month. Each day shows its record for the market and is shaded by the side that won it (the legend under the grid names them); a dashed day had no games. Click a day for that day's matchups, and use the arrows to move through the season's months.
+- **Summary line:** the period's record and % for the first side, the season's, and the gap in points. Fewer than 15 graded games in the period reads Small sample. Early in a season, until 100 games are graded, it compares with last season's rate.
+- **Tint:** a % cell 10+ points off the season rate is shaded for the side running hot.
 
 ### Example
 
-Say first innings have had a run 44% of the time over the last 7 days, against 51% for the season. That is 7 points under, so the NRFI card reads Leaning cold. Cold means the league is running under its season rate. It is not a sign that a side is about to hit: every game is its own bet.
+Say NRFI has hit 56% of the time over the last 7 days, against 49% for the season. That is 7 points over, so the summary line ends with +7 pts. Hot means the league is running over its season rate. It is not a sign that a side is about to hit: every game is its own bet.
 
 ### What I look for
 
@@ -37,7 +38,7 @@ A big gap on a handful of games is noise. I want the gap to hold for a week or m
 
 ### What is the MLB Due Factor?
 
-A hot and cold tracker. It compares each MLB first inning & first five market over the last 7 days with its season rate, regular season only, and shows the gap in points.
+A hot and cold tracker. It compares each MLB first inning & first five market over the last 7 days with its season rate, postseason included, and shows the gap in points.
 
 ### Does a cold market mean it is due?
 
@@ -45,4 +46,4 @@ No. Cold means the market is running under its season rate right now. Past resul
 
 ### Which games count?
 
-Regular season games with a line for the market, graded at the closing line. Pushes are left out, and ties are left out of the moneyline rates.
+Regular season and postseason games with a line for the market (a market with no lines counts every result), graded at the closing line. Pushes are left out, and ties are left out of the moneyline rates.

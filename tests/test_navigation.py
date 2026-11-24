@@ -33,7 +33,7 @@ class NavTest(unittest.TestCase):
         self.assertIn('class="hn-picks-pill" href="preview/"', html)
 
     def test_page_order(self):
-        self.assertEqual([s for s, _, _ in sports.page_links('nba')], ['picks', 'games', 'odds', 'trends', 'due', 'stats', 'teams'])
+        self.assertEqual([s for s, _, _ in sports.page_links('nba')], ['picks', 'games', 'odds', 'trends', 'stats', 'due', 'teams'])
 
     def test_main_menu(self):
         self.assertEqual([k for k, _ in sports.MAIN_MENU], ['sports', 'matchups', 'odds', 'trends', 'stats', 'picks'])

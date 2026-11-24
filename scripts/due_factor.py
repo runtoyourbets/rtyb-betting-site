@@ -1,592 +1,333 @@
 """
-Due Factor (/{sport}/due-factor/): the league's first segments, hot or cold
-against their own season rate. Static HTML, rebuilt with every refresh.
+Due Factor (/{sport}/due-factor/): every market of every segment, hot or
+cold against its own season rate. The build writes {slug}/due.json and
+assets/sport.js (renderDue) draws the page from it: View (Daily / Weekly /
+Monthly; NFL and NCAAF Weekly only), Season (this one and last), the
+segment pills (the Full Run's with the gold dot) and the market pills, a
+summary line, then the Day by day / Week by week table or the month's
+calendar.
 
-Each market is measured on one side:
-  NHL 1P             Total 1.5 (Over), Winner (Home, ties out), BTTS (Yes),
-                     Favorite (Fav, ties out), Ties (tied periods)
-  spread sports      per segment: Spread (Home ATS), Spread (Favorite ATS),
-                     Total (Over), ML (Home, ties out)
-  MLB                NRFI (the YRFI rate), F5 Total (Over), F5 ML (Home),
-                     F5 Run Line (Favorite)
+due.json:
+  {sport, weekly, matchups (the Matchups page path), regular (periods in
+   regulation, for OT), segs: [{k, label, fr, m: [{id, label, a, b, ta, tb}]}],
+   seasons: [{label, cur (the season being played now), post: [days],
+              weeks: [[key, label, [days]]] (football), first, last,
+              c: {seg: {market id: {ro, d: {day: [a, b, tie / push]}}}}}]}
 
-The games are the Stats pages' (guide_stats.load / finals: college between
-two Division I / FBS teams), regular season only, and only games with a line
-for the market (CLAUDE.md). Pushes are out of every rate; ML ties are out of
-the Winner / Favorite rates and counted on the Ties row. The favorite is the
-Stats page's (the shorter segment moneyline, else the side laying points).
-
-Windows: Daily = game days in the last 7 days (ET), or the last 7 game days
-when there were none; Weekly = this week so far (the latest week with
-games), Monday-Sunday ET for the daily sports, the game week for NCAAF;
-NFL's weekly meters take its last 3 weeks (16 games a week is too few;
-WEEKLY_SPAN). The Week by week table is a row per week everywhere.
-Off-season sports show last season's final days and weeks. Day by day is
-a row per game day of the meter's window, so its total row is the meter.
-
-The gap is the window's rate minus the season's, in points. Chip: under 5
-"On pace"; 5-9 "Leaning cold" (--heat-1) / "Leaning hot" (--heat-2); 10+
-"Cold" / "Hot" (--heat-3; 15+ --heat-4). Under MIN_GAMES graded games in
-the window there's no chip ("Small sample"), no strip entry and no Tonight. A table cell is tinted when the
-side it shows is 10+ points above its season rate: side markets the win
-fill, Over / Yes / YRFI warm; a total whose Under is 10+ above shows cool.
+Each market counts one side (a) against the other (b); ties and pushes
+are the third number and stay out of every rate. ta / tb: the tint when
+that side runs 10+ points over (warm: Over / Yes / YRFI, cool: Under / No /
+NRFI, win: Home / Fav, dim: Away / Dog). A season's market counts only the
+games with a line for it (CLAUDE.md); a market with no line in any of the
+season's games for that segment counts every graded result instead
+(ro: results only). College: Division I / FBS games only. Postseason games
+count, and their days are listed (the calendar marks them).
 """
+import json
 import os
 from datetime import date, timedelta
 
-import bignums
 import front
 import guide_stats
+import sport_build
 import sports
 from front import esc
 
-WINDOW_DAYS = 7
-TINT = 10        # points above the season rate that tint a cell
-STRIP_MIN = 10   # the home / hub strip: only gaps this big
-MIN_GAMES = 15   # fewer graded games in the window: "Small sample", no strip entry or Tonight
-WEEKLY_SPAN = {'nfl': 3}   # weekly meters over the last N weeks (the rest: the latest week)
+ROOT = sport_build.ROOT
+MIN_GAMES = 15   # fewer graded games in the summary's period: "Small sample"
+STRIP_MIN = 10   # the home / hub strip (sports.DUE_STRIP): only gaps this big
+POST_WEEKS = {'nfl': {'1': 'Wild Card', '2': 'Divisional', '3': 'Conference', '5': 'Super Bowl'}}
+REGULAR = {'nba': 4, 'wnba': 4, 'nfl': 4, 'ncaaf': 4, 'ncaab': 2}   # periods before OT
 
 
 # ---------------------------------------------------------------- markets
+def _num(v):
+    return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+
+def _ml(o):
+    ml = o.get('ml') or {}
+    return _num(ml.get('away')) and _num(ml.get('home'))
+
+
+def home_ml(g, x, o):
+    return {'L': 'a', 'W': 'b', 'T': 't'}.get(x.get('su'))
+
+
+def fav_ml(g, x, o):
+    fav, r = guide_stats.favorite(o), x.get('su')
+    if not fav or r not in ('W', 'L', 'T'):
+        return None
+    return 't' if r == 'T' else 'a' if (r == 'W') == (fav == 'away') else 'b'
+
+
+def home_ats(g, x, o):
+    return {'L': 'a', 'W': 'b', 'P': 't'}.get(x.get('ats'))
+
+
+def fav_ats(g, x, o):
+    r = x.get('ats')
+    fav = guide_stats.favorite(o) if r in ('W', 'L', 'P') else None
+    if not fav:
+        return None
+    return 't' if r == 'P' else 'a' if (r == 'W') == (fav == 'away') else 'b'
+
+
+def over(g, x, o):
+    return {'O': 'a', 'U': 'b', 'P': 't'}.get(x.get('tot'))
+
+
+def btts(g, x, o):
+    return {'Y': 'a', 'N': 'b'}.get(x.get('btts'))
+
+
+def nrfi(g, x, o):
+    return {'N': 'a', 'Y': 'b'}.get(x.get('rfi'))
+
+
+def ties(g, x, o):
+    return ('a' if x.get('su') == 'T' else 'b') if x.get('su') in ('W', 'L', 'T') else None
+
+
+def goals_over(n):
+    def f(g, x, o):
+        sc = x.get('sc')
+        return ('a' if sc[0] + sc[1] > n else 'b') if sc and None not in sc[:2] else None
+    return f
+
+
+def went_ot(sport):
+    def f(g, x, o):
+        if x.get('su') not in ('W', 'L', 'T'):
+            return None
+        if sport == 'nhl':
+            return 'a' if g.get('ot') else 'b'
+        return 'a' if max(len(g.get('als') or []), len(g.get('hls') or [])) > REGULAR[sport] else 'b'
+    return f
+
+
+# line(o): the game has a line for the market (None: the market never has one)
+LINES = {
+    'home_ml': _ml, 'fav_ml': _ml, 'win': None, 'ties': None, 'ot': None, 'o05': None, 'o15': None,
+    'home_ats': lambda o: bool(o.get('ats')), 'fav_ats': lambda o: bool(o.get('ats')),
+    'pl': lambda o: bool(o.get('ats')), 'rl': lambda o: bool(o.get('ats')),
+    'ou': lambda o: bool(o.get('total')),
+    'btts': lambda o: _num((o.get('btts') or {}).get('yes')) or _num((o.get('btts') or {}).get('no')),
+    'nrfi': lambda o: _num((o.get('nrfi_yrfi') or {}).get('nrfi')) or _num((o.get('nrfi_yrfi') or {}).get('yrfi')),
+}
+
+
 class Market:
-    """One market and the side it's measured on. outcome(g, x) returns
-    's' (the side), 'o' (the other side), 't' (a tie / push: out of the
-    rate) or None (no line, not graded)."""
+    def __init__(self, mid, label, a, b, ta, tb, outcome):
+        self.id, self.label, self.a, self.b, self.ta, self.tb, self.outcome = mid, label, a, b, ta, tb, outcome
+        self.line = LINES[mid]
 
-    def __init__(self, mid, seg, tag, label, side, other, letters, kind, outcome, book):
-        self.id, self.seg, self.tag, self.label = mid, seg, tag, label
-        self.side, self.other = side, other
-        self.letters = letters      # (side, other, tie) for "H 1 · A 3 · T 1"
-        self.kind = kind            # 'total' (warm / cool) or 'side' (the win fill)
-        self.outcome = outcome
-        self.book = book            # (books market, side key, mirror key) for Tonight; None: no price
-
-    @property
-    def rec(self):
-        return f'{self.letters[0]}-{self.letters[1]}'
+    def out(self):
+        return {'id': self.id, 'label': self.label, 'a': self.a, 'b': self.b, 'ta': self.ta, 'tb': self.tb}
 
 
-def _odds(g, k):
-    return (g.get('odds') or {}).get(k) or {}
+def M_HOME_ML():
+    return Market('home_ml', 'ML Home / Away', 'Home', 'Away', 'win', 'dim', home_ml)
 
 
-def _has_ml(g, k):
-    ml = _odds(g, k).get('ml') or {}
-    return isinstance(ml.get('away'), (int, float)) and isinstance(ml.get('home'), (int, float))
+def M_FAV_ML():
+    return Market('fav_ml', 'ML Fav / Dog', 'Fav', 'Dog', 'win', 'dim', fav_ml)
 
 
-def _over(k):
-    return lambda g, x: {'O': 's', 'U': 'o', 'P': 't'}.get(x.get('tot'))
+def M_OU(label='O/U'):
+    return Market('ou', label, 'Over', 'Under', 'warm', 'cool', over)
 
 
-def _btts(k):
-    def f(g, x):
-        b = _odds(g, k).get('btts') or {}
-        if not (isinstance(b.get('yes'), (int, float)) or isinstance(b.get('no'), (int, float))):
-            return None
-        return {'Y': 's', 'N': 'o'}.get(x.get('btts'))
-    return f
+def M_TIES():
+    return Market('ties', 'Ties', 'Tie', 'No tie', 'win', 'dim', ties)
 
 
-def _home_ml(k):
-    return lambda g, x: {'L': 's', 'W': 'o', 'T': 't'}.get(x.get('su')) if _has_ml(g, k) else None
-
-
-def _fav_ml(k):
-    def f(g, x):
-        fav = guide_stats.favorite(_odds(g, k)) if _has_ml(g, k) else None
-        r = x.get('su')
-        if not fav or r not in ('W', 'L', 'T'):
-            return None
-        return 't' if r == 'T' else 's' if (r == 'W') == (fav == 'away') else 'o'
-    return f
-
-
-def _ties(k):
-    return lambda g, x: ('s' if x.get('su') == 'T' else 'o') if _has_ml(g, k) and x.get('su') in ('W', 'L', 'T') else None
-
-
-def _home_ats(k):
-    return lambda g, x: {'L': 's', 'W': 'o', 'P': 't'}.get(x.get('ats'))
-
-
-def _fav_ats(k):
-    def f(g, x):
-        r = x.get('ats')
-        fav = guide_stats.favorite(_odds(g, k)) if r in ('W', 'L', 'P') else None
-        if not fav:
-            return None
-        return 't' if r == 'P' else 's' if (r == 'W') == (fav == 'away') else 'o'
-    return f
-
-
-def _yrfi(k):
-    def f(g, x):
-        m = _odds(g, k).get('nrfi_yrfi') or {}
-        if not (isinstance(m.get('yrfi'), (int, float)) or isinstance(m.get('nrfi'), (int, float))):
-            return None
-        return {'Y': 's', 'N': 'o'}.get(x.get('rfi'))
-    return f
-
-
-def groups(sp):
-    """[(group key, pill label, [Market])]: one pane per segment pill (NHL
-    and MLB: one pane)."""
+def segments(sp):
+    """[(seg key, pill label, Full Run?, [Market])]: the first segments, then
+    the Full Run's."""
     key = sp['key']
     if key == 'nhl':
-        k = '1p'
-        return [(k, '1st Period', [
-            Market('over', k, '1P', 'Total 1.5', 'Over', 'Under', ('O', 'U', 'P'), 'total', _over(k), ('total', 'over', 'under')),
-            Market('home', k, '1P', 'Winner', 'Home', 'Away', ('H', 'A', 'T'), 'side', _home_ml(k), ('ml', 'home', 'away')),
-            Market('btts', k, '1P', 'BTTS', 'Yes', 'No', ('Y', 'N', ''), 'total', _btts(k), ('btts', 'yes', 'no')),
-            Market('fav', k, '1P', 'Favorite', 'Fav', 'Dog', ('F', 'D', 'T'), 'side', _fav_ml(k), ('ml', 'fav', 'dog')),
-            Market('ties', k, '1P', 'Ties', 'Tie', 'No tie', ('T', 'N', ''), 'side', _ties(k), None),
-        ])]
+        def period(k):
+            return [Market('win', 'Winner Home / Away', 'Home', 'Away', 'win', 'dim', home_ml),
+                    Market('o05', 'Over 0.5', 'Over', 'Under', 'warm', 'cool', goals_over(0.5)),
+                    Market('o15', 'Over 1.5', 'Over', 'Under', 'warm', 'cool', goals_over(1.5)), M_TIES()]
+        return [('1p', '1st Period', False, [M_HOME_ML(), M_FAV_ML(), M_OU('O/U 1.5'),
+                                             Market('btts', 'BTTS', 'Yes', 'No', 'warm', 'cool', btts), M_TIES()]),
+                ('2p', '2nd Period', True, period('2p')), ('3p', '3rd Period', True, period('3p')),
+                ('game', 'Full Game', True, [M_HOME_ML(), M_FAV_ML(), Market('pl', 'Puck Line', 'Fav', 'Dog', 'win', 'dim', fav_ats),
+                                             M_OU(), Market('ot', 'OT / SO', 'OT / SO', 'Regulation', 'win', 'dim', went_ot(key))])]
     if key == 'mlb':
-        return [('mlb', 'First Inning & First Five', [
-            Market('yrfi', '1i', '1st Inn', 'NRFI', 'YRFI', 'NRFI', ('Y', 'N', ''), 'total', _yrfi('1i'), ('rfi', 'yrfi', 'nrfi')),
-            Market('over', 'f5', 'F5', 'F5 Total', 'Over', 'Under', ('O', 'U', 'P'), 'total', _over('f5'), ('total', 'over', 'under')),
-            Market('home', 'f5', 'F5', 'F5 ML', 'Home', 'Away', ('H', 'A', 'T'), 'side', _home_ml('f5'), ('ml', 'home', 'away')),
-            Market('fav', 'f5', 'F5', 'F5 Run Line', 'Fav', 'Dog', ('F', 'D', 'P'), 'side', _fav_ats('f5'), ('ats', 'fav', 'dog')),
-        ])]
+        return [('1i', '1st Inning', False, [Market('nrfi', 'NRFI / YRFI', 'NRFI', 'YRFI', 'cool', 'warm', nrfi)]),
+                ('f5', 'First 5', False, [M_HOME_ML(), M_FAV_ML(), Market('rl', 'Run Line', 'Fav', 'Dog', 'win', 'dim', fav_ats),
+                                          M_OU(), M_TIES()]),
+                ('game', 'Full Game', True, [M_HOME_ML(), M_FAV_ML(), Market('rl', 'Run Line', 'Fav', 'Dog', 'win', 'dim', fav_ats), M_OU()])]
     out = []
-    for seg in sp['segments']:
-        k, t = seg['key'], seg['tag']
-        out.append((k, seg['label'], [
-            Market('home_ats', k, t, 'Spread', 'Home ATS', 'Away ATS', ('H', 'A', 'P'), 'side', _home_ats(k), ('ats', 'home', 'away')),
-            Market('fav_ats', k, t, 'Spread', 'Favorite ATS', 'Dog ATS', ('F', 'D', 'P'), 'side', _fav_ats(k), ('ats', 'fav', 'dog')),
-            Market('over', k, t, 'Total', 'Over', 'Under', ('O', 'U', 'P'), 'total', _over(k), ('total', 'over', 'under')),
-            Market('home', k, t, 'ML', 'Home', 'Away', ('H', 'A', 'T'), 'side', _home_ml(k), ('ml', 'home', 'away')),
-        ]))
+    for seg, fr in [(s, False) for s in sp['segments']] + [(s, True) for s in sp.get('full_run') or []]:
+        last = seg['key'] == 'game'
+        ms = [Market('home_ats', 'Spread Home / Away', 'Home', 'Away', 'win', 'dim', home_ats),
+              Market('fav_ats', 'Spread Fav / Dog', 'Fav', 'Dog', 'win', 'dim', fav_ats),
+              M_OU(), M_HOME_ML(), M_FAV_ML(),
+              Market('ot', 'OT', 'OT', 'Regulation', 'win', 'dim', went_ot(key)) if last else M_TIES()]
+        out.append((seg['key'], seg['label'], fr, ms))
     return out
 
 
-# ------------------------------------------------------------------ counts
-class Count:
-    def __init__(self):
-        self.s = self.o = self.t = 0
-
-    def add(self, r):
-        if r:
-            setattr(self, r, getattr(self, r) + 1)
-
-    def __iadd__(self, other):
-        self.s, self.o, self.t = self.s + other.s, self.o + other.o, self.t + other.t
-        return self
-
-    @property
-    def n(self):
-        return self.s + self.o
-
-    @property
-    def rate(self):
-        return self.s / self.n if self.n else None
+# ------------------------------------------------------------------ seasons
+def _read(path):
+    try:
+        with open(path, encoding='utf-8') as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
 
 
-def season_games(sp):
-    """(doc, [(day, game)]): the regular season's graded games, the season
-    just played when the sport is between seasons."""
-    doc = guide_stats.load(sp)
-    return doc, [(d, g) for d, g in guide_stats.finals(doc, sp['key']) if not g.get('post')]
-
-
-def by_day(markets, games):
-    """{day: {market id: Count}} and {day: games played} (games with an
-    outcome in any of the markets)."""
-    days, gp = {}, {}
-    for d, g in games:
-        res = g.get('res') or {}
-        hit = False
-        for m in markets:
-            x = res.get(m.seg)
-            r = m.outcome(g, x) if x else None
-            if r:
-                days.setdefault(d, {}).setdefault(m.id, Count()).add(r)
-                hit = True
-        if hit:
-            gp[d] = gp.get(d, 0) + 1
-    return days, gp
-
-
-def total(days, keys, mid):
-    c = Count()
-    for d in keys:
-        if mid in days.get(d, {}):
-            c += days[d][mid]
-    return c
-
-
-def window_days(game_days, today):
-    """(days, label): game days in the last 7 days through today, else the
-    last 7 game days."""
-    start = (today - timedelta(days=WINDOW_DAYS - 1)).isoformat()
-    recent = [d for d in game_days if start <= d <= today.isoformat()]
-    if recent:
-        return recent, 'last 7 days'
-    return [d for d in game_days if d <= today.isoformat()][-WINDOW_DAYS:], 'last 7 game days'
-
-
-def weeks_of(doc, sp, games, today):
-    """[(key, label, [days])] oldest first: the game weeks (football: the
-    regular season's, '2-*'), else Monday-Sunday ET weeks."""
-    days = sorted({d for d, _ in games if d <= today.isoformat()})
-    if sp.get('schedule') == 'week':
-        wk_days = {}
-        for d, g in games:
-            if g.get('wk'):
-                wk_days.setdefault(g['wk'], set()).add(d)
-        return [(w['key'], w.get('label') or w['key'], sorted(wk_days[w['key']]))
-                for w in doc.get('weeks') or [] if str(w.get('key', '')).startswith('2-') and w['key'] in wk_days]
-    out = {}
-    for d in days:
-        mon = date.fromisoformat(d) - timedelta(days=date.fromisoformat(d).weekday())
-        out.setdefault(mon.isoformat(), []).append(d)
-    return [(k, 'Week of ' + short_date(k), v) for k, v in sorted(out.items())]
-
-
-def short_date(d):
-    x = date.fromisoformat(d)
-    return f"{x.strftime('%b')} {x.day}"
-
-
-def day_name(d):
-    x = date.fromisoformat(d)
-    return f"{x.strftime('%a, %b')} {x.day}"
-
-
-def pts(win, season):
-    """The gap in points (the window's rate minus the season's)."""
-    return None if win is None or season is None else round(100 * (win - season))
-
-
-def chip(gap, n=None):
-    """(text, heat class) for a gap of the measured side over n graded games."""
-    if n is not None and n < MIN_GAMES:
-        return 'Small sample', ''
-    if gap is None or abs(gap) < 5:
-        return 'On pace', ''
-    if abs(gap) < 10:
-        return ('Leaning hot', 'heat-2') if gap > 0 else ('Leaning cold', 'heat-1')
-    return ('Hot' if gap > 0 else 'Cold'), ('heat-4' if abs(gap) >= 15 else 'heat-3')
-
-
-def tint(m, c, season):
-    """The cell's tint: the side it shows (the measured side's rate) 10+
-    points above its season rate. Side markets: the win fill; totals: warm
-    for Over / Yes / YRFI, cool when the Under / No / NRFI is 10+ above."""
-    gap = pts(c.rate, season.rate)
-    if gap is None:
-        return ''
-    if gap >= TINT:
-        return 'df-warm' if m.kind == 'total' else 'df-win'
-    if gap <= -TINT and m.kind == 'total':
-        return 'df-cool'
-    return ''
-
-
-def meter(markets, days, keys, season_keys):
-    """[(Market, window Count, season Count, gap)], the biggest gap first."""
-    rows = []
-    for m in markets:
-        w, s = total(days, keys, m.id), total(days, season_keys, m.id)
-        rows.append((m, w, s, pts(w.rate, s.rate)))
-    return sorted(rows, key=lambda r: -abs(r[3]) if r[3] is not None else 1)
-
-
-def compute(sp, today):
-    """Everything the page and the strip draw, per group."""
-    doc, games = season_games(sp)
-    off = sp['key'] not in {x['key'] for x in sports.IN_SEASON}
-    out = {'doc': doc, 'off': off, 'season': str(doc.get('seasonLabel') or doc.get('season') or ''), 'groups': []}
-    for gk, glabel, markets in groups(sp):
-        days, gp = by_day(markets, games)
-        all_days = sorted(days)
-        season_keys = all_days
-        win, win_label = window_days(all_days, today)
-        weeks = [(k, lab, [d for d in ds if d in days]) for k, lab, ds in weeks_of(doc, sp, games, today)]
-        weeks = [w for w in weeks if w[2]]
-        cur = weeks[-1] if weeks else None
-        # football: the latest week still has games to play; the rest: this Monday's week
-        if sp.get('schedule') == 'week':
-            this_week = bool(cur) and not off and any(g.get('wk') == cur[0] and g.get('state') in ('pre', 'in')
-                                                       for gs in (doc.get('games') or {}).values() for g in gs)
-        else:
-            this_week = bool(cur) and not off and cur[0] == (today - timedelta(days=today.weekday())).isoformat()
-        span = WEEKLY_SPAN.get(sp['key'], 1)
-        before = [d for d in all_days if d < today.isoformat()]
-        last = before[-1] if before else (all_days[-1] if all_days else None)
-        out['groups'].append({
-            'key': gk, 'label': glabel, 'markets': markets, 'days': days, 'gp': gp, 'season_keys': season_keys,
-            'win': win, 'win_label': win_label,
-            'daily': meter(markets, days, win, season_keys),
-            'weeks': weeks, 'week': cur, 'this_week': this_week,
-            'weekly': meter(markets, days, [d for w in weeks[-span:] for d in w[2]], season_keys) if cur else [],
-            'span': span, 'span_weeks': weeks[-span:],
-            'last': last,
-        })
+def docs(sp):
+    """[(doc, current?)]: the season data.json holds (NHL: sport.json), then
+    last season's (history.json; NHL: history-games.json), each with games
+    {day: [game]}."""
+    d = os.path.join(ROOT, sp['slug'])
+    cur = _read(os.path.join(d, 'sport.json' if sp['key'] == 'nhl' else 'data.json'))
+    info = cur.get('history') or {}
+    prev = _read(os.path.join(d, info.get('file') or 'history.json'))
+    out = [(cur, True)] if cur.get('games') else []
+    if isinstance(prev.get('games'), dict) and prev['games']:
+        out.append((prev, False))
     return out
 
 
-_CACHE = {}
+def seg_of(g, k):
+    """(result, odds) of a segment: the first segments' res / odds, the Full
+    Run's fr / fo."""
+    x = (g.get('res') or {}).get(k) or (g.get('fr') or {}).get(k)
+    o = (g.get('odds') or {}).get(k) or (g.get('fo') or {}).get(k) or {}
+    return x, o
 
 
-def data(sp, today):
-    k = (sp['key'], today.isoformat())
-    if k not in _CACHE:
-        _CACHE[k] = compute(sp, today)
-    return _CACHE[k]
-
-
-# ---------------------------------------------------------------- Tonight
-def _price(sport, d, g, m, side):
-    """(line, best price, book) for one side of a market on today's game:
-    the books' consensus line (spread: that side's), the best price at it;
-    else the saved line."""
-    bm = m.book[0]
-    og = sport.odds_game(d, g)
-    rows = bignums.books_of(sport, og, m.seg, bm)
-    if rows:
-        if bm == 'total':
-            line = bignums.consensus([r.get('line') for r in rows.values() if isinstance(r.get('line'), (int, float))])
-            got = bignums.best_at({b: r for b, r in rows.items() if r.get('line') == line}, side)
-            return (line, got[0], got[1]) if got else None
-        if bm == 'ats':
-            line = bignums.consensus([x for x in (bignums.side_line(r, side) for r in rows.values()) if isinstance(x, (int, float))])
-            got = bignums.best_at(rows, side, line, bignums.side_line)
-            return (line, got[0], got[1]) if got else None
-        got = bignums.best_at(rows, side)
-        return (None, got[0], got[1]) if got else None
-    o = _odds(g, m.seg)
-    if bm == 'total' and o.get('total'):
-        return o['total'].get('line'), o['total'].get(side), None
-    if bm == 'ats' and (o.get('ats') or {}).get(side):
-        return o['ats'][side].get('line'), o['ats'][side].get('price'), None
-    if bm == 'ml' and o.get('ml'):
-        return None, o['ml'].get(side), None
-    if bm == 'btts' and o.get('btts'):
-        return None, o['btts'].get(side), None
-    if bm == 'rfi' and o.get('nrfi_yrfi'):
-        return None, o['nrfi_yrfi'].get(side), None
-    return None
-
-
-def coldest(rows):
-    """(Market, the cold side's label, its book side key, gap): the biggest
-    gap's cold side (the measured side when it runs cold, else its mirror).
-    Ties have no price on the Odds page's 2-way rows and stay out, and so
-    does a market under MIN_GAMES games in the window."""
-    rows = [r for r in rows if r[3] is not None and r[0].book and r[1].n >= MIN_GAMES]
-    if not rows:
-        return None
-    m, _, _, gap = max(rows, key=lambda r: abs(r[3]))
-    if gap <= 0:
-        return m, m.side, m.book[1], gap
-    return m, m.other, m.book[2], -gap
-
-
-def tonight(sport, grp, today, now, root):
-    """The coldest side on today's games still to start, best price and
-    book, each linking to its game on the Odds page; '' with no games."""
-    c = coldest(grp['daily'])
-    if not c:
-        return ''
-    m, label, side_key, gap = c
-    d = today.isoformat()
-    todays = [g for g in sport.games(d) if front.game_lined(sport, g, m.seg) and not front.started(g, now)]
-    rows = []
-    for g in sorted(todays, key=lambda g: (g.get('start') or '', g['away'])):
-        side = side_key
-        if side_key in ('fav', 'dog'):
-            fav = guide_stats.favorite(_odds(g, m.seg)) or front.seg_fav(g, m.seg)
-            if not fav:
+def finals(doc, sp):
+    """[(day, game)] of the season's finished games (college: Division I /
+    FBS on both sides)."""
+    league = doc.get('teams') or {}
+    out = []
+    for d in sorted(doc.get('games') or {}):
+        for g in doc['games'][d]:
+            if g.get('state') != 'final' or not (g.get('res') or g.get('fr')):
                 continue
-            side = fav if side_key == 'fav' else ('home' if fav == 'away' else 'away')
-        got = _price(sport, d, g, m, side)
-        if not got or not isinstance(got[1], (int, float)):
+            if sp['key'] in sports.COLLEGE and league and not (g.get('away') in league and g.get('home') in league):
+                continue
+            out.append((d, g))
+    return out
+
+
+def football_weeks(sp, doc, games):
+    """[[key, label, [days]]] in order: the season's game weeks (the games'
+    wk and data.json's weeks; last season's from its raw games file, else
+    Tuesday-Monday game weeks by date)."""
+    labels = {w['key']: w.get('label') or w['key'] for w in doc.get('weeks') or []}
+    wk_of = {}
+    if any(not g.get('wk') for _, g in games):
+        raw = _read(os.path.join(ROOT, 'data_seed', 'games', sp['key'], f"{doc.get('season')}.json"))
+        rows = [r for r in (raw.get('games') or {}).values() if r.get('season_type') in (2, 3) and r.get('week')]
+        for w in sport_build.week_list(rows):
+            labels.setdefault(w['key'], w['label'])
+        wk_of = {str(r['id']): sport_build.week_key(r) for r in rows}
+    order, n = {}, 0
+    for d, g in games:
+        k = g.get('wk') or wk_of.get(str(g.get('id')))
+        if not k:   # no ESPN week: the Tuesday-Monday game week
+            day = date.fromisoformat(d)
+            tue = (day - timedelta(days=(day.weekday() - 1) % 7)).isoformat()
+            k = ('3-' if g.get('post') else '2-') + tue
+            if k not in labels:
+                n += 0 if g.get('post') else 1
+                labels[k] = 'Postseason' if g.get('post') else f'Week {n}'
+        order.setdefault(k, set()).add(d)
+
+    def sort_key(k):
+        a, _, b = k.partition('-')
+        return (int(a) if a.isdigit() else 0, int(b) if b.isdigit() else 0, b)
+    def label(k):
+        a, _, b = k.partition('-')
+        return labels.get(k) or (f'Week {b}' if a == '2' else POST_WEEKS.get(sp['key'], {}).get(b, 'Postseason'))
+    return [[k, label(k), sorted(order[k])] for k in sorted(order, key=sort_key)]
+
+
+def season_counts(sp, doc, games):
+    """{seg: {market id: {ro, d: {day: [a, b, t]}}}}."""
+    out = {}
+    for k, _, _, ms in segments(sp):
+        for m in ms:
+            lined = m.line is not None and any(m.line(seg_of(g, k)[1]) for _, g in games if seg_of(g, k)[0])
+            days = {}
+            for d, g in games:
+                x, o = seg_of(g, k)
+                if not x or (lined and not m.line(o)):
+                    continue
+                r = m.outcome(g, x, o)
+                if r:
+                    c = days.setdefault(d, [0, 0, 0])
+                    c['abt'.index(r) if r != 't' else 2] += 1
+            out.setdefault(k, {})[m.id] = {'ro': 0 if lined else 1, 'd': days}
+    return out
+
+
+def build(sp):
+    """The due.json document."""
+    seasons = []
+    for doc, cur in docs(sp):
+        games = finals(doc, sp)
+        if not games:
             continue
-        line, price, book = got
-        who = esc(sport.code(g[side])) if side in ('away', 'home') else esc(label)
-        if m.book[0] == 'total':
-            top = f'{"O" if side == "over" else "U"} {front.line_txt(line)}'
-        elif m.book[0] == 'ats':
-            top = f'{who} {front.signed(line)}'
-        elif m.book[0] == 'ml':
-            top = who
-        else:
-            top = esc(label)
-        q = f"?week={g['wk']}" if sport.weekly and g.get('wk') else f'?date={d}'
-        href = f"{root}{sport.odds_page}{q}&seg={m.seg}&mkt={m.book[0]}#og-{g['away']}-{g['home']}"
-        rows.append(f'<a class="df-tn-row" href="{esc(href)}"><span class="df-tn-teams">{sport.badge(g["away"], 20, root)}'
-                    f'<span>{esc(sport.code(g["away"]))}</span><span class="df-at">@</span>{sport.badge(g["home"], 20, root)}'
-                    f'<span>{esc(sport.code(g["home"]))}</span></span><span class="df-tn-time">{esc(front.time_et(g.get("start")) if g.get("start") else "TBD")}</span>'
-                    f'<span class="df-tn-bet">{front.cell(top, esc(front.price_txt(price)), front.book_html(sport, book, root))}</span></a>')
-    if not rows:
-        return ''
-    return (f'<section class="st-sec"><div class="st-sec-head"><h2>Tonight</h2></div>'
-            f'<p class="st-sec-sub">The coldest side: {esc(m.tag)} {esc(m.label)} {esc(label)}, {abs(gap)} pts under its season rate. Best price on today&rsquo;s games.</p>'
-            f'<div class="st-card df-tn">{"".join(rows)}</div></section>')
+        s = {'label': str(doc.get('seasonLabel') or doc.get('season') or ''), 'cur': cur and sports.in_season(sp),
+             'post': sorted({d for d, g in games if g.get('post')}), 'first': games[0][0], 'last': games[-1][0],
+             'c': season_counts(sp, doc, games)}
+        if sp.get('schedule') == 'week':
+            s['weeks'] = football_weeks(sp, doc, games)
+        seasons.append(s)
+    return {'sport': sp['key'], 'weekly': sp.get('schedule') == 'week',
+            'matchups': sports.section_path(sp, 'games').lstrip('/'), 'regular': REGULAR.get(sp['key']),
+            'segs': [{'k': k, 'label': lab, 'fr': 1 if fr else 0, 'm': [m.out() for m in ms]} for k, lab, fr, ms in segments(sp)],
+            'seasons': seasons}
+
+
+def write_data(sp):
+    doc = build(sp)
+    sport_build.write_json(os.path.join(ROOT, sp['slug'], 'due.json'), doc)
+    return doc
 
 
 # ------------------------------------------------------------------ the page
-def pct_txt(r):
-    return '-' if r is None else f'{round(100 * r)}%'
+SEASON_WORDS = {12: 'winter', 1: 'winter', 2: 'winter', 3: 'spring', 4: 'spring', 5: 'spring',
+                6: 'summer', 7: 'summer', 8: 'summer', 9: 'fall', 10: 'fall', 11: 'fall'}
 
 
-def rec_txt(m, c):
-    if m.id == 'ties':
-        return f'{c.s} of {c.n}'
-    return f'{c.s}-{c.o} {m.rec}'
-
-
-def meter_card(m, w, s, gap, when):
-    text, heat = chip(gap, w.n)
-    fill = 0 if w.rate is None else round(100 * w.rate)
-    tick = None if s.rate is None else round(100 * s.rate)
-    gap_txt = '-' if gap is None else f'{"+" if gap > 0 else ""}{gap} pts'
-    return (f'<div class="st-card df-card"><div class="st-head"><h4>{esc(m.tag)} {esc(m.label)}</h4></div>'
-            f'<div class="df-top"><span class="df-side">{esc(m.side)}</span><span class="df-chip{" " + heat if heat else ""}">{text}</span></div>'
-            f'<p class="df-vs">{esc(when)} {pct_txt(w.rate)} vs season {pct_txt(s.rate)}</p>'
-            f'<div class="df-bar" role="img" aria-label="{esc(when)} {pct_txt(w.rate)}, season {pct_txt(s.rate)}">'
-            f'<span class="df-fill" style="width:{fill}%"></span>'
-            + (f'<span class="df-tick" style="left:{tick}%"></span>' if tick is not None else '') + '</div>'
-            f'<p class="df-gap"><span class="df-gap-n">{gap_txt}</span><span class="nw">{esc(rec_txt(m, w))}</span></p></div>')
-
-
-def meter_html(rows, when):
-    return '<div class="df-grid">' + ''.join(meter_card(m, w, s, gap, when) for m, w, s, gap in rows) + '</div>'
-
-
-def counts_txt(m, c):
-    """"H 1 · A 3 · T 1", "O 2 · U 3"."""
-    if m.id == 'ties':
-        return f'T {c.s} of {c.n}'
-    parts = [f'{m.letters[0]} {c.s}', f'{m.letters[1]} {c.o}']
-    if c.t and m.letters[2]:
-        parts.append(f'{m.letters[2]} {c.t}')
-    return ' · '.join(parts)
-
-
-def last_night(grp):
-    d = grp['last']
-    if not d:
+def off_note(sp, doc, today):
+    """"MLB is in the off-season. Showing the 2026 season (final). Opening
+    Day: Thu, Mar 26, 2027", or '' in season."""
+    if sports.in_season(sp, today):
         return ''
-    items = ''.join(f'<li><span class="df-ln-m">{esc(m.tag)} {esc(m.label)}: {esc(m.side)}</span><span class="df-ln-c nw">{esc(counts_txt(m, grp["days"][d].get(m.id) or Count()))}</span></li>'
-                    for m in grp['markets'])
-    return (f'<section class="st-sec"><div class="st-sec-head"><h2>Last night</h2></div><p class="st-sec-sub">{esc(day_name(d))} · {grp["gp"].get(d, 0)} games</p>'
-            f'<div class="st-card"><ul class="df-ln">{items}</ul></div></section>')
+    final = next((s for s in doc['seasons'] if not s['cur']), None)
+    if not final:
+        return ''
+    opening = ((sports.SETTINGS.get('seasons') or {}).get(sp['key']) or {}).get('OPENING_DAY') or ''
+    try:
+        d = date.fromisoformat(opening)
+        nxt = f"Opening Day: {d.strftime('%a, %b')} {d.day}, {d.year}" if d >= today else ''
+    except ValueError:
+        nxt = ''
+    if not nxt:
+        m = sp['season_start']
+        year = today.year if m > today.month else today.year + 1
+        nxt = f"Next season: {SEASON_WORDS[m]} {year}"
+    return f"{sp['label']} is in the off-season. Showing the {final['label']} season (final). {nxt}"
 
 
-def cell_html(m, c, season):
-    if not c.n:
-        return '<td class="df-c">-</td>'
-    cls = tint(m, c, season)
-    txt = f'{c.s} of {c.n}' if m.id == 'ties' else f'{c.s}-{c.o}'
-    return f'<td class="df-c{" " + cls if cls else ""}"><span class="nw">{txt}</span> <span class="df-p">{pct_txt(c.rate)}</span></td>'
-
-
-def table_html(grp, rows, total_label, total_keys, first_col):
-    """rows: [(label, [days])], newest first, then the total row."""
-    ms = grp['markets']
-    season = {m.id: total(grp['days'], grp['season_keys'], m.id) for m in ms}
-    head = (f'<tr><th scope="col">{first_col}</th><th scope="col">GP</th>'
-            + ''.join(f'<th scope="col">{esc(m.tag)} {esc(m.side)}</th>' for m in ms) + '</tr>')
-
-    def tr(label, keys, cls=''):
-        gp = sum(grp['gp'].get(d, 0) for d in keys)
-        return (f'<tr{" class=" + chr(34) + cls + chr(34) if cls else ""}><th scope="row">{esc(label)}</th><td class="df-c">{gp}</td>'
-                + ''.join(cell_html(m, total(grp['days'], keys, m.id), season[m.id]) for m in ms) + '</tr>')
-
-    body = ''.join(tr(lab, keys) for lab, keys in rows) + tr(total_label, total_keys, 'df-total')
-    return f'<div class="st-card df-tcard"><div class="df-scroll"><table class="df-table"><thead>{head}</thead><tbody>{body}</tbody></table></div></div>'
-
-
-def pane_html(sport, grp, data_, today, now, root, view):
-    off_lab = f'{data_["season"]} season · ' if data_['off'] else ''
-    if view == 'daily':
-        when = grp['win_label'].capitalize()
-        sub = f'{off_lab}{when}: {short_date(grp["win"][0])}-{short_date(grp["win"][-1])}' if grp['win'] else ''
-        return (f'<section class="st-sec"><div class="st-sec-head"><h2>Due meter</h2></div><p class="st-sec-sub">{esc(sub)} vs the season rate</p>'
-                + meter_html(grp['daily'], when) + '</section>'
-                + last_night(grp)
-                + f'<section class="st-sec"><div class="st-sec-head"><h2>Day by day</h2></div>'
-                + f'<p class="st-sec-sub">A cell 10+ pts above its season rate is tinted.</p>'
-                + table_html(grp, [(day_name(d), [d]) for d in reversed(grp['win'])], 'Last 7 days' if grp['win_label'] == 'last 7 days' else 'Last 7 game days', grp['win'], 'Day')
-                + '</section>' + ('' if data_['off'] else tonight(sport, grp, today, now, root)))
-    if not grp['week']:
-        return '<p class="st-sec-sub">No games yet.</p>'
-    wk = grp['week']
-    when = 'This week so far' if grp['this_week'] else wk[1]
-    sub = f'{when}{"" if when == wk[1] else " (" + wk[1] + ")"}'
-    if grp['span'] > 1:
-        when = f'Last {grp["span"]} weeks'
-        sub = f'{when} ({span_txt(grp["span_weeks"])})'
-    return (f'<section class="st-sec"><div class="st-sec-head"><h2>Due meter</h2></div><p class="st-sec-sub">{esc(off_lab + sub)} vs the season rate</p>'
-            + meter_html(grp['weekly'], when) + '</section>'
-            + f'<section class="st-sec"><div class="st-sec-head"><h2>Week by week</h2></div>'
-            + f'<p class="st-sec-sub">A cell 10+ pts above its season rate is tinted.</p>'
-            + table_html(grp, [(lab, ds) for _, lab, ds in reversed(grp['weeks'])], 'Season', grp['season_keys'], 'Week')
-            + '</section>')
-
-
-def span_txt(weeks):
-    """"Weeks 9-11", else "Week 9 to Week 11"."""
-    a, b = weeks[0][1], weeks[-1][1]
-    if a == b:
-        return a
-    if a.startswith('Week ') and b.startswith('Week '):
-        return f'Weeks {a[5:]}-{b[5:]}'
-    return f'{a} to {b}'
-
-
-TOGGLE_JS = """<script>
-(function() {
-  var app = document.getElementById('dueApp');
-  if (!app) return;
-  function show() {
-    var v = app.getAttribute('data-view'), g = app.getAttribute('data-group');
-    app.querySelectorAll('[data-pane]').forEach(function(p) {
-      p.hidden = p.getAttribute('data-pane') !== g + ':' + v;
-    });
-    app.querySelectorAll('[data-view-btn]').forEach(function(b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view-btn') === v)); });
-    app.querySelectorAll('[data-group-btn]').forEach(function(b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-group-btn') === g)); });
-  }
-  app.addEventListener('click', function(e) {
-    var b = e.target.closest('[data-view-btn],[data-group-btn]');
-    if (!b) return;
-    if (b.hasAttribute('data-view-btn')) app.setAttribute('data-view', b.getAttribute('data-view-btn'));
-    else app.setAttribute('data-group', b.getAttribute('data-group-btn'));
-    show();
-  });
-  var q = new URLSearchParams(location.search);
-  if (q.get('view') === 'daily' || q.get('view') === 'weekly') app.setAttribute('data-view', q.get('view'));
-  if (q.get('seg') && app.querySelector('[data-group-btn="' + q.get('seg') + '"]')) app.setAttribute('data-group', q.get('seg'));
-  show();
-})();
-</script>"""
-
-
-def page_body(sp, today, now, root='__ROOT__/'):
-    """The page under the H1: Daily / Weekly, the segment pills, a pane per
-    (segment, view). Football opens on Weekly."""
-    sport = front.Sport(sp)
-    d = data(sp, today)
-    view = 'weekly' if sp.get('schedule') == 'week' else 'daily'
-    gs = d['groups']
-    if not any(g['days'] for g in gs):
-        return '<p class="st-sec-sub">No games yet this season.</p>'
-    ctrl = ('<div class="seg-toggle" role="group" aria-label="View">'
-            + ''.join(f'<button class="seg-btn" type="button" data-view-btn="{v}" aria-pressed="{str(v == view).lower()}">{lab}</button>'
-                      for v, lab in (('daily', 'Daily'), ('weekly', 'Weekly'))) + '</div>')
-    if len(gs) > 1:
-        ctrl += ('<div class="seg-toggle" role="group" aria-label="Segment">'
-                 + ''.join(f'<button class="seg-btn" type="button" data-group-btn="{g["key"]}" aria-pressed="{str(i == 0).lower()}">{esc(g["label"])}</button>'
-                           for i, g in enumerate(gs)) + '</div>')
-    panes = ''.join(f'<div class="df-pane" data-pane="{g["key"]}:{v}"{"" if (i == 0 and v == view) else " hidden"}>{pane_html(sport, g, d, today, now, root, v)}</div>'
-                    for i, g in enumerate(gs) for v in ('daily', 'weekly'))
-    note = ('<p class="df-note">Each market against its own season rate. Running cold or hot is where the league sits now, '
-            'not a sign that a side is about to hit.</p>')
-    return (f'<div class="df-app" id="dueApp" data-view="{view}" data-group="{gs[0]["key"]}"><div class="df-ctrl">{ctrl}</div>{note}{panes}</div>'
-            + TOGGLE_JS)
+def page_body(sp, today, now=None, root='__ROOT__/'):
+    """The off-season note bar, then the app assets/sport.js draws (renderDue)."""
+    doc = write_data(sp)
+    note = off_note(sp, doc, today)
+    bar = f'<div class="df2-off" role="note">{esc(note)}</div>' if note else ''
+    return (bar + '<div id="sportApp" data-section="due"><div class="no-games-note">Loading&hellip;</div>'
+            '<noscript>This page needs JavaScript.</noscript></div>')
 
 
 def page_meta(sp):
@@ -596,33 +337,59 @@ def page_meta(sp):
 
 
 # --------------------------------------------------------- home / hub strip
+# Off (sports.DUE_STRIP False): nothing calls strip(). On: the biggest gap
+# per in-season sport among its first segments' markets, Daily (football:
+# the last 3 weeks) against the season, 10+ points over MIN_GAMES+ games.
+def _sum(days, keys):
+    a = b = 0
+    for d in keys:
+        c = days.get(d)
+        if c:
+            a, b = a + c[0], b + c[1]
+    return a, b
+
+
 def strip_item(sp, today):
-    """(text, gap, href) for the sport's biggest gap in its default view, or
-    None under STRIP_MIN (markets with MIN_GAMES+ games in the window)."""
-    d = data(sp, today)
-    if d['off']:
+    if not sports.in_season(sp, today):
         return None
-    view = 'weekly' if sp.get('schedule') == 'week' else 'daily'
+    doc = _read(os.path.join(ROOT, sp['slug'], 'due.json')) or build(sp)
+    s = next((x for x in doc.get('seasons') or [] if x.get('cur')), None)
+    if not s:
+        return None
+    if doc.get('weekly'):
+        keys = [d for w in (s.get('weeks') or [])[-3:] for d in w[2]]
+    else:
+        keys = [(today - timedelta(days=i)).isoformat() for i in range(7)]
     best = None
-    for g in d['groups']:
-        for m, w, s, gap in g[view]:
-            if gap is not None and w.n >= MIN_GAMES and (best is None or abs(gap) > abs(best[1])):
-                best = (m, gap)
-    if not best or abs(best[1]) < STRIP_MIN:
+    for seg in doc['segs']:
+        if seg['fr']:
+            continue
+        for m in seg['m']:
+            days = s['c'][seg['k']][m['id']]['d']
+            wa, wb = _sum(days, keys)
+            sa, sb = _sum(days, days.keys())
+            if wa + wb < MIN_GAMES or not sa + sb:
+                continue
+            gap = round(100 * (wa / (wa + wb) - sa / (sa + sb)))
+            if best is None or abs(gap) > abs(best[2]):
+                best = (seg, m, gap)
+    if not best or abs(best[2]) < STRIP_MIN:
         return None
-    m, gap = best
-    return f'{sp["label"]} {m.tag} {m.side} {"+" if gap > 0 else ""}{gap}', gap, sports.section_path(sp, 'due').lstrip('/')
+    seg, m, gap = best
+    return f"{sp['label']} {seg['label']} {m['a']} {'+' if gap > 0 else ''}{gap}", gap, sports.section_path(sp, 'due').lstrip('/')
 
 
 def strip(S, today, root):
-    """"Due Factor today": the biggest gap per sport (10+ only); '' when none."""
+    """"Due Factor today" (sports.DUE_STRIP): the biggest gap per in-season
+    sport (10+ only); '' when off or none."""
+    if not sports.DUE_STRIP:
+        return ''
     items = []
     for sport in S.values():
         it = strip_item(sport.sp, today)
         if it:
             text, gap, href = it
-            items.append(f'<a class="df-strip-item" href="{root}{href}">{icon_of(sport.sp)}<span class="nw">{esc(text)}</span>'
-                         f'<span class="df-chip {chip(gap)[1]}">{chip(gap)[0]}</span></a>')
+            items.append(f'<a class="df-strip-item" href="{root}{href}">{icon_of(sport.sp)}<span class="nw">{esc(text)}</span></a>')
     if not items:
         return ''
     return (f'<section class="fr-sec df-strip"><div class="fr-head"><h2>Due Factor today</h2></div>'

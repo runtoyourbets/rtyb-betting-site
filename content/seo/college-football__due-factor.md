@@ -6,20 +6,19 @@ description_offseason: "College Football first quarter & first half Due Factor f
 ---
 ## Run To Your Bets College Football Due Factor
 
-The Due Factor tracks how the College Football first quarter & first half markets are running against their own season rate. Each market is measured on one side: the first quarter & first half Spread (home team and favorite against the spread), Total (Over) and Moneyline (home team, ties out). The gap is the rate over this week so far (the game week) minus the season rate, in points, and the cards are ordered by the biggest gap.
+The Due Factor tracks how every NCAAF market is running against its own season rate: the spread and moneyline (home or away, favorite or dog), the total and ties; the full game swaps ties for OT. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
 
 ### How to read it
 
-- **On pace:** under 5 points from the season rate.
-- **Leaning hot / Leaning cold:** 5 to 9 points above or below.
-- **Hot / Cold:** 10 points or more.
-- **Small sample:** fewer than 15 graded games in the window, so no read yet.
+Pick the view and the season (this one or last), then the segment and the market. The segments run 1st Quarter and 1st Half, then the Full Run: 2nd Half and Full Game; the Full Run segments carry a gold dot. One market shows at a time.
 
-The Daily view adds last night's results, a day-by-day table and, on game days, the coldest side on today's games with the best price. The Weekly view shows every week of the regular season. A table cell 10+ points above its season rate is tinted.
+- **Weekly:** one row per game week of the season, newest first: games played, each side's count and the first side's %, with a Season total. The summary line compares the last 3 weeks with the season.
+- **Summary line:** the period's record and % for the first side, the season's, and the gap in points. Fewer than 15 graded games in the period reads Small sample. Early in a season, until 100 games are graded, it compares with last season's rate.
+- **Tint:** a % cell 10+ points off the season rate is shaded for the side running hot.
 
 ### Example
 
-Say the first quarter Over has hit 48% of the time this week, against 60% for the season. That is 12 points under the season rate, so the Total card reads Cold. Cold means the league is running under its season rate. It is not a sign that a side is about to hit: every game is its own bet.
+Say the first quarter Over has hit 48% of the time over the last 3 weeks, against 60% for the season. That is 12 points under the season rate, so the summary line ends with -12 pts. Cold means the league is running under its season rate. It is not a sign that a side is about to hit: every game is its own bet.
 
 ### What I look for
 
@@ -37,7 +36,7 @@ A big gap on a handful of games is noise. I want the gap to hold for a week or m
 
 ### What is the College Football Due Factor?
 
-A hot and cold tracker. It compares each College Football first quarter & first half market over this week so far (the game week) with its season rate, regular season only, and shows the gap in points.
+A hot and cold tracker. It compares each College Football first quarter & first half market over the last 3 weeks with its season rate, postseason included, and shows the gap in points.
 
 ### Does a cold market mean it is due?
 
@@ -45,4 +44,4 @@ No. Cold means the market is running under its season rate right now. Past resul
 
 ### Which games count?
 
-Regular season games with a line for the market, graded at the closing line. Pushes are left out, and ties are left out of the moneyline rates.
+Regular season and postseason games with a line for the market (a market with no lines counts every result), graded at the closing line. Pushes are left out, and ties are left out of the moneyline rates.
