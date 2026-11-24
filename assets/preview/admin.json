@@ -12,6 +12,16 @@
  "pieces": {
   "all": [
    {
+    "date": "2026-11-24",
+    "headline": "Eastern Michigan Has Gone Under the First Quarter Total 82% (9-2)",
+    "live": false,
+    "page": "admin/preview/all-2026-11-24/",
+    "path": "content/drafts/all-preview-2026-11-24.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-24T13:25Z"
+   },
+   {
     "date": "2026-11-23",
     "headline": "Milwaukee Bucks Have Lost 8 Straight First Halves Heading Into Toronto",
     "live": true,
@@ -73,6 +83,16 @@
    }
   ],
   "nba": [
+   {
+    "date": "2026-11-24",
+    "headline": "Celtics First Quarters Keep Going Under: 76% (13-4) Heading to Washington",
+    "live": false,
+    "page": "admin/preview/nba-2026-11-24/",
+    "path": "content/drafts/nba-preview-2026-11-24.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-24T13:20Z"
+   },
    {
     "date": "2026-11-23",
     "headline": "Bucks Bring an 88% First-Quarter Under Rate to Toronto",
@@ -136,6 +156,16 @@
   ],
   "ncaab": [
    {
+    "date": "2026-11-24",
+    "headline": "North Dakota at Detroit Mercy: Fade Teams Off a Blowout Runs 60%",
+    "live": false,
+    "page": "admin/preview/ncaab-2026-11-24/",
+    "path": "content/drafts/ncaab-preview-2026-11-24.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-24T13:23Z"
+   },
+   {
     "date": "2026-11-23",
     "headline": "Monmouth Carries a Five-Game First-Half Skid Into North Carolina",
     "live": true,
@@ -198,6 +228,16 @@
   ],
   "ncaaf": [
    {
+    "date": "2026-11-24",
+    "headline": "East Carolina Is 11 for 11 to the First-Quarter Under",
+    "live": false,
+    "page": "admin/preview/ncaaf-2026-11-24/",
+    "path": "content/drafts/ncaaf-preview-2026-11-24.md",
+    "published": null,
+    "week": 13,
+    "written": "2026-11-24T13:22Z"
+   },
+   {
     "date": "2026-11-19",
     "headline": "Northern Illinois Has Lost Every First Half. North Dakota State Awaits.",
     "live": true,
@@ -210,6 +250,16 @@
   ],
   "nfl": [
    {
+    "date": "2026-11-24",
+    "headline": "Titans Have Lost the First Half in All 10 Games",
+    "live": false,
+    "page": "admin/preview/nfl-2026-11-24/",
+    "path": "content/drafts/nfl-preview-2026-11-24.md",
+    "published": null,
+    "week": 12,
+    "written": "2026-11-24T13:21Z"
+   },
+   {
     "date": "2026-11-19",
     "headline": "Pittsburgh Steelers Favored Early at the Philadelphia Eagles",
     "live": true,
@@ -221,6 +271,16 @@
    }
   ],
   "nhl": [
+   {
+    "date": "2026-11-24",
+    "headline": "Edmonton Oilers: No on Both Teams to Score (BTTS), 81% (21-5)",
+    "live": false,
+    "page": "admin/preview/nhl-2026-11-24/",
+    "path": "content/drafts/nhl-preview-2026-11-24.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-24T13:20Z"
+   },
    {
     "date": "2026-11-23",
     "headline": "Kraken and Ducks Bring Over Form to Seattle's First Period",
