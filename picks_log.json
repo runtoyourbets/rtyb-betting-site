@@ -14379,55 +14379,52 @@
     "streakTeamName": "Miami (OH)"
    },
    {
-    "id": "ncaab|401906774|1h|ats|away",
-    "game": "ncaab|401906774",
+    "id": "ncaab|401927398|1h|ats|home",
+    "game": "ncaab|401927398",
     "date": "2026-11-24",
     "sport": "ncaab",
     "label": "NCAAB",
     "slug": "college-basketball",
-    "start": "2026-11-25T00:00Z",
+    "start": "2026-11-24T15:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Milwaukee @ Florida",
+    "matchup": "Wright State @ St. Bonaventure",
     "href": "college-basketball/matchups/",
     "market": "ats",
-    "side": "away",
-    "line": 21.5,
-    "price": 100,
-    "title": "Milwaukee 1H +21.5",
-    "est": 0.5303,
-    "edge": 0.0303,
-    "agree": 4,
+    "side": "home",
+    "line": -1.5,
+    "price": 115,
+    "title": "St. Bonaventure 1H -1.5",
+    "est": 0.5047,
+    "edge": 0.0395,
+    "agree": 3,
     "sample": 6,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Chalk Eater",
+     "Streak Rider",
+     "Early Bird"
     ],
     "streak": 6,
-    "streakTeam": "milwaukee-panthers",
+    "streakTeam": "st-bonaventure-bonnies",
     "angles": [
      [
-      "Milwaukee 1H ATS at +21.5, season",
+      "St. Bonaventure 1H ATS at -1.5, season",
       "6-0"
      ],
      [
-      "Milwaukee 1H ATS at +21.5, last 8",
+      "St. Bonaventure 1H ATS at -1.5, last 8",
       "6-0"
      ],
      [
-      "Milwaukee 1H ATS at +21.5 on the road",
+      "St. Bonaventure 1H ATS at -1.5 at home",
       "4-0"
-     ],
-     [
-      "Florida\u2019s opponents 1H ATS at +21.5, Florida at home",
-      "4-1"
      ]
     ],
-    "info": "Milwaukee avg 1H margin on the road: -8.0",
+    "info": "St. Bonaventure avg 1H margin at home: +9.2",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Milwaukee"
+    "streakTeamName": "St. Bonaventure"
    }
   ]
  }
