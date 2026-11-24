@@ -13755,52 +13755,6 @@
     "streakTeamName": "Utah"
    },
    {
-    "id": "nfl|401873078|1q|ml|home",
-    "game": "nfl|401873078",
-    "date": "2026-11-23",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-24T01:15Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Bengals @ Commanders",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 164,
-    "title": "Commanders 1Q ML",
-    "est": 0.4286,
-    "edge": 0.0498,
-    "agree": 3,
-    "sample": 7,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 0,
-    "streakTeam": "wsh",
-    "angles": [
-     [
-      "Bengals\u2019s opponents 1Q ML, Bengals on the road",
-      "3-0-2"
-     ],
-     [
-      "Commanders 1Q ML at home",
-      "3-1-1"
-     ],
-     [
-      "Commanders 1Q ML, season",
-      "4-3-2"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Commanders"
-   },
-   {
     "id": "ncaab|401917919|1h|ml|home",
     "game": "ncaab|401917919",
     "date": "2026-11-23",
@@ -13849,6 +13803,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "North Florida"
+   },
+   {
+    "id": "nfl|401873078|1q|ml|home",
+    "game": "nfl|401873078",
+    "date": "2026-11-23",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-24T01:15Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Bengals @ Commanders",
+    "href": "nfl/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 160,
+    "title": "Commanders 1Q ML",
+    "est": 0.4333,
+    "edge": 0.0487,
+    "agree": 3,
+    "sample": 7,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "wsh",
+    "angles": [
+     [
+      "Bengals\u2019s opponents 1Q ML, Bengals on the road",
+      "3-0-2"
+     ],
+     [
+      "Commanders 1Q ML at home",
+      "3-1-1"
+     ],
+     [
+      "Commanders 1Q ML, season",
+      "4-3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Commanders"
    },
    {
     "id": "nba|401910041|1q|ats|home",
@@ -14039,8 +14039,8 @@
      ]
     ],
     "info": "Avg 1Q total in their games: 76ers 56.7 \u00b7 Trail Blazers 53.9",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Trail Blazers"
    },
    {

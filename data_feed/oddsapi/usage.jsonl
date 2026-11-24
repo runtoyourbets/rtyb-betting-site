@@ -46983,3 +46983,11 @@
 {"credits": 30, "endpoint": "/historical/sports/basketball_ncaab/events/0c0ae5203caa18488880069937104e0c/odds", "remaining": 3576700, "sport": "ncaab", "time": "2026-11-24T00:32:26+00:00"}
 {"credits": 30, "endpoint": "/historical/sports/basketball_ncaab/events/1b92acf772e896f8337c5dba069bcbd8/odds", "remaining": 3576670, "sport": "ncaab", "time": "2026-11-24T00:32:26+00:00"}
 {"credits": 30, "endpoint": "/historical/sports/basketball_ncaab/events/140bad114f25f839c65204dfbd0a5903/odds", "remaining": 3576640, "sport": "ncaab", "time": "2026-11-24T00:32:27+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_nba/events", "job": "live", "remaining": 3576640, "sport": "nba", "time": "2026-11-24T00:45:02+00:00"}
+{"credits": 9, "endpoint": "/sports/basketball_nba/events/b8dfee1fca57ec870528a14c792ad73a/odds", "job": "live", "remaining": 3576631, "sport": "nba", "time": "2026-11-24T00:45:03+00:00"}
+{"credits": 9, "endpoint": "/sports/basketball_nba/events/6caeb7cce7c8340fed588f3badd83fe0/odds", "job": "live", "remaining": 3576622, "sport": "nba", "time": "2026-11-24T00:45:03+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "job": "live", "remaining": 3576622, "sport": "ncaab", "time": "2026-11-24T00:45:04+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/11782e330b7215a8e2f0e3e4e9a27404/odds", "job": "live", "remaining": 3576616, "sport": "ncaab", "time": "2026-11-24T00:45:05+00:00"}
+{"credits": 5, "endpoint": "/sports/basketball_ncaab/events/8dac68fbecc816a6de76442cf1e28270/odds", "job": "live", "remaining": 3576611, "sport": "ncaab", "time": "2026-11-24T00:45:05+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/5a237fcf6422f6a245d462ba2a6835dc/odds", "job": "live", "remaining": 3576605, "sport": "ncaab", "time": "2026-11-24T00:45:06+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/aed6a97f577438479f8716801fd3d3f9/odds", "job": "live", "remaining": 3576599, "sport": "ncaab", "time": "2026-11-24T00:45:06+00:00"}
