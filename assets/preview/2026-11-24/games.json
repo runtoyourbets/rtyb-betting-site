@@ -570,7 +570,7 @@
    }
   ],
   "lead": "ncaaf:401866470",
-  "motd": null
+  "motd": "ncaab:401927398"
  },
  "nba": {
   "codes": [
@@ -599,7 +599,7 @@
    }
   ],
   "lead": "nba:401909315",
-  "motd": null
+  "motd": "nba:401909315"
  },
  "ncaab": {
   "codes": [
@@ -1132,7 +1132,7 @@
    }
   ],
   "lead": "ncaab:401920546",
-  "motd": null
+  "motd": "ncaab:401927398"
  },
  "ncaaf": {
   "codes": [
@@ -1760,6 +1760,6 @@
    }
   ],
   "lead": "nhl:2026020385",
-  "motd": null
+  "motd": "nhl:2026020385"
  }
 }
