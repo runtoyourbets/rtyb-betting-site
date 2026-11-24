@@ -9,7 +9,7 @@ calendar.
 
 due.json:
   {sport, weekly, matchups (the Matchups page path), regular (periods in
-   regulation, for OT), segs: [{k, label, fr, m: [{id, label, a, b, ta, tb}]}],
+   regulation, for OT), segs: [{k, label, fr, m: [{id, label, s (phones), a, b, ta, tb}]}],
    seasons: [{label, cur (the season being played now), post: [days],
               weeks: [[key, label, [days]]] (football), first, last,
               c: {seg: {market id: {ro, d: {day: [a, b, tie / push]}}}}}]}
@@ -117,13 +117,18 @@ LINES = {
 }
 
 
+# phones: short pill labels, so the 3-per-row market grid never wraps
+SHORT = {'ML Home / Away': 'ML H/A', 'ML Fav / Dog': 'ML F/D', 'Spread Home / Away': 'Spread H/A',
+         'Spread Fav / Dog': 'Spread F/D', 'Winner Home / Away': 'Win H/A', 'NRFI / YRFI': 'NRFI'}
+
+
 class Market:
     def __init__(self, mid, label, a, b, ta, tb, outcome):
         self.id, self.label, self.a, self.b, self.ta, self.tb, self.outcome = mid, label, a, b, ta, tb, outcome
         self.line = LINES[mid]
 
     def out(self):
-        return {'id': self.id, 'label': self.label, 'a': self.a, 'b': self.b, 'ta': self.ta, 'tb': self.tb}
+        return {'id': self.id, 'label': self.label, 's': SHORT.get(self.label, self.label), 'a': self.a, 'b': self.b, 'ta': self.ta, 'tb': self.tb}
 
 
 def M_HOME_ML():
@@ -332,8 +337,9 @@ def page_body(sp, today, now=None, root='__ROOT__/'):
 
 def page_meta(sp):
     h1 = f'{sports.seo_name(sp)} Due Factor'
+    by = 'week by week' if sp.get('schedule') == 'week' else 'day by day and week by week'
     return {'title': f'{h1}: {sports.seg_words(sp)} Hot and Cold Trends | Run To Your Bets', 'h1': esc(h1), 'section': 'due',
-            'desc': esc(f'{sp["label"]} {sports.segment_summary(sp)} markets running hot or cold against their season rate, day by day and week by week.')}
+            'desc': esc(f'{sp["label"]} {sports.segment_summary(sp)} markets running hot or cold against their season rate, {by}.')}
 
 
 # --------------------------------------------------------- home / hub strip

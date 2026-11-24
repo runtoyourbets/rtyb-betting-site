@@ -103,6 +103,17 @@ class PageTest(unittest.TestCase):
         self.assertEqual(doc('mlb')['seasons'][0]['label'], '2026')
         self.assertFalse(doc('mlb')['seasons'][0]['cur'])
 
+    def test_subtitle_week_by_week_for_weekly_sports(self):
+        for sp in sports.SPORTS:
+            desc = df.page_meta(sp)['desc']
+            self.assertEqual('day by day' in desc, sp.get('schedule') != 'week', sp['key'])
+            self.assertIn('week by week', desc)
+
+    def test_short_phone_labels(self):
+        got = {sp['key']: [m.out()['s'] for m in df.segments(sp)[0][3]] for sp in (sports.BY_KEY['nhl'], sports.BY_KEY['nba'])}
+        self.assertEqual(got['nhl'], ['ML H/A', 'ML F/D', 'O/U 1.5', 'BTTS', 'Ties'])
+        self.assertEqual(got['nba'], ['Spread H/A', 'Spread F/D', 'O/U', 'ML H/A', 'ML F/D', 'Ties'])
+
     def test_strip_off_renders_nothing(self):
         self.assertFalse(sports.DUE_STRIP)
         self.assertEqual(df.strip({}, TODAY, ''), '')

@@ -4205,14 +4205,14 @@
   function dfBar(name, attr, opts, cur, extra) {
     return '<div class="df2-bar' + (extra || '') + '" role="group" aria-label="' + name + '" style="--n:' + opts.length + '">' + opts.map(function(o) {
       return '<button type="button" class="df2-opt' + (o.fr ? ' fr-pill' : '') + '" ' + attr + '="' + esc(o.k) + '" aria-pressed="' + (o.k === cur) + '">' +
-        (o.fr && premiumLocked('fullRun') ? FR_LOCK : '') + esc(o.label) + '</button>';
+        (o.fr && premiumLocked('fullRun') ? FR_LOCK : '') + (o.s && o.s !== o.label ? '<span class="df2-wide">' + esc(o.label) + '</span><span class="df2-narrow">' + esc(o.s) + '</span>' : esc(o.label)) + '</button>';
     }).join('') + '</div>';
   }
   function dfTable(first, m, data, totalLabel, base) {
     function row(label, c, cls) {
       var p = dfRate(c);
-      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><th scope="row">' + esc(label) + '</th><td><span class="df-c">' + (c[0] + c[1] + c[2]) + '</span></td>' +
-        '<td><span class="df-c">' + c[0] + '</span></td><td><span class="df-c">' + c[1] + '</span></td>' +
+      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><th scope="row">' + esc(label) + '</th><td class="df2-n">' + (c[0] + c[1] + c[2]) + '</td>' +
+        '<td class="df2-n">' + c[0] + '</td><td class="df2-n">' + c[1] + '</td>' +
         '<td><span class="df-c ' + dfTint(p, base, m) + '">' + (p == null ? '-' : p + '%') + '</span></td></tr>';
     }
     return '<table class="df-table df2-table"><thead><tr><th scope="col">' + first + '</th><th scope="col">GP</th><th scope="col">' + esc(m.a) + '</th><th scope="col">' + esc(m.b) + '</th><th scope="col">' + esc(m.a) + ' %</th></tr></thead><tbody>' +
@@ -4260,7 +4260,7 @@
       dfBar('View', 'data-df-view', views, DF.view) +
       dfBar('Season', 'data-df-season', DUE.seasons.map(function(x, i) { return { k: String(i), label: x.label }; }), String(DF.s)) + '</div>' +
       dfBar('Segment', 'data-df-seg', DUE.segs.map(function(x) { return { k: x.k, label: x.label, fr: x.fr }; }), seg.k) +
-      dfBar('Market', 'data-df-m', seg.m.map(function(x) { return { k: x.id, label: x.label }; }), m.id, ' df2-markets') + '</div>' +
+      dfBar('Market', 'data-df-m', seg.m.map(function(x) { return { k: x.id, label: x.label, s: x.s }; }), m.id, ' df2-markets') + '</div>' +
       '<p class="df2-sum">' + (seasonC[0] + seasonC[1] + seasonC[2] ? esc(dfSummary({ period: per.label, side: m.a, c: dfSum(days, per.keys), season: seasonC, prevRate: prevRate }))
         : 'No ' + esc(s.label) + ' games with a line for this market') + '</p>' +
       (cm.ro ? '<p class="df2-ro">Results only: no lines for this market</p>' : '') + card;
