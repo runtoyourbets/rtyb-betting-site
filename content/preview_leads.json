@@ -318,5 +318,61 @@
    "start": "2026-11-24T02:40:00Z",
    "trend": "SEA has gone Over 1.5"
   }
+ },
+ "2026-11-24": {
+  "all": {
+   "away": "kent-state-golden-flashes",
+   "chip": "EMU UNDER 1Q TOTAL · 9 OF 11",
+   "home": "eastern-michigan-eagles",
+   "id": "401866470",
+   "sport": "ncaaf",
+   "start": "2026-11-25T00:00Z",
+   "trend": "EMU has gone Under the 1st quarter total"
+  },
+  "nba": {
+   "away": "bos",
+   "chip": "BOS UNDER 1Q TOTAL · 13 OF 17",
+   "home": "wsh",
+   "id": "401909315",
+   "sport": "nba",
+   "start": "2026-11-25T01:00Z",
+   "trend": "BOS has gone Under the 1st quarter total"
+  },
+  "ncaab": {
+   "away": "north-dakota-fighting-hawks",
+   "chip": "FADE TEAMS OFF A BLOWOUT · 1H ML · 60% (250-165)",
+   "home": "detroit-mercy-titans",
+   "id": "401920546",
+   "sport": "ncaab",
+   "start": "2026-11-24T20:00Z",
+   "trend": "Fade teams off a blowout (1H ML)"
+  },
+  "ncaaf": {
+   "away": "florida-atlantic-owls",
+   "chip": "ECU UNDER 1Q TOTAL · 11 OF 11",
+   "home": "east-carolina-pirates",
+   "id": "401862837",
+   "sport": "ncaaf",
+   "start": "2026-11-28T18:00Z",
+   "trend": "ECU has gone Under the 1st quarter total"
+  },
+  "nfl": {
+   "away": "ten",
+   "chip": "TEN LOST 1H · 10 OF 10",
+   "home": "jax",
+   "id": "401873090",
+   "sport": "nfl",
+   "start": "2026-11-29T18:00Z",
+   "trend": "TEN has lost the 1st half"
+  },
+  "nhl": {
+   "away": "VGK",
+   "chip": "EDM BTTS NO 1P · 21 OF 26",
+   "home": "EDM",
+   "id": "2026020385",
+   "sport": "nhl",
+   "start": "2026-11-25T01:00:00Z",
+   "trend": "EDM has gone BTTS No"
+  }
  }
 }
