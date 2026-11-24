@@ -239,12 +239,12 @@
    },
    {
     "label": "NCAAB · Lindenwood at New Haven · 4:00 PM ET",
-    "trends": 4,
+    "trends": 5,
     "value": "ncaab:401929035"
    },
    {
     "label": "NCAAB · Tulsa at Illinois State · 4:30 PM ET",
-    "trends": 5,
+    "trends": 6,
     "value": "ncaab:401921666"
    },
    {
@@ -404,7 +404,7 @@
    },
    {
     "label": "NCAAB · Tarleton State at Weber State · 7:00 PM ET",
-    "trends": 3,
+    "trends": 4,
     "value": "ncaab:401925950"
    },
    {
@@ -489,7 +489,7 @@
    },
    {
     "label": "NCAAB · Clemson at Washington · 8:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaab:401921711"
    },
    {
@@ -845,12 +845,12 @@
    },
    {
     "label": "Lindenwood at New Haven · 4:00 PM ET",
-    "trends": 4,
+    "trends": 5,
     "value": "ncaab:401929035"
    },
    {
     "label": "Tulsa at Illinois State · 4:30 PM ET",
-    "trends": 5,
+    "trends": 6,
     "value": "ncaab:401921666"
    },
    {
@@ -1005,7 +1005,7 @@
    },
    {
     "label": "Tarleton State at Weber State · 7:00 PM ET",
-    "trends": 3,
+    "trends": 4,
     "value": "ncaab:401925950"
    },
    {
@@ -1070,7 +1070,7 @@
    },
    {
     "label": "Clemson at Washington · 8:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "ncaab:401921711"
    },
    {
@@ -1566,7 +1566,7 @@
    },
    {
     "label": "UAB at North Texas · 4:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaaf:401862843"
    },
    {
