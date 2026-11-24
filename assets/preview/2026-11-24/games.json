@@ -203,7 +203,7 @@
     "value": "ncaab:401928859"
    },
    {
-    "label": "NCAAB · Oregon State at San Francisco · 2:00 PM ET",
+    "label": "NCAAB · San Francisco at Oregon State · 2:00 PM ET",
     "trends": 6,
     "value": "ncaab:401917676"
    },
@@ -233,7 +233,7 @@
     "value": "ncaab:401906853"
    },
    {
-    "label": "NCAAB · Long Beach State at Arkansas State · 3:30 PM ET",
+    "label": "NCAAB · Arkansas State at Long Beach State · 3:30 PM ET",
     "trends": 10,
     "value": "ncaab:401924267"
    },
@@ -809,7 +809,7 @@
     "value": "ncaab:401928859"
    },
    {
-    "label": "Oregon State at San Francisco · 2:00 PM ET",
+    "label": "San Francisco at Oregon State · 2:00 PM ET",
     "trends": 6,
     "value": "ncaab:401917676"
    },
@@ -839,7 +839,7 @@
     "value": "ncaab:401906853"
    },
    {
-    "label": "Long Beach State at Arkansas State · 3:30 PM ET",
+    "label": "Arkansas State at Long Beach State · 3:30 PM ET",
     "trends": 10,
     "value": "ncaab:401924267"
    },
@@ -1331,7 +1331,7 @@
    },
    {
     "label": "Tulsa at UTSA · 12:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaaf:401862840"
    },
    {

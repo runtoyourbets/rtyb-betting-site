@@ -14505,50 +14505,50 @@
     "streakTeamName": "Purdue Fort Wayne"
    },
    {
-    "id": "ncaaf|401866471|1h|ml|away",
-    "game": "ncaaf|401866471",
+    "id": "ncaab|401928859|1h|ml|home",
+    "game": "ncaab|401928859",
     "date": "2026-11-24",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-25T00:00Z",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-24T18:30Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Miami (OH) @ Western Michigan",
-    "href": "college-football/matchups/",
+    "matchup": "UIC @ Rice",
+    "href": "college-basketball/matchups/",
     "market": "ml",
-    "side": "away",
+    "side": "home",
     "line": null,
-    "price": 180,
-    "title": "Miami (OH) 1H ML",
-    "est": 0.3976,
-    "edge": 0.0405,
+    "price": 210,
+    "title": "Rice 1H ML",
+    "est": 0.3632,
+    "edge": 0.0406,
     "agree": 3,
-    "sample": 10,
-    "tier": "B",
+    "sample": 6,
+    "tier": "C",
     "tags": [
      "Dog Hunter"
     ],
-    "streak": 1,
-    "streakTeam": "miami-oh-redhawks",
+    "streak": 3,
+    "streakTeam": "rice-owls",
     "angles": [
      [
-      "Miami (OH) 1H ML on the road",
-      "4-1"
+      "Rice 1H ML, season",
+      "4-2"
      ],
      [
-      "Miami (OH) 1H ML, last 8",
-      "5-2-1"
+      "Rice 1H ML, last 8",
+      "4-2"
      ],
      [
-      "Miami (OH) 1H ML, season",
-      "7-3-1"
+      "Rice 1H ML at home",
+      "2-1"
      ]
     ],
     "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Miami (OH)"
+    "streakTeamName": "Rice"
    },
    {
     "id": "ncaab|401920889|1h|ats|away",
@@ -14596,6 +14596,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "New Hampshire"
+   },
+   {
+    "id": "ncaaf|401866471|1h|ml|away",
+    "game": "ncaaf|401866471",
+    "date": "2026-11-24",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-25T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Miami (OH) @ Western Michigan",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 170,
+    "title": "Miami (OH) 1H ML",
+    "est": 0.4075,
+    "edge": 0.0371,
+    "agree": 3,
+    "sample": 10,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "miami-oh-redhawks",
+    "angles": [
+     [
+      "Miami (OH) 1H ML on the road",
+      "4-1"
+     ],
+     [
+      "Miami (OH) 1H ML, last 8",
+      "5-2-1"
+     ],
+     [
+      "Miami (OH) 1H ML, season",
+      "7-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Miami (OH)"
    },
    {
     "id": "ncaab|401911458|1h|ml|home",
@@ -14688,49 +14734,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Santa Clara"
-   },
-   {
-    "id": "ncaab|401915943|1h|ml|away",
-    "game": "ncaab|401915943",
-    "date": "2026-11-24",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-25T03:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Oregon @ St. John's",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 250,
-    "title": "Oregon 1H ML",
-    "est": 0.3175,
-    "edge": 0.0317,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "oregon-ducks",
-    "angles": [
-     [
-      "Oregon 1H ML, season",
-      "4-0"
-     ],
-     [
-      "Oregon 1H ML, last 8",
-      "4-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Oregon"
    }
   ]
  }
