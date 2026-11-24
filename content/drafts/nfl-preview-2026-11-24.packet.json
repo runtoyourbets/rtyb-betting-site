@@ -1,0 +1,4416 @@
+{
+ "sport": "NFL",
+ "segments": "1st quarter and 1st half",
+ "date": "2026-11-24",
+ "games_on_the_slate": 16,
+ "lead_game": "Tennessee Titans at Jacksonville Jaguars",
+ "matchup_of_the_day": "Washington Commanders at Arizona Cardinals",
+ "games": [
+  {
+   "id": "401873079",
+   "matchup": "Green Bay Packers at Los Angeles Rams",
+   "away": {
+    "code": "GB",
+    "name": "Green Bay Packers"
+   },
+   "home": {
+    "code": "LAR",
+    "name": "Los Angeles Rams"
+   },
+   "start": "Wednesday 8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Fade small underdogs (1Q ML)",
+     "season_record": "48-29",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Back small favorites (1Q ML)",
+     "season_record": "34-25",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: conference games (1H O/U)",
+     "season_record": "32-27",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "GB has gone Under the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "LAR has gone Under the 1st half total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Over: conference games (1Q O/U)",
+     "season_record": "31-27",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "GB has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "LAR has failed to cover the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "LAR has gone Under the 1st quarter total",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "GB has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "LAR has failed to cover the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "GB has won the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Rams have failed to cover the 1st quarter spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "GB": {
+       "open": 107,
+       "now": 105,
+       "best_book": "DraftKings"
+      },
+      "LAR": {
+       "open": -122,
+       "now": -118,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "GB": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -155,
+       "best_book": "DraftKings"
+      },
+      "LAR": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 130,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 8.5,
+      "now": 7.5,
+      "over": -105,
+      "under": -112,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "GB": {
+       "open": 120,
+       "now": 115,
+       "best_book": "BetMGM"
+      },
+      "LAR": {
+       "open": -135,
+       "now": -128,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "GB": {
+       "open": 1.5,
+       "now": 0.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      },
+      "LAR": {
+       "open": -1.5,
+       "now": -0.5,
+       "price": -110,
+       "best_book": "BetMGM"
+      }
+     },
+     "total": {
+      "open": 22.5,
+      "now": 21.5,
+      "over": -110,
+      "under": -108,
+      "best_book_over": "BetMGM"
+     }
+    }
+   },
+   "window": "Wednesday"
+  },
+  {
+   "id": "401873081",
+   "matchup": "Chicago Bears at Detroit Lions",
+   "away": {
+    "code": "CHI",
+    "name": "Chicago Bears"
+   },
+   "home": {
+    "code": "DET",
+    "name": "Detroit Lions"
+   },
+   "start": "Thursday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "38-20",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "CHI has won the 1st half",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade small underdogs (1Q ML)",
+     "season_record": "48-29",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Back small favorites (1Q ML)",
+     "season_record": "34-25",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "CHI has won the 1st quarter",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "30-22",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "CHI has gone Under the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "DET has gone Under the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Over: home underdog games (1Q O/U)",
+     "season_record": "31-28",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "Back home underdogs (1Q Spread)",
+     "season_record": "33-27",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "CHI has covered the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "DET has failed to cover the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "CHI has covered the 1st half spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "CHI has gone Under the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "DET has gone Under the 1st half total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "DET has won the 1st half",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    }
+   ],
+   "streaks": [
+    "Bears have won the 1st half 5 straight",
+    "Bears have won the 1st quarter 5 straight",
+    "Lions 1st halves have gone Under 5 straight",
+    "Lions have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "CHI": {
+       "open": -115,
+       "now": -120,
+       "best_book": "FanDuel"
+      },
+      "DET": {
+       "open": 110,
+       "now": 105,
+       "best_book": "BetMGM"
+      }
+     },
+     "spread": {
+      "CHI": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 130,
+       "best_book": "DraftKings"
+      },
+      "DET": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -155,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 10.5,
+      "now": 10.5,
+      "over": 118,
+      "under": -130,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "CHI": {
+       "open": -128,
+       "now": -130,
+       "best_book": "DraftKings"
+      },
+      "DET": {
+       "open": 114,
+       "now": 110,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "CHI": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -110,
+       "best_book": "BetMGM"
+      },
+      "DET": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -108,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 27.5,
+      "now": 27.5,
+      "over": 100,
+      "under": -108,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Thursday"
+  },
+  {
+   "id": "401873080",
+   "matchup": "Philadelphia Eagles at Dallas Cowboys",
+   "away": {
+    "code": "PHI",
+    "name": "Philadelphia Eagles"
+   },
+   "home": {
+    "code": "DAL",
+    "name": "Dallas Cowboys"
+   },
+   "start": "Thursday 4:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "PHI has lost the 1st quarter",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "DAL has won the 1st quarter",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "30-22",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "PHI has gone Under the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "PHI has failed to cover the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "DAL has covered the 1st quarter spread",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "PHI has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "PHI has won the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Cowboys have covered the 1st half spread 5 straight",
+    "Eagles have covered the 1st quarter spread 3 straight",
+    "Eagles 1st quarters have gone Over 4 straight",
+    "Eagles have won the 1st quarter 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "PHI": {
+       "open": 198,
+       "now": 198,
+       "best_book": "FanDuel"
+      },
+      "DAL": {
+       "open": -218,
+       "now": -225,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "PHI": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": 100,
+       "best_book": "FanDuel"
+      },
+      "DAL": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -115,
+      "under": 102,
+      "best_book_over": "BetMGM"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "PHI": {
+       "open": 260,
+       "now": 260,
+       "best_book": "BetMGM"
+      },
+      "DAL": {
+       "open": -280,
+       "now": -298,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "PHI": {
+       "open": 5.5,
+       "now": 5.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      },
+      "DAL": {
+       "open": -5.5,
+       "now": -5.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 24.5,
+      "now": 24.5,
+      "over": 105,
+      "under": -120,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Thursday"
+  },
+  {
+   "id": "401873082",
+   "matchup": "Kansas City Chiefs at Buffalo Bills",
+   "away": {
+    "code": "KC",
+    "name": "Kansas City Chiefs"
+   },
+   "home": {
+    "code": "BUF",
+    "name": "Buffalo Bills"
+   },
+   "start": "Thursday 8:20 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "BUF has won the 1st half",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Fade small underdogs (1Q ML)",
+     "season_record": "48-29",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "BUF has won the 1st quarter",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Over: conference games (1H O/U)",
+     "season_record": "32-27",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "KC has gone Over the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "BUF has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Over: conference games (1Q O/U)",
+     "season_record": "31-27",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "KC has gone Over the 1st quarter total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "KC has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "BUF has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "KC has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "BUF has gone Under the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "KC has won the 1st half",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    }
+   ],
+   "streaks": [
+    "Bills have won the 1st half 4 straight",
+    "Bills have won the 1st quarter 4 straight",
+    "Bills have covered the 1st quarter spread 4 straight",
+    "Bills 1st quarters have gone Under 3 straight",
+    "Chiefs have won the 1st half 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "KC": {
+       "open": 131,
+       "now": 144,
+       "best_book": "FanDuel"
+      },
+      "BUF": {
+       "open": -135,
+       "now": -160,
+       "best_book": "BetMGM"
+      }
+     },
+     "spread": {
+      "KC": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -125,
+       "best_book": "Fanatics"
+      },
+      "BUF": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -118,
+      "under": -102,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "KC": {
+       "open": 130,
+       "now": 140,
+       "best_book": "FanDuel"
+      },
+      "BUF": {
+       "open": -140,
+       "now": -150,
+       "best_book": "BetMGM"
+      }
+     },
+     "spread": {
+      "KC": {
+       "open": 1.5,
+       "now": 2.5,
+       "price": 100,
+       "best_book": "FanDuel"
+      },
+      "BUF": {
+       "open": -1.5,
+       "now": -2.5,
+       "price": -108,
+       "best_book": "BetMGM"
+      }
+     },
+     "total": {
+      "open": 25.5,
+      "now": 23.5,
+      "over": -120,
+      "under": 102,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Thursday"
+  },
+  {
+   "id": "401873084",
+   "matchup": "Atlanta Falcons at Minnesota Vikings",
+   "away": {
+    "code": "ATL",
+    "name": "Atlanta Falcons"
+   },
+   "home": {
+    "code": "MIN",
+    "name": "Minnesota Vikings"
+   },
+   "start": "Sunday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "ATL has lost the 1st half",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "MIN has gone Under the 1st half total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Over: conference games (1H O/U)",
+     "season_record": "32-27",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "ATL has gone Over the 1st half total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "ATL has failed to cover the 1st half spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "MIN has gone Under the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Over: conference games (1Q O/U)",
+     "season_record": "31-27",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "ATL has gone Over the 1st quarter total",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "MIN has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Falcons have lost the 1st half 5 straight",
+    "Falcons have failed to cover the 1st half spread 5 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "ATL": {
+       "open": 160,
+       "now": 168,
+       "best_book": "FanDuel"
+      },
+      "MIN": {
+       "open": -190,
+       "now": -180,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "ATL": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "MIN": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 105,
+      "under": -122,
+      "best_book_over": "Caesars"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "ATL": {
+       "open": 205,
+       "now": 198,
+       "best_book": "FanDuel"
+      },
+      "MIN": {
+       "open": -235,
+       "now": -235,
+       "best_book": "Fanatics"
+      }
+     },
+     "spread": {
+      "ATL": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": 100,
+       "best_book": "FanDuel"
+      },
+      "MIN": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 20.5,
+      "now": 20.5,
+      "over": -110,
+      "under": -108,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 1:00 PM"
+  },
+  {
+   "id": "401873085",
+   "matchup": "Baltimore Ravens at Houston Texans",
+   "away": {
+    "code": "BAL",
+    "name": "Baltimore Ravens"
+   },
+   "home": {
+    "code": "HOU",
+    "name": "Houston Texans"
+   },
+   "start": "Sunday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "HOU has won the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "HOU has won the 1st quarter",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Over: conference games (1H O/U)",
+     "season_record": "32-27",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "HOU has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: conference games (1Q O/U)",
+     "season_record": "31-27",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "BAL has gone Over the 1st quarter total",
+     "season_record": "9-2",
+     "season_pct": "82%"
+    },
+    {
+     "trend": "HOU has gone Over the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "HOU has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "BAL has covered the 1st half spread",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "BAL has won the 1st half",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    }
+   ],
+   "streaks": [
+    "Texans have won the 1st half 3 straight",
+    "Texans have won the 1st quarter 3 straight",
+    "Texans have covered the 1st half spread 3 straight",
+    "Ravens 1st quarters have gone Over 4 straight",
+    "Texans 1st quarters have gone Over 4 straight",
+    "Texans have covered the 1st quarter spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "BAL": {
+       "open": 160,
+       "now": 152,
+       "best_book": "FanDuel"
+      },
+      "HOU": {
+       "open": -170,
+       "now": -175,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "BAL": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "HOU": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -113,
+      "under": -102,
+      "best_book_over": "Caesars"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "BAL": {
+       "open": 185,
+       "now": 192,
+       "best_book": "FanDuel"
+      },
+      "HOU": {
+       "open": -225,
+       "now": -225,
+       "best_book": "Fanatics"
+      }
+     },
+     "spread": {
+      "BAL": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": 100,
+       "best_book": "FanDuel"
+      },
+      "HOU": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -118,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 23.5,
+      "now": 23.5,
+      "over": 100,
+      "under": -108,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 1:00 PM"
+  },
+  {
+   "id": "401873087",
+   "matchup": "New Orleans Saints at Cincinnati Bengals",
+   "away": {
+    "code": "NO",
+    "name": "New Orleans Saints"
+   },
+   "home": {
+    "code": "CIN",
+    "name": "Cincinnati Bengals"
+   },
+   "start": "Sunday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "NO has lost the 1st half",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "CIN has won the 1st half",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "NO has lost the 1st quarter",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Under: non-conference games (1H O/U)",
+     "season_record": "33-18",
+     "season_pct": "65%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "NO has gone Under the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "NO has failed to cover the 1st half spread",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "NO has gone Under the 1st quarter total",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "NO has failed to cover the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "CIN has failed to cover the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "CIN has gone Over the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Bengals have won the 1st half 4 straight",
+    "Saints 1st quarters have gone Under 6 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "NO": {
+       "open": 230,
+       "now": 230,
+       "best_book": "theScore Bet"
+      },
+      "CIN": {
+       "open": -245,
+       "now": -270,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "NO": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -125,
+       "best_book": "DraftKings"
+      },
+      "CIN": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": 108,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -142,
+      "under": 122,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "NO": {
+       "open": 320,
+       "now": 330,
+       "best_book": "DraftKings"
+      },
+      "CIN": {
+       "open": -330,
+       "now": -400,
+       "best_book": "Fanatics"
+      }
+     },
+     "spread": {
+      "NO": {
+       "open": 6.5,
+       "now": 6.5,
+       "price": 100,
+       "best_book": "DraftKings"
+      },
+      "CIN": {
+       "open": -6.5,
+       "now": -6.5,
+       "price": -120,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 26.5,
+      "now": 26.5,
+      "over": -105,
+      "under": -112,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 1:00 PM"
+  },
+  {
+   "id": "401873088",
+   "matchup": "New York Giants at Indianapolis Colts",
+   "away": {
+    "code": "NYG",
+    "name": "New York Giants"
+   },
+   "home": {
+    "code": "IND",
+    "name": "Indianapolis Colts"
+   },
+   "start": "Sunday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "38-20",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Under: non-conference games (1H O/U)",
+     "season_record": "33-18",
+     "season_pct": "65%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "NYG has gone Under the 1st half total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "NYG has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "IND has gone Under the 1st quarter total",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Over: home underdog games (1Q O/U)",
+     "season_record": "31-28",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "Back home underdogs (1Q Spread)",
+     "season_record": "33-27",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "IND has failed to cover the 1st quarter spread",
+     "season_record": "8-3",
+     "season_pct": "73%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "NYG": {
+       "open": -175,
+       "now": -170,
+       "best_book": "DraftKings"
+      },
+      "IND": {
+       "open": 152,
+       "now": 152,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "NYG": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "IND": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -118,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 109,
+      "under": -125,
+      "best_book_over": "Caesars"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "NYG": {
+       "open": -235,
+       "now": -235,
+       "best_book": "FanDuel"
+      },
+      "IND": {
+       "open": 205,
+       "now": 195,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "NYG": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -115,
+       "best_book": "FanDuel"
+      },
+      "IND": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -102,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 20.5,
+      "now": 20.5,
+      "over": -105,
+      "under": -112,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 1:00 PM"
+  },
+  {
+   "id": "401873089",
+   "matchup": "New York Jets at Miami Dolphins",
+   "away": {
+    "code": "NYJ",
+    "name": "New York Jets"
+   },
+   "home": {
+    "code": "MIA",
+    "name": "Miami Dolphins"
+   },
+   "start": "Sunday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "38-20",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "MIA has lost the 1st half",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Fade small underdogs (1Q ML)",
+     "season_record": "48-29",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Back small favorites (1Q ML)",
+     "season_record": "34-25",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "NYJ has gone Under the 1st half total",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "NYJ has covered the 1st half spread",
+     "season_record": "8-3",
+     "season_pct": "73%"
+    },
+    {
+     "trend": "MIA has failed to cover the 1st half spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "30-22",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "MIA has gone Under the 1st quarter total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Over: home underdog games (1Q O/U)",
+     "season_record": "31-28",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "Back home underdogs (1Q Spread)",
+     "season_record": "33-27",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "MIA has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Dolphins have lost the 1st half 3 straight",
+    "Jets have covered the 1st half spread 4 straight",
+    "Jets 1st quarters have gone Under 3 straight",
+    "Dolphins 1st quarters have gone Under 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "NYJ": {
+       "open": -130,
+       "now": -148,
+       "best_book": "DraftKings"
+      },
+      "MIA": {
+       "open": 128,
+       "now": 126,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "NYJ": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 115,
+       "best_book": "Fanatics"
+      },
+      "MIA": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -130,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 122,
+      "under": -135,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "NYJ": {
+       "open": -155,
+       "now": -175,
+       "best_book": "Fanatics"
+      },
+      "MIA": {
+       "open": 154,
+       "now": 154,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "NYJ": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -120,
+       "best_book": "FanDuel"
+      },
+      "MIA": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": 102,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 20.5,
+      "now": 20.5,
+      "over": 110,
+      "under": -120,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 1:00 PM"
+  },
+  {
+   "id": "401873090",
+   "matchup": "Tennessee Titans at Jacksonville Jaguars",
+   "away": {
+    "code": "TEN",
+    "name": "Tennessee Titans"
+   },
+   "home": {
+    "code": "JAX",
+    "name": "Jacksonville Jaguars"
+   },
+   "start": "Sunday 1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "TEN has lost the 1st half",
+     "season_record": "10-0",
+     "season_pct": "100%"
+    },
+    {
+     "trend": "JAX has won the 1st half",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "JAX has won the 1st quarter",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "TEN has failed to cover the 1st half spread",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "JAX has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "30-22",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "JAX has gone Under the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "TEN has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "JAX has covered the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "TEN has gone Over the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "TEN has gone Over the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Titans have lost the 1st half 10 straight",
+    "Titans 1st quarters have gone Over 4 straight",
+    "Jaguars 1st quarters have gone Over 3 straight",
+    "Titans 1st halves have gone Over 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "TEN": {
+       "open": 285,
+       "now": 270,
+       "best_book": "FanDuel"
+      },
+      "JAX": {
+       "open": -310,
+       "now": -305,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "TEN": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "JAX": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -125,
+      "under": 106,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "TEN": {
+       "open": 455,
+       "now": 450,
+       "best_book": "FanDuel"
+      },
+      "JAX": {
+       "open": -500,
+       "now": -550,
+       "best_book": "Fanatics"
+      }
+     },
+     "spread": {
+      "TEN": {
+       "open": 8.5,
+       "now": 8.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      },
+      "JAX": {
+       "open": -8.5,
+       "now": -8.5,
+       "price": -105,
+       "best_book": "theScore Bet"
+      }
+     },
+     "total": {
+      "open": 24.5,
+      "now": 24.5,
+      "over": 105,
+      "under": -122,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 1:00 PM",
+   "headline_trend": {
+    "trend": "TEN has lost the 1st half",
+    "card": "TEN LOST 1H · 10 OF 10"
+   }
+  },
+  {
+   "id": "401873093",
+   "matchup": "New England Patriots at Los Angeles Chargers",
+   "away": {
+    "code": "NE",
+    "name": "New England Patriots"
+   },
+   "home": {
+    "code": "LAC",
+    "name": "Los Angeles Chargers"
+   },
+   "start": "Sunday 4:05 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "NE has lost the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "NE has gone Under the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Over: conference games (1H O/U)",
+     "season_record": "32-27",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: conference games (1Q O/U)",
+     "season_record": "31-27",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "Over: home underdog games (1Q O/U)",
+     "season_record": "31-28",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "LAC has gone Over the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back home underdogs (1Q Spread)",
+     "season_record": "33-27",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "NE has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "LAC has failed to cover the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "LAC has failed to cover the 1st half spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "LAC has lost the 1st half",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    }
+   ],
+   "streaks": [
+    "Patriots have lost the 1st half 4 straight",
+    "Chargers 1st halves have gone Over 3 straight",
+    "Patriots have failed to cover the 1st quarter spread 4 straight",
+    "Patriots have failed to cover the 1st half spread 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "NE": {
+       "open": -107,
+       "now": -110,
+       "best_book": "FanDuel"
+      },
+      "LAC": {
+       "open": -105,
+       "now": -109,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "NE": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -182,
+       "best_book": "Caesars"
+      },
+      "LAC": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 150,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 6.5,
+      "now": 6.5,
+      "over": -118,
+      "under": -102,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "NE": {
+       "open": 120,
+       "now": -105,
+       "best_book": "Fanatics"
+      },
+      "LAC": {
+       "open": -110,
+       "now": -115,
+       "best_book": "Fanatics"
+      }
+     },
+     "spread": {
+      "NE": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -140,
+       "best_book": "FanDuel"
+      },
+      "LAC": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": 120,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 17.5,
+      "now": 16.5,
+      "over": -125,
+      "under": 105,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 4:25 PM"
+  },
+  {
+   "id": "401873091",
+   "matchup": "Seattle Seahawks at San Francisco 49ers",
+   "away": {
+    "code": "SEA",
+    "name": "Seattle Seahawks"
+   },
+   "home": {
+    "code": "SF",
+    "name": "San Francisco 49ers"
+   },
+   "start": "Sunday 4:25 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "SEA has lost the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "SF has won the 1st half",
+     "season_record": "9-1",
+     "season_pct": "90%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Fade small underdogs (1Q ML)",
+     "season_record": "48-29",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Back small favorites (1Q ML)",
+     "season_record": "34-25",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "SF has won the 1st quarter",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "SEA has gone Under the 1st half total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "SEA has failed to cover the 1st half spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "SF has covered the 1st half spread",
+     "season_record": "8-2",
+     "season_pct": "80%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "30-22",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "SEA has gone Under the 1st quarter total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "SEA has failed to cover the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "SF has covered the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "SF has gone Over the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "49ers have won the 1st half 6 straight",
+    "Seahawks 1st halves have gone Under 5 straight",
+    "Seahawks have failed to cover the 1st quarter spread 4 straight",
+    "49ers 1st quarters have gone Over 6 straight",
+    "49ers 1st halves have gone Over 4 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "SEA": {
+       "open": 124,
+       "now": 118,
+       "best_book": "FanDuel"
+      },
+      "SF": {
+       "open": -130,
+       "now": -135,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "SEA": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -140,
+       "best_book": "Fanatics"
+      },
+      "SF": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 120,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 9.5,
+      "now": 9.5,
+      "over": -106,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "SEA": {
+       "open": 130,
+       "now": 130,
+       "best_book": "DraftKings"
+      },
+      "SF": {
+       "open": -140,
+       "now": -155,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "SEA": {
+       "open": 1.5,
+       "now": 2.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      },
+      "SF": {
+       "open": -1.5,
+       "now": -2.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 23.5,
+      "now": 23.5,
+      "over": 105,
+      "under": -120,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday 4:25 PM"
+  },
+  {
+   "id": "401873092",
+   "matchup": "Washington Commanders at Arizona Cardinals",
+   "away": {
+    "code": "WSH",
+    "name": "Washington Commanders"
+   },
+   "home": {
+    "code": "ARI",
+    "name": "Arizona Cardinals"
+   },
+   "start": "Sunday 4:25 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back road favorites (1H ML)",
+     "season_record": "38-20",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "ARI has lost the 1st half",
+     "season_record": "8-3",
+     "season_pct": "73%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "WSH has gone Under the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "ARI has gone Under the 1st half total",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Over: conference games (1H O/U)",
+     "season_record": "32-27",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "WSH has covered the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "ARI has failed to cover the 1st half spread",
+     "season_record": "8-3",
+     "season_pct": "73%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "WSH has gone Under the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "ARI has gone Under the 1st quarter total",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Over: conference games (1Q O/U)",
+     "season_record": "31-27",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "Over: home underdog games (1Q O/U)",
+     "season_record": "31-28",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "Back home underdogs (1Q Spread)",
+     "season_record": "33-27",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "WSH has covered the 1st quarter spread",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    }
+   ],
+   "streaks": [
+    "Cardinals have lost the 1st half 5 straight",
+    "Commanders 1st halves have gone Under 3 straight",
+    "Commanders have covered the 1st half spread 4 straight",
+    "Cardinals have failed to cover the 1st half spread 5 straight",
+    "Commanders 1st quarters have gone Under 3 straight",
+    "Commanders have covered the 1st quarter spread 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "WSH": {
+       "open": -192,
+       "now": -205,
+       "best_book": "DraftKings"
+      },
+      "ARI": {
+       "open": 170,
+       "now": 176,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "WSH": {
+       "open": -0.5,
+       "now": -2.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      },
+      "ARI": {
+       "open": 0.5,
+       "now": 2.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 114,
+      "under": -128,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "WSH": {
+       "open": -258,
+       "now": -260,
+       "best_book": "Fanatics"
+      },
+      "ARI": {
+       "open": 215,
+       "now": 225,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "WSH": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": 100,
+       "best_book": "DraftKings"
+      },
+      "ARI": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": -110,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 20.5,
+      "now": 20.5,
+      "over": 105,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   },
+   "window": "Sunday 4:25 PM"
+  },
+  {
+   "id": "401873086",
+   "matchup": "Las Vegas Raiders at Cleveland Browns",
+   "away": {
+    "code": "LV",
+    "name": "Las Vegas Raiders"
+   },
+   "home": {
+    "code": "CLE",
+    "name": "Cleveland Browns"
+   },
+   "start": "Sunday 8:20 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1H ML)",
+     "season_record": "58-17",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1H ML)",
+     "season_record": "73-26",
+     "season_pct": "74%"
+    },
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "Back big favorites (1Q ML)",
+     "season_record": "40-18",
+     "season_pct": "69%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Fade small underdogs (1Q ML)",
+     "season_record": "48-29",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Under: rest edge games (1H O/U)",
+     "season_record": "38-21",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Under: team off a blowout (1H O/U)",
+     "season_record": "30-19",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "Over: conference games (1H O/U)",
+     "season_record": "32-27",
+     "season_pct": "54%"
+    },
+    {
+     "trend": "LV has gone Over the 1st half total",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "Fade big underdogs (1H Spread)",
+     "season_record": "45-35",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Back big favorites (1H Spread)",
+     "season_record": "59-46",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Under: rest edge games (1Q O/U)",
+     "season_record": "34-24",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: conference games (1Q O/U)",
+     "season_record": "31-27",
+     "season_pct": "53%"
+    },
+    {
+     "trend": "LV has gone Over the 1st quarter total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "CLE has gone Over the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "CLE has failed to cover the 1st quarter spread",
+     "season_record": "9-1",
+     "season_pct": "90%"
+    },
+    {
+     "trend": "CLE has lost the 1st quarter",
+     "season_record": "9-1",
+     "season_pct": "90%"
+    },
+    {
+     "trend": "LV has covered the 1st half spread",
+     "season_record": "7-4",
+     "season_pct": "64%"
+    },
+    {
+     "trend": "CLE has lost the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Browns have failed to cover the 1st quarter spread 7 straight",
+    "Browns have lost the 1st quarter 7 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "LV": {
+       "open": 142,
+       "now": 144,
+       "best_book": "FanDuel"
+      },
+      "CLE": {
+       "open": -154,
+       "now": -155,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "LV": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -125,
+       "best_book": "Fanatics"
+      },
+      "CLE": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 114,
+      "under": -135,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "LV": {
+       "open": 166,
+       "now": 172,
+       "best_book": "FanDuel"
+      },
+      "CLE": {
+       "open": -180,
+       "now": -190,
+       "best_book": "Fanatics"
+      }
+     },
+     "spread": {
+      "LV": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -115,
+       "best_book": "FanDuel"
+      },
+      "CLE": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": 100,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 20.5,
+      "now": 20.5,
+      "over": 105,
+      "under": -120,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Sunday Night"
+  },
+  {
+   "id": "401873094",
+   "matchup": "Carolina Panthers at Tampa Bay Buccaneers",
+   "away": {
+    "code": "CAR",
+    "name": "Carolina Panthers"
+   },
+   "home": {
+    "code": "TB",
+    "name": "Tampa Bay Buccaneers"
+   },
+   "start": "Monday 8:15 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back home favorites (1H ML)",
+     "season_record": "63-31",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "CAR has lost the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back home favorites (1Q ML)",
+     "season_record": "52-27",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "Fade small underdogs (1Q ML)",
+     "season_record": "48-29",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Back small favorites (1Q ML)",
+     "season_record": "34-25",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Under: divisional games (1Q O/U)",
+     "season_record": "30-22",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "TB has gone Under the 1st quarter total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "CAR has failed to cover the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "TB has covered the 1st quarter spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "CAR has failed to cover the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "TB has failed to cover the 1st half spread",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "CAR has gone Over the 1st half total",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "TB has gone Under the 1st half total",
+     "season_record": "7-3",
+     "season_pct": "70%"
+    },
+    {
+     "trend": "TB has lost the 1st half",
+     "season_record": "6-4",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Buccaneers 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1Q": {
+     "moneyline": {
+      "CAR": {
+       "open": 110,
+       "now": 114,
+       "best_book": "FanDuel"
+      },
+      "TB": {
+       "open": -130,
+       "now": -130,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "CAR": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -148,
+       "best_book": "DraftKings"
+      },
+      "TB": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": 125,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 7.5,
+      "now": 7.5,
+      "over": 100,
+      "under": -116,
+      "best_book_over": "DraftKings"
+     }
+    },
+    "1H": {
+     "moneyline": {
+      "CAR": {
+       "open": 120,
+       "now": 120,
+       "best_book": "DraftKings"
+      },
+      "TB": {
+       "open": -140,
+       "now": -142,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "CAR": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "TB": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 21.5,
+      "now": 21.5,
+      "over": -110,
+      "under": -108,
+      "best_book_over": "FanDuel"
+     }
+    }
+   },
+   "window": "Monday Night"
+  }
+ ],
+ "trends_page": "/nfl/trends/",
+ "teams": {
+  "ARI": {
+   "name": "Arizona Cardinals",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "3-8",
+      "pct": "27%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "ATL": {
+   "name": "Atlanta Falcons",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "8-2",
+      "pct": "80%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "BAL": {
+   "name": "Baltimore Ravens",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "9-2",
+      "pct": "82%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "BUF": {
+   "name": "Buffalo Bills",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "CAR": {
+   "name": "Carolina Panthers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "CHI": {
+   "name": "Chicago Bears",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "8-2",
+      "pct": "80%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "CIN": {
+   "name": "Cincinnati Bengals",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "CLE": {
+   "name": "Cleveland Browns",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "1-9",
+      "pct": "10%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "DAL": {
+   "name": "Dallas Cowboys",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1Q",
+     "this season": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "DET": {
+   "name": "Detroit Lions",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "GB": {
+   "name": "Green Bay Packers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "HOU": {
+   "name": "Houston Texans",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "IND": {
+   "name": "Indianapolis Colts",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "3-8",
+      "pct": "27%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "JAX": {
+   "name": "Jacksonville Jaguars",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "KC": {
+   "name": "Kansas City Chiefs",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "LAC": {
+   "name": "Los Angeles Chargers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "LAR": {
+   "name": "Los Angeles Rams",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "2-8",
+      "pct": "20%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "LV": {
+   "name": "Las Vegas Raiders",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "MIA": {
+   "name": "Miami Dolphins",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "2-8",
+      "pct": "20%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "2-8",
+      "pct": "20%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "MIN": {
+   "name": "Minnesota Vikings",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "NE": {
+   "name": "New England Patriots",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "NO": {
+   "name": "New Orleans Saints",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "2-8",
+      "pct": "20%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "2-8",
+      "pct": "20%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "NYG": {
+   "name": "New York Giants",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "NYJ": {
+   "name": "New York Jets",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "8-3",
+      "pct": "73%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "PHI": {
+   "name": "Philadelphia Eagles",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "SEA": {
+   "name": "Seattle Seahawks",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "SF": {
+   "name": "San Francisco 49ers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "8-2",
+      "pct": "80%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "TB": {
+   "name": "Tampa Bay Buccaneers",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "TEN": {
+   "name": "Tennessee Titans",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "2-8",
+      "pct": "20%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "0-10",
+      "pct": "0%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "WSH": {
+   "name": "Washington Commanders",
+   "rates": [
+    {
+     "rate": "covered the 1Q spread",
+     "this season": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1Q total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "covered the 1H spread",
+     "this season": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1H total",
+     "this season": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "won the 1H",
+     "this season": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    }
+   ]
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade big underdogs",
+   "market": "1H ML",
+   "record": "58-17",
+   "pct": "77%",
+   "games": 75,
+   "fits_tonight": [
+    "Philadelphia Eagles at Dallas Cowboys",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Back big favorites",
+   "market": "1H ML",
+   "record": "73-26",
+   "pct": "74%",
+   "games": 99,
+   "fits_tonight": [
+    "Philadelphia Eagles at Dallas Cowboys",
+    "Kansas City Chiefs at Buffalo Bills",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Back big favorites",
+   "market": "1Q ML",
+   "record": "40-18",
+   "pct": "69%",
+   "games": 58,
+   "fits_tonight": [
+    "Philadelphia Eagles at Dallas Cowboys",
+    "Kansas City Chiefs at Buffalo Bills",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Back home favorites",
+   "market": "1H ML",
+   "record": "63-31",
+   "pct": "67%",
+   "games": 94,
+   "fits_tonight": [
+    "Green Bay Packers at Los Angeles Rams",
+    "Philadelphia Eagles at Dallas Cowboys",
+    "Kansas City Chiefs at Buffalo Bills",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "New England Patriots at Los Angeles Chargers",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Las Vegas Raiders at Cleveland Browns",
+    "Carolina Panthers at Tampa Bay Buccaneers"
+   ]
+  },
+  {
+   "trend": "Back home favorites",
+   "market": "1Q ML",
+   "record": "52-27",
+   "pct": "66%",
+   "games": 79,
+   "fits_tonight": [
+    "Green Bay Packers at Los Angeles Rams",
+    "Philadelphia Eagles at Dallas Cowboys",
+    "Kansas City Chiefs at Buffalo Bills",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Las Vegas Raiders at Cleveland Browns",
+    "Carolina Panthers at Tampa Bay Buccaneers"
+   ]
+  },
+  {
+   "trend": "Back road favorites",
+   "market": "1H ML",
+   "record": "38-20",
+   "pct": "66%",
+   "games": 58,
+   "fits_tonight": [
+    "Chicago Bears at Detroit Lions",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "Washington Commanders at Arizona Cardinals"
+   ]
+  },
+  {
+   "trend": "Fade small underdogs",
+   "market": "1Q ML",
+   "record": "48-29",
+   "pct": "62%",
+   "games": 77,
+   "fits_tonight": [
+    "Green Bay Packers at Los Angeles Rams",
+    "Chicago Bears at Detroit Lions",
+    "Kansas City Chiefs at Buffalo Bills",
+    "New York Jets at Miami Dolphins",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Las Vegas Raiders at Cleveland Browns",
+    "Carolina Panthers at Tampa Bay Buccaneers"
+   ]
+  },
+  {
+   "trend": "Under: non-conference games",
+   "market": "1H O/U",
+   "record": "33-18",
+   "pct": "65%",
+   "games": 51,
+   "fits_tonight": [
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts"
+   ]
+  },
+  {
+   "trend": "Under: rest edge games",
+   "market": "1H O/U",
+   "record": "38-21",
+   "pct": "64%",
+   "games": 59,
+   "fits_tonight": [
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts",
+    "New England Patriots at Los Angeles Chargers",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Over: conference games",
+   "market": "1H O/U",
+   "record": "32-27",
+   "pct": "54%",
+   "games": 59,
+   "fits_tonight": [
+    "Green Bay Packers at Los Angeles Rams",
+    "Kansas City Chiefs at Buffalo Bills",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New England Patriots at Los Angeles Chargers",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Back small favorites",
+   "market": "1Q ML",
+   "record": "34-25",
+   "pct": "58%",
+   "games": 59,
+   "fits_tonight": [
+    "Green Bay Packers at Los Angeles Rams",
+    "Chicago Bears at Detroit Lions",
+    "New York Jets at Miami Dolphins",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Carolina Panthers at Tampa Bay Buccaneers"
+   ]
+  },
+  {
+   "trend": "Under: team off a blowout",
+   "market": "1H O/U",
+   "record": "30-19",
+   "pct": "61%",
+   "games": 49,
+   "fits_tonight": [
+    "Green Bay Packers at Los Angeles Rams",
+    "Atlanta Falcons at Minnesota Vikings",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "New England Patriots at Los Angeles Chargers",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Fade big underdogs",
+   "market": "1H Spread",
+   "record": "45-35",
+   "pct": "56%",
+   "games": 80,
+   "fits_tonight": [
+    "Philadelphia Eagles at Dallas Cowboys",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Back big favorites",
+   "market": "1H Spread",
+   "record": "59-46",
+   "pct": "56%",
+   "games": 105,
+   "fits_tonight": [
+    "Philadelphia Eagles at Dallas Cowboys",
+    "Kansas City Chiefs at Buffalo Bills",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Under: rest edge games",
+   "market": "1Q O/U",
+   "record": "34-24",
+   "pct": "59%",
+   "games": 58,
+   "fits_tonight": [
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New Orleans Saints at Cincinnati Bengals",
+    "New York Giants at Indianapolis Colts",
+    "New England Patriots at Los Angeles Chargers",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Over: conference games",
+   "market": "1Q O/U",
+   "record": "31-27",
+   "pct": "53%",
+   "games": 58,
+   "fits_tonight": [
+    "Green Bay Packers at Los Angeles Rams",
+    "Kansas City Chiefs at Buffalo Bills",
+    "Atlanta Falcons at Minnesota Vikings",
+    "Baltimore Ravens at Houston Texans",
+    "New England Patriots at Los Angeles Chargers",
+    "Washington Commanders at Arizona Cardinals",
+    "Las Vegas Raiders at Cleveland Browns"
+   ]
+  },
+  {
+   "trend": "Under: divisional games",
+   "market": "1Q O/U",
+   "record": "30-22",
+   "pct": "58%",
+   "games": 52,
+   "fits_tonight": [
+    "Chicago Bears at Detroit Lions",
+    "Philadelphia Eagles at Dallas Cowboys",
+    "New York Jets at Miami Dolphins",
+    "Tennessee Titans at Jacksonville Jaguars",
+    "Seattle Seahawks at San Francisco 49ers",
+    "Carolina Panthers at Tampa Bay Buccaneers"
+   ]
+  },
+  {
+   "trend": "Over: home underdog games",
+   "market": "1Q O/U",
+   "record": "31-28",
+   "pct": "53%",
+   "games": 59,
+   "fits_tonight": [
+    "Chicago Bears at Detroit Lions",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "New England Patriots at Los Angeles Chargers",
+    "Washington Commanders at Arizona Cardinals"
+   ]
+  },
+  {
+   "trend": "Back home underdogs",
+   "market": "1Q Spread",
+   "record": "33-27",
+   "pct": "55%",
+   "games": 60,
+   "fits_tonight": [
+    "Chicago Bears at Detroit Lions",
+    "New York Giants at Indianapolis Colts",
+    "New York Jets at Miami Dolphins",
+    "New England Patriots at Los Angeles Chargers",
+    "Washington Commanders at Arizona Cardinals"
+   ]
+  }
+ ],
+ "edge_plays": [],
+ "boxes": {
+  "stat_of_night": {
+   "sport": "nfl",
+   "number": "90%",
+   "line": "CLE failed to cover the 1Q spread · 9-1",
+   "text": "The Cleveland Browns failed to cover the 1Q spread in 9 of 10 games this season."
+  },
+  "league_trend": {
+   "sport": "nfl",
+   "number": "77%",
+   "line": "Fade big underdogs · 1H ML · 58-17",
+   "text": "Fade big underdogs 58-17 this season; tonight it fits Philadelphia Eagles at Dallas Cowboys and 8 more games.",
+   "id": "tier4:1h:ml:fade"
+  }
+ },
+ "week": "Week 12"
+}
