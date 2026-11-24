@@ -171,11 +171,11 @@
   },
   "ballybet": {
    "coverage": {
-    "nba": 0,
+    "nba": 4,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
-    "nhl": 2
+    "nhl": 4
    },
    "group": "Sportsbook",
    "last_seen": "2026-11-23",
@@ -197,14 +197,14 @@
   },
   "betparx": {
    "coverage": {
-    "nba": 0,
+    "nba": 4,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
     "nhl": 0
    },
    "group": "Sportsbook",
-   "last_seen": null,
+   "last_seen": "2026-11-23",
    "name": "betPARX",
    "source": "The Odds API"
   },
@@ -223,11 +223,11 @@
   },
   "betus": {
    "coverage": {
-    "nba": 0,
+    "nba": 4,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
-    "nhl": 2
+    "nhl": 4
    },
    "group": "Offshore",
    "last_seen": "2026-11-23",
@@ -249,14 +249,14 @@
   },
   "fliff": {
    "coverage": {
-    "nba": 0,
+    "nba": 4,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
     "nhl": 0
    },
    "group": "Sportsbook",
-   "last_seen": null,
+   "last_seen": "2026-11-23",
    "name": "Fliff",
    "source": "The Odds API"
   },
@@ -279,7 +279,7 @@
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
-    "nhl": 2
+    "nhl": 4
    },
    "group": "Sportsbook",
    "last_seen": "2026-11-23",
