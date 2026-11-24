@@ -7,6 +7,7 @@
    "ALA",
    "ALCN",
    "APP",
+   "ARIZ",
    "ARMY",
    "ARST",
    "AUB",
@@ -32,6 +33,7 @@
    "COPP",
    "CORN",
    "CREI",
+   "CSU",
    "DAL",
    "DEN",
    "DEP",
@@ -103,6 +105,7 @@
    "PENN",
    "PFW",
    "PITT",
+   "PROV",
    "PUR",
    "QUEE",
    "RICE",
@@ -148,6 +151,7 @@
    "UTEP",
    "UVM",
    "VAN",
+   "VCU",
    "VGK",
    "VILL",
    "VMI",
@@ -242,6 +246,11 @@
     "label": "NCAAB · Tulsa at Illinois State · 4:30 PM ET",
     "trends": 5,
     "value": "ncaab:401921666"
+   },
+   {
+    "label": "NCAAB · Providence at Arizona · 5:00 PM ET",
+    "trends": 10,
+    "value": "ncaab:401921710"
    },
    {
     "label": "NCAAB · Creighton at Michigan · 5:30 PM ET",
@@ -564,6 +573,11 @@
     "value": "ncaab:401915943"
    },
    {
+    "label": "NCAAB · VCU at Colorado State · 10:30 PM ET",
+    "trends": 10,
+    "value": "ncaab:401921712"
+   },
+   {
     "label": "NCAAB · Stanford at Colorado · 11:59 PM ET",
     "trends": 10,
     "value": "ncaab:401909763"
@@ -609,6 +623,7 @@
    "ALA",
    "ALCN",
    "APP",
+   "ARIZ",
    "ARMY",
    "ARST",
    "AUB",
@@ -633,6 +648,7 @@
    "COPP",
    "CORN",
    "CREI",
+   "CSU",
    "DEP",
    "DREX",
    "DSU",
@@ -698,6 +714,7 @@
    "PENN",
    "PFW",
    "PITT",
+   "PROV",
    "PUR",
    "QUEE",
    "RICE",
@@ -743,6 +760,7 @@
    "UTEP",
    "UVM",
    "VAN",
+   "VCU",
    "VILL",
    "VMI",
    "WASH",
@@ -834,6 +852,11 @@
     "label": "Tulsa at Illinois State · 4:30 PM ET",
     "trends": 5,
     "value": "ncaab:401921666"
+   },
+   {
+    "label": "Providence at Arizona · 5:00 PM ET",
+    "trends": 10,
+    "value": "ncaab:401921710"
    },
    {
     "label": "Creighton at Michigan · 5:30 PM ET",
@@ -1124,6 +1147,11 @@
     "label": "Oregon at St. John's · 10:30 PM ET",
     "trends": 6,
     "value": "ncaab:401915943"
+   },
+   {
+    "label": "VCU at Colorado State · 10:30 PM ET",
+    "trends": 10,
+    "value": "ncaab:401921712"
    },
    {
     "label": "Stanford at Colorado · 11:59 PM ET",
