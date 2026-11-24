@@ -8,10 +8,10 @@ data_feed/unabated/{sport}.json (fetch_odds_unabated.py):
       segments: {seg: {market: line}}, books: {seg: {market: {book: row}}},
       opens: {seg: {market: {book: row}}}}}}
 
-Books: oddsapi.LIVE_BOOKS (Bally Bet, Fliff, betPARX, ReBet, BetUS in the
-slots of the 5 books Unabated carries), plus DraftKings and FanDuel for a
-sport when Unabated has no price from one of them for a game starting within
-SAFETY_HOURS (pull_sport; printed in the run log, status.safety).
+Books: the sport's oddsapi.LIVE_BOOKS (10), plus DraftKings and FanDuel
+when the list lacks them and Unabated has no price from one of them for a
+game starting within SAFETY_HOURS (pull_sport; printed in the run log,
+status.safety).
 books are keyed by The Odds API's book keys (sport_build.ODDSAPI_BOOKS maps
 them to the Odds page's sources) and carry no links: the Odds page's book
 links stay Gambly's. A game's odds freeze at its start; its opens and closing
@@ -195,9 +195,9 @@ def unabated_gaps(sport, games, now):
 
 
 def pull_sport(sport, now, hourly):
-    """The due games' odds from A.LIVE_BOOKS; when Unabated has no DraftKings
-    or FanDuel price for a game starting within SAFETY_HOURS, this pull adds
-    A.SAFETY_BOOKS for the sport (a second region) and says so."""
+    """The due games' odds from the sport's A.LIVE_BOOKS; when Unabated has no
+    DraftKings or FanDuel price for a game starting within SAFETY_HOURS, this
+    pull adds the A.SAFETY_BOOKS the list lacks (a second region) and says so."""
     path = os.path.join(A.OUT_DIR, sport + '.json')
     doc = U.read_json(path, {})
     games_doc = doc.get('games') or {}
@@ -206,9 +206,11 @@ def pull_sport(sport, now, hourly):
     keys = live_keys(sport)
     games = shown_games(sport, now)
     todo = [g for g in games if due(games_doc.get(f"{g['date']}|{g['away']}|{g['home']}"), g['_start'], now, hourly)]
-    gaps = unabated_gaps(sport, todo, now) if todo and keys else []
-    books = A.LIVE_BOOKS + A.SAFETY_BOOKS if gaps else A.LIVE_BOOKS
+    books = A.LIVE_BOOKS[sport]
+    extra = tuple(b for b in A.SAFETY_BOOKS if b not in books)
+    gaps = unabated_gaps(sport, todo, now) if todo and keys and extra else []
     if gaps:
+        books += extra
         print(f"{sport}: DraftKings and FanDuel added to this pull (Unabated has no price from one of them for "
               f"{len(gaps)} game{'s' if len(gaps) != 1 else ''} starting within {SAFETY_HOURS} hours: "
               f"{', '.join(g['away'] + ' @ ' + g['home'] for g in gaps[:5])})")

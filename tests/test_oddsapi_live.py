@@ -152,15 +152,14 @@ class LiveBooks(Live):
     def test_unabated_has_both_no_safety_books(self):
         self.unabated(['1', '2', '20'])
         doc = self.pull(NOW, True, self.swapped())
-        self.assertEqual(self.books, A.LIVE_BOOKS)
-        self.assertEqual(len(A.LIVE_BOOKS), 10)
+        self.assertEqual(self.books, A.LIVE_BOOKS['nba'])
         self.assertNotIn('safety', doc['status'])
         self.assertEqual(sorted(doc['games']['2026-11-22|bos|mia']['books']['1q']['ml']), ['ballybet', 'espnbet'])   # DraftKings' row isn't kept
 
     def test_missing_fanduel_adds_draftkings_and_fanduel(self):
         self.unabated(['1', '20'])
         doc = self.pull(NOW, True, self.swapped())
-        self.assertEqual(self.books, A.LIVE_BOOKS + ('draftkings', 'fanduel'))
+        self.assertEqual(self.books, A.LIVE_BOOKS['nba'] + ('draftkings', 'fanduel'))
         self.assertEqual(A.regions(self.books), 2)
         self.assertEqual(doc['status']['safety'], 1)
         self.assertIn('draftkings', doc['games']['2026-11-22|bos|mia']['books']['1q']['ml'])
@@ -168,11 +167,30 @@ class LiveBooks(Live):
     def test_not_starting_soon_no_safety_books(self):
         self.unabated([])
         self.pull(NOW - timedelta(hours=7), True, self.swapped())
-        self.assertEqual(self.books, A.LIVE_BOOKS)
+        self.assertEqual(self.books, A.LIVE_BOOKS['nba'])
+
+    def test_every_sport_ten_books_ncaab_keeps_the_five(self):
+        import sports
+        self.assertEqual(set(A.LIVE_BOOKS), {sp['key'] for sp in sports.SPORTS})
+        for sport, books in A.LIVE_BOOKS.items():
+            self.assertEqual(len(set(books)), 10, sport)
+            self.assertEqual(A.regions(books), 1)
+        self.assertLessEqual({'draftkings', 'fanduel', 'betmgm', 'williamhill_us', 'fanatics'}, set(A.LIVE_BOOKS['ncaab']))
+
+    def test_ncaab_list_has_both_so_nothing_added(self):
+        self.unabated([])
+        with mock.patch.object(F, 'shown_games', lambda sport, now: [dict(GAME, _start=A.parse(GAME['start']))]):
+            def event_odds(sport, event_id, markets, books=None):
+                self.books = books
+                return odds()
+            with mock.patch.object(A, 'events', return_value=[EVENT]), mock.patch.object(A, 'event_odds', side_effect=event_odds), \
+                    mock.patch.object(A, 'match', lambda sport, evs, gs: ([(EVENT, gs[0], False)], [])):
+                F.pull_sport('ncaab', NOW, True)
+        self.assertEqual(self.books, A.LIVE_BOOKS['ncaab'])
 
     def test_new_books_map_to_sources(self):
         for b in ('ballybet', 'fliff', 'betparx', 'rebet', 'betus'):
-            self.assertIn(b, A.LIVE_BOOKS)
+            self.assertIn(b, A.LIVE_BOOKS['nba'])
             self.assertEqual(sport_build.ODDSAPI_BOOKS[b], b)
         self.assertEqual(sport_build.books_cfg.Settings().row('betus')['group'], 'Offshore')
         self.assertFalse(sport_build.books_cfg.Settings().counts('betus'))

@@ -15,7 +15,7 @@ times, then the call is skipped and logged. A network failure never raises
 past this module (callers get None).
 
 Books: bookmakers= (not regions); every 10 bill as one region (BOOKS and
-LIVE_BOOKS are 10 each).
+each sport's LIVE_BOOKS are 10).
 Cost: event lists are free, event_markets and historical_events 1 credit,
 event odds 1 x markets returned, historical event odds 10 x markets returned.
 """
@@ -57,12 +57,23 @@ GAME = {'ml': 'h2h', 'ats': 'spreads', 'total': 'totals'}   # the full game (seg
 
 BOOKS = ('draftkings', 'fanduel', 'betmgm', 'williamhill_us', 'espnbet', 'fanatics', 'betrivers', 'hardrockbet',
          'bovada', 'betonlineag')
-# The live pull's 10 books (fetch_odds_theoddsapi.py; the backfill, the probe
-# and the next-day break capture keep BOOKS): DraftKings, FanDuel, BetMGM,
-# Caesars and Fanatics come from Unabated, so their 5 slots carry books it
-# doesn't have. To swap back: LIVE_BOOKS = BOOKS
-LIVE_BOOKS = ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet',
-              'bovada', 'betonlineag')
+# The live pull's 10 books per sport (fetch_odds_theoddsapi.py; the backfill,
+# the probe and the next-day break capture keep BOOKS). DraftKings, FanDuel,
+# BetMGM, Caesars and Fanatics come from Unabated, so their 5 slots carry
+# books it doesn't have (Bally Bet, Fliff, betPARX, ReBet, BetUS). NCAAB keeps
+# each of the five Unabated covers on under 80% of NCAAB games, then BetUS,
+# then Fliff: on Nov 17-23, 2026 (379 Division I games) Unabated had
+# DraftKings on 69%, FanDuel 43%, BetMGM 65%, Caesars 58%, Fanatics 65%, so
+# NCAAB keeps all five. To swap a sport back: its list = BOOKS
+LIVE_BOOKS = {
+    'nba': ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet', 'bovada', 'betonlineag'),
+    'wnba': ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet', 'bovada', 'betonlineag'),
+    'ncaab': ('draftkings', 'fanduel', 'betmgm', 'williamhill_us', 'fanatics', 'espnbet', 'betrivers', 'hardrockbet', 'bovada', 'betonlineag'),
+    'nfl': ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet', 'bovada', 'betonlineag'),
+    'ncaaf': ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet', 'bovada', 'betonlineag'),
+    'nhl': ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet', 'bovada', 'betonlineag'),
+    'mlb': ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet', 'bovada', 'betonlineag'),
+}
 # added to a sport's live pull when Unabated has no DraftKings or FanDuel
 # price for a game starting soon (fetch_odds_theoddsapi.SAFETY_HOURS)
 SAFETY_BOOKS = ('draftkings', 'fanduel')
