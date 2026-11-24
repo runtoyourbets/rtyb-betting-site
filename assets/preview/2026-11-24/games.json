@@ -253,11 +253,6 @@
     "value": "ncaab:401921710"
    },
    {
-    "label": "NCAAB · Creighton at Michigan · 5:30 PM ET",
-    "trends": 6,
-    "value": "ncaab:401909495"
-   },
-   {
     "label": "NCAAB · Kent State at Wyoming · 5:30 PM ET",
     "trends": 7,
     "value": "ncaab:401921707"
@@ -266,6 +261,11 @@
     "label": "NCAAB · San Diego State at Iowa State · 5:30 PM ET",
     "trends": 5,
     "value": "ncaab:401909775"
+   },
+   {
+    "label": "NCAAB · Creighton at Michigan · 5:55 PM ET",
+    "trends": 6,
+    "value": "ncaab:401909495"
    },
    {
     "label": "NCAAB · DePaul at Purdue · 6:00 PM ET",
@@ -378,11 +378,6 @@
     "value": "ncaab:401920923"
    },
    {
-    "label": "NCAAB · Nevada at Santa Clara · 7:00 PM ET",
-    "trends": 9,
-    "value": "ncaab:401911458"
-   },
-   {
     "label": "NCAAB · New Hampshire at Seton Hall · 7:00 PM ET",
     "trends": 9,
     "value": "ncaab:401920889"
@@ -396,6 +391,11 @@
     "label": "NCAAB · Samford at Georgia Tech · 7:00 PM ET",
     "trends": 5,
     "value": "ncaab:401920309"
+   },
+   {
+    "label": "NCAAB · Santa Clara at Nevada · 7:00 PM ET",
+    "trends": 9,
+    "value": "ncaab:401911458"
    },
    {
     "label": "NCAAB · Stetson at South Florida · 7:00 PM ET",
@@ -438,7 +438,7 @@
     "value": "ncaab:401925687"
    },
    {
-    "label": "NCAAB · High Point at Duquesne · 7:30 PM ET",
+    "label": "NCAAB · Duquesne at High Point · 7:30 PM ET",
     "trends": 8,
     "value": "ncaab:401920414"
    },
@@ -523,7 +523,7 @@
     "value": "ncaab:401915942"
    },
    {
-    "label": "NCAAB · Charleston at UTEP · 8:30 PM ET",
+    "label": "NCAAB · UTEP at Charleston · 8:30 PM ET",
     "trends": 5,
     "value": "ncaab:401911535"
    },
@@ -859,11 +859,6 @@
     "value": "ncaab:401921710"
    },
    {
-    "label": "Creighton at Michigan · 5:30 PM ET",
-    "trends": 6,
-    "value": "ncaab:401909495"
-   },
-   {
     "label": "Kent State at Wyoming · 5:30 PM ET",
     "trends": 7,
     "value": "ncaab:401921707"
@@ -872,6 +867,11 @@
     "label": "San Diego State at Iowa State · 5:30 PM ET",
     "trends": 5,
     "value": "ncaab:401909775"
+   },
+   {
+    "label": "Creighton at Michigan · 5:55 PM ET",
+    "trends": 6,
+    "value": "ncaab:401909495"
    },
    {
     "label": "DePaul at Purdue · 6:00 PM ET",
@@ -979,11 +979,6 @@
     "value": "ncaab:401920923"
    },
    {
-    "label": "Nevada at Santa Clara · 7:00 PM ET",
-    "trends": 9,
-    "value": "ncaab:401911458"
-   },
-   {
     "label": "New Hampshire at Seton Hall · 7:00 PM ET",
     "trends": 9,
     "value": "ncaab:401920889"
@@ -997,6 +992,11 @@
     "label": "Samford at Georgia Tech · 7:00 PM ET",
     "trends": 5,
     "value": "ncaab:401920309"
+   },
+   {
+    "label": "Santa Clara at Nevada · 7:00 PM ET",
+    "trends": 9,
+    "value": "ncaab:401911458"
    },
    {
     "label": "Stetson at South Florida · 7:00 PM ET",
@@ -1029,7 +1029,7 @@
     "value": "ncaab:401925687"
    },
    {
-    "label": "High Point at Duquesne · 7:30 PM ET",
+    "label": "Duquesne at High Point · 7:30 PM ET",
     "trends": 8,
     "value": "ncaab:401920414"
    },
@@ -1104,7 +1104,7 @@
     "value": "ncaab:401915942"
    },
    {
-    "label": "Charleston at UTEP · 8:30 PM ET",
+    "label": "UTEP at Charleston · 8:30 PM ET",
     "trends": 5,
     "value": "ncaab:401911535"
    },
