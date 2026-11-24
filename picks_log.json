@@ -14134,6 +14134,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Colorado State"
+   },
+   {
+    "id": "nba|401910045|1h|ml|away",
+    "game": "nba|401910045",
+    "date": "2026-11-23",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-24T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Spurs @ Kings",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -230,
+    "title": "Spurs 1H ML",
+    "est": 0.7318,
+    "edge": 0.0348,
+    "agree": 4,
+    "sample": 17,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Kings\u2019s opponents 1H ML, Kings at home",
+      "9-1"
+     ],
+     [
+      "Spurs 1H ML, last 8",
+      "6-2"
+     ],
+     [
+      "Spurs 1H ML on the road",
+      "5-2"
+     ],
+     [
+      "Spurs 1H ML, season",
+      "11-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
    }
   ]
  }
