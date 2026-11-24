@@ -14,10 +14,10 @@
    {
     "date": "2026-11-24",
     "headline": "Eastern Michigan Has Gone Under the First Quarter Total 82% (9-2)",
-    "live": false,
+    "live": true,
     "page": "admin/preview/all-2026-11-24/",
-    "path": "content/drafts/all-preview-2026-11-24.md",
-    "published": null,
+    "path": "content/published/all-preview-2026-11-24.md",
+    "published": "2026-11-24T16:20:48Z",
     "week": null,
     "written": "2026-11-24T13:25Z"
    },
@@ -86,10 +86,10 @@
    {
     "date": "2026-11-24",
     "headline": "Celtics First Quarters Keep Going Under: 76% (13-4) Heading to Washington",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nba-2026-11-24/",
-    "path": "content/drafts/nba-preview-2026-11-24.md",
-    "published": null,
+    "path": "content/published/nba-preview-2026-11-24.md",
+    "published": "2026-11-24T16:20:58Z",
     "week": null,
     "written": "2026-11-24T13:20Z"
    },
@@ -158,10 +158,10 @@
    {
     "date": "2026-11-24",
     "headline": "North Dakota at Detroit Mercy: Fade Teams Off a Blowout Runs 60%",
-    "live": false,
+    "live": true,
     "page": "admin/preview/ncaab-2026-11-24/",
-    "path": "content/drafts/ncaab-preview-2026-11-24.md",
-    "published": null,
+    "path": "content/published/ncaab-preview-2026-11-24.md",
+    "published": "2026-11-24T16:21:12Z",
     "week": null,
     "written": "2026-11-24T13:23Z"
    },
@@ -230,10 +230,10 @@
    {
     "date": "2026-11-24",
     "headline": "East Carolina Is 11 for 11 to the First-Quarter Under",
-    "live": false,
+    "live": true,
     "page": "admin/preview/ncaaf-2026-11-24/",
-    "path": "content/drafts/ncaaf-preview-2026-11-24.md",
-    "published": null,
+    "path": "content/published/ncaaf-preview-2026-11-24.md",
+    "published": "2026-11-24T16:21:07Z",
     "week": 13,
     "written": "2026-11-24T13:22Z"
    },
@@ -252,10 +252,10 @@
    {
     "date": "2026-11-24",
     "headline": "Titans Have Lost the First Half in All 10 Games",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nfl-2026-11-24/",
-    "path": "content/drafts/nfl-preview-2026-11-24.md",
-    "published": null,
+    "path": "content/published/nfl-preview-2026-11-24.md",
+    "published": "2026-11-24T16:21:02Z",
     "week": 12,
     "written": "2026-11-24T13:21Z"
    },
@@ -274,10 +274,10 @@
    {
     "date": "2026-11-24",
     "headline": "Edmonton Oilers: No on Both Teams to Score (BTTS), 81% (21-5)",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nhl-2026-11-24/",
-    "path": "content/drafts/nhl-preview-2026-11-24.md",
-    "published": null,
+    "path": "content/published/nhl-preview-2026-11-24.md",
+    "published": "2026-11-24T16:20:53Z",
     "week": null,
     "written": "2026-11-24T13:20Z"
    },
