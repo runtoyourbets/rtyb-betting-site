@@ -14204,10 +14204,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": -106,
+    "price": -102,
     "title": "Edmonton 1P ML",
-    "est": 0.5882,
-    "edge": 0.0736,
+    "est": 0.582,
+    "edge": 0.0771,
     "agree": 4,
     "sample": 17,
     "tier": "A",
@@ -14690,6 +14690,56 @@
     "streakTeamName": "Santa Clara"
    },
    {
+    "id": "nba|401909316|1q|total|under",
+    "game": "nba|401909316",
+    "date": "2026-11-24",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Nuggets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -105,
+    "title": "1Q Under 60.5",
+    "est": 0.5465,
+    "edge": 0.0343,
+    "agree": 6,
+    "sample": 17,
+    "tier": "C",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": -2,
+    "streakTeam": "den",
+    "angles": [
+     [
+      "Nuggets 1Q unders, last 8 (60.5)",
+      "6-2"
+     ],
+     [
+      "Mavericks 1Q unders, last 8 (60.5)",
+      "6-2"
+     ],
+     [
+      "Mavericks 1Q unders, season (60.5)",
+      "12-5"
+     ],
+     [
+      "Nuggets 1Q unders, season (60.5)",
+      "10-5"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Nuggets 56.9 \u00b7 Mavericks 57.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Nuggets"
+   },
+   {
     "id": "ncaab|401911458|1h|ats|home",
     "game": "ncaab|401911458",
     "date": "2026-11-24",
@@ -14734,49 +14784,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Santa Clara"
-   },
-   {
-    "id": "ncaab|401915943|1h|ml|away",
-    "game": "ncaab|401915943",
-    "date": "2026-11-24",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-25T03:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Oregon @ St. John's",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 250,
-    "title": "Oregon 1H ML",
-    "est": 0.3175,
-    "edge": 0.0317,
-    "agree": 2,
-    "sample": 4,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "oregon-ducks",
-    "angles": [
-     [
-      "Oregon 1H ML, season",
-      "4-0"
-     ],
-     [
-      "Oregon 1H ML, last 8",
-      "4-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Oregon"
    }
   ]
  }

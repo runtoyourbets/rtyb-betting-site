@@ -81,7 +81,7 @@
   "20": {
    "coverage": {
     "nba": 100,
-    "ncaab": 84,
+    "ncaab": 85,
     "ncaaf": 96,
     "nfl": 100,
     "nhl": 98
@@ -94,7 +94,7 @@
   "36": {
    "coverage": {
     "nba": 100,
-    "ncaab": 85,
+    "ncaab": 86,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -173,7 +173,7 @@
    "coverage": {
     "nba": 10,
     "ncaab": 0,
-    "ncaaf": 3,
+    "ncaaf": 1,
     "nfl": 0,
     "nhl": 7
    },
@@ -212,7 +212,7 @@
    "coverage": {
     "nba": 35,
     "ncaab": 36,
-    "ncaaf": 3,
+    "ncaaf": 1,
     "nfl": 15,
     "nhl": 26
    },
@@ -237,7 +237,7 @@
   "bovada": {
    "coverage": {
     "nba": 35,
-    "ncaab": 39,
+    "ncaab": 40,
     "ncaaf": 3,
     "nfl": 15,
     "nhl": 26
