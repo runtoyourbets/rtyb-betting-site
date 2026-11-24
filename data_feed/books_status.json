@@ -175,10 +175,10 @@
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
-    "nhl": 0
+    "nhl": 2
    },
    "group": "Sportsbook",
-   "last_seen": null,
+   "last_seen": "2026-11-23",
    "name": "Bally Bet",
    "source": "The Odds API"
   },
@@ -227,7 +227,7 @@
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
-    "nhl": 0
+    "nhl": 2
    },
    "group": "Offshore",
    "last_seen": "2026-11-23",
@@ -279,10 +279,10 @@
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
-    "nhl": 0
+    "nhl": 2
    },
    "group": "Sportsbook",
-   "last_seen": null,
+   "last_seen": "2026-11-23",
    "name": "ReBet",
    "source": "The Odds API"
   }
