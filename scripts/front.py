@@ -1382,7 +1382,7 @@ def streaks_watch(S, now_utc, root='', hub=False):
         items = ''.join(streak_item(x, i, now_utc, root, hub, len(xs) > STREAK_PHONE + 1) for i, x in enumerate(xs))
         uls += (f'<ul class="sw-list" data-one="Streak to Watch{esc(when)}" data-many="Streaks to Watch{esc(when)}"'
                 f'{" hidden" if n else ""}>{items}</ul>')
-    link = more_link(f'{root}{top.trends_page}#streak-trends', 'All streaks')
+    link = more_link(f'{root}{sports.section_path(top.sp, "streaks").lstrip("/")}' if hub else f'{root}streaks/', 'All streaks')
     return (f'<section class="fr-sec tw sw" id="team-watch" data-streaks><div class="fr-head"><h2>{esc(title)}</h2></div>'
             f'<div class="st-card tw-card">{uls}<div class="fr-links sw-all">{link}</div></div></section>')
 
@@ -1551,14 +1551,14 @@ def week_results(sport, wk, now_utc, root=''):
 
     def streak_row(c):
         n = n_of(c)
-        if c['change'] == 'snapped':   # "SJSU · 1Q Under streak ended at 11", then the game that ended it
+        if c['change'] == 'snapped':   # the gray chip (Run's Over), "SJSU · 1Q Under streak ended at 11", then the game that ended it
             g = next((g for g in reversed(finals) if c['team'] in (dc.team_of(D, g['away'])[1], dc.team_of(D, g['home'])[1])), None)
             seg, m = c['market'].split(':')
             tag = next((s['tag'] for s in sport.segments if s['key'] == seg), seg)
             what = STREAK_WORD.get(m, {}).get(c.get('was'), '')
             game = (f'<span class="yb-dot">&middot;</span><a class="wr-bet" href="{esc(game_href(g))}">'
                     f'{esc(sport.code(g["away"]))} @ {esc(sport.code(g["home"]))}</a>') if g else ''
-            return (f'<li class="yb-row"><span class="yb-sp">{esc(c["team"])}</span><span class="yb-dot">&middot;</span>'
+            return (f'<li class="yb-row"><span class="sk-len sk-over">{n}</span><span class="yb-sp">{esc(c["team"])}</span><span class="yb-dot">&middot;</span>'
                     f'<span class="yb-mk">{esc(" ".join(x for x in ((tag if m != "rfi" else ""), what) if x))} streak ended at {n}</span>{game}</li>')
         return (f'<li class="yb-row"><span class="sk-len {heat_cls(n)}">{n}</span><span class="yb-sp">{esc(c["team"])}</span>'
                 f'<span class="yb-mk">{esc(c["streak"])}</span></li>')

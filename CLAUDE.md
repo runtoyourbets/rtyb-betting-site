@@ -120,7 +120,7 @@ team winning the segment, 2-way (W-L, ties out). Rates read "59% (204-142)".
 
 ## SEO page text
 
-content/seo/ holds one Markdown file per index, hub and sport page (69;
+content/seo/ holds one Markdown file per index, hub and sport page (77;
 front matter path / title / description / description_offseason / intro);
 scripts/seo_text.py applies them in seo.finish. A path with no built page or
 an unknown token fails the build. Titles end "| Run To Your Bets" (every

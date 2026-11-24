@@ -3754,7 +3754,8 @@
     return ROOT + SPORT_SLUG + '/matchups/' + x[0] + '-vs-' + x[1] + '/';
   }
   var H2 = { k: null, prev: [], label: '', og: null, sources: {}, data: null };
-  function h2K() { return H2.k && seg(H2.k) ? H2.k : D.segments[0].key; }
+  // ?seg= (the Streaks page's Ride / Fade buttons) opens that segment; ?mkt= opens the odds box's market
+  function h2K() { return H2.k && seg(H2.k) ? H2.k : seg(SEG_CUR) ? SEG_CUR : D.segments[0].key; }
   // the segment's side market: the spread (NHL the ML, MLB's 1st inning NRFI)
   function h2Main(k) {
     var ms = tmMarkets(k).map(function(p) { return p.m; });
@@ -4286,9 +4287,201 @@
     drawDue();
   }
 
+  // ------------------------------------------------------------- Streaks
+  // /{sport}/streaks/ (scripts/streaks.py writes {slug}/streaks.json):
+  // Segment · Market · All / Home / Away, then Tonight (football: This Week),
+  // Still Running beside Run's Over, and Records (this season / last).
+  // Full Run segments: the gold dot, gold bar and PREMIUM tag; locked and
+  // blurred while PREMIUM.fullRun keeps them from free visitors.
+  var SK = null, SKO = { og: {}, picker: [], sources: {} }, SKF = { seg: 'all', m: 'all', v: 'all', rs: 0, more: false };
+  var SK_SHOWN = 30;   // Still Running rows before "Show all"
+  function skSeg(k) { return SK.segs.filter(function(x) { return x.k === k; })[0] || {}; }
+  function skMkt(id) { return SK.markets.filter(function(x) { return x.id === id; })[0] || { label: id }; }
+  // All: overall streaks plus home / road ones longer than the overall run
+  function skMatch(s) {
+    if (SKF.seg !== 'all' && s.k !== SKF.seg) return false;
+    if (SKF.m !== 'all' && s.m !== SKF.m) return false;
+    return SKF.v === 'all' ? s.v === 'all' || !!s.gt : s.v === SKF.v;
+  }
+  // "Game no cover", "1Q Under", "2H losses", "NRFI" (the chip is the count)
+  function skWhat(s) {
+    var tag = skSeg(s.k).tag || '', nhl15 = D.sport === 'nhl' && s.k !== 'game';
+    var w = { su: { W: 'wins', L: 'losses' }, ml3: { W: '3-way wins', L: '3-way losses' }, ats: { W: 'covers', L: 'no cover' },
+      tot: { O: nhl15 ? 'Over 1.5' : 'Over', U: nhl15 ? 'Under 1.5' : 'Under' }, o05: { O: 'Over 0.5', U: 'Under 0.5' },
+      btts: { Y: 'BTTS Yes', N: 'BTTS No' }, scored: { Y: 'scored', N: 'scoreless' }, rfi: { Y: 'YRFI', N: 'NRFI' } }[s.m][s.kd];
+    return (tag ? tag + ' ' : '') + w;
+  }
+  function skVenue(s) { return s.v === 'home' ? '<span class="sk-vt">at home</span>' : s.v === 'away' ? '<span class="sk-vt">on the road</span>' : ''; }
+  function skLocked(s) { return !!skSeg(s.k).fr && premiumLocked('fullRun'); }
+  function skFrTag(s) { return skSeg(s.k).fr ? '<span class="fr-tag">Premium</span>' : ''; }
+  // rows of the Full Run blurred behind "Unlock with Premium" while PREMIUM.fullRun locks them
+  function skRows(list, row) {
+    var free = list.filter(function(s) { return !skLocked(s); }), locked = list.filter(skLocked);
+    return free.map(row).join('') + (locked.length ? '<div class="pm-blur" aria-hidden="true">' + locked.map(row).join('') + '</div><a class="pm-unlock" href="' + ROOT + '#premium">Unlock with Premium</a>' : '');
+  }
+  function skTeam(slug) { return teamLink(slug, badge(slug, 22) + nameHtml(slug)); }
+  function skMatchup(a, b, day) { return h2hUrl(a, b) || ROOT + SK.matchups + (day ? '?date=' + day : ''); }
+  // the bet that keeps a streak going: the odds market and the side
+  function skBet(s, g) {
+    var ts = g.away === s.t ? 'away' : 'home', os = ts === 'away' ? 'home' : 'away';
+    if (s.m === 'su' || s.m === 'ml3' || s.m === 'ats') return { mk: s.m === 'su' ? 'ml' : s.m, ride: s.kd === 'W' ? ts : os, fade: s.kd === 'W' ? os : ts };
+    if (s.m === 'tot') return { mk: 'total', ride: s.kd === 'O' ? 'over' : 'under', fade: s.kd === 'O' ? 'under' : 'over' };
+    if (s.m === 'btts') return { mk: 'btts', ride: s.kd === 'Y' ? 'yes' : 'no', fade: s.kd === 'Y' ? 'no' : 'yes' };
+    if (s.m === 'rfi') return { mk: 'rfi', ride: s.kd === 'Y' ? 'yrfi' : 'nrfi', fade: s.kd === 'Y' ? 'nrfi' : 'yrfi' };
+    return { mk: s.m, ride: s.kd, fade: null };   // NHL 2nd / 3rd Period: results only
+  }
+  // the best price on one side: "DET -2.5 -105", "O 220.5 -110", "NRFI -160"
+  function skPrice(g, k, mk, side) {
+    var o = null;
+    if (k === 'game') o = ((g.fo || {}).game || {})[mk];
+    else {
+      var og = SKO.og[g.away + '@' + g.home];
+      o = og ? pickedBest(og, k, mk, SKO.picker, SKO.sources) : null;
+      if (!o) o = ((g.odds || {})[k] || {})[mk === 'rfi' ? 'nrfi_yrfi' : mk];
+    }
+    if (!o) return null;
+    if (mk === 'ml' || mk === 'ml3') return typeof o[side] === 'number' ? tcode(g[side]) + ' ' + priceTxt(o[side]) : null;
+    if (mk === 'ats') { var a = o[side]; return a && typeof a.line === 'number' ? tcode(g[side]) + ' ' + signedLine(a.line) + ' ' + priceTxt(a.price) : null; }
+    if (mk === 'total') return typeof o[side] === 'number' && typeof o.line === 'number' ? (side === 'over' ? 'O ' : 'U ') + o.line + ' ' + priceTxt(o[side]) : null;
+    if (mk === 'btts') return typeof o[side] === 'number' ? 'BTTS ' + (side === 'yes' ? 'Yes' : 'No') + ' ' + priceTxt(o[side]) : null;
+    if (mk === 'rfi') return typeof o[side] === 'number' ? side.toUpperCase() + ' ' + priceTxt(o[side]) : null;
+    return null;
+  }
+  // RIDE / FADE: price buttons to the matchup page with the market open;
+  // a second-half / later-period line posts at the break; NHL 2P / 3P none
+  function skButtons(s, g) {
+    if (D.sport === 'nhl' && (s.k === '2p' || s.k === '3p')) return '';
+    if (s.k === '2h') return '<span class="sk-note">2H line posts at halftime</span>';
+    var b = skBet(s, g), ride = skPrice(g, s.k, b.mk, b.ride), fade = b.fade ? skPrice(g, s.k, b.mk, b.fade) : null;
+    if (!ride && !fade) return '<span class="sk-note">line not posted yet</span>';
+    var href = skMatchup(g.away, g.home, g.day) + (h2hUrl(g.away, g.home) ? '?seg=' + s.k + '&mkt=' + b.mk : '');
+    function btn(word, txt, cls) { return txt ? '<a class="sk-btn ' + cls + '" href="' + href + '"><span class="sk-bw">' + word + '</span> ' + esc(txt) + '</a>' : ''; }
+    return '<span class="sk-btns">' + btn('Ride', ride, 'sk-ride') + btn('Fade', fade, 'sk-fade') + '</span>';
+  }
+  // two streaks in a game pointing opposite ways in the same segment and market
+  function skCollide(ss, g) {
+    var seen = {};
+    return ss.some(function(s) {
+      if (s.m === 'scored') return false;
+      var b = skBet(s, g), key = s.k + '|' + b.mk, x = seen[key];
+      if (x && x !== b.ride) return true;
+      seen[key] = b.ride;
+      return false;
+    });
+  }
+  function skTonight() {
+    var t = SK.tonight;
+    if (!t) return '';
+    var games = t.games.map(function(g) { return { g: g, s: g.s.filter(skMatch) }; }).filter(function(x) { return x.s.length; });
+    if (!games.length) return '';
+    games.sort(function(a, b) { return b.s[0].n - a.s[0].n; });
+    var head = (t.mode === 'week' ? 'This Week &middot; ' : t.mode === 'next' ? 'Next up &middot; ' : 'Tonight &middot; ') + esc(t.label);
+    var body = games.map(function(x) {
+      var g = x.g, top = x.s.slice(0, 4);
+      var rows = skRows(top, function(s) {
+        return '<li class="sk-trow' + (skSeg(s.k).fr ? ' sk-fr' : '') + '"><span class="sk-l1"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span>' +
+          teamLink(s.t, badge(s.t, 20) + '<span class="sk-code">' + esc(tcode(s.t)) + '</span>') + '<span class="sk-what">' + esc(skWhat(s)) + '</span>' + skVenue(s) + skFrTag(s) + '</span>' +
+          skButtons(s, g) + '</li>';
+      });
+      return '<div class="sk-game"><div class="sk-ghead"><span class="sk-gt">' + esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home)) + (g.start ? ' &middot; ' + esc(timeET(g.start)) : '') + '</span>' +
+        (skCollide(x.s, g) ? '<span class="sk-collide">Streaks collide</span>' : '') +
+        '<a class="sk-mu" href="' + skMatchup(g.away, g.home, g.day) + '">Matchup &rarr;</a></div><ul class="sk-tlist">' + rows + '</ul></div>';
+    }).join('');
+    return '<div class="st-card sk-card sk-tonight"><div class="st-head"><h4>' + head + '</h4><span class="sk-right">5+ &middot; best price</span></div><div class="sk-games">' + body + '</div></div>';
+  }
+  function skRunning() {
+    var list = SK.running.filter(skMatch), shown = SKF.more ? list : list.slice(0, SK_SHOWN);
+    var rows = skRows(shown, function(s) {
+      return '<li class="sk-row' + (skSeg(s.k).fr ? ' sk-fr' : '') + '"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span><span class="sk-who">' + skTeam(s.t) + '</span>' +
+        '<span class="sk-what">' + esc(skWhat(s)) + skVenue(s) + skFrTag(s) + '</span></li>';
+    });
+    return '<div class="st-card sk-card"><div class="st-head"><h4>Still Running</h4></div>' +
+      (list.length ? '<ul class="sk-list">' + rows + '</ul>' + (list.length > shown.length ? '<button type="button" class="sk-more" data-sk-more="1">Show all ' + list.length + '</button>' : '')
+        : '<p class="tp-none">No streaks of 3 or more for these picks.</p>') + '</div>';
+  }
+  function skEnded() {
+    var list = SK.ended.list.filter(skMatch);
+    var rows = skRows(list, function(e) {
+      var opp = (e.ha === 'home' ? 'vs ' : '@ ') + esc(tcode(e.opp));
+      return '<li class="sk-row' + (skSeg(e.k).fr ? ' sk-fr' : '') + '"><span class="sk-len sk-over">' + e.n + '</span><span class="sk-who">' + skTeam(e.t) + '</span>' +
+        '<span class="sk-what">' + esc(skWhat(e)) + skVenue(e) + ' &middot; ended at ' + e.n + ' &middot; <a class="sk-opp" href="' + skMatchup(e.t, e.opp, e.day) + '">' + opp + '</a>' + skFrTag(e) + '</span></li>';
+    });
+    return '<div class="st-card sk-card"><div class="st-head"><h4>Run&rsquo;s Over' + (SK.ended.label ? ' &middot; ' + esc(SK.ended.label) : '') + '</h4></div>' +
+      (list.length ? '<ul class="sk-list">' + rows + '</ul>' : '<p class="tp-none">No streak of 5 or more ended' + (SK.ended.label ? ' (' + esc(SK.ended.label) + ')' : '') + '.</p>') + '</div>';
+  }
+  function skRecords() {
+    var season = SK.records[SKF.rs] || SK.records[0];
+    if (!season) return '';
+    var cards = [];
+    SK.segs.forEach(function(seg) {
+      if (SKF.seg !== 'all' && seg.k !== SKF.seg) return;
+      seg.m.forEach(function(m) {
+        if (SKF.m !== 'all' && m !== SKF.m) return;
+        var rs = season.list[seg.k + '|' + m + '|' + SKF.v] || [];
+        if (!rs.length) return;
+        var locked = seg.fr && premiumLocked('fullRun');
+        var rows = rs.map(function(r, i) {
+          var s = { k: seg.k, m: m, kd: r.kd };
+          return '<li class="sk-rrow"><span class="sk-len ' + heatCls(r.n) + '">' + r.n + '</span><span class="sk-who">' + skTeam(r.t) + '</span>' +
+            '<span class="sk-what">' + esc(skWhat(s)) + '<span class="sk-rmeta"><span class="sk-dates nw">' + esc(dfShort(r.a)) + ' - ' + esc(dfShort(r.b)) + '</span>' +
+            (r.alive ? '<span class="sk-alive">alive</span>' : '') + (r.alive && i === 0 && SKF.rs === 0 ? '<span class="sk-best">Longest this season</span>' : '') + '</span></span></li>';
+        }).join('');
+        var body = '<ul class="sk-list">' + rows + '</ul>';
+        cards.push('<div class="st-card sk-card sk-rcard' + (seg.fr ? ' sk-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + skMkt(m).label) + (seg.fr ? '<span class="fr-tag">Premium</span>' : '') + '</h4></div>' +
+          (locked ? '<div class="pm-blur" aria-hidden="true">' + body + '</div><a class="pm-unlock" href="' + ROOT + '#premium">Unlock with Premium</a>' : body) + '</div>');
+      });
+    });
+    var pills = SK.records.length > 1 ? dfBar('Season', 'data-sk-rs', SK.records.map(function(x, i) { return { k: String(i), label: x.label }; }), String(SKF.rs), ' sk-season') : '';
+    return stSection('skRecords', 'Records', pills, cards.length ? '<div class="sk-rgrid">' + cards.join('') + '</div>' : emptyNote('No streaks for these picks.'));
+  }
+  function drawStreaks() {
+    var seg = SKF.seg === 'all' ? null : skSeg(SKF.seg);
+    var mids = [];
+    SK.segs.forEach(function(x) { if (!seg || x.k === seg.k) x.m.forEach(function(m) { if (mids.indexOf(m) === -1) mids.push(m); }); });
+    if (SKF.m !== 'all' && mids.indexOf(SKF.m) === -1) SKF.m = 'all';
+    var mopts = [{ k: 'all', label: 'All markets', s: 'All' }].concat(SK.markets.filter(function(x) { return mids.indexOf(x.id) !== -1; }).map(function(x) { return { k: x.id, label: x.label, s: x.short }; }));
+    var ctrl = '<div class="df2-ctrl sk-ctrl">' +
+      dfBar('Segment', 'data-sk-seg', [{ k: 'all', label: 'All segments', s: 'All' }].concat(SK.segs.map(function(x) { return { k: x.k, label: x.label, s: x.short, fr: x.fr }; })), SKF.seg) +
+      dfBar('Market', 'data-sk-m', mopts, SKF.m, mopts.length > 5 ? ' df2-markets' : '') +
+      dfBar('Home or away', 'data-sk-v', [{ k: 'all', label: 'All' }, { k: 'home', label: 'Home' }, { k: 'away', label: 'Away' }], SKF.v) + '</div>';
+    app.innerHTML = ctrl + (SK.cur ? skTonight() + '<div class="sk-two">' + skRunning() + skEnded() + '</div>' : skEnded()) + skRecords();
+  }
+  function renderStreaks() {
+    Promise.all([fetch(dataUrl(SPORT_SLUG + '/streaks.json')).then(function(r) { return r.json(); }),
+                 fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })]).then(function(x) {
+      SK = x[0];
+      SKO.picker = x[1].picker || [];
+      SKO.sources = x[1].sources || {};
+      app.addEventListener('click', function(e) {
+        var b = e.target.closest('[data-sk-seg],[data-sk-m],[data-sk-v],[data-sk-rs],[data-sk-more]');
+        if (!b) return;
+        if (b.hasAttribute('data-sk-seg')) SKF.seg = b.getAttribute('data-sk-seg');
+        else if (b.hasAttribute('data-sk-m')) SKF.m = b.getAttribute('data-sk-m');
+        else if (b.hasAttribute('data-sk-v')) SKF.v = b.getAttribute('data-sk-v');
+        else if (b.hasAttribute('data-sk-rs')) SKF.rs = +b.getAttribute('data-sk-rs');
+        else SKF.more = true;
+        if (!b.hasAttribute('data-sk-more')) SKF.more = false;
+        drawStreaks();
+      });
+      drawStreaks();
+      // the best prices among the visitor's books (the Books picker), per game day on the card
+      var days = {};
+      ((SK.tonight || {}).games || []).forEach(function(g) { days[g.day] = 1; });
+      Promise.all(Object.keys(days).map(function(d) {
+        return fetch(dataUrl(SPORT_SLUG + '/odds/' + d + '.json')).then(function(r) { return r.ok ? r.json() : { games: [] }; }).catch(function() { return { games: [] }; });
+      })).then(function(docs) {
+        docs.forEach(function(doc) { (doc.games || []).forEach(function(og) { SKO.og[og.away + '@' + og.home] = og; }); });
+        if (docs.length) drawStreaks();
+      });
+    }).catch(function(e) {
+      app.innerHTML = emptyNote('Couldn&rsquo;t load ' + esc(SPORT_SLUG) + ' streaks. Try reloading.');
+      if (window.console) console.error(e);
+    });
+  }
+
   // ---------------------------------------------------------------- boot
   // NHL's data.json is its own shape; its Matchups, Stats, Trends and Teams pages read the shared shape (nhl/sport.json)
-  var DATA_FILE = SPORT_SLUG === 'nhl' && ['games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team', 'h2h'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
+  var DATA_FILE = SPORT_SLUG === 'nhl' && ['games', 'stats', 'splits', 'edges', 'trends', 'teams', 'team', 'h2h', 'streaks'].indexOf(SECTION) !== -1 ? 'sport.json' : 'data.json';
   // the hub (/{sport}/) is all static HTML (scripts/front.py sections)
   if (SECTION === 'due') fetch(dataUrl(SPORT_SLUG + '/due.json')).then(function(r) { return r.json(); }).then(function(data) {
     DUE = data;
@@ -4310,6 +4503,7 @@
     else if (SECTION === 'team') renderTeam();
     else if (SECTION === 'teams') renderTeamsIndex();
     else if (SECTION === 'h2h') renderH2H();
+    else if (SECTION === 'streaks') renderStreaks();
     else if (SECTION === 'odds') renderOdds();
   }).catch(function(e) {
     if (SECTION !== 'team' && SECTION !== 'teams') app.innerHTML = emptyNote('Couldn&rsquo;t load ' + esc(SPORT_SLUG) + ' data. Try reloading.');

@@ -33,7 +33,7 @@ class NavTest(unittest.TestCase):
         self.assertIn('class="hn-picks-pill" href="preview/"', html)
 
     def test_page_order(self):
-        self.assertEqual([s for s, _, _ in sports.page_links('nba')], ['picks', 'games', 'odds', 'trends', 'stats', 'due', 'teams'])
+        self.assertEqual([s for s, _, _ in sports.page_links('nba')], ['picks', 'games', 'odds', 'trends', 'stats', 'teams'])
 
     def test_main_menu(self):
         self.assertEqual([k for k, _ in sports.MAIN_MENU], ['sports', 'matchups', 'odds', 'trends', 'stats', 'picks'])
@@ -60,10 +60,15 @@ class NavTest(unittest.TestCase):
         html = nav.header('../', status(), current='odds')
         self.assertIn('<p class="hr2-label">Odds</p>', html)
         self.assertIn('href="../nhl/odds/"', html)
-        # a sport page: its seven links (Due Factor after Trends), the current one marked
+        # a sport page: its six links, the current one marked; Due Factor and
+        # Streaks light Trends (they're its hub cards, not row items)
         row = nav.sport_row('/', sports.BY_KEY['nhl'], 'games')
-        self.assertEqual(len(re.findall(r'class="hr2-link[ "]', row)), 7)
+        self.assertEqual(len(re.findall(r'class="hr2-link[ "]', row)), 6)
         self.assertIn('href="/nhl/matchups/" aria-current="page"', row)
+        for section in ('trends', 'due', 'streaks'):
+            row = nav.sport_row('/', sports.BY_KEY['nhl'], section)
+            self.assertIn('href="/nhl/trends/" aria-current="page"', row)
+            self.assertEqual(row.count('aria-current'), 1)
 
     def test_menu_has_no_learn(self):
         html = nav.header('', status())

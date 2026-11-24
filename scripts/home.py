@@ -310,6 +310,14 @@ def build(template, nhl_data, logo_svg, now_utc=None):
         with open(os.path.join(ROOT, kind, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(out)
 
+    # /streaks/: every sport's streaks (scripts/streaks.py); Trends lit in the nav (nav.SECTION_TAB), no sports row
+    import streaks
+    meta = streaks.index_meta()
+    body = f'<div class="ix"><div class="ix-head"><h1>{esc(meta["h1"])}</h1></div></div>' + streaks.index_html('../')
+    out = page(meta['title'], meta['desc'], body, status, depth='../', current='streaks').replace('__LOGO_SVG__', logo_svg)
+    os.makedirs(os.path.join(ROOT, 'streaks'), exist_ok=True)
+    with open(os.path.join(ROOT, 'streaks', 'index.html'), 'w', encoding='utf-8') as f:
+        f.write(out)
     stats_index.write(page, status, logo_svg)
     guides.write(page, status, logo_svg)
     daily.write_pages(page, status, logo_svg, pieces)   # columns (previews: build_site.write_previews)

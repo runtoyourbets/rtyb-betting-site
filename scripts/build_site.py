@@ -67,6 +67,7 @@ import picks  # noqa: E402
 import seo  # noqa: E402
 import daily  # noqa: E402
 import due_factor  # noqa: E402
+import streaks  # noqa: E402
 import h2h  # noqa: E402
 import preview  # noqa: E402
 import home  # noqa: E402
@@ -485,7 +486,7 @@ def lighten(html, page_dir):
     if 'id="sportApp"' in html:
         # the sport's Situational Results registry (assets/splits/), if it has one
         key = next((sp['key'] for sp in sports.SPORTS if sp['slug'] == page_dir.split('/')[0]), '')
-        if os.path.exists(os.path.join(ROOT, 'assets', 'splits', f'{key}.js')) and 'data-section="odds"' not in html and 'data-section="due"' not in html:
+        if os.path.exists(os.path.join(ROOT, 'assets', 'splits', f'{key}.js')) and not any(f'data-section="{x}"' in html for x in ('odds', 'due', 'streaks')):
             for dep in SPLIT_DEPS.get(key, []) + [key]:
                 shell += f'\n<script src="{prefix}assets/splits/{dep}.js"></script>'
             shell += f'\n<script src="{prefix}assets/situational.js"></script>'
@@ -858,15 +859,26 @@ def sport_app_body(sp, section):
     How to read box where the page type has one. The Odds page opens with
     The Big Numbers (scripts/bignums.py), under the H1."""
     top = bignums.odds_top(sp, datetime.now(timezone.utc), '__ROOT__/') if section == 'odds' else ''
-    return (top + (bignums.ODDS_JS if top else '') + (due_link(sp) if section == 'trends' else '') + f'<div id="sportApp" data-section="{section}"><div class="no-games-note">Loading&hellip;</div>'
+    return (top + (bignums.ODDS_JS if top else '') + (trends_tabs_html(sp, 'trends') if section == 'trends' else '') + f'<div id="sportApp" data-section="{section}"><div class="no-games-note">Loading&hellip;</div>'
             f'<noscript>This page needs JavaScript.</noscript></div>' + how_to_read_html(sp, section)
             + (front.running_tab() if section == 'trends' else ''))   # the Get the Tab lock's signup box
 
 
-def due_link(sp):
-    """The Trends page's pill to the sport's Due Factor."""
-    return (f'<div class="gd-pills df-pills"><a class="gd-pill df-pill" href="__ROOT__{sports.section_path(sp, "due")}">'
-            'Due Factor <span aria-hidden="true">&rarr;</span></a></div>')
+# The Trends hub: (section, tab name, line under it), the same cards as Stats'
+TRENDS_PAGES = [('trends', 'Trends', 'League and team trends'), ('streaks', 'Streaks', 'Still running, run’s over, records'),
+                ('due', 'Due Factor', 'What’s running hot and cold')]
+
+
+def trends_tabs_html(sp, current):
+    """Trends · Streaks · Due Factor: tab cards under the heading (the
+    current page tinted, the others with an arrow), on all three pages."""
+    out = []
+    for sec, name, line in TRENDS_PAGES:
+        cur = sec == current
+        out.append(f'<a class="stc" href="__ROOT__{sports.section_path(sp, sec).lstrip("/")}"' + (' aria-current="page"' if cur else '')
+                   + f'><span class="stc-name">{name}' + ('' if cur else '<span class="stc-go" aria-hidden="true">&rarr;</span>')
+                   + f'</span><span class="stc-sub">{esc(line)}</span></a>')
+    return '<nav class="stats-cards" aria-label="Trends pages">' + ''.join(out) + '</nav>'
 
 
 def write_due_pages(template):
@@ -876,8 +888,19 @@ def write_due_pages(template):
     today = now.astimezone(front.ET).date()
     for sp in sports.SPORTS:
         html = render_page(template, 'sport', '', meta=due_factor.page_meta(sp), sport=sp,
-                           sport_body=due_factor.page_body(sp, today, now))
+                           sport_body=trends_tabs_html(sp, 'due') + due_factor.page_body(sp, today, now))
         write_light(html, f"{sp['slug']}/{sp['sections']['due']}")
+
+
+def write_streaks_pages(template):
+    """/{slug}/streaks/ for every sport (scripts/streaks.py): static, drawn
+    by assets/sport.js (renderStreaks) from {slug}/streaks.json."""
+    today = datetime.now(timezone.utc).astimezone(sport_build.ET).date()
+    for sp in sports.SPORTS:
+        meta = streaks.page_meta(sp)
+        html = render_page(template, 'sport', '', meta=dict(meta, desc=''), sport=sp,   # no line under the title
+                           sport_body=streaks.page_body(sp, today, trends_tabs_html(sp, 'streaks')))
+        write_light(html, f"{sp['slug']}/{sp['sections']['streaks']}")
 
 
 def write_h2h_pages(template):
@@ -1006,7 +1029,7 @@ def write_sport_extras(template):
 
 
 # old addresses -> where they live now (a stub that forwards, with a canonical)
-MOVED = {'daily': 'preview/', 'on-tap': 'preview/', 'learn': 'betting-guides/', 'streaks': 'trends/'}
+MOVED = {'daily': 'preview/', 'on-tap': 'preview/', 'learn': 'betting-guides/'}
 
 
 # team pages whose code changed: old folder -> new (Montreal: MON -> MTL, 2026-11-18)
@@ -1477,7 +1500,7 @@ def main():
     trends_meta = {'title': section_title(nhl, 'trends'), 'h1': sports.h1(nhl, 'trends'), 'section': 'trends',
                    'desc': SECTION_DESC['trends'].format(label='NHL', segs='1st Period')}
     write_light(render_page(template, 'sport', teams_menu_html, meta=trends_meta, sport=nhl,
-                            sport_body=due_link(nhl) + '<div id="sportApp" data-section="trends"><div class="no-games-note">Loading&hellip;</div>'
+                            sport_body=trends_tabs_html(nhl, 'trends') + '<div id="sportApp" data-section="trends"><div class="no-games-note">Loading&hellip;</div>'
                                        '<noscript>This page needs JavaScript.</noscript></div>' + front.running_tab()), 'nhl/trends')
     # /nhl/teams/ and /nhl/teams/<code>/: the shared Teams list and team
     # pages (assets/sport.js), from nhl/sport.json like every sport's
@@ -1499,6 +1522,7 @@ def main():
     write_hub(template, nhl, teams_menu_html)
     other = build_other_sports(template)
     write_due_pages(template)
+    write_streaks_pages(template)
     write_h2h_pages(template)
     import seasons   # every sport's season state, logged (and assets/seasons.json for the admin)
     seasons.all_states()
@@ -1511,7 +1535,7 @@ def main():
     picks_body, picks_info = picks.build(full_data, TEAM_CITY)
     home.write_picks(template, full_data, LOGO_SVG, picks_body)
     write_sport_extras(template)
-    write_moved()   # /daily/, /on-tap/ -> /preview/, /learn/ -> /betting-guides/, /streaks/ -> /trends/
+    write_moved()   # /daily/, /on-tap/ -> /preview/, /learn/ -> /betting-guides/
     definitions.write_meta()   # the admin's Definitions tab and the pages' Live text (assets/definitions*.json)
     # the admin's Books tab: each book's source, 7-day coverage per sport, last seen
     books_cfg.write_status(now_utc.astimezone(sport_build.ET).date().isoformat(), sport_build.all_book_names(),

@@ -313,17 +313,22 @@ def off_note(sp, doc, today):
     final = next((s for s in doc['seasons'] if not s['cur']), None)
     if not final:
         return ''
+    return f"{sp['label']} is in the off-season. Showing the {final['label']} season (final). {next_season(sp, today)}"
+
+
+def next_season(sp, today):
+    """"Opening Day: Wed, Mar 24, 2027" (Site settings), else "Next season:
+    spring 2027" (the Streaks page's off-season note too)."""
     opening = ((sports.SETTINGS.get('seasons') or {}).get(sp['key']) or {}).get('OPENING_DAY') or ''
     try:
         d = date.fromisoformat(opening)
-        nxt = f"Opening Day: {d.strftime('%a, %b')} {d.day}, {d.year}" if d >= today else ''
+        if d >= today:
+            return f"Opening Day: {d.strftime('%a, %b')} {d.day}, {d.year}"
     except ValueError:
-        nxt = ''
-    if not nxt:
-        m = sp['season_start']
-        year = today.year if m > today.month else today.year + 1
-        nxt = f"Next season: {SEASON_WORDS[m]} {year}"
-    return f"{sp['label']} is in the off-season. Showing the {final['label']} season (final). {nxt}"
+        pass
+    m = sp['season_start']
+    year = today.year if m > today.month else today.year + 1
+    return f"Next season: {SEASON_WORDS[m]} {year}"
 
 
 def page_body(sp, today, now=None, root='__ROOT__/'):

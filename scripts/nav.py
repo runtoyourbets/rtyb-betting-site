@@ -40,7 +40,7 @@ import icons
 import sports
 
 # a sport page's section -> the main-menu item it lights up
-SECTION_TAB = {'games': 'matchups', 'odds': 'odds', 'trends': 'trends', 'due': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'picks',
+SECTION_TAB = {'games': 'matchups', 'odds': 'odds', 'trends': 'trends', 'due': 'trends', 'streaks': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'picks',
                'hub': 'sports', 'teams': 'sports', 'guide': 'sports'}
 # the sport page each index page's sports row opens
 INDEX_SECTION = {'matchups': 'games', 'odds': 'odds', 'trends': 'trends', 'stats': 'stats', 'picks': 'picks', 'preview': 'preview'}
@@ -136,7 +136,7 @@ def index_row(base, key, sps):
             f'<nav class="hr2-links hr2-sports{" hr2-many" if n > 5 else ""}" aria-label="Sports">{links}</nav></div></div>')
 
 
-PHONE_PAGE_NAMES = {'due': 'Due'}   # the sport row on phones: "Due" for Due Factor
+PHONE_PAGE_NAMES = {}   # the sport row on phones: a shorter name for a page, when one needs it
 
 
 def _page_name(sec, label):
@@ -145,9 +145,15 @@ def _page_name(sec, label):
     return f'<span class="nm-full">{esc(label)}</span><span class="nm-abbr">{esc(PHONE_PAGE_NAMES[sec])}</span>'
 
 
+# pages reached through another page's hub cards light up that page
+ROW_PARENT = {'preview': 'picks', 'due': 'trends', 'streaks': 'trends'}
+
+
 def sport_row(base, sp, section):
-    """Row 2 on a sport page: the sport (its hub), then its pages."""
-    links = ''.join(f'<a class="hr2-link" href="{href}"{CUR if sec == section or (sec, section) == ("picks", "preview") else ""}>{_page_name(sec, label)}</a>'
+    """Row 2 on a sport page: the sport (its hub), then its pages (Trends
+    stays lit on Streaks and Due Factor)."""
+    on = ROW_PARENT.get(section, section)
+    links = ''.join(f'<a class="hr2-link" href="{href}"{CUR if sec == on else ""}>{_page_name(sec, label)}</a>'
                     for sec, label, href in _pages(base, sp))
     return (f'<div class="hr2"><div class="hr2-inner"><a class="hr2-label hr2-sport" href="{base}{sp["slug"]}/">{icons.sport_icon(sp)}{_names(sp)}</a>'
             f'<nav class="hr2-links hr2-pages" aria-label="{esc(sp["menu_label"])} pages">{links}</nav></div></div>')

@@ -81,11 +81,10 @@ class CountTest(unittest.TestCase):
 
 
 class PageTest(unittest.TestCase):
-    def test_every_sport_gets_the_page_and_the_menu_link_after_stats(self):
+    def test_every_sport_gets_the_page_reached_from_the_trends_hub(self):
         for sp in sports.SPORTS:
             with self.subTest(sp['key']), mock.patch.object(df, 'write_data', df.build):
-                links = [s for s, _, _ in sports.page_links(sp)]
-                self.assertEqual(links[links.index('stats') + 1], 'due')
+                self.assertNotIn('due', [s for s, _, _ in sports.page_links(sp)])
                 body = df.page_body(sp, TODAY)
                 self.assertIn('<div id="sportApp" data-section="due">', body)
                 self.assertTrue(df.page_meta(sp)['title'].startswith(f'{sports.seo_name(sp)} Due Factor: {sports.seg_words(sp)} Hot and Cold Trends'))
