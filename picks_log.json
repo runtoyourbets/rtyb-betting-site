@@ -14300,10 +14300,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 450,
+    "price": 470,
     "title": "Delaware State 1H ML",
-    "est": 0.2429,
-    "edge": 0.061,
+    "est": 0.2375,
+    "edge": 0.0621,
     "agree": 2,
     "sample": 6,
     "tier": "C",
@@ -14342,10 +14342,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 1050,
+    "price": 900,
     "title": "Sacred Heart 1H ML",
-    "est": 0.138,
-    "edge": 0.0511,
+    "est": 0.1492,
+    "edge": 0.0492,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -14368,6 +14368,49 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Sacred Heart"
+   },
+   {
+    "id": "ncaab|401909775|1h|ml|away",
+    "game": "ncaab|401909775",
+    "date": "2026-11-24",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-24T22:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "San Diego State @ Iowa State",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 250,
+    "title": "San Diego State 1H ML",
+    "est": 0.333,
+    "edge": 0.0472,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "san-diego-state-aztecs",
+    "angles": [
+     [
+      "San Diego State 1H ML, season",
+      "5-0"
+     ],
+     [
+      "San Diego State 1H ML, last 8",
+      "5-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "San Diego State"
    },
    {
     "id": "ncaab|401920309|1h|ml|away",
@@ -14414,49 +14457,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Samford"
-   },
-   {
-    "id": "ncaab|401909775|1h|ml|away",
-    "game": "ncaab|401909775",
-    "date": "2026-11-24",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-24T22:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "San Diego State @ Iowa State",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 235,
-    "title": "San Diego State 1H ML",
-    "est": 0.3439,
-    "edge": 0.0454,
-    "agree": 2,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "san-diego-state-aztecs",
-    "angles": [
-     [
-      "San Diego State 1H ML, season",
-      "5-0"
-     ],
-     [
-      "San Diego State 1H ML, last 8",
-      "5-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "San Diego State"
    },
    {
     "id": "ncaaf|401866471|1h|ml|away",
