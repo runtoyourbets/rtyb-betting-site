@@ -2,8 +2,8 @@
  "books": {
   "1": {
    "coverage": {
-    "nba": 76,
-    "ncaab": 85,
+    "nba": 82,
+    "ncaab": 88,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -80,7 +80,7 @@
   },
   "20": {
    "coverage": {
-    "nba": 94,
+    "nba": 98,
     "ncaab": 66,
     "ncaaf": 93,
     "nfl": 100,
@@ -106,11 +106,11 @@
   },
   "4": {
    "coverage": {
-    "nba": 94,
+    "nba": 100,
     "ncaab": 74,
     "ncaaf": 94,
     "nfl": 100,
-    "nhl": 98
+    "nhl": 100
    },
    "group": "Sportsbook",
    "last_seen": "2026-11-24",
@@ -146,7 +146,7 @@
   "86": {
    "coverage": {
     "nba": 96,
-    "ncaab": 83,
+    "ncaab": 82,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
