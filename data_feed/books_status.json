@@ -94,7 +94,7 @@
   "36": {
    "coverage": {
     "nba": 100,
-    "ncaab": 80,
+    "ncaab": 79,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -107,7 +107,7 @@
   "4": {
    "coverage": {
     "nba": 100,
-    "ncaab": 86,
+    "ncaab": 87,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 100
@@ -133,7 +133,7 @@
   "66": {
    "coverage": {
     "nba": 100,
-    "ncaab": 84,
+    "ncaab": 82,
     "ncaaf": 94,
     "nfl": 92,
     "nhl": 0
@@ -146,7 +146,7 @@
   "86": {
    "coverage": {
     "nba": 100,
-    "ncaab": 82,
+    "ncaab": 80,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -159,7 +159,7 @@
   "89": {
    "coverage": {
     "nba": 100,
-    "ncaab": 83,
+    "ncaab": 82,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 0
@@ -171,7 +171,7 @@
   },
   "ballybet": {
    "coverage": {
-    "nba": 4,
+    "nba": 10,
     "ncaab": 0,
     "ncaaf": 3,
     "nfl": 0,
@@ -184,8 +184,8 @@
   },
   "betonlineag": {
    "coverage": {
-    "nba": 29,
-    "ncaab": 14,
+    "nba": 35,
+    "ncaab": 27,
     "ncaaf": 3,
     "nfl": 15,
     "nhl": 26
@@ -197,21 +197,21 @@
   },
   "betparx": {
    "coverage": {
-    "nba": 4,
+    "nba": 10,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
     "nhl": 0
    },
    "group": "Sportsbook",
-   "last_seen": "2026-11-23",
+   "last_seen": "2026-11-24",
    "name": "betPARX",
    "source": "The Odds API"
   },
   "betrivers": {
    "coverage": {
-    "nba": 29,
-    "ncaab": 18,
+    "nba": 35,
+    "ncaab": 34,
     "ncaaf": 3,
     "nfl": 15,
     "nhl": 26
@@ -223,11 +223,11 @@
   },
   "betus": {
    "coverage": {
-    "nba": 4,
+    "nba": 10,
     "ncaab": 0,
     "ncaaf": 3,
     "nfl": 0,
-    "nhl": 5
+    "nhl": 7
    },
    "group": "Offshore",
    "last_seen": "2026-11-24",
@@ -237,7 +237,7 @@
   "bovada": {
    "coverage": {
     "nba": 35,
-    "ncaab": 20,
+    "ncaab": 38,
     "ncaaf": 3,
     "nfl": 15,
     "nhl": 26
@@ -263,7 +263,7 @@
   "hardrockbet": {
    "coverage": {
     "nba": 35,
-    "ncaab": 20,
+    "ncaab": 39,
     "ncaaf": 3,
     "nfl": 15,
     "nhl": 26
