@@ -14342,10 +14342,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 900,
+    "price": 800,
     "title": "Sacred Heart 1H ML",
-    "est": 0.1492,
-    "edge": 0.0492,
+    "est": 0.1588,
+    "edge": 0.0476,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -14368,49 +14368,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Sacred Heart"
-   },
-   {
-    "id": "ncaab|401909775|1h|ml|away",
-    "game": "ncaab|401909775",
-    "date": "2026-11-24",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-24T22:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "San Diego State @ Iowa State",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 250,
-    "title": "San Diego State 1H ML",
-    "est": 0.333,
-    "edge": 0.0472,
-    "agree": 2,
-    "sample": 5,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "san-diego-state-aztecs",
-    "angles": [
-     [
-      "San Diego State 1H ML, season",
-      "5-0"
-     ],
-     [
-      "San Diego State 1H ML, last 8",
-      "5-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "San Diego State"
    },
    {
     "id": "ncaab|401920309|1h|ml|away",
@@ -14457,6 +14414,49 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Samford"
+   },
+   {
+    "id": "ncaab|401909775|1h|ml|away",
+    "game": "ncaab|401909775",
+    "date": "2026-11-24",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-24T22:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "San Diego State @ Iowa State",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 235,
+    "title": "San Diego State 1H ML",
+    "est": 0.3439,
+    "edge": 0.0454,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "san-diego-state-aztecs",
+    "angles": [
+     [
+      "San Diego State 1H ML, season",
+      "5-0"
+     ],
+     [
+      "San Diego State 1H ML, last 8",
+      "5-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "San Diego State"
    },
    {
     "id": "ncaab|401926154|1h|ml|away",
@@ -14549,52 +14549,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Miami (OH)"
-   },
-   {
-    "id": "ncaab|401928859|1h|ml|away",
-    "game": "ncaab|401928859",
-    "date": "2026-11-24",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-24T18:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Rice @ UIC",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 210,
-    "title": "Rice 1H ML",
-    "est": 0.3603,
-    "edge": 0.0377,
-    "agree": 3,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "rice-owls",
-    "angles": [
-     [
-      "Rice 1H ML, season",
-      "4-2"
-     ],
-     [
-      "Rice 1H ML, last 8",
-      "4-2"
-     ],
-     [
-      "Rice 1H ML on the road",
-      "2-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Rice"
    },
    {
     "id": "ncaab|401920889|1h|ats|away",
@@ -14734,6 +14688,49 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Santa Clara"
+   },
+   {
+    "id": "ncaab|401915943|1h|ml|away",
+    "game": "ncaab|401915943",
+    "date": "2026-11-24",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-25T03:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Oregon @ St. John's",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 250,
+    "title": "Oregon 1H ML",
+    "est": 0.3175,
+    "edge": 0.0317,
+    "agree": 2,
+    "sample": 4,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "oregon-ducks",
+    "angles": [
+     [
+      "Oregon 1H ML, season",
+      "4-0"
+     ],
+     [
+      "Oregon 1H ML, last 8",
+      "4-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Oregon"
    }
   ]
  }
