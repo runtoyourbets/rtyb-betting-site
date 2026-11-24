@@ -14598,6 +14598,52 @@
     "streakTeamName": "New Hampshire"
    },
    {
+    "id": "ncaaf|401866471|1h|ml|away",
+    "game": "ncaaf|401866471",
+    "date": "2026-11-24",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-25T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Miami (OH) @ Western Michigan",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 170,
+    "title": "Miami (OH) 1H ML",
+    "est": 0.4075,
+    "edge": 0.0371,
+    "agree": 3,
+    "sample": 10,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "miami-oh-redhawks",
+    "angles": [
+     [
+      "Miami (OH) 1H ML on the road",
+      "4-1"
+     ],
+     [
+      "Miami (OH) 1H ML, last 8",
+      "5-2-1"
+     ],
+     [
+      "Miami (OH) 1H ML, season",
+      "7-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Miami (OH)"
+   },
+   {
     "id": "ncaab|401911458|1h|ml|home",
     "game": "ncaab|401911458",
     "date": "2026-11-24",
@@ -14642,52 +14688,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Santa Clara"
-   },
-   {
-    "id": "ncaaf|401866471|1h|ml|away",
-    "game": "ncaaf|401866471",
-    "date": "2026-11-24",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-25T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Miami (OH) @ Western Michigan",
-    "href": "college-football/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 163,
-    "title": "Miami (OH) 1H ML",
-    "est": 0.4149,
-    "edge": 0.0347,
-    "agree": 3,
-    "sample": 10,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "miami-oh-redhawks",
-    "angles": [
-     [
-      "Miami (OH) 1H ML on the road",
-      "4-1"
-     ],
-     [
-      "Miami (OH) 1H ML, last 8",
-      "5-2-1"
-     ],
-     [
-      "Miami (OH) 1H ML, season",
-      "7-3-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Miami (OH)"
    },
    {
     "id": "nba|401909316|1q|total|under",

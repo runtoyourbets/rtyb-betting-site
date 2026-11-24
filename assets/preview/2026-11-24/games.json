@@ -238,12 +238,12 @@
     "value": "ncaab:401924267"
    },
    {
-    "label": "NCAAB · Lindenwood at New Haven · 4:00 PM ET",
+    "label": "NCAAB · New Haven at Lindenwood · 4:00 PM ET",
     "trends": 5,
     "value": "ncaab:401929035"
    },
    {
-    "label": "NCAAB · Tulsa at Illinois State · 4:30 PM ET",
+    "label": "NCAAB · Illinois State at Tulsa · 4:30 PM ET",
     "trends": 6,
     "value": "ncaab:401921666"
    },
@@ -844,12 +844,12 @@
     "value": "ncaab:401924267"
    },
    {
-    "label": "Lindenwood at New Haven · 4:00 PM ET",
+    "label": "New Haven at Lindenwood · 4:00 PM ET",
     "trends": 5,
     "value": "ncaab:401929035"
    },
    {
-    "label": "Tulsa at Illinois State · 4:30 PM ET",
+    "label": "Illinois State at Tulsa · 4:30 PM ET",
     "trends": 6,
     "value": "ncaab:401921666"
    },
@@ -1331,7 +1331,7 @@
    },
    {
     "label": "Tulsa at UTSA · 12:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaaf:401862840"
    },
    {
