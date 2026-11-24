@@ -13565,8 +13565,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "P",
+    "units": 0.0,
     "streakTeamName": "Minnesota"
    },
    {
@@ -14131,8 +14131,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Colorado State"
    },
    {
