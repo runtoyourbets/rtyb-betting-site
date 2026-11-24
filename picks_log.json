@@ -14598,50 +14598,54 @@
     "streakTeamName": "New Hampshire"
    },
    {
-    "id": "ncaaf|401866471|1h|ml|away",
-    "game": "ncaaf|401866471",
+    "id": "nba|401909316|1q|total|under",
+    "game": "nba|401909316",
     "date": "2026-11-24",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-25T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Miami (OH) @ Western Michigan",
-    "href": "college-football/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 170,
-    "title": "Miami (OH) 1H ML",
-    "est": 0.4075,
-    "edge": 0.0371,
-    "agree": 3,
-    "sample": 10,
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Nuggets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -102,
+    "title": "1Q Under 60.5",
+    "est": 0.5419,
+    "edge": 0.0369,
+    "agree": 6,
+    "sample": 17,
     "tier": "C",
     "tags": [
-     "Dog Hunter"
+     "Under Grinder"
     ],
-    "streak": 1,
-    "streakTeam": "miami-oh-redhawks",
+    "streak": -2,
+    "streakTeam": "den",
     "angles": [
      [
-      "Miami (OH) 1H ML on the road",
-      "4-1"
+      "Nuggets 1Q unders, last 8 (60.5)",
+      "6-2"
      ],
      [
-      "Miami (OH) 1H ML, last 8",
-      "5-2-1"
+      "Mavericks 1Q unders, last 8 (60.5)",
+      "6-2"
      ],
      [
-      "Miami (OH) 1H ML, season",
-      "7-3-1"
+      "Mavericks 1Q unders, season (60.5)",
+      "12-5"
+     ],
+     [
+      "Nuggets 1Q unders, season (60.5)",
+      "10-5"
      ]
     ],
-    "info": null,
+    "info": "Avg 1Q total in their games: Nuggets 56.9 \u00b7 Mavericks 57.1",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Miami (OH)"
+    "streakTeamName": "Nuggets"
    },
    {
     "id": "ncaab|401911458|1h|ml|home",
@@ -14690,54 +14694,50 @@
     "streakTeamName": "Santa Clara"
    },
    {
-    "id": "nba|401909316|1q|total|under",
-    "game": "nba|401909316",
+    "id": "ncaaf|401866471|1h|ml|away",
+    "game": "ncaaf|401866471",
     "date": "2026-11-24",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Nuggets",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -105,
-    "title": "1Q Under 60.5",
-    "est": 0.5465,
-    "edge": 0.0343,
-    "agree": 6,
-    "sample": 17,
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-25T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Miami (OH) @ Western Michigan",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 164,
+    "title": "Miami (OH) 1H ML",
+    "est": 0.4138,
+    "edge": 0.035,
+    "agree": 3,
+    "sample": 10,
     "tier": "C",
     "tags": [
-     "Under Grinder"
+     "Dog Hunter"
     ],
-    "streak": -2,
-    "streakTeam": "den",
+    "streak": 1,
+    "streakTeam": "miami-oh-redhawks",
     "angles": [
      [
-      "Nuggets 1Q unders, last 8 (60.5)",
-      "6-2"
+      "Miami (OH) 1H ML on the road",
+      "4-1"
      ],
      [
-      "Mavericks 1Q unders, last 8 (60.5)",
-      "6-2"
+      "Miami (OH) 1H ML, last 8",
+      "5-2-1"
      ],
      [
-      "Mavericks 1Q unders, season (60.5)",
-      "12-5"
-     ],
-     [
-      "Nuggets 1Q unders, season (60.5)",
-      "10-5"
+      "Miami (OH) 1H ML, season",
+      "7-3-1"
      ]
     ],
-    "info": "Avg 1Q total in their games: Nuggets 56.9 \u00b7 Mavericks 57.1",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Nuggets"
+    "streakTeamName": "Miami (OH)"
    },
    {
     "id": "nba|401909314|1q|total|over",
