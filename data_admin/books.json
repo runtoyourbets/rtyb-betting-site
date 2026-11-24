@@ -82,7 +82,7 @@
     },
     {
       "id": "111",
-      "name": "Polymarket US",
+      "name": "Polymarket",
       "group": "Exchange",
       "show": true,
       "best": true,
@@ -124,7 +124,7 @@
       "id": "107",
       "name": "Polymarket",
       "group": "Exchange",
-      "show": true,
+      "show": false,
       "best": true,
       "link": ""
     },

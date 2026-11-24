@@ -133,7 +133,7 @@ def load_games(sport):
 # same across leagues).
 BOOK_NAMES = {'1': 'DraftKings', '2': 'FanDuel', '4': 'BetMGM', '20': 'Caesars', '36': 'theScore Bet',
               '60': 'theScore CA', '118': 'theScore', '86': 'Fanatics', '80': 'BetMGM', '89': 'Novig',
-              '66': 'ProphetX', '105': 'Kalshi', '107': 'Polymarket', '111': 'Polymarket US',
+              '66': 'ProphetX', '105': 'Kalshi', '107': 'Polymarket', '111': 'Polymarket',
               '121': 'Underdog', '73': 'Underdog Fantasy', '72': 'PrizePicks', '84': 'DK Pick6',
               'espnbet': 'ESPN BET', 'betrivers': 'BetRivers', 'hardrockbet': 'Hard Rock Bet', 'bovada': 'Bovada',
               'betonlineag': 'BetOnline'}
@@ -177,6 +177,9 @@ EXTRA_BOOKS = {'consensus': 'Consensus'}
 BOOK_KEYS = {'1': 'draftkings', '2': 'fanduel', '4': 'betmgm', '80': 'betmgm', '20': 'caesars',
              '36': 'thescore', '118': 'thescore', '86': 'fanatics', '121': 'underdog'}
 LOGO_EXTS = ('svg', 'png', 'webp', 'jpg')
+# Underdog's own thumbnail is a small dark mark in a large empty square: it
+# shows Unabated's square Underdog icon (Underdog Fantasy's) instead
+LOGO_SAME = {'121': '73'}
 # The Odds API's books (the backfill's history rows and the live feed,
 # fetch_odds_theoddsapi.py) -> the Odds page's source ids: the books Unabated
 # also carries keep its ids (Unabated's row, with its Gambly link, wins), the
@@ -189,7 +192,7 @@ ODDSAPI_BOOKS = {'draftkings': '1', 'fanduel': '2', 'betmgm': '4', 'williamhill_
 
 
 def book_logo(book_id):
-    for key in (book_id, BOOK_KEYS.get(book_id)):
+    for key in (LOGO_SAME.get(book_id), book_id, BOOK_KEYS.get(book_id)):
         for ext in LOGO_EXTS:
             if key and os.path.exists(os.path.join(ROOT, 'assets', 'books', f'{key}.{ext}')):
                 return f'assets/books/{key}.{ext}'

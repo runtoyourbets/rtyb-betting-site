@@ -1455,10 +1455,20 @@ def main():
 
     # /nhl/stats/: the Stats page, drawn by assets/sport.js like every
     # sport's, from NHL's games in the shared shape (scripts/nhl_sport.py)
-    sport_build.write_json(os.path.join(nhl_dir, 'sport.json'), nhl_sport.doc(
+    nhl_out = nhl_sport.doc(
         merged_games, SEASON_START, full_data['seasonLabel'], full_data.get('summary', {}), full_data['divisions'],
         team_colors, full_data.get('tz'), datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-        sport_build.oddsapi_odds('nhl', {'game'})))
+        sport_build.oddsapi_odds('nhl', {'game'}))
+    # 2025-26 in the shared shape (nhl/history-games.json, history.json is its
+    # own shape): the team page's By Starting Goalie rows for last season
+    if archive:
+        prev = {}
+        for g in archive:
+            if g.get('awayFinal') is not None and g.get('date'):
+                prev.setdefault(g['date'], []).append(nhl_sport.game(dict(g, state='FINAL'), g['date']))
+        sport_build.write_json(os.path.join(nhl_dir, 'history-games.json'), {'season': 2026, 'seasonLabel': '2025-26', 'games': prev})
+        nhl_out['history'] = {'season': 2026, 'label': '2025-26', 'file': 'history-games.json'}
+    sport_build.write_json(os.path.join(nhl_dir, 'sport.json'), nhl_out)
     nhl_doc = json.load(open(os.path.join(nhl_dir, 'sport.json'), encoding='utf-8'))
     nhl_trends = trends.page_doc(nhl, nhl_doc, datetime.now(timezone.utc))
     sport_build.write_json(os.path.join(nhl_dir, 'trends.json'), nhl_trends)

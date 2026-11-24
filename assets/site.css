@@ -1926,12 +1926,12 @@
   .mb-gh { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
   .mb-all { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); white-space: nowrap; }
   .mb-all .adv-link { font-size: var(--fs-price); padding: 4px; }
-  .mb-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: var(--cell-gap); }
-  .mb-book { display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 8px; border: 1px solid var(--card-border); border-radius: var(--cell-radius); background: var(--cell); cursor: pointer; }
+  .mb-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--cell-gap); }
+  .mb-book { display: flex; align-items: center; gap: 6px; min-width: 0; min-height: 44px; padding: 6px 8px; border: 1px solid var(--card-border); border-radius: var(--cell-radius); background: var(--cell); cursor: pointer; }
   .mb-book:has(input:checked) { border-color: var(--accent); }
   .mb-book input { flex-shrink: 0; margin: 0; accent-color: var(--accent); }
-  .mb-logo { width: 32px; height: 32px; border-radius: 6px; object-fit: contain; }
-  .mb-bname { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-team); color: var(--text); overflow-wrap: anywhere; }
+  .mb-logo { flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px; object-fit: contain; }
+  .mb-bname { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-team); color: var(--text); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mb-note { margin: 10px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); }
   @media (max-width: 640px) {
     .ob-grid { --ob-team: calc(96px + var(--odds-pad-x)); --ob-open: calc(58px + var(--open-gap)); --ob-src: 60px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
@@ -2892,6 +2892,7 @@
   .tp-table td { padding: 4px; border-top: 1px solid var(--border-soft); vertical-align: middle; white-space: nowrap; }
   .tp-table tbody th { padding: 8px 4px; border-top: 1px solid var(--border-soft); }
   .tp-table .num { text-align: right; }
+  .tp-table tbody tr.tp-sprow th { padding-top: 20px; }   /* last season's starters */
   .tp-table tbody th.tp-pl { font-size: var(--fs-team); font-weight: var(--fw-team); text-transform: none; letter-spacing: normal; color: var(--text); }
   .tp-log th.tp-lc { text-align: center; }
   .tp-log .tp-lc { width: 1%; min-width: 64px; }

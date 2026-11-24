@@ -1119,7 +1119,7 @@
   // the season state from the build, and the early season's Last season data
   var TP = { state: app.getAttribute('data-season') || '', year: app.getAttribute('data-season-year') || '', opening: app.getAttribute('data-opening') || '',
              champ: app.getAttribute('data-champ') || '',
-             which: 'this', cur: null, prev: null, prevTried: false, log: 5, sitK: null, haCol: 0 };
+             which: 'this', cur: null, prev: null, prevTried: false, log: 5, sitK: null, haCol: 0, spPrev: null };
   function tpSeasonToggle() {
     if (TP.state !== 'early') return '';
     return '<div class="seg-toggle tp-season" role="group" aria-label="Season"><button class="seg-btn" data-tp-season="this" aria-pressed="' + (TP.which === 'this') + '">This season</button>' +
@@ -1457,13 +1457,27 @@
     }
     function marketsHtml() { return off ? finalHtml() : tmSection('Season Markets', marketCards(), 'tpMarkets', tpFinalNote()); }
     // BY STARTING PITCHER / GOALIE: a row per starter with 3+ starts for this
-    // team, most starts first; "Next game" on tonight's starter
+    // team, most starts first; "Next game" on tonight's starter; then last
+    // season's starters under a season row (D.history's file, loaded once)
     var SP_MIN = 3;
     function startersHtml() {
       if (!hasStarters()) return '';
       var rows = starterRows(slug, graded, SP_MIN);
+      var prevRows = [];
+      if (D.history && TP.which === 'this') {
+        if (TP.spPrev === null) {
+          TP.spPrev = false;
+          fetch(dataUrl(SPORT_SLUG + '/' + (D.history.file || 'history.json'))).then(function(r) { return r.ok ? r.json() : {}; }).then(function(h) {
+            if (!h || !h.games || Array.isArray(h.games)) return;
+            TP.spPrev = [];
+            Object.keys(h.games).sort().forEach(function(d) { h.games[d].forEach(function(g) { if (g.state === 'final' && g.res) TP.spPrev.push(g); }); });
+            if (TP.which === 'this') renderTeam();
+          }).catch(function() {});
+        }
+        if (TP.spPrev) prevRows = starterRows(slug, TP.spPrev, SP_MIN);
+      }
       var mlb = D.sportType === 'baseball', title = mlb ? 'By Starting Pitcher' : 'By Starting Goalie';
-      if (!rows.length) return tmSection(title, '<p class="tp-none">No ' + (mlb ? 'pitcher' : 'goalie') + ' with ' + SP_MIN + '+ starts yet.</p>', 'tpStarters', tpFinalNote());
+      if (!rows.length && !prevRows.length) return tmSection(title, '<p class="tp-none">No ' + (mlb ? 'pitcher' : 'goalie') + ' with ' + SP_MIN + '+ starts yet.</p>', 'tpStarters', tpFinalNote());
       var np = next ? starterOf(next, next.home === slug ? 'home' : 'away') : null;
       function cell(a, m, units) {
         if (!a.gp) return '-';
@@ -1483,11 +1497,17 @@
              return n ? (ga / n).toFixed(2) : '-';
            }]];
       var head = '<tr><th>' + (mlb ? 'Pitcher' : 'Goalie') + '</th><th class="num">Starts</th>' + cols.map(function(c) { return '<th class="num">' + esc(c[0]) + '</th>'; }).join('') + '</tr>';
-      var body = rows.map(function(r) {
-        var tag = np && String(np.id) === String(r.p.id) ? ' <span class="sit-tn">Next game</span>' : '';
+      function rowHtml(r, tag) {
         return '<tr><th scope="row" class="tp-pl"><span class="tn-full">' + esc(r.p.name || starterLast(r.p)) + '</span><span class="tn-short">' + esc(starterLast(r.p)) + '</span>' + tag + '</th>' +
           '<td class="num">' + r.games.length + '</td>' + cols.map(function(c) { return '<td class="num">' + c[1](r.games) + '</td>'; }).join('') + '</tr>';
+      }
+      var body = rows.map(function(r) {
+        return rowHtml(r, np && String(np.id) === String(r.p.id) ? ' <span class="sit-tn">Next game</span>' : '');
       }).join('');
+      if (prevRows.length) {
+        body += '<tr class="tp-sprow"><th scope="rowgroup" colspan="' + (cols.length + 2) + '">' + esc(D.history.label) + '</th></tr>' +
+          prevRows.map(function(r) { return rowHtml(r, ''); }).join('');
+      }
       return tmSection(title, '<div class="st-card tp-card h2h-x"><table class="tp-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>', 'tpStarters', tpFinalNote());
     }
     // CURRENT STREAKS: chips, 3+ only; between seasons, the season's longest per market
@@ -3325,7 +3345,7 @@
     function close() { document.removeEventListener('keydown', onKey); wrap.remove(); var o = document.getElementById('mbBtn'); if (o) o.focus(); }
     function onKey(e) { if (e.key === 'Escape') close(); }
     function tile(b) {
-      return b.logo ? '<img class="mb-logo" src="' + ROOT + esc(b.logo) + '" alt="" loading="lazy">' : '<span class="mb-bname">' + esc(b.name) + '</span>';
+      return (b.logo ? '<img class="mb-logo" src="' + ROOT + esc(b.logo) + '" alt="" loading="lazy">' : '') + '<span class="mb-bname">' + esc(b.name) + '</span>';
     }
     function draw() {
       wrap.innerHTML = '<div class="cal-back" data-close></div><div class="cal-sheet mb-sheet">' +
