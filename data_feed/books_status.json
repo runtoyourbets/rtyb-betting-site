@@ -82,7 +82,7 @@
    "coverage": {
     "nba": 94,
     "ncaab": 66,
-    "ncaaf": 96,
+    "ncaaf": 93,
     "nfl": 100,
     "nhl": 100
    },
@@ -173,12 +173,12 @@
    "coverage": {
     "nba": 4,
     "ncaab": 0,
-    "ncaaf": 0,
+    "ncaaf": 3,
     "nfl": 0,
-    "nhl": 5
+    "nhl": 7
    },
    "group": "Sportsbook",
-   "last_seen": "2026-11-23",
+   "last_seen": "2026-11-24",
    "name": "Bally Bet",
    "source": "The Odds API"
   },
@@ -188,7 +188,7 @@
     "ncaab": 13,
     "ncaaf": 3,
     "nfl": 15,
-    "nhl": 24
+    "nhl": 26
    },
    "group": "Offshore",
    "last_seen": "2026-11-24",
@@ -225,22 +225,22 @@
    "coverage": {
     "nba": 4,
     "ncaab": 0,
-    "ncaaf": 0,
+    "ncaaf": 3,
     "nfl": 0,
     "nhl": 5
    },
    "group": "Offshore",
-   "last_seen": "2026-11-23",
+   "last_seen": "2026-11-24",
    "name": "BetUS",
    "source": "The Odds API"
   },
   "bovada": {
    "coverage": {
-    "nba": 29,
-    "ncaab": 19,
+    "nba": 35,
+    "ncaab": 20,
     "ncaaf": 3,
     "nfl": 15,
-    "nhl": 24
+    "nhl": 26
    },
    "group": "Offshore",
    "last_seen": "2026-11-24",
@@ -249,24 +249,24 @@
   },
   "fliff": {
    "coverage": {
-    "nba": 4,
+    "nba": 10,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
     "nhl": 0
    },
    "group": "Sportsbook",
-   "last_seen": "2026-11-23",
+   "last_seen": "2026-11-24",
    "name": "Fliff",
    "source": "The Odds API"
   },
   "hardrockbet": {
    "coverage": {
-    "nba": 29,
+    "nba": 35,
     "ncaab": 20,
     "ncaaf": 3,
     "nfl": 15,
-    "nhl": 24
+    "nhl": 26
    },
    "group": "Sportsbook",
    "last_seen": "2026-11-24",
@@ -279,10 +279,10 @@
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
-    "nhl": 5
+    "nhl": 7
    },
    "group": "Sportsbook",
-   "last_seen": "2026-11-23",
+   "last_seen": "2026-11-24",
    "name": "ReBet",
    "source": "The Odds API"
   }
