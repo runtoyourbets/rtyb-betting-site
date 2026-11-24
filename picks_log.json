@@ -14740,54 +14740,93 @@
     "streakTeamName": "Miami (OH)"
    },
    {
-    "id": "nba|401909314|1q|total|over",
-    "game": "nba|401909314",
+    "id": "ncaab|401915943|1h|ml|away",
+    "game": "ncaab|401915943",
     "date": "2026-11-24",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T00:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Pistons @ Magic",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 54.5,
-    "price": 100,
-    "title": "1Q Over 54.5",
-    "est": 0.5317,
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-25T03:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Oregon @ St. John's",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 250,
+    "title": "Oregon 1H ML",
+    "est": 0.3175,
     "edge": 0.0317,
-    "agree": 5,
-    "sample": 16,
+    "agree": 2,
+    "sample": 4,
     "tier": "C",
     "tags": [
-     "Over Lover"
+     "Dog Hunter",
+     "Streak Rider"
     ],
-    "streak": 3,
-    "streakTeam": "orl",
+    "streak": 4,
+    "streakTeam": "oregon-ducks",
     "angles": [
      [
-      "Pistons 1Q overs on the road (54.5)",
-      "8-2"
+      "Oregon 1H ML, season",
+      "4-0"
      ],
      [
-      "Pistons 1Q overs, last 8 (54.5)",
-      "6-2"
-     ],
-     [
-      "Magic 1Q overs, season (54.5)",
-      "10-6"
-     ],
-     [
-      "Pistons 1Q overs, season (54.5)",
-      "10-6"
+      "Oregon 1H ML, last 8",
+      "4-0"
      ]
     ],
-    "info": "Avg 1Q total in their games: Magic 54.8 \u00b7 Pistons 57.2",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Magic"
+    "streakTeamName": "Oregon"
+   },
+   {
+    "id": "ncaab|401921008|1h|ml|home",
+    "game": "ncaab|401921008",
+    "date": "2026-11-24",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-25T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Green Bay @ Kansas City",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -115,
+    "title": "Kansas City 1H ML",
+    "est": 0.5663,
+    "edge": 0.0314,
+    "agree": 3,
+    "sample": 7,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "kansas-city-roos",
+    "angles": [
+     [
+      "Green Bay\u2019s opponents 1H ML, Green Bay on the road",
+      "4-0-1"
+     ],
+     [
+      "Kansas City 1H ML, season",
+      "5-2"
+     ],
+     [
+      "Kansas City 1H ML, last 8",
+      "5-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Kansas City"
    }
   ]
  }
