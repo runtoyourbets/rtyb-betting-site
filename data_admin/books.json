@@ -65,6 +65,38 @@
       "link": ""
     },
     {
+      "id": "ballybet",
+      "name": "Bally Bet",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": ""
+    },
+    {
+      "id": "betparx",
+      "name": "betPARX",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": ""
+    },
+    {
+      "id": "fliff",
+      "name": "Fliff",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": ""
+    },
+    {
+      "id": "rebet",
+      "name": "ReBet",
+      "group": "Sportsbook",
+      "show": true,
+      "best": true,
+      "link": ""
+    },
+    {
       "id": "105",
       "name": "Kalshi",
       "group": "Exchange",
@@ -115,6 +147,14 @@
     {
       "id": "bovada",
       "name": "Bovada",
+      "group": "Offshore",
+      "show": true,
+      "best": false,
+      "link": ""
+    },
+    {
+      "id": "betus",
+      "name": "BetUS",
       "group": "Offshore",
       "show": true,
       "best": false,

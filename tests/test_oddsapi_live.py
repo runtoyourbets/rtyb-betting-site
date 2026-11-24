@@ -42,6 +42,7 @@ class Live(unittest.TestCase):
                         mock.patch.object(F, 'HISTORY_DIR', os.path.join(out, 'history')),
                         mock.patch.object(F, 'STATUS', os.path.join(out, 'status.json')),
                         mock.patch.object(F, 'BREAKS', os.path.join(out, 'breaks.json')),
+                        mock.patch.object(F, 'UNABATED_DIR', os.path.join(out, 'unabated')),
                         mock.patch.object(F, 'live_keys', lambda sport: [('1q', 'ml', 'h2h_q1'), ('1q', 'total', 'totals_q1'),
                                                                          ('game', 'ml', 'h2h')]),
                         mock.patch.object(F, 'shown_games', lambda sport, now: [dict(GAME, _start=A.parse(GAME['start']))]
@@ -56,8 +57,9 @@ class Live(unittest.TestCase):
         self.tmp.cleanup()
 
     def pull(self, now, hourly, data=None):
-        def event_odds(sport, event_id, markets):
+        def event_odds(sport, event_id, markets, books=None):
             self.calls.append((event_id, now))
+            self.books = books
             return data or odds()
         with mock.patch.object(A, 'events', return_value=[EVENT]), mock.patch.object(A, 'event_odds', side_effect=event_odds):
             F.pull_sport('nba', now, hourly)
@@ -135,6 +137,45 @@ class Live(unittest.TestCase):
         self.assertEqual(asked, ['2026-11-22T23:00:00Z', '2026-11-22T23:05:00Z'])   # seen_at, then +5
         row = U.read_json(os.path.join(self.tmp.name, 'history', 'nba', '2027.json'), {})['games']['2026-11-22|bos|mia']
         self.assertEqual(row['segments']['2h']['ml'], {'away': 120, 'home': -140, 'books': 1})
+
+
+class LiveBooks(Live):
+    """The live pull asks LIVE_BOOKS; DraftKings and FanDuel join only when
+    Unabated has no price from one of them for a game starting soon."""
+    def unabated(self, books):
+        U.write_json(os.path.join(self.tmp.name, 'unabated', 'nba.json'),
+                     {'games': {'k': dict(GAME, books={'1q': {'ml': {b: {} for b in books}}})}})
+
+    def swapped(self):
+        return {'bookmakers': odds()['bookmakers'] + [dict(odds()['bookmakers'][0], key='ballybet')]}
+
+    def test_unabated_has_both_no_safety_books(self):
+        self.unabated(['1', '2', '20'])
+        doc = self.pull(NOW, True, self.swapped())
+        self.assertEqual(self.books, A.LIVE_BOOKS)
+        self.assertEqual(len(A.LIVE_BOOKS), 10)
+        self.assertNotIn('safety', doc['status'])
+        self.assertEqual(sorted(doc['games']['2026-11-22|bos|mia']['books']['1q']['ml']), ['ballybet', 'espnbet'])   # DraftKings' row isn't kept
+
+    def test_missing_fanduel_adds_draftkings_and_fanduel(self):
+        self.unabated(['1', '20'])
+        doc = self.pull(NOW, True, self.swapped())
+        self.assertEqual(self.books, A.LIVE_BOOKS + ('draftkings', 'fanduel'))
+        self.assertEqual(A.regions(self.books), 2)
+        self.assertEqual(doc['status']['safety'], 1)
+        self.assertIn('draftkings', doc['games']['2026-11-22|bos|mia']['books']['1q']['ml'])
+
+    def test_not_starting_soon_no_safety_books(self):
+        self.unabated([])
+        self.pull(NOW - timedelta(hours=7), True, self.swapped())
+        self.assertEqual(self.books, A.LIVE_BOOKS)
+
+    def test_new_books_map_to_sources(self):
+        for b in ('ballybet', 'fliff', 'betparx', 'rebet', 'betus'):
+            self.assertIn(b, A.LIVE_BOOKS)
+            self.assertEqual(sport_build.ODDSAPI_BOOKS[b], b)
+        self.assertEqual(sport_build.books_cfg.Settings().row('betus')['group'], 'Offshore')
+        self.assertFalse(sport_build.books_cfg.Settings().counts('betus'))
 
 
 class SeasonFilesOnly(unittest.TestCase):

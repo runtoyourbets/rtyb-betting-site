@@ -136,7 +136,8 @@ BOOK_NAMES = {'1': 'DraftKings', '2': 'FanDuel', '4': 'BetMGM', '20': 'Caesars',
               '66': 'ProphetX', '105': 'Kalshi', '107': 'Polymarket', '111': 'Polymarket',
               '121': 'Underdog', '73': 'Underdog Fantasy', '72': 'PrizePicks', '84': 'DK Pick6',
               'espnbet': 'ESPN BET', 'betrivers': 'BetRivers', 'hardrockbet': 'Hard Rock Bet', 'bovada': 'Bovada',
-              'betonlineag': 'BetOnline'}
+              'betonlineag': 'BetOnline', 'ballybet': 'Bally Bet', 'fliff': 'Fliff', 'betparx': 'betPARX',
+              'rebet': 'ReBet', 'betus': 'BetUS'}
 # Exchanges, prediction markets and pick'em apps: shown after the
 # sportsbooks, and they never set the best price
 EXCHANGES = {'89', '66', '105', '107', '111', '121', '73', '72', '84'}
@@ -188,7 +189,8 @@ LOGO_SAME = {'121': '73'}
 # price on 2026-11-22, so they share one column
 ODDSAPI_BOOKS = {'draftkings': '1', 'fanduel': '2', 'betmgm': '4', 'williamhill_us': '20', 'fanatics': '86',
                  'espnbet': '36', 'betrivers': 'betrivers', 'hardrockbet': 'hardrockbet', 'bovada': 'bovada',
-                 'betonlineag': 'betonlineag'}
+                 'betonlineag': 'betonlineag', 'ballybet': 'ballybet', 'fliff': 'fliff', 'betparx': 'betparx',
+                 'rebet': 'rebet', 'betus': 'betus'}
 
 
 def book_logo(book_id):

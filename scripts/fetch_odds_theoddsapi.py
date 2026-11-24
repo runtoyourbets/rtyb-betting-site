@@ -8,6 +8,10 @@ data_feed/unabated/{sport}.json (fetch_odds_unabated.py):
       segments: {seg: {market: line}}, books: {seg: {market: {book: row}}},
       opens: {seg: {market: {book: row}}}}}}
 
+Books: oddsapi.LIVE_BOOKS (Bally Bet, Fliff, betPARX, ReBet, BetUS in the
+slots of the 5 books Unabated carries), plus DraftKings and FanDuel for a
+sport when Unabated has no price from one of them for a game starting within
+SAFETY_HOURS (pull_sport; printed in the run log, status.safety).
 books are keyed by The Odds API's book keys (sport_build.ODDSAPI_BOOKS maps
 them to the Odds page's sources) and carry no links: the Odds page's book
 links stay Gambly's. A game's odds freeze at its start; its opens and closing
@@ -78,10 +82,12 @@ HISTORY_DIR = os.path.join(A.OUT_DIR, 'history')
 PROBE = os.path.join(A.OUT_DIR, 'probe.json')
 STATUS = os.path.join(A.OUT_DIR, 'status.json')
 BREAKS = os.path.join(A.OUT_DIR, 'breaks.json')
+UNABATED_DIR = os.path.join(A.ROOT, 'data_feed', 'unabated')
 LOOKAHEAD = timedelta(hours=36)
 CLOSE_WINDOW = timedelta(minutes=20)   # the closing capture: games starting this soon...
 CLOSE_GAP = timedelta(minutes=15)      # ...not pulled this recently
 MONTHLY_BUDGET = 150_000
+SAFETY_HOURS = 6                       # DraftKings / FanDuel fallback: games starting this soon
 CAPTURE_HOUR = 6                       # ET: the first run after this does yesterday's break lines
 BREAK_MINUTES = {'nba': 75, 'wnba': 75, 'ncaab': 55, 'nfl': 100, 'ncaaf': 100, 'nhl': 40}
 BREAK_SEG = {'nhl': ('live_p1', A.GAME)}   # the rest: the second half
@@ -172,7 +178,26 @@ def due(rec, start, now, hourly):
     return start - now <= CLOSE_WINDOW and (not pulled or now - pulled >= CLOSE_GAP)
 
 
+def unabated_gaps(sport, games, now):
+    """Games starting within SAFETY_HOURS that Unabated has no DraftKings
+    or FanDuel price for (no row in any market)."""
+    feed = {(g.get('date'), g.get('away'), g.get('home')): g
+            for g in (U.read_json(os.path.join(UNABATED_DIR, sport + '.json'), {}).get('games') or {}).values()}
+    out = []
+    for g in games:
+        if g['_start'] - now > timedelta(hours=SAFETY_HOURS):
+            continue
+        have = {b for mk in ((feed.get((g['date'], g['away'], g['home'])) or {}).get('books') or {}).values()
+                for by in mk.values() for b in (by or {})}
+        if not {'1', '2'} <= have:
+            out.append(g)
+    return out
+
+
 def pull_sport(sport, now, hourly):
+    """The due games' odds from A.LIVE_BOOKS; when Unabated has no DraftKings
+    or FanDuel price for a game starting within SAFETY_HOURS, this pull adds
+    A.SAFETY_BOOKS for the sport (a second region) and says so."""
     path = os.path.join(A.OUT_DIR, sport + '.json')
     doc = U.read_json(path, {})
     games_doc = doc.get('games') or {}
@@ -181,6 +206,12 @@ def pull_sport(sport, now, hourly):
     keys = live_keys(sport)
     games = shown_games(sport, now)
     todo = [g for g in games if due(games_doc.get(f"{g['date']}|{g['away']}|{g['home']}"), g['_start'], now, hourly)]
+    gaps = unabated_gaps(sport, todo, now) if todo and keys else []
+    books = A.LIVE_BOOKS + A.SAFETY_BOOKS if gaps else A.LIVE_BOOKS
+    if gaps:
+        print(f"{sport}: DraftKings and FanDuel added to this pull (Unabated has no price from one of them for "
+              f"{len(gaps)} game{'s' if len(gaps) != 1 else ''} starting within {SAFETY_HOURS} hours: "
+              f"{', '.join(g['away'] + ' @ ' + g['home'] for g in gaps[:5])})")
     if todo and keys:
         events = A.events(sport, now, now + LOOKAHEAD)   # free
         pairs, missed = A.match(sport, events, [{k: v for k, v in g.items() if k != '_start'} for g in todo])
@@ -190,20 +221,22 @@ def pull_sport(sport, now, hourly):
             if (A.parse(e.get('commence_time')) or now) <= now:   # skip events already started
                 continue
             away_name, home_name = (e['home_team'], e['away_team']) if flipped else (e['away_team'], e['home_team'])
-            data = A.event_odds(sport, e['id'], [k for _, _, k in keys])
+            data = A.event_odds(sport, e['id'], [k for _, _, k in keys], books)
             if not data:
                 status['failed'] += 1
                 continue
-            lines, books = B.closing(sport, data.get('bookmakers'), keys, away_name, home_name)
+            lines, rows = B.closing(sport, data.get('bookmakers'), keys, away_name, home_name, books)
             key = f"{g['date']}|{g['away']}|{g['home']}"
             rec = games_doc.setdefault(key, {'date': g['date'], 'away': g['away'], 'home': g['home'], 'segments': {}})
             rec.update(start=g.get('start'), event=e['id'], pulled=now.isoformat(timespec='seconds'))
             for seg, mk in lines.items():
                 for m, line in mk.items():
                     rec.setdefault('segments', {}).setdefault(seg, {})[m] = {k: v for k, v in line.items() if k != 'books'}
-                    rec.setdefault('books', {}).setdefault(seg, {})[m] = books[seg][m]
-                    U.note_opens(rec, seg, m, books[seg][m])
+                    rec.setdefault('books', {}).setdefault(seg, {})[m] = rows[seg][m]
+                    U.note_opens(rec, seg, m, rows[seg][m])
             status['pulled'] += 1
+    if gaps:
+        status['safety'] = len(gaps)
     new = {'status': status, 'unmatched': unmatched, 'games': games_doc}
     old = U.read_json(path, {})
     if any(old.get(k) != v for k, v in new.items() if k != 'status') or status['pulled']:

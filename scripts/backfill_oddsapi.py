@@ -243,14 +243,14 @@ def main_lines(market, rows, sport=None, seg=None):
     return out
 
 
-def closing(sport, bookmakers, keys, away_name, home_name):
+def closing(sport, bookmakers, keys, away_name, home_name, keep=None):
     """{seg: {market: line}}, {seg: {market: {book: row}}} from a bookmakers list.
-    keys: [(seg, market, api key)]."""
+    keys: [(seg, market, api key)]; keep: the books asked for (A.BOOKS)."""
     lines, books = {}, {}
     for seg, market, api_key in keys:
         rows = {}
         for b in bookmakers or []:
-            if b.get('key') not in A.BOOKS:
+            if b.get('key') not in (keep or A.BOOKS):
                 continue
             m = next((x for x in b.get('markets') or [] if x.get('key') == api_key), None)
             row = m and book_row(market, api_key, m.get('outcomes'), away_name, home_name)

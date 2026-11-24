@@ -14,7 +14,8 @@ could pass it; nothing is called once x-requests-remaining is under FLOOR
 times, then the call is skipped and logged. A network failure never raises
 past this module (callers get None).
 
-Books: bookmakers= (not regions), at most 10 so a call bills as one region.
+Books: bookmakers= (not regions); every 10 bill as one region (BOOKS and
+LIVE_BOOKS are 10 each).
 Cost: event lists are free, event_markets and historical_events 1 credit,
 event odds 1 x markets returned, historical event odds 10 x markets returned.
 """
@@ -56,6 +57,15 @@ GAME = {'ml': 'h2h', 'ats': 'spreads', 'total': 'totals'}   # the full game (seg
 
 BOOKS = ('draftkings', 'fanduel', 'betmgm', 'williamhill_us', 'espnbet', 'fanatics', 'betrivers', 'hardrockbet',
          'bovada', 'betonlineag')
+# The live pull's 10 books (fetch_odds_theoddsapi.py; the backfill, the probe
+# and the next-day break capture keep BOOKS): DraftKings, FanDuel, BetMGM,
+# Caesars and Fanatics come from Unabated, so their 5 slots carry books it
+# doesn't have. To swap back: LIVE_BOOKS = BOOKS
+LIVE_BOOKS = ('ballybet', 'fliff', 'betparx', 'rebet', 'betus', 'espnbet', 'betrivers', 'hardrockbet',
+              'bovada', 'betonlineag')
+# added to a sport's live pull when Unabated has no DraftKings or FanDuel
+# price for a game starting soon (fetch_odds_theoddsapi.SAFETY_HOURS)
+SAFETY_BOOKS = ('draftkings', 'fanduel')
 
 FLOOR = 250_000      # never call below this many credits remaining
 BUDGET = None        # credits this run may use (None: no cap); set by the caller
@@ -156,7 +166,12 @@ def _account(path, sport, headers):
 
 
 def _books(books):
-    return ','.join((books or BOOKS)[:10])
+    """BOOKS by default; a longer list bills one region per 10 books (regions())."""
+    return ','.join(books or BOOKS)
+
+
+def regions(books):
+    return max(1, -(-len(books or BOOKS) // 10))
 
 
 def iso(t):
@@ -181,9 +196,9 @@ def event_markets(sport, event_id, books=None):
 
 
 def event_odds(sport, event_id, markets, books=None):
-    """An event's odds now (1 x markets returned)."""
+    """An event's odds now (1 x markets returned x regions)."""
     return call(f'/sports/{SPORT_KEYS[sport]}/events/{event_id}/odds',
-                {'markets': ','.join(markets), 'bookmakers': _books(books)}, sport, len(markets))
+                {'markets': ','.join(markets), 'bookmakers': _books(books)}, sport, len(markets) * regions(books))
 
 
 def historical_events(sport, at, start=None, end=None):
