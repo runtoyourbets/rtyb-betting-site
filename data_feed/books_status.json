@@ -28,14 +28,14 @@
   },
   "107": {
    "coverage": {
-    "nba": 100,
+    "nba": 0,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
     "nhl": 0
    },
    "group": "Exchange",
-   "last_seen": "2026-11-23",
+   "last_seen": null,
    "name": "Polymarket",
    "source": "Unabated"
   },
@@ -49,7 +49,7 @@
    },
    "group": "Exchange",
    "last_seen": "2026-11-23",
-   "name": "Polymarket US",
+   "name": "Polymarket",
    "source": "Unabated"
   },
   "121": {
