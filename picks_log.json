@@ -13865,10 +13865,10 @@
     "market": "ats",
     "side": "home",
     "line": 2.5,
-    "price": -104,
+    "price": -102,
     "title": "Bulls 1Q +2.5",
-    "est": 0.554,
-    "edge": 0.0442,
+    "est": 0.5508,
+    "edge": 0.0459,
     "agree": 4,
     "sample": 16,
     "tier": "B",
@@ -14092,6 +14092,48 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
+   },
+   {
+    "id": "ncaab|401909743|1h|ml|away",
+    "game": "ncaab|401909743",
+    "date": "2026-11-23",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-24T04:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Colorado State @ Arizona",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 550,
+    "title": "Colorado State 1H ML",
+    "est": 0.1909,
+    "edge": 0.0371,
+    "agree": 2,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -2,
+    "streakTeam": "colorado-state-rams",
+    "angles": [
+     [
+      "Colorado State 1H ML, season",
+      "3-2"
+     ],
+     [
+      "Colorado State 1H ML, last 8",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Colorado State"
    }
   ]
  }
