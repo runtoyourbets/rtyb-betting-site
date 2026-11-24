@@ -247,7 +247,7 @@
             if (isToday) today.push({ c: c });
             if (pending) upcoming[k + '|' + g.id + '|' + team] = c;
             if (!done) return;
-            var res = { margin: r.sc[i] - r.sc[1 - i], lined: !!(o.ats || o.total || o.ml || o.btts) };
+            var res = { margin: r.sc[i] - r.sc[1 - i], lined: !!(o.ats || o.total || o.ml || o.btts), lg: !!src.teams[team] && !!src.teams[opp] };
             var u = r.u || {};
             if (r.su && r.su !== 'NA') {
               res.su = side === 'away' ? r.su : flip(r.su);
@@ -295,13 +295,15 @@
       return (cache[key] = out);
     }
 
+    // the dagger: a line on fewer than 98% of the league games (one rainout doesn't trigger it)
+    function lineShortSit(a) { return a.lg > 0 && a.lined < a.lg * 0.98; }
     function agg(list, ms) {
       ms = ms || markets;
-      var a = { gp: 0, lined: 0, games: 0 }, seen = {};
+      var a = { gp: 0, lined: 0, lg: 0, games: 0 }, seen = {};
       ms.forEach(function(m) { a[m.id] = { a: 0, b: 0, p: 0, d: 0, n: 0, ua: 0, ub: 0, na: 0, nb: 0 }; });
       list.forEach(function(e) {
         var r = e.r;
-        a.gp++; if (r.lined) a.lined++;
+        a.gp++; if (r.lg) { a.lg++; if (r.lined) a.lined++; }   // college: a non-D-I / non-FBS opponent never triggers the dagger
         if (!seen[e.c.g.id]) { seen[e.c.g.id] = 1; a.games++; }
         ms.forEach(function(m) {
           var x = a[m.id], v = r[m.id];
@@ -520,8 +522,8 @@
       }
       function cells(row, a) {
         var x0 = a[sel.id], p = pctOf(sel, x0), tone = edgeOf(sel, x0);
-        var mark = a.gp && a.lined < a.gp ? '<sup class="st-mark">&dagger;</sup>' : '';
-        if (a.gp && a.lined < a.gp) MARKED = true;
+        var mark = lineShortSit(a) ? '<sup class="st-mark">&dagger;</sup>' : '';
+        if (lineShortSit(a)) MARKED = true;
         var h = labelCell(row, a, tone) + '<td class="num mono">' + (a.gp || '-') + perTeam(a) + '</td>';
         h += '<td class="num mono sit-sel">' + recTxt(sel, x0) + mark + '</td>' +
           '<td class="num"><div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '-' : p + '%') + '</span></div></td>' +
@@ -544,7 +546,7 @@
             '<div class="sit-mbody"><p class="sit-mname">' + esc(lab(x.row, k)) + '</p>' +
               '<div class="pct-cell' + (tone > 0 ? ' edge-pos' : tone < 0 ? ' edge-neg' : '') + '"><div class="pct-bar"><span style="width:' + (p || 0) + '%"></span></div><span class="pct-num mono">' + (p == null ? '-' : p + '%') + '</span></div>' +
               '<div class="sit-m3">' + markets.map(function(m) { var xx = a[m.id]; return '<div><b>' + esc(m.label) + '</b><span class="mono">' + recTxt(m, xx) + '</span>' + unitsOf(m, xx, edgeOf(m, xx)) + '</div>'; }).join('') + '</div>' +
-              '<div class="sit-mfoot">' + a.gp + (a.gp > a.games ? ' team-games' : ' game' + (a.gp === 1 ? '' : 's')) + (a.lined < a.gp ? '<sup class="st-mark">&dagger;</sup>' : '') + '</div></div></details>';
+              '<div class="sit-mfoot">' + a.gp + (a.gp > a.games ? ' team-games' : ' game' + (a.gp === 1 ? '' : 's')) + (lineShortSit(a) ? '<sup class="st-mark">&dagger;</sup>' : '') + '</div></div></details>';
         }).join('');
       }
       var tip = esc(REG.foot || 'Records count every game; units count only games with saved closing odds, 1 unit at the closing price (spreads and totals at -110 when only the line was saved).') +
@@ -571,7 +573,7 @@
           (G.hidden.length ? '<div class="sit-notyet">Not yet: ' + G.hidden.map(function(r) { return esc(r.short); }).join(' &middot; ') + '</div>' : '') + '</div>' : '';
         return '<section class="st-card sit-gsec" id="' + id + '"><div class="st-head"><h4>' + esc(G.name) + '</h4></div>' + tbl + mob + '</section>';
       }).join('') + (PER_TEAM ? '<p class="st-foot"><sup>*</sup> Per team: each team&rsquo;s game counts, so one game can count twice.</p>' : '') +
-        (MARKED ? '<p class="st-foot"><sup>&dagger;</sup> Games without a saved line aren&rsquo;t counted in the units.</p>' : '') + '</div>';
+        (MARKED ? '<p class="st-foot"><sup>&dagger;</sup> Some games had no line for this market (books don&rsquo;t always post it, e.g. a 1H moneyline on a big favorite), so they aren&rsquo;t counted.</p>' : '') + '</div>';
       var locked = league && src.locked && src.locked();
       box.className = 'adv-section' + (locked ? ' locked' : '');
       box.innerHTML = html + (locked && src.lockHtml ? src.lockHtml() : '');

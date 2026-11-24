@@ -2166,7 +2166,7 @@
     var body;
     if (c.stat) body = c.stat.map(function(x) { return '<div class="st-row st-stat"><span class="st-lbl">' + x[0] + '</span><span class="st-num mono">' + x[1] + '</span></div>'; }).join('');
     else {
-      var mark = c.gp < total ? '<sup class="st-mark" title="Games without a saved line aren&rsquo;t counted">*</sup>' : '';
+      var mark = lineShort(c.gp, total) ? '<sup class="st-mark" title="Some games had no line for this market, so they aren&rsquo;t counted">*</sup>' : '';
       var fmts = c.rows.map(function(x) { return x.fmt; }).filter(Boolean);
       body = stHead(fmts.length ? (fmts.indexOf('T') !== -1 && fmts.indexOf('P') !== -1 ? 'Record' : 'W-L-' + fmts[0]) : 'W-L', '%', 'Units') +
         c.rows.map(function(x) { return stRow(x.label, recOf(x.r, x.fmt) + mark, stPct(x.r.w, x.r.l), stUnits(x.r)); }).join('');
@@ -2175,7 +2175,11 @@
     }
     return stCard(c.title, '', body);
   }
-  function seasonMarked(cards, total) { return cards.some(function(c) { return !c.stat && c.gp < total; }); }
+  // the "*": a line on fewer than 98% of the card's graded games (one rainout doesn't trigger it)
+  function lineShort(gp, total) { return gp < total * 0.98; }
+  function seasonMarked(cards, total) { return cards.some(function(c) { return !c.stat && lineShort(c.gp, total); }); }
+  // college: only games between two league teams (D-I / FBS) are part of a card's total
+  function leagueOnly(games) { return tlCollege() ? games.filter(function(g) { return !!D.teams[g.home] && !!D.teams[g.away]; }) : games; }
 
   // ---- NHL Goal Stats: 1st-period goals (from the old NHL page) ----
   function goalStats(games) {
@@ -2540,11 +2544,11 @@
     if (!D.season || !allDates().length) { noStats(); return; }
     function draw(anchor) {
       var back = keepPlace(anchor);
-      var k = statsK(), fr = !!frSeg(k), range = tfRange(), games = fr ? frView(range.games, k, true) : range.games, N = graded(games, k).length;
+      var k = statsK(), fr = !!frSeg(k), range = tfRange(), games = leagueOnly(fr ? frView(range.games, k, true) : range.games), N = graded(games, k).length;
       var cards = seasonCards(games, k);
       var season = stSection('statsSeason', 'Season Results <small class="st-count">' + N + ' game' + (N === 1 ? '' : 's') + '</small>', tfControls(), range.line +
         (N ? '<div class="st-grid">' + cards.map(function(c) { return cardHtml(c, N); }).join('') + '</div>' +
-          (seasonMarked(cards, N) ? '<p class="st-foot"><sup>*</sup> Games without a saved line aren&rsquo;t counted.</p>' : '')
+          (seasonMarked(cards, N) ? '<p class="st-foot"><sup>*</sup> Some games had no line for this market (books don&rsquo;t always post it, e.g. a 1H moneyline on a big favorite), so they aren&rsquo;t counted.</p>' : '')
           : emptyNote('No graded games in this range yet.')));
       var scoring = stSection('statsScoring', 'Scoring', '', D.sport === 'nhl' && !fr ? goalStats(finalGames()) : '<div id="statsScoringBody"></div>');
       var board = k === '2p' || k === '3p' ? '' : moneyBoard(fr ? frView(finalGames(), k, true) : finalGames(), k);
