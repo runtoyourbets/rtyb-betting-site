@@ -14416,53 +14416,6 @@
     "streakTeamName": "Samford"
    },
    {
-    "id": "ncaab|401920889|1h|ats|away",
-    "game": "ncaab|401920889",
-    "date": "2026-11-24",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-25T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "New Hampshire @ Seton Hall",
-    "href": "college-basketball/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 11.5,
-    "price": 100,
-    "title": "New Hampshire 1H +11.5",
-    "est": 0.5421,
-    "edge": 0.0421,
-    "agree": 3,
-    "sample": 7,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 7,
-    "streakTeam": "new-hampshire-wildcats",
-    "angles": [
-     [
-      "New Hampshire 1H ATS at +11.5, season",
-      "7-0"
-     ],
-     [
-      "New Hampshire 1H ATS at +11.5, last 8",
-      "7-0"
-     ],
-     [
-      "New Hampshire 1H ATS at +11.5 on the road",
-      "5-0"
-     ]
-    ],
-    "info": "New Hampshire avg 1H margin on the road: -0.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "New Hampshire"
-   },
-   {
     "id": "ncaab|401909775|1h|ml|away",
     "game": "ncaab|401909775",
     "date": "2026-11-24",
@@ -14477,10 +14430,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 210,
+    "price": 235,
     "title": "San Diego State 1H ML",
-    "est": 0.3646,
-    "edge": 0.042,
+    "est": 0.3439,
+    "edge": 0.0454,
     "agree": 2,
     "sample": 5,
     "tier": "C",
@@ -14598,6 +14551,99 @@
     "streakTeamName": "Purdue Fort Wayne"
    },
    {
+    "id": "ncaab|401920889|1h|ats|away",
+    "game": "ncaab|401920889",
+    "date": "2026-11-24",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-25T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "New Hampshire @ Seton Hall",
+    "href": "college-basketball/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 11.5,
+    "price": -110,
+    "title": "New Hampshire 1H +11.5",
+    "est": 0.5614,
+    "edge": 0.0376,
+    "agree": 3,
+    "sample": 7,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 7,
+    "streakTeam": "new-hampshire-wildcats",
+    "angles": [
+     [
+      "New Hampshire 1H ATS at +11.5, season",
+      "7-0"
+     ],
+     [
+      "New Hampshire 1H ATS at +11.5, last 8",
+      "7-0"
+     ],
+     [
+      "New Hampshire 1H ATS at +11.5 on the road",
+      "5-0"
+     ]
+    ],
+    "info": "New Hampshire avg 1H margin on the road: -0.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "New Hampshire"
+   },
+   {
+    "id": "ncaab|401911458|1h|ml|home",
+    "game": "ncaab|401911458",
+    "date": "2026-11-24",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-25T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Nevada @ Santa Clara",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 110,
+    "title": "Santa Clara 1H ML",
+    "est": 0.512,
+    "edge": 0.0358,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "santa-clara-broncos",
+    "angles": [
+     [
+      "Santa Clara 1H ML at home",
+      "5-0"
+     ],
+     [
+      "Santa Clara 1H ML, season",
+      "5-1-1"
+     ],
+     [
+      "Santa Clara 1H ML, last 8",
+      "5-1-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Santa Clara"
+   },
+   {
     "id": "ncaab|401915943|1h|ml|away",
     "game": "ncaab|401915943",
     "date": "2026-11-24",
@@ -14641,7 +14687,7 @@
     "streakTeamName": "Oregon"
    },
    {
-    "id": "ncaab|401911458|1h|ml|home",
+    "id": "ncaab|401911458|1h|ats|home",
     "game": "ncaab|401911458",
     "date": "2026-11-24",
     "sport": "ncaab",
@@ -14652,87 +14698,39 @@
     "segTag": "1H",
     "matchup": "Nevada @ Santa Clara",
     "href": "college-basketball/matchups/",
-    "market": "ml",
+    "market": "ats",
     "side": "home",
-    "line": null,
-    "price": 100,
-    "title": "Santa Clara 1H ML",
-    "est": 0.5319,
+    "line": 0.5,
+    "price": -102,
+    "title": "Santa Clara 1H +0.5",
+    "est": 0.5368,
     "edge": 0.0319,
     "agree": 3,
-    "sample": 6,
+    "sample": 7,
     "tier": "C",
     "tags": [
      "Dog Hunter"
     ],
-    "streak": 0,
+    "streak": 3,
     "streakTeam": "santa-clara-broncos",
     "angles": [
      [
-      "Santa Clara 1H ML at home",
+      "Santa Clara 1H ATS at +0.5 at home",
       "5-0"
      ],
      [
-      "Santa Clara 1H ML, season",
-      "5-1-1"
+      "Santa Clara 1H ATS at +0.5, season",
+      "6-1"
      ],
      [
-      "Santa Clara 1H ML, last 8",
-      "5-1-1"
+      "Santa Clara 1H ATS at +0.5, last 8",
+      "6-1"
      ]
     ],
-    "info": null,
+    "info": "Santa Clara avg 1H margin at home: +13.2",
     "status": "pending",
     "units": null,
     "streakTeamName": "Santa Clara"
-   },
-   {
-    "id": "ncaab|401927398|1h|ats|home",
-    "game": "ncaab|401927398",
-    "date": "2026-11-24",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-24T15:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Wright State @ St. Bonaventure",
-    "href": "college-basketball/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": -0.5,
-    "price": -105,
-    "title": "St. Bonaventure 1H -0.5",
-    "est": 0.5439,
-    "edge": 0.0317,
-    "agree": 3,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider",
-     "Early Bird"
-    ],
-    "streak": 6,
-    "streakTeam": "st-bonaventure-bonnies",
-    "angles": [
-     [
-      "St. Bonaventure 1H ATS at -0.5, season",
-      "6-0"
-     ],
-     [
-      "St. Bonaventure 1H ATS at -0.5, last 8",
-      "6-0"
-     ],
-     [
-      "St. Bonaventure 1H ATS at -0.5 at home",
-      "4-0"
-     ]
-    ],
-    "info": "St. Bonaventure avg 1H margin at home: +9.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "St. Bonaventure"
    }
   ]
  }
