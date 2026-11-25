@@ -14,10 +14,10 @@
    {
     "date": "2026-11-25",
     "headline": "Alcorn State at Texas State: Back-to-Back Opponents Hit 90% in First Half",
-    "live": false,
+    "live": true,
     "page": "admin/preview/all-2026-11-25/",
-    "path": "content/drafts/all-preview-2026-11-25.md",
-    "published": null,
+    "path": "content/published/all-preview-2026-11-25.md",
+    "published": "2026-11-25T16:27:51Z",
     "week": null,
     "written": "2026-11-25T13:16Z"
    },
@@ -274,10 +274,10 @@
    {
     "date": "2026-11-25",
     "headline": "Predators First Periods Go Over 1.5 at a 78% Clip",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nhl-2026-11-25/",
-    "path": "content/drafts/nhl-preview-2026-11-25.md",
-    "published": null,
+    "path": "content/published/nhl-preview-2026-11-25.md",
+    "published": "2026-11-25T16:27:57Z",
     "week": null,
     "written": "2026-11-25T13:13Z"
    },
