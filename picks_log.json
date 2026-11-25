@@ -14895,10 +14895,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 105,
+    "price": 110,
     "title": "Timberwolves 1H ML",
-    "est": 0.5765,
-    "edge": 0.0887,
+    "est": 0.5691,
+    "edge": 0.0929,
     "agree": 4,
     "sample": 17,
     "tier": "A",
@@ -14945,13 +14945,13 @@
     "market": "ats",
     "side": "away",
     "line": 0.5,
-    "price": -105,
+    "price": -104,
     "title": "Timberwolves 1H +0.5",
-    "est": 0.5718,
-    "edge": 0.0596,
+    "est": 0.5703,
+    "edge": 0.0605,
     "agree": 4,
     "sample": 18,
-    "tier": "B",
+    "tier": "A",
     "tags": [
      "Dog Hunter"
     ],
@@ -15129,57 +15129,6 @@
     "streakTeamName": "Bucks"
    },
    {
-    "id": "nba|401909318|1h|total|over",
-    "game": "nba|401909318",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Bulls @ Hornets",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 106.5,
-    "price": -105,
-    "title": "1H Over 106.5",
-    "est": 0.5657,
-    "edge": 0.0536,
-    "agree": 6,
-    "sample": 17,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1H overs, season (106.5)",
-      "15-2"
-     ],
-     [
-      "Hornets 1H overs at home (106.5)",
-      "7-1"
-     ],
-     [
-      "Bulls 1H overs on the road (106.5)",
-      "7-2"
-     ],
-     [
-      "Hornets 1H overs, last 8 (106.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
-   },
-   {
     "id": "nhl|2026020398|1p|ml|home",
     "game": "nhl|2026020398",
     "date": "2026-11-25",
@@ -15224,6 +15173,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Anaheim"
+   },
+   {
+    "id": "nba|401909318|1h|total|over",
+    "game": "nba|401909318",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Bulls @ Hornets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 105.5,
+    "price": -112,
+    "title": "1H Over 105.5",
+    "est": 0.576,
+    "edge": 0.0477,
+    "agree": 6,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H overs, season (105.5)",
+      "15-2"
+     ],
+     [
+      "Hornets 1H overs at home (105.5)",
+      "7-1"
+     ],
+     [
+      "Bulls 1H overs on the road (105.5)",
+      "7-2"
+     ],
+     [
+      "Hornets 1H overs, last 8 (105.5)",
+      "6-2"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
    },
    {
     "id": "ncaab|401921670|1h|ml|away",
@@ -15542,6 +15542,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Washington"
+   },
+   {
+    "id": "nhl|2026020396|1p|ml|home",
+    "game": "nhl|2026020396",
+    "date": "2026-11-25",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-26T01:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Utah @ Minnesota",
+    "href": "nhl/matchups/?date=2026-11-25",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -130,
+    "title": "Minnesota 1P ML",
+    "est": 0.6001,
+    "edge": 0.0349,
+    "agree": 3,
+    "sample": 16,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 0,
+    "streakTeam": "MIN",
+    "angles": [
+     [
+      "Minnesota 1P ML, last 8",
+      "5-0-3"
+     ],
+     [
+      "Minnesota 1P ML at home",
+      "5-1-2"
+     ],
+     [
+      "Minnesota 1P ML, season",
+      "13-3-10"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Minnesota"
    }
   ]
  }
