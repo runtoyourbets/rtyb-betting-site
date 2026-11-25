@@ -14551,56 +14551,6 @@
     "streakTeamName": "Purdue Fort Wayne"
    },
    {
-    "id": "nba|401909316|1q|total|under",
-    "game": "nba|401909316",
-    "date": "2026-11-24",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Nuggets",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": 100,
-    "title": "1Q Under 60.5",
-    "est": 0.5387,
-    "edge": 0.0387,
-    "agree": 6,
-    "sample": 17,
-    "tier": "C",
-    "tags": [
-     "Under Grinder"
-    ],
-    "streak": -2,
-    "streakTeam": "den",
-    "angles": [
-     [
-      "Nuggets 1Q unders, last 8 (60.5)",
-      "6-2"
-     ],
-     [
-      "Mavericks 1Q unders, last 8 (60.5)",
-      "6-2"
-     ],
-     [
-      "Mavericks 1Q unders, season (60.5)",
-      "12-5"
-     ],
-     [
-      "Nuggets 1Q unders, season (60.5)",
-      "10-5"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Nuggets 56.9 \u00b7 Mavericks 57.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Nuggets"
-   },
-   {
     "id": "ncaab|401920889|1h|ats|away",
     "game": "ncaab|401920889",
     "date": "2026-11-24",
@@ -14646,6 +14596,56 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "New Hampshire"
+   },
+   {
+    "id": "nba|401909316|1q|total|under",
+    "game": "nba|401909316",
+    "date": "2026-11-24",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Nuggets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -103,
+    "title": "1Q Under 60.5",
+    "est": 0.5434,
+    "edge": 0.036,
+    "agree": 6,
+    "sample": 17,
+    "tier": "C",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": -2,
+    "streakTeam": "den",
+    "angles": [
+     [
+      "Nuggets 1Q unders, last 8 (60.5)",
+      "6-2"
+     ],
+     [
+      "Mavericks 1Q unders, last 8 (60.5)",
+      "6-2"
+     ],
+     [
+      "Mavericks 1Q unders, season (60.5)",
+      "12-5"
+     ],
+     [
+      "Nuggets 1Q unders, season (60.5)",
+      "10-5"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Nuggets 56.9 \u00b7 Mavericks 57.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Nuggets"
    },
    {
     "id": "nba|401909314|1q|total|over",
