@@ -301,7 +301,7 @@
    },
    {
     "label": "NBA · Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 22,
+    "trends": 20,
     "value": "nba:401909317"
    },
    {
@@ -456,7 +456,7 @@
    },
    {
     "label": "NBA · Minnesota Timberwolves at Oklahoma City Thunder · 7:30 PM ET",
-    "trends": 17,
+    "trends": 13,
     "value": "nba:401909320"
    },
    {
@@ -561,7 +561,7 @@
    }
   ],
   "lead": "ncaab:401925688",
-  "motd": "nba:401909317"
+  "motd": "nba:401909322"
  },
  "nba": {
   "codes": [
@@ -587,7 +587,7 @@
   "games": [
    {
     "label": "Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 22,
+    "trends": 20,
     "value": "nba:401909317"
    },
    {
@@ -602,7 +602,7 @@
    },
    {
     "label": "Minnesota Timberwolves at Oklahoma City Thunder · 7:30 PM ET",
-    "trends": 17,
+    "trends": 13,
     "value": "nba:401909320"
    },
    {
@@ -632,7 +632,7 @@
    }
   ],
   "lead": "nba:401909322",
-  "motd": "nba:401909317"
+  "motd": "nba:401909322"
  },
  "ncaab": {
   "codes": [

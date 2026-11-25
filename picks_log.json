@@ -14851,10 +14851,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 104,
+    "price": -104,
     "title": "Timberwolves 1H ML",
-    "est": 0.578,
-    "edge": 0.0878,
+    "est": 0.5905,
+    "edge": 0.0807,
     "agree": 4,
     "sample": 17,
     "tier": "A",
@@ -14984,6 +14984,56 @@
     "streakTeamName": "Timberwolves"
    },
    {
+    "id": "nba|401909317|1q|ml|away",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -112,
+    "title": "Heat 1Q ML",
+    "est": 0.5821,
+    "edge": 0.0538,
+    "agree": 4,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Heat 1Q ML, last 8",
+      "7-1"
+     ],
+     [
+      "Heat 1Q ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Heat 1Q ML, season",
+      "10-5-1"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "6-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
+   },
+   {
     "id": "nba|401909318|1h|total|over",
     "game": "nba|401909318",
     "date": "2026-11-25",
@@ -15033,56 +15083,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
-   },
-   {
-    "id": "nba|401909317|1q|ml|away",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -118,
-    "title": "Heat 1Q ML",
-    "est": 0.5908,
-    "edge": 0.0495,
-    "agree": 4,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "Heat 1Q ML, last 8",
-      "7-1"
-     ],
-     [
-      "Heat 1Q ML on the road",
-      "5-1-1"
-     ],
-     [
-      "Heat 1Q ML, season",
-      "10-5-1"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "6-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
    },
    {
     "id": "nhl|2026020398|1p|ml|home",
@@ -15414,8 +15414,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Kansas State"
    },
    {
