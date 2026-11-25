@@ -374,5 +374,61 @@
    "start": "2026-11-25T01:00:00Z",
    "trend": "EDM has gone BTTS No"
   }
+ },
+ "2026-11-25": {
+  "all": {
+   "away": "alcorn-state-braves",
+   "chip": "BACK OPPONENTS OF A BACK-TO-BACK TEAM · 1H ML · 90% (19-2)",
+   "home": "texas-state-bobcats",
+   "id": "401925688",
+   "sport": "ncaab",
+   "start": "2026-11-25T22:00Z",
+   "trend": "Back opponents of a back-to-back team (1H ML)"
+  },
+  "nba": {
+   "away": "bkn",
+   "chip": "MIL UNDER 1Q TOTAL · 15 OF 18",
+   "home": "mil",
+   "id": "401909322",
+   "sport": "nba",
+   "start": "2026-11-26T01:00Z",
+   "trend": "MIL has gone Under the 1st quarter total"
+  },
+  "ncaab": {
+   "away": "alcorn-state-braves",
+   "chip": "BACK OPPONENTS OF A BACK-TO-BACK TEAM · 1H ML · 90% (19-2)",
+   "home": "texas-state-bobcats",
+   "id": "401925688",
+   "sport": "ncaab",
+   "start": "2026-11-25T22:00Z",
+   "trend": "Back opponents of a back-to-back team (1H ML)"
+  },
+  "ncaaf": {
+   "away": "florida-atlantic-owls",
+   "chip": "ECU UNDER 1Q TOTAL · 11 OF 11",
+   "home": "east-carolina-pirates",
+   "id": "401862837",
+   "sport": "ncaaf",
+   "start": "2026-11-28T18:00Z",
+   "trend": "ECU has gone Under the 1st quarter total"
+  },
+  "nfl": {
+   "away": "ten",
+   "chip": "TEN LOST 1H · 10 OF 10",
+   "home": "jax",
+   "id": "401873090",
+   "sport": "nfl",
+   "start": "2026-11-29T18:00Z",
+   "trend": "TEN has lost the 1st half"
+  },
+  "nhl": {
+   "away": "NSH",
+   "chip": "NSH OVER 1.5 1P · 18 OF 23",
+   "home": "DAL",
+   "id": "2026020395",
+   "sport": "nhl",
+   "start": "2026-11-26T01:00:00Z",
+   "trend": "NSH has gone Over 1.5"
+  }
  }
 }

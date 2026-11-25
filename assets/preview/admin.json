@@ -70,16 +70,6 @@
     "published": "2026-11-19T15:00:58Z",
     "week": null,
     "written": "2026-11-19T14:54Z"
-   },
-   {
-    "date": "2026-11-18",
-    "headline": "NHL, NBA and NCAAB all hit the board tonight, and a few matchups come loaded with early-game history.",
-    "live": true,
-    "page": "admin/preview/all-2026-11-18/",
-    "path": "content/published/all-preview-2026-11-18.md",
-    "published": "2026-11-19T01:59:12Z",
-    "week": null,
-    "written": "2026-11-18T13:09Z"
    }
   ],
   "nba": [
@@ -142,16 +132,6 @@
     "published": "2026-11-19T15:01:05Z",
     "week": null,
     "written": "2026-11-19T14:54Z"
-   },
-   {
-    "date": "2026-11-18",
-    "headline": "Twelve games, a pile of early-game streaks, and one late tip where our trends stack up.",
-    "live": true,
-    "page": "admin/preview/nba-2026-11-18/",
-    "path": "content/published/nba-preview-2026-11-18.md",
-    "published": "2026-11-19T01:59:16Z",
-    "week": null,
-    "written": "2026-11-18T13:08Z"
    }
   ],
   "ncaab": [
@@ -214,16 +194,6 @@
     "published": "2026-11-19T15:01:12Z",
     "week": null,
     "written": "2026-11-19T14:55Z"
-   },
-   {
-    "date": "2026-11-18",
-    "headline": "Seventy-one games on the NCAAB board, and the first half is where our trends are piling up.",
-    "live": true,
-    "page": "admin/preview/ncaab-2026-11-18/",
-    "path": "content/published/ncaab-preview-2026-11-18.md",
-    "published": "2026-11-19T01:59:21Z",
-    "week": null,
-    "written": "2026-11-18T13:09Z"
    }
   ],
   "ncaaf": [
@@ -320,16 +290,6 @@
     "published": "2026-11-19T15:01:29Z",
     "week": null,
     "written": "2026-11-19T14:55Z"
-   },
-   {
-    "date": "2026-11-18",
-    "headline": "Three NHL games, a pile of first-period streaks, and one matchup where our trends are stacking up.",
-    "live": true,
-    "page": "admin/preview/nhl-2026-11-18/",
-    "path": "content/published/nhl-preview-2026-11-18.md",
-    "published": "2026-11-19T01:59:24Z",
-    "week": null,
-    "written": "2026-11-18T13:08Z"
    }
   ]
  }
