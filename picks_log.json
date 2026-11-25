@@ -15363,47 +15363,54 @@
     "streakTeamName": "Bulls"
    },
    {
-    "id": "ncaab|401926835|1h|ml|away",
-    "game": "ncaab|401926835",
+    "id": "nba|401909323|1h|total|under",
+    "game": "nba|401909323",
     "date": "2026-11-25",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-25T18:00Z",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T01:30Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Lindenwood @ Stony Brook",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 278,
-    "title": "Lindenwood 1H ML",
-    "est": 0.3032,
-    "edge": 0.0387,
-    "agree": 2,
-    "sample": 7,
+    "matchup": "Suns @ Rockets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 115.5,
+    "price": -110,
+    "title": "1H Under 115.5",
+    "est": 0.562,
+    "edge": 0.0382,
+    "agree": 6,
+    "sample": 18,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Early Bird"
+     "Under Grinder"
     ],
-    "streak": 1,
-    "streakTeam": "lindenwood-lions",
+    "streak": 2,
+    "streakTeam": "phx",
     "angles": [
      [
-      "Lindenwood 1H ML, season",
-      "4-3"
+      "Rockets 1H unders at home (115.5)",
+      "7-2"
      ],
      [
-      "Lindenwood 1H ML, last 8",
-      "4-3"
+      "Suns 1H unders, last 8 (115.5)",
+      "6-2"
+     ],
+     [
+      "Rockets 1H unders, season (115.5)",
+      "13-5"
+     ],
+     [
+      "Suns 1H unders on the road (115.5)",
+      "5-2"
      ]
     ],
-    "info": null,
+    "info": "Avg 1H total in their games: Rockets 108.4 \u00b7 Suns 113.9",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Lindenwood"
+    "streakTeamName": "Suns"
    },
    {
     "id": "ncaab|401909800|1h|ml|home",
