@@ -14934,6 +14934,54 @@
     "streakTeamName": "New Jersey"
    },
    {
+    "id": "nba|401909317|1q|ml|away",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -110,
+    "title": "Heat 1Q ML",
+    "est": 0.5791,
+    "edge": 0.0553,
+    "agree": 4,
+    "sample": 15,
+    "tier": "B",
+    "tags": [],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Heat 1Q ML, last 8",
+      "7-1"
+     ],
+     [
+      "Heat 1Q ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Heat 1Q ML, season",
+      "10-5-1"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "6-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
+   },
+   {
     "id": "nba|401909320|1h|ats|away",
     "game": "nba|401909320",
     "date": "2026-11-25",
@@ -14982,56 +15030,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Timberwolves"
-   },
-   {
-    "id": "nba|401909317|1q|ml|away",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -112,
-    "title": "Heat 1Q ML",
-    "est": 0.5821,
-    "edge": 0.0538,
-    "agree": 4,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "Heat 1Q ML, last 8",
-      "7-1"
-     ],
-     [
-      "Heat 1Q ML on the road",
-      "5-1-1"
-     ],
-     [
-      "Heat 1Q ML, season",
-      "10-5-1"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "6-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
    },
    {
     "id": "nhl|2026020398|1p|ml|home",
@@ -15129,6 +15127,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bucks"
+   },
+   {
+    "id": "nba|401909317|1q|total|under",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 62.5,
+    "price": -113,
+    "title": "1Q Under 62.5",
+    "est": 0.5707,
+    "edge": 0.0401,
+    "agree": 6,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "76ers 1Q unders at home (62.5)",
+      "9-1"
+     ],
+     [
+      "76ers 1Q unders, season (62.5)",
+      "14-4"
+     ],
+     [
+      "Heat 1Q unders, last 8 (62.5)",
+      "6-2"
+     ],
+     [
+      "Heat 1Q unders on the road (62.5)",
+      "5-2"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: 76ers 57.0 \u00b7 Heat 60.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
    },
    {
     "id": "nba|401909318|1h|total|over",
@@ -15320,56 +15368,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Eastern Kentucky"
-   },
-   {
-    "id": "nba|401909317|1q|total|under",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 62.5,
-    "price": -118,
-    "title": "1Q Under 62.5",
-    "est": 0.5774,
-    "edge": 0.0361,
-    "agree": 6,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Under Grinder"
-    ],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "76ers 1Q unders at home (62.5)",
-      "9-1"
-     ],
-     [
-      "76ers 1Q unders, season (62.5)",
-      "14-4"
-     ],
-     [
-      "Heat 1Q unders, last 8 (62.5)",
-      "6-2"
-     ],
-     [
-      "Heat 1Q unders on the road (62.5)",
-      "5-2"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: 76ers 57.0 \u00b7 Heat 60.8",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
    },
    {
     "id": "ncaab|401909800|1h|ml|home",
