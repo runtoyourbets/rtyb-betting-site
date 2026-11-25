@@ -197,7 +197,7 @@
     "value": "ncaab:401920547"
    },
    {
-    "label": "NCAAB · Yale at Wright State · 12:30 PM ET",
+    "label": "NCAAB · Yale at Wright State · 12:31 PM ET",
     "trends": 12,
     "value": "ncaab:401928831"
    },
@@ -227,14 +227,14 @@
     "value": "ncaab:401917967"
    },
    {
-    "label": "NCAAB · Arizona State at LSU · 2:00 PM ET",
-    "trends": 6,
-    "value": "ncaab:401921669"
-   },
-   {
     "label": "NCAAB · Arkansas-Pine Bluff at South Dakota · 2:00 PM ET",
     "trends": 8,
     "value": "ncaab:401929406"
+   },
+   {
+    "label": "NCAAB · LSU at Arizona State · 2:00 PM ET",
+    "trends": 6,
+    "value": "ncaab:401921669"
    },
    {
     "label": "NCAAB · Manhattan at NJIT · 2:00 PM ET",
@@ -800,7 +800,7 @@
     "value": "ncaab:401920547"
    },
    {
-    "label": "Yale at Wright State · 12:30 PM ET",
+    "label": "Yale at Wright State · 12:31 PM ET",
     "trends": 12,
     "value": "ncaab:401928831"
    },
@@ -830,14 +830,14 @@
     "value": "ncaab:401917967"
    },
    {
-    "label": "Arizona State at LSU · 2:00 PM ET",
-    "trends": 6,
-    "value": "ncaab:401921669"
-   },
-   {
     "label": "Arkansas-Pine Bluff at South Dakota · 2:00 PM ET",
     "trends": 8,
     "value": "ncaab:401929406"
+   },
+   {
+    "label": "LSU at Arizona State · 2:00 PM ET",
+    "trends": 6,
+    "value": "ncaab:401921669"
    },
    {
     "label": "Manhattan at NJIT · 2:00 PM ET",
