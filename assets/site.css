@@ -957,12 +957,11 @@
   thead th.num, td.num { text-align: right; }
   thead th:hover { color: var(--text); }
   thead th .arrow { opacity: 0.5; margin-left: 3px; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); }
-  tbody tr {
-    border-bottom: 1px solid var(--border-soft);
-    cursor: pointer;
-  }
+  tbody tr { border-bottom: 1px solid var(--border-soft); }
   tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: var(--panel-2); }
+  /* only rows that go somewhere react to the pointer (a team row opens its page) */
+  tbody tr[data-href], tbody tr[data-team] { cursor: pointer; }
+  tbody tr[data-href]:hover, tbody tr[data-team]:hover { background: var(--panel-2); }
   td { padding: 10px 14px; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); white-space: nowrap; }
   td.team-cell { display: flex; align-items: center; gap: 9px; font-weight: var(--fw-team); }
   .pct-cell { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
@@ -2851,6 +2850,12 @@
   .tp-sps { margin: 6px 0 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text); }
   .tp-sps .t-label { margin-right: 6px; }
   .mc .tp-sps { margin-top: 10px; }
+  /* Matchups cards: the starters box (GOALIES · EXPECTED / PITCHERS · PROBABLE), a line per team */
+  .sp-box { display: grid; gap: 4px; margin-top: 10px; }
+  .sp-row { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text); }
+  .sp-code { min-width: 34px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .sp-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sp-tag { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .tp-cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cell-gap) 12px; }
   /* Next game odds: a row per segment (its label at the left), its markets as
      columns, the same columns on every row; phones: the label above the blocks */
