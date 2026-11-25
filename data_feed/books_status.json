@@ -93,7 +93,7 @@
   },
   "36": {
    "coverage": {
-    "nba": 88,
+    "nba": 92,
     "ncaab": 80,
     "ncaaf": 100,
     "nfl": 100,
@@ -249,7 +249,7 @@
   },
   "fliff": {
    "coverage": {
-    "nba": 23,
+    "nba": 25,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 7,
@@ -262,7 +262,7 @@
   },
   "hardrockbet": {
    "coverage": {
-    "nba": 44,
+    "nba": 46,
     "ncaab": 42,
     "ncaaf": 3,
     "nfl": 21,
