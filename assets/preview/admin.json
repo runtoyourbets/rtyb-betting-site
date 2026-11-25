@@ -86,10 +86,10 @@
    {
     "date": "2026-11-25",
     "headline": "Milwaukee Bucks Have Gone Under the First Quarter Total 83% (15-3)",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nba-2026-11-25/",
-    "path": "content/drafts/nba-preview-2026-11-25.md",
-    "published": null,
+    "path": "content/published/nba-preview-2026-11-25.md",
+    "published": "2026-11-25T16:28:02Z",
     "week": null,
     "written": "2026-11-25T13:14Z"
    },
@@ -158,10 +158,10 @@
    {
     "date": "2026-11-25",
     "headline": "Alcorn State at Texas State Fits a 90% Back-to-Back Angle",
-    "live": false,
+    "live": true,
     "page": "admin/preview/ncaab-2026-11-25/",
-    "path": "content/drafts/ncaab-preview-2026-11-25.md",
-    "published": null,
+    "path": "content/published/ncaab-preview-2026-11-25.md",
+    "published": "2026-11-25T16:28:07Z",
     "week": null,
     "written": "2026-11-25T13:15Z"
    },
