@@ -48662,3 +48662,6 @@
 {"credits": 3, "endpoint": "/sports/basketball_ncaab/events/f026af6e32a421c5d3478e37d9198de0/odds", "job": "live", "remaining": 3565793, "sport": "ncaab", "time": "2026-11-25T15:05:25+00:00"}
 {"credits": 3, "endpoint": "/sports/basketball_ncaab/events/ff463f606d0a8912ca36a58b809e5f9e/odds", "job": "live", "remaining": 3565790, "sport": "ncaab", "time": "2026-11-25T15:05:25+00:00"}
 {"credits": 3, "endpoint": "/sports/basketball_ncaab/events/3cb03cfb4f93a60fd1ce506ee8555130/odds", "job": "live", "remaining": 3565787, "sport": "ncaab", "time": "2026-11-25T15:05:25+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "job": "live", "remaining": 3565787, "sport": "ncaab", "time": "2026-11-25T15:45:21+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/ffd0046855b372187fbcfcddb6274995/odds", "job": "live", "remaining": 3565781, "sport": "ncaab", "time": "2026-11-25T15:45:21+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/477cb494daa4db3c14d2879c0e2597c9/odds", "job": "live", "remaining": 3565775, "sport": "ncaab", "time": "2026-11-25T15:45:21+00:00"}
