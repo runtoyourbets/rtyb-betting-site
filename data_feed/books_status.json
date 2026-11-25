@@ -3,7 +3,7 @@
   "1": {
    "coverage": {
     "nba": 100,
-    "ncaab": 97,
+    "ncaab": 96,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -68,7 +68,7 @@
   "2": {
    "coverage": {
     "nba": 100,
-    "ncaab": 53,
+    "ncaab": 54,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -81,7 +81,7 @@
   "20": {
    "coverage": {
     "nba": 100,
-    "ncaab": 83,
+    "ncaab": 84,
     "ncaaf": 96,
     "nfl": 100,
     "nhl": 72
@@ -94,7 +94,7 @@
   "36": {
    "coverage": {
     "nba": 100,
-    "ncaab": 78,
+    "ncaab": 82,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -107,7 +107,7 @@
   "4": {
    "coverage": {
     "nba": 100,
-    "ncaab": 88,
+    "ncaab": 92,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 100
@@ -133,7 +133,7 @@
   "66": {
    "coverage": {
     "nba": 100,
-    "ncaab": 85,
+    "ncaab": 84,
     "ncaaf": 94,
     "nfl": 93,
     "nhl": 0
@@ -146,7 +146,7 @@
   "86": {
    "coverage": {
     "nba": 96,
-    "ncaab": 80,
+    "ncaab": 79,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -159,7 +159,7 @@
   "89": {
    "coverage": {
     "nba": 100,
-    "ncaab": 83,
+    "ncaab": 82,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 0
@@ -184,8 +184,8 @@
   },
   "betonlineag": {
    "coverage": {
-    "nba": 38,
-    "ncaab": 27,
+    "nba": 56,
+    "ncaab": 38,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
@@ -211,7 +211,7 @@
   "betrivers": {
    "coverage": {
     "nba": 56,
-    "ncaab": 40,
+    "ncaab": 45,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
@@ -223,7 +223,7 @@
   },
   "betus": {
    "coverage": {
-    "nba": 10,
+    "nba": 29,
     "ncaab": 0,
     "ncaaf": 3,
     "nfl": 7,
@@ -236,11 +236,11 @@
   },
   "bovada": {
    "coverage": {
-    "nba": 38,
-    "ncaab": 42,
+    "nba": 56,
+    "ncaab": 45,
     "ncaaf": 3,
-    "nfl": 14,
-    "nhl": 47
+    "nfl": 21,
+    "nhl": 45
    },
    "group": "Offshore",
    "last_seen": "2026-11-25",
@@ -263,7 +263,7 @@
   "hardrockbet": {
    "coverage": {
     "nba": 56,
-    "ncaab": 43,
+    "ncaab": 52,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
