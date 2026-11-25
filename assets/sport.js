@@ -285,12 +285,32 @@
     var label = D.sport === 'nhl' ? 'Goalies' : g.state === 'pre' ? 'Probable' : 'Starters';
     return '<p class="tp-sps"><span class="t-label">' + label + '</span> ' + parts.join(' vs ') + '</p>';
   }
+  // Matchups cards: the starters as a box, one line per team (logo, code,
+  // name). Before the game, NHL "GOALIES · EXPECTED" until both are confirmed
+  // (one confirmed: only the other is tagged "expected"); MLB "PITCHERS ·
+  // PROBABLE". Played or live: who started, no tags.
+  function startersBox(g) {
+    var ps = ['away', 'home'].map(function(side) { return { side: side, p: starterOf(g, side) }; });
+    if (!ps.some(function(x) { return x.p; })) return '';
+    var nhl = D.sport === 'nhl', pre = g.state === 'pre';
+    function unsure(p) { return !p || (nhl ? p.status !== 'confirmed' : true); }
+    var allUnsure = pre && ps.every(function(x) { return unsure(x.p); });
+    var head = (nhl ? 'Goalies' : 'Pitchers') + (allUnsure ? ' &middot; ' + (nhl ? 'Expected' : 'Probable') : '');
+    var rows = ps.map(function(x) {
+      var tag = pre && !allUnsure && nhl && unsure(x.p) ? '<span class="sp-tag">expected</span>' : '';
+      return '<div class="sp-row">' + badge(g[x.side], 18) + '<span class="sp-code">' + esc(tcode(g[x.side])) + '</span>' +
+        '<span class="sp-name">' + (x.p ? esc(starterLast(x.p)) : 'TBD') + '</span>' + tag + '</div>';
+    }).join('');
+    return '<div class="sp-box"><span class="t-label">' + head + '</span>' + rows + '</div>';
+  }
   // a segment's short name in text: "2H", "2P", "Game"
   function segTag(k) { return k === 'game' ? 'Game' : anySeg(k).tag; }
   function isRfi(k) { return D.sportType === 'baseball' && k === '1i'; }
   // Segments without 'ML' in their markets (NCAAB 1st half) show no moneyline / SU anywhere.
   function hasMl(k) { var s = seg(k); return !s || !s.markets || s.markets.indexOf('ML') !== -1; }
-  function getSeg() { return seg(SEG_CUR) ? SEG_CUR : D.segments[0].key; }
+  // the Matchups page's Game pill (spread sports): the full game's lines and score
+  function gameSegOn() { return SECTION === 'games' && !periodFamily() && !!frSeg('game'); }
+  function getSeg() { return seg(SEG_CUR) || (SEG_CUR === 'game' && gameSegOn()) ? SEG_CUR : D.segments[0].key; }
   function setSeg(k) {
     SEG_CUR = k;
     var u = new URL(location.href);
@@ -319,8 +339,9 @@
   function segPeriods(k) { return { '1q': 1, '1p': 1, '1i': 1, f5: 5 }[k] || (k === '1h' ? (D.sport === 'ncaab' ? 1 : 2) : 1); }
   // [away, home] in a segment so far, or null before it starts
   function segScore(g, k) {
-    var r = (g.res || {})[k];
+    var r = segRes(g, k);
     if (r && r.sc) return r.sc;
+    if (k === 'game') return g.state !== 'pre' && g.as != null && g.hs != null ? [g.as, g.hs] : null;
     if (g.state === 'pre' || !g.als || !g.hls) return null;
     var n = segPeriods(k), a = g.als.slice(0, n).filter(function(x) { return typeof x === 'number'; }), h = g.hls.slice(0, n).filter(function(x) { return typeof x === 'number'; });
     if (!a.length || !h.length) return null;
@@ -343,7 +364,7 @@
   }
   function liveHtml(g) { return '<span class="st-live">' + esc(liveText(g)) + '</span>'; }
   function cardStatus(g, k) {
-    if (g.state === 'final') return 'FINAL &middot; ' + esc(seg(cardSeg(k)).tag);
+    if (g.state === 'final') return 'FINAL &middot; ' + esc(segTag(cardSeg(k)));
     if (g.state === 'in') return liveHtml(g);
     return g.start ? esc(timeET(g.start)) : 'TBD';
   }
@@ -352,7 +373,7 @@
   function lined(g, k) {
     var ks = D.sportType === 'baseball' ? ['1i', 'f5'] : [k];
     return ks.some(function(x) {
-      var o = (g.odds || {})[x] || {};
+      var o = segOdds(g, x) || {};
       return Object.keys(o).some(function(m) { var v = o[m]; return v != null && (typeof v !== 'object' || Object.keys(v).some(function(s) { return v[s] != null; })); });
     });
   }
@@ -376,9 +397,9 @@
   // one cell: row 0 = away (Over / Yes / YRFI), 1 = home (Under / No / NRFI),
   // 2 = the tie (NHL 3-way only)
   function cardCell(g, k, m, row) {
-    var sk = m === 'rfi' ? '1i' : cardSeg(k), o = ((g.odds || {})[sk] || {}), fin = g.state === 'final';
+    var sk = m === 'rfi' ? '1i' : cardSeg(k), o = segOdds(g, sk) || {}, fin = g.state === 'final';
     // a segment is graded the moment it ends (res is only saved once it's over), live games included
-    var r = (g.res || {})[sk], done = r && r.sc ? r : null, home = row === 1, res = null, line = null, price = null, tip = '';
+    var r = segRes(g, sk), done = r && r.sc ? r : null, home = row === 1, res = null, line = null, price = null, tip = '';
     function side(x) { if (!done) return null; if (done.na || !x || x === 'NA') return 'P'; x = home ? flipRes(x) : x; return x === 'W' || x === 'L' ? x : 'P'; }
     function yn(x, want) { if (!done) return null; if (done.na || !x || x === 'NA' || x === 'P') return 'P'; return x === want ? 'W' : 'L'; }
     if (m === 'ml') {
@@ -437,7 +458,7 @@
     return '<div class="game-card mc" data-game="' + esc(g.id) + '" style="--mc-n:' + cols.length + '">' +
       '<table class="mc-grid"><thead><tr><th scope="col" class="mc-st">' + cardStatus(g, k) + '</th>' +
       cols.map(function(c) { return '<th scope="col"><span class="mk-h">' + esc(c[1]) + '</span></th>'; }).join('') + '</tr></thead>' +
-      '<tbody>' + teamRow(g.away, 0) + teamRow(g.home, 1) + tie + '</tbody></table>' + fullGameRow(g) + (SECTION === 'games' ? startersLine(g, false) : '') +
+      '<tbody>' + teamRow(g.away, 0) + teamRow(g.home, 1) + tie + '</tbody></table>' + (k === 'game' ? '' : fullGameRow(g)) + (SECTION === 'games' ? startersBox(g) : '') +
       (h2hUrl(g.away, g.home) && SECTION !== 'h2h' ? '<a class="mc-more" href="' + h2hUrl(g.away, g.home) + '">Full matchup &rarr;</a>' : '') + '</div>';
   }
 
@@ -517,7 +538,7 @@
       if (r === 'W') x.w++; else if (r === 'L') x.l++; else x.t++;
       if (u != null) { x.u += u; x.n++; }
     }
-    function done(g, key) { var r = (g.res || {})[key]; return g.state === 'final' && r && r.sc && !r.na ? r : null; }
+    function done(g, key) { var r = segRes(g, key); return g.state === 'final' && r && r.sc && !r.na ? r : null; }
     function suSide(r, home) { var x = r.su; if (!x || x === 'NA') return null; x = home ? flipRes(x) : x; return x === 'W' || x === 'L' ? x : 'T'; }
     if (D.sport === 'nhl') {
       var hm = acc('Home teams', { ties: true }), fv = acc('Favorites', { ties: true }), ov = acc('O/U: Over 1.5', { noTie: true }),
@@ -550,7 +571,7 @@
           sa = acc('Favorites (spread)', {}), so = acc('O/U: Over', {});
       games.forEach(function(g) {
         var r = done(g, k); if (!r) return;
-        var u = r.u || {}, o = (g.odds || {})[k] || {};
+        var u = r.u || {}, o = segOdds(g, k) || {};
         if (ml) {
           add(sh, suSide(r, true), u.su ? u.su[1] : null);
           var f = segFavSide(g, k);
@@ -620,7 +641,12 @@
     return weeks[weeks.length - 1].key;
   }
   function gmSegBar(k) {
-    return !periodFamily() && D.segments.length > 1 ? '<div class="gm-stick" id="gmStick"><div class="sport-seg-row">' + segToggle('pageSeg', k) + '</div></div>' : '';
+    if (periodFamily()) return '';
+    var segs = D.segments.concat(gameSegOn() ? [{ key: 'game', label: 'Game' }] : []);
+    if (segs.length < 2) return '';
+    return '<div class="gm-stick" id="gmStick"><div class="sport-seg-row"><div class="seg-toggle" id="pageSeg">' + segs.map(function(s) {
+      return '<button class="seg-btn" data-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>';
+    }).join('') + '</div></div></div>';
   }
   function renderGames() {
     var weeks = D.schedule === 'week' ? D.weeks || [] : null;
@@ -644,7 +670,7 @@
         games = (D.games[cur] || []).slice().sort(function(a, b) { return (a.start || '') < (b.start || '') ? -1 : (a.start || '') > (b.start || '') ? 1 : 0; });
         title = resultsTitle(cur); none = 'on ' + dateLabel(cur);
       }
-      games = games.filter(function(g) { return lined(g, k); });
+      games = games.filter(function(g) { return g.state === 'pre' || lined(g, k); });
       var html = (weeks ? weekBar(weeks, cur, thisWeek) : dateBar(cur, dates, true)) + gmSegBar(k) + resultsBox(games, k, title);
       if (!games.length) {
         if (weeks) WEEK_ORDER = keys;
@@ -2010,7 +2036,7 @@
     return imp(ml.away) === imp(ml.home) ? null : imp(ml.away) > imp(ml.home) ? 'away' : 'home';
   }
   // the segment's favorite: its own moneyline, else its spread line, else the full game
-  function segFavSide(g, k) { return favSide((g.odds || {})[k]) || mlFavSide(g.fml) || (g.fs ? (g.fs < 0 ? 'home' : 'away') : null); }
+  function segFavSide(g, k) { return favSide(segOdds(g, k)) || mlFavSide(g.fml) || (g.fs ? (g.fs < 0 ? 'home' : 'away') : null); }
   // the full-game favorite: closing moneyline, else the spread
   function gameFav(g) { return mlFavSide(g.fml) || (g.fs ? (g.fs < 0 ? 'home' : 'away') : null); }
   function graded(games, k) {

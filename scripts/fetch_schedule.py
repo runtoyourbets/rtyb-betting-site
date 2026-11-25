@@ -41,7 +41,7 @@ from datetime import datetime, timedelta, timezone
 import periods
 
 WINDOW_DAYS_BACK = 10
-WINDOW_DAYS_FWD = 10
+WINDOW_DAYS_FWD = 14   # Matchups lists every game this far ahead (lines fill in when posted)
 
 ABBREV_MAP = {'TBL': 'TB', 'NJD': 'NJ', 'SJS': 'SJ', 'LAK': 'LA', 'ANA': 'ANH'}
 

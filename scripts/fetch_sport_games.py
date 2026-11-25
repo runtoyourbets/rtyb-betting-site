@@ -364,9 +364,13 @@ def _fetch_lines_file(sport, p, cap):
     return done
 
 
+# Matchups lists every scheduled game this far ahead; lines fill in as books post them
+AHEAD_DAYS = 14
+
+
 def daily():
     today = datetime.now(ET).date()
-    dates = date_range((today - timedelta(days=1)).isoformat(), (today + timedelta(days=7)).isoformat())
+    dates = date_range((today - timedelta(days=1)).isoformat(), (today + timedelta(days=AHEAD_DAYS)).isoformat())
     for sport in SOURCES:
         fails = sorted(read_json(os.path.join(GAMES_DIR, sport, 'failures.json'), {}))
         back = backfill_dates(sport)
