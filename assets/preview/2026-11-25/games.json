@@ -252,11 +252,6 @@
     "value": "ncaab:401921715"
    },
    {
-    "label": "NCAAB · Texas A&M at Xavier · 2:30 PM ET",
-    "trends": 6,
-    "value": "ncaab:401920809"
-   },
-   {
     "label": "NCAAB · Akron at App State · 3:00 PM ET",
     "trends": 9,
     "value": "ncaab:401928836"
@@ -295,6 +290,11 @@
     "label": "NCAAB · Princeton at Liberty · 4:00 PM ET",
     "trends": 6,
     "value": "ncaab:401924737"
+   },
+   {
+    "label": "NCAAB · Texas A&M at Xavier · 4:13 PM ET",
+    "trends": 6,
+    "value": "ncaab:401920809"
    },
    {
     "label": "NCAAB · South Carolina at USC · 4:30 PM ET",
@@ -855,11 +855,6 @@
     "value": "ncaab:401921715"
    },
    {
-    "label": "Texas A&M at Xavier · 2:30 PM ET",
-    "trends": 6,
-    "value": "ncaab:401920809"
-   },
-   {
     "label": "Akron at App State · 3:00 PM ET",
     "trends": 9,
     "value": "ncaab:401928836"
@@ -898,6 +893,11 @@
     "label": "Princeton at Liberty · 4:00 PM ET",
     "trends": 6,
     "value": "ncaab:401924737"
+   },
+   {
+    "label": "Texas A&M at Xavier · 4:13 PM ET",
+    "trends": 6,
+    "value": "ncaab:401920809"
    },
    {
     "label": "South Carolina at USC · 4:30 PM ET",

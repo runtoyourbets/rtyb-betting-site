@@ -15028,57 +15028,6 @@
     "streakTeamName": "New Jersey"
    },
    {
-    "id": "nba|401909322|1q|total|under",
-    "game": "nba|401909322",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Nets @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -108,
-    "title": "1Q Under 60.5",
-    "est": 0.5737,
-    "edge": 0.0545,
-    "agree": 4,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 18,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, season (60.5)",
-      "18-0"
-     ],
-     [
-      "Bucks 1Q unders at home (60.5)",
-      "9-0"
-     ],
-     [
-      "Bucks 1Q unders, last 8 (60.5)",
-      "8-0"
-     ],
-     [
-      "Nets 1Q unders, season (60.5)",
-      "10-6"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
-   },
-   {
     "id": "nba|401909318|1h|total|over",
     "game": "nba|401909318",
     "date": "2026-11-25",
@@ -15130,6 +15079,57 @@
     "streakTeamName": "Bulls"
    },
    {
+    "id": "nba|401909322|1q|total|under",
+    "game": "nba|401909322",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Nets @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -110,
+    "title": "1Q Under 60.5",
+    "est": 0.5765,
+    "edge": 0.0527,
+    "agree": 4,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 18,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, season (60.5)",
+      "18-0"
+     ],
+     [
+      "Bucks 1Q unders at home (60.5)",
+      "9-0"
+     ],
+     [
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Nets 1Q unders, season (60.5)",
+      "10-6"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
     "id": "nhl|2026020398|1p|ml|home",
     "game": "nhl|2026020398",
     "date": "2026-11-25",
@@ -15144,10 +15144,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": -130,
+    "price": -125,
     "title": "Anaheim 1P ML",
-    "est": 0.6139,
-    "edge": 0.0487,
+    "est": 0.6078,
+    "edge": 0.0523,
     "agree": 3,
     "sample": 18,
     "tier": "B",
@@ -15224,49 +15224,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Heat"
-   },
-   {
-    "id": "ncaab|401921713|1h|ml|away",
-    "game": "ncaab|401921713",
-    "date": "2026-11-25",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Washington @ VCU",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 160,
-    "title": "Washington 1H ML",
-    "est": 0.4292,
-    "edge": 0.0446,
-    "agree": 2,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 6,
-    "streakTeam": "washington-huskies",
-    "angles": [
-     [
-      "Washington 1H ML, season",
-      "6-0"
-     ],
-     [
-      "Washington 1H ML, last 8",
-      "6-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Washington"
    },
    {
     "id": "ncaab|401921670|1h|ml|away",
@@ -15360,6 +15317,49 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Suns"
+   },
+   {
+    "id": "ncaab|401921713|1h|ml|away",
+    "game": "ncaab|401921713",
+    "date": "2026-11-25",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Washington @ VCU",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 145,
+    "title": "Washington 1H ML",
+    "est": 0.4488,
+    "edge": 0.0407,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "washington-huskies",
+    "angles": [
+     [
+      "Washington 1H ML, season",
+      "6-0"
+     ],
+     [
+      "Washington 1H ML, last 8",
+      "6-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Washington"
    },
    {
     "id": "nba|401909319|1h|total|over",
