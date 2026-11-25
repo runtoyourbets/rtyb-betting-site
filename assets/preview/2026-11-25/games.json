@@ -303,7 +303,7 @@
    },
    {
     "label": "NBA · Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 20,
+    "trends": 19,
     "value": "nba:401909317"
    },
    {
@@ -548,7 +548,7 @@
    },
    {
     "label": "NBA · Sacramento Kings at Golden State Warriors · 10:00 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401909324"
    },
    {
@@ -599,7 +599,7 @@
   "games": [
    {
     "label": "Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 20,
+    "trends": 19,
     "value": "nba:401909317"
    },
    {
@@ -639,7 +639,7 @@
    },
    {
     "label": "Sacramento Kings at Golden State Warriors · 10:00 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401909324"
    }
   ],
