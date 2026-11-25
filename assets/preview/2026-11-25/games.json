@@ -147,7 +147,9 @@
    "UTEP",
    "UVA",
    "VAN",
+   "VCU",
    "WAKE",
+   "WASH",
    "WEB",
    "WIS",
    "WPG",
@@ -299,7 +301,7 @@
    },
    {
     "label": "NBA · Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "nba:401909317"
    },
    {
@@ -394,7 +396,7 @@
    },
    {
     "label": "NBA · Chicago Bulls at Charlotte Hornets · 7:00 PM ET",
-    "trends": 9,
+    "trends": 14,
     "value": "nba:401909318"
    },
    {
@@ -449,12 +451,12 @@
    },
    {
     "label": "NBA · Cleveland Cavaliers at New York Knicks · 7:30 PM ET",
-    "trends": 16,
+    "trends": 21,
     "value": "nba:401909319"
    },
    {
     "label": "NBA · Minnesota Timberwolves at Oklahoma City Thunder · 7:30 PM ET",
-    "trends": 13,
+    "trends": 17,
     "value": "nba:401909320"
    },
    {
@@ -479,7 +481,7 @@
    },
    {
     "label": "NBA · LA Clippers at Memphis Grizzlies · 8:00 PM ET",
-    "trends": 15,
+    "trends": 17,
     "value": "nba:401909321"
    },
    {
@@ -499,7 +501,7 @@
    },
    {
     "label": "NBA · Phoenix Suns at Houston Rockets · 8:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "nba:401909323"
    },
    {
@@ -534,13 +536,18 @@
    },
    {
     "label": "NBA · San Antonio Spurs at Portland Trail Blazers · 10:00 PM ET",
-    "trends": 7,
+    "trends": 15,
     "value": "nba:401909325"
    },
    {
     "label": "NBA · Sacramento Kings at Golden State Warriors · 10:00 PM ET",
-    "trends": 16,
+    "trends": 20,
     "value": "nba:401909324"
+   },
+   {
+    "label": "NCAAB · Washington at VCU · 10:00 PM ET",
+    "trends": 9,
+    "value": "ncaab:401921713"
    },
    {
     "label": "NCAAB · Pacific at Jacksonville State · 10:30 PM ET",
@@ -554,7 +561,7 @@
    }
   ],
   "lead": "ncaab:401925688",
-  "motd": "ncaab:401928831"
+  "motd": "nba:401909317"
  },
  "nba": {
   "codes": [
@@ -580,22 +587,22 @@
   "games": [
    {
     "label": "Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "nba:401909317"
    },
    {
     "label": "Chicago Bulls at Charlotte Hornets · 7:00 PM ET",
-    "trends": 9,
+    "trends": 14,
     "value": "nba:401909318"
    },
    {
     "label": "Cleveland Cavaliers at New York Knicks · 7:30 PM ET",
-    "trends": 16,
+    "trends": 21,
     "value": "nba:401909319"
    },
    {
     "label": "Minnesota Timberwolves at Oklahoma City Thunder · 7:30 PM ET",
-    "trends": 13,
+    "trends": 17,
     "value": "nba:401909320"
    },
    {
@@ -605,27 +612,27 @@
    },
    {
     "label": "LA Clippers at Memphis Grizzlies · 8:00 PM ET",
-    "trends": 15,
+    "trends": 17,
     "value": "nba:401909321"
    },
    {
     "label": "Phoenix Suns at Houston Rockets · 8:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "nba:401909323"
    },
    {
     "label": "San Antonio Spurs at Portland Trail Blazers · 10:00 PM ET",
-    "trends": 7,
+    "trends": 15,
     "value": "nba:401909325"
    },
    {
     "label": "Sacramento Kings at Golden State Warriors · 10:00 PM ET",
-    "trends": 16,
+    "trends": 20,
     "value": "nba:401909324"
    }
   ],
   "lead": "nba:401909322",
-  "motd": null
+  "motd": "nba:401909317"
  },
  "ncaab": {
   "codes": [
@@ -733,7 +740,9 @@
    "USU",
    "UTEP",
    "UVA",
+   "VCU",
    "WAKE",
+   "WASH",
    "WEB",
    "WIS",
    "WRST",
@@ -1005,6 +1014,11 @@
     "label": "Mississippi Valley State at New Mexico · 9:00 PM ET",
     "trends": 7,
     "value": "ncaab:401924897"
+   },
+   {
+    "label": "Washington at VCU · 10:00 PM ET",
+    "trends": 9,
+    "value": "ncaab:401921713"
    },
    {
     "label": "Pacific at Jacksonville State · 10:30 PM ET",

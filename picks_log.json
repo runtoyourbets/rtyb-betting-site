@@ -14837,6 +14837,106 @@
  "2026-11-25": {
   "plays": [
    {
+    "id": "nba|401909320|1h|ml|away",
+    "game": "nba|401909320",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Timberwolves @ Thunder",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 104,
+    "title": "Timberwolves 1H ML",
+    "est": 0.578,
+    "edge": 0.0878,
+    "agree": 4,
+    "sample": 17,
+    "tier": "A",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1H ML on the road",
+      "5-0-1"
+     ],
+     [
+      "Timberwolves 1H ML, season",
+      "14-3-1"
+     ],
+     [
+      "Timberwolves 1H ML, last 8",
+      "6-2"
+     ],
+     [
+      "Thunder\u2019s opponents 1H ML, Thunder at home",
+      "4-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
+   },
+   {
+    "id": "nba|401909320|1h|ats|away",
+    "game": "nba|401909320",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Timberwolves @ Thunder",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 0.5,
+    "price": -105,
+    "title": "Timberwolves 1H +0.5",
+    "est": 0.5718,
+    "edge": 0.0596,
+    "agree": 4,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1H ATS at +0.5 on the road",
+      "6-0"
+     ],
+     [
+      "Timberwolves 1H ATS at +0.5, season",
+      "15-3"
+     ],
+     [
+      "Timberwolves 1H ATS at +0.5, last 8",
+      "6-2"
+     ],
+     [
+      "Thunder\u2019s opponents 1H ATS at +0.5, Thunder at home",
+      "4-3"
+     ]
+    ],
+    "info": "Timberwolves avg 1H margin on the road: +6.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
+   },
+   {
     "id": "nhl|2026020393|1p|btts|yes",
     "game": "nhl|2026020393",
     "date": "2026-11-25",
@@ -14884,6 +14984,107 @@
     "streakTeamName": "New Jersey"
    },
    {
+    "id": "nba|401909318|1h|total|over",
+    "game": "nba|401909318",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Bulls @ Hornets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 108.5,
+    "price": 100,
+    "title": "1H Over 108.5",
+    "est": 0.5516,
+    "edge": 0.0516,
+    "agree": 6,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H overs, season (108.5)",
+      "15-2"
+     ],
+     [
+      "Hornets 1H overs at home (108.5)",
+      "7-1"
+     ],
+     [
+      "Bulls 1H overs on the road (108.5)",
+      "7-2"
+     ],
+     [
+      "Bulls 1H overs, last 8 (108.5)",
+      "6-2"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
+   },
+   {
+    "id": "nba|401909317|1q|ml|away",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -118,
+    "title": "Heat 1Q ML",
+    "est": 0.5908,
+    "edge": 0.0495,
+    "agree": 4,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Heat 1Q ML, last 8",
+      "7-1"
+     ],
+     [
+      "Heat 1Q ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Heat 1Q ML, season",
+      "10-5-1"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "6-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
+   },
+   {
     "id": "nhl|2026020398|1p|ml|home",
     "game": "nhl|2026020398",
     "date": "2026-11-25",
@@ -14928,6 +15129,203 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Anaheim"
+   },
+   {
+    "id": "nba|401909322|1q|total|under",
+    "game": "nba|401909322",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Nets @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -118,
+    "title": "1Q Under 60.5",
+    "est": 0.5875,
+    "edge": 0.0462,
+    "agree": 4,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 18,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, season (60.5)",
+      "18-0"
+     ],
+     [
+      "Bucks 1Q unders at home (60.5)",
+      "9-0"
+     ],
+     [
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Nets 1Q unders, season (60.5)",
+      "10-6"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -132,
+    "title": "Spurs 1Q ML",
+    "est": 0.6082,
+    "edge": 0.0393,
+    "agree": 3,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
+   },
+   {
+    "id": "nba|401909317|1q|total|under",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 62.5,
+    "price": -115,
+    "title": "1Q Under 62.5",
+    "est": 0.5734,
+    "edge": 0.0385,
+    "agree": 6,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "76ers 1Q unders at home (62.5)",
+      "9-1"
+     ],
+     [
+      "76ers 1Q unders, season (62.5)",
+      "14-4"
+     ],
+     [
+      "Heat 1Q unders, last 8 (62.5)",
+      "6-2"
+     ],
+     [
+      "Heat 1Q unders on the road (62.5)",
+      "5-2"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: 76ers 57.0 \u00b7 Heat 60.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
+   },
+   {
+    "id": "nba|401909323|1h|total|under",
+    "game": "nba|401909323",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T01:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Suns @ Rockets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 115.5,
+    "price": -110,
+    "title": "1H Under 115.5",
+    "est": 0.562,
+    "edge": 0.0382,
+    "agree": 6,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": 2,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Rockets 1H unders at home (115.5)",
+      "7-2"
+     ],
+     [
+      "Suns 1H unders, last 8 (115.5)",
+      "6-2"
+     ],
+     [
+      "Rockets 1H unders, season (115.5)",
+      "13-5"
+     ],
+     [
+      "Suns 1H unders on the road (115.5)",
+      "5-2"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Rockets 108.4 \u00b7 Suns 113.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
    },
    {
     "id": "ncaab|401911029|1h|ats|away",
@@ -15066,195 +15464,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Washington"
-   },
-   {
-    "id": "nhl|2026020396|1p|ml|home",
-    "game": "nhl|2026020396",
-    "date": "2026-11-25",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-26T01:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Utah @ Minnesota",
-    "href": "nhl/matchups/?date=2026-11-25",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -131,
-    "title": "Minnesota 1P ML",
-    "est": 0.6013,
-    "edge": 0.0342,
-    "agree": 3,
-    "sample": 16,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 0,
-    "streakTeam": "MIN",
-    "angles": [
-     [
-      "Minnesota 1P ML, last 8",
-      "5-0-3"
-     ],
-     [
-      "Minnesota 1P ML at home",
-      "5-1-2"
-     ],
-     [
-      "Minnesota 1P ML, season",
-      "13-3-10"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Minnesota"
-   },
-   {
-    "id": "nhl|2026020390|1p|ml|home",
-    "game": "nhl|2026020390",
-    "date": "2026-11-25",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-26T00:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "St. Louis @ NY Islanders",
-    "href": "nhl/matchups/?date=2026-11-25",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -118,
-    "title": "NY Islanders 1P ML",
-    "est": 0.5723,
-    "edge": 0.031,
-    "agree": 4,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 1,
-    "streakTeam": "NYI",
-    "angles": [
-     [
-      "NY Islanders 1P ML, last 8",
-      "5-1-2"
-     ],
-     [
-      "NY Islanders 1P ML at home",
-      "6-3-2"
-     ],
-     [
-      "St. Louis\u2019s opponents 1P ML, St. Louis on the road",
-      "5-3-4"
-     ],
-     [
-      "NY Islanders 1P ML, season",
-      "11-7-5"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "NY Islanders"
-   },
-   {
-    "id": "nhl|2026020399|1p|total|over",
-    "game": "nhl|2026020399",
-    "date": "2026-11-25",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-26T02:40:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Chicago @ Seattle",
-    "href": "nhl/matchups/?date=2026-11-25",
-    "market": "total",
-    "side": "over",
-    "line": 1.5,
-    "price": -135,
-    "title": "1P Over 1.5",
-    "est": 0.605,
-    "edge": 0.0305,
-    "agree": 6,
-    "sample": 24,
-    "tier": "C",
-    "tags": [
-     "Over Lover"
-    ],
-    "streak": 1,
-    "streakTeam": "CHI",
-    "angles": [
-     [
-      "Seattle 1P overs, season (1.5)",
-      "16-5"
-     ],
-     [
-      "Seattle 1P overs, last 8 (1.5)",
-      "6-2"
-     ],
-     [
-      "Chicago 1P overs, last 8 (1.5)",
-      "6-2"
-     ],
-     [
-      "Seattle 1P overs at home (1.5)",
-      "8-3"
-     ]
-    ],
-    "info": "Avg 1P total in their games: Seattle 2.2 \u00b7 Chicago 2.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Chicago"
-   },
-   {
-    "id": "nhl|2026020386|1p|ml|home",
-    "game": "nhl|2026020386",
-    "date": "2026-11-25",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-26T00:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Winnipeg @ Boston",
-    "href": "nhl/matchups/?date=2026-11-25",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -138,
-    "title": "Boston 1P ML",
-    "est": 0.6098,
-    "edge": 0.03,
-    "agree": 2,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Contrarian"
-    ],
-    "streak": -5,
-    "streakTeam": "BOS",
-    "angles": [
-     [
-      "Winnipeg\u2019s opponents 1P ML, Winnipeg on the road",
-      "7-1-3"
-     ],
-     [
-      "Boston 1P ML, season",
-      "10-8-5"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Boston"
    }
   ]
  }
