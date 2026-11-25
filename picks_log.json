@@ -14981,6 +14981,57 @@
     "streakTeamName": "Timberwolves"
    },
    {
+    "id": "nba|401909322|1q|total|under",
+    "game": "nba|401909322",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T01:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Nets @ Bucks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -104,
+    "title": "1Q Under 60.5",
+    "est": 0.5678,
+    "edge": 0.058,
+    "agree": 4,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Under Grinder",
+     "Streak Rider"
+    ],
+    "streak": 18,
+    "streakTeam": "mil",
+    "angles": [
+     [
+      "Bucks 1Q unders, season (60.5)",
+      "18-0"
+     ],
+     [
+      "Bucks 1Q unders at home (60.5)",
+      "9-0"
+     ],
+     [
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Nets 1Q unders, season (60.5)",
+      "10-6"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
     "id": "nba|401909317|1q|ml|away",
     "game": "nba|401909317",
     "date": "2026-11-25",
@@ -15076,57 +15127,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "New Jersey"
-   },
-   {
-    "id": "nba|401909322|1q|total|under",
-    "game": "nba|401909322",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Nets @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -106,
-    "title": "1Q Under 60.5",
-    "est": 0.5708,
-    "edge": 0.0562,
-    "agree": 4,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 18,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, season (60.5)",
-      "18-0"
-     ],
-     [
-      "Bucks 1Q unders at home (60.5)",
-      "9-0"
-     ],
-     [
-      "Bucks 1Q unders, last 8 (60.5)",
-      "8-0"
-     ],
-     [
-      "Nets 1Q unders, season (60.5)",
-      "10-6"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
    },
    {
     "id": "nhl|2026020398|1p|ml|home",
@@ -15264,8 +15264,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 2.8,
     "streakTeamName": "South Carolina"
    },
    {
