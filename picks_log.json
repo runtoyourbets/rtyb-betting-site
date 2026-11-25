@@ -15417,51 +15417,51 @@
     "streakTeamName": "Kansas State"
    },
    {
-    "id": "nhl|2026020392|1p|btts|yes",
-    "game": "nhl|2026020392",
+    "id": "nba|401909319|1h|ats|home",
+    "game": "nba|401909319",
     "date": "2026-11-25",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-26T00:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Philadelphia @ Washington",
-    "href": "nhl/matchups/?date=2026-11-25",
-    "market": "btts",
-    "side": "yes",
-    "line": null,
-    "price": 155,
-    "title": "1P BTTS Yes",
-    "est": 0.4272,
-    "edge": 0.0351,
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Cavaliers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": -1.5,
+    "price": 100,
+    "title": "Knicks 1H -1.5",
+    "est": 0.5347,
+    "edge": 0.0347,
     "agree": 3,
-    "sample": 26,
+    "sample": 17,
     "tier": "C",
     "tags": [
-     "Over Lover",
+     "Chalk Eater",
      "Streak Rider"
     ],
     "streak": 5,
-    "streakTeam": "WSH",
+    "streakTeam": "ny",
     "angles": [
      [
-      "Washington 1P BTTS, last 8",
+      "Knicks 1H ATS at -1.5 at home",
+      "7-2"
+     ],
+     [
+      "Knicks 1H ATS at -1.5, last 8",
       "6-2"
      ],
      [
-      "Washington 1P BTTS at home",
-      "9-4"
-     ],
-     [
-      "Washington 1P BTTS, season",
-      "13-8"
+      "Knicks 1H ATS at -1.5, season",
+      "11-6"
      ]
     ],
-    "info": null,
+    "info": "Knicks avg 1H margin at home: +10.3",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Washington"
+    "streakTeamName": "Knicks"
    }
   ]
  }
