@@ -14981,6 +14981,56 @@
     "streakTeamName": "Timberwolves"
    },
    {
+    "id": "nba|401909317|1q|ml|away",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -108,
+    "title": "Heat 1Q ML",
+    "est": 0.5761,
+    "edge": 0.0568,
+    "agree": 4,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Heat 1Q ML, last 8",
+      "7-1"
+     ],
+     [
+      "Heat 1Q ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Heat 1Q ML, season",
+      "10-5-1"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "6-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
+   },
+   {
     "id": "nhl|2026020393|1p|btts|yes",
     "game": "nhl|2026020393",
     "date": "2026-11-25",
@@ -15026,108 +15076,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "New Jersey"
-   },
-   {
-    "id": "nba|401909318|1h|total|over",
-    "game": "nba|401909318",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Bulls @ Hornets",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 106.5,
-    "price": -105,
-    "title": "1H Over 106.5",
-    "est": 0.5657,
-    "edge": 0.0536,
-    "agree": 6,
-    "sample": 17,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1H overs, season (106.5)",
-      "15-2"
-     ],
-     [
-      "Hornets 1H overs at home (106.5)",
-      "7-1"
-     ],
-     [
-      "Bulls 1H overs on the road (106.5)",
-      "7-2"
-     ],
-     [
-      "Hornets 1H overs, last 8 (106.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
-   },
-   {
-    "id": "nba|401909322|1q|total|under",
-    "game": "nba|401909322",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T01:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Nets @ Bucks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 60.5,
-    "price": -110,
-    "title": "1Q Under 60.5",
-    "est": 0.5765,
-    "edge": 0.0527,
-    "agree": 4,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Under Grinder",
-     "Streak Rider"
-    ],
-    "streak": 18,
-    "streakTeam": "mil",
-    "angles": [
-     [
-      "Bucks 1Q unders, season (60.5)",
-      "18-0"
-     ],
-     [
-      "Bucks 1Q unders at home (60.5)",
-      "9-0"
-     ],
-     [
-      "Bucks 1Q unders, last 8 (60.5)",
-      "8-0"
-     ],
-     [
-      "Nets 1Q unders, season (60.5)",
-      "10-6"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bucks"
    },
    {
     "id": "nhl|2026020398|1p|ml|home",
@@ -15176,54 +15124,106 @@
     "streakTeamName": "Anaheim"
    },
    {
-    "id": "nba|401909317|1q|ml|away",
-    "game": "nba|401909317",
+    "id": "nba|401909322|1q|total|under",
+    "game": "nba|401909322",
     "date": "2026-11-25",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-25T22:00Z",
+    "start": "2026-11-26T01:00Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
+    "matchup": "Nets @ Bucks",
     "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -120,
-    "title": "Heat 1Q ML",
-    "est": 0.5936,
-    "edge": 0.0481,
+    "market": "total",
+    "side": "under",
+    "line": 60.5,
+    "price": -112,
+    "title": "1Q Under 60.5",
+    "est": 0.5794,
+    "edge": 0.0511,
     "agree": 4,
-    "sample": 15,
+    "sample": 18,
     "tier": "B",
     "tags": [
-     "Chalk Eater"
+     "Under Grinder",
+     "Streak Rider"
     ],
-    "streak": 3,
-    "streakTeam": "mia",
+    "streak": 18,
+    "streakTeam": "mil",
     "angles": [
      [
-      "Heat 1Q ML, last 8",
+      "Bucks 1Q unders, season (60.5)",
+      "18-0"
+     ],
+     [
+      "Bucks 1Q unders at home (60.5)",
+      "9-0"
+     ],
+     [
+      "Bucks 1Q unders, last 8 (60.5)",
+      "8-0"
+     ],
+     [
+      "Nets 1Q unders, season (60.5)",
+      "10-6"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bucks"
+   },
+   {
+    "id": "nba|401909318|1h|total|over",
+    "game": "nba|401909318",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Bulls @ Hornets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 106.5,
+    "price": -108,
+    "title": "1H Over 106.5",
+    "est": 0.5702,
+    "edge": 0.051,
+    "agree": 6,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H overs, season (106.5)",
+      "15-2"
+     ],
+     [
+      "Hornets 1H overs at home (106.5)",
       "7-1"
      ],
      [
-      "Heat 1Q ML on the road",
-      "5-1-1"
+      "Bulls 1H overs on the road (106.5)",
+      "7-2"
      ],
      [
-      "Heat 1Q ML, season",
-      "10-5-1"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "6-4"
+      "Hornets 1H overs, last 8 (106.5)",
+      "6-2"
      ]
     ],
-    "info": null,
+    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Heat"
+    "streakTeamName": "Bulls"
    },
    {
     "id": "ncaab|401921670|1h|ml|away",

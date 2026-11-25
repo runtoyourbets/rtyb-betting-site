@@ -297,13 +297,13 @@
     "value": "ncaab:401920809"
    },
    {
-    "label": "NCAAB · South Carolina at USC · 4:30 PM ET",
+    "label": "NCAAB · South Carolina at USC · 4:45 PM ET",
     "trends": 8,
     "value": "ncaab:401921670"
    },
    {
     "label": "NBA · Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 23,
+    "trends": 22,
     "value": "nba:401909317"
    },
    {
@@ -478,7 +478,7 @@
    },
    {
     "label": "NBA · Brooklyn Nets at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 26,
+    "trends": 25,
     "value": "nba:401909322"
    },
    {
@@ -599,7 +599,7 @@
   "games": [
    {
     "label": "Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 23,
+    "trends": 22,
     "value": "nba:401909317"
    },
    {
@@ -619,7 +619,7 @@
    },
    {
     "label": "Brooklyn Nets at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 26,
+    "trends": 25,
     "value": "nba:401909322"
    },
    {
@@ -900,7 +900,7 @@
     "value": "ncaab:401920809"
    },
    {
-    "label": "South Carolina at USC · 4:30 PM ET",
+    "label": "South Carolina at USC · 4:45 PM ET",
     "trends": 8,
     "value": "ncaab:401921670"
    },
