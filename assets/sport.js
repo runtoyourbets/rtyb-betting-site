@@ -4450,7 +4450,7 @@
       dfBar('Segment', 'data-sk-seg', [{ k: 'all', label: 'All segments', s: 'All' }].concat(SK.segs.map(function(x) { return { k: x.k, label: x.label, s: x.short, fr: x.fr }; })), SKF.seg) +
       dfBar('Market', 'data-sk-m', mopts, SKF.m, mopts.length > 5 ? ' df2-markets' : '') +
       dfBar('Home or away', 'data-sk-v', [{ k: 'all', label: 'All' }, { k: 'home', label: 'Home' }, { k: 'away', label: 'Away' }], SKF.v) + '</div>';
-    app.innerHTML = ctrl + (SK.cur ? skTonight() + '<div class="sk-two">' + skRunning() + skEnded() + '</div>' : skEnded()) + skRecords();
+    app.innerHTML = ctrl + (SK.cur ? skTonight() + '<div class="sk-two">' + skRunning() + skEnded() + '</div>' : (SK.ended.list.filter(skMatch).length ? skEnded() : '')) + skRecords();
   }
   function renderStreaks() {
     Promise.all([fetch(dataUrl(SPORT_SLUG + '/streaks.json')).then(function(r) { return r.json(); }),
