@@ -26,6 +26,7 @@
    "CLT",
    "COFC",
    "COL",
+   "COLO",
    "COLU",
    "CONN",
    "CSUB",
@@ -118,6 +119,7 @@
    "SMU",
    "SOU",
    "SPU",
+   "STAN",
    "STBK",
    "STL",
    "STMN",
@@ -159,6 +161,11 @@
     "label": "NCAAB · Gonzaga at Kansas State · 12:30 AM ET",
     "trends": 6,
     "value": "ncaab:401909800"
+   },
+   {
+    "label": "NCAAB · Colorado at Stanford · 12:40 AM ET",
+    "trends": 9,
+    "value": "ncaab:401909763"
    },
    {
     "label": "NCAAB · St. Bonaventure at Belmont · 10:00 AM ET",
@@ -636,6 +643,7 @@
    "CIT",
    "CLT",
    "COFC",
+   "COLO",
    "COLU",
    "CONN",
    "CSUB",
@@ -701,6 +709,7 @@
    "SMU",
    "SOU",
    "SPU",
+   "STAN",
    "STBK",
    "STMN",
    "SUU",
@@ -736,6 +745,11 @@
     "label": "Gonzaga at Kansas State · 12:30 AM ET",
     "trends": 6,
     "value": "ncaab:401909800"
+   },
+   {
+    "label": "Colorado at Stanford · 12:40 AM ET",
+    "trends": 9,
+    "value": "ncaab:401909763"
    },
    {
     "label": "St. Bonaventure at Belmont · 10:00 AM ET",
