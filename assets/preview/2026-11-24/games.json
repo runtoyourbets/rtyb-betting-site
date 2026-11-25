@@ -309,7 +309,7 @@
    },
    {
     "label": "NBA · Detroit Pistons at Orlando Magic · 7:00 PM ET",
-    "trends": 13,
+    "trends": 11,
     "value": "nba:401909314"
    },
    {
@@ -553,7 +553,7 @@
     "value": "ncaab:401926184"
    },
    {
-    "label": "NCAAB · Grand Canyon at Saint Louis · 9:30 PM ET",
+    "label": "NCAAB · Saint Louis at Grand Canyon · 9:30 PM ET",
     "trends": 4,
     "value": "ncaab:401911253"
    },
@@ -578,7 +578,7 @@
     "value": "ncaab:401921712"
    },
    {
-    "label": "NCAAB · Stanford at Colorado · 11:59 PM ET",
+    "label": "NCAAB · Colorado at Stanford · 11:59 PM ET",
     "trends": 10,
     "value": "ncaab:401909763"
    }
@@ -598,7 +598,7 @@
   "games": [
    {
     "label": "Detroit Pistons at Orlando Magic · 7:00 PM ET",
-    "trends": 13,
+    "trends": 11,
     "value": "nba:401909314"
    },
    {
@@ -1134,7 +1134,7 @@
     "value": "ncaab:401926184"
    },
    {
-    "label": "Grand Canyon at Saint Louis · 9:30 PM ET",
+    "label": "Saint Louis at Grand Canyon · 9:30 PM ET",
     "trends": 4,
     "value": "ncaab:401911253"
    },
@@ -1154,7 +1154,7 @@
     "value": "ncaab:401921712"
    },
    {
-    "label": "Stanford at Colorado · 11:59 PM ET",
+    "label": "Colorado at Stanford · 11:59 PM ET",
     "trends": 10,
     "value": "ncaab:401909763"
    }
