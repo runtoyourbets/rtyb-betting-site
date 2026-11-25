@@ -15031,57 +15031,6 @@
     "streakTeamName": "Timberwolves"
    },
    {
-    "id": "nba|401909318|1h|total|over",
-    "game": "nba|401909318",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Bulls @ Hornets",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 106.5,
-    "price": 100,
-    "title": "1H Over 106.5",
-    "est": 0.558,
-    "edge": 0.058,
-    "agree": 6,
-    "sample": 17,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1H overs, season (106.5)",
-      "15-2"
-     ],
-     [
-      "Hornets 1H overs at home (106.5)",
-      "7-1"
-     ],
-     [
-      "Bulls 1H overs on the road (106.5)",
-      "7-2"
-     ],
-     [
-      "Hornets 1H overs, last 8 (106.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
-   },
-   {
     "id": "nhl|2026020393|1p|btts|yes",
     "game": "nhl|2026020393",
     "date": "2026-11-25",
@@ -15178,6 +15127,57 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bucks"
+   },
+   {
+    "id": "nba|401909318|1h|total|over",
+    "game": "nba|401909318",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Bulls @ Hornets",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 106.5,
+    "price": -108,
+    "title": "1H Over 106.5",
+    "est": 0.5702,
+    "edge": 0.051,
+    "agree": 6,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bulls 1H overs, season (106.5)",
+      "15-2"
+     ],
+     [
+      "Hornets 1H overs at home (106.5)",
+      "7-1"
+     ],
+     [
+      "Bulls 1H overs on the road (106.5)",
+      "7-2"
+     ],
+     [
+      "Hornets 1H overs, last 8 (106.5)",
+      "6-2"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bulls"
    },
    {
     "id": "nhl|2026020398|1p|ml|home",
@@ -15372,10 +15372,10 @@
     "market": "total",
     "side": "under",
     "line": 114.5,
-    "price": -105,
+    "price": -106,
     "title": "1H Under 114.5",
-    "est": 0.5547,
-    "edge": 0.0425,
+    "est": 0.5562,
+    "edge": 0.0417,
     "agree": 6,
     "sample": 18,
     "tier": "B",
