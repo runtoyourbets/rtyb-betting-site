@@ -303,7 +303,7 @@
    },
    {
     "label": "NBA · Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 27,
+    "trends": 23,
     "value": "nba:401909317"
    },
    {
@@ -478,7 +478,7 @@
    },
    {
     "label": "NBA · Brooklyn Nets at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 25,
+    "trends": 26,
     "value": "nba:401909322"
    },
    {
@@ -573,7 +573,7 @@
    }
   ],
   "lead": "ncaab:401925688",
-  "motd": "nba:401909317"
+  "motd": "nba:401909322"
  },
  "nba": {
   "codes": [
@@ -599,7 +599,7 @@
   "games": [
    {
     "label": "Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 27,
+    "trends": 23,
     "value": "nba:401909317"
    },
    {
@@ -619,7 +619,7 @@
    },
    {
     "label": "Brooklyn Nets at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 25,
+    "trends": 26,
     "value": "nba:401909322"
    },
    {
@@ -644,7 +644,7 @@
    }
   ],
   "lead": "nba:401909322",
-  "motd": "nba:401909317"
+  "motd": "nba:401909322"
  },
  "ncaab": {
   "codes": [

@@ -14981,56 +14981,6 @@
     "streakTeamName": "Timberwolves"
    },
    {
-    "id": "nba|401909317|1q|ml|away",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -108,
-    "title": "Heat 1Q ML",
-    "est": 0.5761,
-    "edge": 0.0568,
-    "agree": 4,
-    "sample": 15,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "Heat 1Q ML, last 8",
-      "7-1"
-     ],
-     [
-      "Heat 1Q ML on the road",
-      "5-1-1"
-     ],
-     [
-      "Heat 1Q ML, season",
-      "10-5-1"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "6-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
-   },
-   {
     "id": "nhl|2026020393|1p|btts|yes",
     "game": "nhl|2026020393",
     "date": "2026-11-25",
@@ -15224,6 +15174,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Anaheim"
+   },
+   {
+    "id": "nba|401909317|1q|ml|away",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -120,
+    "title": "Heat 1Q ML",
+    "est": 0.5936,
+    "edge": 0.0481,
+    "agree": 4,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Heat 1Q ML, last 8",
+      "7-1"
+     ],
+     [
+      "Heat 1Q ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Heat 1Q ML, season",
+      "10-5-1"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "6-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
    },
    {
     "id": "ncaab|401921713|1h|ml|away",
