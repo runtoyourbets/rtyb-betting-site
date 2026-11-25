@@ -2,7 +2,8 @@
 
 Static site on GitHub Pages, built by `scripts/build_site.py` and rebuilt by the
 refresh job (`.github/workflows/refresh.yml`) every 10 minutes. Tests:
-`python3 -m unittest discover -s tests`.
+`python3 -m unittest discover -s tests`. New computer, accounts, secrets,
+how to push safely and what's still open: HANDOFF.md (read it first).
 
 ## Sport families
 
