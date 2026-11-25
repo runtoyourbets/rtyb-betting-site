@@ -29,17 +29,16 @@ Super Administrator on the Cloudflare account that runs the Worker.
    Approve in the browser; if asked for an account, pick the one with the
    `rtyb-admin` Worker. Check with `npx wrangler deployments list`.
    wrangler isn't installed globally: always `npx wrangler ...`.
-5. **Replace the Worker's GitHub token** (today it is Pat's, so the admin page
-   and the 10-minute timer stop if Pat's account ever leaves the org).
-   On GitHub: Settings > Developer settings > Fine-grained tokens > Generate.
-   Resource owner `runtoyourbets`, only the `rtyb-betting-site` repo,
-   permissions Contents: Read and write and Actions: Read and write, no
-   expiry. Test it before saving it (expect 200):
-   `curl -s -o /dev/null -w '%{http_code}\n' -H "Authorization: Bearer $(pbpaste | tr -d '[:space:]')" https://api.github.com/repos/runtoyourbets/rtyb-betting-site/contents/data_admin/matchups_draft.json`
-   Then `cd worker && npx wrangler secret put GITHUB_TOKEN` and paste it.
-   Chris pastes it himself; Claude never sees or types a token.
-   Check: within 10 minutes a new "workflow_dispatch" run of Refresh appears
-   in the repo's Actions tab, and the admin page still saves.
+5. **The Worker's GitHub token** is Chris's (done 2026-11-24): a fine-grained
+   token from cdavid1919-art, resource owner `runtoyourbets`, only the
+   `rtyb-betting-site` repo, Contents: Read and write and Actions: Read and
+   write. **It expires 2026-11-24 + 1 year = 2027-11-24** (calendar reminder
+   for 2027-11-17). To renew: generate a new one the same way, then in
+   Cloudflare open rtyb-admin > Settings > Variables and secrets >
+   GITHUB_TOKEN > edit, paste, Deploy (or `npx wrangler secret put
+   GITHUB_TOKEN`). Chris pastes it himself; Claude never sees or types a token.
+   Check: within 10-20 minutes a new Refresh run "Manually run by
+   cdavid1919-art" appears in the Actions tab, and the admin page still saves.
 6. **Optional: the API accounts.** The repo secrets keep working as they are.
    Nobody can read them back, so a replacement key has to come from the
    account that made it. If Chris wants them in his name, he opens his own
@@ -52,7 +51,7 @@ Super Administrator on the Cloudflare account that runs the Worker.
 |---|---|---|
 | Code, data, built pages | GitHub `runtoyourbets/rtyb-betting-site`, served by GitHub Pages | org (Chris, Pat) |
 | Refresh (fetch, grade, build, publish) | `.github/workflows/refresh.yml`, every 10 minutes | org |
-| 10-minute timer | Cron Trigger on the Cloudflare Worker `rtyb-admin` (GitHub's own cron skips hours) | Pat's Cloudflare account, Chris is admin |
+| 10-minute timer | Cron Trigger on the Cloudflare Worker `rtyb-admin` (GitHub's own cron skips hours) | Pat's Cloudflare account, Chris is Super admin; runs on Chris's GitHub token |
 | Admin page | `/admin/` on the site, talks to `https://rtyb-admin.captbosh-glitch.workers.dev` | same |
 | Preview drafting | `.github/workflows/draft.yml`, started by the admin's Draft buttons | org |
 | Odds API backfill | `.github/workflows/oddsapi.yml`, manual only (Run workflow) | org |
@@ -62,8 +61,8 @@ Super Administrator on the Cloudflare account that runs the Worker.
 | Analytics | Cloudflare Web Analytics, snippet in `content/analytics.html` | Cloudflare account |
 
 **Secrets.** GitHub Actions: `ODDS_API_KEY` (The Odds API), `UNABATED_API_KEY`
-(Unabated, set by Pat), `ANTHROPIC_API_KEY` (Anthropic Console account made by
-Pat's brother, $25/month limit). Worker: `GITHUB_TOKEN`, `ADMIN_SECRET` (the
+(Unabated, through Chris's Gambly account), `ANTHROPIC_API_KEY` (Chris's
+Anthropic Console account, $25/month limit). Worker: `GITHUB_TOKEN`, `ADMIN_SECRET` (the
 admin page password), `ANTHROPIC_API_KEY`. Never print, log or commit any of
 them, never put a URL with a key in a committed file, and never paste one into
 a Claude chat: set them in the GitHub or Cloudflare screens directly.
@@ -110,7 +109,7 @@ These are the habits that kept the live site from breaking. Keep them.
 - **A Publish click does nothing.** Publish needs a second click on the page
   (it no longer uses a browser confirm box).
 - **Odds API credits.** The live pull uses about 5,000 credits a day
-  (150-200K a month), more than the 100K plan. Backfills are manual runs of
+  (150-200K a month) on the 5M-credit plan. Backfills are manual runs of
   oddsapi.yml and print the credits used and left.
 
 ## Data sources and their quirks
@@ -136,7 +135,7 @@ These are the habits that kept the live site from breaking. Keep them.
 - **Sportsbook logos:** books without a logo file show a name tile until
   Chris sends the files.
 
-## Where things stand (2026-11-24)
+## Where things stand (2026-11-25)
 
 - Launch is Thanksgiving, 2026-11-26. Every in-season sport is on (NHL, NBA,
   NCAAB, NFL, NCAAF), driven by `sports.LAUNCHED`; MLB and WNBA are off-season
