@@ -3,7 +3,7 @@
   "1": {
    "coverage": {
     "nba": 81,
-    "ncaab": 89,
+    "ncaab": 88,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -15,7 +15,7 @@
   },
   "105": {
    "coverage": {
-    "nba": 94,
+    "nba": 98,
     "ncaab": 13,
     "ncaaf": 94,
     "nfl": 0,
@@ -68,7 +68,7 @@
   "2": {
    "coverage": {
     "nba": 100,
-    "ncaab": 54,
+    "ncaab": 53,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 74
@@ -107,7 +107,7 @@
   "4": {
    "coverage": {
     "nba": 81,
-    "ncaab": 85,
+    "ncaab": 84,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 74
@@ -158,8 +158,8 @@
   },
   "89": {
    "coverage": {
-    "nba": 96,
-    "ncaab": 78,
+    "nba": 98,
+    "ncaab": 77,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 0
@@ -249,7 +249,7 @@
   },
   "fliff": {
    "coverage": {
-    "nba": 6,
+    "nba": 23,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 7,
@@ -262,8 +262,8 @@
   },
   "hardrockbet": {
    "coverage": {
-    "nba": 38,
-    "ncaab": 43,
+    "nba": 44,
+    "ncaab": 42,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
