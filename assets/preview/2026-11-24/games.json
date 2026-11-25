@@ -473,11 +473,6 @@
     "value": "ncaab:401911338"
    },
    {
-    "label": "NCAAB · Bucknell at Cornell · 8:00 PM ET",
-    "trends": 4,
-    "value": "ncaab:401924723"
-   },
-   {
     "label": "NCAAB · Central Michigan at Notre Dame · 8:00 PM ET",
     "trends": 10,
     "value": "ncaab:401911026"
@@ -513,9 +508,9 @@
     "value": "ncaab:401929359"
    },
    {
-    "label": "NCAAB · Texas Tech at Louisville · 8:00 PM ET",
-    "trends": 8,
-    "value": "ncaab:401915942"
+    "label": "NCAAB · Bucknell at Cornell · 8:30 PM ET",
+    "trends": 4,
+    "value": "ncaab:401924723"
    },
    {
     "label": "NCAAB · Duquesne at High Point · 8:30 PM ET",
@@ -526,6 +521,11 @@
     "label": "NCAAB · UTEP at Charleston · 8:30 PM ET",
     "trends": 5,
     "value": "ncaab:401911535"
+   },
+   {
+    "label": "NCAAB · Texas Tech at Louisville · 8:37 PM ET",
+    "trends": 8,
+    "value": "ncaab:401915942"
    },
    {
     "label": "NCAAB · Evansville at Missouri · 9:00 PM ET",
@@ -1054,11 +1054,6 @@
     "value": "ncaab:401911338"
    },
    {
-    "label": "Bucknell at Cornell · 8:00 PM ET",
-    "trends": 4,
-    "value": "ncaab:401924723"
-   },
-   {
     "label": "Central Michigan at Notre Dame · 8:00 PM ET",
     "trends": 10,
     "value": "ncaab:401911026"
@@ -1094,9 +1089,9 @@
     "value": "ncaab:401929359"
    },
    {
-    "label": "Texas Tech at Louisville · 8:00 PM ET",
-    "trends": 8,
-    "value": "ncaab:401915942"
+    "label": "Bucknell at Cornell · 8:30 PM ET",
+    "trends": 4,
+    "value": "ncaab:401924723"
    },
    {
     "label": "Duquesne at High Point · 8:30 PM ET",
@@ -1107,6 +1102,11 @@
     "label": "UTEP at Charleston · 8:30 PM ET",
     "trends": 5,
     "value": "ncaab:401911535"
+   },
+   {
+    "label": "Texas Tech at Louisville · 8:37 PM ET",
+    "trends": 8,
+    "value": "ncaab:401915942"
    },
    {
     "label": "Evansville at Missouri · 9:00 PM ET",
