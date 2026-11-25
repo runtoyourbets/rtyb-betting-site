@@ -15262,6 +15262,56 @@
     "streakTeamName": "South Carolina"
    },
    {
+    "id": "nba|401909317|1q|total|under",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 62.5,
+    "price": -112,
+    "title": "1Q Under 62.5",
+    "est": 0.5693,
+    "edge": 0.041,
+    "agree": 6,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "76ers 1Q unders at home (62.5)",
+      "9-1"
+     ],
+     [
+      "76ers 1Q unders, season (62.5)",
+      "14-4"
+     ],
+     [
+      "Heat 1Q unders, last 8 (62.5)",
+      "6-2"
+     ],
+     [
+      "Heat 1Q unders on the road (62.5)",
+      "5-2"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: 76ers 57.0 \u00b7 Heat 60.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
+   },
+   {
     "id": "nba|401909318|1h|total|over",
     "game": "nba|401909318",
     "date": "2026-11-25",
@@ -15276,13 +15326,13 @@
     "market": "total",
     "side": "over",
     "line": 107.5,
-    "price": -110,
+    "price": -114,
     "title": "1H Over 107.5",
-    "est": 0.5668,
-    "edge": 0.043,
+    "est": 0.5724,
+    "edge": 0.0397,
     "agree": 6,
     "sample": 17,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Over Lover",
      "Streak Rider"
@@ -15354,56 +15404,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Lindenwood"
-   },
-   {
-    "id": "nba|401909317|1q|total|under",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 62.5,
-    "price": -115,
-    "title": "1Q Under 62.5",
-    "est": 0.5734,
-    "edge": 0.0385,
-    "agree": 6,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Under Grinder"
-    ],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "76ers 1Q unders at home (62.5)",
-      "9-1"
-     ],
-     [
-      "76ers 1Q unders, season (62.5)",
-      "14-4"
-     ],
-     [
-      "Heat 1Q unders, last 8 (62.5)",
-      "6-2"
-     ],
-     [
-      "Heat 1Q unders on the road (62.5)",
-      "5-2"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: 76ers 57.0 \u00b7 Heat 60.8",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
    },
    {
     "id": "ncaab|401909800|1h|ml|home",

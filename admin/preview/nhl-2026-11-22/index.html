@@ -24,7 +24,6 @@
     <div class="hn-right">
       <button class="hn-theme" type="button" aria-label="Switch to light mode"><svg class="ht-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="ht-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
       <a class="hn-signin" href="/#premium">Sign in</a>
-      <a class="hn-premium" href="/#premium">Go Premium</a>
       <a class="hn-picks-pill" href="/preview/">Picks</a>
       <div class="acct" id="acctM">
       <div class="acct-user" hidden>
@@ -33,11 +32,10 @@
           <div class="acct-head"><span class="acct-name" id="acctName"></span><span class="acct-plan" id="acctPlan"></span></div>
           <a class="acct-item" href="/#premium">Profile</a>
           <a class="acct-item" href="/#premium">Plan &amp; billing</a>
-          <a class="acct-item" href="/#premium">Alerts <span class="acct-tag">Premium</span></a>
+          <a class="acct-item" href="/#premium">Alerts</a>
           <a class="acct-item" href="/#premium">Newsletter settings</a>
           <button class="acct-item acct-dark" id="themeToggle" type="button" role="switch" aria-checked="false">Dark mode <span class="acct-switch" aria-hidden="true"></span></button>
           <button class="acct-item" id="acctSignOut" type="button">Sign out</button>
-          <a class="acct-go" id="acctGo" href="/#premium">Go Premium</a>
         </div>
       </div>
     </div>
@@ -137,7 +135,7 @@
     else face.textContent = initials(u.name);
     document.getElementById('acctName').textContent = u.name;
     document.getElementById('acctPlan').textContent = u.premium ? 'Premium' : 'Free';
-    document.getElementById('acctGo').hidden = !!u.premium;
+    var go = document.getElementById('acctGo'); if (go) go.hidden = !!u.premium;
   }
   function isDark() {
     var t = document.documentElement.getAttribute('data-theme');
@@ -202,7 +200,7 @@
 <h3 class="pv-gh"><a href="../../../nhl/matchups/penguins-vs-stars/"><span class="pv-logos"><span class="tlogo" style="width:22px;height:22px"><img class="tl-light" src="../../../assets/logos/PIT_light.svg" alt="" loading="lazy"><img class="tl-dark" src="../../../assets/logos/PIT_dark.svg" alt="" loading="lazy"></span><span class="tlogo" style="width:22px;height:22px"><img class="tl-light" src="../../../assets/logos/DAL_light.svg" alt="" loading="lazy"><img class="tl-dark" src="../../../assets/logos/DAL_dark.svg" alt="" loading="lazy"></span></span><span>Penguins at Stars · 7:00 PM ET</span></a></h3><p class="pv-ven">American Airlines Center, Dallas &middot; TV: Prime Video, SN-PIT</p>
 <p>The <a class="pv-team" href="../../../nhl/teams/dal/">Dallas Stars</a> have gone BTTS No 77% (17-5). As favorites, they&#x27;ve stayed Under the first-period total 67% (12-6). The <a class="pv-team" href="../../../nhl/teams/pit/">Pittsburgh Penguins</a> have won the first period 4 straight. The Stars&#x27; first periods tend to stay tight, even with the Penguins on a run.</p>
 <h3 class="pv-gh"><a href="../../../nhl/matchups/blackhawks-vs-canucks/"><span class="pv-logos"><span class="tlogo" style="width:22px;height:22px"><img class="tl-light" src="../../../assets/logos/CHI_light.svg" alt="" loading="lazy"><img class="tl-dark" src="../../../assets/logos/CHI_dark.svg" alt="" loading="lazy"></span><span class="tlogo" style="width:22px;height:22px"><img class="tl-light" src="../../../assets/logos/VAN_light.svg" alt="" loading="lazy"><img class="tl-dark" src="../../../assets/logos/VAN_dark.svg" alt="" loading="lazy"></span></span><span>Blackhawks at Canucks · 8:00 PM ET</span></a></h3><p class="pv-ven">Rogers Arena, Vancouver &middot; TV: SNP, CHSN</p>
-<p>The <a class="pv-team" href="../../../nhl/teams/chi/">Chicago Blackhawks</a> have gone Over 1.5 in the first period 65% (15-8). The <a class="pv-team" href="../../../nhl/teams/van/">Vancouver Canucks</a> have gone Over 64% (16-9). On the road, the Blackhawks have gone BTTS No 80% (8-2). Goals have come early in both teams&#x27; games, usually from one side at a time.</p><p class="pv-mt">4 more NHL league trends fit tonight&rsquo;s games. <a class="pv-go" href="../../../nhl/trends/">All NHL trends &rarr;</a></p></div><p class="pv-past">Past previews: <a href="../../../nhl/preview/archive/">All &rarr;</a></p><p class="dp-21">21+ only. Gambling problem? Call 1-800-GAMBLER.</p></article><aside class="pv-side"><section class="pv-side-card"><h2 class="pv-side-h">Tonight&rsquo;s games</h2><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>CAR @ NYR</span><span class="pv-tmeta">12:30 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>BUF @ TB</span><span class="pv-tmeta">5:00 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>EDM @ STL</span><span class="pv-tmeta">7:00 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>PIT @ DAL</span><span class="pv-tmeta">7:00 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>CHI @ VAN</span><span class="pv-tmeta">8:00 PM ET</span></a></section><section class="pv-side-card pv-tab"><h2 class="pv-side-h">Picks are coming with Premium</h2><p>Get on the list and you&rsquo;ll hear first.</p><!--signup:tab--></section></aside></div>
+<p>The <a class="pv-team" href="../../../nhl/teams/chi/">Chicago Blackhawks</a> have gone Over 1.5 in the first period 65% (15-8). The <a class="pv-team" href="../../../nhl/teams/van/">Vancouver Canucks</a> have gone Over 64% (16-9). On the road, the Blackhawks have gone BTTS No 80% (8-2). Goals have come early in both teams&#x27; games, usually from one side at a time.</p><p class="pv-mt">4 more NHL league trends fit tonight&rsquo;s games. <a class="pv-go" href="../../../nhl/trends/">All NHL trends &rarr;</a></p></div><p class="pv-past">Past previews: <a href="../../../nhl/preview/archive/">All &rarr;</a></p><p class="dp-21">21+ only. Gambling problem? Call 1-800-GAMBLER.</p></article><aside class="pv-side"><section class="pv-side-card"><h2 class="pv-side-h">Tonight&rsquo;s games</h2><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>CAR @ NYR</span><span class="pv-tmeta">12:30 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>BUF @ TB</span><span class="pv-tmeta">5:00 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>EDM @ STL</span><span class="pv-tmeta">7:00 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>PIT @ DAL</span><span class="pv-tmeta">7:00 PM ET</span></a><a class="pv-trow" href="../../../nhl/matchups/?date=2026-11-22"><span>CHI @ VAN</span><span class="pv-tmeta">8:00 PM ET</span></a></section><section class="pv-side-card pv-tab"><h2 class="pv-side-h">Picks are coming soon</h2><p>Get on the list and you&rsquo;ll hear first.</p><!--signup:tab--></section></aside></div>
   
 
   
