@@ -236,8 +236,8 @@
   },
   "bovada": {
    "coverage": {
-    "nba": 56,
-    "ncaab": 49,
+    "nba": 54,
+    "ncaab": 50,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
@@ -263,7 +263,7 @@
   "hardrockbet": {
    "coverage": {
     "nba": 56,
-    "ncaab": 51,
+    "ncaab": 52,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
