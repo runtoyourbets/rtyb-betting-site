@@ -15,11 +15,11 @@
   },
   "105": {
    "coverage": {
-    "nba": 100,
+    "nba": 94,
     "ncaab": 14,
     "ncaaf": 94,
     "nfl": 0,
-    "nhl": 96
+    "nhl": 100
    },
    "group": "Exchange",
    "last_seen": "2026-11-25",
@@ -71,7 +71,7 @@
     "ncaab": 52,
     "ncaaf": 100,
     "nfl": 100,
-    "nhl": 74
+    "nhl": 100
    },
    "group": "Sportsbook",
    "last_seen": "2026-11-25",
@@ -93,7 +93,7 @@
   },
   "36": {
    "coverage": {
-    "nba": 98,
+    "nba": 100,
     "ncaab": 78,
     "ncaaf": 100,
     "nfl": 100,
@@ -107,7 +107,7 @@
   "4": {
    "coverage": {
     "nba": 81,
-    "ncaab": 83,
+    "ncaab": 82,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 74
@@ -263,7 +263,7 @@
   "hardrockbet": {
    "coverage": {
     "nba": 48,
-    "ncaab": 42,
+    "ncaab": 41,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
