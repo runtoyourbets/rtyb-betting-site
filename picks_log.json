@@ -14895,10 +14895,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 102,
+    "price": 105,
     "title": "Timberwolves 1H ML",
-    "est": 0.5811,
-    "edge": 0.0861,
+    "est": 0.5765,
+    "edge": 0.0887,
     "agree": 4,
     "sample": 17,
     "tier": "A",
@@ -14995,15 +14995,15 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -106,
+    "price": -108,
     "title": "Heat 1Q ML",
-    "est": 0.573,
-    "edge": 0.0584,
+    "est": 0.5761,
+    "edge": 0.0568,
     "agree": 4,
     "sample": 15,
     "tier": "B",
     "tags": [
-     "Dog Hunter"
+     "Chalk Eater"
     ],
     "streak": 3,
     "streakTeam": "mia",
@@ -15226,52 +15226,6 @@
     "streakTeamName": "Anaheim"
    },
    {
-    "id": "nba|401909325|1q|ml|away",
-    "game": "nba|401909325",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Trail Blazers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -120,
-    "title": "Spurs 1Q ML",
-    "est": 0.5935,
-    "edge": 0.0481,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -1,
-    "streakTeam": "sa",
-    "angles": [
-     [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
-      "3-1-1"
-     ],
-     [
-      "Spurs 1Q ML, season",
-      "12-6"
-     ],
-     [
-      "Spurs 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Spurs"
-   },
-   {
     "id": "ncaab|401921713|1h|ml|away",
     "game": "ncaab|401921713",
     "date": "2026-11-25",
@@ -15456,6 +15410,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Cavaliers"
+   },
+   {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -135,
+    "title": "Spurs 1Q ML",
+    "est": 0.6117,
+    "edge": 0.0372,
+    "agree": 3,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
    },
    {
     "id": "ncaab|401909800|1h|ml|home",

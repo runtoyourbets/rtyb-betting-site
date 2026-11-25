@@ -303,7 +303,7 @@
    },
    {
     "label": "NBA · Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 23,
+    "trends": 27,
     "value": "nba:401909317"
    },
    {
@@ -573,7 +573,7 @@
    }
   ],
   "lead": "ncaab:401925688",
-  "motd": "nba:401909322"
+  "motd": "nba:401909317"
  },
  "nba": {
   "codes": [
@@ -599,7 +599,7 @@
   "games": [
    {
     "label": "Miami Heat at Philadelphia 76ers · 5:00 PM ET",
-    "trends": 23,
+    "trends": 27,
     "value": "nba:401909317"
    },
    {
@@ -644,7 +644,7 @@
    }
   ],
   "lead": "nba:401909322",
-  "motd": "nba:401909322"
+  "motd": "nba:401909317"
  },
  "ncaab": {
   "codes": [
