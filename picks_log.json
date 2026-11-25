@@ -15226,6 +15226,52 @@
     "streakTeamName": "Bulls"
    },
    {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -125,
+    "title": "Spurs 1Q ML",
+    "est": 0.5999,
+    "edge": 0.0443,
+    "agree": 3,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
+   },
+   {
     "id": "ncaab|401921670|1h|ml|away",
     "game": "ncaab|401921670",
     "date": "2026-11-25",
@@ -15362,52 +15408,6 @@
     "streakTeamName": "Washington"
    },
    {
-    "id": "nba|401909325|1q|ml|away",
-    "game": "nba|401909325",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Trail Blazers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -135,
-    "title": "Spurs 1Q ML",
-    "est": 0.6117,
-    "edge": 0.0372,
-    "agree": 3,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -1,
-    "streakTeam": "sa",
-    "angles": [
-     [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
-      "3-1-1"
-     ],
-     [
-      "Spurs 1Q ML, season",
-      "12-6"
-     ],
-     [
-      "Spurs 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Spurs"
-   },
-   {
     "id": "ncaab|401920076|1h|ml|away",
     "game": "ncaab|401920076",
     "date": "2026-11-25",
@@ -15497,53 +15497,6 @@
     "streakTeamName": "Kansas State"
    },
    {
-    "id": "nhl|2026020392|1p|btts|yes",
-    "game": "nhl|2026020392",
-    "date": "2026-11-25",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-26T00:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Philadelphia @ Washington",
-    "href": "nhl/matchups/?date=2026-11-25",
-    "market": "btts",
-    "side": "yes",
-    "line": null,
-    "price": 155,
-    "title": "1P BTTS Yes",
-    "est": 0.4272,
-    "edge": 0.0351,
-    "agree": 3,
-    "sample": 26,
-    "tier": "C",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "WSH",
-    "angles": [
-     [
-      "Washington 1P BTTS, last 8",
-      "6-2"
-     ],
-     [
-      "Washington 1P BTTS at home",
-      "9-4"
-     ],
-     [
-      "Washington 1P BTTS, season",
-      "13-8"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Washington"
-   },
-   {
     "id": "nhl|2026020396|1p|ml|home",
     "game": "nhl|2026020396",
     "date": "2026-11-25",
@@ -15588,6 +15541,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Minnesota"
+   },
+   {
+    "id": "nba|401909321|1h|total|over",
+    "game": "nba|401909321",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Clippers @ Grizzlies",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 110.5,
+    "price": -110,
+    "title": "1H Over 110.5",
+    "est": 0.5563,
+    "edge": 0.0325,
+    "agree": 5,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Over Lover"
+    ],
+    "streak": -2,
+    "streakTeam": "lac",
+    "angles": [
+     [
+      "Grizzlies 1H overs, season (110.5)",
+      "14-4"
+     ],
+     [
+      "Grizzlies 1H overs at home (110.5)",
+      "6-2"
+     ],
+     [
+      "Grizzlies 1H overs, last 8 (110.5)",
+      "6-2"
+     ],
+     [
+      "Clippers 1H overs, season (110.5)",
+      "10-6"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Grizzlies 118.3 \u00b7 Clippers 110.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Clippers"
    }
   ]
  }
