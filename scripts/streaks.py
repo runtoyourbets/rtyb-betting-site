@@ -406,7 +406,7 @@ def _row(sport, s, root, sport_tag=True, alt=False):
             f'<span class="sk-len {front.heat_cls(s["n"])}">{s["n"]}</span>'
             f'<span class="sk2-who">{icons.sport_icon(sport.sp) if sport_tag else ""}{sport.link(s["t"], sport.badge(s["t"], 22, root) + sport.name_html(s["t"]), root, "sk2-team")}</span>'
             f'<span class="sk2-what">{esc(what(sport.sp, s["k"], s["m"], s["kd"]))}'
-            + (f' <span class="sk2-vt">{tag}</span>' if tag else '') + ('<span class="fr-tag">Premium</span>' if fr else '') + '</span></li>')
+            + (f' <span class="sk2-vt">{tag}</span>' if tag else '')  + '</span></li>')
 
 
 def _ended_row(sport, e, root, sport_tag=True):

@@ -31,4 +31,4 @@ In the morning on game days, once the lines are up. It updates if a line moves a
 
 ### Are these picks?
 
-No. The preview shows you where the numbers point. Picks are coming to Premium.
+No. The preview shows you where the numbers point. Picks are coming soon.

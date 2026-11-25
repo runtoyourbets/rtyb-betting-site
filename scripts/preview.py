@@ -1187,7 +1187,7 @@ def article(p, root, days, have):
         what = f'{n} game{"s" if n != 1 else ""}'
     img = (f'<img class="pv-img" src="{root}{card_path(key, day)}" width="1200" height="630" alt="{esc(head)}">'
            if has_card(key, day) else '')
-    side = (tonight(key, day, root) + ad_slot('side') + '<section class="pv-side-card pv-tab"><h2 class="pv-side-h">Picks are coming with Premium</h2>'
+    side = (tonight(key, day, root) + ad_slot('side') + '<section class="pv-side-card pv-tab"><h2 class="pv-side-h">Picks are coming soon</h2>'
             '<p>Get on the list and you&rsquo;ll hear first.</p><!--signup:tab--></section>')
     return (f'<div class="pv"><article class="pv-main"><p class="pv-label">{label(key, day, piece_week(p))}</p>'
             f'<h1 class="pv-h1">{esc(head)}</h1>' + (f'<p class="pv-dek">{esc(dek)}</p>' if dek else '') +

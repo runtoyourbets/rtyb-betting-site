@@ -1392,7 +1392,7 @@ def running_tab():
     import signup
     # id="premium": the nav's Sign in / Go Premium links land here
     return ('<section class="fr-sec rt" id="premium"><div class="st-card rt-card"><h2>Get the Running Tab</h2>'
-            '<p class="rt-line">Free newsletter: last night&rsquo;s results, tonight&rsquo;s spots. Readers hear first when Premium launches.</p>'
+            '<p class="rt-line">Free newsletter: last night&rsquo;s results, tonight&rsquo;s spots.</p>'
             f'{signup.box("tab")}</div></section>')
 
 

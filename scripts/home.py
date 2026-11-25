@@ -333,7 +333,7 @@ def picks_soon(h1=None):
     """The coming-soon block on /picks/ and every /{sport}/picks/ while
     sports.PICKS_LIVE is False (a sport page's H1 is its page head)."""
     return ((f'<section class="hp-sec pk-soon"><h1>{esc(h1)}</h1>' if h1 else '<section class="hp-sec pk-soon">') +
-            '<p class="lead">Picks are coming with Premium.</p>'
+            '<p class="lead">Picks are coming soon.</p>'
             '<p>Daily first-period, first-quarter and first-half picks from RTYB&rsquo;s numbers, every one graded in public.</p>'
             '<div class="pk-soon-tab"><h2>Get the Running Tab</h2><p>Get on the list and you&rsquo;ll hear first.</p><!--signup:tab--></div></section>')
 

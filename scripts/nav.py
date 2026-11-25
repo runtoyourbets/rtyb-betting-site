@@ -187,7 +187,6 @@ def header(base, status, sport=None, section=None, home_href=None, current=None)
     <div class="hn-right">
       <button class="hn-theme" type="button" aria-label="Switch to light mode">{SUN}{MOON}</button>
       <a class="hn-signin" href="{premium}">Sign in</a>
-      <a class="hn-premium" href="{premium}">Go Premium</a>
       <a class="hn-picks-pill" href="{index_href(base, 'picks')}">Picks</a>
       {account.account_html(base)}
     </div>
@@ -294,7 +293,7 @@ def footer_columns():
     cols.append(('Learn', [(t, f'/betting-guides/{p}') for t, p in LEARN]))
     rtyb = [('Preview', '/preview/'), ('Matchups', '/matchups/')]
     if sports.PICKS_LIVE:
-        rtyb.append(('Picks · Premium', '/picks/'))
+        rtyb.append(('Picks', '/picks/'))
     rtyb += [('The Running Tab', '#running-tab'), ('Contact', 'mailto:info@runtoyourbets.com'),
              ('Privacy', '/privacy/'), ('Terms', '/terms/')]
     cols.append(('Run To Your Bets', rtyb))

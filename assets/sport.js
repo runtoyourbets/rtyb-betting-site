@@ -1418,7 +1418,7 @@
             '<span class="tp-rec">' + tpRec(a, p.m) + '</span>' + (p.m === 'ml' || p.m === 'ml3' || p.m === 'ats' || a.priced ? tmUnits(a) : '') + '</div>';
         });
         while (cards.length < n) cards.push('<div class="tp-mk-empty" aria-hidden="true"></div>');
-        return '<div class="tp-mrow' + (r.fr ? ' fr-row' : '') + '"><span class="tp-oseg">' + esc(r.label) + (r.fr ? '<span class="fr-tag">Premium</span>' : '') + '</span>' +
+        return '<div class="tp-mrow' + (r.fr ? ' fr-row' : '') + '"><span class="tp-oseg">' + esc(r.label) + '' + '</span>' +
           '<div class="tp-mks">' + cards.join('') + (r.note ? '<p class="fr-note">' + esc(r.note) + '</p>' : '') + '</div></div>';
       });
       // PREMIUM.fullRun on: free visitors see the first Full Run row, the rest blurred
@@ -3823,54 +3823,60 @@
       (where ? '<p class="tp-where">' + where + '</p>' : '') + startersLine(G, true) + '</div>' +
       '<nav class="h2h-tabs" aria-label="Sections"><a href="#h2Over">Overview</a><a href="#h2Odds">Odds</a><a href="#h2Meet">H2H</a><a href="#h2Trends">Trends</a></nav>';
   }
-  // the best price per segment, market and side, its book and the open
+  // the best price per segment, market and side and its book (no open: the
+  // Odds pages carry it); the first segments, then the full game (the Odds
+  // page's `full` block). The 2nd half has no pregame line, so never here.
   function h2BestBlocks(G) {
     var og = H2.og, sources = H2.sources;
     if (!og) return '<p class="tp-none">Lines not posted yet.</p>';
-    function book(k, mk, s, v, m) {
-      var rows = (((og.books || {})[k] || {})[mk]) || {}, id = null;
+    function book(src, k, mk, s, v, m) {
+      var rows = (((src.books || {})[k] || {})[mk]) || {}, id = null;
       ['book', 'exch', 'consensus'].forEach(function(pass) {
         Object.keys(rows).forEach(function(b) {
           if (id || (sources[b] || {}).nb || (b === 'consensus') !== (pass === 'consensus') || (MB && b !== 'consensus' && !mbPicked(b, null, sources))) return;
           if (pass !== 'consensus' && !!(sources[b] || {}).x !== (pass === 'exch')) return;
           var r = rows[b], x = r && r[s], xp = x && typeof x === 'object' ? x.price : x;
           if (xp !== v.price) return;
-          if (m === 'ats' && x.line !== v.line) return;
+          if (m === 'ats' && (x || {}).line !== v.line) return;
           if (m === 'total' && r.line !== v.line) return;
           id = b;
         });
       });
-      var src = id ? sources[id] || {} : null;
-      if (!src) return '';
-      return src.logo ? '<img class="sl-book" src="' + ROOT + esc(src.logo) + '" alt="' + esc(src.name || id) + '" title="' + esc(src.name || id) + '" loading="lazy">' : '<span class="sl-bname">' + esc(src.name || id) + '</span>';
+      var bs = id ? sources[id] || {} : null;
+      if (!bs) return '';
+      return bs.logo ? '<img class="sl-book" src="' + ROOT + esc(bs.logo) + '" alt="' + esc(bs.name || id) + '" title="' + esc(bs.name || id) + '" loading="lazy">' : '<span class="sl-bname">' + esc(bs.name || id) + '</span>';
     }
     function val(o, m, s) {
       if (!o) return null;
-      if (m === 'ats') return o[s] && typeof o[s].line === 'number' ? { line: o[s].line, price: o[s].price, ln: signedLine(o[s].line) } : null;
-      if (m === 'total') return o[s] != null ? { line: o.line, price: o[s], ln: (s === 'over' ? 'o' : 'u') + num1(o.line) } : null;
-      return o[s] != null ? { line: null, price: o[s], ln: priceTxt(o[s]) } : null;
+      if (m === 'ats') return o[s] && typeof o[s] === 'object' && typeof o[s].line === 'number' ? { line: o[s].line, price: o[s].price, ln: signedLine(o[s].line) } : null;
+      if (m === 'total') { var t = o[s] && typeof o[s] === 'object' ? o[s].price : o[s]; return t != null ? { line: o.line, price: t, ln: (s === 'over' ? 'o' : 'u') + num1(o.line) } : null; }
+      var x = o[s] && typeof o[s] === 'object' ? o[s].price : o[s];
+      return x != null ? { line: null, price: x, ln: priceTxt(x) } : null;
     }
     function sideLabel(m, s) {
       if (s === 'away' || s === 'home') return tcode(G[s]);
       return { draw: 'Tie', over: 'Over', under: 'Under', yes: 'Yes', no: 'No', nrfi: 'NRFI', yrfi: 'YRFI' }[s];
     }
-    var rows = D.segments.filter(function(s) { return tmMarkets(s.key).length; }).map(function(sg) {
-      var k = sg.key;
-      var blocks = tmMarkets(k).map(function(p) {
+    function segRow(src, k, label, markets) {
+      var blocks = markets.map(function(p) {
         var m = p.m, mk = m === 'rfi' ? 'nrfi_yrfi' : m;
-        var best = pickedBest(og, k, mk, null, sources), open = og.close ? null : ((og.open || {})[k] || {})[mk];
+        var best = pickedBest(src, k, mk, null, sources);
         var sides = m === 'ml3' ? ['away', 'draw', 'home'] : m === 'total' ? ['over', 'under'] : m === 'btts' ? ['yes', 'no'] : m === 'rfi' ? ['nrfi', 'yrfi'] : ['away', 'home'];
         var html = sides.map(function(s) {
-          var v = val(best, m, s), o = val(open, m, s);
+          var v = val(best, m, s);
           if (!v) return '';
-          return '<div class="h2h-side"><span class="h2h-sl">' + esc(sideLabel(m, s)) + '</span><span class="tp-book">' + book(k, mk, s, v, m) + '</span>' +
-            '<span class="cell tp-best"><span class="ob-ln">' + esc(v.ln) + '</span>' + (m === 'ats' || m === 'total' ? '<span class="ob-pr">' + esc(priceTxt(v.price)) + '</span>' : '') + '</span>' +
-            '<span class="h2h-open">' + (o ? 'Open ' + esc(o.ln) + (m === 'ats' || m === 'total' ? ' ' + esc(priceTxt(o.price)) : '') : og.close ? 'Close' : '') + '</span></div>';
+          return '<div class="h2h-side"><span class="h2h-sl">' + esc(sideLabel(m, s)) + '</span><span class="tp-book">' + book(src, k, mk, s, v, m) + '</span>' +
+            '<span class="cell tp-best"><span class="ob-ln">' + esc(v.ln) + '</span>' + (m === 'ats' || m === 'total' ? '<span class="ob-pr">' + esc(priceTxt(v.price)) + '</span>' : '') + '</span></div>';
         }).join('');
-        return html ? '<div class="h2h-mk"><span class="tp-gl">' + esc(tpName(p)) + '</span>' + html + '</div>' : '';
+        return html ? '<div class="h2h-mk' + (sides.length > 2 ? ' h2h-mk-3' : '') + '"><span class="tp-gl">' + esc(tpName(p)) + '</span>' + html + '</div>' : '';
       }).filter(Boolean);
-      return blocks.length ? '<div class="tp-orow"><span class="tp-oseg">' + esc(k === '1i' ? '1st Inning' : sg.tag) + '</span><div class="h2h-mks">' + blocks.join('') + '</div></div>' : '';
-    }).filter(Boolean);
+      return blocks.length ? '<div class="tp-orow"><span class="tp-oseg">' + esc(label) + '</span><div class="h2h-mks h2h-mks' + blocks.length + '">' + blocks.join('') + '</div></div>' : '';
+    }
+    var rows = D.segments.filter(function(s) { return tmMarkets(s.key).length; }).map(function(sg) {
+      return segRow(og, sg.key, sg.key === '1i' ? '1st Inning' : sg.tag, tmMarkets(sg.key));
+    });
+    if (og.full) rows.push(segRow(og.full, 'game', 'Game', frMarkets('game')));
+    rows = rows.filter(Boolean);
     return rows.length ? '<div class="tp-odds">' + rows.join('') + '</div>' : '<p class="tp-none">Lines not posted yet.</p>';
   }
   function h2Lines(G) {
@@ -4261,7 +4267,7 @@
       : dfCalendar(s, seg, m, days, DF.month, today);
     var title = { daily: 'Day by day', weekly: 'Week by week', monthly: 'Calendar' }[DF.view];
     var card = '<div class="st-card df2-card' + (seg.fr ? ' df2-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + m.label + ' · ' + title) +
-      (seg.fr ? '<span class="fr-tag">Premium</span>' : '') + '</h4></div>' +
+      '' + '</h4></div>' +
       (seg.fr && premiumLocked('fullRun') ? '<div class="pm-blur" aria-hidden="true">' + body + '</div><a class="pm-unlock" href="' + ROOT + '#premium">Unlock with Premium</a>' : body) + '</div>';
     app.innerHTML = '<div class="df2-ctrl"><div class="df2-row1">' +
       dfBar('View', 'data-df-view', views, DF.view) +
@@ -4319,7 +4325,7 @@
   }
   function skVenue(s) { return s.v === 'home' ? '<span class="sk-vt">at home</span>' : s.v === 'away' ? '<span class="sk-vt">on the road</span>' : ''; }
   function skLocked(s) { return !!skSeg(s.k).fr && premiumLocked('fullRun'); }
-  function skFrTag(s) { return skSeg(s.k).fr ? '<span class="fr-tag">Premium</span>' : ''; }
+  function skFrTag(s) { return ''; }
   // rows of the Full Run blurred behind "Unlock with Premium" while PREMIUM.fullRun locks them
   function skRows(list, row) {
     var free = list.filter(function(s) { return !skLocked(s); }), locked = list.filter(skLocked);
@@ -4433,7 +4439,7 @@
             (r.alive ? '<span class="sk-alive">alive</span>' : '') + (r.alive && i === 0 && SKF.rs === 0 ? '<span class="sk-best">Longest this season</span>' : '') + '</span></span></li>';
         }).join('');
         var body = '<ul class="sk-list">' + rows + '</ul>';
-        cards.push('<div class="st-card sk-card sk-rcard' + (seg.fr ? ' sk-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + skMkt(m).label) + (seg.fr ? '<span class="fr-tag">Premium</span>' : '') + '</h4></div>' +
+        cards.push('<div class="st-card sk-card sk-rcard' + (seg.fr ? ' sk-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + skMkt(m).label) + '' + '</h4></div>' +
           (locked ? '<div class="pm-blur" aria-hidden="true">' + body + '</div><a class="pm-unlock" href="' + ROOT + '#premium">Unlock with Premium</a>' : body) + '</div>');
       });
     });

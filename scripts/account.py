@@ -37,11 +37,10 @@ def account_html(root):
           <div class="acct-head"><span class="acct-name" id="acctName"></span><span class="acct-plan" id="acctPlan"></span></div>
           <a class="acct-item" href="{href}">Profile</a>
           <a class="acct-item" href="{href}">Plan &amp; billing</a>
-          <a class="acct-item" href="{href}">Alerts <span class="acct-tag">Premium</span></a>
+          <a class="acct-item" href="{href}">Alerts</a>
           <a class="acct-item" href="{href}">Newsletter settings</a>
           <button class="acct-item acct-dark" id="themeToggle" type="button" role="switch" aria-checked="false">Dark mode <span class="acct-switch" aria-hidden="true"></span></button>
           <button class="acct-item" id="acctSignOut" type="button">Sign out</button>
-          <a class="acct-go" id="acctGo" href="{href}">Go Premium</a>
         </div>
       </div>
     </div>'''
@@ -78,7 +77,7 @@ ACCOUNT_JS = '''<script>
     else face.textContent = initials(u.name);
     document.getElementById('acctName').textContent = u.name;
     document.getElementById('acctPlan').textContent = u.premium ? 'Premium' : 'Free';
-    document.getElementById('acctGo').hidden = !!u.premium;
+    var go = document.getElementById('acctGo'); if (go) go.hidden = !!u.premium;
   }
   function isDark() {
     var t = document.documentElement.getAttribute('data-theme');
