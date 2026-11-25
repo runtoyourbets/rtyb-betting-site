@@ -14895,10 +14895,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 100,
+    "price": 102,
     "title": "Timberwolves 1H ML",
-    "est": 0.5843,
-    "edge": 0.0843,
+    "est": 0.5811,
+    "edge": 0.0861,
     "agree": 4,
     "sample": 17,
     "tier": "A",
@@ -14929,56 +14929,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Timberwolves"
-   },
-   {
-    "id": "nba|401909317|1q|ml|away",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -102,
-    "title": "Heat 1Q ML",
-    "est": 0.5666,
-    "edge": 0.0616,
-    "agree": 4,
-    "sample": 15,
-    "tier": "A",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "Heat 1Q ML, last 8",
-      "7-1"
-     ],
-     [
-      "Heat 1Q ML on the road",
-      "5-1-1"
-     ],
-     [
-      "Heat 1Q ML, season",
-      "10-5-1"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "6-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
    },
    {
     "id": "nba|401909320|1h|ats|away",
@@ -15029,6 +14979,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Timberwolves"
+   },
+   {
+    "id": "nba|401909317|1q|ml|away",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -106,
+    "title": "Heat 1Q ML",
+    "est": 0.573,
+    "edge": 0.0584,
+    "agree": 4,
+    "sample": 15,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Heat 1Q ML, last 8",
+      "7-1"
+     ],
+     [
+      "Heat 1Q ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Heat 1Q ML, season",
+      "10-5-1"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "6-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
    },
    {
     "id": "nhl|2026020393|1p|btts|yes",
@@ -15143,10 +15143,10 @@
     "market": "total",
     "side": "over",
     "line": 106.5,
-    "price": -108,
+    "price": -105,
     "title": "1H Over 106.5",
-    "est": 0.5702,
-    "edge": 0.051,
+    "est": 0.5657,
+    "edge": 0.0536,
     "agree": 6,
     "sample": 17,
     "tier": "B",
@@ -15226,6 +15226,52 @@
     "streakTeamName": "Anaheim"
    },
    {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -120,
+    "title": "Spurs 1Q ML",
+    "est": 0.5935,
+    "edge": 0.0481,
+    "agree": 3,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
+   },
+   {
     "id": "ncaab|401921713|1h|ml|away",
     "game": "ncaab|401921713",
     "date": "2026-11-25",
@@ -15267,52 +15313,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Washington"
-   },
-   {
-    "id": "nba|401909325|1q|ml|away",
-    "game": "nba|401909325",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Trail Blazers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -125,
-    "title": "Spurs 1Q ML",
-    "est": 0.5999,
-    "edge": 0.0443,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -1,
-    "streakTeam": "sa",
-    "angles": [
-     [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
-      "3-1-1"
-     ],
-     [
-      "Spurs 1Q ML, season",
-      "12-6"
-     ],
-     [
-      "Spurs 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Spurs"
    },
    {
     "id": "ncaab|401921670|1h|ml|away",
@@ -15408,46 +15408,54 @@
     "streakTeamName": "Suns"
    },
    {
-    "id": "ncaab|401920076|1h|ml|away",
-    "game": "ncaab|401920076",
+    "id": "nba|401909319|1h|total|over",
+    "game": "nba|401909319",
     "date": "2026-11-25",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-26T00:00Z",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:30Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Longwood @ George Mason",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 500,
-    "title": "Longwood 1H ML",
-    "est": 0.2036,
-    "edge": 0.0369,
-    "agree": 2,
-    "sample": 7,
+    "matchup": "Cavaliers @ Knicks",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 105.5,
+    "price": -105,
+    "title": "1H Over 105.5",
+    "est": 0.5504,
+    "edge": 0.0382,
+    "agree": 6,
+    "sample": 18,
     "tier": "C",
     "tags": [
-     "Dog Hunter"
+     "Over Lover"
     ],
-    "streak": -1,
-    "streakTeam": "longwood-lancers",
+    "streak": 3,
+    "streakTeam": "cle",
     "angles": [
      [
-      "Longwood 1H ML, season",
-      "5-2"
+      "Cavaliers 1H overs, last 8 (105.5)",
+      "7-1"
      ],
      [
-      "Longwood 1H ML, last 8",
-      "5-2"
+      "Cavaliers 1H overs, season (105.5)",
+      "15-3"
+     ],
+     [
+      "Cavaliers 1H overs on the road (105.5)",
+      "6-2"
+     ],
+     [
+      "Knicks 1H overs, last 8 (105.5)",
+      "5-3"
      ]
     ],
-    "info": null,
+    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Cavaliers 115.9",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Longwood"
+    "streakTeamName": "Cavaliers"
    },
    {
     "id": "ncaab|401909800|1h|ml|home",
