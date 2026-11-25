@@ -568,14 +568,14 @@
     "value": "ncaab:401906762"
    },
    {
-    "label": "NCAAB · Oregon at St. John's · 10:30 PM ET",
-    "trends": 6,
-    "value": "ncaab:401915943"
-   },
-   {
     "label": "NCAAB · VCU at Colorado State · 10:30 PM ET",
     "trends": 10,
     "value": "ncaab:401921712"
+   },
+   {
+    "label": "NCAAB · Oregon at St. John's · 11:18 PM ET",
+    "trends": 6,
+    "value": "ncaab:401915943"
    },
    {
     "label": "NCAAB · Colorado at Stanford · 11:59 PM ET",
@@ -1144,14 +1144,14 @@
     "value": "ncaab:401906762"
    },
    {
-    "label": "Oregon at St. John's · 10:30 PM ET",
-    "trends": 6,
-    "value": "ncaab:401915943"
-   },
-   {
     "label": "VCU at Colorado State · 10:30 PM ET",
     "trends": 10,
     "value": "ncaab:401921712"
+   },
+   {
+    "label": "Oregon at St. John's · 11:18 PM ET",
+    "trends": 6,
+    "value": "ncaab:401915943"
    },
    {
     "label": "Colorado at Stanford · 11:59 PM ET",
