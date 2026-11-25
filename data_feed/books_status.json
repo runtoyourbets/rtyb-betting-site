@@ -185,7 +185,7 @@
   "betonlineag": {
    "coverage": {
     "nba": 35,
-    "ncaab": 26,
+    "ncaab": 27,
     "ncaaf": 3,
     "nfl": 15,
     "nhl": 26
@@ -237,7 +237,7 @@
   "bovada": {
    "coverage": {
     "nba": 35,
-    "ncaab": 38,
+    "ncaab": 39,
     "ncaaf": 3,
     "nfl": 15,
     "nhl": 26
