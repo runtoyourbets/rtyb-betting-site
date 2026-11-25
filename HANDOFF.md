@@ -137,10 +137,11 @@ These are the habits that kept the live site from breaking. Keep them.
 
 ## Where things stand (2026-11-25)
 
-- Launch is Thanksgiving, 2026-11-26. Every in-season sport is on (NHL, NBA,
+- Launch: TBD (after Chris's work list; the domain switch is the go-live
+  step, not before). Every in-season sport is on (NHL, NBA,
   NCAAB, NFL, NCAAF), driven by `sports.LAUNCHED`; MLB and WNBA are off-season
   and render last season.
-- Still to do for launch week:
+- Still to do before launch:
   - Point runtoyourbets.com at GitHub Pages: Chris adds the DNS records and
     removes Porkbun's parking and forwarding records, keeping the email MX
     records. Then the site-wide audit (Chris's prompt 19).
