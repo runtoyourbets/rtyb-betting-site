@@ -16,7 +16,7 @@
   "105": {
    "coverage": {
     "nba": 100,
-    "ncaab": 13,
+    "ncaab": 14,
     "ncaaf": 94,
     "nfl": 0,
     "nhl": 96
@@ -68,7 +68,7 @@
   "2": {
    "coverage": {
     "nba": 100,
-    "ncaab": 53,
+    "ncaab": 52,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 74
@@ -81,7 +81,7 @@
   "20": {
    "coverage": {
     "nba": 81,
-    "ncaab": 76,
+    "ncaab": 75,
     "ncaaf": 96,
     "nfl": 100,
     "nhl": 72
@@ -94,7 +94,7 @@
   "36": {
    "coverage": {
     "nba": 98,
-    "ncaab": 79,
+    "ncaab": 78,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -133,7 +133,7 @@
   "66": {
    "coverage": {
     "nba": 83,
-    "ncaab": 77,
+    "ncaab": 76,
     "ncaaf": 94,
     "nfl": 93,
     "nhl": 0
@@ -185,7 +185,7 @@
   "betonlineag": {
    "coverage": {
     "nba": 38,
-    "ncaab": 28,
+    "ncaab": 27,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
