@@ -14235,8 +14235,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Edmonton"
    },
    {
@@ -14643,8 +14643,8 @@
      ]
     ],
     "info": "Avg 1Q total in their games: Nuggets 56.9 \u00b7 Mavericks 57.1",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.9709,
     "streakTeamName": "Nuggets"
    },
    {
