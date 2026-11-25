@@ -15034,57 +15034,6 @@
     "streakTeamName": "Heat"
    },
    {
-    "id": "nba|401909318|1h|total|over",
-    "game": "nba|401909318",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T00:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Bulls @ Hornets",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 108.5,
-    "price": 100,
-    "title": "1H Over 108.5",
-    "est": 0.5516,
-    "edge": 0.0516,
-    "agree": 6,
-    "sample": 17,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bulls 1H overs, season (108.5)",
-      "15-2"
-     ],
-     [
-      "Hornets 1H overs at home (108.5)",
-      "7-1"
-     ],
-     [
-      "Bulls 1H overs on the road (108.5)",
-      "7-2"
-     ],
-     [
-      "Bulls 1H overs, last 8 (108.5)",
-      "6-2"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bulls"
-   },
-   {
     "id": "nhl|2026020398|1p|ml|home",
     "game": "nhl|2026020398",
     "date": "2026-11-25",
@@ -15145,10 +15094,10 @@
     "market": "total",
     "side": "under",
     "line": 60.5,
-    "price": -118,
+    "price": -115,
     "title": "1Q Under 60.5",
-    "est": 0.5875,
-    "edge": 0.0462,
+    "est": 0.5835,
+    "edge": 0.0486,
     "agree": 4,
     "sample": 18,
     "tier": "B",
@@ -15182,50 +15131,55 @@
     "streakTeamName": "Bucks"
    },
    {
-    "id": "nba|401909325|1q|ml|away",
-    "game": "nba|401909325",
+    "id": "nba|401909318|1h|total|over",
+    "game": "nba|401909318",
     "date": "2026-11-25",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Trail Blazers",
+    "start": "2026-11-26T00:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Bulls @ Hornets",
     "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -132,
-    "title": "Spurs 1Q ML",
-    "est": 0.6082,
-    "edge": 0.0393,
-    "agree": 3,
-    "sample": 18,
+    "market": "total",
+    "side": "over",
+    "line": 107.5,
+    "price": -114,
+    "title": "1H Over 107.5",
+    "est": 0.5724,
+    "edge": 0.0397,
+    "agree": 6,
+    "sample": 17,
     "tier": "C",
     "tags": [
-     "Chalk Eater"
+     "Over Lover",
+     "Streak Rider"
     ],
-    "streak": -1,
-    "streakTeam": "sa",
+    "streak": 4,
+    "streakTeam": "chi",
     "angles": [
      [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
-      "3-1-1"
+      "Bulls 1H overs, season (107.5)",
+      "15-2"
      ],
      [
-      "Spurs 1Q ML, season",
-      "12-6"
+      "Hornets 1H overs at home (107.5)",
+      "7-1"
      ],
      [
-      "Spurs 1Q ML, last 8",
-      "5-3"
+      "Bulls 1H overs on the road (107.5)",
+      "7-2"
+     ],
+     [
+      "Bulls 1H overs, last 8 (107.5)",
+      "6-2"
      ]
     ],
-    "info": null,
+    "info": "Avg 1H total in their games: Hornets 110.2 \u00b7 Bulls 121.1",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Spurs"
+    "streakTeamName": "Bulls"
    },
    {
     "id": "nba|401909323|1h|total|under",
@@ -15276,6 +15230,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Suns"
+   },
+   {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -134,
+    "title": "Spurs 1Q ML",
+    "est": 0.6105,
+    "edge": 0.0379,
+    "agree": 3,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
    },
    {
     "id": "ncaab|401911029|1h|ats|away",
