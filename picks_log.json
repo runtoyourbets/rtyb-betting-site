@@ -14931,6 +14931,106 @@
     "streakTeamName": "Timberwolves"
    },
    {
+    "id": "nba|401909317|1q|ml|away",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -102,
+    "title": "Heat 1Q ML",
+    "est": 0.5666,
+    "edge": 0.0616,
+    "agree": 4,
+    "sample": 15,
+    "tier": "A",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "Heat 1Q ML, last 8",
+      "7-1"
+     ],
+     [
+      "Heat 1Q ML on the road",
+      "5-1-1"
+     ],
+     [
+      "Heat 1Q ML, season",
+      "10-5-1"
+     ],
+     [
+      "76ers\u2019s opponents 1Q ML, 76ers at home",
+      "6-4"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
+   },
+   {
+    "id": "nba|401909320|1h|ats|away",
+    "game": "nba|401909320",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Timberwolves @ Thunder",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 0.5,
+    "price": -108,
+    "title": "Timberwolves 1H +0.5",
+    "est": 0.5762,
+    "edge": 0.057,
+    "agree": 4,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1H ATS at +0.5 on the road",
+      "6-0"
+     ],
+     [
+      "Timberwolves 1H ATS at +0.5, season",
+      "15-3"
+     ],
+     [
+      "Timberwolves 1H ATS at +0.5, last 8",
+      "6-2"
+     ],
+     [
+      "Thunder\u2019s opponents 1H ATS at +0.5, Thunder at home",
+      "4-3"
+     ]
+    ],
+    "info": "Timberwolves avg 1H margin on the road: +6.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
+   },
+   {
     "id": "nhl|2026020393|1p|btts|yes",
     "game": "nhl|2026020393",
     "date": "2026-11-25",
@@ -14976,104 +15076,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "New Jersey"
-   },
-   {
-    "id": "nba|401909317|1q|ml|away",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -110,
-    "title": "Heat 1Q ML",
-    "est": 0.5791,
-    "edge": 0.0553,
-    "agree": 4,
-    "sample": 15,
-    "tier": "B",
-    "tags": [],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "Heat 1Q ML, last 8",
-      "7-1"
-     ],
-     [
-      "Heat 1Q ML on the road",
-      "5-1-1"
-     ],
-     [
-      "Heat 1Q ML, season",
-      "10-5-1"
-     ],
-     [
-      "76ers\u2019s opponents 1Q ML, 76ers at home",
-      "6-4"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
-   },
-   {
-    "id": "nba|401909320|1h|ats|away",
-    "game": "nba|401909320",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Timberwolves @ Thunder",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 0.5,
-    "price": -110,
-    "title": "Timberwolves 1H +0.5",
-    "est": 0.579,
-    "edge": 0.0552,
-    "agree": 4,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "min",
-    "angles": [
-     [
-      "Timberwolves 1H ATS at +0.5 on the road",
-      "6-0"
-     ],
-     [
-      "Timberwolves 1H ATS at +0.5, season",
-      "15-3"
-     ],
-     [
-      "Timberwolves 1H ATS at +0.5, last 8",
-      "6-2"
-     ],
-     [
-      "Thunder\u2019s opponents 1H ATS at +0.5, Thunder at home",
-      "4-3"
-     ]
-    ],
-    "info": "Timberwolves avg 1H margin on the road: +6.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Timberwolves"
    },
    {
     "id": "nhl|2026020398|1p|ml|home",
@@ -15187,10 +15189,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": -120,
+    "price": -125,
     "title": "Spurs 1Q ML",
-    "est": 0.5935,
-    "edge": 0.0481,
+    "est": 0.5999,
+    "edge": 0.0443,
     "agree": 3,
     "sample": 18,
     "tier": "B",
@@ -15262,56 +15264,6 @@
     "streakTeamName": "South Carolina"
    },
    {
-    "id": "nba|401909317|1q|total|under",
-    "game": "nba|401909317",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-25T22:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Heat @ 76ers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "under",
-    "line": 62.5,
-    "price": -112,
-    "title": "1Q Under 62.5",
-    "est": 0.5693,
-    "edge": 0.041,
-    "agree": 6,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Under Grinder"
-    ],
-    "streak": 3,
-    "streakTeam": "mia",
-    "angles": [
-     [
-      "76ers 1Q unders at home (62.5)",
-      "9-1"
-     ],
-     [
-      "76ers 1Q unders, season (62.5)",
-      "14-4"
-     ],
-     [
-      "Heat 1Q unders, last 8 (62.5)",
-      "6-2"
-     ],
-     [
-      "Heat 1Q unders on the road (62.5)",
-      "5-2"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: 76ers 57.0 \u00b7 Heat 60.8",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Heat"
-   },
-   {
     "id": "nba|401909318|1h|total|over",
     "game": "nba|401909318",
     "date": "2026-11-25",
@@ -15361,6 +15313,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
+   },
+   {
+    "id": "nba|401909317|1q|total|under",
+    "game": "nba|401909317",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-25T22:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Heat @ 76ers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "under",
+    "line": 62.5,
+    "price": -115,
+    "title": "1Q Under 62.5",
+    "est": 0.5734,
+    "edge": 0.0385,
+    "agree": 6,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Under Grinder"
+    ],
+    "streak": 3,
+    "streakTeam": "mia",
+    "angles": [
+     [
+      "76ers 1Q unders at home (62.5)",
+      "9-1"
+     ],
+     [
+      "76ers 1Q unders, season (62.5)",
+      "14-4"
+     ],
+     [
+      "Heat 1Q unders, last 8 (62.5)",
+      "6-2"
+     ],
+     [
+      "Heat 1Q unders on the road (62.5)",
+      "5-2"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: 76ers 57.0 \u00b7 Heat 60.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Heat"
    },
    {
     "id": "nba|401909323|1h|total|under",
