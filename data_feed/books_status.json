@@ -249,14 +249,14 @@
   },
   "fliff": {
    "coverage": {
-    "nba": 4,
+    "nba": 6,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 0,
     "nhl": 0
    },
    "group": "Sportsbook",
-   "last_seen": "2026-11-23",
+   "last_seen": "2026-11-24",
    "name": "Fliff",
    "source": "The Odds API"
   },
