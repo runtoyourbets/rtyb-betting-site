@@ -98,7 +98,7 @@ def fetch_sport(key):
             # Pro URLs use the abbreviation like NHL (/nfl/teams/ari/);
             # college uses the full name since 300+ abbreviations can collide
             # (e.g. /college-football/teams/alabama-crimson-tide/).
-            'slug': code.lower() if kind == 'pro' else name_slug(t.get('displayName')),
+            'slug': sports.pro_slug(key, code) if kind == 'pro' else name_slug(t.get('displayName')),
             'color': t.get('color'),
             'conference': conference,
             'division': division,

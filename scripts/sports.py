@@ -406,6 +406,61 @@ def other_code(sport_key, name):
     return words[0][:n].upper()
 
 
+# Windows can't check out a file or folder with these names (any case, any
+# extension), so no built path may use one (tests/test_windows_paths.py).
+WINDOWS_RESERVED = {'con', 'prn', 'aux', 'nul'} | {f'{p}{i}' for p in ('com', 'lpt') for i in range(1, 10)}
+# pro slugs that would be one: (sport, ESPN-code slug) -> the slug we use
+SLUG_FIX = {('wnba', 'con'): 'conn'}
+
+
+def pro_slug(sport_key, code):
+    slug = str(code or '').lower()
+    return SLUG_FIX.get((sport_key, slug), slug)
+
+
+# Franchise moves. Games before `season` keep the old team (slug, code,
+# name: 2026 stays Connecticut Sun, CON); from `season` on the franchise is
+# the new team, and its team page's Last season is the old team's. The old
+# team's logo is never refetched (ESPN reuses the franchise's id). `espn_ids`:
+# extra ESPN ids for the new team, if ESPN gives it a new one.
+MOVES = {
+    'wnba': [{'from': 'conn', 'season': 2027, 'espn_ids': [],
+              'team': {'slug': 'hou', 'code': 'HOU', 'name': 'Houston Comets', 'short': 'Comets',
+                       'location': 'Houston', 'nickname': 'Comets', 'color': None}}],
+}
+
+
+def moves(sport_key, season=None):
+    """The sport's moves, only those in effect in `season` when given."""
+    return [m for m in MOVES.get(sport_key, []) if season is None or (season and season >= m['season'])]
+
+
+def franchise_slug(sport_key, slug, season):
+    """The slug a game of `season` files the team under."""
+    for m in moves(sport_key, season):
+        if slug == m['from']:
+            return m['team']['slug']
+    return slug
+
+
+def season_teams(sport_key, teams, season):
+    """The team list for `season`: a moved team becomes the new one (same
+    ESPN id, conference and division) and remembers the old (`formerly`)."""
+    out = []
+    for t in teams:
+        m = next((m for m in moves(sport_key, season) if m['from'] == t['slug']), None)
+        if m:
+            t = dict(t, **{k: v for k, v in m['team'].items()},
+                     formerly={k: t.get(k) for k in ('slug', 'code', 'name', 'short', 'location', 'nickname', 'color')})
+        out.append(t)
+    return out
+
+
+def league_slugs(sport_key, teams):
+    """The league's team slugs, a moved franchise's new team included."""
+    return {t['slug'] for t in teams} | {m['team']['slug'] for m in moves(sport_key)}
+
+
 def section_path(sport, section):
     """Root-relative URL for a sport's section, e.g. ('nfl', 'stats') -> /nfl/stats/."""
     s = BY_KEY[sport] if isinstance(sport, str) else sport

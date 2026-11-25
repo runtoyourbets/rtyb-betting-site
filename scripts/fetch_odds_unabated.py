@@ -259,6 +259,11 @@ def team_aliases(sport):
         names = {t.get('name'), t.get('location'), t.get('short'), t.get('code'),
                  f"{t.get('location', '')} {t.get('nickname', '')}"}
         out[t['slug']] = {norm(n) for n in names if n}
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    import sports
+    for m in sports.moves(sport):   # a moved franchise's new team (sports.MOVES)
+        t = m['team']
+        out[t['slug']] = {norm(n) for n in (t['name'], t['location'], t['short'], t['code']) if n}
     return out
 
 

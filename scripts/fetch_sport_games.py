@@ -55,6 +55,9 @@ GAMES_DIR = os.path.join(ROOT, 'data_seed', 'games')
 TEAMS_DIR = os.path.join(ROOT, 'data_seed', 'teams')
 ET = ZoneInfo('America/New_York')
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sports  # noqa: E402  (franchise moves)
+
 # ESPN path and extra query per sport (college: FBS = group 80, D-I = 50).
 SOURCES = {
     'nfl': ('football/nfl', ''),
@@ -91,7 +94,10 @@ def load_teams(sport):
     if not os.path.exists(path):
         return {}
     with open(path, encoding='utf-8') as f:
-        return {t['espn_id']: t['slug'] for t in json.load(f)['teams']}
+        out = {t['espn_id']: t['slug'] for t in json.load(f)['teams']}
+    for m in sports.moves(sport):   # a moved team's new ESPN id, if it gets one
+        out.update({i: m['team']['slug'] for i in m.get('espn_ids') or []})
+    return out
 
 
 def num(v):
@@ -159,6 +165,8 @@ def parse_event(sport, ev, team_slugs, labels=None):
     season = ev.get('season') or {}
     if season.get('type') not in (2, 3):  # regular season and postseason only
         return None
+    for s in side.values():   # a moved franchise: the new team from its first season (sports.MOVES)
+        s['slug'] = sports.franchise_slug(sport, s['slug'], season.get('year'))
     start = ev.get('date') or comp.get('date')
     try:
         local = datetime.fromisoformat(start.replace('Z', '+00:00')).astimezone(ET).date().isoformat()

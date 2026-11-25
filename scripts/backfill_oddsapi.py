@@ -97,7 +97,7 @@ def seasons_for(sport):
     years = sorted(int(n[:4]) for n in os.listdir(d) if n[:4].isdigit() and n.endswith('.json')) if os.path.isdir(d) else []
     league = None
     if sport in sports.COLLEGE:   # games involving a Division I / FBS team
-        league = {t['slug'] for t in read_json(os.path.join(A.ROOT, 'data_seed', 'teams', sport + '.json'), {}).get('teams') or []}
+        league = sports.league_slugs(sport, read_json(os.path.join(A.ROOT, 'data_seed', 'teams', sport + '.json'), {}).get('teams') or [])
     for which, year in (('this', years[-1] if years else None), ('last', years[-2] if len(years) > 1 else None)):
         if year is None:
             continue

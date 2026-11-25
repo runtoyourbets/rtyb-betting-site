@@ -1374,6 +1374,16 @@ def build(sp, teams_list, now_utc=None):
                     extra.setdefault(g[side], g[side + '_name'])
         write_json(hist_path, {'season': prev, 'seasonLabel': season_label(sp['key'], prev), 'games': hist})
         doc['history'] = {'season': prev, 'label': season_label(sp['key'], prev)}
+        # a moved franchise (sports.MOVES): last season's games keep the old
+        # team, shown under its own name and code on the new team's page
+        for t in teams_list:
+            old = t.get('formerly')
+            if old and old['slug'] in extra:
+                doc['formerSlugs'] = dict(doc.get('formerSlugs') or {}, **{t['slug']: old['slug']})
+                doc['formerTeams'] = dict(doc.get('formerTeams') or {}, **{old['slug']: dict(
+                    {k: old.get(k) for k in ('name', 'short', 'color')}, conference=t.get('conference'), division=t.get('division'),
+                    code=sports.team_code(sp['key'], old.get('code')), logo=logo_flag(sp['key'], old['slug']))})
+                doc['otherCodes'][old['slug']] = sports.team_code(sp['key'], old.get('code'))
     elif os.path.exists(hist_path):
         os.remove(hist_path)
     write_json(os.path.join(slug_dir, 'data.json'), doc)

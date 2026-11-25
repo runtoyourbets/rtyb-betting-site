@@ -163,7 +163,7 @@ def shown_games(sport, now):
     (college: involving a Division I / FBS team)."""
     games = [g for g in U.upcoming_games(sport, now) if g['_start'] <= now + LOOKAHEAD]
     if sport in sports.COLLEGE:
-        league = {t['slug'] for t in U.read_json(os.path.join(A.ROOT, 'data_seed', 'teams', sport + '.json'), {}).get('teams') or []}
+        league = sports.league_slugs(sport, U.read_json(os.path.join(A.ROOT, 'data_seed', 'teams', sport + '.json'), {}).get('teams') or [])
         games = [g for g in games if g['away'] in league or g['home'] in league]
     return games
 

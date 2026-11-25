@@ -28,6 +28,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEAMS_DIR = os.path.join(ROOT, 'data_seed', 'teams')
 LOGOS_DIR = os.path.join(ROOT, 'assets', 'logos')
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sports  # noqa: E402  (franchise moves)
+
 # ESPN team-list path per sport, and the logo folder its CDN uses (college
 # logos are filed by ESPN team id under "ncaa").
 SOURCES = {
@@ -115,8 +118,11 @@ def fetch_sport(key):
     missing_path = os.path.join(out_dir, 'missing.json')   # {slug: last tried, epoch seconds}
     tried = json.load(open(missing_path, encoding='utf-8')) if os.path.exists(missing_path) else {}
     now = time.time()
+    # a moved franchise's old team keeps the logo it has (ESPN's id now shows
+    # the new team's); the new team waits for one added by hand
+    frozen = {m['from'] for m in sports.moves(key)} | {m['team']['slug'] for m in sports.moves(key)}
     todo = [t for t in teams if not os.path.exists(os.path.join(out_dir, f"{t['slug']}.png"))
-            and now - tried.get(t['slug'], 0) > RETRY_MISSING]
+            and now - tried.get(t['slug'], 0) > RETRY_MISSING and t['slug'] not in frozen]
     listed = espn_logos(path) if todo else {}
 
     def one(t):

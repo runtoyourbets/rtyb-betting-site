@@ -37,6 +37,11 @@ how to push safely and what's still open: HANDOFF.md (read it first).
   the league get one made from the school name (`sports.other_code`, written
   to data.json as `otherCodes`), so a badge never disagrees with the text
   next to it. `sports.team_code` enforces the limits.
+- No path may be a Windows reserved name (CON, PRN, AUX, NUL, COM1-9,
+  LPT1-9): `sports.SLUG_FIX` (the Sun are `conn`, code still CON);
+  tests/test_windows_paths.py. Relocations go in `sports.MOVES` (Sun ->
+  Houston Comets, `hou`/HOU, from 2027): earlier seasons keep the old team,
+  and the new team's Last season shows it.
 - In-season sports: `sports.LAUNCHED` (launched and between `season_start`
   and `season_end`) drives every menu, pill row and list of sports; never
   hard-code one.

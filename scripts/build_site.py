@@ -599,8 +599,13 @@ def team_url(sport, team):
 
 
 def load_teams(sport):
+    """The team list for the sport's current season (a moved franchise is
+    the new team once its first season's games are in: sports.MOVES)."""
     doc = load(os.path.join('data_seed', 'teams', f"{sport['key']}.json"), None)
-    return doc['teams'] if doc else []
+    teams = doc['teams'] if doc else []
+    if sports.moves(sport['key']):
+        teams = sports.season_teams(sport['key'], teams, max(sport_build.load_games(sport['key']), default=None))
+    return teams
 
 
 TEAM_FILTER_JS = """<script>
@@ -1037,7 +1042,12 @@ MOVED_TEAMS = {'nhl/teams/mon': 'nhl/teams/mtl/'}
 
 
 def write_moved():
-    for old, new in MOVED_TEAMS.items():
+    moved = dict(MOVED_TEAMS)
+    for sp in sports.SPORTS:   # a moved franchise's old team page forwards to the new one
+        for t in load_teams(sp):
+            if t.get('formerly'):
+                moved[f"{sp['slug']}/teams/{t['formerly']['slug']}"] = f"{sp['slug']}/teams/{t['slug']}/"
+    for old, new in moved.items():
         os.makedirs(os.path.join(ROOT, old), exist_ok=True)
         with open(os.path.join(ROOT, old, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(redirect_page_html('../' + new.rstrip('/').split('/')[-1] + '/', canonical=seo.site_url() + new))

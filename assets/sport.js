@@ -189,6 +189,7 @@
   // maybe a logo; college ones go by the school name (the nickname dropped)
   function team(slug) {
     if (D.teams[slug]) return D.teams[slug];
+    if ((D.formerTeams || {})[slug]) return D.formerTeams[slug];   // a moved franchise's old team (last season's games)
     var full = (D.otherTeams || {})[slug] || slug, college = D.sport === 'ncaab' || D.sport === 'ncaaf';
     // one code for the badge and the text next to it (sport_build: otherCodes)
     return { name: full, short: college ? full.replace(/\s+\S+$/, '') || full : full, code: (D.otherCodes || {})[slug] || '', color: null, logo: (D.otherLogos || {})[slug] || null };
@@ -1128,7 +1129,8 @@
   function tpFinalNote() { return TP.state === 'off' ? '<p class="tp-final">' + esc(TP.year || D.seasonLabel || '') + ' season &middot; final</p>' : ''; }
 
   function renderTeam() {
-    var slug = TEAM;
+    // Last season of a moved franchise: the old team (its slug, name and code)
+    var slug = TP.which === 'last' && (D.formerSlugs || {})[TEAM] || TEAM;
     if (!TP.cur) TP.cur = D.games;
     var games = teamGames(slug);
     if (!games.length && TP.which === 'this') return;   // keep the server-rendered empty sections
@@ -1474,7 +1476,7 @@
             if (TP.which === 'this') renderTeam();
           }).catch(function() {});
         }
-        if (TP.spPrev) prevRows = starterRows(slug, TP.spPrev, SP_MIN);
+        if (TP.spPrev) prevRows = starterRows((D.formerSlugs || {})[slug] || slug, TP.spPrev, SP_MIN);
       }
       var mlb = D.sportType === 'baseball', title = mlb ? 'By Starting Pitcher' : 'By Starting Goalie';
       if (!rows.length && !prevRows.length) return tmSection(title, '<p class="tp-none">No ' + (mlb ? 'pitcher' : 'goalie') + ' with ' + SP_MIN + '+ starts yet.</p>', 'tpStarters', tpFinalNote());

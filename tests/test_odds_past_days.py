@@ -34,7 +34,7 @@ def history(sport, key, segs):
 
 
 class PastDays(unittest.TestCase):
-    def build(self, sport, segs, admin=None, away='lv', home='con'):
+    def build(self, sport, segs, admin=None, away='lv', home='conn'):
         sp = sports.BY_KEY[sport]
         key = f'{DAY}|{away}|{home}'
         with tempfile.TemporaryDirectory() as tmp:
