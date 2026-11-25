@@ -1,0 +1,2770 @@
+{
+ "sport": "NHL",
+ "segments": "1st period",
+ "date": "2026-11-25",
+ "games_on_the_slate": 14,
+ "lead_game": "Nashville Predators at Dallas Stars",
+ "matchup_of_the_day": "Vancouver Canucks at Detroit Red Wings",
+ "games": [
+  {
+   "id": "2026020388",
+   "matchup": "Carolina Hurricanes at Tampa Bay Lightning",
+   "away": {
+    "code": "CAR",
+    "name": "Carolina Hurricanes"
+   },
+   "home": {
+    "code": "TB",
+    "name": "Tampa Bay Lightning"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1P ML)",
+     "season_record": "73-56",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "BTTS Yes: conference games (1P BTTS)",
+     "season_record": "40-51",
+     "season_pct": "44%"
+    },
+    {
+     "trend": "TB has gone Over 1.5",
+     "season_record": "18-5",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "CAR has gone BTTS No",
+     "season_record": "18-6",
+     "season_pct": "75%"
+    },
+    {
+     "trend": "TB has gone BTTS No",
+     "season_record": "14-9",
+     "season_pct": "61%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "CAR": {
+       "open": -122,
+       "now": -120,
+       "best_book": "DraftKings"
+      },
+      "TB": {
+       "open": 100,
+       "now": 100,
+       "best_book": "theScore Bet"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -135,
+      "under": 112,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020391",
+   "matchup": "Calgary Flames at Pittsburgh Penguins",
+   "away": {
+    "code": "CGY",
+    "name": "Calgary Flames"
+   },
+   "home": {
+    "code": "PIT",
+    "name": "Pittsburgh Penguins"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "BTTS Yes: team off a shutout (1P BTTS)",
+     "season_record": "14-15",
+     "season_pct": "48%"
+    },
+    {
+     "trend": "Over 1.5: team off a shutout (1P O/U)",
+     "season_record": "19-10",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "CGY has gone Over 1.5",
+     "season_record": "15-10",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "CGY has gone BTTS No",
+     "season_record": "17-8",
+     "season_pct": "68%"
+    },
+    {
+     "trend": "PIT has gone BTTS No",
+     "season_record": "14-9",
+     "season_pct": "61%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "CGY": {
+       "open": 125,
+       "now": 120,
+       "best_book": "FanDuel"
+      },
+      "PIT": {
+       "open": -145,
+       "now": -145,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -135,
+      "under": 110,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020393",
+   "matchup": "New Jersey Devils at Columbus Blue Jackets",
+   "away": {
+    "code": "NJ",
+    "name": "New Jersey Devils"
+   },
+   "home": {
+    "code": "CBJ",
+    "name": "Columbus Blue Jackets"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1P ML)",
+     "season_record": "73-56",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "CBJ has gone Over 1.5",
+     "season_record": "15-7",
+     "season_pct": "68%"
+    }
+   ],
+   "streaks": [
+    "Devils 1st periods have gone Over 1.5 6 straight",
+    "Blue Jackets 1st periods have gone Over 1.5 3 straight",
+    "Devils 1st periods have gone BTTS Yes 5 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "NJ": {
+       "open": -135,
+       "now": -135,
+       "best_book": "DraftKings"
+      },
+      "CBJ": {
+       "open": 115,
+       "now": 115,
+       "best_book": "theScore Bet"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -130,
+      "under": 116,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020387",
+   "matchup": "New York Rangers at Buffalo Sabres",
+   "away": {
+    "code": "NYR",
+    "name": "New York Rangers"
+   },
+   "home": {
+    "code": "BUF",
+    "name": "Buffalo Sabres"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1P ML)",
+     "season_record": "73-56",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "BTTS Yes: conference games (1P BTTS)",
+     "season_record": "40-51",
+     "season_pct": "44%"
+    },
+    {
+     "trend": "BUF has gone Over 1.5",
+     "season_record": "16-8",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "NYR has gone BTTS No",
+     "season_record": "17-6",
+     "season_pct": "74%"
+    }
+   ],
+   "streaks": [
+    "Sabres 1st periods have gone BTTS Yes 3 straight",
+    "Sabres 1st periods have gone Over 1.5 3 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "NYR": {
+       "open": 105,
+       "now": 106,
+       "best_book": "Bally Bet"
+      },
+      "BUF": {
+       "open": -130,
+       "now": -130,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -135,
+      "under": 116,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020389",
+   "matchup": "Ottawa Senators at Florida Panthers",
+   "away": {
+    "code": "OTT",
+    "name": "Ottawa Senators"
+   },
+   "home": {
+    "code": "FLA",
+    "name": "Florida Panthers"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "FLA has gone Over 1.5",
+     "season_record": "16-8",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "OTT has gone BTTS No",
+     "season_record": "18-7",
+     "season_pct": "72%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "OTT": {
+       "open": 105,
+       "now": 102,
+       "best_book": "Bally Bet"
+      },
+      "FLA": {
+       "open": -126,
+       "now": -125,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -115,
+      "under": -102,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020392",
+   "matchup": "Philadelphia Flyers at Washington Capitals",
+   "away": {
+    "code": "PHI",
+    "name": "Philadelphia Flyers"
+   },
+   "home": {
+    "code": "WSH",
+    "name": "Washington Capitals"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1P ML)",
+     "season_record": "73-56",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "WSH has gone Over 1.5",
+     "season_record": "16-5",
+     "season_pct": "76%"
+    },
+    {
+     "trend": "PHI has gone BTTS No",
+     "season_record": "20-6",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "WSH has gone BTTS Yes",
+     "season_record": "13-8",
+     "season_pct": "62%"
+    }
+   ],
+   "streaks": [
+    "Capitals 1st periods have gone Over 1.5 5 straight",
+    "Capitals 1st periods have gone BTTS Yes 5 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "PHI": {
+       "open": 116,
+       "now": 117,
+       "best_book": "Bally Bet"
+      },
+      "WSH": {
+       "open": -145,
+       "now": -140,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -143,
+      "under": 118,
+      "best_book_over": "BetRivers"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020390",
+   "matchup": "St. Louis Blues at New York Islanders",
+   "away": {
+    "code": "STL",
+    "name": "St. Louis Blues"
+   },
+   "home": {
+    "code": "NYI",
+    "name": "New York Islanders"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1P ML)",
+     "season_record": "73-56",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "STL has gone BTTS No",
+     "season_record": "17-7",
+     "season_pct": "71%"
+    },
+    {
+     "trend": "NYI has gone BTTS No",
+     "season_record": "16-7",
+     "season_pct": "70%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "STL": {
+       "open": -105,
+       "now": -103,
+       "best_book": "Bally Bet"
+      },
+      "NYI": {
+       "open": -115,
+       "now": -115,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -125,
+      "under": 100,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020386",
+   "matchup": "Winnipeg Jets at Boston Bruins",
+   "away": {
+    "code": "WPG",
+    "name": "Winnipeg Jets"
+   },
+   "home": {
+    "code": "BOS",
+    "name": "Boston Bruins"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "BOS has gone Over 1.5",
+     "season_record": "14-9",
+     "season_pct": "61%"
+    },
+    {
+     "trend": "WPG has gone BTTS No",
+     "season_record": "17-8",
+     "season_pct": "68%"
+    },
+    {
+     "trend": "BOS has gone BTTS No",
+     "season_record": "14-9",
+     "season_pct": "61%"
+    }
+   ],
+   "streaks": [
+    "Bruins have lost the 1st period 5 straight",
+    "Jets 1st periods have gone Over 1.5 3 straight",
+    "Jets 1st periods have gone BTTS Yes 3 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "WPG": {
+       "open": 120,
+       "now": 117,
+       "best_book": "Bally Bet"
+      },
+      "BOS": {
+       "open": -145,
+       "now": -145,
+       "best_book": "theScore Bet"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -156,
+      "under": 130,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020394",
+   "matchup": "Vancouver Canucks at Detroit Red Wings",
+   "away": {
+    "code": "VAN",
+    "name": "Vancouver Canucks"
+   },
+   "home": {
+    "code": "DET",
+    "name": "Detroit Red Wings"
+   },
+   "start": "7:30 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade big underdogs (1P ML)",
+     "season_record": "20-6",
+     "season_pct": "77%"
+    },
+    {
+     "trend": "Back big favorites (1P ML)",
+     "season_record": "56-29",
+     "season_pct": "66%"
+    },
+    {
+     "trend": "VAN has gone Over 1.5",
+     "season_record": "17-9",
+     "season_pct": "65%"
+    },
+    {
+     "trend": "DET has gone BTTS No",
+     "season_record": "15-8",
+     "season_pct": "65%"
+    }
+   ],
+   "streaks": [
+    "Red Wings 1st periods have gone Under 1.5 3 straight",
+    "Red Wings 1st periods have gone BTTS No 3 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "VAN": {
+       "open": 150,
+       "now": 150,
+       "best_book": "FanDuel"
+      },
+      "DET": {
+       "open": -180,
+       "now": -185,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -130,
+      "under": 118,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020395",
+   "matchup": "Nashville Predators at Dallas Stars",
+   "away": {
+    "code": "NSH",
+    "name": "Nashville Predators"
+   },
+   "home": {
+    "code": "DAL",
+    "name": "Dallas Stars"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "NSH has gone Over 1.5",
+     "season_record": "18-5",
+     "season_pct": "78%"
+    },
+    {
+     "trend": "DAL has gone Under 1.5",
+     "season_record": "15-8",
+     "season_pct": "65%"
+    },
+    {
+     "trend": "DAL has gone BTTS No",
+     "season_record": "18-5",
+     "season_pct": "78%"
+    }
+   ],
+   "streaks": [
+    "Predators have lost the 1st period 3 straight",
+    "Predators 1st periods have gone Over 1.5 5 straight",
+    "Stars 1st periods have gone BTTS No 6 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "NSH": {
+       "open": 120,
+       "now": 125,
+       "best_book": "theScore Bet"
+      },
+      "DAL": {
+       "open": -150,
+       "now": -150,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -120,
+      "under": -102,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   },
+   "headline_trend": {
+    "trend": "NSH has gone Over 1.5",
+    "card": "NSH OVER 1.5 1P · 18 OF 23"
+   }
+  },
+  {
+   "id": "2026020396",
+   "matchup": "Utah Mammoth at Minnesota Wild",
+   "away": {
+    "code": "UTA",
+    "name": "Utah Mammoth"
+   },
+   "home": {
+    "code": "MIN",
+    "name": "Minnesota Wild"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1P ML)",
+     "season_record": "73-56",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "UTA has gone Over 1.5",
+     "season_record": "17-8",
+     "season_pct": "68%"
+    },
+    {
+     "trend": "MIN has gone Over 1.5",
+     "season_record": "17-9",
+     "season_pct": "65%"
+    },
+    {
+     "trend": "MIN has gone BTTS No",
+     "season_record": "18-8",
+     "season_pct": "69%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "UTA": {
+       "open": 115,
+       "now": 115,
+       "best_book": "Bally Bet"
+      },
+      "MIN": {
+       "open": -140,
+       "now": -140,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -130,
+      "under": 118,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020397",
+   "matchup": "Montreal Canadiens at Colorado Avalanche",
+   "away": {
+    "code": "MTL",
+    "name": "Montreal Canadiens"
+   },
+   "home": {
+    "code": "COL",
+    "name": "Colorado Avalanche"
+   },
+   "start": "9:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a loss (1P ML)",
+     "season_record": "73-56",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "MTL has gone Over 1.5",
+     "season_record": "17-8",
+     "season_pct": "68%"
+    },
+    {
+     "trend": "COL has gone Over 1.5",
+     "season_record": "15-8",
+     "season_pct": "65%"
+    }
+   ],
+   "streaks": [
+    "Avalanche 1st periods have gone BTTS No 4 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "MTL": {
+       "open": 100,
+       "now": -104,
+       "best_book": "Bally Bet"
+      },
+      "COL": {
+       "open": -128,
+       "now": -120,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -135,
+      "under": 120,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020399",
+   "matchup": "Chicago Blackhawks at Seattle Kraken",
+   "away": {
+    "code": "CHI",
+    "name": "Chicago Blackhawks"
+   },
+   "home": {
+    "code": "SEA",
+    "name": "Seattle Kraken"
+   },
+   "start": "9:40 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "BTTS Yes: conference games (1P BTTS)",
+     "season_record": "40-51",
+     "season_pct": "44%"
+    },
+    {
+     "trend": "CHI has gone Over 1.5",
+     "season_record": "16-8",
+     "season_pct": "67%"
+    },
+    {
+     "trend": "SEA has gone Over 1.5",
+     "season_record": "16-5",
+     "season_pct": "76%"
+    },
+    {
+     "trend": "CHI has gone BTTS No",
+     "season_record": "15-9",
+     "season_pct": "62%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "CHI": {
+       "open": 122,
+       "now": 122,
+       "best_book": "FanDuel"
+      },
+      "SEA": {
+       "open": -145,
+       "now": -140,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -135,
+      "under": 120,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  },
+  {
+   "id": "2026020398",
+   "matchup": "San Jose Sharks at Anaheim Ducks",
+   "away": {
+    "code": "SJ",
+    "name": "San Jose Sharks"
+   },
+   "home": {
+    "code": "ANH",
+    "name": "Anaheim Ducks"
+   },
+   "start": "10:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "ANH has gone Over 1.5",
+     "season_record": "17-8",
+     "season_pct": "68%"
+    }
+   ],
+   "streaks": [
+    "Sharks 1st periods have gone Over 1.5 5 straight",
+    "Sharks 1st periods have gone BTTS Yes 3 straight"
+   ],
+   "lines": {
+    "1P": {
+     "moneyline": {
+      "SJ": {
+       "open": 110,
+       "now": 114,
+       "best_book": "Bally Bet"
+      },
+      "ANH": {
+       "open": -132,
+       "now": -132,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 1.5,
+      "now": 1.5,
+      "over": -155,
+      "under": 130,
+      "best_book_over": "theScore Bet"
+     }
+    }
+   }
+  }
+ ],
+ "trends_page": "/nhl/trends/",
+ "teams": {
+  "ANH": {
+   "name": "Anaheim Ducks",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "10-8",
+      "pct": "56%",
+      "games": 18
+     },
+     "on the road": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "17-8",
+      "pct": "68%",
+      "games": 25
+     },
+     "on the road": {
+      "record": "9-5",
+      "pct": "64%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "12-6",
+      "pct": "67%",
+      "games": 18
+     },
+     "at home": {
+      "record": "8-3",
+      "pct": "73%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "11-14",
+      "pct": "44%",
+      "games": 25
+     },
+     "on the road": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "7-11",
+      "pct": "39%",
+      "games": 18
+     },
+     "at home": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "BOS": {
+   "name": "Boston Bruins",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "10-8",
+      "pct": "56%",
+      "games": 18
+     },
+     "as underdogs": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     },
+     "at home": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "14-9",
+      "pct": "61%",
+      "games": 23
+     },
+     "at home": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "7-3",
+      "pct": "70%",
+      "games": 10
+     },
+     "on the road": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "9-14",
+      "pct": "39%",
+      "games": 23
+     },
+     "at home": {
+      "record": "4-9",
+      "pct": "31%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     },
+     "on the road": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "BUF": {
+   "name": "Buffalo Sabres",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "16-8",
+      "pct": "67%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "10-4",
+      "pct": "71%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     },
+     "at home": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "9-3",
+      "pct": "75%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "14-10",
+      "pct": "58%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "10-4",
+      "pct": "71%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     },
+     "at home": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "CAR": {
+   "name": "Carolina Hurricanes",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "13-11",
+      "pct": "54%",
+      "games": 24
+     },
+     "at home": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "13-11",
+      "pct": "54%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "6-18",
+      "pct": "25%",
+      "games": 24
+     },
+     "at home": {
+      "record": "1-10",
+      "pct": "9%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "6-18",
+      "pct": "25%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "CBJ": {
+   "name": "Columbus Blue Jackets",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     },
+     "as underdogs": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "15-7",
+      "pct": "68%",
+      "games": 22
+     },
+     "at home": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "10-4",
+      "pct": "71%",
+      "games": 14
+     },
+     "on the road": {
+      "record": "8-2",
+      "pct": "80%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "10-12",
+      "pct": "45%",
+      "games": 22
+     },
+     "at home": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "on the road": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "CGY": {
+   "name": "Calgary Flames",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "9-10",
+      "pct": "47%",
+      "games": 19
+     },
+     "on the road": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "7-9",
+      "pct": "44%",
+      "games": 16
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "15-10",
+      "pct": "60%",
+      "games": 25
+     },
+     "at home": {
+      "record": "9-4",
+      "pct": "69%",
+      "games": 13
+     },
+     "on the road": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "13-9",
+      "pct": "59%",
+      "games": 22
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "8-17",
+      "pct": "32%",
+      "games": 25
+     },
+     "at home": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     },
+     "on the road": {
+      "record": "2-10",
+      "pct": "17%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "7-15",
+      "pct": "32%",
+      "games": 22
+     }
+    }
+   ]
+  },
+  "CHI": {
+   "name": "Chicago Blackhawks",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "6-14",
+      "pct": "30%",
+      "games": 20
+     },
+     "on the road": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "5-14",
+      "pct": "26%",
+      "games": 19
+     },
+     "at home": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "16-8",
+      "pct": "67%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "8-3",
+      "pct": "73%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "15-8",
+      "pct": "65%",
+      "games": 23
+     },
+     "at home": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "9-15",
+      "pct": "38%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "3-8",
+      "pct": "27%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "8-15",
+      "pct": "35%",
+      "games": 23
+     },
+     "at home": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "COL": {
+   "name": "Colorado Avalanche",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "15-8",
+      "pct": "65%",
+      "games": 23
+     },
+     "at home": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "12-7",
+      "pct": "63%",
+      "games": 19
+     },
+     "on the road": {
+      "record": "9-3",
+      "pct": "75%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "10-13",
+      "pct": "43%",
+      "games": 23
+     },
+     "at home": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "10-9",
+      "pct": "53%",
+      "games": 19
+     },
+     "on the road": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "DAL": {
+   "name": "Dallas Stars",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "8-15",
+      "pct": "35%",
+      "games": 23
+     },
+     "at home": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "6-13",
+      "pct": "32%",
+      "games": 19
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "5-18",
+      "pct": "22%",
+      "games": 23
+     },
+     "at home": {
+      "record": "4-10",
+      "pct": "29%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "4-15",
+      "pct": "21%",
+      "games": 19
+     }
+    }
+   ]
+  },
+  "DET": {
+   "name": "Detroit Red Wings",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "10-13",
+      "pct": "43%",
+      "games": 23
+     },
+     "at home": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     },
+     "on the road": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "8-15",
+      "pct": "35%",
+      "games": 23
+     },
+     "at home": {
+      "record": "5-7",
+      "pct": "42%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     },
+     "on the road": {
+      "record": "3-8",
+      "pct": "27%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "4-9",
+      "pct": "31%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "FLA": {
+   "name": "Florida Panthers",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "7-10",
+      "pct": "41%",
+      "games": 17
+     },
+     "on the road": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "16-8",
+      "pct": "67%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "11-4",
+      "pct": "73%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "10-14",
+      "pct": "42%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "6-9",
+      "pct": "40%",
+      "games": 15
+     },
+     "as favorites": {
+      "record": "6-9",
+      "pct": "40%",
+      "games": 15
+     }
+    }
+   ]
+  },
+  "MIN": {
+   "name": "Minnesota Wild",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "13-3",
+      "pct": "81%",
+      "games": 16
+     },
+     "on the road": {
+      "record": "8-2",
+      "pct": "80%",
+      "games": 10
+     },
+     "as favorites": {
+      "record": "11-2",
+      "pct": "85%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "17-9",
+      "pct": "65%",
+      "games": 26
+     },
+     "on the road": {
+      "record": "11-7",
+      "pct": "61%",
+      "games": 18
+     },
+     "as favorites": {
+      "record": "12-8",
+      "pct": "60%",
+      "games": 20
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "8-18",
+      "pct": "31%",
+      "games": 26
+     },
+     "on the road": {
+      "record": "5-13",
+      "pct": "28%",
+      "games": 18
+     },
+     "as favorites": {
+      "record": "6-14",
+      "pct": "30%",
+      "games": 20
+     }
+    }
+   ]
+  },
+  "MTL": {
+   "name": "Montreal Canadiens",
+   "rates": [
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "17-8",
+      "pct": "68%",
+      "games": 25
+     },
+     "on the road": {
+      "record": "8-4",
+      "pct": "67%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "11-5",
+      "pct": "69%",
+      "games": 16
+     },
+     "at home": {
+      "record": "9-4",
+      "pct": "69%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "13-12",
+      "pct": "52%",
+      "games": 25
+     },
+     "on the road": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "8-8",
+      "pct": "50%",
+      "games": 16
+     },
+     "at home": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "NJ": {
+   "name": "New Jersey Devils",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "14-10",
+      "pct": "58%",
+      "games": 24
+     },
+     "at home": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "11-8",
+      "pct": "58%",
+      "games": 19
+     },
+     "on the road": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "12-12",
+      "pct": "50%",
+      "games": 24
+     },
+     "at home": {
+      "record": "6-7",
+      "pct": "46%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "9-10",
+      "pct": "47%",
+      "games": 19
+     },
+     "on the road": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "NSH": {
+   "name": "Nashville Predators",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "9-8",
+      "pct": "53%",
+      "games": 17
+     },
+     "as underdogs": {
+      "record": "9-4",
+      "pct": "69%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "18-5",
+      "pct": "78%",
+      "games": 23
+     },
+     "at home": {
+      "record": "10-2",
+      "pct": "83%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "15-4",
+      "pct": "79%",
+      "games": 19
+     },
+     "on the road": {
+      "record": "8-3",
+      "pct": "73%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "10-13",
+      "pct": "43%",
+      "games": 23
+     },
+     "at home": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "9-10",
+      "pct": "47%",
+      "games": 19
+     },
+     "on the road": {
+      "record": "3-8",
+      "pct": "27%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "NYI": {
+   "name": "New York Islanders",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "11-7",
+      "pct": "61%",
+      "games": 18
+     },
+     "as underdogs": {
+      "record": "5-5",
+      "pct": "50%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "13-10",
+      "pct": "57%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "9-5",
+      "pct": "64%",
+      "games": 14
+     },
+     "at home": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "7-16",
+      "pct": "30%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "5-7",
+      "pct": "42%",
+      "games": 12
+     },
+     "as underdogs": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "at home": {
+      "record": "2-9",
+      "pct": "18%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "NYR": {
+   "name": "New York Rangers",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "9-6",
+      "pct": "60%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "10-13",
+      "pct": "43%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "at home": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "6-17",
+      "pct": "26%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "2-9",
+      "pct": "18%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "2-9",
+      "pct": "18%",
+      "games": 11
+     },
+     "at home": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "OTT": {
+   "name": "Ottawa Senators",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "13-12",
+      "pct": "52%",
+      "games": 25
+     },
+     "on the road": {
+      "record": "5-7",
+      "pct": "42%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "11-7",
+      "pct": "61%",
+      "games": 18
+     },
+     "at home": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "7-18",
+      "pct": "28%",
+      "games": 25
+     },
+     "on the road": {
+      "record": "3-9",
+      "pct": "25%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "5-13",
+      "pct": "28%",
+      "games": 18
+     },
+     "at home": {
+      "record": "4-9",
+      "pct": "31%",
+      "games": 13
+     }
+    }
+   ]
+  },
+  "PHI": {
+   "name": "Philadelphia Flyers",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "6-12",
+      "pct": "33%",
+      "games": 18
+     },
+     "on the road": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "3-10",
+      "pct": "23%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "12-14",
+      "pct": "46%",
+      "games": 26
+     },
+     "at home": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     },
+     "on the road": {
+      "record": "5-9",
+      "pct": "36%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "8-12",
+      "pct": "40%",
+      "games": 20
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "6-20",
+      "pct": "23%",
+      "games": 26
+     },
+     "at home": {
+      "record": "2-10",
+      "pct": "17%",
+      "games": 12
+     },
+     "on the road": {
+      "record": "4-10",
+      "pct": "29%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "5-15",
+      "pct": "25%",
+      "games": 20
+     }
+    }
+   ]
+  },
+  "PIT": {
+   "name": "Pittsburgh Penguins",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "8-10",
+      "pct": "44%",
+      "games": 18
+     },
+     "on the road": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "12-11",
+      "pct": "52%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "9-4",
+      "pct": "69%",
+      "games": 13
+     },
+     "as underdogs": {
+      "record": "10-6",
+      "pct": "62%",
+      "games": 16
+     },
+     "at home": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "9-14",
+      "pct": "39%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "7-6",
+      "pct": "54%",
+      "games": 13
+     },
+     "as underdogs": {
+      "record": "7-9",
+      "pct": "44%",
+      "games": 16
+     },
+     "at home": {
+      "record": "2-8",
+      "pct": "20%",
+      "games": 10
+     }
+    }
+   ]
+  },
+  "SEA": {
+   "name": "Seattle Kraken",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "5-8",
+      "pct": "38%",
+      "games": 13
+     },
+     "as underdogs": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "16-5",
+      "pct": "76%",
+      "games": 21
+     },
+     "on the road": {
+      "record": "8-2",
+      "pct": "80%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "13-2",
+      "pct": "87%",
+      "games": 15
+     },
+     "at home": {
+      "record": "8-3",
+      "pct": "73%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "10-11",
+      "pct": "48%",
+      "games": 21
+     },
+     "on the road": {
+      "record": "6-4",
+      "pct": "60%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "8-7",
+      "pct": "53%",
+      "games": 15
+     },
+     "at home": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     }
+    }
+   ]
+  },
+  "SJ": {
+   "name": "San Jose Sharks",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "5-13",
+      "pct": "28%",
+      "games": 18
+     },
+     "at home": {
+      "record": "3-7",
+      "pct": "30%",
+      "games": 10
+     },
+     "as underdogs": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "14-12",
+      "pct": "54%",
+      "games": 26
+     },
+     "at home": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "11-9",
+      "pct": "55%",
+      "games": 20
+     },
+     "on the road": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "12-14",
+      "pct": "46%",
+      "games": 26
+     },
+     "at home": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "9-11",
+      "pct": "45%",
+      "games": 20
+     },
+     "on the road": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "STL": {
+   "name": "St. Louis Blues",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "8-9",
+      "pct": "47%",
+      "games": 17
+     },
+     "as favorites": {
+      "record": "4-6",
+      "pct": "40%",
+      "games": 10
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "11-13",
+      "pct": "46%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "5-7",
+      "pct": "42%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "7-8",
+      "pct": "47%",
+      "games": 15
+     },
+     "at home": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "7-17",
+      "pct": "29%",
+      "games": 24
+     },
+     "on the road": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     },
+     "as favorites": {
+      "record": "5-10",
+      "pct": "33%",
+      "games": 15
+     },
+     "at home": {
+      "record": "3-9",
+      "pct": "25%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "TB": {
+   "name": "Tampa Bay Lightning",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "9-5",
+      "pct": "64%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "8-5",
+      "pct": "62%",
+      "games": 13
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "18-5",
+      "pct": "78%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "10-1",
+      "pct": "91%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "15-5",
+      "pct": "75%",
+      "games": 20
+     },
+     "at home": {
+      "record": "8-4",
+      "pct": "67%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "9-14",
+      "pct": "39%",
+      "games": 23
+     },
+     "on the road": {
+      "record": "5-6",
+      "pct": "45%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "6-14",
+      "pct": "30%",
+      "games": 20
+     },
+     "at home": {
+      "record": "4-8",
+      "pct": "33%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "UTA": {
+   "name": "Utah Mammoth",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "as favorites": {
+      "record": "7-4",
+      "pct": "64%",
+      "games": 11
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "17-8",
+      "pct": "68%",
+      "games": 25
+     },
+     "at home": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "13-5",
+      "pct": "72%",
+      "games": 18
+     },
+     "on the road": {
+      "record": "11-3",
+      "pct": "79%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "12-13",
+      "pct": "48%",
+      "games": 25
+     },
+     "at home": {
+      "record": "4-7",
+      "pct": "36%",
+      "games": 11
+     },
+     "as favorites": {
+      "record": "8-10",
+      "pct": "44%",
+      "games": 18
+     },
+     "on the road": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     }
+    }
+   ]
+  },
+  "VAN": {
+   "name": "Vancouver Canucks",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "5-12",
+      "pct": "29%",
+      "games": 17
+     },
+     "as underdogs": {
+      "record": "5-11",
+      "pct": "31%",
+      "games": 16
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "17-9",
+      "pct": "65%",
+      "games": 26
+     },
+     "on the road": {
+      "record": "10-4",
+      "pct": "71%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "17-8",
+      "pct": "68%",
+      "games": 25
+     },
+     "at home": {
+      "record": "7-5",
+      "pct": "58%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "13-13",
+      "pct": "50%",
+      "games": 26
+     },
+     "on the road": {
+      "record": "7-7",
+      "pct": "50%",
+      "games": 14
+     },
+     "as underdogs": {
+      "record": "13-12",
+      "pct": "52%",
+      "games": 25
+     },
+     "at home": {
+      "record": "6-6",
+      "pct": "50%",
+      "games": 12
+     }
+    }
+   ]
+  },
+  "WPG": {
+   "name": "Winnipeg Jets",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "4-10",
+      "pct": "29%",
+      "games": 14
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "14-11",
+      "pct": "56%",
+      "games": 25
+     },
+     "at home": {
+      "record": "8-6",
+      "pct": "57%",
+      "games": 14
+     },
+     "on the road": {
+      "record": "6-5",
+      "pct": "55%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "7-10",
+      "pct": "41%",
+      "games": 17
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "8-17",
+      "pct": "32%",
+      "games": 25
+     },
+     "at home": {
+      "record": "6-8",
+      "pct": "43%",
+      "games": 14
+     },
+     "on the road": {
+      "record": "2-9",
+      "pct": "18%",
+      "games": 11
+     },
+     "as underdogs": {
+      "record": "2-15",
+      "pct": "12%",
+      "games": 17
+     }
+    }
+   ]
+  },
+  "WSH": {
+   "name": "Washington Capitals",
+   "rates": [
+    {
+     "rate": "won the 1P",
+     "this season": {
+      "record": "7-8",
+      "pct": "47%",
+      "games": 15
+     }
+    },
+    {
+     "rate": "went Over the 1P total",
+     "this season": {
+      "record": "16-5",
+      "pct": "76%",
+      "games": 21
+     },
+     "at home": {
+      "record": "10-3",
+      "pct": "77%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "9-3",
+      "pct": "75%",
+      "games": 12
+     }
+    },
+    {
+     "rate": "had both teams score in the 1P",
+     "this season": {
+      "record": "13-8",
+      "pct": "62%",
+      "games": 21
+     },
+     "at home": {
+      "record": "9-4",
+      "pct": "69%",
+      "games": 13
+     },
+     "as favorites": {
+      "record": "9-3",
+      "pct": "75%",
+      "games": 12
+     }
+    }
+   ]
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade big underdogs",
+   "market": "1P ML",
+   "record": "20-6",
+   "pct": "77%",
+   "games": 26,
+   "fits_tonight": [
+    "Vancouver Canucks at Detroit Red Wings"
+   ]
+  },
+  {
+   "trend": "Back big favorites",
+   "market": "1P ML",
+   "record": "56-29",
+   "pct": "66%",
+   "games": 85,
+   "fits_tonight": [
+    "Vancouver Canucks at Detroit Red Wings"
+   ]
+  },
+  {
+   "trend": "BTTS Yes: team off a shutout",
+   "market": "1P BTTS",
+   "record": "14-15",
+   "pct": "48%",
+   "games": 29,
+   "fits_tonight": [
+    "Calgary Flames at Pittsburgh Penguins"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "1P ML",
+   "record": "73-56",
+   "pct": "57%",
+   "games": 129,
+   "fits_tonight": [
+    "New York Rangers at Buffalo Sabres",
+    "Carolina Hurricanes at Tampa Bay Lightning",
+    "St. Louis Blues at New York Islanders",
+    "Philadelphia Flyers at Washington Capitals",
+    "New Jersey Devils at Columbus Blue Jackets",
+    "Utah Mammoth at Minnesota Wild",
+    "Montreal Canadiens at Colorado Avalanche"
+   ]
+  },
+  {
+   "trend": "BTTS Yes: conference games",
+   "market": "1P BTTS",
+   "record": "40-51",
+   "pct": "44%",
+   "games": 91,
+   "fits_tonight": [
+    "New York Rangers at Buffalo Sabres",
+    "Carolina Hurricanes at Tampa Bay Lightning",
+    "Chicago Blackhawks at Seattle Kraken"
+   ]
+  },
+  {
+   "trend": "Over 1.5: team off a shutout",
+   "market": "1P O/U",
+   "record": "19-10",
+   "pct": "66%",
+   "games": 29,
+   "fits_tonight": [
+    "Calgary Flames at Pittsburgh Penguins"
+   ]
+  }
+ ],
+ "edge_plays": [
+  {
+   "game": "New Jersey Devils at Columbus Blue Jackets",
+   "bet": "1P BTTS Yes",
+   "line": null,
+   "best_price": "+160",
+   "book": "Bally Bet",
+   "tier": "B",
+   "why": "New Jersey 1P BTTS on the road: 55% (6-5)."
+  },
+  {
+   "game": "San Jose Sharks at Anaheim Ducks",
+   "bet": "ANH 1P ML",
+   "line": null,
+   "best_price": "-132",
+   "book": "FanDuel",
+   "tier": "B",
+   "why": "The Ducks have won the first period 56% (10-8); the Sharks have won it 28% (5-13)."
+  }
+ ],
+ "boxes": {
+  "stat_of_night": {
+   "sport": "nhl",
+   "number": "88%",
+   "line": "WPG had a team held scoreless in the 1P · 15-2 as underdogs",
+   "text": "The Winnipeg Jets had a team held scoreless in the 1P in 15 of 17 games as underdogs."
+  },
+  "league_trend": {
+   "sport": "nhl",
+   "number": "77%",
+   "line": "Fade big underdogs · 1P ML · 20-6",
+   "text": "Fade big underdogs 20-6 this season; tonight it fits Vancouver Canucks at Detroit Red Wings.",
+   "id": "tier4:1p:ml:fade"
+  },
+  "edge_play": {
+   "sport": "nhl",
+   "number": "1P BTTS Yes",
+   "bet": "1P BTTS Yes",
+   "price": "+160",
+   "book": "Bally Bet",
+   "line": "1P BTTS Yes · best +160 at Bally Bet",
+   "text": "New Jersey 1P BTTS on the road: 55% (6-5)."
+  }
+ }
+}

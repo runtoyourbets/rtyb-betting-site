@@ -3,7 +3,7 @@
   "1": {
    "coverage": {
     "nba": 100,
-    "ncaab": 87,
+    "ncaab": 92,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -68,7 +68,7 @@
   "2": {
    "coverage": {
     "nba": 100,
-    "ncaab": 53,
+    "ncaab": 52,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -81,7 +81,7 @@
   "20": {
    "coverage": {
     "nba": 100,
-    "ncaab": 75,
+    "ncaab": 78,
     "ncaaf": 96,
     "nfl": 100,
     "nhl": 72
@@ -107,7 +107,7 @@
   "4": {
    "coverage": {
     "nba": 81,
-    "ncaab": 82,
+    "ncaab": 81,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 74
@@ -133,7 +133,7 @@
   "66": {
    "coverage": {
     "nba": 100,
-    "ncaab": 76,
+    "ncaab": 81,
     "ncaaf": 94,
     "nfl": 93,
     "nhl": 0
@@ -146,7 +146,7 @@
   "86": {
    "coverage": {
     "nba": 90,
-    "ncaab": 82,
+    "ncaab": 80,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -159,7 +159,7 @@
   "89": {
    "coverage": {
     "nba": 100,
-    "ncaab": 76,
+    "ncaab": 77,
     "ncaaf": 94,
     "nfl": 100,
     "nhl": 0
@@ -211,7 +211,7 @@
   "betrivers": {
    "coverage": {
     "nba": 56,
-    "ncaab": 36,
+    "ncaab": 40,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
@@ -227,7 +227,7 @@
     "ncaab": 0,
     "ncaaf": 3,
     "nfl": 7,
-    "nhl": 6
+    "nhl": 32
    },
    "group": "Offshore",
    "last_seen": "2026-11-25",
@@ -237,7 +237,7 @@
   "bovada": {
    "coverage": {
     "nba": 38,
-    "ncaab": 39,
+    "ncaab": 42,
     "ncaaf": 3,
     "nfl": 14,
     "nhl": 47
@@ -263,7 +263,7 @@
   "hardrockbet": {
    "coverage": {
     "nba": 56,
-    "ncaab": 42,
+    "ncaab": 43,
     "ncaaf": 3,
     "nfl": 21,
     "nhl": 47
