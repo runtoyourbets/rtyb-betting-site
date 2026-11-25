@@ -438,11 +438,6 @@
     "value": "ncaab:401925687"
    },
    {
-    "label": "NCAAB · Duquesne at High Point · 7:30 PM ET",
-    "trends": 8,
-    "value": "ncaab:401920414"
-   },
-   {
     "label": "NCAAB · Houston Christian at UL Monroe · 7:30 PM ET",
     "trends": 6,
     "value": "ncaab:401917983"
@@ -521,6 +516,11 @@
     "label": "NCAAB · Texas Tech at Louisville · 8:00 PM ET",
     "trends": 8,
     "value": "ncaab:401915942"
+   },
+   {
+    "label": "NCAAB · Duquesne at High Point · 8:30 PM ET",
+    "trends": 8,
+    "value": "ncaab:401920414"
    },
    {
     "label": "NCAAB · UTEP at Charleston · 8:30 PM ET",
@@ -1029,11 +1029,6 @@
     "value": "ncaab:401925687"
    },
    {
-    "label": "Duquesne at High Point · 7:30 PM ET",
-    "trends": 8,
-    "value": "ncaab:401920414"
-   },
-   {
     "label": "Houston Christian at UL Monroe · 7:30 PM ET",
     "trends": 6,
     "value": "ncaab:401917983"
@@ -1102,6 +1097,11 @@
     "label": "Texas Tech at Louisville · 8:00 PM ET",
     "trends": 8,
     "value": "ncaab:401915942"
+   },
+   {
+    "label": "Duquesne at High Point · 8:30 PM ET",
+    "trends": 8,
+    "value": "ncaab:401920414"
    },
    {
     "label": "UTEP at Charleston · 8:30 PM ET",
