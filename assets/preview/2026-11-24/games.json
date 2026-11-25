@@ -513,19 +513,14 @@
     "value": "ncaab:401924723"
    },
    {
-    "label": "NCAAB · Duquesne at High Point · 8:30 PM ET",
-    "trends": 8,
-    "value": "ncaab:401920414"
-   },
-   {
-    "label": "NCAAB · UTEP at Charleston · 8:30 PM ET",
-    "trends": 5,
-    "value": "ncaab:401911535"
-   },
-   {
     "label": "NCAAB · Texas Tech at Louisville · 8:37 PM ET",
     "trends": 8,
     "value": "ncaab:401915942"
+   },
+   {
+    "label": "NCAAB · Duquesne at High Point · 8:45 PM ET",
+    "trends": 8,
+    "value": "ncaab:401920414"
    },
    {
     "label": "NCAAB · Evansville at Missouri · 9:00 PM ET",
@@ -551,6 +546,11 @@
     "label": "NCAAB · UNC Greensboro at UC Santa Barbara · 9:00 PM ET",
     "trends": 7,
     "value": "ncaab:401926184"
+   },
+   {
+    "label": "NCAAB · UTEP at Charleston · 9:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401911535"
    },
    {
     "label": "NCAAB · Saint Louis at Grand Canyon · 9:30 PM ET",
@@ -1094,19 +1094,14 @@
     "value": "ncaab:401924723"
    },
    {
-    "label": "Duquesne at High Point · 8:30 PM ET",
-    "trends": 8,
-    "value": "ncaab:401920414"
-   },
-   {
-    "label": "UTEP at Charleston · 8:30 PM ET",
-    "trends": 5,
-    "value": "ncaab:401911535"
-   },
-   {
     "label": "Texas Tech at Louisville · 8:37 PM ET",
     "trends": 8,
     "value": "ncaab:401915942"
+   },
+   {
+    "label": "Duquesne at High Point · 8:45 PM ET",
+    "trends": 8,
+    "value": "ncaab:401920414"
    },
    {
     "label": "Evansville at Missouri · 9:00 PM ET",
@@ -1132,6 +1127,11 @@
     "label": "UNC Greensboro at UC Santa Barbara · 9:00 PM ET",
     "trends": 7,
     "value": "ncaab:401926184"
+   },
+   {
+    "label": "UTEP at Charleston · 9:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401911535"
    },
    {
     "label": "Saint Louis at Grand Canyon · 9:30 PM ET",
@@ -1737,7 +1737,7 @@
    },
    {
     "label": "New York Jets at Miami Dolphins · 1:00 PM ET",
-    "trends": 21,
+    "trends": 19,
     "value": "nfl:401873089"
    },
    {
