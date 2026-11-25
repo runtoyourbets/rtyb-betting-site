@@ -132,7 +132,7 @@
   },
   "66": {
    "coverage": {
-    "nba": 83,
+    "nba": 100,
     "ncaab": 76,
     "ncaaf": 94,
     "nfl": 93,
@@ -145,7 +145,7 @@
   },
   "86": {
    "coverage": {
-    "nba": 81,
+    "nba": 83,
     "ncaab": 82,
     "ncaaf": 100,
     "nfl": 100,
@@ -262,7 +262,7 @@
   },
   "hardrockbet": {
    "coverage": {
-    "nba": 48,
+    "nba": 56,
     "ncaab": 41,
     "ncaaf": 3,
     "nfl": 21,
