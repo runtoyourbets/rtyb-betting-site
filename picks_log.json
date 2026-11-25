@@ -15078,52 +15078,6 @@
     "streakTeamName": "New Jersey"
    },
    {
-    "id": "nhl|2026020398|1p|ml|home",
-    "game": "nhl|2026020398",
-    "date": "2026-11-25",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-26T03:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "San Jose @ Anaheim",
-    "href": "nhl/matchups/?date=2026-11-25",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -125,
-    "title": "Anaheim 1P ML",
-    "est": 0.6078,
-    "edge": 0.0523,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 0,
-    "streakTeam": "ANH",
-    "angles": [
-     [
-      "Anaheim 1P ML at home",
-      "6-2-3"
-     ],
-     [
-      "San Jose\u2019s opponents 1P ML, San Jose on the road",
-      "6-2-4"
-     ],
-     [
-      "Anaheim 1P ML, season",
-      "10-8-7"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Anaheim"
-   },
-   {
     "id": "nba|401909322|1q|total|under",
     "game": "nba|401909322",
     "date": "2026-11-25",
@@ -15138,10 +15092,10 @@
     "market": "total",
     "side": "under",
     "line": 60.5,
-    "price": -112,
+    "price": -106,
     "title": "1Q Under 60.5",
-    "est": 0.5794,
-    "edge": 0.0511,
+    "est": 0.5708,
+    "edge": 0.0562,
     "agree": 4,
     "sample": 18,
     "tier": "B",
@@ -15189,10 +15143,10 @@
     "market": "total",
     "side": "over",
     "line": 106.5,
-    "price": -108,
+    "price": -105,
     "title": "1H Over 106.5",
-    "est": 0.5702,
-    "edge": 0.051,
+    "est": 0.5657,
+    "edge": 0.0536,
     "agree": 6,
     "sample": 17,
     "tier": "B",
@@ -15224,6 +15178,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bulls"
+   },
+   {
+    "id": "nhl|2026020398|1p|ml|home",
+    "game": "nhl|2026020398",
+    "date": "2026-11-25",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-26T03:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "San Jose @ Anaheim",
+    "href": "nhl/matchups/?date=2026-11-25",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -125,
+    "title": "Anaheim 1P ML",
+    "est": 0.6078,
+    "edge": 0.0523,
+    "agree": 3,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 0,
+    "streakTeam": "ANH",
+    "angles": [
+     [
+      "Anaheim 1P ML at home",
+      "6-2-3"
+     ],
+     [
+      "San Jose\u2019s opponents 1P ML, San Jose on the road",
+      "6-2-4"
+     ],
+     [
+      "Anaheim 1P ML, season",
+      "10-8-7"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Anaheim"
    },
    {
     "id": "ncaab|401921670|1h|ml|away",
@@ -15362,56 +15362,6 @@
     "streakTeamName": "Washington"
    },
    {
-    "id": "nba|401909319|1h|total|over",
-    "game": "nba|401909319",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Cavaliers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 105.5,
-    "price": -105,
-    "title": "1H Over 105.5",
-    "est": 0.5504,
-    "edge": 0.0382,
-    "agree": 6,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Over Lover"
-    ],
-    "streak": 3,
-    "streakTeam": "cle",
-    "angles": [
-     [
-      "Cavaliers 1H overs, last 8 (105.5)",
-      "7-1"
-     ],
-     [
-      "Cavaliers 1H overs, season (105.5)",
-      "15-3"
-     ],
-     [
-      "Cavaliers 1H overs on the road (105.5)",
-      "6-2"
-     ],
-     [
-      "Knicks 1H overs, last 8 (105.5)",
-      "5-3"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Knicks 106.4 \u00b7 Cavaliers 115.9",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Cavaliers"
-   },
-   {
     "id": "nba|401909325|1q|ml|away",
     "game": "nba|401909325",
     "date": "2026-11-25",
@@ -15545,6 +15495,53 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "Kansas State"
+   },
+   {
+    "id": "nhl|2026020392|1p|btts|yes",
+    "game": "nhl|2026020392",
+    "date": "2026-11-25",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-26T00:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Philadelphia @ Washington",
+    "href": "nhl/matchups/?date=2026-11-25",
+    "market": "btts",
+    "side": "yes",
+    "line": null,
+    "price": 155,
+    "title": "1P BTTS Yes",
+    "est": 0.4272,
+    "edge": 0.0351,
+    "agree": 3,
+    "sample": 26,
+    "tier": "C",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "WSH",
+    "angles": [
+     [
+      "Washington 1P BTTS, last 8",
+      "6-2"
+     ],
+     [
+      "Washington 1P BTTS at home",
+      "9-4"
+     ],
+     [
+      "Washington 1P BTTS, season",
+      "13-8"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Washington"
    }
   ]
  }

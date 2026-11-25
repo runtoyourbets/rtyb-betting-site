@@ -297,11 +297,6 @@
     "value": "ncaab:401920809"
    },
    {
-    "label": "NCAAB · South Carolina at USC · 4:45 PM ET",
-    "trends": 8,
-    "value": "ncaab:401921670"
-   },
-   {
     "label": "NBA · Miami Heat at Philadelphia 76ers · 5:00 PM ET",
     "trends": 22,
     "value": "nba:401909317"
@@ -317,11 +312,6 @@
     "value": "ncaab:401920237"
    },
    {
-    "label": "NCAAB · Memphis at Penn State · 5:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401917182"
-   },
-   {
     "label": "NCAAB · Portland State at UC Riverside · 5:00 PM ET",
     "trends": 6,
     "value": "ncaab:401925917"
@@ -330,6 +320,11 @@
     "label": "NCAAB · Southern at Nebraska · 5:00 PM ET",
     "trends": 5,
     "value": "ncaab:401926065"
+   },
+   {
+    "label": "NCAAB · South Carolina at USC · 5:17 PM ET",
+    "trends": 8,
+    "value": "ncaab:401921670"
    },
    {
     "label": "NCAAB · BYU at Providence · 5:30 PM ET",
@@ -355,6 +350,11 @@
     "label": "NCAAB · UAlbany at Syracuse · 6:00 PM ET",
     "trends": 2,
     "value": "ncaab:401909720"
+   },
+   {
+    "label": "NCAAB · Memphis at Penn State · 6:35 PM ET",
+    "trends": 5,
+    "value": "ncaab:401917182"
    },
    {
     "label": "NHL · Carolina Hurricanes at Tampa Bay Lightning · 7:00 PM ET",
@@ -900,11 +900,6 @@
     "value": "ncaab:401920809"
    },
    {
-    "label": "South Carolina at USC · 4:45 PM ET",
-    "trends": 8,
-    "value": "ncaab:401921670"
-   },
-   {
     "label": "Alcorn State at Texas State · 5:00 PM ET",
     "trends": 13,
     "value": "ncaab:401925688"
@@ -915,11 +910,6 @@
     "value": "ncaab:401920237"
    },
    {
-    "label": "Memphis at Penn State · 5:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401917182"
-   },
-   {
     "label": "Portland State at UC Riverside · 5:00 PM ET",
     "trends": 6,
     "value": "ncaab:401925917"
@@ -928,6 +918,11 @@
     "label": "Southern at Nebraska · 5:00 PM ET",
     "trends": 5,
     "value": "ncaab:401926065"
+   },
+   {
+    "label": "South Carolina at USC · 5:17 PM ET",
+    "trends": 8,
+    "value": "ncaab:401921670"
    },
    {
     "label": "BYU at Providence · 5:30 PM ET",
@@ -953,6 +948,11 @@
     "label": "UAlbany at Syracuse · 6:00 PM ET",
     "trends": 2,
     "value": "ncaab:401909720"
+   },
+   {
+    "label": "Memphis at Penn State · 6:35 PM ET",
+    "trends": 5,
+    "value": "ncaab:401917182"
    },
    {
     "label": "Bellarmine at Northern Kentucky · 7:00 PM ET",
@@ -1619,7 +1619,7 @@
    },
    {
     "label": "New York Jets at Miami Dolphins · 1:00 PM ET",
-    "trends": 19,
+    "trends": 21,
     "value": "nfl:401873089"
    },
    {
@@ -1629,7 +1629,7 @@
    },
    {
     "label": "New England Patriots at Los Angeles Chargers · 4:05 PM ET",
-    "trends": 20,
+    "trends": 18,
     "value": "nfl:401873093"
    },
    {
