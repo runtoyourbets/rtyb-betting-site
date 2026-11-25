@@ -12,6 +12,16 @@
  "pieces": {
   "all": [
    {
+    "date": "2026-11-25",
+    "headline": "Alcorn State at Texas State: Back-to-Back Opponents Hit 90% in First Half",
+    "live": false,
+    "page": "admin/preview/all-2026-11-25/",
+    "path": "content/drafts/all-preview-2026-11-25.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-25T13:16Z"
+   },
+   {
     "date": "2026-11-24",
     "headline": "Eastern Michigan Has Gone Under the First Quarter Total 82% (9-2)",
     "live": true,
@@ -74,6 +84,16 @@
   ],
   "nba": [
    {
+    "date": "2026-11-25",
+    "headline": "Milwaukee Bucks Have Gone Under the First Quarter Total 83% (15-3)",
+    "live": false,
+    "page": "admin/preview/nba-2026-11-25/",
+    "path": "content/drafts/nba-preview-2026-11-25.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-25T13:14Z"
+   },
+   {
     "date": "2026-11-24",
     "headline": "Celtics First Quarters Keep Going Under: 76% (13-4) Heading to Washington",
     "live": true,
@@ -135,6 +155,16 @@
    }
   ],
   "ncaab": [
+   {
+    "date": "2026-11-25",
+    "headline": "Alcorn State at Texas State Fits a 90% Back-to-Back Angle",
+    "live": false,
+    "page": "admin/preview/ncaab-2026-11-25/",
+    "path": "content/drafts/ncaab-preview-2026-11-25.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-25T13:15Z"
+   },
    {
     "date": "2026-11-24",
     "headline": "North Dakota at Detroit Mercy: Fade Teams Off a Blowout Runs 60%",
@@ -241,6 +271,16 @@
    }
   ],
   "nhl": [
+   {
+    "date": "2026-11-25",
+    "headline": "Predators First Periods Go Over 1.5 at a 78% Clip",
+    "live": false,
+    "page": "admin/preview/nhl-2026-11-25/",
+    "path": "content/drafts/nhl-preview-2026-11-25.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-25T13:13Z"
+   },
    {
     "date": "2026-11-24",
     "headline": "Edmonton Oilers: No on Both Teams to Score (BTTS), 81% (21-5)",

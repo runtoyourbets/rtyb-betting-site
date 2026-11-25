@@ -41,7 +41,7 @@
   },
   "111": {
    "coverage": {
-    "nba": 81,
+    "nba": 88,
     "ncaab": 0,
     "ncaaf": 0,
     "nfl": 93,
@@ -106,7 +106,7 @@
   },
   "4": {
    "coverage": {
-    "nba": 81,
+    "nba": 100,
     "ncaab": 81,
     "ncaaf": 94,
     "nfl": 100,
@@ -145,7 +145,7 @@
   },
   "86": {
    "coverage": {
-    "nba": 90,
+    "nba": 94,
     "ncaab": 80,
     "ncaaf": 100,
     "nfl": 100,

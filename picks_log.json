@@ -15286,13 +15286,13 @@
     "market": "total",
     "side": "under",
     "line": 62.5,
-    "price": -113,
+    "price": -115,
     "title": "1Q Under 62.5",
-    "est": 0.5707,
-    "edge": 0.0401,
+    "est": 0.5734,
+    "edge": 0.0385,
     "agree": 6,
     "sample": 18,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Under Grinder"
     ],

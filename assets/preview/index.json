@@ -41,7 +41,13 @@
   "nba": "060414f9ffb3",
   "ncaab": "22163aca8248",
   "ncaaf": "bb211ad0ea14",
-  "nfl": "79489f4eb66d",
+  "nfl": "e4dbc4f10649",
   "nhl": "89f4a581c596"
+ },
+ "2026-11-25": {
+  "all": "e2287aeac0d0",
+  "nba": "d3f73b0481f7",
+  "ncaab": "ec5f9b7035ea",
+  "nhl": "9c835a631b4f"
  }
 }
