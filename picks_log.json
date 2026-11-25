@@ -14955,7 +14955,9 @@
     "agree": 4,
     "sample": 15,
     "tier": "B",
-    "tags": [],
+    "tags": [
+     "Chalk Eater"
+    ],
     "streak": 3,
     "streakTeam": "mia",
     "angles": [
@@ -15180,6 +15182,52 @@
     "streakTeamName": "Bulls"
    },
    {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -130,
+    "title": "Spurs 1Q ML",
+    "est": 0.6059,
+    "edge": 0.0407,
+    "agree": 3,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
+   },
+   {
     "id": "nba|401909317|1q|total|under",
     "game": "nba|401909317",
     "date": "2026-11-25",
@@ -15280,52 +15328,6 @@
     "streakTeamName": "Suns"
    },
    {
-    "id": "nba|401909325|1q|ml|away",
-    "game": "nba|401909325",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Trail Blazers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -134,
-    "title": "Spurs 1Q ML",
-    "est": 0.6105,
-    "edge": 0.0379,
-    "agree": 3,
-    "sample": 18,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -1,
-    "streakTeam": "sa",
-    "angles": [
-     [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
-      "3-1-1"
-     ],
-     [
-      "Spurs 1Q ML, season",
-      "12-6"
-     ],
-     [
-      "Spurs 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Spurs"
-   },
-   {
     "id": "ncaab|401911029|1h|ats|away",
     "game": "ncaab|401911029",
     "date": "2026-11-25",
@@ -15417,51 +15419,50 @@
     "streakTeamName": "Kansas State"
    },
    {
-    "id": "nba|401909319|1h|ats|home",
-    "game": "nba|401909319",
+    "id": "nhl|2026020396|1p|ml|home",
+    "game": "nhl|2026020396",
     "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Cavaliers @ Knicks",
-    "href": "nba/matchups/",
-    "market": "ats",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-26T01:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Utah @ Minnesota",
+    "href": "nhl/matchups/?date=2026-11-25",
+    "market": "ml",
     "side": "home",
-    "line": -1.5,
-    "price": 100,
-    "title": "Knicks 1H -1.5",
-    "est": 0.5347,
-    "edge": 0.0347,
+    "line": null,
+    "price": -131,
+    "title": "Minnesota 1P ML",
+    "est": 0.6013,
+    "edge": 0.0342,
     "agree": 3,
-    "sample": 17,
+    "sample": 16,
     "tier": "C",
     "tags": [
-     "Chalk Eater",
-     "Streak Rider"
+     "Chalk Eater"
     ],
-    "streak": 5,
-    "streakTeam": "ny",
+    "streak": 0,
+    "streakTeam": "MIN",
     "angles": [
      [
-      "Knicks 1H ATS at -1.5 at home",
-      "7-2"
+      "Minnesota 1P ML, last 8",
+      "5-0-3"
      ],
      [
-      "Knicks 1H ATS at -1.5, last 8",
-      "6-2"
+      "Minnesota 1P ML at home",
+      "5-1-2"
      ],
      [
-      "Knicks 1H ATS at -1.5, season",
-      "11-6"
+      "Minnesota 1P ML, season",
+      "13-3-10"
      ]
     ],
-    "info": "Knicks avg 1H margin at home: +10.3",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Knicks"
+    "streakTeamName": "Minnesota"
    }
   ]
  }

@@ -2,7 +2,7 @@
  "books": {
   "1": {
    "coverage": {
-    "nba": 81,
+    "nba": 100,
     "ncaab": 87,
     "ncaaf": 100,
     "nfl": 100,
@@ -15,7 +15,7 @@
   },
   "105": {
    "coverage": {
-    "nba": 96,
+    "nba": 100,
     "ncaab": 14,
     "ncaaf": 94,
     "nfl": 0,
@@ -145,7 +145,7 @@
   },
   "86": {
    "coverage": {
-    "nba": 83,
+    "nba": 90,
     "ncaab": 82,
     "ncaaf": 100,
     "nfl": 100,
