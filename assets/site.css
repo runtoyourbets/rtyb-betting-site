@@ -1501,8 +1501,16 @@
 
   /* ---------- Trends page (assets/sport.js renderTrends) ---------- */
   .tr-date { font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); margin: -6px 0 10px; }
+  /* "NBA Trends for Friday, Nov 27": the slate in the header (no date bar) */
+  .tr-head { margin: 4px 0 16px; font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); color: var(--text); }
+  /* Matchup Trends' label chips: the count beside each; one with none is dimmed */
+  .mt-lbls { display: flex; flex-wrap: wrap; gap: 6px; width: auto; max-width: 100%; margin: 8px 0 0; }
+  .mt-lbls .seg-btn { flex: none; white-space: nowrap; }
+  .mt-lbls .mt-n { margin-left: 4px; color: var(--text-muted); }
+  .mt-lbls .seg-btn:disabled { opacity: 0.45; cursor: default; }
+  .mt-def { margin: 8px 0 12px; }
   /* each section's filters (segment, market, side) under its heading; phones: a row scrolls sideways, never wraps */
-  .tr-filters { display: grid; gap: 6px; margin: 0 0 12px; }
+  .tr-filters { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; margin: 0 0 12px; }
   .tr-filters .tr-frow { display: flex; flex-wrap: nowrap; width: max-content; max-width: 100%; margin: 0; overflow-x: auto; scrollbar-width: none; }
   .tr-filters .tr-frow::-webkit-scrollbar { display: none; }
   .tr-frow .seg-btn { flex: none; white-space: nowrap; }
