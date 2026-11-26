@@ -41,6 +41,9 @@ ET = front.ET
 SPREAD_ROWS = (('ats', 'Spread', 'Largest Spread'), ('ml', 'Moneyline', 'Heaviest Favorite'), ('total', 'Total', 'Highest Total'))
 NHL_ROWS = (('ml', '1P Moneyline', 'Heaviest Favorite'), ('total', '1P Over 1.5', 'Heaviest Over 1.5'),
             ('ml3', '1P 3-Way', 'Heaviest 3-Way Favorite'), ('tie', '1P Tie', 'Shortest Tie Price'))
+# the Game pill: the full game (NHL / MLB: the puck / run line is always 1.5, so no "largest" one)
+GAME_ROWS = (('ats', 'Spread', 'Largest Spread'), ('ml', 'Moneyline', 'Heaviest Favorite'), ('total', 'Total', 'Highest Total'))
+PERIOD_GAME_ROWS = (('ml', 'Moneyline', 'Heaviest Favorite'), ('total', 'Total', 'Highest Total'))
 
 
 def books_of(sport, og, k, m):
@@ -144,18 +147,22 @@ def total_pick(sport, og, k, at=None):
 def segments_of(sport):
     """[(segment key, tag, label)] with a Big Numbers card: NHL 1P; MLB
     1st inning and First 5 (where the markets exist); the rest every segment."""
-    return [(s['key'], s['tag'], s['label']) for s in sport.segments]
+    return [(s['key'], s['tag'], s['label']) for s in sport.segments] + [('game', 'Game', 'Game')]
 
 
 def rows_for(sport, k, games):
     """[{key, label, long, game, day, top, sub, book, fav}] for one segment,
     in the sport's row order; a market no game has is left out."""
-    nhl = sport.key == 'nhl'
+    nhl = sport.key == 'nhl' and k != 'game'
+    period = sport.key in ('nhl', 'mlb')
+    rows_def = (PERIOD_GAME_ROWS if period else GAME_ROWS) if k == 'game' else NHL_ROWS if nhl else SPREAD_ROWS
     out = []
-    for m, label, long in (NHL_ROWS if nhl else SPREAD_ROWS):
+    for m, label, long in rows_def:
         best = None
         for d, g in games:
             og = sport.odds_game(d, g)
+            if k == 'game':   # the full game: the Odds day file's `full` block
+                og = og.get('full') or {}
             start = g.get('start') or ''
             if m == 'ats':
                 x = spread_pick(sport, og, k)
