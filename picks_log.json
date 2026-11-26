@@ -15826,54 +15826,6 @@
     "streakTeamName": "Eagles"
    },
    {
-    "id": "nfl|401873081|1q|ats|away",
-    "game": "nfl|401873081",
-    "date": "2026-11-26",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-26T18:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Bears @ Lions",
-    "href": "nfl/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": -0.5,
-    "price": 135,
-    "title": "Bears 1Q -0.5",
-    "est": 0.4639,
-    "edge": 0.0384,
-    "agree": 3,
-    "sample": 10,
-    "tier": "C",
-    "tags": [
-     "Chalk Eater",
-     "Streak Rider",
-     "Early Bird"
-    ],
-    "streak": 5,
-    "streakTeam": "chi",
-    "angles": [
-     [
-      "Bears 1Q ATS at -0.5, last 8",
-      "7-1"
-     ],
-     [
-      "Bears 1Q ATS at -0.5, season",
-      "8-2"
-     ],
-     [
-      "Bears 1Q ATS at -0.5 on the road",
-      "3-1"
-     ]
-    ],
-    "info": "Bears avg 1Q margin on the road: +5.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Bears"
-   },
-   {
     "id": "ncaab|401921673|1h|ml|away",
     "game": "ncaab|401921673",
     "date": "2026-11-26",
