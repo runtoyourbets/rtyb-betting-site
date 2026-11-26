@@ -15226,52 +15226,6 @@
     "streakTeamName": "Bulls"
    },
    {
-    "id": "nba|401909325|1q|ml|away",
-    "game": "nba|401909325",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Trail Blazers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -125,
-    "title": "Spurs 1Q ML",
-    "est": 0.5999,
-    "edge": 0.0443,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -1,
-    "streakTeam": "sa",
-    "angles": [
-     [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
-      "3-1-1"
-     ],
-     [
-      "Spurs 1Q ML, season",
-      "12-6"
-     ],
-     [
-      "Spurs 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Spurs"
-   },
-   {
     "id": "ncaab|401921670|1h|ml|away",
     "game": "ncaab|401921670",
     "date": "2026-11-25",
@@ -15363,6 +15317,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Suns"
+   },
+   {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -130,
+    "title": "Spurs 1Q ML",
+    "est": 0.6059,
+    "edge": 0.0407,
+    "agree": 3,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
    },
    {
     "id": "ncaab|401921713|1h|ml|away",

@@ -432,11 +432,6 @@
     "value": "ncaab:401920916"
    },
    {
-    "label": "NCAAB · SMU at Utah State · 7:00 PM ET",
-    "trends": 9,
-    "value": "ncaab:401918971"
-   },
-   {
     "label": "NCAAB · South Carolina Upstate at The Citadel · 7:00 PM ET",
     "trends": 4,
     "value": "ncaab:401922285"
@@ -460,6 +455,11 @@
     "label": "NBA · Minnesota Timberwolves at Oklahoma City Thunder · 7:30 PM ET",
     "trends": 17,
     "value": "nba:401909320"
+   },
+   {
+    "label": "NCAAB · SMU at Utah State · 7:30 PM ET",
+    "trends": 9,
+    "value": "ncaab:401918971"
    },
    {
     "label": "NCAAB · Wake Forest at Mississippi State · 7:30 PM ET",
@@ -985,11 +985,6 @@
     "value": "ncaab:401920916"
    },
    {
-    "label": "SMU at Utah State · 7:00 PM ET",
-    "trends": 9,
-    "value": "ncaab:401918971"
-   },
-   {
     "label": "South Carolina Upstate at The Citadel · 7:00 PM ET",
     "trends": 4,
     "value": "ncaab:401922285"
@@ -998,6 +993,11 @@
     "label": "St. Thomas at UNC Wilmington · 7:00 PM ET",
     "trends": 3,
     "value": "ncaab:401920847"
+   },
+   {
+    "label": "SMU at Utah State · 7:30 PM ET",
+    "trends": 9,
+    "value": "ncaab:401918971"
    },
    {
     "label": "Wake Forest at Mississippi State · 7:30 PM ET",
