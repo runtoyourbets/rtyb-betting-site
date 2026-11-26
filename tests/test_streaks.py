@@ -54,12 +54,13 @@ class RunningTest(unittest.TestCase):
             running = {(s['t'], s['k'], s['m']): (s['n'], s['kd']) for s in doc['running'] if s['v'] == 'all'}
             # the page is fixed for the day (week): a team playing today may have a newer result on its team page
             playing = set((doc['tonight'] or {}).get('playing') or [])
+            segm = {x['k']: x['m'] for x in doc['segs']}
             for t, lst in (data.get('streaks') or {}).items():
                 if t not in data['teams'] or t in playing:
                     continue   # college: no team page for a non-D-I / non-FBS opponent
                 for x in lst:
-                    if x['n'] < doc['min_run']:
-                        continue   # College Basketball's Still Running starts at 5
+                    if x['n'] < doc['min_run'] or x['market'] not in segm.get(x['seg'], ()):
+                        continue   # College Basketball: Still Running starts at 5, no moneyline
                     with self.subTest(sp['key'], team=t, seg=x['seg'], market=x['market']):
                         self.assertEqual(running.get((t, x['seg'], x['market'])), (x['n'], kind[x['kind']]))
 
