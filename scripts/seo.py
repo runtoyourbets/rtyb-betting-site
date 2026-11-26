@@ -180,6 +180,8 @@ def head_block(rel, page_html, base, snippet):
             f'<meta name="twitter:image" content="{e(img)}">']
     if 'rel="canonical"' not in re.sub(r'<!--seo-->.*?<!--/seo-->', '', page_html, flags=re.S):
         tags.append(f'<link rel="canonical" href="{e(base + rel)}">')
+    if sports.PRELAUNCH_NOINDEX:   # before launch: search engines stay out (sports.py)
+        tags.append('<meta name="robots" content="noindex, nofollow">')
     tags.append(signup.ATTRIBUTION + signup.SIGNUP_JS)
     if snippet:
         tags.append(snippet)

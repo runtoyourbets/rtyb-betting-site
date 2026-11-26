@@ -332,6 +332,12 @@ LAUNCHED = shown()
 # the "Due Factor today" strip on the home page and the hubs (due_factor.strip):
 # off, nothing of it renders; True brings it back (in-season sports only)
 DUE_STRIP = False
+
+# Before launch: every page carries <meta name="robots" content="noindex,
+# nofollow"> so search engines stay out while Chris QAs the site (the pages
+# still open for anyone with the link). Set False on launch day, with the
+# domain switch, then submit sitemap.xml in Search Console.
+PRELAUNCH_NOINDEX = True
 # ...of those, the ones in season now (the phone sports row on index pages)
 IN_SEASON = [s for s in LAUNCHED if in_season(s)]
 
