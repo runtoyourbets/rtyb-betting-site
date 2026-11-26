@@ -8,8 +8,8 @@
   "updated": "2026-11-26T00:54:14Z"
  },
  "ncaab": {
-  "hash": "c868f1f288ad39020c31daf586e226b2b69fe6dc",
-  "updated": "2026-11-26T00:30:59Z"
+  "hash": "e6b6f2c030c178f779f52828368ca9b8cc2d5350",
+  "updated": "2026-11-26T01:11:44Z"
  },
  "ncaaf": {
   "hash": "619fdd710dc3888af5788068706bc162cee28ad1",
@@ -20,37 +20,37 @@
   "updated": "2026-11-24T03:02:11Z"
  },
  "nhl": {
-  "hash": "18981046e74051db4728cc2e17ca10e2be4873c9",
-  "updated": "2026-11-25T02:02:22Z"
+  "hash": "70d4ddc78e407caae8b808b0b59ecba5aee48475",
+  "updated": "2026-11-26T01:11:44Z"
  },
  "pages": {
   "/": {
-   "hash": "3fe33f5940f2366b4ce665026d7f26e980e815f1",
-   "updated": "2026-11-26T00:54:14Z"
+   "hash": "762bda261720462011e15449e053a5743db4369d",
+   "updated": "2026-11-26T01:11:44Z"
   },
   "college-basketball/": {
-   "hash": "d1c1ea389cd340a59c8245a8776c71cfafed7feb",
-   "updated": "2026-11-26T00:54:14Z"
+   "hash": "4ff3e9e19336a4ce83f634aba58ab3ab03d5d5dd",
+   "updated": "2026-11-26T01:11:44Z"
   },
   "college-football/": {
-   "hash": "8ea9e17850bf5b52eeeb52b6b57b8ea897e621af",
-   "updated": "2026-11-26T00:30:59Z"
+   "hash": "d49dc12cf1a8c42b7c6ab628e60f5b471b34b1c2",
+   "updated": "2026-11-26T01:11:44Z"
   },
   "mlb/": {
    "hash": "6fec1b938e1ba16cd5aa34ace6486ff902a64e10",
    "updated": "2026-11-25T23:31:36Z"
   },
   "nba/": {
-   "hash": "949f0a29ca2f7d8d902bcd4977c1c5c7862c8f35",
-   "updated": "2026-11-26T00:54:14Z"
+   "hash": "da11ba2b5f2cfb94f88c3b7c7a6dbe46add2e69a",
+   "updated": "2026-11-26T01:11:44Z"
   },
   "nfl/": {
-   "hash": "f0abdc11d0799ea4aa2e9e2db9d031294020b58d",
-   "updated": "2026-11-26T00:30:59Z"
+   "hash": "5c7c7f129e3684feb8a8804731eeddf5ab08cd97",
+   "updated": "2026-11-26T01:11:44Z"
   },
   "nhl/": {
-   "hash": "9466bb38718ecca587e56b67421a6a4cf959080e",
-   "updated": "2026-11-26T00:54:14Z"
+   "hash": "11f353b7e1812c08bc4e024cbcc4fc0d0212432f",
+   "updated": "2026-11-26T01:11:44Z"
   },
   "wnba/": {
    "hash": "cdff494282a01a649d7ad33f58d21f84837b26f9",

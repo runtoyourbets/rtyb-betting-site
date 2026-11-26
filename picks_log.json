@@ -15445,8 +15445,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Longwood"
    },
    {
@@ -15607,10 +15607,10 @@
     "market": "ats",
     "side": "away",
     "line": 2.5,
-    "price": -110,
+    "price": -112,
     "title": "Washington 1H +2.5",
-    "est": 0.5556,
-    "edge": 0.0317,
+    "est": 0.5593,
+    "edge": 0.031,
     "agree": 2,
     "sample": 6,
     "tier": "C",
