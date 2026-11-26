@@ -527,11 +527,6 @@
     "value": "nhl:2026020397"
    },
    {
-    "label": "NCAAB · Grand Canyon at Colorado · 9:30 PM ET",
-    "trends": 10,
-    "value": "ncaab:401921671"
-   },
-   {
     "label": "NHL · Chicago Blackhawks at Seattle Kraken · 9:40 PM ET",
     "trends": 4,
     "value": "nhl:2026020399"
@@ -555,6 +550,11 @@
     "label": "NCAAB · Washington at VCU · 10:00 PM ET",
     "trends": 9,
     "value": "ncaab:401921713"
+   },
+   {
+    "label": "NCAAB · Grand Canyon at Colorado · 10:30 PM ET",
+    "trends": 10,
+    "value": "ncaab:401921671"
    },
    {
     "label": "NCAAB · Pacific at Jacksonville State · 10:30 PM ET",
@@ -1030,14 +1030,14 @@
     "value": "ncaab:401929287"
    },
    {
-    "label": "Grand Canyon at Colorado · 9:30 PM ET",
-    "trends": 10,
-    "value": "ncaab:401921671"
-   },
-   {
     "label": "Washington at VCU · 10:00 PM ET",
     "trends": 9,
     "value": "ncaab:401921713"
+   },
+   {
+    "label": "Grand Canyon at Colorado · 10:30 PM ET",
+    "trends": 10,
+    "value": "ncaab:401921671"
    },
    {
     "label": "Pacific at Jacksonville State · 10:30 PM ET",

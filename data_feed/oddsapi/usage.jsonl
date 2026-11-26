@@ -49093,3 +49093,10 @@
 {"credits": 6, "endpoint": "/sports/basketball_ncaab/events/a0ecce85720e6b272a86b2160699e242/odds", "job": "live", "remaining": 3563560, "sport": "ncaab", "time": "2026-11-26T01:45:08+00:00"}
 {"credits": 0, "endpoint": "/sports/icehockey_nhl/events", "job": "live", "remaining": 3563560, "sport": "nhl", "time": "2026-11-26T02:33:19+00:00"}
 {"credits": 7, "endpoint": "/sports/icehockey_nhl/events/d2f0dc1f1216c62c2b7206c15f84bc02/odds", "job": "live", "remaining": 3563553, "sport": "nhl", "time": "2026-11-26T02:33:19+00:00"}
+{"credits": 0, "endpoint": "/sports/icehockey_nhl/events", "job": "live", "remaining": 3563553, "sport": "nhl", "time": "2026-11-26T02:55:21+00:00"}
+{"credits": 7, "endpoint": "/sports/icehockey_nhl/events/c68f7a448ea05f866093dfb4221e076e/odds", "job": "live", "remaining": 3563546, "sport": "nhl", "time": "2026-11-26T02:55:21+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_nba/events", "job": "live", "remaining": 3563546, "sport": "nba", "time": "2026-11-26T02:55:21+00:00"}
+{"credits": 9, "endpoint": "/sports/basketball_nba/events/e6df92326adb480e427bb7c10f445c60/odds", "job": "live", "remaining": 3563537, "sport": "nba", "time": "2026-11-26T02:55:21+00:00"}
+{"credits": 9, "endpoint": "/sports/basketball_nba/events/9aa9f220709533d70d11f85fae886771/odds", "job": "live", "remaining": 3563528, "sport": "nba", "time": "2026-11-26T02:55:21+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "job": "live", "remaining": 3563528, "sport": "ncaab", "time": "2026-11-26T02:55:22+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/40a69bfe7d0a391985e1ca60741d208e/odds", "job": "live", "remaining": 3563522, "sport": "ncaab", "time": "2026-11-26T02:55:22+00:00"}
