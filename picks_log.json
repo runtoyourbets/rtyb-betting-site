@@ -15826,49 +15826,6 @@
     "streakTeamName": "Eagles"
    },
    {
-    "id": "ncaab|401921673|1h|ml|away",
-    "game": "ncaab|401921673",
-    "date": "2026-11-26",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-26T21:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Utah State @ USC",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 134,
-    "title": "Utah State 1H ML",
-    "est": 0.4624,
-    "edge": 0.0351,
-    "agree": 2,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 6,
-    "streakTeam": "utah-state-aggies",
-    "angles": [
-     [
-      "Utah State 1H ML, season",
-      "6-0"
-     ],
-     [
-      "Utah State 1H ML, last 8",
-      "6-0"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Utah State"
-   },
-   {
     "id": "ncaab|401917547|1h|ats|home",
     "game": "ncaab|401917547",
     "date": "2026-11-26",
@@ -15914,6 +15871,138 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "UCLA"
+   },
+   {
+    "id": "ncaab|401920531|1h|ml|home",
+    "game": "ncaab|401920531",
+    "date": "2026-11-26",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-27T04:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Texas Tech @ Oregon",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 290,
+    "title": "Oregon 1H ML",
+    "est": 0.2892,
+    "edge": 0.0328,
+    "agree": 3,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "oregon-ducks",
+    "angles": [
+     [
+      "Oregon 1H ML at home",
+      "4-0"
+     ],
+     [
+      "Oregon 1H ML, season",
+      "4-1"
+     ],
+     [
+      "Oregon 1H ML, last 8",
+      "4-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Oregon"
+   },
+   {
+    "id": "ncaab|401921674|1h|ml|away",
+    "game": "ncaab|401921674",
+    "date": "2026-11-26",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-26T19:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "South Carolina @ Arizona State",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 158,
+    "title": "South Carolina 1H ML",
+    "est": 0.4199,
+    "edge": 0.0323,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "south-carolina-gamecocks",
+    "angles": [
+     [
+      "South Carolina 1H ML, season",
+      "6-0"
+     ],
+     [
+      "South Carolina 1H ML, last 8",
+      "6-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "South Carolina"
+   },
+   {
+    "id": "ncaab|401921673|1h|ml|away",
+    "game": "ncaab|401921673",
+    "date": "2026-11-26",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-26T21:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Utah State @ USC",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 122,
+    "title": "Utah State 1H ML",
+    "est": 0.4817,
+    "edge": 0.0312,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "utah-state-aggies",
+    "angles": [
+     [
+      "Utah State 1H ML, season",
+      "6-0"
+     ],
+     [
+      "Utah State 1H ML, last 8",
+      "6-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Utah State"
    },
    {
     "id": "ncaab|401920539|1h|ml|home",
