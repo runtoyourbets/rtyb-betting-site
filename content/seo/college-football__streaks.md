@@ -19,7 +19,7 @@ Pick the segment, the market and All, Home or Away. All shows each team's overal
 
 ### Example
 
-Say a team has failed to cover the 1st quarter spread 6 straight at home, and it is home this week. Its row shows a 6 chip, "1Q no cover" and "at home". RIDE is the other team's 1Q spread at the best price (the side that keeps the streak going); FADE is the team's own. A 2nd half streak shows "2H line posts at halftime" instead.
+Say a team has failed to cover the 1st quarter spread 6 straight at home, and it is home this week. Its row shows a 6 chip, "1Q ATS L" and "at home". RIDE is the other team's 1Q spread at the best price (the side that keeps the streak going); FADE is the team's own. A 2nd half streak shows "2H line posts at halftime" instead.
 
 ### What I look for
 

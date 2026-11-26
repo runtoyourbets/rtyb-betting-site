@@ -205,10 +205,10 @@ def streak_words(doc, slug, m, st, k):
 
 
 def market_short(doc, m, kind, k):
-    """A team's outcome in a market, short: "1H Under", "1Q ML wins"."""
+    """A team's outcome in a market, short: "1H Under", "Won 1Q", "1H ATS L"."""
     tag = seg_of(doc, k)['tag']
-    return {'ml': f"{tag} ML {'wins' if kind == 'W' else 'losses'}",
-            'ats': f"{tag} Spread {'covers' if kind == 'W' else 'losses'}",
+    return {'ml': f"{'Won' if kind == 'W' else 'Lost'} {tag}",
+            'ats': f"{tag} ATS {'W' if kind == 'W' else 'L'}",
             'total': f"{tag} {'Over' if kind == 'O' else 'Under'}" + (' 1.5' if doc['sport'] == 'nhl' else ''),
             'btts': f"{tag} BTTS {'Yes' if kind == 'Y' else 'No'}",
             'rfi': 'YRFI' if kind == 'Y' else 'NRFI'}[m]
@@ -290,7 +290,7 @@ def game_trends(doc, g, cards, seqs_by_seg):
                                            'rec': pct_rec(ln['x'], ln['y'] - ln['x']), 'edge': ln['rate'] - league_rate(seqs, m, ln['kind']), 'rate': ln['rate']}))
             if st and st['n'] >= 3:
                 found.append((st['kind'], {'kind': 'streak', 'text': streak_words(doc, g[side], m, st, k),
-                                           'short': f"{code(doc, g[side])} · {streak_word(market_short(doc, m, st['kind'], k))} streak", 'rec': f"{st['n']} straight", 'edge': None}))
+                                           'short': f"{code(doc, g[side])} · {market_short(doc, m, st['kind'], k)}", 'rec': f"{st['n']} straight", 'edge': None}))
             for kind, t in found:
                 # a team's lean or run picks that team (or its opponent); a game market picks the side
                 pick = (side if kind == HIT[m] else 'home' if side == 'away' else 'away') if m in ('ml', 'ats') else GAME_PICK[kind]

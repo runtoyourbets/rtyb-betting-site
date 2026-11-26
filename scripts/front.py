@@ -1479,8 +1479,8 @@ def last_week(sport, today):
 
 WR_ROWS = 3   # Week N Results: best / worst results shown
 WR_STREAKS = 4   # ... and streaks that grew, and that ended
-# a streak that ended, by its market and the result it ran on: "1Q Under streak ended at 11"
-STREAK_WORD = {'su': {'W': 'win', 'L': 'losing'}, 'ats': {'W': 'cover', 'L': 'no-cover'}, 'tot': {'O': 'Over', 'U': 'Under'},
+# a streak that ended, by its market and the result it ran on: "1Q Under · ended at 11"
+STREAK_WORD = {'su': {'W': 'Won', 'L': 'Lost'}, 'ats': {'W': 'ATS W', 'L': 'ATS L'}, 'tot': {'O': 'Over', 'U': 'Under'},
                'rfi': {'Y': 'YRFI', 'N': 'NRFI'}}
 
 
@@ -1551,7 +1551,7 @@ def week_results(sport, wk, now_utc, root=''):
 
     def streak_row(c):
         n = n_of(c)
-        if c['change'] == 'snapped':   # the gray chip (Run's Over), "SJSU · 1Q Under streak ended at 11", then the game that ended it
+        if c['change'] == 'snapped':   # the gray chip (Run's Over), "SJSU · 1Q Under · ended at 11", then the game that ended it
             g = next((g for g in reversed(finals) if c['team'] in (dc.team_of(D, g['away'])[1], dc.team_of(D, g['home'])[1])), None)
             seg, m = c['market'].split(':')
             tag = next((s['tag'] for s in sport.segments if s['key'] == seg), seg)
@@ -1559,7 +1559,7 @@ def week_results(sport, wk, now_utc, root=''):
             game = (f'<span class="yb-dot">&middot;</span><a class="wr-bet" href="{esc(game_href(g))}">'
                     f'{esc(sport.code(g["away"]))} @ {esc(sport.code(g["home"]))}</a>') if g else ''
             return (f'<li class="yb-row"><span class="sk-len sk-over">{n}</span><span class="yb-sp">{esc(c["team"])}</span><span class="yb-dot">&middot;</span>'
-                    f'<span class="yb-mk">{esc(" ".join(x for x in ((tag if m != "rfi" else ""), what) if x))} streak ended at {n}</span>{game}</li>')
+                    f'<span class="yb-mk">{esc(" ".join(x for x in ((what, tag) if m == "su" else ((tag if m != "rfi" else ""), what)) if x))} &middot; ended at {n}</span>{game}</li>')
         return (f'<li class="yb-row"><span class="sk-len {heat_cls(n)}">{n}</span><span class="yb-sp">{esc(c["team"])}</span>'
                 f'<span class="yb-mk">{esc(c["streak"])}</span></li>')
     grew = sorted([c for c in changes if c['change'] == 'extended'], key=lambda c: -n_of(c))[:WR_STREAKS]

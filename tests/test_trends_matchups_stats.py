@@ -54,16 +54,16 @@ class TipBoxTest(unittest.TestCase):
 class LabelTextTest(unittest.TestCase):
     def test_label_texts(self):
         L = definitions.tooltips()['matchup_labels']
-        self.assertEqual(L['lockdown']['tooltip'], 'Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 5+ played.')
-        self.assertEqual(L['fireworks']['tooltip'], 'Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 5+ played.')
-        self.assertEqual(L['tug_of_war']['tooltip'], 'One team’s {segment}s usually go Over, the other’s usually go Under.')
-        self.assertIn('not both teams score', L['lockdown']['tooltip_btts'])
-        self.assertIn('both teams usually score', L['fireworks']['tooltip_btts'])
+        self.assertEqual(L['lockdown']['tooltip'], 'Both teams’ {segment}s have gone Under in 60%+ of their games (5+ played).')
+        self.assertEqual(L['fireworks']['tooltip'], 'Both teams’ {segment}s have gone Over in 60%+ of their games (5+ played).')
+        self.assertEqual(L['tug_of_war']['tooltip'], 'One team’s {segment}s have gone Over in 60%+ of its games, the other’s have gone Under in 60%+ (5+ played).')
+        self.assertIn('gone BTTS No', L['lockdown']['tooltip_btts'])
+        self.assertIn('gone BTTS Yes', L['fireworks']['tooltip_btts'])
 
     def test_plural_segment(self):
-        x = {'tooltip': 'Both teams’ {segment}s usually go Under.'}
-        self.assertEqual(front.label_text(x, '1st period'), 'Both teams’ 1st periods usually go Under.')
-        self.assertEqual(front.label_text(x, 'first five'), 'Both teams’ first five usually go Under.')
+        x = {'tooltip': 'Both teams’ {segment}s have gone Under.'}
+        self.assertEqual(front.label_text(x, '1st period'), 'Both teams’ 1st periods have gone Under.')
+        self.assertEqual(front.label_text(x, 'first five'), 'Both teams’ first five have gone Under.')
 
     def test_chip_has_its_own_i(self):
         html = front.label_chip('🔒 Lockdown', 'Both teams…')

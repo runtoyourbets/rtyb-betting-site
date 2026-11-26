@@ -1541,14 +1541,14 @@
     // CURRENT STREAKS: chips, 3+ only; between seasons, the season's longest per market
     function streakText(m, kind, k) {
       var tag = D.sportType === 'baseball' ? (m === 'rfi' ? '' : 'F5 ') : seg(k).tag + ' ';
-      if (m === 'ml') return tag + (kind === 'W' ? 'wins' : 'losses');
-      if (m === 'ats') return tag + (kind === 'W' ? 'covers' : 'non-covers');
+      if (m === 'ml') return (kind === 'W' ? 'Won ' : 'Lost ') + tag.trim();
+      if (m === 'ats') return tag + 'ATS ' + (kind === 'W' ? 'W' : 'L');
       if (m === 'total') return tag + (kind === 'O' ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '');
       if (m === 'btts') return 'BTTS ' + (kind === 'Y' ? 'Yes' : 'No');
       return kind === 'Y' ? 'YRFI' : 'NRFI';
     }
     function chip(n, m, kind, k, dates) {
-      return '<div class="tp-chip"><span class="tp-cn ' + heatCls(n) + '">' + n + '</span><span class="tp-ct">' + n + ' straight ' + esc(streakText(m, kind, k)) +
+      return '<div class="tp-chip"><span class="tp-cn ' + heatCls(n) + '">' + n + '</span><span class="tp-ct">' + esc(streakText(m, kind, k)) + ' &middot; ' + n + ' straight' +
         (dates ? '<small>' + dates + '</small>' : '') + '</span></div>';
     }
     function eachSeq(fn) {
@@ -2941,7 +2941,7 @@
   function sideWord(m, kind, k) {
     var t = seg(k).tag;
     if (m === 'ml') return (kind === 'W' ? 'Won ' : 'Lost ') + t;
-    if (m === 'ats') return (kind === 'W' ? 'Covered ' : 'Didn’t cover ') + t;
+    if (m === 'ats') return t + ' ATS ' + (kind === 'W' ? 'W' : 'L');
     if (m === 'total') return kind === 'O' ? 'Over' : 'Under';
     if (m === 'btts') return kind === 'Y' ? 'Yes' : 'No';
     return kind === 'Y' ? 'YRFI' : 'NRFI';
@@ -3079,7 +3079,7 @@
   function stkWord(m, kind, k) {
     var t = k === 'game' ? 'Game' : seg(k).tag;
     if (m === 'ml' || m === 'ml3') return kind === 'W' ? 'Won ' + t : kind === 'T' ? 'Tied ' + t : 'Lost ' + t;
-    if (m === 'ats') return kind === 'W' ? 'Covered ' + t : 'No cover ' + t;
+    if (m === 'ats') return t + ' ATS ' + (kind === 'W' ? 'W' : 'L');
     if (m === 'total') return t + ' ' + (kind === 'O' ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '');
     if (m === 'btts') return t + ' BTTS ' + (kind === 'Y' ? 'Yes' : 'No');
     return kind === 'Y' ? 'YRFI' : 'NRFI';
@@ -4044,8 +4044,8 @@
   }
   function h2StreakText(m, kind, k) {
     var tag = D.sportType === 'baseball' ? (m === 'rfi' ? '' : 'F5 ') : seg(k).tag + ' ';
-    if (m === 'ml') return tag + (kind === 'W' ? 'wins' : 'losses');
-    if (m === 'ats') return tag + (kind === 'W' ? 'covers' : 'non-covers');
+    if (m === 'ml') return (kind === 'W' ? 'Won ' : 'Lost ') + tag.trim();
+    if (m === 'ats') return tag + 'ATS ' + (kind === 'W' ? 'W' : 'L');
     if (m === 'total') return tag + (kind === 'O' ? 'Over' : 'Under') + (D.sport === 'nhl' ? ' 1.5' : '');
     if (m === 'btts') return 'BTTS ' + (kind === 'Y' ? 'Yes' : 'No');
     return kind === 'Y' ? 'YRFI' : 'NRFI';
@@ -4060,7 +4060,7 @@
         tmMarkets(s.key).forEach(function(p) {
           var m = p.m === 'ml3' ? 'ml' : p.m, st = !done[m] && HIT[m] ? streakOf(((seqs[slug] || {})[m]) || []) : null;
           done[m] = 1;
-          if (st && st.n >= 3) chips.push({ n: st.n, html: '<div class="tp-chip"><span class="tp-cn ' + heatCls(st.n) + '">' + st.n + '</span><span class="tp-ct">' + st.n + ' straight ' + esc(h2StreakText(m, st.kind, s.key)) + '</span></div>' });
+          if (st && st.n >= 3) chips.push({ n: st.n, html: '<div class="tp-chip"><span class="tp-cn ' + heatCls(st.n) + '">' + st.n + '</span><span class="tp-ct">' + esc(h2StreakText(m, st.kind, s.key)) + ' &middot; ' + st.n + ' straight</span></div>' });
         });
       });
       chips.sort(function(a, b) { return b.n - a.n; });
@@ -4372,10 +4372,11 @@
     if (SKF.m === 'all' ? SK_QUIET[s.m] : s.m !== SKF.m) return false;
     return SKF.v === 'all' ? s.v === 'all' || !!s.gt : s.v === SKF.v;
   }
-  // "Game no cover", "1Q Under", "2H losses", "NRFI" (the chip is the count)
+  // "Game ATS L", "1Q Under", "Lost 2H", "NRFI" (the chip is the count)
   function skWhat(s) {
     var tag = skSeg(s.k).tag || '', nhl15 = D.sport === 'nhl' && s.k !== 'game';
-    var w = { su: { W: 'wins', L: 'losses' }, ml3: { W: '3-way wins', L: '3-way losses' }, ats: { W: 'covers', L: 'no cover' },
+    if (s.m === 'su' || s.m === 'ml3') return (s.kd === 'W' ? 'Won ' : 'Lost ') + tag + (s.m === 'ml3' ? ' (3-way)' : '');
+    var w = { ats: { W: 'ATS W', L: 'ATS L' },
       tot: { O: nhl15 ? 'Over 1.5' : 'Over', U: nhl15 ? 'Under 1.5' : 'Under' }, o05: { O: 'Over 0.5', U: 'Under 0.5' },
       btts: { Y: 'BTTS Yes', N: 'BTTS No' }, scored: { Y: 'scored', N: 'scoreless' }, rfi: { Y: 'YRFI', N: 'NRFI' } }[s.m][s.kd];
     return (tag ? tag + ' ' : '') + w;

@@ -352,11 +352,12 @@ def write_data(sp, today=None):
 
 # ---------------------------------------------------------------- words
 def what(sp, k, m, kd):
-    """The streak, short: "Game no cover", "1Q Under", "2H losses", "NRFI"."""
+    """The streak, short: "Game ATS L", "1Q Under", "Lost 2H", "NRFI"."""
     tag = next((x[3] for x in segments(sp) if x[0] == k), '')
     nhl15 = sp['key'] == 'nhl' and k != 'game'
-    w = {'su': {'W': 'wins', 'L': 'losses'}, 'ml3': {'W': '3-way wins', 'L': '3-way losses'},
-         'ats': {'W': 'covers', 'L': 'no cover'},
+    if m in ('su', 'ml3'):
+        return f"{'Won' if kd == 'W' else 'Lost'} {tag}" + (' (3-way)' if m == 'ml3' else '')
+    w = {'ats': {'W': 'ATS W', 'L': 'ATS L'},
          'tot': {'O': 'Over 1.5' if nhl15 else 'Over', 'U': 'Under 1.5' if nhl15 else 'Under'},
          'o05': {'O': 'Over 0.5', 'U': 'Under 0.5'}, 'btts': {'Y': 'BTTS Yes', 'N': 'BTTS No'},
          'scored': {'Y': 'scored', 'N': 'scoreless'}, 'rfi': {'Y': 'YRFI', 'N': 'NRFI'}}[m][kd]
