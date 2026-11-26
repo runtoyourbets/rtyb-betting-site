@@ -3061,18 +3061,21 @@
     var per = games.map(function(g) { return { g: g, items: matchupItems(g, ks.filter(function(k) { return lined(g, k); }), o.before, o.past, st.mkt) }; });
     var counts = {};
     per.forEach(function(x) { MT_ORDER.forEach(function(id) { if (x.items.some(function(i) { return i.id === id; })) counts[id] = (counts[id] || 0) + 1; }); });
-    var total = per.filter(function(x) { return x.items.length; }).length;
     var labels = TR.tips.matchup_labels || {};
+    // the six labels only (no All): the picked one, else the first with matchups
+    var ids = MT_ORDER.filter(function(id) { return labels[id]; });
+    if (ids.indexOf(lbl) === -1 || !counts[lbl]) lbl = ids.filter(function(id) { return counts[id]; })[0] || ids[0];
     var chips = '<div class="seg-toggle tr-frow mt-lbls" role="group" aria-label="Matchup label">' +
-      [['all', 'All', total]].concat(MT_ORDER.filter(function(id) { return labels[id]; }).map(function(id) { return [id, labels[id].label, counts[id] || 0]; })).map(function(x) {
+      ids.map(function(id) { return [id, labels[id].label, counts[id] || 0]; }).map(function(x) {
         return '<button class="seg-btn" data-mtl="' + x[0] + '" aria-pressed="' + (x[0] === lbl) + '"' + (x[2] ? '' : ' disabled') + '>' + esc(x[1]) + ' <span class="mt-n">' + x[2] + '</span></button>';
       }).join('') + '</div>';
     var shown = per.map(function(x) {
-      var its = x.items.filter(function(i) { return lbl === 'all' || i.id === lbl; });
+      var its = x.items.filter(function(i) { return i.id === lbl; });
       return its.length ? { g: x.g, items: its, rate: its.reduce(function(a, i) { return a + i.rate; }, 0) / its.length } : null;
     }).filter(Boolean);
-    shown.sort(function(a, b) { return (b.items.length - a.items.length) || (b.rate - a.rate) || ((a.g.start || '') < (b.g.start || '') ? -1 : 1); });
-    var def = lbl !== 'all' && labels[lbl] ? '<p class="tp-sub mt-def">' + esc(labelText(labels[lbl], st.seg === 'all' ? 'segment' : ((TR.segments || {})[st.seg] || 'segment'), false)) + '</p>' : '';
+    // by start time, the next game first
+    shown.sort(function(a, b) { return (a.g.start || '').localeCompare(b.g.start || '') || (b.rate - a.rate); });
+    var def = labels[lbl] ? '<h3 class="mt-head">' + esc(labels[lbl].label) + '</h3><p class="tp-sub mt-def">' + esc(labelText(labels[lbl], st.seg === 'all' ? 'segment' : ((TR.segments || {})[st.seg] || 'segment'), false)) + '</p>' : '';
     var body = shown.length ? '<div class="mt-grid">' + shown.map(function(x, i) {
       var h = matchupCard(x.g, x.items, lbl, o.past);
       return i >= MT_GAMES ? h.replace('<div class="st-card mt-game"', '<div hidden class="st-card mt-game"') : h;
@@ -4338,6 +4341,14 @@
       '<div class="df2-legend"><span><i class="df2-sw ' + DF_TINT[m.ta] + '"></i>' + dfWins(m.a) + '</span><span><i class="df2-sw ' + DF_TINT[m.tb] + '"></i>' + dfWins(m.b) + '</span>' +
       '<span><i class="df2-sw"></i>Even</span>' + (post ? '<span><i class="df2-post"></i>Postseason</span>' : '') + '<span class="df2-hint">Click a day for that day&rsquo;s matchups</span></div>';
   }
+  // the Trends pills (small, left-aligned; phones scroll sideways, short labels)
+  var DF_SEG_SHORT = { '1st Quarter': '1Q', '1st Half': '1H', '2nd Half': '2H', 'Full Game': 'FG', '1st Period': '1P', '2nd Period': '2P', '3rd Period': '3P', '1st Inning': '1st Inn', 'First 5': 'F5' };
+  function dfPills(name, attr, opts, cur) {
+    return '<div class="seg-toggle tr-frow" role="group" aria-label="' + name + '">' + opts.map(function(o) {
+      return '<button type="button" class="seg-btn" ' + attr + '="' + esc(o.k) + '" aria-pressed="' + (o.k === cur) + '">' +
+        (o.s && o.s !== o.label ? '<span class="tn-full">' + esc(o.label) + '</span><span class="tn-short">' + esc(o.s) + '</span>' : esc(o.label)) + '</button>';
+    }).join('') + '</div>';
+  }
   function drawDue() {
     var s = DUE.seasons[DF.s], seg = dfSegOf(DF.seg), m = seg.m.filter(function(x) { return x.id === DF.m; })[0] || seg.m[0];
     DF.m = m.id;
@@ -4356,13 +4367,12 @@
     var card = '<div class="st-card df2-card' + (seg.fr ? ' df2-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + m.label + ' · ' + title) +
       '' + '</h4></div>' +
       (seg.fr && premiumLocked('fullRun') ? '<div class="pm-blur" aria-hidden="true">' + body + '</div><a class="pm-unlock" href="' + ROOT + '#premium">Unlock with Premium</a>' : body) + '</div>';
-    app.innerHTML = '<div class="df2-ctrl"><div class="df2-row1">' +
-      dfBar('View', 'data-df-view', views, DF.view) +
-      dfBar('Season', 'data-df-season', DUE.seasons.map(function(x, i) { return { k: String(i), label: x.label }; }), String(DF.s)) + '</div>' +
-      dfBar('Segment', 'data-df-seg', DUE.segs.map(function(x) { return { k: x.k, label: x.label, fr: x.fr }; }), seg.k) +
-      dfBar('Market', 'data-df-m', seg.m.map(function(x) { return { k: x.id, label: x.label, s: x.s }; }), m.id, ' df2-markets') + '</div>' +
-      '<p class="df2-sum">' + (seasonC[0] + seasonC[1] + seasonC[2] ? esc(dfSummary({ period: per.label, side: m.a, c: dfSum(days, per.keys), season: seasonC, prevRate: prevRate }))
-        : 'No ' + esc(s.label) + ' games with a line for this market') + '</p>' +
+    app.innerHTML = '<div class="tr-filters df-ctrl">' +
+      dfPills('Segment', 'data-df-seg', DUE.segs.map(function(x) { return { k: x.k, label: x.k === 'game' ? 'Game' : x.label, s: DF_SEG_SHORT[x.label] }; }), seg.k) +
+      dfPills('Market', 'data-df-m', seg.m.map(function(x) { return { k: x.id, label: x.label, s: x.s }; }), m.id) +
+      (views.length > 1 ? dfPills('View', 'data-df-view', views, DF.view) : '') +
+      dfPills('Season', 'data-df-season', DUE.seasons.map(function(x, i) { return { k: String(i), label: x.label }; }), String(DF.s)) + '</div>' +
+      (seasonC[0] + seasonC[1] + seasonC[2] ? '' : '<p class="df2-sum">No ' + esc(s.label) + ' games with a line for this market</p>') +
       (cm.ro ? '<p class="df2-ro">Results only: no lines for this market</p>' : '') + card;
   }
   function renderDue() {
@@ -4387,7 +4397,7 @@
   // "{Sport} Streaks for {day}" (football: the week), Top Streak of the Day,
   // the Segment · Market · Home / Away pills, Streaks to Watch, Still Running
   // (All / Up Next) beside Run's Over, and Records (this season / last).
-  var SK = null, SKF = { seg: 'all', m: 'all', v: 'all', rs: 0, more: false, watchMore: false, sort: 'all' };
+  var SK = null, SKF = { seg: 'all', m: 'all', v: 'all', rs: 0, more: false, watchMore: false, sort: 'all', wsort: 'all' };
   var SK_SHOWN = 30;   // Still Running rows before "Show all"
   function skSeg(k) { return SK.segs.filter(function(x) { return x.k === k; })[0] || {}; }
   function skMkt(id) { return SK.markets.filter(function(x) { return x.id === id; })[0] || { label: id }; }
@@ -4460,18 +4470,22 @@
       if (!best || x.s.n > best.s.n) best = x;
     });
     if (!best) return '';
-    return '<div class="st-card sk-card sk-top"><div class="st-head"><h4>Top Streak of the ' + (SK.weekly ? 'Week' : 'Day') + '</h4></div>' + skLine(best.s, best.sub, true) + '</div>';
+    return '<div class="st-card sk-card sk-top"><div class="st-head"><h4>Hottest Run</h4></div>' + skLine(best.s, best.sub, true) + '</div>';
   }
   function skTonight() {
     var t = SK.tonight;
     if (!t) return '';
     var list = skWatchList().filter(function(x) { return skMatch(x.s); });
-    list.sort(SK.weekly ? function(a, b) { return (a.g.start || '').localeCompare(b.g.start || '') || b.s.n - a.s.n; } : function(a, b) { return b.s.n - a.s.n; });
+    // All: longest first; Up Next: by start time, the soonest game first
+    list.sort(SKF.wsort === 'next' ? function(a, b) { return (a.g.start || '').localeCompare(b.g.start || '') || b.s.n - a.s.n; } : function(a, b) { return b.s.n - a.s.n || (a.g.start || '').localeCompare(b.g.start || ''); });
     var open = SKF.watchMore, shown = open ? list : list.slice(0, SK_WATCH);
     var body = list.length ? '<div class="sk-wgrid">' + skRows(shown, function(x) { return skLine(x.s, x.sub); }) + '</div>' +
       (list.length > SK_WATCH ? '<button type="button" class="sk-more" data-sk-wmore="1">' + (open ? 'Show less' : 'Show all ' + list.length) + '</button>' : '')
       : '<p class="tp-none">No streaks of 5 or more on the line for these picks.</p>';
-    return '<div class="st-card sk-card sk-tonight"><div class="st-head"><h4>Streaks to Watch</h4></div>' + body + '</div>';
+    var sorts = '<div class="seg-toggle tr-frow sk-sorts" role="group" aria-label="Sort">' + [['all', 'All'], ['next', 'Up Next']].map(function(o) {
+      return '<button class="seg-btn" data-sk-wsort="' + o[0] + '" aria-pressed="' + (SKF.wsort === o[0]) + '">' + o[1] + '</button>';
+    }).join('') + '</div>';
+    return '<div class="st-card sk-card sk-tonight"><div class="st-head"><h4>In Play ' + (SK.weekly ? 'This Week' : 'Today') + '</h4></div>' + sorts + body + '</div>';
   }
   function skRunning() {
     var playing = {}, today = (SK.tonight || {}).day || SK.today;
@@ -4549,7 +4563,10 @@
       row('data-sk-v', [['all', 'All'], ['home', 'Home'], ['away', 'Away']], SKF.v, 'Home or away') + (confOn() ? '<div class="sk-conf">' + confSel() + '</div>' : '') + '</div>';
     var name = { ncaab: 'College Basketball', ncaaf: 'College Football' }[D.sport] || D.label;
     var t = SK.tonight, head = t ? '<h2 class="tr-head">' + esc(name + ' Streaks for ' + (SK.weekly ? t.label : longDay(t.day))) + '</h2>' : '';
-    app.innerHTML = SK.cur ? head + skTop() + ctrl + skTonight() + '<div class="sk-two">' + skRunning() + skEnded() + '</div>' + skRecords()
+    function h2(t) { return '<div class="tph sk-h"><div><h2>' + t + '</h2></div></div>'; }
+    var top = skTop();
+    app.innerHTML = SK.cur ? head + (top ? h2('Top Streak of the ' + (SK.weekly ? 'Week' : 'Day')) + top : '') + h2('Streaks to Watch') + ctrl + skTonight() +
+      '<div class="sk-two">' + skRunning() + skEnded() + '</div>' + skRecords()
       : ctrl + (SK.ended.list.filter(skMatch).length ? skEnded() : '') + skRecords();
     wireConf(app, function() { SKF.more = false; SKF.watchMore = false; drawStreaks(); });
   }
@@ -4557,7 +4574,7 @@
     fetch(dataUrl(SPORT_SLUG + '/streaks.json')).then(function(r) { return r.json(); }).then(function(x) {
       SK = x;
       app.addEventListener('click', function(e) {
-        var b = e.target.closest('[data-sk-seg],[data-sk-m],[data-sk-v],[data-sk-rs],[data-sk-more],[data-sk-wmore],[data-sk-sort]');
+        var b = e.target.closest('[data-sk-seg],[data-sk-m],[data-sk-v],[data-sk-rs],[data-sk-more],[data-sk-wmore],[data-sk-sort],[data-sk-wsort]');
         if (!b) return;
         if (b.hasAttribute('data-sk-more')) { SKF.more = true; drawStreaks(); return; }
         if (b.hasAttribute('data-sk-wmore')) { SKF.watchMore = !SKF.watchMore; drawStreaks(); return; }
@@ -4565,6 +4582,7 @@
         else if (b.hasAttribute('data-sk-m')) SKF.m = b.getAttribute('data-sk-m');
         else if (b.hasAttribute('data-sk-v')) SKF.v = b.getAttribute('data-sk-v');
         else if (b.hasAttribute('data-sk-sort')) SKF.sort = b.getAttribute('data-sk-sort');
+        else if (b.hasAttribute('data-sk-wsort')) SKF.wsort = b.getAttribute('data-sk-wsort');
         else SKF.rs = +b.getAttribute('data-sk-rs');
         SKF.more = false; SKF.watchMore = false;
         drawStreaks();
