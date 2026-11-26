@@ -15027,8 +15027,8 @@
      ]
     ],
     "info": "Avg 1Q total in their games: Bucks 51.0 \u00b7 Nets 56.2",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.9615,
     "streakTeamName": "Bucks"
    },
    {
@@ -15319,52 +15319,6 @@
     "streakTeamName": "Suns"
    },
    {
-    "id": "nba|401909325|1q|ml|away",
-    "game": "nba|401909325",
-    "date": "2026-11-25",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-26T03:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Spurs @ Trail Blazers",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": -130,
-    "title": "Spurs 1Q ML",
-    "est": 0.6059,
-    "edge": 0.0407,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": -1,
-    "streakTeam": "sa",
-    "angles": [
-     [
-      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
-      "3-1-1"
-     ],
-     [
-      "Spurs 1Q ML, season",
-      "12-6"
-     ],
-     [
-      "Spurs 1Q ML, last 8",
-      "5-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Spurs"
-   },
-   {
     "id": "ncaab|401921713|1h|ml|away",
     "game": "ncaab|401921713",
     "date": "2026-11-25",
@@ -15406,6 +15360,52 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Washington"
+   },
+   {
+    "id": "nba|401909325|1q|ml|away",
+    "game": "nba|401909325",
+    "date": "2026-11-25",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Spurs @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": -135,
+    "title": "Spurs 1Q ML",
+    "est": 0.6117,
+    "edge": 0.0372,
+    "agree": 3,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "sa",
+    "angles": [
+     [
+      "Trail Blazers\u2019s opponents 1Q ML, Trail Blazers at home",
+      "3-1-1"
+     ],
+     [
+      "Spurs 1Q ML, season",
+      "12-6"
+     ],
+     [
+      "Spurs 1Q ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Spurs"
    },
    {
     "id": "ncaab|401920076|1h|ml|away",
