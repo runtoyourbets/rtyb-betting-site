@@ -430,5 +430,43 @@
    "start": "2026-11-26T01:00:00Z",
    "trend": "NSH has gone Over 1.5"
   }
+ },
+ "2026-11-26": {
+  "all": {
+   "away": "jacksonville-state-gamecocks",
+   "chip": "BACK OPPONENTS OF A BACK-TO-BACK TEAM · 1H ML · 88% (23-3)",
+   "home": "uc-davis-aggies",
+   "id": "401911523",
+   "sport": "ncaab",
+   "start": "2026-11-27T01:00Z",
+   "trend": "Back opponents of a back-to-back team (1H ML)"
+  },
+  "ncaab": {
+   "away": "jacksonville-state-gamecocks",
+   "chip": "BACK OPPONENTS OF A BACK-TO-BACK TEAM · 1H ML · 88% (23-3)",
+   "home": "uc-davis-aggies",
+   "id": "401911523",
+   "sport": "ncaab",
+   "start": "2026-11-27T01:00Z",
+   "trend": "Back opponents of a back-to-back team (1H ML)"
+  },
+  "ncaaf": {
+   "away": "florida-atlantic-owls",
+   "chip": "ECU UNDER 1Q TOTAL · 11 OF 11",
+   "home": "east-carolina-pirates",
+   "id": "401862837",
+   "sport": "ncaaf",
+   "start": "2026-11-28T18:00Z",
+   "trend": "ECU has gone Under the 1st quarter total"
+  },
+  "nfl": {
+   "away": "ten",
+   "chip": "TEN LOST 1H · 10 OF 10",
+   "home": "jax",
+   "id": "401873090",
+   "sport": "nfl",
+   "start": "2026-11-29T18:00Z",
+   "trend": "TEN has lost the 1st half"
+  }
  }
 }

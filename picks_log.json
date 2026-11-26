@@ -15686,5 +15686,145 @@
     "streakTeamName": "Chicago"
    }
   ]
+ },
+ "2026-11-26": {
+  "plays": [
+   {
+    "id": "ncaaf|401856879|1h|ml|away",
+    "game": "ncaaf|401856879",
+    "date": "2026-11-26",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-27T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "TCU @ Texas Tech",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 400,
+    "title": "TCU 1H ML",
+    "est": 0.2601,
+    "edge": 0.0601,
+    "agree": 2,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "tcu-horned-frogs",
+    "angles": [
+     [
+      "TCU 1H ML on the road",
+      "2-1"
+     ],
+     [
+      "TCU 1H ML, season",
+      "5-4-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "TCU"
+   },
+   {
+    "id": "nfl|401873081|1q|ats|away",
+    "game": "nfl|401873081",
+    "date": "2026-11-26",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-26T18:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Bears @ Lions",
+    "href": "nfl/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": -0.5,
+    "price": 135,
+    "title": "Bears 1Q -0.5",
+    "est": 0.4639,
+    "edge": 0.0384,
+    "agree": 3,
+    "sample": 10,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater",
+     "Streak Rider",
+     "Early Bird"
+    ],
+    "streak": 5,
+    "streakTeam": "chi",
+    "angles": [
+     [
+      "Bears 1Q ATS at -0.5, last 8",
+      "7-1"
+     ],
+     [
+      "Bears 1Q ATS at -0.5, season",
+      "8-2"
+     ],
+     [
+      "Bears 1Q ATS at -0.5 on the road",
+      "3-1"
+     ]
+    ],
+    "info": "Bears avg 1Q margin on the road: +5.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Bears"
+   },
+   {
+    "id": "nfl|401873080|1h|ats|away",
+    "game": "nfl|401873080",
+    "date": "2026-11-26",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-26T21:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Eagles @ Cowboys",
+    "href": "nfl/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 5.5,
+    "price": -105,
+    "title": "Eagles 1H +5.5",
+    "est": 0.5483,
+    "edge": 0.0361,
+    "agree": 3,
+    "sample": 10,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "phi",
+    "angles": [
+     [
+      "Eagles 1H ATS at +5.5 on the road",
+      "4-0"
+     ],
+     [
+      "Eagles 1H ATS at +5.5, season",
+      "9-1"
+     ],
+     [
+      "Eagles 1H ATS at +5.5, last 8",
+      "7-1"
+     ]
+    ],
+    "info": "Eagles avg 1H margin on the road: +1.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Eagles"
+   }
+  ]
  }
 }
