@@ -72,7 +72,7 @@ class EverySportTest(unittest.TestCase):
         at = lambda iso: datetime.fromisoformat(iso).replace(tzinfo=timezone.utc)
         self.assertEqual([preview.kickoff_window(at(x)) for x in ('2026-11-20T01:15', '2026-11-22T18:00', '2026-11-22T21:25',
                                                                    '2026-11-23T01:20', '2026-11-24T01:15', '2026-11-21T17:00')],
-                         ['Thursday', 'Sunday 1:00 PM', 'Sunday 4:25 PM', 'Sunday Night', 'Monday Night', 'Saturday'])
+                         ['Thursday', 'Sunday 1:00 PM ET', 'Sunday 4:25 PM ET', 'Sunday Night', 'Monday Night', 'Saturday'])
         self.assertEqual(preview.page_dir('nfl', 11), 'nfl/preview/week-11/')
         self.assertEqual(preview.page_dir('ncaaf', 12), 'college-football/preview/week-12/')
 

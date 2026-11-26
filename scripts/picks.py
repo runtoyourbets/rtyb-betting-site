@@ -559,7 +559,7 @@ def units_html(u, n):
 
 def time_et(iso):
     t = datetime.fromisoformat(iso.replace('Z', '+00:00')).astimezone(ET)
-    return t.strftime('%-I:%M %p')
+    return t.strftime('%-I:%M %p') + ' ET'
 
 
 def play_card(p, idx, free, depth):

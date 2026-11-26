@@ -309,7 +309,7 @@
   // Segments without 'ML' in their markets (NCAAB 1st half) show no moneyline / SU anywhere.
   function hasMl(k) { var s = seg(k); return !s || !s.markets || s.markets.indexOf('ML') !== -1; }
   // the Matchups page's Game pill (spread sports): the full game's lines and score
-  function gameSegOn() { return SECTION === 'games' && !periodFamily() && !!frSeg('game'); }
+  function gameSegOn() { return (SECTION === 'games' && !periodFamily() && !!frSeg('game')) || SECTION === 'odds' || SECTION === 'h2h'; }
   function getSeg() { return seg(SEG_CUR) || (SEG_CUR === 'game' && gameSegOn()) ? SEG_CUR : D.segments[0].key; }
   function setSeg(k) {
     SEG_CUR = k;
@@ -887,7 +887,7 @@
   // "@ TB · 7:30 PM" / "vs WPG · 7:00 PM" (Today on only)
   function tlGameTxt(pl) {
     var t = pl.g.start ? new Date(pl.g.start).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) : '';
-    return (pl.at ? '@ ' : 'vs ') + tcode(pl.opp) + (t ? ' · ' + t : '');
+    return (pl.at ? '@ ' : 'vs ') + tcode(pl.opp) + (t ? ' · ' + t + ' ET' : '');
   }
   // LEADERS (desktop): a card per market, Hottest / Coldest Last 10, Longest Active Streaks
   function tlLeaders(byTeam, k) {
@@ -3362,7 +3362,9 @@
   function booksBtn(picker, sources) {
     if (!picker.length) return '';
     var n = picker.filter(function(b) { return mbPicked(b.id, picker, sources); }).length;
-    return '<button type="button" class="seg-btn mb-btn" id="mbBtn" aria-haspopup="dialog">Books ' + n + '/' + picker.length + '</button>';
+    // a gear (Settings): My books lives in it
+    return '<button type="button" class="mb-btn mb-gear" id="mbBtn" aria-haspopup="dialog" aria-label="Settings: my books" title="Settings">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>' + '</button>';
   }
   // the Books picker: a modal (a bottom sheet on phones) with a block per
   // Books tab group, a checkbox per book (its logo, else its name) and
@@ -3381,7 +3383,7 @@
     }
     function draw() {
       wrap.innerHTML = '<div class="cal-back" data-close></div><div class="cal-sheet mb-sheet">' +
-        '<div class="cal-head"><b>My books</b><button type="button" class="cal-x" data-close aria-label="Close">&times;</button></div>' +
+        '<div class="cal-head"><b>Settings &middot; My books</b><button type="button" class="cal-x" data-close aria-label="Close">&times;</button></div>' +
         MB_GROUPS.map(function(gr) {
           var bs = picker.filter(function(b) { return b.g === gr[0]; });
           if (!bs.length) return '';
@@ -3502,6 +3504,8 @@
   // the bottom says so). The controls and the header row stay pinned.
   // ?mkt= opens a market (The Big Numbers' rows link to theirs, #og-away-home: the game)
   var MKT_CUR = new URLSearchParams(location.search).get('mkt');
+  // Odds cells clicking through to the book (Gambly links): off for now (Chris, Nov 26)
+  var ODDS_LINKS = false;
   var OG_HASH = /^#og-/.test(location.hash) ? location.hash.slice(1) : null;
   // the market pills: totals read "O/U" (NHL "O/U 1.5", MLB "F5 O/U")
   function pillLabel(x) { return x[1] === 'total' ? x[2].replace('Total', 'O/U') : x[2]; }
@@ -3577,6 +3581,12 @@
   // one: {box, day, away, home, onBooks} draws one game's table into box (the
   // head to head page): no date bar, the segment and market tabs and the
   // Books picker (onBooks: after a change)
+  function oddsSegBar(k) {
+    var segs = D.segments.concat([{ key: 'game', label: 'Game' }]);
+    return '<div class="seg-toggle" id="pageSeg">' + segs.map(function(s) {
+      return '<button class="seg-btn" data-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>';
+    }).join('') + '</div>';
+  }
   function renderOdds(one) {
     var box = one ? one.box : app;
     fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : null; }).then(function(O) {
@@ -3617,7 +3627,12 @@
         else setUrlDate(x);
         show();
       }
-      function markets(k) { return (O.markets || []).filter(function(x) { return x[0] === k; }); }
+      // the Game pill: the full game's markets (NHL ML / puck line / total, MLB ML / run line / total)
+      var GAME_MKTS = periodFamily() ? [['game', 'ml', 'Moneyline', 'side'], ['game', 'ats', spreadWord(), 'side'], ['game', 'total', 'Total', 'yn']]
+        : [['game', 'ats', 'Spread', 'side'], ['game', 'total', 'Total', 'yn'], ['game', 'ml', 'Moneyline', 'side']];
+      function markets(k) { return k === 'game' ? GAME_MKTS : (O.markets || []).filter(function(x) { return x[0] === k; }); }
+      // a game's odds block for a segment: the Game pill reads the day file's `full` block
+      function gsrc(g, k) { return k === 'game' ? (g.full || {}) : g; }
       function code(x) { return team(x).code || shortName(x); }
       // the rows for one market: [side key, label (null = the team on that row)]
       function sides(m, kind) {
@@ -3659,33 +3674,33 @@
       function colgroup(cols) { return '<colgroup><col class="ob-w-team"><col class="ob-w-open">' + cols.map(function() { return '<col class="ob-w-src">'; }).join('') + '</colgroup>'; }
       function columns(games, k, m) {
         var ids = {};
-        games.forEach(function(g) { Object.keys((((g.books || {})[k] || {})[m]) || {}).forEach(function(b) { ids[b] = 1; }); });
+        games.forEach(function(g) { Object.keys((((gsrc(g, k).books || {})[k] || {})[m]) || {}).forEach(function(b) { ids[b] = 1; }); });
         return mbColumns(order, ids, picker, sources);
       }
       function table(games, k, m, kind, cols, lined) {
         var body = games.map(function(g) {
-          var books = ((g.books || {})[k] || {})[m] || {};
+          var books = ((gsrc(g, k).books || {})[k] || {})[m] || {};
           // a game with only closing lines (The Odds API backfill): the column shows the close
           // the best price among the visitor's books (the Books picker)
-          var best = pickedBest(g, k, m, picker, sources), open = g.close ? ((g.best || {})[k] || {})[m] : ((g.open || {})[k] || {})[m];
+          var best = pickedBest(gsrc(g, k), k, m, picker, sources), open = g.close ? ((gsrc(g, k).best || {})[k] || {})[m] : ((gsrc(g, k).open || {})[k] || {})[m];
           var past = g.state !== 'pre';
           var rows = sides(m, kind).map(function(sd) {
             var s = sd[0], b = top(best, m, s), o = top(open, m, s);
             // a finished game: the side that won green, the loser dimmed, a tie or push yellow
-            var rc = resultCls(oddsSideRes(g, k, m, s));
+            var rc = '';   // no win / loss fill (Chris, Nov 26): only the best price is outlined
             return '<tr><th scope="row" class="ob-c-team">' + teamCell(g, sd, k) + '</th>' +
               '<td class="ob-c-open' + (o ? rc : '') + '">' + (o ? cellTxt(o) : '') + '</td>' +
               cols.map(function(id) {
                 var v = val(books[id], m, s);
                 if (!v) return '<td class="ob-na"></td>';
                 var cls = 'ob-cell' + rc + (counts(id, m) && same(v, b) ? ' ob-best' : '');
-                return '<td class="' + cls + '">' + (v.link && !past ? '<a href="' + esc(v.link) + '" target="_blank" rel="sponsored noopener" title="' + esc(name(id)) + '">' + cellTxt(v) + '</a>' : cellTxt(v)) + '</td>';
+                return '<td class="' + cls + '">' + (ODDS_LINKS && v.link && !past ? '<a href="' + esc(v.link) + '" target="_blank" rel="sponsored noopener" title="' + esc(name(id)) + '">' + cellTxt(v) + '</a>' : cellTxt(v)) + '</td>';
               }).join('') + '</tr>';
           }).join('');
           // timeET already names the day in week view
           var day = weeks && g.start && !(D && D.schedule === 'week') ? new Date(g.start).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }) + ' ' : '';
           // every game's time row carries Open and the book logos, over their columns
-          var pair = one ? null : h2hUrl(g.away, g.home);
+          var pair = one || g.state === 'final' ? null : h2hUrl(g.away, g.home);
           return '<tbody class="ob-game" id="og-' + esc(g.away) + '-' + esc(g.home) + '"><tr class="ob-ghead"><th scope="col" class="ob-c-team"><span class="ob-time">' + esc(day) + (g.start ? esc(timeET(g.start)) : 'TBD') + oddsStatus(g) + '</span>' +
             (pair ? '<a class="ob-h2h" href="' + pair + '">Matchup &rarr;</a>' : '') + '</th>' +
             '<th scope="col" class="ob-c-open">' + (g.close ? 'Close' : 'Open') + '</th>' + cols.map(function(b) { return '<th scope="col" class="ob-src">' + head(b) + '</th>'; }).join('') + '</tr>' + rows + '</tbody>';
@@ -3697,26 +3712,27 @@
         var games = [];
         docs.forEach(function(doc) { (doc.games || []).forEach(function(g) { games.push(g); }); });
         // a game with no line in any of the segment's markets doesn't show
-        games = games.filter(function(g) { var s = (g.books || {})[k] || {}; return Object.keys(s).some(function(m) { return s[m] && Object.keys(s[m]).length; }); });
+        games = games.filter(function(g) { var s = (gsrc(g, k).books || {})[k] || {}; return Object.keys(s).some(function(m) { return s[m] && Object.keys(s[m]).length; }); });
         if (one) games = games.filter(function(g) { return g.away === one.away && g.home === one.home; });
         // football weeks: finished games drop to the bottom, in start order
         if (weeks) games = games.filter(function(g) { return g.state !== 'final'; }).concat(games.filter(function(g) { return g.state === 'final'; }));
+        if (k === 'game' && !games.some(function(g) { return g.full; })) { /* no full-game lines saved for this slate */ }
         if (!ms.some(function(x) { return x[1] === MKT_CUR; })) {
           // start on the first market with lines on this slate
-          var withLines = ms.filter(function(x) { return games.some(function(g) { var b = ((g.books || {})[k] || {})[x[1]]; return b && Object.keys(b).length; }); });
+          var withLines = ms.filter(function(x) { return games.some(function(g) { var b = ((gsrc(g, k).books || {})[k] || {})[x[1]]; return b && Object.keys(b).length; }); });
           MKT_CUR = ((withLines[0] || ms[0]) || [])[1] || null;
         }
         var mk = ms.filter(function(x) { return x[1] === MKT_CUR; })[0];
         var m = mk ? mk[1] : null;
-        var lined = mk && games.some(function(g) { var b = ((g.books || {})[k] || {})[m]; return b && Object.keys(b).length; });
+        var lined = mk && games.some(function(g) { var b = ((gsrc(g, k).books || {})[k] || {})[m]; return b && Object.keys(b).length; });
         var cols = games.length ? columns(games, k, m) : [];
         var html = one ? '' : weeks ? weekBar(weeks, cur, thisWeek) : dateBar(cur, dates, true);
-        html += '<div class="ob-stick" id="obStick"><div class="sport-seg-row odds-controls">' + (D.segments.length > 1 ? segToggle('pageSeg', k) : '') +
+        html += '<div class="ob-stick" id="obStick"><div class="sport-seg-row odds-controls">' + oddsSegBar(k) +
           '<div class="seg-toggle" id="oddsMkt">' + ms.map(function(x) {
             return '<button class="seg-btn" data-mkt="' + x[1] + '" aria-pressed="' + (x[1] === MKT_CUR) + '">' + esc(pillLabel(x)) + '</button>';
           }).join('') + '</div>' + booksBtn(picker, sources) + '</div></div>';
         var first = slate()[0];
-        if (!games.length && one) html += '<p class="tp-none">No ' + esc(seg(k).label) + ' lines for this game.</p>';
+        if (!games.length && one) html += '<p class="tp-none">No ' + esc(k === 'game' ? 'Game' : seg(k).label) + ' lines for this game.</p>';
         else if (!games.length) {
           var days = dates.filter(function(d) { return O.days[d]; }), sched = slate().some(function(d) { return O.days[d]; });
           if (weeks) {
@@ -3727,11 +3743,13 @@
           } else html += noGamesCard(cur, days, dayName, false, sched, cur < todayET());
         }
         else {
-          if (!lined) html += '<div class="no-games-note">' + (first && first < todayET() ? 'Lines not available.' : 'No ' + esc(seg(k).label) + ' ' + (mk ? MKT_WORD[m] || esc(mk[2]) : 'lines') + ' posted yet.') + '</div>';
+          if (!lined) html += '<div class="no-games-note">' + (first && first < todayET() ? 'Lines not available.' : 'No ' + esc(k === 'game' ? 'Game' : seg(k).label) + ' ' + (mk ? MKT_WORD[m] || esc(mk[2]) : 'lines') + ' posted yet.') + '</div>';
           html += table(games, k, m, mk ? mk[3] : 'side', cols, lined);
         }
         if (m === 'btts') html += '<p class="odds-note">Both teams to score in the 1st period. BTTS isn&rsquo;t on our odds feed, so our team enters ' + (cols[0] && cols[0] !== 'consensus' ? esc(name(cols[0])) + '&rsquo;s price' : 'a consensus price across the books') + '.</p>';
         box.innerHTML = html;
+        var bn = !one && document.getElementById('big-numbers');
+        if (bn) bn.hidden = (bn.getAttribute('data-bn-day') || '') !== (weeks ? cur : first || cur);
         var mbb = box.querySelector('#mbBtn');
         if (mbb) mbb.onclick = function() { openBooks(picker, sources, function() { show(); if (one && one.onBooks) one.onBooks(); if (window.rtybBnPick) window.rtybBnPick(MB); }); };
         if (one) {
