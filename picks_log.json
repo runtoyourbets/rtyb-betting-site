@@ -14926,8 +14926,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Timberwolves"
    },
    {
@@ -14976,8 +14976,8 @@
      ]
     ],
     "info": "Timberwolves avg 1H margin on the road: +6.5",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Timberwolves"
    },
    {
