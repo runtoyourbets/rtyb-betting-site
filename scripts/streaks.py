@@ -72,7 +72,8 @@ def segments(sp):
     out = []
     for s, fr in [(s, False) for s in sp['segments']] + [(s, True) for s in sp.get('full_run') or []]:
         tag = 'Game' if s['key'] == 'game' else s['tag']
-        out.append((s['key'], s['label'], tag, tag, fr, ['su', 'ats', 'tot']))
+        # College Basketball: no moneyline streaks (Chris, Nov 26: too many lopsided games)
+        out.append((s['key'], s['label'], tag, tag, fr, ['ats', 'tot'] if key == 'ncaab' else ['su', 'ats', 'tot']))
     return out
 
 
