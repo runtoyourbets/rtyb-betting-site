@@ -15732,6 +15732,53 @@
     "streakTeamName": "TCU"
    },
    {
+    "id": "ncaab|401929282|1h|ml|away",
+    "game": "ncaab|401929282",
+    "date": "2026-11-26",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-26T18:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Boston College @ UCF",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 105,
+    "title": "Boston College 1H ML",
+    "est": 0.5329,
+    "edge": 0.0451,
+    "agree": 3,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "boston-college-eagles",
+    "angles": [
+     [
+      "Boston College 1H ML, season",
+      "6-0"
+     ],
+     [
+      "Boston College 1H ML, last 8",
+      "6-0"
+     ],
+     [
+      "UCF\u2019s opponents 1H ML, UCF at home",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Boston College"
+   },
+   {
     "id": "nfl|401873081|1q|ats|away",
     "game": "nfl|401873081",
     "date": "2026-11-26",
@@ -15824,6 +15871,95 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Eagles"
+   },
+   {
+    "id": "ncaab|401920539|1h|ml|home",
+    "game": "ncaab|401920539",
+    "date": "2026-11-26",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-27T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Alabama @ Kansas State",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 470,
+    "title": "Kansas State 1H ML",
+    "est": 0.2066,
+    "edge": 0.0311,
+    "agree": 3,
+    "sample": 5,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": -1,
+    "streakTeam": "kansas-state-wildcats",
+    "angles": [
+     [
+      "Kansas State 1H ML, season",
+      "3-2-1"
+     ],
+     [
+      "Kansas State 1H ML, last 8",
+      "3-2-1"
+     ],
+     [
+      "Kansas State 1H ML at home",
+      "3-2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Kansas State"
+   },
+   {
+    "id": "ncaab|401921673|1h|ml|away",
+    "game": "ncaab|401921673",
+    "date": "2026-11-26",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-26T21:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Utah State @ USC",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 120,
+    "title": "Utah State 1H ML",
+    "est": 0.4851,
+    "edge": 0.0305,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "utah-state-aggies",
+    "angles": [
+     [
+      "Utah State 1H ML, season",
+      "6-0"
+     ],
+     [
+      "Utah State 1H ML, last 8",
+      "6-0"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Utah State"
    }
   ]
  }

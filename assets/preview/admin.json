@@ -12,6 +12,16 @@
  "pieces": {
   "all": [
    {
+    "date": "2026-11-26",
+    "headline": "Jacksonville State at UC Davis Brings an 88% Back-to-Back Angle",
+    "live": false,
+    "page": "admin/preview/all-2026-11-26/",
+    "path": "content/drafts/all-preview-2026-11-26.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-26T13:01Z"
+   },
+   {
     "date": "2026-11-25",
     "headline": "Alcorn State at Texas State: Back-to-Back Opponents Hit 90% in First Half",
     "live": true,
@@ -135,6 +145,16 @@
    }
   ],
   "ncaab": [
+   {
+    "date": "2026-11-26",
+    "headline": "Jacksonville State at UC Davis: Back-to-Back Opponents Hit 88% at the Half",
+    "live": true,
+    "page": "admin/preview/ncaab-2026-11-26/",
+    "path": "content/published/ncaab-preview-2026-11-26.md",
+    "published": "2026-11-26T13:01:34Z",
+    "week": null,
+    "written": "2026-11-26T13:00Z"
+   },
    {
     "date": "2026-11-25",
     "headline": "Alcorn State at Texas State Fits a 90% Back-to-Back Angle",
