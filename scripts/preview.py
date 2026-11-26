@@ -432,10 +432,10 @@ def kickoff_window(t):
         if t.hour >= 19:
             return 'Sunday Night'
         if t.hour >= 16:
-            return 'Sunday 4:25 PM'
+            return 'Sunday 4:25 PM ET'
         if t.hour >= 12:
-            return 'Sunday 1:00 PM'
-        return 'Sunday ' + t.strftime('%-I:%M %p')
+            return 'Sunday 1:00 PM ET'
+        return 'Sunday ' + t.strftime('%-I:%M %p') + ' ET'
     if day == 'Monday' and t.hour >= 19:
         return 'Monday Night'
     return day
@@ -1402,7 +1402,7 @@ def art(key, p, now_utc, root):
     surface = (f'<img class="pa-bg" src="{root}{os.path.relpath(bg, ROOT)}" alt=""><span class="pa-over"></span>' if bg else '')
     when = parse(info.get('start'))
     when = when.astimezone(ET) if when else None
-    day = ((when.strftime('%a') if weekly(sp) else 'Tonight' if when.hour >= 17 else 'Today') + ' ' + when.strftime('%-I:%M %p')) if when else ''
+    day = ((when.strftime('%a') if weekly(sp) else 'Tonight' if when.hour >= 17 else 'Today') + ' ' + when.strftime('%-I:%M %p') + ' ET') if when else ''
     chip = f'<span class="pa-chip">{icons.sport_icon(sp.sp)}{esc(sp.label)}{" · " + esc(day) if day else ""}</span>'
 
     def logo(slug):
@@ -1655,7 +1655,7 @@ def card_info(key, day, info, body):
     if key == ALL:
         when = parse(info.get('start'))
         when = when.astimezone(ET) if when else None
-        pill = f"{sp.label} · " + ((('Tonight ' if when.hour >= 17 else 'Today ') + when.strftime('%-I:%M %p')) if when else '')
+        pill = f"{sp.label} · " + ((('Tonight ' if when.hour >= 17 else 'Today ') + when.strftime('%-I:%M %p') + ' ET') if when else '')
     count, l1, l2 = big_trend(sp, g, t) if t else ('', '', '')
     market, line = card_market(sp, g, t) if t else ('', '')
     names = [sp.full_name(x) if sp.key in sports.COLLEGE else (sp.team(x).get('short') or sp.full_name(x)) for x in (g['away'], g['home'])]

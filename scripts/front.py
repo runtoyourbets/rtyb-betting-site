@@ -834,7 +834,7 @@ def trend_row(sport, c, x, g, root, now, last=''):
     when = st or time_et(g.get('start'))
     t = parse(g.get('start'))
     if not st and t and (sport.weekly or t.astimezone(ET).date() != now.astimezone(ET).date()):
-        when = t.astimezone(ET).strftime('%a %-I:%M %p')   # not today: the day first ("Sat 1:00 PM")
+        when = t.astimezone(ET).strftime('%a %-I:%M %p') + ' ET'   # not today: the day first ("Sat 1:00 PM")
     # the logo loads right away (a lazy one could stay blank as rows move up)
     logo = sport.badge(g[x['side']], 16, root).replace(' loading="lazy"', '') if x.get('side') else ''
     bet = (f'Bet {sport.link(g[x["side"]], logo + " " + esc(sport.code(g[x["side"]])), root)}' if x.get('side') else esc(x.get('label')))

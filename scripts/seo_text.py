@@ -594,7 +594,7 @@ def longest_run(sp, doc, games, me):
 
 def et_when(iso):
     t = datetime.fromisoformat(iso.replace('Z', '+00:00')).astimezone(ET)
-    return f"{t.strftime('%A')} {t.strftime('%I:%M %p').lstrip('0')}"
+    return f"{t.strftime('%A')} {t.strftime('%I:%M %p').lstrip('0')} ET"
 
 
 def team_doc(sp, doc, key, ctx, base_url_dirs):

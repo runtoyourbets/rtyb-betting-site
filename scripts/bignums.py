@@ -212,19 +212,20 @@ def board(sport, now_utc):
     return games[0][0], games
 
 
-def when(sport, g, today):
-    """"1:00 PM" today, "Sat, Nov 21 · 1:00 PM" another day; football
-    "Week 12 · Sun 1:00 PM"."""
+def when(sport, g, today, odds_page=False):
+    """"1:00 PM ET" (the Odds page shows its day above, so daily sports
+    never repeat it); another day elsewhere: "Sat, Nov 21 · 1:00 PM ET";
+    football: its day and time, "Thu, Nov 26 · 8:20 PM ET"."""
     t = front.parse(g.get('start'))
     if not t:
         return 'TBD'
     t = t.astimezone(ET)
+    hm = t.strftime('%-I:%M %p') + ' ET'
     if sport.weekly:
-        week = next((w.get('label') for w in sport.doc.get('weeks') or [] if w.get('key') == g.get('wk')), None)
-        return (f'{week} · ' if week else '') + t.strftime('%a %-I:%M %p')
-    if t.date().isoformat() == today:
-        return t.strftime('%-I:%M %p')
-    return front.day_label(t.date().isoformat()) + ' · ' + t.strftime('%-I:%M %p')
+        return front.day_label(t.date().isoformat()) + ' · ' + hm
+    if odds_page or t.date().isoformat() == today:
+        return hm
+    return front.day_label(t.date().isoformat()) + ' · ' + hm
 
 
 def odds_href(sport, r, k, root):
@@ -239,7 +240,8 @@ def teams_html(sport, r, root, big=False):
     out = []
     for s in ('away', 'home'):
         code = esc(sport.code(g[s]))
-        out.append(f'<span class="bn-team{" bn-fav" if r["fav"] == s else ""}">{sport.badge(g[s], size, root)}<span>{code}</span></span>')
+        # the logo and code open the team's page (the card itself links nowhere)
+        out.append(sport.link(g[s], f'{sport.badge(g[s], size, root)}<span>{code}</span>', root, f'bn-team{" bn-fav" if r["fav"] == s else ""}'))
     return f'<span class="bn-teams">{out[0]}<span class="bn-at">@</span>{out[1]}</span>'
 
 
@@ -250,20 +252,20 @@ def odds_html(sport, r, root):
             f'<span class="bn-cell">{front.cell(r["top"], r["sub"])}</span></span>')
 
 
-def row_html(sport, r, k, today, root):
+def row_html(sport, r, k, today, root, odds_page=False):
     """A phone row: the yellow market label and time, both teams (the
     favorite bold); the book's logo and the odds cell on the right."""
-    return (f'<a class="bn-row" href="{esc(odds_href(sport, r, k, root))}"><span class="bn-left">'
-            f'<span class="bn-label">{esc(r["label"])} &middot; {esc(when(sport, r["game"], today))}</span>{teams_html(sport, r, root)}</span>'
-            f'{odds_html(sport, r, root)}</a>')
+    return (f'<div class="bn-row"><span class="bn-left">'
+            f'<span class="bn-label">{esc(r["label"])} &middot; {esc(when(sport, r["game"], today, odds_page))}</span>{teams_html(sport, r, root)}</span>'
+            f'{odds_html(sport, r, root)}</div>')
 
 
-def card_html(sport, r, k, today, root):
+def card_html(sport, r, k, today, root, odds_page=False):
     """A desktop card (Odds pages, home, hubs): the long label, large logos, the book
     and the odds cell, the time."""
-    return (f'<a class="st-card bn-dcard" href="{esc(odds_href(sport, r, k, root))}"><span class="bn-label">{esc(r["long"])}</span>'
+    return (f'<div class="st-card bn-dcard"><span class="bn-label">{esc(r["long"])}</span>'
             f'{teams_html(sport, r, root, big=True)}{odds_html(sport, r, root)}'
-            f'<span class="bn-time">{esc(when(sport, r["game"], today))}</span></a>')
+            f'<span class="bn-time">{esc(when(sport, r["game"], today, odds_page))}</span></div>')
 
 
 def books_attr(sport, segs, root):
@@ -274,7 +276,7 @@ def books_attr(sport, segs, root):
     return f" data-bn-books='{esc(json.dumps(data, separators=(',', ':')))}'"
 
 
-def seg_panes(sport, games, today, root, odds_page=False):
+def seg_panes(sport, games, today, root, odds_page=False, on_odds=False):
     """The segment toggle (where the sport has two) and a pane per segment."""
     segs = [(k, tag, label, rows_for(sport, k, games)) for k, tag, label in segments_of(sport)]
     segs = [x for x in segs if x[3]]
@@ -282,10 +284,10 @@ def seg_panes(sport, games, today, root, odds_page=False):
         return '', []
     panes = ''
     for i, (k, tag, label, rows) in enumerate(segs):
-        inner = ''.join(row_html(sport, r, k, today, root) for r in rows)
+        inner = ''.join(row_html(sport, r, k, today, root, on_odds) for r in rows)
         if odds_page:
             inner = (f'<div class="bn-rows">{inner}</div>'
-                     f'<div class="bn-dcards">{"".join(card_html(sport, r, k, today, root) for r in rows)}</div>')
+                     f'<div class="bn-dcards">{"".join(card_html(sport, r, k, today, root, on_odds) for r in rows)}</div>')
         panes += f'<div data-pane="{k}"{"" if i == 0 else " hidden"}>{inner}</div>'
     toggle = front.pills(f'{sport.label} segment', [(k, tag) for k, tag, _, _ in segs], segs[0][0]) if len(segs) > 1 else ''
     return toggle + panes, segs
@@ -332,14 +334,16 @@ def odds_top(sp, now_utc, root):
     day, games = board(sport, now_utc)
     if not games:
         return ''
-    body, segs = seg_panes(sport, games, now_utc.astimezone(ET).date().isoformat(), root, odds_page=True)
+    body, segs = seg_panes(sport, games, now_utc.astimezone(ET).date().isoformat(), root, odds_page=True, on_odds=True)
     if not segs:
         return ''
-    date = front.day_label(day)
-    if sport.weekly:   # the whole week: its label
-        date = next((w.get('label') for w in sport.doc.get('weeks') or [] if w.get('key') == games[0][1].get('wk')), date)
-    return (f'<section class="bn bn-odds-top" id="big-numbers"><div class="fr-head fr-stack"><h2>The Big Numbers</h2>'
-            f'<span class="fr-date">{esc(date)}</span></div><div class="st-card bn-card"{books_attr(sport, segs, root)}>{body}</div></section>')
+    # daily sports: the date bar under it names the day; football: the week's label
+    week = games[0][1].get('wk') if sport.weekly else None
+    date = next((w.get('label') for w in sport.doc.get('weeks') or [] if w.get('key') == week), '') if sport.weekly else ''
+    # data-bn-day: the Odds page shows it only on its own day (or week), not on others
+    return (f'<section class="bn bn-odds-top" id="big-numbers" data-bn-day="{esc(week or day)}"><div class="fr-head fr-stack"><h2>The Big Numbers</h2>'
+            + (f'<span class="fr-date">{esc(date)}</span>' if date else '') +
+            f'</div><div class="st-card bn-card"{books_attr(sport, segs, root)}>{body}</div></section>')
 
 
 # the Odds page's segment toggle (sport pages run assets/sport.js, not front.FRONT_JS)
