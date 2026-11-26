@@ -352,11 +352,6 @@
     "value": "ncaab:401909720"
    },
    {
-    "label": "NCAAB · Memphis at Penn State · 6:35 PM ET",
-    "trends": 5,
-    "value": "ncaab:401917182"
-   },
-   {
     "label": "NHL · Carolina Hurricanes at Tampa Bay Lightning · 7:00 PM ET",
     "trends": 5,
     "value": "nhl:2026020388"
@@ -407,9 +402,19 @@
     "value": "ncaab:401921108"
    },
    {
+    "label": "NCAAB · Duke at UConn · 7:00 PM ET",
+    "trends": 7,
+    "value": "ncaab:401909568"
+   },
+   {
     "label": "NCAAB · Longwood at George Mason · 7:00 PM ET",
     "trends": 7,
     "value": "ncaab:401920076"
+   },
+   {
+    "label": "NCAAB · Memphis at Penn State · 7:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401917182"
    },
    {
     "label": "NCAAB · Norfolk State at NC State · 7:00 PM ET",
@@ -440,11 +445,6 @@
     "label": "NCAAB · St. Thomas at UNC Wilmington · 7:00 PM ET",
     "trends": 3,
     "value": "ncaab:401920847"
-   },
-   {
-    "label": "NCAAB · UConn at Duke · 7:00 PM ET",
-    "trends": 7,
-    "value": "ncaab:401909568"
    },
    {
     "label": "NHL · Vancouver Canucks at Detroit Red Wings · 7:30 PM ET",
@@ -950,19 +950,24 @@
     "value": "ncaab:401909720"
    },
    {
-    "label": "Memphis at Penn State · 6:35 PM ET",
-    "trends": 5,
-    "value": "ncaab:401917182"
-   },
-   {
     "label": "Bellarmine at Northern Kentucky · 7:00 PM ET",
     "trends": 5,
     "value": "ncaab:401921108"
    },
    {
+    "label": "Duke at UConn · 7:00 PM ET",
+    "trends": 7,
+    "value": "ncaab:401909568"
+   },
+   {
     "label": "Longwood at George Mason · 7:00 PM ET",
     "trends": 7,
     "value": "ncaab:401920076"
+   },
+   {
+    "label": "Memphis at Penn State · 7:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401917182"
    },
    {
     "label": "Norfolk State at NC State · 7:00 PM ET",
@@ -993,11 +998,6 @@
     "label": "St. Thomas at UNC Wilmington · 7:00 PM ET",
     "trends": 3,
     "value": "ncaab:401920847"
-   },
-   {
-    "label": "UConn at Duke · 7:00 PM ET",
-    "trends": 7,
-    "value": "ncaab:401909568"
    },
    {
     "label": "Wake Forest at Mississippi State · 7:30 PM ET",

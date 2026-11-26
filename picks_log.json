@@ -15591,6 +15591,99 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Clippers"
+   },
+   {
+    "id": "ncaab|401921713|1h|ats|away",
+    "game": "ncaab|401921713",
+    "date": "2026-11-25",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-26T03:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Washington @ VCU",
+    "href": "college-basketball/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 2.5,
+    "price": -110,
+    "title": "Washington 1H +2.5",
+    "est": 0.5556,
+    "edge": 0.0317,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "washington-huskies",
+    "angles": [
+     [
+      "Washington 1H ATS at +2.5, season",
+      "6-0"
+     ],
+     [
+      "Washington 1H ATS at +2.5, last 8",
+      "6-0"
+     ]
+    ],
+    "info": "Washington avg 1H margin on the road: +8.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Washington"
+   },
+   {
+    "id": "nhl|2026020399|1p|total|over",
+    "game": "nhl|2026020399",
+    "date": "2026-11-25",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-26T02:40:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Chicago @ Seattle",
+    "href": "nhl/matchups/?date=2026-11-25",
+    "market": "total",
+    "side": "over",
+    "line": 1.5,
+    "price": -135,
+    "title": "1P Over 1.5",
+    "est": 0.605,
+    "edge": 0.0305,
+    "agree": 6,
+    "sample": 24,
+    "tier": "C",
+    "tags": [
+     "Over Lover"
+    ],
+    "streak": 1,
+    "streakTeam": "CHI",
+    "angles": [
+     [
+      "Seattle 1P overs, season (1.5)",
+      "16-5"
+     ],
+     [
+      "Seattle 1P overs, last 8 (1.5)",
+      "6-2"
+     ],
+     [
+      "Chicago 1P overs, last 8 (1.5)",
+      "6-2"
+     ],
+     [
+      "Seattle 1P overs at home (1.5)",
+      "8-3"
+     ]
+    ],
+    "info": "Avg 1P total in their games: Seattle 2.2 \u00b7 Chicago 2.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Chicago"
    }
   ]
  }
