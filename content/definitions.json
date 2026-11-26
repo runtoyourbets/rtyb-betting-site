@@ -17,7 +17,7 @@
    "section": "Teams on a run of 3 or more straight in the opening segment, counted from their most recent game. A tie or push ends a streak.",
    "colors": "Win and loss streaks run green to red. Over/Under and Yes/No streaks get darker the longer they run."
   },
-  "lean_rule": "‘Usually’ = 60%+ of their games, 5+ played."
+  "lean_rule": "A team's lean = 60%+ of its games, 5+ played."
  },
  "entries": {
   "edge:1st-inning-edge": {
@@ -325,10 +325,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "Both teams’ {segment}s usually go Over. ‘Usually’ = 60%+ of their games, 5+ played.",
+   "short": "Both teams’ {segment}s have gone Over in 60%+ of their games (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:fireworks_btts": {
    "name": "🎆 Fireworks (BTTS)",
@@ -336,10 +336,10 @@
    "sports": [
     "nhl"
    ],
-   "short": "In both teams’ {segment}s, both teams usually score. ‘Usually’ = 60%+ of their games, 5+ played.",
+   "short": "Both teams’ {segment}s have gone BTTS Yes in 60%+ of their games (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:heavyweights": {
    "name": "⚔️ Heavyweights",
@@ -353,10 +353,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "Both teams usually win the {segment}.",
+   "short": "Both teams have won the {segment} (moneyline) or covered it (spread) in 60%+ of their games (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:lockdown": {
    "name": "🔒 Lockdown",
@@ -370,10 +370,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "Both teams’ {segment}s usually go Under. ‘Usually’ = 60%+ of their games, 5+ played.",
+   "short": "Both teams’ {segment}s have gone Under in 60%+ of their games (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:lockdown_btts": {
    "name": "🔒 Lockdown (BTTS)",
@@ -381,10 +381,10 @@
    "sports": [
     "nhl"
    ],
-   "short": "In both teams’ {segment}s, usually not both teams score. ‘Usually’ = 60%+ of their games, 5+ played.",
+   "short": "Both teams’ {segment}s have gone BTTS No in 60%+ of their games (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:mismatch": {
    "name": "🥊 Mismatch",
@@ -398,13 +398,13 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "One team usually wins the {segment}, the other usually loses it.",
+   "short": "One team has won (or covered) the {segment} in 60%+ of its games, the other has lost it in 60%+ (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:tug_of_war": {
-   "name": "🪢 Tug of war",
+   "name": "🪢 Tug of War",
    "category": "labels",
    "sports": [
     "nhl",
@@ -415,10 +415,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "One team’s {segment}s usually go Over, the other’s usually go Under.",
+   "short": "One team’s {segment}s have gone Over in 60%+ of its games, the other’s have gone Under in 60%+ (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:tug_of_war_btts": {
    "name": "🪢 Tug of war (BTTS)",
@@ -426,10 +426,10 @@
    "sports": [
     "nhl"
    ],
-   "short": "In one team’s {segment}s both teams usually score; in the other’s, usually not both teams score.",
+   "short": "One team’s {segment}s have gone BTTS Yes in 60%+ of its games, the other’s have gone BTTS No in 60%+ (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "split:adog": {
    "name": "Away underdog",
@@ -2310,10 +2310,10 @@
    "sports": [
     "mlb"
    ],
-   "short": "Baseball's spread. In the first five it's usually 1/2 a run, so a tie after five goes to the underdog.",
+   "short": "Baseball's spread. In the first five it's most often 1/2 a run, so a tie after five goes to the underdog.",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "term:spread": {
    "name": "Spread (ATS)",
@@ -2325,10 +2325,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "The favorite has to win by more than the number; the underdog can lose by less and still cash. In the first quarter you'll usually see 1/2 to 1 point.",
+   "short": "The favorite has to win by more than the number; the underdog can lose by less and still cash. In the first quarter you'll most often see 1/2 to 1 point.",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "term:total": {
    "name": "Total (Over/Under, O/U)",
@@ -3104,10 +3104,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "How far a price moved from open to now. A big move usually means money came in on one side.",
+   "short": "How far a price moved from open to now. A big move often means money came in on one side.",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "term:record": {
    "name": "Record",
@@ -3260,6 +3260,23 @@
    "long": "",
    "status": "live",
    "edited": "2026-11-19"
+  },
+  "label:dumpster_fire": {
+   "name": "🗑️🔥 Dumpster Fire",
+   "category": "labels",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Both teams have lost the {segment} (moneyline) or failed to cover it (spread) in 60%+ of their games (5+ played).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-26"
   }
  }
 }

@@ -556,9 +556,9 @@ def price(p):
 def streak_text(sp, k, m, kind):
     tag = ('' if m == 'rfi' else 'F5 ') if sp['key'] == 'mlb' else next(s['tag'] for s in sp['segments'] if s['key'] == k) + ' '
     if m == 'ml':
-        return tag + ('wins' if kind == 'W' else 'losses')
+        return ('Won ' if kind == 'W' else 'Lost ') + tag.strip()
     if m == 'ats':
-        return tag + ('covers' if kind == 'W' else 'non-covers')
+        return tag + 'ATS ' + ('W' if kind == 'W' else 'L')
     if m == 'total':
         return tag + ('Over' if kind == 'O' else 'Under') + (' 1.5' if sp['key'] == 'nhl' else '')
     if m == 'btts':

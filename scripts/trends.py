@@ -57,6 +57,17 @@ SPREAD_WORD = {'mlb': 'run line', 'nhl': 'puck line'}
 DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 
+# the full game, after the first segments (its results and closing lines
+# are the games' Full Run block: res / odds['game'] here, from fr / fo)
+GAME_SEG = {'key': 'game', 'tag': 'Game', 'label': 'Full Game'}
+
+
+def seg_list(sp):
+    """The segments trends are built for: the first ones, then the full game."""
+    has_game = any(s.get('key') == 'game' for s in sp.get('full_run') or [])
+    return list(sp['segments']) + ([GAME_SEG] if has_game else [])
+
+
 def tips():
     """The tooltip text (content/definitions.json, Live entries only)."""
     return definitions.tooltips()
@@ -121,6 +132,13 @@ def prepare(sp, doc):
                    key=lambda g: (g['start'], str(g['id'])))
     last, out = {}, []
     for g in games:
+        if (g.get('fr') or {}).get('game') or (g.get('fo') or {}).get('game'):
+            # the full game rides as one more segment (copies: data.json keeps its shape)
+            g = dict(g, res=dict(g.get('res') or {}), odds=dict(g.get('odds') or {}))
+            if (g.get('fr') or {}).get('game'):
+                g['res']['game'] = g['fr']['game']
+            if (g.get('fo') or {}).get('game'):
+                g['odds']['game'] = g['fo']['game']
         d = et_date(g['start'])
         G = {'g': g, 'date': d, 'sides': {}}
         for side in ('away', 'home'):
@@ -153,6 +171,8 @@ def bets_for(sp, k):
     """The bets one segment's trends can make: [(market, kind, bet)], kind
     'side' (back / fade a team) or 'game' (over / under / yes / no / tie)."""
     period = sp['family'] == 'period'
+    if k == 'game':   # spread, moneyline, total (NHL / MLB: puck / run line)
+        return [('ats', 'side', None), ('ml', 'side', None), ('total', 'game', 'over'), ('total', 'game', 'under')]
     out = []
     for seg, m, _, _ in sp['family_markets']:
         if seg != k:
@@ -334,10 +354,10 @@ def angle_text(sp, T, group, aid, k=None):
 
 
 def tag(sp, k, market):
-    seg = next(s for s in sp['segments'] if s['key'] == k)
+    seg = next(s for s in seg_list(sp) if s['key'] == k)
     if market == 'rfi':
         return 'NRFI'
-    if market == 'total' and sp['key'] == 'nhl':
+    if market == 'total' and sp['key'] == 'nhl' and k != 'game':
         return f"{seg['tag']} O/U"
     return f"{seg['tag']} {MARKET_TAG[market]}"
 
@@ -345,7 +365,7 @@ def tag(sp, k, market):
 def game_bet_word(sp, k, market, bet, line=None):
     if market == 'total':
         w = 'Over' if bet == 'over' else 'Under'
-        if sp['key'] == 'nhl':
+        if sp['key'] == 'nhl' and k != 'game':
             return f'{w} 1.5'
         return f'{w} {line:g}' if isinstance(line, (int, float)) else w
     if market == 'btts':
@@ -356,7 +376,7 @@ def game_bet_word(sp, k, market, bet, line=None):
 
 
 def seg_words(sp, k):
-    return next(s for s in sp['segments'] if s['key'] == k)['label'].lower().replace('first five innings', 'first five')
+    return next(s for s in seg_list(sp) if s['key'] == k)['label'].lower().replace('first five innings', 'first five')
 
 
 def last_line(sp, doc, G, aid, c, k, market, kind, bet, side):
@@ -404,7 +424,7 @@ def generate(sp, doc, G_all, slate, before_date, T, bar=None):
     bar = bar or qualify
     pool = [G for G in G_all if G['date'] < before_date]
     cards = []
-    for seg in sp['segments']:
+    for seg in seg_list(sp):
         k = seg['key']
         graded = [G for G in pool if ((G['g'].get('res') or {}).get(k) or {}).get('sc')]
         if not graded:
@@ -606,7 +626,10 @@ def page_doc(sp, doc, now_utc, log_path=None):
     """{slug}/trends.json: the cards per slate, the rules and the tooltips."""
     T = tips()
     return {'sport': sp['key'], 'shown': RULES['shown'], 'slates': update(sp, doc, now_utc, log_path),
-            'markets': [[seg, m, label] for seg, m, label, _ in sp['family_markets']],
-            'segments': {s['key']: seg_words(sp, s['key']) for s in sp['segments']},
+            'markets': [[seg, m, label] for seg, m, label, _ in sp['family_markets']] + (
+                [['game', m, label] for m, label in ((('ml', 'Moneyline'), ('ats', 'Spread'), ('total', 'Total')) if sp['family'] == 'period'
+                                                     else (('ats', 'Spread'), ('total', 'Total'), ('ml', 'Moneyline')))]
+                if GAME_SEG in seg_list(sp) else []),
+            'segments': {s['key']: seg_words(sp, s['key']) for s in seg_list(sp)},
             'tips': {k: T[k] for k in ('matchup_labels', 'streaks', 'record_line', 'team_trends') if k in T} | {'fade': (T.get('direction') or {}).get('Fade', ''),
                                                                                                  'show_last': show_last_ids(T)}}
