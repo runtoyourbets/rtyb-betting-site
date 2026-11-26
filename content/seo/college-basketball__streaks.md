@@ -6,20 +6,21 @@ description_offseason: "College Basketball betting streaks from last season: the
 ---
 ## Run To Your Bets College Basketball Betting Streaks
 
-Every College Basketball team streak in one place: 1st Half, then the Full Run (2nd Half and Full Game), the Full Run's with a gold dot. The markets are win or loss, the spread (cover or fail to cover) and the O/U in every segment. A streak counts every graded game in a row with the same result; a tie or push ends it. Home and road streaks count a team's home games only, or its road games only.
+Every College Basketball team streak in one place: 1st Half, then the Full Run (Full Game and 2nd Half). The markets are win or loss, the spread (cover or fail to cover) and the O/U in every segment. A streak counts every graded game in a row with the same result; a tie or push ends it. Home and road streaks count a team's home games only, or its road games only.
 
 ### How to read it
 
 Pick the segment, the market and All, Home or Away. All shows each team's overall streaks, plus a home or road streak when it's longer than the overall one (tagged "at home" or "on the road").
 
-- **Tonight:** every game today with a streak of 5 or more on the line, the longest first, up to 4 streaks per game. A home streak counts only when the team is home, a road streak only on the road. RIDE is the side that keeps the streak going and FADE the side that ends it, each at the best price; both open the matchup page with that market. STREAKS COLLIDE marks a game where two streaks point opposite ways in the same market.
-- **Still Running:** every streak of 3 or more, longest first. The chip is the count, colored by length.
-- **Run's Over:** streaks of 5 or more that ended the last game day, with the game that ended them.
+- **Top Streak of the Day:** the longest streak on the line today, in its own card. It's never a 2nd half or later period streak.
+- **Streaks to Watch:** every streak of 5 or more on the line today, the longest first, with the opponent and start time under each one. A home streak counts only when the team is home, a road streak only on the road. The page is fixed for the day: streaks count the games before it, and the ones that end show up in Run's Over after.
+- **Still Running:** every streak of 5 or more, longest first, with each team's next game under it (30 at a time, up to 100). Up Next lists the teams not playing today, in the order they play next. The chip is the count, colored by length.
+- **Run's Over:** the 10 longest streaks of 5 or more that ended the last game day, with the game that ended them.
 - **Records:** the 5 longest streaks per market this season and last, with their dates. "Alive" marks one still running.
 
 ### Example
 
-Say a team has failed to cover the 1st half spread 6 straight at home, and it is home tonight. Its row shows a 6 chip, "1H ATS L" and "at home". RIDE is the other team's 1H spread at the best price (the side that keeps the streak going); FADE is the team's own. A 2nd half streak shows "2H line posts at halftime" instead.
+Say a team has failed to cover the 1st half spread 6 straight at home, and it is home tonight. Its row shows a 6 chip, "1H ATS L" and "at home". Under it: the opponent and the start time.
 
 ### What I look for
 
@@ -37,7 +38,7 @@ A streak is a fact about the past, not a reason the next game goes the same way.
 
 ### What counts as a streak?
 
-The same result in one market, game after game, in the regular season and postseason: wins, covers, Overs, NRFI and so on. A tie or push ends it. Still Running shows streaks of 3 or more; Tonight and Run's Over show 5 or more.
+The same result in one market, game after game, in the regular season and postseason: wins, covers, Overs, NRFI and so on. A tie or push ends it. Still Running shows streaks of 5 or more; Streaks to Watch and Run's Over show 5 or more.
 
 ### What are home and road streaks?
 

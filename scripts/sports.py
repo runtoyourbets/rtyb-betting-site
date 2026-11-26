@@ -166,9 +166,9 @@ SPORTS = [
         'launched': True,
         'segments': [
             {'key': '1p', 'label': '1st Period', 'tag': '1P', 'markets': ['ML', 'O/U 1.5', 'BTTS']},
+            dict(FULL_GAME, markets=['ML', 'Puck Line', 'Total']),
             {'key': '2p', 'label': '2nd Period', 'tag': '2P', 'markets': [], 'full_run': True},
             {'key': '3p', 'label': '3rd Period', 'tag': '3P', 'markets': [], 'full_run': True},
-            dict(FULL_GAME, markets=['ML', 'Puck Line', 'Total']),
         ],
         'season_start': 10, 'season_end': 6,
         'sections': {'games': 'matchups', 'stats': 'stats', 'trends': 'trends', 'odds': 'odds', 'teams': 'teams'},
@@ -179,7 +179,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
-            SECOND_HALF, FULL_GAME,
+            FULL_GAME, SECOND_HALF,
         ],
         'season_start': 10, 'season_end': 6,
     },
@@ -188,7 +188,7 @@ SPORTS = [
         'launched': True,
         'segments': [
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
-            SECOND_HALF, FULL_GAME,
+            FULL_GAME, SECOND_HALF,
         ],
         'season_start': 11, 'season_end': 4,
     },
@@ -198,7 +198,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
-            SECOND_HALF, FULL_GAME,
+            FULL_GAME, SECOND_HALF,
         ],
         'season_start': 9, 'season_end': 2,
     },
@@ -208,7 +208,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
-            SECOND_HALF, FULL_GAME,
+            FULL_GAME, SECOND_HALF,
         ],
         'season_start': 8, 'season_end': 1,
     },
@@ -218,7 +218,7 @@ SPORTS = [
         'segments': [
             {'key': '1q', 'label': '1st Quarter', 'tag': '1Q', 'markets': SPREAD_MARKETS},
             {'key': '1h', 'label': '1st Half', 'tag': '1H', 'markets': SPREAD_MARKETS},
-            SECOND_HALF, FULL_GAME,
+            FULL_GAME, SECOND_HALF,
         ],
         'season_start': 5, 'season_end': 10,
     },

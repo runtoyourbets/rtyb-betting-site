@@ -155,16 +155,16 @@ def segments(sp):
         def period(k):
             return [Market('win', 'Winner Home / Away', 'Home', 'Away', 'win', 'dim', home_ml),
                     Market('o05', 'Over 0.5', 'Over', 'Under', 'warm', 'cool', goals_over(0.5)),
-                    Market('o15', 'Over 1.5', 'Over', 'Under', 'warm', 'cool', goals_over(1.5)), M_TIES()]
+                    Market('o15', 'Over 1.5', 'Over', 'Under', 'warm', 'cool', goals_over(1.5))]
         return [('1p', '1st Period', False, [M_HOME_ML(), M_FAV_ML(), M_OU('O/U 1.5'),
-                                             Market('btts', 'BTTS', 'Yes', 'No', 'warm', 'cool', btts), M_TIES()]),
-                ('2p', '2nd Period', True, period('2p')), ('3p', '3rd Period', True, period('3p')),
+                                             Market('btts', 'BTTS', 'Yes', 'No', 'warm', 'cool', btts)]),
                 ('game', 'Full Game', True, [M_HOME_ML(), M_FAV_ML(), Market('pl', 'Puck Line', 'Fav', 'Dog', 'win', 'dim', fav_ats),
-                                             M_OU(), Market('ot', 'OT / SO', 'OT / SO', 'Regulation', 'win', 'dim', went_ot(key))])]
+                                             M_OU(), Market('ot', 'OT / SO', 'OT / SO', 'Regulation', 'win', 'dim', went_ot(key))]),
+                ('2p', '2nd Period', True, period('2p')), ('3p', '3rd Period', True, period('3p'))]
     if key == 'mlb':
         return [('1i', '1st Inning', False, [Market('nrfi', 'NRFI / YRFI', 'NRFI', 'YRFI', 'cool', 'warm', nrfi)]),
                 ('f5', 'First 5', False, [M_HOME_ML(), M_FAV_ML(), Market('rl', 'Run Line', 'Fav', 'Dog', 'win', 'dim', fav_ats),
-                                          M_OU(), M_TIES()]),
+                                          M_OU()]),
                 ('game', 'Full Game', True, [M_HOME_ML(), M_FAV_ML(), Market('rl', 'Run Line', 'Fav', 'Dog', 'win', 'dim', fav_ats), M_OU()])]
     out = []
     for seg, fr in [(s, False) for s in sp['segments']] + [(s, True) for s in sp.get('full_run') or []]:
@@ -172,7 +172,7 @@ def segments(sp):
         ms = [Market('home_ats', 'Spread Home / Away', 'Home', 'Away', 'win', 'dim', home_ats),
               Market('fav_ats', 'Spread Fav / Dog', 'Fav', 'Dog', 'win', 'dim', fav_ats),
               M_OU(), M_HOME_ML(), M_FAV_ML(),
-              Market('ot', 'OT', 'OT', 'Regulation', 'win', 'dim', went_ot(key)) if last else M_TIES()]
+              ] + ([Market('ot', 'OT', 'OT', 'Regulation', 'win', 'dim', went_ot(key))] if last else [])
         out.append((seg['key'], seg['label'], fr, ms))
     return out
 

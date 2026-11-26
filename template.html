@@ -1704,6 +1704,17 @@ __THEME_HEAD__
   }
   /* Streaks (/{sport}/streaks/, assets/sport.js renderStreaks; /streaks/, scripts/streaks.py) */
   .sk-over { background: var(--cell); color: var(--text-muted); text-decoration: line-through; }
+  /* Streaks: Top Streak card, Streaks to Watch in two columns (phones one), Still Running sorts */
+  .sk-top { margin-top: 0; }
+  .sk-top .stk-row { border-top: 0; padding: 4px 0 2px; grid-template-columns: 40px minmax(0, 1fr); }
+  .sk-top .sk-len { width: 40px; padding: 6px 0; }
+  .sk-top .stk-l1 .gm-team { font-size: var(--fs-team); font-weight: var(--fw-team); }
+  .sk-top .stk-l2 { padding-left: 34px; }
+  .sk-wgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+  .sk-wgrid .stk-row:nth-child(-n+2), .sk-list > .stk-row:first-child { border-top: 0; }
+  .sk-sorts { margin: 0 0 6px; }
+  .sk-line .stk-run { flex: 0 1 auto; }
+  .sk-ctrl { margin-top: 16px; }
   .sk-card { margin-top: 14px; }
   .sk-card .st-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .sk-right { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--title-text); }
@@ -1763,6 +1774,8 @@ __THEME_HEAD__
   .sk2-who .icon, .sk2-who svg { flex-shrink: 0; }
   @media (max-width: 640px) {
     .sk-two, .sk2-two, .sk-games { grid-template-columns: minmax(0, 1fr); }
+    .sk-wgrid { grid-template-columns: minmax(0, 1fr); }
+    .sk-wgrid .stk-row:nth-child(2) { border-top: 1px solid var(--border-soft); }
     .sk-game:nth-child(2) { border-top: 1px solid var(--border-soft); padding-top: 12px; }
     .sk-trow { flex-direction: column; align-items: flex-start; }
     .sk-row, .sk-rrow, .sk2-row { grid-template-columns: auto minmax(0, 1fr); }

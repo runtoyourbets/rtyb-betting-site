@@ -52,10 +52,14 @@ class RunningTest(unittest.TestCase):
             if not doc['cur']:
                 continue
             running = {(s['t'], s['k'], s['m']): (s['n'], s['kd']) for s in doc['running'] if s['v'] == 'all'}
+            # the page is fixed for the day (week): a team playing today may have a newer result on its team page
+            playing = set((doc['tonight'] or {}).get('playing') or [])
             for t, lst in (data.get('streaks') or {}).items():
-                if t not in data['teams']:
+                if t not in data['teams'] or t in playing:
                     continue   # college: no team page for a non-D-I / non-FBS opponent
                 for x in lst:
+                    if x['n'] < doc['min_run']:
+                        continue   # College Basketball's Still Running starts at 5
                     with self.subTest(sp['key'], team=t, seg=x['seg'], market=x['market']):
                         self.assertEqual(running.get((t, x['seg'], x['market'])), (x['n'], kind[x['kind']]))
 
@@ -80,46 +84,20 @@ class RunningTest(unittest.TestCase):
     def test_a_home_only_streak_never_shows_tonight_on_the_road(self):
         home = {'t': 'a', 'k': '1q', 'm': 'su', 'kd': 'W', 'n': 6, 'v': 'home', 'gt': 1}
         road_game = {'2026-11-24': [game('a', 'b', None, '1', state='pre')]}
-        self.assertIsNone(streaks.tonight(NBA, season(road_game), [home], '2026-11-24'))
+        self.assertEqual(streaks.tonight(NBA, season(road_game), [home], '2026-11-24')['games'], [])
         home_game = {'2026-11-24': [game('b', 'a', None, '1', state='pre')]}
         got = streaks.tonight(NBA, season(home_game), [home], '2026-11-24')
         self.assertEqual([s['t'] for g in got['games'] for s in g['s']], ['a'])
         # a home streak no longer than the overall one stays out (All shows the overall)
-        self.assertIsNone(streaks.tonight(NBA, season(home_game), [dict(home, gt=0)], '2026-11-24'))
+        self.assertEqual(streaks.tonight(NBA, season(home_game), [dict(home, gt=0)], '2026-11-24')['games'], [])
 
 
-@unittest.skipUnless(NODE, 'node is not installed')
-class ButtonsTest(unittest.TestCase):
-    def run_js(self, body):
-        js = '\n'.join(['var D = { sport: "nhl" };', function(SRC, 'skBet'), function(SRC, 'skButtons'), body])
-        out = subprocess.run([NODE, '-e', js], capture_output=True, text=True)
-        self.assertEqual(out.returncode, 0, out.stderr)
-        return json.loads(out.stdout)
-
-    def test_ride_and_fade_are_opposite_sides_and_ride_keeps_the_streak_alive(self):
-        got = self.run_js("""var g = { away: 'a', home: 'b' }, out = [];
-[['su', 'W'], ['su', 'L'], ['ats', 'W'], ['ats', 'L'], ['ml3', 'L'], ['tot', 'O'], ['tot', 'U'], ['btts', 'Y'], ['btts', 'N'], ['rfi', 'Y'], ['rfi', 'N']].forEach(function(x) {
-  ['a', 'b'].forEach(function(t) { var b = skBet({ t: t, m: x[0], kd: x[1] }, g); out.push([t, x[0], x[1], b.mk, b.ride, b.fade]); });
-});
-console.log(JSON.stringify(out));""")
-        keeps = {'W': 'team', 'L': 'opp', 'O': 'over', 'U': 'under', 'Y': 'yes', 'N': 'no'}
-        for t, m, kd, mk, ride, fade in got:
-            with self.subTest(team=t, market=m, kind=kd):
-                self.assertNotEqual(ride, fade)
-                self.assertIsNotNone(fade)
-                if m in ('su', 'ats', 'ml3'):
-                    team, opp = ('away', 'home') if t == 'a' else ('home', 'away')
-                    self.assertEqual(ride, team if keeps[kd] == 'team' else opp)
-                    self.assertEqual(sorted([ride, fade]), ['away', 'home'])
-                elif m == 'rfi':
-                    self.assertEqual(ride, 'yrfi' if kd == 'Y' else 'nrfi')
-                else:
-                    self.assertEqual(ride, keeps[kd])
-
-    def test_nhl_second_and_third_period_rows_never_show_a_price(self):
-        got = self.run_js("""var g = { away: 'a', home: 'b', odds: { '2p': { total: { line: 1.5, over: -110, under: -110 } } } };
-console.log(JSON.stringify(['2p', '3p'].map(function(k) { return ['su', 'tot', 'scored', 'o05'].map(function(m) { return skButtons({ t: 'a', k: k, m: m, kd: 'W' }, g); }); })));""")
-        self.assertEqual(got, [['', '', '', ''], ['', '', '', '']])
+class PageTest(unittest.TestCase):
+    def test_no_ride_fade_and_never_a_second_half_top_streak(self):
+        self.assertNotIn('sk-ride', SRC)
+        self.assertNotIn('best price', SRC.split('// ------------------------------------------------------------- Streaks')[1].split('// ---------------------------------------------------------------- boot')[0])
+        for k in ('2h', '2p', '3p'):
+            self.assertIn("'%s': 1" % k, SRC.split('var SK_TOP_SKIP = ')[1].split(';')[0])
 
 
 @unittest.skipUnless(NODE, 'node is not installed')

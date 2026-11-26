@@ -43,8 +43,9 @@ import sports
 from front import esc
 
 ROOT = sport_build.ROOT
-MIN_RUN = 3    # Still Running: 3+
-MIN_HOT = 5    # Tonight and Run's Over: 5+
+MIN_RUN = 3    # Still Running: 3+ (College Basketball 5+: too many teams)
+MIN_RUN_BY = {'ncaab': 5}
+MIN_HOT = 5    # Streaks to Watch and Run's Over: 5+
 TOP = 5        # Records: the 5 longest per market
 INDEX_TOP = 10  # the index's Still Running across sports
 # mirrors assets/sport.js PREMIUM.fullRun (tests/test_streaks.py checks they agree)
@@ -61,9 +62,9 @@ def segments(sp):
     key = sp['key']
     if key == 'nhl':
         return [('1p', '1st Period', '1P', '1P', False, ['su', 'tot', 'btts', 'ml3']),
+                ('game', 'Full Game', 'Game', 'Game', True, ['su', 'ats', 'tot']),
                 ('2p', '2nd Period', '2P', '2P', True, ['su', 'scored', 'o05', 'tot']),
-                ('3p', '3rd Period', '3P', '3P', True, ['su', 'scored', 'o05', 'tot']),
-                ('game', 'Full Game', 'Game', 'Game', True, ['su', 'ats', 'tot'])]
+                ('3p', '3rd Period', '3P', '3P', True, ['su', 'scored', 'o05', 'tot'])]
     if key == 'mlb':
         return [('1i', '1st Inning', '1st Inn', '', False, ['rfi']),
                 ('f5', 'First 5', 'F5', 'F5', False, ['su', 'ats', 'tot']),
@@ -79,12 +80,14 @@ def market_names(sp):
     """{id: (label, phone label)} in the Market bar's order."""
     ml = sp['key'] in ('nhl', 'mlb')
     spread = {'nhl': 'Puck Line', 'mlb': 'Run Line'}.get(sp['key'], 'Spread')
-    names = {'rfi': ('NRFI / YRFI', 'NRFI'), 'su': ('ML' if ml else 'Win / Loss', 'ML' if ml else 'W/L'),
+    names = {'rfi': ('NRFI / YRFI', 'NRFI'), 'su': ('ML' if ml else 'Moneyline', 'ML'),
              'ats': (spread, {'nhl': 'PL', 'mlb': 'RL'}.get(sp['key'], 'Spread')), 'tot': ('O/U', 'O/U'),
              'btts': ('BTTS', 'BTTS'), 'ml3': ('3-way', '3-way'), 'scored': ('Scored', 'Scored'), 'o05': ('O/U 0.5', 'O/U 0.5')}
     order = []
     for *_, ms in segments(sp):
         order += [m for m in ms if m not in order]
+    if not ml:   # the Trends order: Spread · O/U · Moneyline
+        order = [m for m in ('ats', 'tot', 'su') if m in order] + [m for m in order if m not in ('ats', 'tot', 'su')]
     return {m: names[m] for m in order}
 
 
@@ -240,6 +243,41 @@ def short_day(day):
     return f"{d.strftime('%b')} {d.day}"
 
 
+def cutoff(sp, doc, today):
+    """The page is fixed for the day (football: the week): only games before
+    this day count, so a streak doesn't change as today's games finish. Daily:
+    today; football: the first day of the week being played."""
+    if sp.get('schedule') != 'week':
+        return today
+    days = sorted(doc.get('games') or {})
+    up = [(d, g) for d in days if d >= today for g in doc['games'][d] if g.get('state') not in ('postponed', 'canceled')]
+    if not up:
+        return today
+    wk = week_of(up[0][1], up[0][0])
+    return min([d for d in days for g in doc['games'][d] if week_of(g, d) == wk] or [today])
+
+
+def before(doc, day):
+    """The season doc with only the games before `day`."""
+    return dict(doc, games={d: gs for d, gs in (doc.get('games') or {}).items() if d < day})
+
+
+def next_games(doc, today):
+    """{team: {day, start, opp, ha}}: each team's next game from today on
+    (today's count, whatever their state)."""
+    out = {}
+    for d in sorted(doc.get('games') or {}):
+        if d < today:
+            continue
+        for g in sorted(doc['games'][d], key=lambda g: g.get('start') or ''):
+            if g.get('state') in ('postponed', 'canceled'):
+                continue
+            for side, other in (('away', 'home'), ('home', 'away')):
+                if g.get(side) and g[side] not in out:
+                    out[g[side]] = {'day': d, 'start': g.get('start'), 'opp': g.get(other), 'ha': side}
+    return out
+
+
 def season_doc(sp, doc, cur, today):
     """One season's running, ended and records."""
     seqs = sequences(sp, doc)
@@ -248,7 +286,7 @@ def season_doc(sp, doc, cur, today):
     running = []
     if cur:
         for (t, k, m, v), r in live.items():
-            if r['n'] >= MIN_RUN:
+            if r['n'] >= MIN_RUN_BY.get(sp['key'], MIN_RUN):
                 running.append({'t': t, 'k': k, 'm': m, 'kd': r['kd'], 'n': r['n'], 'v': v, 'a': r['a']})
         with_gt(running, overall)
         running.sort(key=lambda s: (-s['n'], s['t'], s['k'], s['m'], s['v']))
@@ -292,12 +330,12 @@ def tonight(sp, doc, running, today):
     for s in running:
         if s['n'] >= MIN_HOT and (s['v'] == 'all' or s.get('gt')):
             by_team.setdefault(s['t'], []).append(s)
-    pre = []
+    pre = []   # every game from today on, whatever its state: the page is fixed for the day
     for d in sorted(doc.get('games') or {}):
         if d < today:
             continue
         for g in doc['games'][d]:
-            if g.get('state') == 'pre':
+            if g.get('state') not in ('postponed', 'canceled'):
                 pre.append((d, g))
 
     def game_of(d, g):
@@ -306,22 +344,21 @@ def tonight(sp, doc, running, today):
             return None
         ss.sort(key=lambda s: (-s['n'], s['t'], s['k'], s['m']))
         return {'id': str(g.get('id') or ''), 'day': d, 'start': g.get('start'), 'away': g['away'], 'home': g['home'],
-                'odds': g.get('odds') or {}, 'fo': g.get('fo') or {}, 's': ss}
+                's': ss}
     if weekly:
         wk = week_of(pre[0][1], pre[0][0]) if pre else None
         games = [x for x in (game_of(d, g) for d, g in pre if week_of(g, d) == wk) if x]
         labels = {w['key']: w.get('label') for w in doc.get('weeks') or []}
-        return {'mode': 'week', 'day': pre[0][0], 'label': labels.get(wk) or 'This week', 'games': games} if games else None
-    games = [x for x in (game_of(d, g) for d, g in pre if d == today) if x]
-    if games:
-        return {'mode': 'tonight', 'day': today, 'label': day_label(today), 'games': games}
-    for d in sorted({d for d, _ in pre if d > today}):
-        day_games = [(dd, g) for dd, g in pre if dd == d]
-        if not any(g.get('odds') for _, g in day_games):
-            continue
-        games = [x for x in (game_of(dd, g) for dd, g in day_games) if x]
-        return {'mode': 'next', 'day': d, 'label': day_label(d), 'games': games} if games else None
-    return None
+        playing = sorted({g[x] for d, g in pre if week_of(g, d) == wk for x in ('away', 'home')})
+        return {'mode': 'week', 'day': pre[0][0], 'label': labels.get(wk) or 'This week', 'games': games, 'playing': playing} if pre else None
+    # today's games (or, with none today, the next day that has games), even
+    # when no streak of 5+ is on the line
+    if not pre:
+        return None
+    d = pre[0][0]
+    games = [x for x in (game_of(dd, g) for dd, g in pre if dd == d) if x]
+    playing = sorted({g[x] for dd, g in pre if dd == d for x in ('away', 'home')})
+    return {'mode': 'tonight' if d == today else 'next', 'day': d, 'label': day_label(d), 'games': games, 'playing': playing}
 
 
 def build(sp, today=None):
@@ -334,12 +371,17 @@ def build(sp, today=None):
            'segs': [{'k': k, 'label': lab, 'short': sh, 'tag': tag, 'fr': 1 if fr else 0, 'm': ms} for k, lab, sh, tag, fr, ms in segments(sp)],
            'markets': [{'id': m, 'label': a, 'short': b} for m, (a, b) in market_names(sp).items()],
            'running': [], 'ended': {'label': '', 'list': []}, 'tonight': None, 'records': []}
+    out['min_run'] = MIN_RUN_BY.get(sp['key'], MIN_RUN)
     for i, (doc, is_cur) in enumerate(docs):
-        s = season_doc(sp, doc, cur and is_cur, today)
+        live = cur and is_cur
+        upto = cutoff(sp, doc, today.isoformat()) if live else None
+        s = season_doc(sp, before(doc, upto) if upto else doc, live, today)
         if i == 0:
             out['running'], out['ended'] = s['running'], s['ended']
-            if cur and is_cur:
-                out['tonight'] = tonight(sp, doc, s['running'], today.isoformat())
+            if live:
+                out['tonight'] = tonight(sp, doc, s['running'], upto)
+                teams = {x['t'] for x in s['running']}
+                out['next'] = {t: n for t, n in next_games(doc, today.isoformat()).items() if t in teams}
         out['records'].append({'label': str(doc.get('seasonLabel') or doc.get('season') or ''), 'list': s['records']})
     return out
 
