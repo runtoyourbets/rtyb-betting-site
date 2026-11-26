@@ -220,6 +220,7 @@ function measure(doc, tag) {
   var bad = [], w = doc.documentElement.clientWidth;
   if (doc.documentElement.scrollWidth > w) bad.push(tag + ' page ' + doc.documentElement.scrollWidth);
   Array.prototype.forEach.call(doc.querySelectorAll('#sportApp *'), function(el) {
+    if (el.closest('.tr-frow') && !el.classList.contains('tr-frow')) return;   // pills scroll sideways inside their row
     var r = el.getBoundingClientRect();
     if (r.width && (r.right > w + 0.5 || r.left < -0.5)) bad.push(tag + ' ' + el.tagName + '.' + el.className + ' ' + Math.round(r.left) + '-' + Math.round(r.right));
   });
@@ -231,9 +232,9 @@ function next(i) {
   f.src = '/' + slug + '/due.html';
   f.onload = function() {
     var doc = f.contentDocument;
-    wait(function() { return doc.querySelector('.df2-ctrl'); }, function() {
+    wait(function() { return doc.querySelector('.df-ctrl'); }, function() {
       var bad = [];
-      if (!doc.querySelector('.df2-ctrl')) bad.push('no app');
+      if (!doc.querySelector('.df-ctrl')) bad.push('no app');
       ['daily', 'weekly', 'monthly'].forEach(function(v) {
         var b = doc.querySelector('[data-df-view="' + v + '"]');
         if (!b) return;
