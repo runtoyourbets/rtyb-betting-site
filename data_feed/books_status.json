@@ -16,7 +16,7 @@
   "105": {
    "coverage": {
     "nba": 100,
-    "ncaab": 15,
+    "ncaab": 16,
     "ncaaf": 94,
     "nfl": 0,
     "nhl": 100
@@ -81,7 +81,7 @@
   "20": {
    "coverage": {
     "nba": 100,
-    "ncaab": 81,
+    "ncaab": 82,
     "ncaaf": 96,
     "nfl": 100,
     "nhl": 63
