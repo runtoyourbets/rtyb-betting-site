@@ -51,15 +51,14 @@ class CountTest(unittest.TestCase):
         self.assertEqual(c['home_ml']['d'], {'2026-11-20': [1, 1, 1]})       # the game with no line is out
         self.assertEqual(c['fav_ml']['d'], {'2026-11-20': [1, 1, 1]})        # home is the favorite
         self.assertEqual(c['ou']['d'], {'2026-11-20': [1, 1, 1]})
-        self.assertEqual(c['ties']['ro'], 1)                                  # ties: results only, every game
-        self.assertEqual(c['ties']['d'], {'2026-11-20': [1, 2, 0], '2026-11-21': [0, 1, 0]})
+        self.assertNotIn('ties', c)                                           # no Ties market (Chris, Nov 26)
 
     def test_every_segment_and_market_from_the_spec(self):
-        want = {'nhl': [('1p', 0, ['home_ml', 'fav_ml', 'ou', 'btts', 'ties']), ('2p', 1, ['win', 'o05', 'o15', 'ties']),
-                        ('3p', 1, ['win', 'o05', 'o15', 'ties']), ('game', 1, ['home_ml', 'fav_ml', 'pl', 'ou', 'ot'])],
-                'mlb': [('1i', 0, ['nrfi']), ('f5', 0, ['home_ml', 'fav_ml', 'rl', 'ou', 'ties']), ('game', 1, ['home_ml', 'fav_ml', 'rl', 'ou'])],
-                'ncaab': [('1h', 0, ['home_ats', 'fav_ats', 'ou', 'home_ml', 'fav_ml', 'ties']), ('2h', 1, ['home_ats', 'fav_ats', 'ou', 'home_ml', 'fav_ml', 'ties']),
-                          ('game', 1, ['home_ats', 'fav_ats', 'ou', 'home_ml', 'fav_ml', 'ot'])]}
+        want = {'nhl': [('1p', 0, ['home_ml', 'fav_ml', 'ou', 'btts']), ('game', 1, ['home_ml', 'fav_ml', 'pl', 'ou', 'ot']),
+                        ('2p', 1, ['win', 'o05', 'o15']), ('3p', 1, ['win', 'o05', 'o15'])],
+                'mlb': [('1i', 0, ['nrfi']), ('f5', 0, ['home_ml', 'fav_ml', 'rl', 'ou']), ('game', 1, ['home_ml', 'fav_ml', 'rl', 'ou'])],
+                'ncaab': [('1h', 0, ['home_ats', 'fav_ats', 'ou', 'home_ml', 'fav_ml']),
+                          ('game', 1, ['home_ats', 'fav_ats', 'ou', 'home_ml', 'fav_ml', 'ot']), ('2h', 1, ['home_ats', 'fav_ats', 'ou', 'home_ml', 'fav_ml'])]}
         for key in ('nba', 'wnba', 'nfl', 'ncaaf'):
             want[key] = [('1q', 0, want['ncaab'][0][2])] + want['ncaab']
         for key, segs in want.items():
@@ -110,8 +109,8 @@ class PageTest(unittest.TestCase):
 
     def test_short_phone_labels(self):
         got = {sp['key']: [m.out()['s'] for m in df.segments(sp)[0][3]] for sp in (sports.BY_KEY['nhl'], sports.BY_KEY['nba'])}
-        self.assertEqual(got['nhl'], ['ML H/A', 'ML F/D', 'O/U 1.5', 'BTTS', 'Ties'])
-        self.assertEqual(got['nba'], ['Spread H/A', 'Spread F/D', 'O/U', 'ML H/A', 'ML F/D', 'Ties'])
+        self.assertEqual(got['nhl'], ['ML H/A', 'ML F/D', 'O/U 1.5', 'BTTS'])
+        self.assertEqual(got['nba'], ['Spread H/A', 'Spread F/D', 'O/U', 'ML H/A', 'ML F/D'])
 
     def test_strip_off_renders_nothing(self):
         self.assertFalse(sports.DUE_STRIP)

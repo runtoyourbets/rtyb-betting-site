@@ -6,7 +6,7 @@ description_offseason: "MLB first inning & first five Due Factor from last seaso
 ---
 ## Run To Your Bets MLB Due Factor
 
-The Due Factor tracks how every MLB market is running against its own season rate: NRFI / YRFI in the 1st inning; the moneyline (home or away, favorite or dog), the run line, the total and ties for the First 5; the same without ties for the full game. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
+The Due Factor tracks how every MLB market is running against its own season rate: NRFI / YRFI in the 1st inning; the moneyline (home or away, favorite or dog), the run line and the total for the First 5; the same for the full game. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
 
 ### How to read it
 

@@ -646,7 +646,7 @@
     if (segs.length < 2) return '';
     return '<div class="gm-stick" id="gmStick"><div class="sport-seg-row"><div class="seg-toggle" id="pageSeg">' + segs.map(function(s) {
       return '<button class="seg-btn" data-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>';
-    }).join('') + '</div></div></div>';
+    }).join('') + '</div>' + confSel() + '</div></div>';
   }
   function renderGames() {
     var weeks = D.schedule === 'week' ? D.weeks || [] : null;
@@ -670,7 +670,7 @@
         games = (D.games[cur] || []).slice().sort(function(a, b) { return (a.start || '') < (b.start || '') ? -1 : (a.start || '') > (b.start || '') ? 1 : 0; });
         title = resultsTitle(cur); none = 'on ' + dateLabel(cur);
       }
-      games = games.filter(function(g) { return g.state === 'pre' || lined(g, k); });
+      games = games.filter(function(g) { return (g.state === 'pre' || lined(g, k)) && confGame(g); });
       var html = (weeks ? weekBar(weeks, cur, thisWeek) : dateBar(cur, dates, true)) + gmSegBar(k) + resultsBox(games, k, title);
       if (!games.length) {
         if (weeks) WEEK_ORDER = keys;
@@ -692,6 +692,7 @@
       if (cal) cal.onclick = function() { openCalendar({ days: dayCounts(), cur: cur, weeks: weeks, onPick: go }); };
       var ps = document.getElementById('pageSeg');
       if (ps) ps.onclick = function(e) { var b = e.target.closest('[data-seg]'); if (b) { setSeg(b.getAttribute('data-seg')); draw(); } };
+      wireConf(app, draw);
     }
     draw();
   }
@@ -858,6 +859,33 @@
       out.push({ v: 'd:' + d, label: d + (/\s/.test(d) ? '' : ' Division'), test: function(s) { return D.teams[s].division === d; } });
     });
     return out;
+  }
+  // the college conference dropdown on Matchups, Odds and Streaks (Chris,
+  // Nov 26: college only): '' = every game / team; a game shows when either
+  // team is in the group. Remembered per sport in this browser.
+  var CONF = null;
+  function confOn() { return tlCollege() && !!(D && D.teams); }
+  function confCur() {
+    if (CONF === null) { CONF = ''; try { CONF = localStorage.getItem('rtyb-conf-' + D.sport) || ''; } catch (e) {} }
+    return CONF;
+  }
+  function confSet(v) { CONF = v || ''; try { localStorage.setItem('rtyb-conf-' + D.sport, CONF); } catch (e) {} }
+  function confSel(extra) {
+    if (!confOn()) return '';
+    var cur = confCur();
+    return '<select class="conf-select' + (extra || '') + '" data-conf aria-label="Conference">' + tlGroups().map(function(o) {
+      return '<option value="' + esc(o.v) + '"' + (o.v === cur ? ' selected' : '') + '>' + esc(o.label) + '</option>';
+    }).join('') + '</select>';
+  }
+  function confTeam(t) {
+    if (!confOn() || !confCur()) return true;
+    var g = tlGroups().filter(function(o) { return o.v === CONF; })[0];
+    return !g || (!!D.teams[t] && g.test(t));
+  }
+  function confGame(g) { return confTeam(g.away) || confTeam(g.home); }
+  function wireConf(box, redraw) {
+    var el = box.querySelector('[data-conf]');
+    if (el) el.onchange = function() { confSet(el.value); redraw(); };
   }
   // the name: desktop the full name (college: the school), phones the short name
   function tlName(s) { return tlCollege() ? shortName(s) : D.teams[s].name; }
@@ -3727,6 +3755,7 @@
         // a game with no line in any of the segment's markets doesn't show
         games = games.filter(function(g) { var s = (gsrc(g, k).books || {})[k] || {}; return Object.keys(s).some(function(m) { return s[m] && Object.keys(s[m]).length; }); });
         if (one) games = games.filter(function(g) { return g.away === one.away && g.home === one.home; });
+        else games = games.filter(confGame);
         // football weeks: finished games drop to the bottom, in start order
         if (weeks) games = games.filter(function(g) { return g.state !== 'final'; }).concat(games.filter(function(g) { return g.state === 'final'; }));
         if (k === 'game' && !games.some(function(g) { return g.full; })) { /* no full-game lines saved for this slate */ }
@@ -3743,7 +3772,7 @@
         html += '<div class="ob-stick" id="obStick"><div class="sport-seg-row odds-controls">' + oddsSegBar(k) +
           '<div class="seg-toggle" id="oddsMkt">' + ms.map(function(x) {
             return '<button class="seg-btn" data-mkt="' + x[1] + '" aria-pressed="' + (x[1] === MKT_CUR) + '">' + esc(pillLabel(x)) + '</button>';
-          }).join('') + '</div>' + booksBtn(picker, sources) + '</div></div>';
+          }).join('') + '</div>' + (one ? '' : confSel()) + booksBtn(picker, sources) + '</div></div>';
         var first = slate()[0];
         if (!games.length && one) html += '<p class="tp-none">No ' + esc(k === 'game' ? 'Game' : seg(k).label) + ' lines for this game.</p>';
         else if (!games.length) {
@@ -3789,6 +3818,7 @@
         var ps = document.getElementById('pageSeg');
         if (ps) ps.onclick = function(e) { var b = e.target.closest('[data-seg]'); if (b) { setSeg(b.getAttribute('data-seg')); show(); } };
         document.getElementById('oddsMkt').onclick = function(e) { var b = e.target.closest('[data-mkt]'); if (b) { MKT_CUR = b.getAttribute('data-mkt'); show(); } };
+        wireConf(box, show);
       }
       function show() { load(slate()).then(draw); }
       show();
@@ -4354,11 +4384,10 @@
 
   // ------------------------------------------------------------- Streaks
   // /{sport}/streaks/ (scripts/streaks.py writes {slug}/streaks.json):
-  // Segment · Market · All / Home / Away, then Tonight (football: This Week),
-  // Still Running beside Run's Over, and Records (this season / last).
-  // Full Run segments: the gold dot, gold bar and PREMIUM tag; locked and
-  // blurred while PREMIUM.fullRun keeps them from free visitors.
-  var SK = null, SKO = { og: {}, picker: [], sources: {} }, SKF = { seg: 'all', m: 'all', v: 'all', rs: 0, more: false };
+  // "{Sport} Streaks for {day}" (football: the week), Top Streak of the Day,
+  // the Segment · Market · Home / Away pills, Streaks to Watch, Still Running
+  // (All / Up Next) beside Run's Over, and Records (this season / last).
+  var SK = null, SKF = { seg: 'all', m: 'all', v: 'all', rs: 0, more: false, watchMore: false, sort: 'all' };
   var SK_SHOWN = 30;   // Still Running rows before "Show all"
   function skSeg(k) { return SK.segs.filter(function(x) { return x.k === k; })[0] || {}; }
   function skMkt(id) { return SK.markets.filter(function(x) { return x.id === id; })[0] || { label: id }; }
@@ -4368,6 +4397,7 @@
   // (streaks.QUIET in Python, for the index)
   var SK_QUIET = { o05: 1, scored: 1 };
   function skMatch(s) {
+    if (!confTeam(s.t)) return false;
     if (SKF.seg !== 'all' && s.k !== SKF.seg) return false;
     if (SKF.m === 'all' ? SK_QUIET[s.m] : s.m !== SKF.m) return false;
     return SKF.v === 'all' ? s.v === 'all' || !!s.gt : s.v === SKF.v;
@@ -4391,93 +4421,87 @@
   }
   function skTeam(slug) { return teamLink(slug, badge(slug, 22) + nameHtml(slug)); }
   function skMatchup(a, b, day) { return h2hUrl(a, b) || ROOT + SK.matchups + (day ? '?date=' + day : ''); }
-  // the bet that keeps a streak going: the odds market and the side
-  function skBet(s, g) {
-    var ts = g.away === s.t ? 'away' : 'home', os = ts === 'away' ? 'home' : 'away';
-    if (s.m === 'su' || s.m === 'ml3' || s.m === 'ats') return { mk: s.m === 'su' ? 'ml' : s.m, ride: s.kd === 'W' ? ts : os, fade: s.kd === 'W' ? os : ts };
-    if (s.m === 'tot') return { mk: 'total', ride: s.kd === 'O' ? 'over' : 'under', fade: s.kd === 'O' ? 'under' : 'over' };
-    if (s.m === 'btts') return { mk: 'btts', ride: s.kd === 'Y' ? 'yes' : 'no', fade: s.kd === 'Y' ? 'no' : 'yes' };
-    if (s.m === 'rfi') return { mk: 'rfi', ride: s.kd === 'Y' ? 'yrfi' : 'nrfi', fade: s.kd === 'Y' ? 'nrfi' : 'yrfi' };
-    return { mk: s.m, ride: s.kd, fade: null };   // NHL 2nd / 3rd Period: results only
+  // the day's streaks: Top Streak, Streaks to Watch, Still Running (All /
+  // Up Next) beside Run's Over. Fixed for the day (football: the week):
+  // streaks count games before it, so they don't move as games finish.
+  var SK_TOP_SKIP = { '2h': 1, '2p': 1, '3p': 1 };   // never a 2nd half / later period as the Top Streak
+  var SK_WATCH = 10, SK_CAP = 100, SK_ENDED = 10;
+  function skDayLabel(day) { return new Date(day + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }); }
+  // "vs DET · 7:30 PM ET" (another day: "vs DET · Fri, Nov 28 · 7:30 PM ET")
+  function skNextTxt(t, nx, today) {
+    if (!nx || !nx.opp) return '';
+    var when = nx.start ? timeET(nx.start) : '';
+    if (D.schedule !== 'week' && nx.day !== today) when = skDayLabel(nx.day) + (when ? ' · ' + when : '');
+    return (nx.ha === 'home' ? 'vs ' : '@ ') + tcode(nx.opp) + (when ? ' · ' + when : '');
   }
-  // the best price on one side: "DET -2.5 -105", "O 220.5 -110", "NRFI -160"
-  function skPrice(g, k, mk, side) {
-    var o = null;
-    if (k === 'game') o = ((g.fo || {}).game || {})[mk];
-    else {
-      var og = SKO.og[g.away + '@' + g.home];
-      o = og ? pickedBest(og, k, mk, SKO.picker, SKO.sources) : null;
-      if (!o) o = ((g.odds || {})[k] || {})[mk === 'rfi' ? 'nrfi_yrfi' : mk];
-    }
-    if (!o) return null;
-    if (mk === 'ml' || mk === 'ml3') return typeof o[side] === 'number' ? tcode(g[side]) + ' ' + priceTxt(o[side]) : null;
-    if (mk === 'ats') { var a = o[side]; return a && typeof a.line === 'number' ? tcode(g[side]) + ' ' + signedLine(a.line) + ' ' + priceTxt(a.price) : null; }
-    if (mk === 'total') return typeof o[side] === 'number' && typeof o.line === 'number' ? (side === 'over' ? 'O ' : 'U ') + o.line + ' ' + priceTxt(o[side]) : null;
-    if (mk === 'btts') return typeof o[side] === 'number' ? 'BTTS ' + (side === 'yes' ? 'Yes' : 'No') + ' ' + priceTxt(o[side]) : null;
-    if (mk === 'rfi') return typeof o[side] === 'number' ? side.toUpperCase() + ' ' + priceTxt(o[side]) : null;
-    return null;
+  // chip · logo + code (no underline) + streak, the next game under it
+  function skLine(s, sub, big) {
+    return '<div class="stk-row sk-line' + (big ? ' sk-top-row' : '') + '"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span>' +
+      '<span class="stk-l1">' + teamLink(s.t, badge(s.t, big ? 28 : 20) + (big ? nameHtml(s.t) : '<span>' + esc(tcode(s.t)) + '</span>')) +
+      '<span class="stk-run">' + esc(skWhat(s)) + '</span>' + skVenue(s) + '</span>' +
+      (sub ? '<span class="stk-l2">' + esc(sub) + '</span>' : '') + '</div>';
   }
-  // RIDE / FADE: price buttons to the matchup page with the market open;
-  // a second-half / later-period line posts at the break; NHL 2P / 3P none
-  function skButtons(s, g) {
-    if (D.sport === 'nhl' && (s.k === '2p' || s.k === '3p')) return '';
-    if (s.k === '2h') return '<span class="sk-note">2H line posts at halftime</span>';
-    var b = skBet(s, g), ride = skPrice(g, s.k, b.mk, b.ride), fade = b.fade ? skPrice(g, s.k, b.mk, b.fade) : null;
-    if (!ride && !fade) return '<span class="sk-note">line not posted yet</span>';
-    var href = skMatchup(g.away, g.home, g.day) + (h2hUrl(g.away, g.home) ? '?seg=' + s.k + '&mkt=' + b.mk : '');
-    function btn(word, txt, cls) { return txt ? '<a class="sk-btn ' + cls + '" href="' + href + '"><span class="sk-bw">' + word + '</span> ' + esc(txt) + '</a>' : ''; }
-    return '<span class="sk-btns">' + btn('Ride', ride, 'sk-ride') + btn('Fade', fade, 'sk-fade') + '</span>';
-  }
-  // two streaks in a game pointing opposite ways in the same segment and market
-  function skCollide(ss, g) {
-    var seen = {};
-    return ss.some(function(s) {
-      if (s.m === 'scored') return false;
-      var b = skBet(s, g), key = s.k + '|' + b.mk, x = seen[key];
-      if (x && x !== b.ride) return true;
-      seen[key] = b.ride;
-      return false;
+  function skWatchList() {
+    var t = SK.tonight, out = [];
+    if (!t) return out;
+    t.games.forEach(function(g) {
+      g.s.forEach(function(s) {
+        var opp = g.away === s.t ? g.home : g.away;
+        out.push({ s: s, g: g, sub: (g.away === s.t ? '@ ' : 'vs ') + tcode(opp) + (g.start ? ' · ' + timeET(g.start) : '') });
+      });
     });
+    return out;
+  }
+  function skTop() {
+    var best = null;
+    skWatchList().forEach(function(x) {
+      if (SK_TOP_SKIP[x.s.k] || SK_QUIET[x.s.m] || x.s.v !== 'all' && !x.s.gt) return;
+      if (!confTeam(x.s.t)) return;
+      if (!best || x.s.n > best.s.n) best = x;
+    });
+    if (!best) return '';
+    return '<div class="st-card sk-card sk-top"><div class="st-head"><h4>Top Streak of the ' + (SK.weekly ? 'Week' : 'Day') + '</h4></div>' + skLine(best.s, best.sub, true) + '</div>';
   }
   function skTonight() {
     var t = SK.tonight;
     if (!t) return '';
-    var games = t.games.map(function(g) { return { g: g, s: g.s.filter(skMatch) }; }).filter(function(x) { return x.s.length; });
-    if (!games.length) return '';
-    games.sort(function(a, b) { return b.s[0].n - a.s[0].n; });
-    var head = (t.mode === 'week' ? 'This Week &middot; ' : t.mode === 'next' ? 'Next up &middot; ' : 'Tonight &middot; ') + esc(t.label);
-    var body = games.map(function(x) {
-      var g = x.g, top = x.s.slice(0, 4);
-      var rows = skRows(top, function(s) {
-        return '<li class="sk-trow' + (skSeg(s.k).fr ? ' sk-fr' : '') + '"><span class="sk-l1"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span>' +
-          teamLink(s.t, badge(s.t, 20) + '<span class="sk-code">' + esc(tcode(s.t)) + '</span>') + '<span class="sk-what">' + esc(skWhat(s)) + '</span>' + skVenue(s) + '</span>' +
-          skButtons(s, g) + '</li>';
-      });
-      return '<div class="sk-game"><div class="sk-ghead"><span class="sk-gt">' + esc(tcode(g.away)) + ' @ ' + esc(tcode(g.home)) + (g.start ? ' &middot; ' + esc(timeET(g.start)) : '') + '</span>' +
-        (skCollide(x.s, g) ? '<span class="sk-collide">Streaks collide</span>' : '') +
-        '<a class="sk-mu" href="' + skMatchup(g.away, g.home, g.day) + '">Matchup &rarr;</a></div><ul class="sk-tlist">' + rows + '</ul></div>';
-    }).join('');
-    return '<div class="st-card sk-card sk-tonight"><div class="st-head"><h4>' + head + '</h4><span class="sk-right">5+ &middot; best price</span></div><div class="sk-games">' + body + '</div></div>';
+    var list = skWatchList().filter(function(x) { return skMatch(x.s); });
+    list.sort(SK.weekly ? function(a, b) { return (a.g.start || '').localeCompare(b.g.start || '') || b.s.n - a.s.n; } : function(a, b) { return b.s.n - a.s.n; });
+    var open = SKF.watchMore, shown = open ? list : list.slice(0, SK_WATCH);
+    var body = list.length ? '<div class="sk-wgrid">' + skRows(shown, function(x) { return skLine(x.s, x.sub); }) + '</div>' +
+      (list.length > SK_WATCH ? '<button type="button" class="sk-more" data-sk-wmore="1">' + (open ? 'Show less' : 'Show all ' + list.length) + '</button>' : '')
+      : '<p class="tp-none">No streaks of 5 or more on the line for these picks.</p>';
+    return '<div class="st-card sk-card sk-tonight"><div class="st-head"><h4>Streaks to Watch</h4></div>' + body + '</div>';
   }
   function skRunning() {
-    var list = SK.running.filter(skMatch), shown = SKF.more ? list : list.slice(0, SK_SHOWN);
-    var rows = skRows(shown, function(s) {
-      return '<li class="sk-row' + (skSeg(s.k).fr ? ' sk-fr' : '') + '"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span><span class="sk-who">' + skTeam(s.t) + '</span>' +
-        '<span class="sk-what">' + esc(skWhat(s)) + skVenue(s) + skFrTag(s) + '</span></li>';
-    });
-    return '<div class="st-card sk-card"><div class="st-head"><h4>Still Running</h4></div>' +
-      (list.length ? '<ul class="sk-list">' + rows + '</ul>' + (list.length > shown.length ? '<button type="button" class="sk-more" data-sk-more="1">Show all ' + list.length + '</button>' : '')
-        : '<p class="tp-none">No streaks of 3 or more for these picks.</p>') + '</div>';
+    var playing = {}, today = (SK.tonight || {}).day || SK.today;
+    ((SK.tonight || {}).playing || []).forEach(function(t) { playing[t] = 1; });   // every team on the day's (week's) card
+    var nxt = SK.next || {}, list = SK.running.filter(skMatch);
+    if (SKF.sort === 'next') {
+      // teams not on today's (this week's) card, by their next game
+      list = list.filter(function(s) { return !playing[s.t] && nxt[s.t]; });
+      list.sort(function(a, b) { var x = nxt[a.t], y = nxt[b.t]; return (x.day + (x.start || '')).localeCompare(y.day + (y.start || '')) || b.n - a.n; });
+    }
+    var total = Math.min(list.length, SK_CAP);
+    list = list.slice(0, SKF.more ? SK_CAP : SK_SHOWN);
+    var rows = skRows(list, function(s) { return skLine(s, skNextTxt(s.t, nxt[s.t], today)); });
+    var sorts = '<div class="seg-toggle tr-frow sk-sorts" role="group" aria-label="Sort">' + [['all', 'All'], ['next', 'Up Next']].map(function(o) {
+      return '<button class="seg-btn" data-sk-sort="' + o[0] + '" aria-pressed="' + (SKF.sort === o[0]) + '">' + o[1] + '</button>';
+    }).join('') + '</div>';
+    return '<div class="st-card sk-card"><div class="st-head"><h4>Still Running</h4></div>' + sorts +
+      (list.length ? '<div class="sk-list">' + rows + '</div>' + (total > list.length ? '<button type="button" class="sk-more" data-sk-more="1">Show more</button>' : '')
+        : '<p class="tp-none">' + (SKF.sort === 'next' ? 'No streaks for teams waiting on their next game.' : 'No streaks of ' + (SK.min_run || 3) + ' or more for these picks.') + '</p>') + '</div>';
   }
   function skEnded() {
-    var list = SK.ended.list.filter(skMatch);
+    var list = SK.ended.list.filter(skMatch).sort(function(a, b) { return b.n - a.n; }).slice(0, SK_ENDED);
     var rows = skRows(list, function(e) {
-      var opp = (e.ha === 'home' ? 'vs ' : '@ ') + esc(tcode(e.opp));
-      return '<li class="sk-row' + (skSeg(e.k).fr ? ' sk-fr' : '') + '"><span class="sk-len sk-over">' + e.n + '</span><span class="sk-who">' + skTeam(e.t) + '</span>' +
-        '<span class="sk-what">' + esc(skWhat(e)) + skVenue(e) + ' &middot; ended at ' + e.n + ' &middot; <a class="sk-opp" href="' + skMatchup(e.t, e.opp, e.day) + '">' + opp + '</a>' + skFrTag(e) + '</span></li>';
+      var opp = (e.ha === 'home' ? 'vs ' : '@ ') + tcode(e.opp);
+      return '<div class="stk-row sk-line"><span class="sk-len sk-over">' + e.n + '</span>' +
+        '<span class="stk-l1">' + teamLink(e.t, badge(e.t, 20) + '<span>' + esc(tcode(e.t)) + '</span>') + '<span class="stk-run">' + esc(skWhat(e)) + '</span>' + skVenue(e) + '</span>' +
+        '<span class="stk-l2">Ended at ' + e.n + ' · ' + esc(opp) + '</span></div>';
     });
     return '<div class="st-card sk-card"><div class="st-head"><h4>Run&rsquo;s Over' + (SK.ended.label ? ' &middot; ' + esc(SK.ended.label) : '') + '</h4></div>' +
-      (list.length ? '<ul class="sk-list">' + rows + '</ul>' : '<p class="tp-none">No streak of 5 or more ended' + (SK.ended.label ? ' (' + esc(SK.ended.label) + ')' : '') + '.</p>') + '</div>';
+      (list.length ? '<div class="sk-list">' + rows + '</div>' : '<p class="tp-none">No streak of 5 or more ended' + (SK.ended.label ? ' (' + esc(SK.ended.label) + ')' : '') + '.</p>') + '</div>';
   }
   function skRecords() {
     var season = SK.records[SKF.rs] || SK.records[0];
@@ -4487,7 +4511,7 @@
       if (SKF.seg !== 'all' && seg.k !== SKF.seg) return;
       seg.m.forEach(function(m) {
         if (SKF.m !== 'all' && m !== SKF.m) return;
-        var rs = season.list[seg.k + '|' + m + '|' + SKF.v] || [];
+        var rs = (season.list[seg.k + '|' + m + '|' + SKF.v] || []).filter(function(r) { return confTeam(r.t); });
         if (!rs.length) return;
         var locked = seg.fr && premiumLocked('fullRun');
         var rows = rs.map(function(r, i) {
@@ -4509,40 +4533,43 @@
     var mids = [];
     SK.segs.forEach(function(x) { if (!seg || x.k === seg.k) x.m.forEach(function(m) { if (mids.indexOf(m) === -1) mids.push(m); }); });
     if (SKF.m !== 'all' && mids.indexOf(SKF.m) === -1) SKF.m = 'all';
-    var mopts = [{ k: 'all', label: 'All markets', s: 'All' }].concat(SK.markets.filter(function(x) { return mids.indexOf(x.id) !== -1; }).map(function(x) { return { k: x.id, label: x.label, s: x.short }; }));
-    var ctrl = '<div class="df2-ctrl sk-ctrl">' +
-      dfBar('Segment', 'data-sk-seg', [{ k: 'all', label: 'All segments', s: 'All' }].concat(SK.segs.map(function(x) { return { k: x.k, label: x.label, s: x.short, fr: x.fr }; })), SKF.seg) +
-      dfBar('Market', 'data-sk-m', mopts, SKF.m, mopts.length > 5 ? ' df2-markets' : '') +
-      dfBar('Home or away', 'data-sk-v', [{ k: 'all', label: 'All' }, { k: 'home', label: 'Home' }, { k: 'away', label: 'Away' }], SKF.v) + '</div>';
-    app.innerHTML = ctrl + (SK.cur ? skTonight() + '<div class="sk-two">' + skRunning() + skEnded() + '</div>' : (SK.ended.list.filter(skMatch).length ? skEnded() : '')) + skRecords();
+    // the Trends pills: All first, small and left-aligned (phones scroll sideways)
+    function row(attr, opts, cur, label) {
+      return '<div class="seg-toggle tr-frow" role="group" aria-label="' + label + '">' + opts.map(function(o) {
+        return '<button class="seg-btn" ' + attr + '="' + o[0] + '" aria-pressed="' + (o[0] === cur) + '">' + o[1] + '</button>';
+      }).join('') + '</div>';
+    }
+    function segTxt(x) {
+      var full = x.k === 'game' ? 'Game' : x.label, short = x.k === 'game' ? 'FG' : x.short;
+      return full === short ? esc(full) : '<span class="tn-full">' + esc(full) + '</span><span class="tn-short">' + esc(short) + '</span>';
+    }
+    var ctrl = '<div class="tr-filters sk-ctrl">' +
+      row('data-sk-seg', [['all', 'All']].concat(SK.segs.map(function(x) { return [x.k, segTxt(x)]; })), SKF.seg, 'Segment') +
+      row('data-sk-m', [['all', 'All']].concat(SK.markets.filter(function(x) { return mids.indexOf(x.id) !== -1; }).map(function(x) { return [x.id, esc(x.label)]; })), SKF.m, 'Market') +
+      row('data-sk-v', [['all', 'All'], ['home', 'Home'], ['away', 'Away']], SKF.v, 'Home or away') + (confOn() ? '<div class="sk-conf">' + confSel() + '</div>' : '') + '</div>';
+    var name = { ncaab: 'College Basketball', ncaaf: 'College Football' }[D.sport] || D.label;
+    var t = SK.tonight, head = t ? '<h2 class="tr-head">' + esc(name + ' Streaks for ' + (SK.weekly ? t.label : longDay(t.day))) + '</h2>' : '';
+    app.innerHTML = SK.cur ? head + skTop() + ctrl + skTonight() + '<div class="sk-two">' + skRunning() + skEnded() + '</div>' + skRecords()
+      : ctrl + (SK.ended.list.filter(skMatch).length ? skEnded() : '') + skRecords();
+    wireConf(app, function() { SKF.more = false; SKF.watchMore = false; drawStreaks(); });
   }
   function renderStreaks() {
-    Promise.all([fetch(dataUrl(SPORT_SLUG + '/streaks.json')).then(function(r) { return r.json(); }),
-                 fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })]).then(function(x) {
-      SK = x[0];
-      SKO.picker = x[1].picker || [];
-      SKO.sources = x[1].sources || {};
+    fetch(dataUrl(SPORT_SLUG + '/streaks.json')).then(function(r) { return r.json(); }).then(function(x) {
+      SK = x;
       app.addEventListener('click', function(e) {
-        var b = e.target.closest('[data-sk-seg],[data-sk-m],[data-sk-v],[data-sk-rs],[data-sk-more]');
+        var b = e.target.closest('[data-sk-seg],[data-sk-m],[data-sk-v],[data-sk-rs],[data-sk-more],[data-sk-wmore],[data-sk-sort]');
         if (!b) return;
+        if (b.hasAttribute('data-sk-more')) { SKF.more = true; drawStreaks(); return; }
+        if (b.hasAttribute('data-sk-wmore')) { SKF.watchMore = !SKF.watchMore; drawStreaks(); return; }
         if (b.hasAttribute('data-sk-seg')) SKF.seg = b.getAttribute('data-sk-seg');
         else if (b.hasAttribute('data-sk-m')) SKF.m = b.getAttribute('data-sk-m');
         else if (b.hasAttribute('data-sk-v')) SKF.v = b.getAttribute('data-sk-v');
-        else if (b.hasAttribute('data-sk-rs')) SKF.rs = +b.getAttribute('data-sk-rs');
-        else SKF.more = true;
-        if (!b.hasAttribute('data-sk-more')) SKF.more = false;
+        else if (b.hasAttribute('data-sk-sort')) SKF.sort = b.getAttribute('data-sk-sort');
+        else SKF.rs = +b.getAttribute('data-sk-rs');
+        SKF.more = false; SKF.watchMore = false;
         drawStreaks();
       });
       drawStreaks();
-      // the best prices among the visitor's books (the Books picker), per game day on the card
-      var days = {};
-      ((SK.tonight || {}).games || []).forEach(function(g) { days[g.day] = 1; });
-      Promise.all(Object.keys(days).map(function(d) {
-        return fetch(dataUrl(SPORT_SLUG + '/odds/' + d + '.json')).then(function(r) { return r.ok ? r.json() : { games: [] }; }).catch(function() { return { games: [] }; });
-      })).then(function(docs) {
-        docs.forEach(function(doc) { (doc.games || []).forEach(function(og) { SKO.og[og.away + '@' + og.home] = og; }); });
-        if (docs.length) drawStreaks();
-      });
     }).catch(function(e) {
       app.innerHTML = emptyNote('Couldn&rsquo;t load ' + esc(SPORT_SLUG) + ' streaks. Try reloading.');
       if (window.console) console.error(e);

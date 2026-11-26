@@ -6,7 +6,7 @@ description_offseason: "NFL first quarter & first half Due Factor from last seas
 ---
 ## Run To Your Bets NFL Due Factor
 
-The Due Factor tracks how every NFL market is running against its own season rate: the spread and moneyline (home or away, favorite or dog), the total and ties; the full game swaps ties for OT. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
+The Due Factor tracks how every NFL market is running against its own season rate: the spread and moneyline (home or away, favorite or dog), and the total; the full game adds OT. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
 
 ### How to read it
 

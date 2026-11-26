@@ -6,7 +6,7 @@ description_offseason: "NHL first period Due Factor from last season: each marke
 ---
 ## Run To Your Bets NHL Due Factor
 
-The Due Factor tracks how every NHL market is running against its own season rate: the moneyline (home or away, favorite or dog), the total, BTTS and ties; the 2nd and 3rd periods count winners, goals and ties from results, and the full game adds the puck line and OT / SO. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
+The Due Factor tracks how every NHL market is running against its own season rate: the moneyline (home or away, favorite or dog), the total and BTTS; the 2nd and 3rd periods count winners and goals from results, and the full game adds the puck line and OT / SO. Each market counts one side against the other (Over against Under, Home against Away, Favorites against Dogs), and only games with a line for it; a market with no lines counts results and says so.
 
 ### How to read it
 
