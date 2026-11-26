@@ -457,14 +457,9 @@
     "value": "nba:401909320"
    },
    {
-    "label": "NCAAB · SMU at Utah State · 7:30 PM ET",
+    "label": "NCAAB · SMU at Utah State · 7:50 PM ET",
     "trends": 9,
     "value": "ncaab:401918971"
-   },
-   {
-    "label": "NCAAB · Wake Forest at Mississippi State · 7:30 PM ET",
-    "trends": 7,
-    "value": "ncaab:401929287"
    },
    {
     "label": "NHL · Nashville Predators at Dallas Stars · 8:00 PM ET",
@@ -520,6 +515,11 @@
     "label": "NCAAB · Mississippi Valley State at New Mexico · 9:00 PM ET",
     "trends": 7,
     "value": "ncaab:401924897"
+   },
+   {
+    "label": "NCAAB · Wake Forest at Mississippi State · 9:05 PM ET",
+    "trends": 7,
+    "value": "ncaab:401929287"
    },
    {
     "label": "NHL · Montreal Canadiens at Colorado Avalanche · 9:30 PM ET",
@@ -995,14 +995,9 @@
     "value": "ncaab:401920847"
    },
    {
-    "label": "SMU at Utah State · 7:30 PM ET",
+    "label": "SMU at Utah State · 7:50 PM ET",
     "trends": 9,
     "value": "ncaab:401918971"
-   },
-   {
-    "label": "Wake Forest at Mississippi State · 7:30 PM ET",
-    "trends": 7,
-    "value": "ncaab:401929287"
    },
    {
     "label": "Cal State Bakersfield at Pepperdine · 8:00 PM ET",
@@ -1028,6 +1023,11 @@
     "label": "Mississippi Valley State at New Mexico · 9:00 PM ET",
     "trends": 7,
     "value": "ncaab:401924897"
+   },
+   {
+    "label": "Wake Forest at Mississippi State · 9:05 PM ET",
+    "trends": 7,
+    "value": "ncaab:401929287"
    },
    {
     "label": "Grand Canyon at Colorado · 9:30 PM ET",
