@@ -4239,7 +4239,7 @@
   function dfDayTint(c, m) { return !c || c[0] === c[1] ? '' : DF_TINT[c[0] > c[1] ? m.ta : m.tb]; }
   // Daily: the last 10 game days, newest first, and their total
   function dfDaily(days) {
-    var rows = dfGameDays(days).slice(-10).reverse().map(function(k) { return { key: k, label: dfDayLabel(k), c: days[k] }; });
+    var rows = dfGameDays(days).slice(-10).reverse().map(function(k) { return { key: k, label: dfDayLabel(k), s: dfShort(k), c: days[k] }; });
     return { rows: rows, total: rows.reduce(function(t, r) { return dfAdd(t, r.c); }, [0, 0, 0]) };
   }
   // Weekly: football's game weeks, else Mon-Sun ET weeks, newest first, and the season total
@@ -4250,10 +4250,12 @@
       dfGameDays(days).forEach(function(k) { var mon = dfShift(k, -((dfDow(k) + 6) % 7)); (by[mon] = by[mon] || []).push(k); });
       list = Object.keys(by).sort().map(function(mon) {
         var sun = dfShift(mon, 6), a = dfShort(mon), b = dfShort(sun);
-        return { key: mon, label: a + '-' + (a.slice(0, 3) === b.slice(0, 3) ? b.slice(4) : b), days: by[mon] };
+        function md(d) { return +d.slice(5, 7) + '/' + +d.slice(8, 10); }
+        var same = a.slice(0, 3) === b.slice(0, 3), label = a + '-' + (same ? b.slice(4) : b);
+        return { key: mon, label: label, s: same ? label : md(mon) + '-' + md(sun), days: by[mon] };   // phones: "10/26-11/1" across months
       });
     }
-    var rows = list.map(function(w) { return { key: w.key, label: w.label, c: dfSum(days, w.days) }; }).filter(function(r) { return r.c[0] + r.c[1] + r.c[2]; }).reverse();
+    var rows = list.map(function(w) { return { key: w.key, label: w.label, s: w.s, c: dfSum(days, w.days) }; }).filter(function(r) { return r.c[0] + r.c[1] + r.c[2]; }).reverse();
     return { rows: rows, total: dfSum(days, Object.keys(days)) };
   }
   // the season's months 'YYYY-MM', first game month to last
@@ -4312,14 +4314,15 @@
     }).join('') + '</div>';
   }
   function dfTable(first, m, data, totalLabel, base) {
-    function row(label, c, cls) {
+    // phones: the short label ("Nov 25", "Last 10") so nothing is cut off
+    function row(label, c, cls, short) {
       var p = dfRate(c);
-      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><th scope="row">' + esc(label) + '</th><td class="df2-n">' + (c[0] + c[1] + c[2]) + '</td>' +
+      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><th scope="row">' + (short && short !== label ? '<span class="tn-full">' + esc(label) + '</span><span class="tn-short">' + esc(short) + '</span>' : esc(label)) + '</th><td class="df2-n">' + (c[0] + c[1] + c[2]) + '</td>' +
         '<td class="df2-n">' + c[0] + '</td><td class="df2-n">' + c[1] + '</td>' +
         '<td><span class="df-c ' + dfTint(p, base, m) + '">' + (p == null ? '-' : p + '%') + '</span></td></tr>';
     }
-    return '<table class="df-table df2-table"><thead><tr><th scope="col">' + first + '</th><th scope="col">GP</th><th scope="col">' + esc(m.a) + '</th><th scope="col">' + esc(m.b) + '</th><th scope="col">' + esc(m.a) + ' %</th></tr></thead><tbody>' +
-      data.rows.map(function(r) { return row(r.label, r.c); }).join('') + row(totalLabel, data.total, 'df-total') + '</tbody></table>';
+    return '<table class="df-table df2-table"><thead><tr><th scope="col">' + first + '</th><th scope="col">GP</th><th scope="col">' + esc(m.a) + '</th><th scope="col">' + esc(m.b) + '</th><th scope="col"><span class="tn-full">' + esc(m.a) + ' %</span><span class="tn-short">%</span></th></tr></thead><tbody>' +
+      data.rows.map(function(r) { return row(r.label, r.c, '', r.s); }).join('') + row(totalLabel, data.total, 'df-total', totalLabel.replace(/ days$/, '')) + '</tbody></table>';
   }
   function dfCalendar(s, seg, m, days, ym, today) {
     var months = dfMonths(s), i = months.indexOf(ym), mu = ROOT + DUE.matchups, post = false;
