@@ -15704,10 +15704,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 370,
+    "price": 360,
     "title": "TCU 1H ML",
-    "est": 0.2699,
-    "edge": 0.0572,
+    "est": 0.2735,
+    "edge": 0.0561,
     "agree": 2,
     "sample": 9,
     "tier": "C",
@@ -15915,8 +15915,8 @@
      ]
     ],
     "info": "UCLA avg 1H margin at home: +24.2",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.9524,
     "streakTeamName": "UCLA"
    },
    {
