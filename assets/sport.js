@@ -502,8 +502,12 @@
     return cur;
   }
   // Today, else the next date with games, else the last one.
+  // today when it has games, else the next day with games, else (season over)
+  // the last one; a day on the schedule with no games is skipped (NHL on Thanksgiving)
   function defaultDate(dates) {
-    var t = todayET();
+    var t = todayET(), all = dates;
+    if (D && D.games) dates = dates.filter(function(d) { return !D.games[d] || D.games[d].length; });
+    if (!dates.length) dates = all;
     if (dates.indexOf(t) !== -1) return t;
     var next = dates.filter(function(d) { return d > t; })[0];
     return next || dates[dates.length - 1];
@@ -3658,7 +3662,7 @@
         cur = keys.indexOf(wantW) !== -1 ? wantW : thisWeek;
       } else {
         var want = one ? one.day : urlDate();
-        cur = want || defaultDate(dates);
+        cur = want || defaultDate(dates.filter(function(d) { return O.days[d]; }).length ? dates.filter(function(d) { return O.days[d]; }) : dates);
       }
       function slate() {
         if (!weeks) return O.days[cur] ? [cur] : [];

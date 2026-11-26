@@ -338,11 +338,19 @@ def write_odds_page(sp, slug_dir, now_utc, schedule, meta=None, extra=None, week
             books = under(books, clean(oddsapi_rows(ol.get('books') if state == 'pre' else oh.get('close') or ol.get('books'))))
             opens = under(opens, clean(oddsapi_rows(oh.get('open') or ol.get('opens'))))
             best = bests(books)
-            full = None
+            # the full game's lines (the Odds page's Game pill, the team page's Next
+            # game card): live before the start; after it the closing lines (The
+            # Odds API's history, else its season backfill), so past days and
+            # weeks show the Game pill too. Open: The Odds API's opening line.
             if state == 'pre':
-                # the full game's lines for the team page's Next game card (not an Odds page column)
                 full = under(clean(lg.get('books'), {'game'}), clean(oddsapi_rows(ol.get('books')), {'game'}))
-                full = {'books': full, 'best': bests(full)} if full.get('game') else None
+                fopen = clean(oddsapi_rows(ol.get('opens')), {'game'})
+            else:
+                full = under(under(clean(lg.get('books') if state == 'live' else None, {'game'}),
+                                   clean(oddsapi_rows(oh.get('close') or ol.get('books')), {'game'})),
+                             clean((backfill.get('|'.join(key)) or {}).get('books'), {'game'}))
+                fopen = clean(oddsapi_rows(oh.get('open') or ol.get('opens')), {'game'})
+            full = dict({'books': full, 'best': bests(full)}, **({'open': bests(fopen)} if fopen.get('game') else {})) if full.get('game') else None
             if state != 'pre':
                 bf = backfill.get('|'.join(key)) or {}
                 only_backfill = not books and not opens
