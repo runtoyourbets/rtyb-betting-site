@@ -1,18 +1,17 @@
 ---
 path: "/wnba/trends/"
 title: "WNBA First Quarter & First Half Betting Trends | Run To Your Bets"
-description: "WNBA first quarter and first half betting trends with a game today: league, streak and matchup trends, graded nightly at the closing line."
+description: "WNBA first quarter and first half betting trends with a game today: league and matchup trends, graded nightly at the closing line."
 description_offseason: "WNBA first quarter and first half betting trends from last season, graded at the closing line. Next season starts {{season_start}}."
 ---
 ## Run To Your Bets WNBA First Quarter & First Half Betting Trends
 
 Run To Your Bets grades every WNBA first quarter and first half trend every night. A trend is a situation and how it has done {{season}}: back road favorites, fade teams off a loss, the Over in divisional games. Every trend shows the league average next to it, so you can see if it's real or noise.
 
-### The three sections
+### The two sections
 
 - **League Trends:** situations across the whole league, with the games today that fit them.
-- **Streak Trends:** teams on a run of 3 or more in a row, at home, on the road or both.
-- **Matchup Trends:** today's games, grouped by what kind of game it looks like: Fireworks, Lockdown, Mismatch, Heavyweights and Tug of war.
+- **Matchup Trends:** today's games, grouped by what kind of game it looks like: Fireworks, Lockdown, Heavyweights, Dumpster Fire, Mismatch and Tug of War. Streaks have their own page.
 
 ### Example
 

@@ -117,7 +117,7 @@ def known():
     import trends
     T = load()
     out = {}
-    for key in ('tug_of_war', 'fireworks', 'lockdown', 'mismatch', 'heavyweights'):
+    for key in ('tug_of_war', 'fireworks', 'lockdown', 'mismatch', 'heavyweights', 'dumpster_fire'):
         old = (T.get('entries') or {}).get('label:' + key) or {}
         out['label:' + key] = {'name': old.get('name') or key.replace('_', ' ').title(), 'category': 'labels', 'sports': ALL}
         if key in ('tug_of_war', 'fireworks', 'lockdown'):
@@ -145,8 +145,8 @@ def calc(i, e, extra):
     kind = i.split(':')[0]
     if kind == 'label':
         return ('From both teams’ leans in ' + SEG_WORD + ': a lean is a result in 60%+ of a team’s games, 5+ played. '
-                'Totals and BTTS: both Over (Fireworks), both Under (Lockdown), one each (Tug of war). '
-                'Moneyline: one wins / one loses (Mismatch), both win (Heavyweights).')
+                'Totals, BTTS and NRFI: both Over (Fireworks), both Under (Lockdown), one each (Tug of War). '
+                'Moneyline and spread: one wins / one loses (Mismatch), both win (Heavyweights), both lose (Dumpster Fire).')
     if kind == 'trend':
         return ('Every graded game this season where the angle fit, before the slate’s date. The card shows when the bet’s record '
                 'beats the league rate for the same bet by 5+ points over 20+ decisions and made money at the closing prices (1 unit a bet).')

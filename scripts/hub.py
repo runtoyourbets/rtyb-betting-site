@@ -316,7 +316,7 @@ def matchup_label(doc, g, k, seqs):
             return (labels.get(key) or {}).get('label'), m
     x = leans.get('ml') or {}
     if x.get('away') and x.get('home'):
-        key = 'mismatch' if x['away'] != x['home'] else 'heavyweights' if x['away'] == 'W' else None
+        key = 'mismatch' if x['away'] != x['home'] else 'heavyweights' if x['away'] == 'W' else 'dumpster_fire'
         return ((labels.get(key) or {}).get('label'), 'ml') if key else (None, None)
     return None, None
 

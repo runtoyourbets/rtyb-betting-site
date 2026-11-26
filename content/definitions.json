@@ -353,10 +353,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "Both teams usually win the {segment}.",
+   "short": "Both teams usually win the {segment} (moneyline) or cover it (spread).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:lockdown": {
    "name": "🔒 Lockdown",
@@ -398,13 +398,13 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "One team usually wins the {segment}, the other usually loses it.",
+   "short": "One team usually wins (or covers) the {segment}, the other usually loses it.",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:tug_of_war": {
-   "name": "🪢 Tug of war",
+   "name": "🪢 Tug of War",
    "category": "labels",
    "sports": [
     "nhl",
@@ -418,7 +418,7 @@
    "short": "One team’s {segment}s usually go Over, the other’s usually go Under.",
    "long": "",
    "status": "live",
-   "edited": "2026-11-19"
+   "edited": "2026-11-26"
   },
   "label:tug_of_war_btts": {
    "name": "🪢 Tug of war (BTTS)",
@@ -3260,6 +3260,23 @@
    "long": "",
    "status": "live",
    "edited": "2026-11-19"
+  },
+  "label:dumpster_fire": {
+   "name": "🗑️🔥 Dumpster Fire",
+   "category": "labels",
+   "sports": [
+    "nhl",
+    "nba",
+    "wnba",
+    "mlb",
+    "ncaab",
+    "nfl",
+    "ncaaf"
+   ],
+   "short": "Both teams usually lose the {segment} (moneyline) or fail to cover it (spread).",
+   "long": "",
+   "status": "live",
+   "edited": "2026-11-26"
   }
  }
 }

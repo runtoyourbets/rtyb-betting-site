@@ -768,7 +768,7 @@ def sport_team_meta(sport, team, season_label):
 
 SECTION_DESC = {
     'games': '{label} matchups by date with {segs} odds, scores and results.',
-    'trends': '{label} League Trends, Matchup Trends and Streak Trends for every slate, graded as games finish.',
+    'trends': '{label} League Trends and Matchup Trends for every slate, graded as games finish.',
     'odds': '{label} {segs} odds from every sportsbook, exchange and prediction market we track, with the best price outlined.',
 }
 
@@ -870,8 +870,8 @@ def sport_app_body(sp, section):
 
 
 # The Trends hub: (section, tab name, line under it), the same cards as Stats'
-TRENDS_PAGES = [('trends', 'Trends', 'League and team trends'), ('streaks', 'Streaks', 'Still running, run’s over, records'),
-                ('due', 'Due Factor', 'What’s running hot and cold')]
+TRENDS_PAGES = [('trends', 'Trends', 'League and Matchup Trends'), ('streaks', 'Streaks', 'What’s hot and what’s not'),
+                ('due', 'Due Factor', 'Who’s due for a swing')]
 
 
 def trends_tabs_html(sp, current):
