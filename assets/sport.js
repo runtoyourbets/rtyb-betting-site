@@ -646,7 +646,7 @@
     if (segs.length < 2) return '';
     return '<div class="gm-stick" id="gmStick"><div class="sport-seg-row"><div class="seg-toggle" id="pageSeg">' + segs.map(function(s) {
       return '<button class="seg-btn" data-seg="' + s.key + '" aria-pressed="' + (s.key === k) + '">' + esc(s.label) + '</button>';
-    }).join('') + '</div></div></div>';
+    }).join('') + '</div>' + confSel() + '</div></div>';
   }
   function renderGames() {
     var weeks = D.schedule === 'week' ? D.weeks || [] : null;
@@ -670,7 +670,7 @@
         games = (D.games[cur] || []).slice().sort(function(a, b) { return (a.start || '') < (b.start || '') ? -1 : (a.start || '') > (b.start || '') ? 1 : 0; });
         title = resultsTitle(cur); none = 'on ' + dateLabel(cur);
       }
-      games = games.filter(function(g) { return g.state === 'pre' || lined(g, k); });
+      games = games.filter(function(g) { return (g.state === 'pre' || lined(g, k)) && confGame(g); });
       var html = (weeks ? weekBar(weeks, cur, thisWeek) : dateBar(cur, dates, true)) + gmSegBar(k) + resultsBox(games, k, title);
       if (!games.length) {
         if (weeks) WEEK_ORDER = keys;
@@ -692,6 +692,7 @@
       if (cal) cal.onclick = function() { openCalendar({ days: dayCounts(), cur: cur, weeks: weeks, onPick: go }); };
       var ps = document.getElementById('pageSeg');
       if (ps) ps.onclick = function(e) { var b = e.target.closest('[data-seg]'); if (b) { setSeg(b.getAttribute('data-seg')); draw(); } };
+      wireConf(app, draw);
     }
     draw();
   }
@@ -858,6 +859,33 @@
       out.push({ v: 'd:' + d, label: d + (/\s/.test(d) ? '' : ' Division'), test: function(s) { return D.teams[s].division === d; } });
     });
     return out;
+  }
+  // the college conference dropdown on Matchups, Odds and Streaks (Chris,
+  // Nov 26: college only): '' = every game / team; a game shows when either
+  // team is in the group. Remembered per sport in this browser.
+  var CONF = null;
+  function confOn() { return tlCollege() && !!(D && D.teams); }
+  function confCur() {
+    if (CONF === null) { CONF = ''; try { CONF = localStorage.getItem('rtyb-conf-' + D.sport) || ''; } catch (e) {} }
+    return CONF;
+  }
+  function confSet(v) { CONF = v || ''; try { localStorage.setItem('rtyb-conf-' + D.sport, CONF); } catch (e) {} }
+  function confSel(extra) {
+    if (!confOn()) return '';
+    var cur = confCur();
+    return '<select class="conf-select' + (extra || '') + '" data-conf aria-label="Conference">' + tlGroups().map(function(o) {
+      return '<option value="' + esc(o.v) + '"' + (o.v === cur ? ' selected' : '') + '>' + esc(o.label) + '</option>';
+    }).join('') + '</select>';
+  }
+  function confTeam(t) {
+    if (!confOn() || !confCur()) return true;
+    var g = tlGroups().filter(function(o) { return o.v === CONF; })[0];
+    return !g || (!!D.teams[t] && g.test(t));
+  }
+  function confGame(g) { return confTeam(g.away) || confTeam(g.home); }
+  function wireConf(box, redraw) {
+    var el = box.querySelector('[data-conf]');
+    if (el) el.onchange = function() { confSet(el.value); redraw(); };
   }
   // the name: desktop the full name (college: the school), phones the short name
   function tlName(s) { return tlCollege() ? shortName(s) : D.teams[s].name; }
@@ -3727,6 +3755,7 @@
         // a game with no line in any of the segment's markets doesn't show
         games = games.filter(function(g) { var s = (gsrc(g, k).books || {})[k] || {}; return Object.keys(s).some(function(m) { return s[m] && Object.keys(s[m]).length; }); });
         if (one) games = games.filter(function(g) { return g.away === one.away && g.home === one.home; });
+        else games = games.filter(confGame);
         // football weeks: finished games drop to the bottom, in start order
         if (weeks) games = games.filter(function(g) { return g.state !== 'final'; }).concat(games.filter(function(g) { return g.state === 'final'; }));
         if (k === 'game' && !games.some(function(g) { return g.full; })) { /* no full-game lines saved for this slate */ }
@@ -3743,7 +3772,7 @@
         html += '<div class="ob-stick" id="obStick"><div class="sport-seg-row odds-controls">' + oddsSegBar(k) +
           '<div class="seg-toggle" id="oddsMkt">' + ms.map(function(x) {
             return '<button class="seg-btn" data-mkt="' + x[1] + '" aria-pressed="' + (x[1] === MKT_CUR) + '">' + esc(pillLabel(x)) + '</button>';
-          }).join('') + '</div>' + booksBtn(picker, sources) + '</div></div>';
+          }).join('') + '</div>' + (one ? '' : confSel()) + booksBtn(picker, sources) + '</div></div>';
         var first = slate()[0];
         if (!games.length && one) html += '<p class="tp-none">No ' + esc(k === 'game' ? 'Game' : seg(k).label) + ' lines for this game.</p>';
         else if (!games.length) {
@@ -3789,6 +3818,7 @@
         var ps = document.getElementById('pageSeg');
         if (ps) ps.onclick = function(e) { var b = e.target.closest('[data-seg]'); if (b) { setSeg(b.getAttribute('data-seg')); show(); } };
         document.getElementById('oddsMkt').onclick = function(e) { var b = e.target.closest('[data-mkt]'); if (b) { MKT_CUR = b.getAttribute('data-mkt'); show(); } };
+        wireConf(box, show);
       }
       function show() { load(slate()).then(draw); }
       show();
@@ -4367,6 +4397,7 @@
   // (streaks.QUIET in Python, for the index)
   var SK_QUIET = { o05: 1, scored: 1 };
   function skMatch(s) {
+    if (!confTeam(s.t)) return false;
     if (SKF.seg !== 'all' && s.k !== SKF.seg) return false;
     if (SKF.m === 'all' ? SK_QUIET[s.m] : s.m !== SKF.m) return false;
     return SKF.v === 'all' ? s.v === 'all' || !!s.gt : s.v === SKF.v;
@@ -4425,6 +4456,7 @@
     var best = null;
     skWatchList().forEach(function(x) {
       if (SK_TOP_SKIP[x.s.k] || SK_QUIET[x.s.m] || x.s.v !== 'all' && !x.s.gt) return;
+      if (!confTeam(x.s.t)) return;
       if (!best || x.s.n > best.s.n) best = x;
     });
     if (!best) return '';
@@ -4479,7 +4511,7 @@
       if (SKF.seg !== 'all' && seg.k !== SKF.seg) return;
       seg.m.forEach(function(m) {
         if (SKF.m !== 'all' && m !== SKF.m) return;
-        var rs = season.list[seg.k + '|' + m + '|' + SKF.v] || [];
+        var rs = (season.list[seg.k + '|' + m + '|' + SKF.v] || []).filter(function(r) { return confTeam(r.t); });
         if (!rs.length) return;
         var locked = seg.fr && premiumLocked('fullRun');
         var rows = rs.map(function(r, i) {
@@ -4514,11 +4546,12 @@
     var ctrl = '<div class="tr-filters sk-ctrl">' +
       row('data-sk-seg', [['all', 'All']].concat(SK.segs.map(function(x) { return [x.k, segTxt(x)]; })), SKF.seg, 'Segment') +
       row('data-sk-m', [['all', 'All']].concat(SK.markets.filter(function(x) { return mids.indexOf(x.id) !== -1; }).map(function(x) { return [x.id, esc(x.label)]; })), SKF.m, 'Market') +
-      row('data-sk-v', [['all', 'All'], ['home', 'Home'], ['away', 'Away']], SKF.v, 'Home or away') + '</div>';
+      row('data-sk-v', [['all', 'All'], ['home', 'Home'], ['away', 'Away']], SKF.v, 'Home or away') + (confOn() ? '<div class="sk-conf">' + confSel() + '</div>' : '') + '</div>';
     var name = { ncaab: 'College Basketball', ncaaf: 'College Football' }[D.sport] || D.label;
     var t = SK.tonight, head = t ? '<h2 class="tr-head">' + esc(name + ' Streaks for ' + (SK.weekly ? t.label : longDay(t.day))) + '</h2>' : '';
     app.innerHTML = SK.cur ? head + skTop() + ctrl + skTonight() + '<div class="sk-two">' + skRunning() + skEnded() + '</div>' + skRecords()
       : ctrl + (SK.ended.list.filter(skMatch).length ? skEnded() : '') + skRecords();
+    wireConf(app, function() { SKF.more = false; SKF.watchMore = false; drawStreaks(); });
   }
   function renderStreaks() {
     fetch(dataUrl(SPORT_SLUG + '/streaks.json')).then(function(r) { return r.json(); }).then(function(x) {

@@ -111,7 +111,7 @@ var rows = ['o05', 'scored', 'tot', 'su'].map(function(m) { return { k: '2p', m:
   out[f.join(' ')] = rows.filter(skMatch).map(function(s) { return s.m; });
 });
 console.log(JSON.stringify(out));"""])
-        out = subprocess.run([NODE, '-e', 'var SKF;' + js], capture_output=True, text=True)
+        out = subprocess.run([NODE, '-e', 'var SKF; function confTeam() { return true; }' + js], capture_output=True, text=True)
         self.assertEqual(out.returncode, 0, out.stderr)
         self.assertEqual(json.loads(out.stdout), {'all all': ['tot', 'su'], '2p all': ['tot', 'su'], 'all o05': ['o05'], '2p scored': ['scored']})
         self.assertIn("var SK_QUIET = { o05: 1, scored: 1 };", SRC)
