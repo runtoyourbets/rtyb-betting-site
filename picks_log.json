@@ -15824,48 +15824,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Eagles"
-   },
-   {
-    "id": "nfl|401873082|1q|ml|away",
-    "game": "nfl|401873082",
-    "date": "2026-11-26",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-27T01:20Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Chiefs @ Bills",
-    "href": "nfl/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 152,
-    "title": "Chiefs 1Q ML",
-    "est": 0.4278,
-    "edge": 0.031,
-    "agree": 2,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "kc",
-    "angles": [
-     [
-      "Chiefs 1Q ML, season",
-      "5-1-4"
-     ],
-     [
-      "Chiefs 1Q ML, last 8",
-      "4-1-3"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Chiefs"
    }
   ]
  }
