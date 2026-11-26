@@ -15357,8 +15357,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.45,
     "streakTeamName": "Washington"
    },
    {
@@ -15403,8 +15403,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Spurs"
    },
    {
@@ -15631,8 +15631,8 @@
      ]
     ],
     "info": "Washington avg 1H margin on the road: +8.0",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.8929,
     "streakTeamName": "Washington"
    },
    {
