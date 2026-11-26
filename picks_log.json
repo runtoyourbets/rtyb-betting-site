@@ -15779,6 +15779,52 @@
     "streakTeamName": "Boston College"
    },
    {
+    "id": "nfl|401873080|1h|ats|away",
+    "game": "nfl|401873080",
+    "date": "2026-11-26",
+    "sport": "nfl",
+    "label": "NFL",
+    "slug": "nfl",
+    "start": "2026-11-26T21:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Eagles @ Cowboys",
+    "href": "nfl/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 5.5,
+    "price": 100,
+    "title": "Eagles 1H +5.5",
+    "est": 0.5392,
+    "edge": 0.0392,
+    "agree": 3,
+    "sample": 10,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 3,
+    "streakTeam": "phi",
+    "angles": [
+     [
+      "Eagles 1H ATS at +5.5 on the road",
+      "4-0"
+     ],
+     [
+      "Eagles 1H ATS at +5.5, season",
+      "9-1"
+     ],
+     [
+      "Eagles 1H ATS at +5.5, last 8",
+      "7-1"
+     ]
+    ],
+    "info": "Eagles avg 1H margin on the road: +1.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Eagles"
+   },
+   {
     "id": "nfl|401873081|1q|ats|away",
     "game": "nfl|401873081",
     "date": "2026-11-26",
@@ -15825,52 +15871,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Bears"
-   },
-   {
-    "id": "nfl|401873080|1h|ats|away",
-    "game": "nfl|401873080",
-    "date": "2026-11-26",
-    "sport": "nfl",
-    "label": "NFL",
-    "slug": "nfl",
-    "start": "2026-11-26T21:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Eagles @ Cowboys",
-    "href": "nfl/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 5.5,
-    "price": -103,
-    "title": "Eagles 1H +5.5",
-    "est": 0.5447,
-    "edge": 0.0373,
-    "agree": 3,
-    "sample": 10,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 3,
-    "streakTeam": "phi",
-    "angles": [
-     [
-      "Eagles 1H ATS at +5.5 on the road",
-      "4-0"
-     ],
-     [
-      "Eagles 1H ATS at +5.5, season",
-      "9-1"
-     ],
-     [
-      "Eagles 1H ATS at +5.5, last 8",
-      "7-1"
-     ]
-    ],
-    "info": "Eagles avg 1H margin on the road: +1.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Eagles"
    },
    {
     "id": "ncaab|401917547|1h|ats|home",
