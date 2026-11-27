@@ -1645,9 +1645,8 @@
         var home = g.home === slug, opp = home ? g.away : g.home;
         var fin = g.as != null && g.hs != null ? (home ? g.hs + '-' + g.as : g.as + '-' + g.hs) + (g.ot ? ' ' + esc(g.ot) : '') : '-';
         var oppHtml = '<span class="tp-vs">' + (home ? 'vs' : '@') + '</span>' + badge(opp, 20) + '<span class="tp-oc">' + esc(tcode(opp)) + '</span>';
-        var pair = h2hUrl(slug, opp);
-        return '<tr><td class="tp-d"><span class="tn-full">' + esc(shortDate(g)) + '</span><span class="tn-short">' + esc(numDate(g)) + '</span></td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) +
-          (pair ? '<a class="tp-h2h" href="' + pair + '" title="Head to head"><span class="tn-full">Head to head</span><span class="tn-short">H2H</span></a>' : '') + '</td>' +
+        // no "Head to head" / "H2H" link after the opponent (Chris, Nov 27)
+        return '<tr><td class="tp-d"><span class="tn-full">' + esc(shortDate(g)) + '</span><span class="tn-short">' + esc(numDate(g)) + '</span></td><td class="tp-o">' + (teamUrl(opp) ? '<a href="' + teamUrl(opp) + '">' + oppHtml + '</a>' : oppHtml) + '</td>' +
           '<td class="num tp-sc">' + (tmScore(g, sk, slug) || '-') + '</td>' + ms.map(function(p) { return '<td class="tp-lc">' + logCell(g, p) + '</td>'; }).join('') +
           '<td class="num tp-fin">' + fin + '</td></tr>';
       }).join('');
