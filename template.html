@@ -1107,8 +1107,8 @@ __THEME_HEAD__
     /* two rows on phones: segment + market, then time + View as */
     .sit-stick { margin: 0 -16px 8px; padding: 6px 16px; border-bottom: 1px solid var(--card-border); }
     .sit-bar { flex-direction: column; align-items: stretch; gap: 6px; }
-    .sit-row1, .sit-full { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .sit-bar .seg-toggle { flex-shrink: 0; flex-wrap: nowrap; }
+    .sit-row1, .sit-full { flex-wrap: wrap; }
+    .sit-bar .seg-toggle { flex-shrink: 0; flex-wrap: wrap; }
     .sit-bar .seg-btn { white-space: nowrap; }
   }
   #leagueTable .col-rec { width: 110px; }
@@ -1389,7 +1389,7 @@ __THEME_HEAD__
   .st-head { margin: calc(-1 * var(--card-pad-y)) calc(-1 * var(--card-pad-x)) 10px; padding: 9px var(--card-pad-x); background: var(--title-bg); border-radius: calc(var(--card-radius) - 1px) calc(var(--card-radius) - 1px) 0 0; }
   .st-head h4 { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--title-text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .st-sub { font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); color: var(--text-muted); margin-top: 2px; }
-  .st-chips { display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto; margin-bottom: 8px; }
+  .st-chips { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
   /* label | record | % | units at 1.4 / 1.2 / 0.8 / 1, lined up across cards */
   .st-row { display: grid; grid-template-columns: 1.4fr 1.2fr 0.8fr 1fr; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid var(--border-soft); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   .st-colhead { border-top: 0; padding: 0 0 2px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
@@ -1522,7 +1522,7 @@ __THEME_HEAD__
   .mt-def { margin: 8px 0 12px; }
   /* each section's filters (segment, market, side) under its heading; phones: a row scrolls sideways, never wraps */
   .tr-filters { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; margin: 0 0 12px; }
-  .tr-filters .tr-frow { display: flex; flex-wrap: nowrap; width: max-content; max-width: 100%; margin: 0; overflow-x: auto; scrollbar-width: none; }
+  .tr-filters .tr-frow { display: flex; flex-wrap: wrap; gap: 6px; width: auto; max-width: 100%; margin: 0; }
   .tr-filters .tr-frow::-webkit-scrollbar { display: none; }
   .tr-frow .seg-btn { flex: none; white-space: nowrap; }
   .tr-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 10px; margin-top: 12px; }
@@ -2498,7 +2498,7 @@ __THEME_HEAD__
   .fr-head h2 { margin: 0; }
   .fr-date { color: var(--text-muted); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
   /* one row of pills, scrolling sideways on phones */
-  .fr-pills { display: flex; gap: 6px; overflow-x: auto; flex-wrap: nowrap; margin: 0 0 12px; padding-bottom: 2px; scrollbar-width: none; }
+  .fr-pills { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 12px; padding-bottom: 2px; }
   .fr-pills::-webkit-scrollbar { display: none; }
   .fr-pills .seg-btn { flex-shrink: 0; white-space: nowrap; min-height: 36px; }
   .fr-res .fr-pills .seg-btn { min-height: 32px; }
@@ -2988,7 +2988,7 @@ __THEME_HEAD__
   .tp-h2h { margin-left: 8px; color: var(--accent); font-family: var(--ff-body); font-size: var(--fs-price); font-weight: var(--fw-price); text-decoration: none; white-space: nowrap; }
   @media (max-width: 760px) {
     .h2h-team { flex-basis: 100%; }
-    .h2h-tabs { display: flex; gap: 6px; margin: 12px 0 0; overflow-x: auto; }
+    .h2h-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
     .h2h-tabs a { flex: 1 0 auto; padding: 8px 12px; border: 1px solid var(--card-border); border-radius: 999px; text-align: center; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); text-decoration: none; }
     .h2h-2col { grid-template-columns: minmax(0, 1fr); }
     /* phones: the market's sides side by side (3-way stacks), book and price
