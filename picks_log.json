@@ -16531,6 +16531,56 @@
     "streakTeamName": "Texas A&M"
    },
    {
+    "id": "ncaaf|401869930|1q|ml|home",
+    "game": "ncaaf|401869930",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-27T20:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "App State @ South Alabama",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -128,
+    "title": "South Alabama 1Q ML",
+    "est": 0.6031,
+    "edge": 0.0417,
+    "agree": 4,
+    "sample": 10,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "south-alabama-jaguars",
+    "angles": [
+     [
+      "South Alabama 1Q ML at home",
+      "5-0"
+     ],
+     [
+      "South Alabama 1Q ML, season",
+      "9-1-1"
+     ],
+     [
+      "South Alabama 1Q ML, last 8",
+      "6-1-1"
+     ],
+     [
+      "App State\u2019s opponents 1Q ML, App State on the road",
+      "2-1-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "South Alabama"
+   },
+   {
     "id": "ncaaf|401858544|1q|total|over",
     "game": "ncaaf|401858544",
     "date": "2026-11-27",
@@ -16579,53 +16629,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Minnesota"
-   },
-   {
-    "id": "ncaab|401929283|1h|ats|home",
-    "game": "ncaab|401929283",
-    "date": "2026-11-27",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-27T21:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Cincinnati @ Boston College",
-    "href": "college-basketball/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 4.5,
-    "price": -105,
-    "title": "Boston College 1H +4.5",
-    "est": 0.552,
-    "edge": 0.0398,
-    "agree": 3,
-    "sample": 7,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 7,
-    "streakTeam": "boston-college-eagles",
-    "angles": [
-     [
-      "Boston College 1H ATS at +4.5, season",
-      "7-0"
-     ],
-     [
-      "Boston College 1H ATS at +4.5, last 8",
-      "7-0"
-     ],
-     [
-      "Boston College 1H ATS at +4.5 at home",
-      "5-0"
-     ]
-    ],
-    "info": "Boston College avg 1H margin at home: +9.6",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Boston College"
    }
   ]
  }
