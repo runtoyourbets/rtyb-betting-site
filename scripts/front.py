@@ -787,7 +787,7 @@ def upcoming(sport, today, now):
 
 
 def pills(name, opts, cur='all'):
-    """A pill row (scrolls sideways on phones): [(value, label)], or
+    """A pill row (wraps onto a second row on phones): [(value, label)], or
     [(value, label, icon html)] for a sport's league icon before its name."""
     return (f'<div class="fr-pills" role="group" aria-label="{esc(name)}" data-pills="{esc(name)}">' + ''.join(
         f'<button class="seg-btn" type="button" data-pick="{esc(o[0])}" aria-pressed="{str(o[0] == cur).lower()}">{o[2] if len(o) > 2 else ""}{esc(o[1])}</button>'
@@ -1610,7 +1610,7 @@ def yesterdays_results(S, yday, root='', hub=False, week=None):
                 segs.append((k, results_box(rows, f"{week['label']} Results" if week else results_title(yday))))
         if not segs:
             continue
-        sport_opts.append((sport.key, sport.label))
+        sport_opts.append((sport.key, sport.label, icons.sport_icon(sport.sp)))
         tags = [(k, 'NRFI · F5' if k == 'f5' and sport.doc.get('sportType') == 'baseball' else 'Game' if k == 'game' else seg_tag(sport, k)) for k, _ in segs]
         inner = pills(f'{sport.label} segment', tags, segs[0][0])
         inner += ''.join(f'<div data-pane="{k}"{"" if i == 0 else " hidden"}>{box}</div>' for i, (k, box) in enumerate(segs))
