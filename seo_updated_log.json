@@ -8,16 +8,16 @@
   "updated": "2026-11-26T04:39:52Z"
  },
  "ncaab": {
-  "hash": "fd37f7d9a34c4efdecdfd979522c4eacb4e7fdb2",
-  "updated": "2026-11-27T02:11:23Z"
+  "hash": "5fa2e395efc8047900e852bb26a312b562e70213",
+  "updated": "2026-11-27T03:13:11Z"
  },
  "ncaaf": {
-  "hash": "5d0c04d7939c7fa677367c297d7b5d82619de1ac",
-  "updated": "2026-11-27T02:11:23Z"
+  "hash": "1369df2586adb7987dd3c4786455298e8bf04236",
+  "updated": "2026-11-27T03:13:11Z"
  },
  "nfl": {
-  "hash": "57b97227e6cef9dc80d4e98faac727af62f499a1",
-  "updated": "2026-11-27T02:11:23Z"
+  "hash": "7570e204ed472b57876effbda8f15ffde928a9fc",
+  "updated": "2026-11-27T03:13:11Z"
  },
  "nhl": {
   "hash": "9c51f7b793a85d8b07235f39024d549d2c2995c3",
@@ -25,32 +25,32 @@
  },
  "pages": {
   "/": {
-   "hash": "5bea40568228dc0af2075c93a84ee3a6bcd85f3e",
-   "updated": "2026-11-27T02:52:40Z"
+   "hash": "5801e3490e78cb536aa3c7b3978024f2ec1bf746",
+   "updated": "2026-11-27T03:13:11Z"
   },
   "college-basketball/": {
-   "hash": "ed7fecc6d284f6691634f37ca2bd61b40b9332c5",
-   "updated": "2026-11-27T02:11:23Z"
+   "hash": "0b9821a99b85c38a852f5f6bc82be352be7bd109",
+   "updated": "2026-11-27T03:13:11Z"
   },
   "college-football/": {
-   "hash": "9f3979b300487f0d0f90b67e32fe0b6b35178530",
-   "updated": "2026-11-27T02:32:51Z"
+   "hash": "2bdbf8f9070bf2f677c4e21f403bfa521518da73",
+   "updated": "2026-11-27T03:13:11Z"
   },
   "mlb/": {
    "hash": "884d49fd641f78c4a17ed377e852c3f00e8cca46",
    "updated": "2026-11-26T20:05:48Z"
   },
   "nba/": {
-   "hash": "3a7f3dcd4d6df04e6a12f34101783952077eb965",
-   "updated": "2026-11-27T01:52:33Z"
+   "hash": "11fb26f157ca9093b3e0dca79305d924b54ed3cf",
+   "updated": "2026-11-27T03:13:11Z"
   },
   "nfl/": {
-   "hash": "d90bf531c426c093d97da943024f854529c6d93f",
-   "updated": "2026-11-27T02:52:40Z"
+   "hash": "81d673cc97738340aa2a4113b53faf5da233a4a9",
+   "updated": "2026-11-27T03:13:11Z"
   },
   "nhl/": {
-   "hash": "2cb42276d96a7b0c9ad7454fd6a21677a0078e0e",
-   "updated": "2026-11-27T02:11:23Z"
+   "hash": "8995bfda52622f511035d72c53e98b584e425d75",
+   "updated": "2026-11-27T03:13:11Z"
   },
   "wnba/": {
    "hash": "06a4a78aa108badc9ca8825650e5725d6a3827d0",
