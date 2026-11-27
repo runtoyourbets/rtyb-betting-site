@@ -237,6 +237,11 @@
     "value": "nhl:2026020403"
    },
    {
+    "label": "NCAAB · Fresno State at South Alabama · 2:00 PM ET",
+    "trends": 12,
+    "value": "ncaab:401929181"
+   },
+   {
     "label": "NCAAB · Maine at Le Moyne · 2:00 PM ET",
     "trends": 9,
     "value": "ncaab:401919786"
@@ -245,11 +250,6 @@
     "label": "NCAAB · Navy at Fairfield · 2:00 PM ET",
     "trends": 5,
     "value": "ncaab:401921224"
-   },
-   {
-    "label": "NCAAB · South Alabama at Fresno State · 2:00 PM ET",
-    "trends": 12,
-    "value": "ncaab:401929181"
    },
    {
     "label": "NCAAB · Southern at Vanderbilt · 2:00 PM ET",
@@ -828,6 +828,11 @@
     "value": "ncaab:401929288"
    },
    {
+    "label": "Fresno State at South Alabama · 2:00 PM ET",
+    "trends": 12,
+    "value": "ncaab:401929181"
+   },
+   {
     "label": "Maine at Le Moyne · 2:00 PM ET",
     "trends": 9,
     "value": "ncaab:401919786"
@@ -836,11 +841,6 @@
     "label": "Navy at Fairfield · 2:00 PM ET",
     "trends": 5,
     "value": "ncaab:401921224"
-   },
-   {
-    "label": "South Alabama at Fresno State · 2:00 PM ET",
-    "trends": 12,
-    "value": "ncaab:401929181"
    },
    {
     "label": "Southern at Vanderbilt · 2:00 PM ET",
