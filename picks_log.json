@@ -16392,6 +16392,52 @@
     "streakTeamName": "Nebraska"
    },
    {
+    "id": "ncaaf|401869930|1q|ats|home",
+    "game": "ncaaf|401869930",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-27T20:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "App State @ South Alabama",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": -0.5,
+    "price": 120,
+    "title": "South Alabama 1Q -0.5",
+    "est": 0.5019,
+    "edge": 0.0473,
+    "agree": 3,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "south-alabama-jaguars",
+    "angles": [
+     [
+      "South Alabama 1Q ATS at -0.5 at home",
+      "5-0"
+     ],
+     [
+      "South Alabama 1Q ATS at -0.5, season",
+      "9-2"
+     ],
+     [
+      "South Alabama 1Q ATS at -0.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "South Alabama avg 1Q margin at home: +10.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "South Alabama"
+   },
+   {
     "id": "nba|401909333|1q|ml|away",
     "game": "nba|401909333",
     "date": "2026-11-27",
@@ -16436,52 +16482,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Lakers"
-   },
-   {
-    "id": "ncaaf|401869930|1q|ats|home",
-    "game": "ncaaf|401869930",
-    "date": "2026-11-27",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-27T20:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "App State @ South Alabama",
-    "href": "college-football/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": -0.5,
-    "price": 115,
-    "title": "South Alabama 1Q -0.5",
-    "est": 0.5096,
-    "edge": 0.0445,
-    "agree": 3,
-    "sample": 11,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 2,
-    "streakTeam": "south-alabama-jaguars",
-    "angles": [
-     [
-      "South Alabama 1Q ATS at -0.5 at home",
-      "5-0"
-     ],
-     [
-      "South Alabama 1Q ATS at -0.5, season",
-      "9-2"
-     ],
-     [
-      "South Alabama 1Q ATS at -0.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "South Alabama avg 1Q margin at home: +10.8",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "South Alabama"
    },
    {
     "id": "ncaaf|401869930|1q|ml|home",
