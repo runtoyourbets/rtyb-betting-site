@@ -16846,6 +16846,102 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Minnesota"
+   },
+   {
+    "id": "ncaaf|401856880|1h|ats|away",
+    "game": "ncaaf|401856880",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "West Virginia @ Utah",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 14.5,
+    "price": -105,
+    "title": "West Virginia 1H +14.5",
+    "est": 0.5531,
+    "edge": 0.0409,
+    "agree": 3,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "west-virginia-mountaineers",
+    "angles": [
+     [
+      "West Virginia 1H ATS at +14.5 on the road",
+      "4-0"
+     ],
+     [
+      "West Virginia 1H ATS at +14.5, season",
+      "10-1"
+     ],
+     [
+      "West Virginia 1H ATS at +14.5, last 8",
+      "7-1"
+     ]
+    ],
+    "info": "West Virginia avg 1H margin on the road: -3.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "West Virginia"
+   },
+   {
+    "id": "ncaaf|401858544|1q|total|over",
+    "game": "ncaaf|401858544",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T00:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Minnesota @ Wisconsin",
+    "href": "college-football/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 7.5,
+    "price": 130,
+    "title": "1Q Over 7.5",
+    "est": 0.4755,
+    "edge": 0.0407,
+    "agree": 5,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Over Lover"
+    ],
+    "streak": -1,
+    "streakTeam": "minnesota-golden-gophers",
+    "angles": [
+     [
+      "Minnesota 1Q overs on the road (7.5)",
+      "4-0"
+     ],
+     [
+      "Wisconsin 1Q overs at home (7.5)",
+      "4-1"
+     ],
+     [
+      "Minnesota 1Q overs, season (7.5)",
+      "8-3"
+     ],
+     [
+      "Wisconsin 1Q overs, season (7.5)",
+      "7-4"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Wisconsin 9.7 \u00b7 Minnesota 9.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Minnesota"
    }
   ]
  }

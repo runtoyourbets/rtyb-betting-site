@@ -50904,3 +50904,11 @@
 {"credits": 6, "endpoint": "/sports/basketball_ncaab/events/bc3fb1851c83444219f558d4229a1f0c/odds", "job": "live", "remaining": 3549880, "sport": "ncaab", "time": "2026-11-27T19:45:32+00:00"}
 {"credits": 6, "endpoint": "/sports/basketball_ncaab/events/98353c12132a5d3a705bf618d7439389/odds", "job": "live", "remaining": 3549874, "sport": "ncaab", "time": "2026-11-27T19:45:32+00:00"}
 {"credits": 6, "endpoint": "/sports/basketball_ncaab/events/1f84214524f065c0d07b4e612dbca753/odds", "job": "live", "remaining": 3549868, "sport": "ncaab", "time": "2026-11-27T19:45:32+00:00"}
+{"credits": 0, "endpoint": "/sports/americanfootball_ncaaf/events", "job": "live", "remaining": 3549868, "sport": "ncaaf", "time": "2026-11-27T20:25:37+00:00"}
+{"credits": 9, "endpoint": "/sports/americanfootball_ncaaf/events/a750f21dccb9df459196adc8dcf5ffe4/odds", "job": "live", "remaining": 3549859, "sport": "ncaaf", "time": "2026-11-27T20:25:37+00:00"}
+{"credits": 9, "endpoint": "/sports/americanfootball_ncaaf/events/5fc40a6a68f1652a38d2844a90358df2/odds", "job": "live", "remaining": 3549850, "sport": "ncaaf", "time": "2026-11-27T20:25:37+00:00"}
+{"credits": 9, "endpoint": "/sports/americanfootball_ncaaf/events/6a08fbc3f2fce16533f36dccc4dce347/odds", "job": "live", "remaining": 3549841, "sport": "ncaaf", "time": "2026-11-27T20:25:37+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "job": "live", "remaining": 3549841, "sport": "ncaab", "time": "2026-11-27T20:25:38+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/70b5b5c697f509bfd278d01f32999aba/odds", "job": "live", "remaining": 3549835, "sport": "ncaab", "time": "2026-11-27T20:25:38+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/7183152f6944c6c86a45fe3c134d8b85/odds", "job": "live", "remaining": 3549829, "sport": "ncaab", "time": "2026-11-27T20:25:38+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/01bd058905375db1fe1874b7964352ab/odds", "job": "live", "remaining": 3549823, "sport": "ncaab", "time": "2026-11-27T20:25:38+00:00"}
