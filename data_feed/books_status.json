@@ -68,7 +68,7 @@
   "2": {
    "coverage": {
     "nba": 100,
-    "ncaab": 55,
+    "ncaab": 56,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -81,7 +81,7 @@
   "20": {
    "coverage": {
     "nba": 80,
-    "ncaab": 78,
+    "ncaab": 77,
     "ncaaf": 85,
     "nfl": 100,
     "nhl": 46
@@ -94,7 +94,7 @@
   "36": {
    "coverage": {
     "nba": 100,
-    "ncaab": 76,
+    "ncaab": 75,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -107,7 +107,7 @@
   "4": {
    "coverage": {
     "nba": 76,
-    "ncaab": 85,
+    "ncaab": 84,
     "ncaaf": 95,
     "nfl": 100,
     "nhl": 73
@@ -146,7 +146,7 @@
   "86": {
    "coverage": {
     "nba": 76,
-    "ncaab": 77,
+    "ncaab": 76,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -211,7 +211,7 @@
   "betrivers": {
    "coverage": {
     "nba": 59,
-    "ncaab": 54,
+    "ncaab": 53,
     "ncaaf": 14,
     "nfl": 41,
     "nhl": 71
@@ -237,7 +237,7 @@
   "bovada": {
    "coverage": {
     "nba": 57,
-    "ncaab": 59,
+    "ncaab": 58,
     "ncaaf": 20,
     "nfl": 41,
     "nhl": 71
