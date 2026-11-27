@@ -3759,8 +3759,10 @@
         var k = getSeg(), ms = markets(k);
         var games = [];
         docs.forEach(function(doc) { (doc.games || []).forEach(function(g) { games.push(g); }); });
-        // a game with no line in any of the segment's markets doesn't show
-        games = games.filter(function(g) { var s = (gsrc(g, k).books || {})[k] || {}; return Object.keys(s).some(function(m) { return s[m] && Object.keys(s[m]).length; }); });
+        // a finished game with no line in any of the segment's markets doesn't
+        // show; a game still to play always does (Chris, Nov 27: the schedule
+        // fills every future day and week; lines fill in as books post them)
+        games = games.filter(function(g) { var s = (gsrc(g, k).books || {})[k] || {}; return g.state === 'pre' || Object.keys(s).some(function(m) { return s[m] && Object.keys(s[m]).length; }); });
         if (one) games = games.filter(function(g) { return g.away === one.away && g.home === one.home; });
         else games = games.filter(confGame);
         // football weeks: finished games drop to the bottom, in start order

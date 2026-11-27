@@ -45,8 +45,11 @@ how to push safely and what's still open: HANDOFF.md (read it first).
 - In-season sports: `sports.LAUNCHED` (launched and between `season_start`
   and `season_end`) drives every menu, pill row and list of sports; never
   hard-code one.
-- A game with no saved line for any market of its segment shows nowhere, and
-  Results records count only games with a line for the market.
+- A finished game with no saved line for any market of its segment shows
+  nowhere, and Results records count only games with a line for the market.
+  Games still to play always show on Matchups and Odds: the schedule is
+  fetched through the end of the season (NFL through the Super Bowl), and
+  lines fill in as books post them.
 - Every team shows its logo (scripts/fetch_sport_logos.py also fetches the
   non-Division I opponents'). No logo: a small colored badge with the
   abbreviation.

@@ -189,6 +189,38 @@ def main():
                     continue
                 set_periods(entry, goals, 'landing')
 
+    # The rest of the season past the window (Matchups and Odds list every
+    # scheduled game): /v1/schedule/{date} returns a week of games per call
+    # (unlike /v1/score, its gameWeek days carry the games), so step a week
+    # at a time through June. Future games only; the window above stays the
+    # source for anything played or about to be.
+    last = dates[-1]
+    d = today + timedelta(days=WINDOW_DAYS_FWD + 1)
+    end = datetime(today.year + (1 if today.month > 6 else 0), 6, 30).date()
+    while d <= end:
+        data = fetch_json(f'https://api-web.nhle.com/v1/schedule/{d.isoformat()}')
+        if not data:
+            d += timedelta(days=7)
+            continue
+        for day in data.get('gameWeek') or []:
+            ds = day.get('date')
+            if not ds or ds <= last or ds in games_by_date:
+                continue
+            day_games = [{'id': g.get('id'), 'away': rt((g.get('awayTeam') or {}).get('abbrev', '?')),
+                          'home': rt((g.get('homeTeam') or {}).get('abbrev', '?')), 'startTimeUTC': g.get('startTimeUTC'),
+                          'state': g.get('gameState', 'FUT'), 'venue': (g.get('venue') or {}).get('default'),
+                          'tv': ([b['network'] for b in g.get('tvBroadcasts') or [] if b.get('market') == 'N' and b.get('countryCode') == 'US']
+                                 or [b['network'] for b in g.get('tvBroadcasts') or [] if b.get('market') in ('H', 'A')])}
+                         for g in day.get('games') or [] if g.get('gameType') in (2, 3, None)]
+            games_by_date[ds] = day_games
+            game_counts[ds] = len(day_games)
+        nxt = data.get('nextStartDate')
+        try:
+            nd = datetime.fromisoformat(nxt).date() if nxt else None
+        except ValueError:
+            nd = None
+        d = nd if nd and nd > d else d + timedelta(days=7)
+
     out = {'gameCounts': game_counts, 'games': games_by_date}
     with open('schedule_fresh.json', 'w', encoding='utf-8') as f:
         json.dump(out, f, separators=(',', ':'))

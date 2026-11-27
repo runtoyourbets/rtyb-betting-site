@@ -368,12 +368,35 @@ def _fetch_lines_file(sport, p, cap):
 AHEAD_DAYS = 14
 
 
+def far_dates(sport, today):
+    """The rest of the season past AHEAD_DAYS (through the last day of the
+    sport's season_end month), once a day while the sport is in season, so
+    Matchups and Odds list every scheduled game (the NFL through the Super
+    Bowl); [] once today's pull is done or out of season."""
+    import calendar
+    sp = sports.BY_KEY.get(sport)
+    marker = os.path.join(GAMES_DIR, sport, 'ahead.json')
+    if not sp or not sports.in_season(sp, today) or read_json(marker, {}).get('day') == today.isoformat():
+        return []
+    m = sp.get('season_end') or sp['season_start']
+    y = today.year + (1 if m < today.month else 0)
+    end = Date(y, m, calendar.monthrange(y, m)[1])
+    start = today + timedelta(days=AHEAD_DAYS + 1)
+    return date_range(start.isoformat(), end.isoformat()) if start <= end else []
+
+
 def daily():
     today = datetime.now(ET).date()
     dates = date_range((today - timedelta(days=1)).isoformat(), (today + timedelta(days=AHEAD_DAYS)).isoformat())
     for sport in SOURCES:
         fails = sorted(read_json(os.path.join(GAMES_DIR, sport, 'failures.json'), {}))
         back = backfill_dates(sport)
+        far = far_dates(sport, today)
+        if far:
+            n, bad = fetch_dates(sport, far, verbose=False)
+            if len(bad) < len(far):
+                write_json(os.path.join(GAMES_DIR, sport, 'ahead.json'), {'day': today.isoformat(), 'through': far[-1], 'games': n})
+            print(f'{sport}: the rest of the season ({far[0]} to {far[-1]}): {n} games' + (f', {len(bad)} dates failed' if bad else ''))
         saved, failed = fetch_dates(sport, sorted(set(dates) | set(fails[-14:]) | set(back)), verbose=False)
         lines = fetch_lines(sport)
         print(f'{sport}: {saved} games' + (f' ({len(back)} older dates refetched for new fields)' if back else '')
