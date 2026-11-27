@@ -8,8 +8,8 @@
   "updated": "2026-11-26T04:39:52Z"
  },
  "ncaab": {
-  "hash": "9734c8e0aea4271b8203f8058acf987b14b22c34",
-  "updated": "2026-11-27T19:16:06Z"
+  "hash": "6a5eac90de7767297d012220ae09473d4f5d189f",
+  "updated": "2026-11-27T20:15:50Z"
  },
  "ncaaf": {
   "hash": "10d117a1a90ba558229d845364bdd8d0e5f28bf3",
@@ -20,37 +20,37 @@
   "updated": "2026-11-27T03:13:11Z"
  },
  "nhl": {
-  "hash": "468e037354ffbe31d3b57ca45593302e6a964612",
-  "updated": "2026-11-27T19:16:06Z"
+  "hash": "a3555a8e9f8a1517d7103cdd08bf3a504e7d61c0",
+  "updated": "2026-11-27T20:15:50Z"
  },
  "pages": {
   "/": {
-   "hash": "a17dc2cc4ab9ff1a6bd0c04f493e3b7476d6d68f",
-   "updated": "2026-11-27T19:54:59Z"
+   "hash": "fd526599bca1b9c04459c951522a07e92d7aa2f1",
+   "updated": "2026-11-27T20:15:50Z"
   },
   "college-basketball/": {
-   "hash": "d9f6f3e71d234aebd1b3a1e460692a2c54db9e1a",
-   "updated": "2026-11-27T19:54:59Z"
+   "hash": "3d7f72f159f2a53814b27b0a94a0fce4dff5726a",
+   "updated": "2026-11-27T20:15:50Z"
   },
   "college-football/": {
-   "hash": "e8e0669936dab669d5ad0ea72c218584a6e3b6e5",
-   "updated": "2026-11-27T19:16:06Z"
+   "hash": "f92494af11231086dee9520a7bddcfceff89f626",
+   "updated": "2026-11-27T20:15:50Z"
   },
   "mlb/": {
    "hash": "45903409f202da495a6c53b813512c377e2666bd",
    "updated": "2026-11-27T16:54:51Z"
   },
   "nba/": {
-   "hash": "144b6feb294492dedf427fa72e39dd08f4367832",
-   "updated": "2026-11-27T19:54:59Z"
+   "hash": "1600aad8202de69392ade8e3a77426b6e73f4593",
+   "updated": "2026-11-27T20:15:50Z"
   },
   "nfl/": {
-   "hash": "3520ab5081da998b6e3d066c73aac5d151471450",
-   "updated": "2026-11-27T19:54:59Z"
+   "hash": "7b3dd30d941931f51a8d5df61fa556f1c8e4496f",
+   "updated": "2026-11-27T20:15:50Z"
   },
   "nhl/": {
-   "hash": "59082dd4564f5b9d94a3e2d153ae880a42f2a2da",
-   "updated": "2026-11-27T19:54:59Z"
+   "hash": "9cb24096cb32c7398808af048ee40f63e47a0131",
+   "updated": "2026-11-27T20:15:50Z"
   },
   "wnba/": {
    "hash": "9763974276982d88f9a7b8b9cede584deb407dd7",

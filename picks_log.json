@@ -16563,8 +16563,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Navy"
    },
    {
@@ -16796,6 +16796,56 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Idaho"
+   },
+   {
+    "id": "nhl|2026020408|1p|ml|home",
+    "game": "nhl|2026020408",
+    "date": "2026-11-27",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-27T21:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Colorado @ Minnesota",
+    "href": "nhl/matchups/?date=2026-11-27",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -115,
+    "title": "Minnesota 1P ML",
+    "est": 0.578,
+    "edge": 0.0431,
+    "agree": 4,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": -1,
+    "streakTeam": "MIN",
+    "angles": [
+     [
+      "Minnesota 1P ML, last 8",
+      "4-1-3"
+     ],
+     [
+      "Minnesota 1P ML, season",
+      "13-4-10"
+     ],
+     [
+      "Minnesota 1P ML at home",
+      "5-2-2"
+     ],
+     [
+      "Colorado\u2019s opponents 1P ML, Colorado on the road",
+      "4-2-6"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Minnesota"
    }
   ]
  }
