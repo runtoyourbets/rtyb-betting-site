@@ -3,6 +3,7 @@
   "codes": [
    "AFA",
    "AKR",
+   "ALA",
    "AMER",
    "ANH",
    "APP",
@@ -44,6 +45,7 @@
    "ILL",
    "IND",
    "IOWA",
+   "ISU",
    "IU",
    "JXST",
    "KSU",
@@ -56,6 +58,7 @@
    "LEHI",
    "LEMO",
    "LIB",
+   "LOU",
    "LT",
    "MAIN",
    "MARQ",
@@ -101,6 +104,7 @@
    "SEA",
    "SJ",
    "SJSU",
+   "SJU",
    "SMC",
    "SOU",
    "STL",
@@ -108,6 +112,7 @@
    "TAMU",
    "TB",
    "TEM",
+   "TENN",
    "TEX",
    "TLSA",
    "TOL",
@@ -202,6 +207,11 @@
     "label": "NCAAB · Hampton at UMass Lowell · 1:00 PM ET",
     "trends": 5,
     "value": "ncaab:401921416"
+   },
+   {
+    "label": "NCAAB · Iowa State at St. John's · 1:00 PM ET",
+    "trends": 11,
+    "value": "ncaab:401920533"
    },
    {
     "label": "NCAAB · Vermont at Merrimack · 1:00 PM ET",
@@ -510,7 +520,7 @@
    },
    {
     "label": "NCAAB · Pacific at UC Davis · 8:00 PM ET",
-    "trends": 15,
+    "trends": 11,
     "value": "ncaab:401911524"
    },
    {
@@ -519,9 +529,19 @@
     "value": "nba:401909331"
    },
    {
+    "label": "NCAAB · Miami at Alabama · 8:30 PM ET",
+    "trends": 7,
+    "value": "ncaab:401920543"
+   },
+   {
     "label": "NBA · Dallas Mavericks at Phoenix Suns · 9:00 PM ET",
     "trends": 15,
     "value": "nba:401909332"
+   },
+   {
+    "label": "NCAAB · Tennessee at Louisville · 9:00 PM ET",
+    "trends": 8,
+    "value": "ncaab:401920534"
    },
    {
     "label": "NCAAB · Wichita State at Kentucky · 9:00 PM ET",
@@ -649,6 +669,7 @@
  },
  "ncaab": {
   "codes": [
+   "ALA",
    "AMER",
    "BC",
    "BELL",
@@ -670,6 +691,7 @@
    "HOU",
    "IDHO",
    "ILL",
+   "ISU",
    "IU",
    "JXST",
    "KSU",
@@ -679,10 +701,12 @@
    "LEHI",
    "LEMO",
    "LIB",
+   "LOU",
    "LT",
    "MAIN",
    "MARQ",
    "MEM",
+   "MIA",
    "MICH",
    "MIZ",
    "MOST",
@@ -702,10 +726,12 @@
    "PRIN",
    "PSU",
    "RAD",
+   "SJU",
    "SMC",
    "SOU",
    "STMN",
    "TAMU",
+   "TENN",
    "TEX",
    "TOWS",
    "TXST",
@@ -749,6 +775,11 @@
     "label": "Hampton at UMass Lowell · 1:00 PM ET",
     "trends": 5,
     "value": "ncaab:401921416"
+   },
+   {
+    "label": "Iowa State at St. John's · 1:00 PM ET",
+    "trends": 11,
+    "value": "ncaab:401920533"
    },
    {
     "label": "Vermont at Merrimack · 1:00 PM ET",
@@ -932,8 +963,18 @@
    },
    {
     "label": "Pacific at UC Davis · 8:00 PM ET",
-    "trends": 15,
+    "trends": 11,
     "value": "ncaab:401911524"
+   },
+   {
+    "label": "Miami at Alabama · 8:30 PM ET",
+    "trends": 7,
+    "value": "ncaab:401920543"
+   },
+   {
+    "label": "Tennessee at Louisville · 9:00 PM ET",
+    "trends": 8,
+    "value": "ncaab:401920534"
    },
    {
     "label": "Wichita State at Kentucky · 9:00 PM ET",
@@ -947,7 +988,7 @@
    }
   ],
   "lead": "ncaab:401926783",
-  "motd": "ncaab:401911524"
+  "motd": "ncaab:401921818"
  },
  "ncaaf": {
   "codes": [

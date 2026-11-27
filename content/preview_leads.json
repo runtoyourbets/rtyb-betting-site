@@ -490,12 +490,12 @@
   },
   "ncaab": {
    "away": "jacksonville-state-gamecocks",
-   "chip": "BACK OPPONENTS OF A BACK-TO-BACK TEAM · GAME ML · 90% (26-3)",
+   "chip": "OVER: BACK-TO-BACK GAMES · GAME O/U · 60% (44-29)",
    "home": "omaha-mavericks",
    "id": "401926783",
    "sport": "ncaab",
    "start": "2026-11-28T03:30Z",
-   "trend": "Back opponents of a back-to-back team (Game ML)"
+   "trend": "Over: back-to-back games (Game O/U)"
   },
   "ncaaf": {
    "away": "florida-atlantic-owls",

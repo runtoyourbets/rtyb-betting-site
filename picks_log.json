@@ -16296,6 +16296,54 @@
     "streakTeamName": "Washington"
    },
    {
+    "id": "ncaaf|401866473|1q|ml|home",
+    "game": "ncaaf|401866473",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-27T17:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Toledo @ Ohio",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 120,
+    "title": "Ohio 1Q ML",
+    "est": 0.5043,
+    "edge": 0.0498,
+    "agree": 3,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider",
+     "Early Bird"
+    ],
+    "streak": 8,
+    "streakTeam": "ohio-bobcats",
+    "angles": [
+     [
+      "Ohio 1Q ML, last 8",
+      "8-0"
+     ],
+     [
+      "Ohio 1Q ML, season",
+      "9-2"
+     ],
+     [
+      "Ohio 1Q ML at home",
+      "4-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Ohio"
+   },
+   {
     "id": "nba|401909333|1h|ats|away",
     "game": "nba|401909333",
     "date": "2026-11-27",
@@ -16340,54 +16388,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Lakers"
-   },
-   {
-    "id": "ncaaf|401866473|1q|ml|home",
-    "game": "ncaaf|401866473",
-    "date": "2026-11-27",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-27T17:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Toledo @ Ohio",
-    "href": "college-football/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": 116,
-    "title": "Ohio 1Q ML",
-    "est": 0.5105,
-    "edge": 0.0475,
-    "agree": 3,
-    "sample": 11,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider",
-     "Early Bird"
-    ],
-    "streak": 8,
-    "streakTeam": "ohio-bobcats",
-    "angles": [
-     [
-      "Ohio 1Q ML, last 8",
-      "8-0"
-     ],
-     [
-      "Ohio 1Q ML, season",
-      "9-2"
-     ],
-     [
-      "Ohio 1Q ML at home",
-      "4-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Ohio"
    },
    {
     "id": "ncaaf|401858536|1h|ats|away",
