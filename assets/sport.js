@@ -834,8 +834,20 @@
   // column; phones two-line rows. Every team sorts normally, with no
   // small-sample label; game times only with Today on. College:
   // search, 50 rows at a time (sorting and filters run on every team first).
-  var tl = { k: null, m: null, side: 'all', q: '', sortKey: 'units', sortDir: -1, today: false, grp: '', shown: 50 };
+  var tl = { seg: null, k: null, m: null, side: 'all', q: '', sortKey: 'units', sortDir: -1, today: false, grp: '', shown: 50 };
   var TL_PAGE = 50;      // college: rows shown at a time
+  // the Teams index's segment pills (Chris, Nov 27): the first segments
+  // (NHL / MLB: one pill for their markets), then Game, then 2nd Half
+  function tlSegs() {
+    var out = periodFamily() ? [{ key: 'first', label: D.sportType === 'baseball' ? '1st Inning & F5' : D.segments[0].label }]
+      : D.segments.map(function(x) { return { key: x.key, label: x.label }; });
+    ['game', '2h'].forEach(function(k) { if (frSeg(k)) out.push({ key: k, label: k === 'game' ? 'Game' : '2nd Half' }); });
+    return out;
+  }
+  function tlPillsOf(sk) {
+    if (sk === 'game' || sk === '2h') return frMarkets(sk).map(function(p) { return { k: p.k, m: p.m, label: { ats: spreadWord(), total: 'Total', ml: 'Moneyline' }[p.m] }; });
+    return sk === 'first' ? tmMarkets() : tmMarkets(sk);
+  }
   var TL_LEAD_MIN = 10;  // games a team needs for a Leaders card
   // The group dropdown: college groups (Power 4 / Group of 5 /
   // Independents; Power conferences / Mid-majors) then each conference;
@@ -895,7 +907,7 @@
   function tlName(s) { return tlCollege() ? shortName(s) : D.teams[s].name; }
   // the record column: "1P ML % (W-L-T)", "1H SPREAD % (W-L-P)", "O/U 1.5 % (O-U)", "BTTS % (Y-N)"
   function tlHead(p) {
-    var n = D.sport === 'nhl' ? { ml: '1P ML', total: 'O/U 1.5', btts: 'BTTS', ml3: '3-Way' }[p.m] : tpName(p);
+    var n = D.sport === 'nhl' && p.k === '1p' ? { ml: '1P ML', total: 'O/U 1.5', btts: 'BTTS', ml3: '3-Way' }[p.m] : tpName(p);
     return n + ' % (' + tpSides(p.m) + ')';
   }
   function tlRecTxt(a, m) { return a.gp ? tmPct(a.pct) + ' (' + tpRec(a, m) + ')' : '-'; }
@@ -922,8 +934,8 @@
     return (pl.at ? '@ ' : 'vs ') + tcode(pl.opp) + (t ? ' · ' + t + ' ET' : '');
   }
   // LEADERS (desktop): a card per market, Hottest / Coldest Last 10, Longest Active Streaks
-  function tlLeaders(byTeam, k) {
-    var cards = periodFamily() ? tmMarkets() : tmMarkets(k);
+  function tlLeaders(byTeam, k, pills) {
+    var cards = pills || (periodFamily() ? tmMarkets() : tmMarkets(k));
     if (D.sportType === 'baseball') {
       var order = { ml: 0, ats: 1, rfi: 2, total: 3 };
       cards = cards.slice().sort(function(a, b) { return order[a.m] - order[b.m]; });
@@ -943,7 +955,8 @@
       var side = p.m === 'ml' || p.m === 'ml3' || p.m === 'ats';
       // by units where most teams have prices (MLB / WNBA saved a handful: by win %)
       var byU = side && list.filter(function(x) { return x.a.priced; }).length * 2 > list.length;
-      var title = D.sportType === 'baseball' ? { ml: 'F5 ML', ats: 'F5 Run Line', rfi: 'NRFI', total: 'F5 Over' }[p.m]
+      var title = frSeg(p.k) ? segTag(p.k) + ' ' + { ml: 'Moneyline', ats: spreadWord(), total: 'Over' }[p.m]
+        : D.sportType === 'baseball' ? { ml: 'F5 ML', ats: 'F5 Run Line', rfi: 'NRFI', total: 'F5 Over' }[p.m]
         : D.sport === 'nhl' ? { ml: '1P Moneyline', total: '1P Over 1.5', btts: 'BTTS No', ml3: '3-Way' }[p.m]
         : seg(p.k).tag + ' ' + { ml: 'Moneyline', ats: spreadWord(), total: 'Over' }[p.m];
       function rate(a) { return p.m === 'btts' ? (a.w + a.l ? a.l / (a.w + a.l) : null) : a.pct; }   // BTTS No
@@ -959,7 +972,7 @@
       .filter(function(x) { return x.gp >= TL_LEAD_MIN && x.x.v != null; });
     var hot = l10.slice().sort(function(a, b) { return (b.x.w - b.x.l) - (a.x.w - a.x.l); }).slice(0, 3);
     var cold = l10.slice().sort(function(a, b) { return (a.x.w - a.x.l) - (b.x.w - b.x.l); }).slice(0, 3);
-    var l10Name = D.sport === 'nhl' ? '1P ML' : tpName(p0);
+    var l10Name = D.sport === 'nhl' && p0.k === '1p' ? '1P ML' : tpName(p0);
     out += card('Hottest Last 10 · ' + l10Name, hot.map(function(x, i) { return row(i, x.s, tlL10Txt(x.x, p0.m)); }));
     out += card('Coldest Last 10 · ' + l10Name, cold.map(function(x, i) { return row(i, x.s, tlL10Txt(x.x, p0.m)); }));
     // Longest Active Streaks, any market (a tie or push ends a run, it doesn't make one)
@@ -994,10 +1007,14 @@
     var anyPlaying = Object.keys(playing).some(function(s) { return D.teams[s]; });
     var groups = tlGroups(), college = tlCollege(), nTeams = Object.keys(D.teams).length;
     if (!groups.some(function(x) { return x.v === tl.grp; })) tl.grp = '';
-    if (!tl.k) tl.k = getSeg();
+    var segs = tlSegs();
+    if (!tl.seg) tl.seg = periodFamily() ? 'first' : getSeg();
+    if (!segs.some(function(x) { return x.key === tl.seg; })) tl.seg = segs[0].key;
     var leadK = null, leadHtml = '';
     function draw() {
-      var pills = tmPills(tl.k), p = tmPick(tl, pills), k = p.k, m = p.m;
+      var pills = tlPillsOf(tl.seg);
+      if (!pills.some(function(x) { return x.k === tl.k; })) tl.k = pills[0].k;
+      var p = tmPick(tl, pills), k = p.k, m = p.m;
       var grp = groups.filter(function(x) { return x.v === tl.grp; })[0];
       // filters and sorting run on every team; only the display is cut to TL_PAGE (college)
       var list = Object.keys(D.teams).filter(function(s) {
@@ -1042,8 +1059,11 @@
       function sidePill(v, label) { return '<button class="seg-btn" data-tl-side="' + v + '" aria-pressed="' + (tl.side === v) + '">' + label + '</button>'; }
       var more = college && list.length > shown.length ? '<div class="tl-more"><button class="seg-btn" id="tlMore" type="button">Show ' + Math.min(TL_PAGE, list.length - shown.length) + ' more</button>' +
         '<span class="tl-count">' + shown.length + ' of ' + list.length + '</span></div>' : college && list.length ? '<div class="tl-more"><span class="tl-count">' + list.length + ' of ' + list.length + '</span></div>' : '';
-      if (leadK !== k) { leadK = k; leadHtml = tlLeaders(byTeam, k); }
-      app.innerHTML = '<div id="teamView"><div class="controls tm-controls">' + tmControls(tl, pills, 'tlPills') +
+      if (leadK !== tl.seg) { leadK = tl.seg; leadHtml = tlLeaders(byTeam, k, pills); }
+      var segRow = segs.length > 1 ? '<div class="seg-toggle" data-tl-segs>' + segs.map(function(x) {
+        return '<button class="seg-btn" data-tl-seg="' + x.key + '" aria-pressed="' + (x.key === tl.seg) + '">' + esc(x.label) + '</button>'; }).join('') + '</div>' : '';
+      app.innerHTML = '<div id="teamView"><div class="controls tm-controls">' + segRow + '<div class="seg-toggle" id="tlPills">' + pills.map(function(x) {
+        return '<button class="seg-btn" data-tm-pill="' + x.k + '|' + x.m + '" aria-pressed="' + (x.k === k && x.m === m) + '">' + esc(x.label) + '</button>'; }).join('') + '</div>' +
         '<div class="seg-toggle">' + sidePill('all', 'All') + sidePill('home', 'Home') + sidePill('away', 'Away') +
         (anyPlaying ? '<button class="seg-btn" id="tlToday" aria-pressed="' + tl.today + '">Today</button>' : '') + '</div>' +
         (groups.length > 1 ? '<select class="tm-filter" id="tlGroup" aria-label="Filter teams">' + groups.map(function(x) {
@@ -1055,10 +1075,12 @@
         '</tr></thead><tbody>' + (shown.length ? shown.map(rowHtml).join('') : '<tr><td colspan="5"><div class="empty-state">' + empty + '</div></td></tr>') + '</tbody></table></div>' +
         '<div class="tl-mob"><div class="tl-mob-sort">' + esc(tlHead(p)) + '</div>' +
         (shown.length ? '<ul class="tlm-list">' + shown.map(mobHtml).join('') + '</ul>' : '<div class="empty-state">' + empty + '</div>') + '</div>' + more +
-        '<p class="tl-note">' + esc(seg(k).label) + ' &middot; ' + esc(D.seasonLabel || '') + ' season &middot; ' + esc(tlNote(m)) +
+        '<p class="tl-note">' + esc(anySeg(k).label) + ' &middot; ' + esc(D.seasonLabel || '') + ' season &middot; ' + esc(tlNote(m)) +
         ' &middot; Units: 1 unit a game at the closing price, only where prices were saved.</p></div>' +
         leadHtml + '</div></div>';
       wireTmControls(app, tl, function() { tl.shown = TL_PAGE; draw(); });
+      app.querySelectorAll('[data-tl-seg]').forEach(function(b) { b.onclick = function() {
+        tl.seg = b.getAttribute('data-tl-seg'); if (seg(tl.seg)) setSeg(tl.seg); tl.shown = TL_PAGE; draw(); }; });
       app.querySelectorAll('[data-tl-side]').forEach(function(b) { b.onclick = function() { tl.side = b.getAttribute('data-tl-side'); tl.shown = TL_PAGE; draw(); }; });
       var gs = document.getElementById('tlGroup');
       if (gs) gs.onchange = function() { tl.grp = gs.value; tl.shown = TL_PAGE; draw(); };
