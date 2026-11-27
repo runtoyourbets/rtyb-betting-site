@@ -44,7 +44,7 @@
     "nba": 89,
     "ncaab": 0,
     "ncaaf": 0,
-    "nfl": 94,
+    "nfl": 88,
     "nhl": 0
    },
    "group": "Exchange",
@@ -93,7 +93,7 @@
   },
   "36": {
    "coverage": {
-    "nba": 89,
+    "nba": 91,
     "ncaab": 76,
     "ncaaf": 100,
     "nfl": 100,
