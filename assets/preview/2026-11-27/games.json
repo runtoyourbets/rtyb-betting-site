@@ -438,7 +438,7 @@
    },
    {
     "label": "NBA · Miami Heat at New York Knicks · 7:00 PM ET",
-    "trends": 18,
+    "trends": 16,
     "value": "nba:401909326"
    },
    {
@@ -543,7 +543,7 @@
    },
    {
     "label": "NBA · Memphis Grizzlies at Minnesota Timberwolves · 8:30 PM ET",
-    "trends": 13,
+    "trends": 11,
     "value": "nba:401909331"
    },
    {
@@ -583,7 +583,7 @@
    },
    {
     "label": "NBA · Los Angeles Lakers at San Antonio Spurs · 9:30 PM ET",
-    "trends": 17,
+    "trends": 16,
     "value": "nba:401909333"
    },
    {
@@ -638,7 +638,7 @@
   "games": [
    {
     "label": "Miami Heat at New York Knicks · 7:00 PM ET",
-    "trends": 18,
+    "trends": 16,
     "value": "nba:401909326"
    },
    {
@@ -663,7 +663,7 @@
    },
    {
     "label": "Memphis Grizzlies at Minnesota Timberwolves · 8:30 PM ET",
-    "trends": 13,
+    "trends": 11,
     "value": "nba:401909331"
    },
    {
@@ -683,7 +683,7 @@
    },
    {
     "label": "Los Angeles Lakers at San Antonio Spurs · 9:30 PM ET",
-    "trends": 17,
+    "trends": 16,
     "value": "nba:401909333"
    },
    {
