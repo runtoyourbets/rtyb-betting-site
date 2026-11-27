@@ -323,7 +323,7 @@
    },
    {
     "label": "NCAAB · Oregon at Maryland · 3:30 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaab:401920532"
    },
    {
@@ -348,7 +348,7 @@
    },
    {
     "label": "NHL · Los Angeles Kings at Anaheim Ducks · 4:00 PM ET",
-    "trends": 11,
+    "trends": 8,
     "value": "nhl:2026020409"
    },
    {
@@ -398,7 +398,7 @@
    },
    {
     "label": "NCAAB · Texas at Saint Mary's · 5:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaab:401921718"
    },
    {
@@ -478,7 +478,7 @@
    },
    {
     "label": "NBA · Philadelphia 76ers at Indiana Pacers · 7:30 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "nba:401909328"
    },
    {
@@ -548,7 +548,7 @@
    },
    {
     "label": "NCAAB · Miami at Alabama · 8:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaab:401920543"
    },
    {
@@ -558,7 +558,7 @@
    },
    {
     "label": "NCAAB · Tennessee at Louisville · 9:00 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "ncaab:401920534"
    },
    {
@@ -653,7 +653,7 @@
    },
    {
     "label": "Philadelphia 76ers at Indiana Pacers · 7:30 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "nba:401909328"
    },
    {
@@ -884,7 +884,7 @@
    },
    {
     "label": "Oregon at Maryland · 3:30 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaab:401920532"
    },
    {
@@ -924,7 +924,7 @@
    },
    {
     "label": "Texas at Saint Mary's · 5:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaab:401921718"
    },
    {
@@ -1014,12 +1014,12 @@
    },
    {
     "label": "Miami at Alabama · 8:30 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaab:401920543"
    },
    {
     "label": "Tennessee at Louisville · 9:00 PM ET",
-    "trends": 10,
+    "trends": 11,
     "value": "ncaab:401920534"
    },
    {
@@ -1691,7 +1691,7 @@
    },
    {
     "label": "Los Angeles Kings at Anaheim Ducks · 4:00 PM ET",
-    "trends": 11,
+    "trends": 8,
     "value": "nhl:2026020409"
    },
    {
