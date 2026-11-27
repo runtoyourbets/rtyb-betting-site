@@ -16615,6 +16615,48 @@
     "streakTeamName": "Nebraska"
    },
    {
+    "id": "ncaab|401922264|1h|ml|away",
+    "game": "ncaab|401922264",
+    "date": "2026-11-27",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-28T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Idaho @ Washington State",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 285,
+    "title": "Idaho 1H ML",
+    "est": 0.3056,
+    "edge": 0.0458,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "idaho-vandals",
+    "angles": [
+     [
+      "Idaho 1H ML, season",
+      "4-2-1"
+     ],
+     [
+      "Idaho 1H ML, last 8",
+      "4-2-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Idaho"
+   },
+   {
     "id": "ncaab|401921224|1h|ml|away",
     "game": "ncaab|401921224",
     "date": "2026-11-27",
@@ -16757,48 +16799,6 @@
     "streakTeamName": "San Jos\u00e9 State"
    },
    {
-    "id": "ncaab|401922264|1h|ml|away",
-    "game": "ncaab|401922264",
-    "date": "2026-11-27",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-28T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Idaho @ Washington State",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 270,
-    "title": "Idaho 1H ML",
-    "est": 0.3144,
-    "edge": 0.0441,
-    "agree": 2,
-    "sample": 6,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 2,
-    "streakTeam": "idaho-vandals",
-    "angles": [
-     [
-      "Idaho 1H ML, season",
-      "4-2-1"
-     ],
-     [
-      "Idaho 1H ML, last 8",
-      "4-2-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Idaho"
-   },
-   {
     "id": "nhl|2026020408|1p|ml|home",
     "game": "nhl|2026020408",
     "date": "2026-11-27",
@@ -16899,6 +16899,56 @@
     "streakTeamName": "Suns"
    },
    {
+    "id": "ncaaf|401858544|1q|total|over",
+    "game": "ncaaf|401858544",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T00:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Minnesota @ Wisconsin",
+    "href": "college-football/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 7.5,
+    "price": 130,
+    "title": "1Q Over 7.5",
+    "est": 0.4755,
+    "edge": 0.0407,
+    "agree": 5,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Over Lover"
+    ],
+    "streak": -1,
+    "streakTeam": "minnesota-golden-gophers",
+    "angles": [
+     [
+      "Minnesota 1Q overs on the road (7.5)",
+      "4-0"
+     ],
+     [
+      "Wisconsin 1Q overs at home (7.5)",
+      "4-1"
+     ],
+     [
+      "Minnesota 1Q overs, season (7.5)",
+      "8-3"
+     ],
+     [
+      "Wisconsin 1Q overs, season (7.5)",
+      "7-4"
+     ]
+    ],
+    "info": "Avg 1Q total in their games: Wisconsin 9.7 \u00b7 Minnesota 9.9",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Minnesota"
+   },
+   {
     "id": "ncaaf|401856880|1h|ats|away",
     "game": "ncaaf|401856880",
     "date": "2026-11-27",
@@ -16943,56 +16993,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "West Virginia"
-   },
-   {
-    "id": "ncaaf|401858544|1q|total|over",
-    "game": "ncaaf|401858544",
-    "date": "2026-11-27",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-28T00:30Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Minnesota @ Wisconsin",
-    "href": "college-football/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 7.5,
-    "price": 126,
-    "title": "1Q Over 7.5",
-    "est": 0.4811,
-    "edge": 0.0386,
-    "agree": 5,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Over Lover"
-    ],
-    "streak": -1,
-    "streakTeam": "minnesota-golden-gophers",
-    "angles": [
-     [
-      "Minnesota 1Q overs on the road (7.5)",
-      "4-0"
-     ],
-     [
-      "Wisconsin 1Q overs at home (7.5)",
-      "4-1"
-     ],
-     [
-      "Minnesota 1Q overs, season (7.5)",
-      "8-3"
-     ],
-     [
-      "Wisconsin 1Q overs, season (7.5)",
-      "7-4"
-     ]
-    ],
-    "info": "Avg 1Q total in their games: Wisconsin 9.7 \u00b7 Minnesota 9.9",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Minnesota"
    },
    {
     "id": "ncaaf|401856756|1h|ats|home",
@@ -17134,51 +17134,46 @@
     "streakTeamName": "Timberwolves"
    },
    {
-    "id": "nba|401909330|1h|ats|away",
-    "game": "nba|401909330",
+    "id": "ncaaf|401856756|1h|ml|home",
+    "game": "ncaaf|401856756",
     "date": "2026-11-27",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-28T01:00Z",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T00:30Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "Hawks @ Celtics",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 4.5,
-    "price": -105,
-    "title": "Hawks 1H +4.5",
-    "est": 0.5472,
-    "edge": 0.035,
-    "agree": 3,
-    "sample": 17,
+    "matchup": "Texas @ Texas A&M",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 275,
+    "title": "Texas A&M 1H ML",
+    "est": 0.3022,
+    "edge": 0.0355,
+    "agree": 2,
+    "sample": 8,
     "tier": "C",
     "tags": [
-     "Dog Hunter",
-     "Streak Rider"
+     "Dog Hunter"
     ],
-    "streak": 4,
-    "streakTeam": "atl",
+    "streak": 0,
+    "streakTeam": "texas-aandm-aggies",
     "angles": [
      [
-      "Hawks 1H ATS at +4.5 on the road",
-      "7-2"
+      "Texas A&M 1H ML at home",
+      "5-0-1"
      ],
      [
-      "Hawks 1H ATS at +4.5, last 8",
-      "6-2"
-     ],
-     [
-      "Hawks 1H ATS at +4.5, season",
-      "12-5"
+      "Texas A&M 1H ML, season",
+      "5-3-3"
      ]
     ],
-    "info": "Hawks avg 1H margin on the road: +5.6",
+    "info": null,
     "status": "pending",
     "units": null,
-    "streakTeamName": "Hawks"
+    "streakTeamName": "Texas A&M"
    }
   ]
  }
