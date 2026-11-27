@@ -70,16 +70,6 @@
     "published": null,
     "week": null,
     "written": "2026-11-21T13:04Z"
-   },
-   {
-    "date": "2026-11-20",
-    "headline": "UTEP Takes Eight Straight First-Half Losses to Air Force",
-    "live": true,
-    "page": "admin/preview/all-2026-11-20/",
-    "path": "content/published/all-preview-2026-11-20.md",
-    "published": "2026-11-20T16:57:39Z",
-    "week": null,
-    "written": "2026-11-20T13:03Z"
    }
   ],
   "nba": [
@@ -132,16 +122,6 @@
     "published": null,
     "week": null,
     "written": "2026-11-21T13:02Z"
-   },
-   {
-    "date": "2026-11-20",
-    "headline": "Sacramento Kings Visit Los Angeles Lakers Riding 7 Straight First-Half Losses",
-    "live": true,
-    "page": "admin/preview/nba-2026-11-20/",
-    "path": "content/published/nba-preview-2026-11-20.md",
-    "published": "2026-11-20T16:58:00Z",
-    "week": null,
-    "written": "2026-11-20T13:01Z"
    }
   ],
   "ncaab": [
@@ -204,16 +184,6 @@
     "published": null,
     "week": null,
     "written": "2026-11-21T13:03Z"
-   },
-   {
-    "date": "2026-11-20",
-    "headline": "Virginia Tech Rides a 5-Game First-Half Win Streak Into Northwestern",
-    "live": true,
-    "page": "admin/preview/ncaab-2026-11-20/",
-    "path": "content/published/ncaab-preview-2026-11-20.md",
-    "published": "2026-11-20T16:58:23Z",
-    "week": null,
-    "written": "2026-11-20T13:02Z"
    }
   ],
   "ncaaf": [

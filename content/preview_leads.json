@@ -468,5 +468,61 @@
    "start": "2026-11-29T18:00Z",
    "trend": "TEN has lost the 1st half"
   }
+ },
+ "2026-11-27": {
+  "all": {
+   "away": "north-dakota-state-bison",
+   "chip": "SJSU UNDER 1Q TOTAL · 11 OF 12",
+   "home": "san-jos-state-spartans",
+   "id": "401864549",
+   "sport": "ncaaf",
+   "start": "2026-11-27T20:30Z",
+   "trend": "SJSU has gone Under the 1st quarter total"
+  },
+  "nba": {
+   "away": "den",
+   "chip": "UTA LOST 1H · 15 OF 19",
+   "home": "utah",
+   "id": "401909334",
+   "sport": "nba",
+   "start": "2026-11-28T02:30Z",
+   "trend": "UTA has lost the 1st half"
+  },
+  "ncaab": {
+   "away": "jacksonville-state-gamecocks",
+   "chip": "BACK OPPONENTS OF A BACK-TO-BACK TEAM · GAME ML · 90% (26-3)",
+   "home": "omaha-mavericks",
+   "id": "401926783",
+   "sport": "ncaab",
+   "start": "2026-11-28T03:30Z",
+   "trend": "Back opponents of a back-to-back team (Game ML)"
+  },
+  "ncaaf": {
+   "away": "florida-atlantic-owls",
+   "chip": "ECU UNDER 1Q TOTAL · 11 OF 11",
+   "home": "east-carolina-pirates",
+   "id": "401862837",
+   "sport": "ncaaf",
+   "start": "2026-11-28T18:00Z",
+   "trend": "ECU has gone Under the 1st quarter total"
+  },
+  "nfl": {
+   "away": "ten",
+   "chip": "TEN LOST 1H · 10 OF 10",
+   "home": "jax",
+   "id": "401873090",
+   "sport": "nfl",
+   "start": "2026-11-29T18:00Z",
+   "trend": "TEN has lost the 1st half"
+  },
+  "nhl": {
+   "away": "SEA",
+   "chip": "EDM BTTS NO 1P · 22 OF 27",
+   "home": "EDM",
+   "id": "2026020414",
+   "sport": "nhl",
+   "start": "2026-11-28T01:00:00Z",
+   "trend": "EDM has gone BTTS No"
+  }
  }
 }
