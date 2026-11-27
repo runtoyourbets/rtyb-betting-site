@@ -395,7 +395,7 @@ def daily():
         if far:
             n, bad = fetch_dates(sport, far, verbose=False)
             if len(bad) < len(far):
-                write_json(os.path.join(GAMES_DIR, sport, 'ahead.json'), {'day': today.isoformat(), 'through': far[-1], 'games': n})
+                write_json(os.path.join(GAMES_DIR, sport, 'ahead.json'), {'day': today.isoformat(), 'through': far[-1], 'count': n})
             print(f'{sport}: the rest of the season ({far[0]} to {far[-1]}): {n} games' + (f', {len(bad)} dates failed' if bad else ''))
         saved, failed = fetch_dates(sport, sorted(set(dates) | set(fails[-14:]) | set(back)), verbose=False)
         lines = fetch_lines(sport)

@@ -95,7 +95,7 @@ def other_teams(key):
     out = {}
     folder = os.path.join(GAMES_DIR, key)
     for name in sorted(os.listdir(folder)) if os.path.isdir(folder) else []:
-        if not name.endswith('.json'):
+        if not name.endswith('.json') or not name[:4].isdigit():   # season files only
             continue
         games = json.load(open(os.path.join(folder, name), encoding='utf-8')).get('games') or []
         for g in games.values() if isinstance(games, dict) else games:
