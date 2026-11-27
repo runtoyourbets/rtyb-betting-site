@@ -16568,6 +16568,56 @@
     "streakTeamName": "South Alabama"
    },
    {
+    "id": "nba|401909332|1q|ml|home",
+    "game": "nba|401909332",
+    "date": "2026-11-27",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-28T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Mavericks @ Suns",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -118,
+    "title": "Suns 1Q ML",
+    "est": 0.5882,
+    "edge": 0.0469,
+    "agree": 4,
+    "sample": 17,
+    "tier": "B",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 1,
+    "streakTeam": "phx",
+    "angles": [
+     [
+      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
+      "6-2-1"
+     ],
+     [
+      "Suns 1Q ML at home",
+      "6-3"
+     ],
+     [
+      "Suns 1Q ML, last 8",
+      "5-3"
+     ],
+     [
+      "Suns 1Q ML, season",
+      "10-7"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Suns"
+   },
+   {
     "id": "ncaab|401921224|1h|ml|away",
     "game": "ncaab|401921224",
     "date": "2026-11-27",
@@ -16612,56 +16662,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Navy"
-   },
-   {
-    "id": "nba|401909332|1q|ml|home",
-    "game": "nba|401909332",
-    "date": "2026-11-27",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-28T02:00Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Mavericks @ Suns",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "home",
-    "line": null,
-    "price": -120,
-    "title": "Suns 1Q ML",
-    "est": 0.5909,
-    "edge": 0.0454,
-    "agree": 4,
-    "sample": 17,
-    "tier": "B",
-    "tags": [
-     "Chalk Eater"
-    ],
-    "streak": 1,
-    "streakTeam": "phx",
-    "angles": [
-     [
-      "Mavericks\u2019s opponents 1Q ML, Mavericks on the road",
-      "6-2-1"
-     ],
-     [
-      "Suns 1Q ML at home",
-      "6-3"
-     ],
-     [
-      "Suns 1Q ML, last 8",
-      "5-3"
-     ],
-     [
-      "Suns 1Q ML, season",
-      "10-7"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Suns"
    },
    {
     "id": "ncaab|401911030|1h|ml|away",
