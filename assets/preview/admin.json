@@ -12,6 +12,16 @@
  "pieces": {
   "all": [
    {
+    "date": "2026-11-27",
+    "headline": "San José State Has Stayed Under the First-Quarter Total 11 of 12",
+    "live": false,
+    "page": "admin/preview/all-2026-11-27/",
+    "path": "content/drafts/all-preview-2026-11-27.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-27T13:17Z"
+   },
+   {
     "date": "2026-11-26",
     "headline": "Jacksonville State at UC Davis Brings an 88% Back-to-Back Angle",
     "live": false,
@@ -74,6 +84,16 @@
   ],
   "nba": [
    {
+    "date": "2026-11-27",
+    "headline": "Jazz Have Lost the First Half 79% (15-4) Ahead of Nuggets",
+    "live": false,
+    "page": "admin/preview/nba-2026-11-27/",
+    "path": "content/drafts/nba-preview-2026-11-27.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-27T13:14Z"
+   },
+   {
     "date": "2026-11-25",
     "headline": "Milwaukee Bucks Have Gone Under the First Quarter Total 83% (15-3)",
     "live": true,
@@ -125,6 +145,16 @@
    }
   ],
   "ncaab": [
+   {
+    "date": "2026-11-27",
+    "headline": "Fireworks expected between 'Canes and Tide",
+    "live": true,
+    "page": "admin/preview/ncaab-2026-11-27/",
+    "path": "content/published/ncaab-preview-2026-11-27.md",
+    "published": "2026-11-27T13:18:35Z",
+    "week": null,
+    "written": "2026-11-27T13:15Z"
+   },
    {
     "date": "2026-11-26",
     "headline": "Jacksonville State at UC Davis: Back-to-Back Opponents Hit 88% at the Half",
@@ -231,6 +261,16 @@
    }
   ],
   "nhl": [
+   {
+    "date": "2026-11-27",
+    "headline": "One Team Held Scoreless in 81% (22-5) of Oilers First Periods",
+    "live": false,
+    "page": "admin/preview/nhl-2026-11-27/",
+    "path": "content/drafts/nhl-preview-2026-11-27.md",
+    "published": null,
+    "week": null,
+    "written": "2026-11-27T13:13Z"
+   },
    {
     "date": "2026-11-25",
     "headline": "Predators First Periods Go Over 1.5 at a 78% Clip",
