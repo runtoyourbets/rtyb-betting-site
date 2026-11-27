@@ -2955,7 +2955,7 @@
     var y = m === 'ml' ? a + b + t : a + b;
     if (y < LEAN_MIN) return null;
     var kind = a >= b ? HIT[m] : MISS[m], x = Math.max(a, b);
-    return x / y >= 0.6 ? { kind: kind, x: x, y: y, rate: x / y } : null;
+    return x / y >= 0.6 ? { kind: kind, x: x, y: y, rate: x / y, a: a } : null;
   }
   function countOf(m, seq, kind) {
     var x = 0, y = 0;
@@ -3051,9 +3051,14 @@
           leans[side] = ln.kind;
           var res = past ? leanResult(g, k, m, side, ln.kind) : null;
           var end = past ? (res ? '<span class="mt-res mt-r-' + res + '">' + RES_WORD[res] + '</span>' : '') : streakChip(m, streakOf(seq));
+          // moneyline / spread: the team's own record and win (cover) rate,
+          // a losing team's too ("Game ML 22% (6-21)"); totals, BTTS and NRFI
+          // the side they lean to ("1Q Under 70% (7-3)")
+          var side2 = m === 'ml' || m === 'ats', word = side2 ? (k === 'game' ? 'Game' : seg(k).tag) + (m === 'ml' ? ' ML' : ' ATS') : stkWord(m, ln.kind, k);
+          var px = side2 ? ln.a : ln.x, pr = side2 ? ln.a / ln.y : ln.rate;
           lines.push({ rate: ln.rate, html: '<div class="mt-line">' + teamLink(slug, badge(slug, 18) + '<b>' + esc(tcode(slug)) + '</b>') +
-            '<span class="mt-side">' + esc(stkWord(m, ln.kind, k)) + '</span>' +
-            '<span class="mt-pct">' + pct0(ln.rate) + ' <span class="mt-rec">(' + ln.x + '-' + (ln.y - ln.x) + ')</span></span>' +
+            '<span class="mt-side">' + esc(word) + '</span>' +
+            '<span class="mt-pct">' + pct0(pr) + ' <span class="mt-rec">(' + px + '-' + (ln.y - px) + ')</span></span>' +
             '<span class="mt-st">' + end + '</span></div>' });
         });
         var id = mtLabelId(m, leans);

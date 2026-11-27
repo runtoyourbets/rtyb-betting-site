@@ -398,10 +398,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "One team has won (or covered) the {segment} in 60%+ of its games, the other has lost it in 60%+ (5+ played).",
+   "short": "One team has won (or covered) the {segment} in 60%+ of its games, the other in 40% or fewer (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-26"
+   "edited": "2026-11-27"
   },
   "label:tug_of_war": {
    "name": "🪢 Tug of War",
@@ -3273,10 +3273,10 @@
     "nfl",
     "ncaaf"
    ],
-   "short": "Both teams have lost the {segment} (moneyline) or failed to cover it (spread) in 60%+ of their games (5+ played).",
+   "short": "Both teams have won (moneyline) or covered (spread) the {segment} in 40% or fewer of their games (5+ played).",
    "long": "",
    "status": "live",
-   "edited": "2026-11-26"
+   "edited": "2026-11-27"
   }
  }
 }
