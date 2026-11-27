@@ -480,8 +480,8 @@ def index_html(root=''):
     for sp in sports.LAUNCHED:
         doc = front.read_json(os.path.join(ROOT, sp['slug'], 'streaks.json'), None) or write_data(sp, today)
         (live if doc.get('cur') else off).append((front.Sport(sp), doc))
-    pills = '<button type="button" class="sk2-pill" data-skp="all" aria-pressed="true">All</button>' + ''.join(
-        f'<button type="button" class="sk2-pill" data-skp="{esc(s.key)}" aria-pressed="false">{icons.sport_icon(s.sp)}{esc(s.label)}</button>'
+    pills = '<button type="button" class="seg-btn sk2-pill" data-skp="all" aria-pressed="true">All</button>' + ''.join(
+        f'<button type="button" class="seg-btn sk2-pill" data-skp="{esc(s.key)}" aria-pressed="false">{icons.sport_icon(s.sp)}{esc(s.label)}</button>'
         for s, _ in live)
 
     def shown(xs):
