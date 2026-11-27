@@ -16120,10 +16120,10 @@
     "market": "ml",
     "side": "away",
     "line": null,
-    "price": 144,
+    "price": 142,
     "title": "Lakers 1H ML",
-    "est": 0.4686,
-    "edge": 0.0588,
+    "est": 0.4709,
+    "edge": 0.0576,
     "agree": 3,
     "sample": 16,
     "tier": "B",
@@ -16344,52 +16344,6 @@
     "streakTeamName": "Ohio"
    },
    {
-    "id": "nba|401909333|1h|ats|away",
-    "game": "nba|401909333",
-    "date": "2026-11-27",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-28T02:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Lakers @ Spurs",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 3.5,
-    "price": -115,
-    "title": "Lakers 1H +3.5",
-    "est": 0.5828,
-    "edge": 0.0479,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "lal",
-    "angles": [
-     [
-      "Lakers 1H ATS at +3.5 on the road",
-      "8-0"
-     ],
-     [
-      "Lakers 1H ATS at +3.5, season",
-      "15-3"
-     ],
-     [
-      "Lakers 1H ATS at +3.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Lakers avg 1H margin on the road: +9.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Lakers"
-   },
-   {
     "id": "ncaaf|401858536|1h|ats|away",
     "game": "ncaaf|401858536",
     "date": "2026-11-27",
@@ -16438,6 +16392,52 @@
     "streakTeamName": "Nebraska"
    },
    {
+    "id": "nba|401909333|1q|ml|away",
+    "game": "nba|401909333",
+    "date": "2026-11-27",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-28T02:30Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Lakers @ Spurs",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 140,
+    "title": "Lakers 1Q ML",
+    "est": 0.464,
+    "edge": 0.0473,
+    "agree": 3,
+    "sample": 16,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "lal",
+    "angles": [
+     [
+      "Lakers 1Q ML, last 8",
+      "6-1-1"
+     ],
+     [
+      "Lakers 1Q ML on the road",
+      "6-1-1"
+     ],
+     [
+      "Lakers 1Q ML, season",
+      "12-4-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Lakers"
+   },
+   {
     "id": "ncaaf|401869930|1q|ats|home",
     "game": "ncaaf|401869930",
     "date": "2026-11-27",
@@ -16482,6 +16482,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "South Alabama"
+   },
+   {
+    "id": "ncaaf|401856756|1h|ats|home",
+    "game": "ncaaf|401856756",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Texas @ Texas A&M",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 6.5,
+    "price": 104,
+    "title": "Texas A&M 1H +6.5",
+    "est": 0.5327,
+    "edge": 0.0425,
+    "agree": 3,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "texas-aandm-aggies",
+    "angles": [
+     [
+      "Texas A&M 1H ATS at +6.5 at home",
+      "6-0"
+     ],
+     [
+      "Texas A&M 1H ATS at +6.5, season",
+      "9-2"
+     ],
+     [
+      "Texas A&M 1H ATS at +6.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Texas A&M avg 1H margin at home: +12.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Texas A&M"
    },
    {
     "id": "ncaaf|401858544|1q|total|over",
@@ -16532,53 +16579,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Minnesota"
-   },
-   {
-    "id": "ncaaf|401856756|1h|ats|home",
-    "game": "ncaaf|401856756",
-    "date": "2026-11-27",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-28T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Texas @ Texas A&M",
-    "href": "college-football/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 6.5,
-    "price": 100,
-    "title": "Texas A&M 1H +6.5",
-    "est": 0.5399,
-    "edge": 0.0399,
-    "agree": 3,
-    "sample": 11,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "texas-aandm-aggies",
-    "angles": [
-     [
-      "Texas A&M 1H ATS at +6.5 at home",
-      "6-0"
-     ],
-     [
-      "Texas A&M 1H ATS at +6.5, season",
-      "9-2"
-     ],
-     [
-      "Texas A&M 1H ATS at +6.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Texas A&M avg 1H margin at home: +12.0",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Texas A&M"
    },
    {
     "id": "ncaab|401929283|1h|ats|home",
