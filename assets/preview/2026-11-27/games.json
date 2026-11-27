@@ -218,7 +218,7 @@
    },
    {
     "label": "NCAAB · St. John's at Iowa State · 1:00 PM ET",
-    "trends": 11,
+    "trends": 13,
     "value": "ncaab:401920533"
    },
    {
@@ -228,7 +228,7 @@
    },
    {
     "label": "NCAAB · Wake Forest at Memphis · 1:30 PM ET",
-    "trends": 7,
+    "trends": 5,
     "value": "ncaab:401929288"
    },
    {
@@ -248,7 +248,7 @@
    },
    {
     "label": "NCAAB · South Alabama at Fresno State · 2:00 PM ET",
-    "trends": 10,
+    "trends": 12,
     "value": "ncaab:401929181"
    },
    {
@@ -313,7 +313,7 @@
    },
    {
     "label": "NCAAB · Colgate at Hofstra · 3:30 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaab:401920774"
    },
    {
@@ -388,7 +388,7 @@
    },
    {
     "label": "NCAAB · Marquette at Texas A&M · 5:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaab:401920810"
    },
    {
@@ -428,7 +428,7 @@
    },
    {
     "label": "NCAAB · Towson at Pennsylvania · 6:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaab:401921185"
    },
    {
@@ -523,7 +523,7 @@
    },
    {
     "label": "NCAAB · Missouri State at Oral Roberts · 8:00 PM ET",
-    "trends": 5,
+    "trends": 4,
     "value": "ncaab:401928624"
    },
    {
@@ -558,7 +558,7 @@
    },
    {
     "label": "NCAAB · Tennessee at Louisville · 9:00 PM ET",
-    "trends": 11,
+    "trends": 10,
     "value": "ncaab:401920534"
    },
    {
@@ -588,7 +588,7 @@
    },
    {
     "label": "NBA · New Orleans Pelicans at LA Clippers · 9:30 PM ET",
-    "trends": 16,
+    "trends": 15,
     "value": "nba:401909335"
    },
    {
@@ -602,8 +602,8 @@
     "value": "ncaab:401920544"
    },
    {
-    "label": "NCAAB · Texas Tech at San Diego State · 11:30 PM ET",
-    "trends": 7,
+    "label": "NCAAB · San Diego State at Texas Tech · 11:30 PM ET",
+    "trends": 6,
     "value": "ncaab:401920535"
    }
   ],
@@ -688,7 +688,7 @@
    },
    {
     "label": "New Orleans Pelicans at LA Clippers · 9:30 PM ET",
-    "trends": 16,
+    "trends": 15,
     "value": "nba:401909335"
    }
   ],
@@ -814,7 +814,7 @@
    },
    {
     "label": "St. John's at Iowa State · 1:00 PM ET",
-    "trends": 11,
+    "trends": 13,
     "value": "ncaab:401920533"
    },
    {
@@ -824,7 +824,7 @@
    },
    {
     "label": "Wake Forest at Memphis · 1:30 PM ET",
-    "trends": 7,
+    "trends": 5,
     "value": "ncaab:401929288"
    },
    {
@@ -839,7 +839,7 @@
    },
    {
     "label": "South Alabama at Fresno State · 2:00 PM ET",
-    "trends": 10,
+    "trends": 12,
     "value": "ncaab:401929181"
    },
    {
@@ -874,7 +874,7 @@
    },
    {
     "label": "Colgate at Hofstra · 3:30 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaab:401920774"
    },
    {
@@ -914,7 +914,7 @@
    },
    {
     "label": "Marquette at Texas A&M · 5:00 PM ET",
-    "trends": 9,
+    "trends": 10,
     "value": "ncaab:401920810"
    },
    {
@@ -949,7 +949,7 @@
    },
    {
     "label": "Towson at Pennsylvania · 6:00 PM ET",
-    "trends": 6,
+    "trends": 7,
     "value": "ncaab:401921185"
    },
    {
@@ -994,7 +994,7 @@
    },
    {
     "label": "Missouri State at Oral Roberts · 8:00 PM ET",
-    "trends": 5,
+    "trends": 4,
     "value": "ncaab:401928624"
    },
    {
@@ -1019,7 +1019,7 @@
    },
    {
     "label": "Tennessee at Louisville · 9:00 PM ET",
-    "trends": 11,
+    "trends": 10,
     "value": "ncaab:401920534"
    },
    {
@@ -1038,13 +1038,13 @@
     "value": "ncaab:401920544"
    },
    {
-    "label": "Texas Tech at San Diego State · 11:30 PM ET",
-    "trends": 7,
+    "label": "San Diego State at Texas Tech · 11:30 PM ET",
+    "trends": 6,
     "value": "ncaab:401920535"
    }
   ],
   "lead": "ncaab:401926783",
-  "motd": "ncaab:401921818"
+  "motd": "ncaab:401920533"
  },
  "ncaaf": {
   "codes": [
