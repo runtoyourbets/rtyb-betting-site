@@ -3,7 +3,7 @@
   "1": {
    "coverage": {
     "nba": 76,
-    "ncaab": 88,
+    "ncaab": 87,
     "ncaaf": 100,
     "nfl": 100,
     "nhl": 100
@@ -93,7 +93,7 @@
   },
   "36": {
    "coverage": {
-    "nba": 80,
+    "nba": 85,
     "ncaab": 76,
     "ncaaf": 100,
     "nfl": 100,
@@ -237,7 +237,7 @@
   "bovada": {
    "coverage": {
     "nba": 57,
-    "ncaab": 59,
+    "ncaab": 58,
     "ncaaf": 22,
     "nfl": 41,
     "nhl": 71
@@ -263,7 +263,7 @@
   "hardrockbet": {
    "coverage": {
     "nba": 65,
-    "ncaab": 64,
+    "ncaab": 63,
     "ncaaf": 20,
     "nfl": 41,
     "nhl": 71
