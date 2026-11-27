@@ -223,7 +223,7 @@
   },
   "betus": {
    "coverage": {
-    "nba": 54,
+    "nba": 52,
     "ncaab": 0,
     "ncaaf": 22,
     "nfl": 29,
@@ -264,7 +264,7 @@
    "coverage": {
     "nba": 83,
     "ncaab": 75,
-    "ncaaf": 20,
+    "ncaaf": 22,
     "nfl": 41,
     "nhl": 71
    },

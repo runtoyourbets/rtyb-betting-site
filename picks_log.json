@@ -16426,55 +16426,9 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Washington"
-   },
-   {
-    "id": "nba|401909333|1h|ats|away",
-    "game": "nba|401909333",
-    "date": "2026-11-27",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-28T02:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Lakers @ Spurs",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 2.5,
-    "price": -105,
-    "title": "Lakers 1H +2.5",
-    "est": 0.5639,
-    "edge": 0.0517,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "lal",
-    "angles": [
-     [
-      "Lakers 1H ATS at +2.5 on the road",
-      "8-0"
-     ],
-     [
-      "Lakers 1H ATS at +2.5, season",
-      "15-3"
-     ],
-     [
-      "Lakers 1H ATS at +2.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Lakers avg 1H margin on the road: +9.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Lakers"
    },
    {
     "id": "ncaab|401911030|1h|ml|away",
@@ -16565,6 +16519,52 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "Ohio"
+   },
+   {
+    "id": "nba|401909333|1h|ats|away",
+    "game": "nba|401909333",
+    "date": "2026-11-27",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-28T02:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Lakers @ Spurs",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": -115,
+    "title": "Lakers 1H +3.5",
+    "est": 0.5828,
+    "edge": 0.0479,
+    "agree": 3,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "lal",
+    "angles": [
+     [
+      "Lakers 1H ATS at +3.5 on the road",
+      "8-0"
+     ],
+     [
+      "Lakers 1H ATS at +3.5, season",
+      "15-3"
+     ],
+     [
+      "Lakers 1H ATS at +3.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Lakers avg 1H margin on the road: +9.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Lakers"
    },
    {
     "id": "ncaaf|401858536|1h|ats|away",
@@ -16702,8 +16702,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Old Dominion"
    },
    {
@@ -17042,24 +17042,116 @@
     "streakTeamName": "Texas A&M"
    },
    {
-    "id": "nba|401909326|1q|ats|away",
-    "game": "nba|401909326",
+    "id": "ncaab|401919033|1h|ml|away",
+    "game": "ncaab|401919033",
+    "date": "2026-11-27",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-28T02:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Wichita State @ Kentucky",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 146,
+    "title": "Wichita State 1H ML",
+    "est": 0.4427,
+    "edge": 0.0362,
+    "agree": 2,
+    "sample": 6,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "wichita-state-shockers",
+    "angles": [
+     [
+      "Wichita State 1H ML, season",
+      "6-0-1"
+     ],
+     [
+      "Wichita State 1H ML, last 8",
+      "6-0-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Wichita State"
+   },
+   {
+    "id": "nba|401909331|1q|ml|home",
+    "game": "nba|401909331",
     "date": "2026-11-27",
     "sport": "nba",
     "label": "NBA",
     "slug": "nba",
-    "start": "2026-11-28T00:00Z",
+    "start": "2026-11-28T01:30Z",
     "seg": "1q",
     "segTag": "1Q",
-    "matchup": "Heat @ Knicks",
+    "matchup": "Grizzlies @ Timberwolves",
+    "href": "nba/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": -132,
+    "title": "Timberwolves 1Q ML",
+    "est": 0.6047,
+    "edge": 0.0358,
+    "agree": 4,
+    "sample": 18,
+    "tier": "C",
+    "tags": [
+     "Chalk Eater"
+    ],
+    "streak": 2,
+    "streakTeam": "min",
+    "angles": [
+     [
+      "Timberwolves 1Q ML, season",
+      "12-6-1"
+     ],
+     [
+      "Grizzlies\u2019s opponents 1Q ML, Grizzlies on the road",
+      "6-3-1"
+     ],
+     [
+      "Timberwolves 1Q ML at home",
+      "7-4-1"
+     ],
+     [
+      "Timberwolves 1Q ML, last 8",
+      "4-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Timberwolves"
+   },
+   {
+    "id": "nba|401909330|1h|ats|away",
+    "game": "nba|401909330",
+    "date": "2026-11-27",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-28T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Hawks @ Celtics",
     "href": "nba/matchups/",
     "market": "ats",
     "side": "away",
-    "line": 0.5,
+    "line": 4.5,
     "price": -105,
-    "title": "Heat 1Q +0.5",
-    "est": 0.5484,
-    "edge": 0.0362,
+    "title": "Hawks 1H +4.5",
+    "est": 0.5472,
+    "edge": 0.035,
     "agree": 3,
     "sample": 17,
     "tier": "C",
@@ -17068,25 +17160,25 @@
      "Streak Rider"
     ],
     "streak": 4,
-    "streakTeam": "mia",
+    "streakTeam": "atl",
     "angles": [
      [
-      "Heat 1Q ATS at +0.5, last 8",
-      "7-1"
+      "Hawks 1H ATS at +4.5 on the road",
+      "7-2"
      ],
      [
-      "Heat 1Q ATS at +0.5 on the road",
-      "7-1"
+      "Hawks 1H ATS at +4.5, last 8",
+      "6-2"
      ],
      [
-      "Heat 1Q ATS at +0.5, season",
+      "Hawks 1H ATS at +4.5, season",
       "12-5"
      ]
     ],
-    "info": "Heat avg 1Q margin on the road: +3.1",
+    "info": "Hawks avg 1H margin on the road: +5.6",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Heat"
+    "streakTeamName": "Hawks"
    }
   ]
  }
