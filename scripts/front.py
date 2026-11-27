@@ -318,7 +318,13 @@ def result_rows(sport, games, k):
         return v[i] if v and len(v) > i else None
 
     rows = []
-    if sport.key == 'nhl':
+    if k == 'game':
+        # the full game: its result and closing lines (fr / fo) in the shape the segments use
+        games = [dict(g, res={'game': g['fr']['game']}, odds={'game': (g.get('fo') or {}).get('game') or {}})
+                 for g in games if (g.get('fr') or {}).get('game')]
+    if k == 'game':
+        pass
+    elif sport.key == 'nhl':
         hm, fv = Row('Home teams', ties=True), Row('Favorites', ties=True)
         ov, bt = Row('O/U: Over 1.5', no_tie=True), Row('BTTS Yes', no_tie=True)
         m3 = Row('3-way ML (home team)', no_tie=True, always=True)
@@ -355,12 +361,13 @@ def result_rows(sport, games, k):
                 bf.add(su_side(r, f == 'home'), u_at(u, 'su', 0 if f == 'away' else 1))
             if r.get('tot') and r['tot'] != 'NA':
                 fo.add({'O': 'W', 'U': 'L'}.get(r['tot'], 'T'), u_at(u, 'tot', 0))
-    else:
+    if k == 'game' or not (sport.key == 'nhl' or sport.doc.get('sportType') == 'baseball'):
         seg = next((s for s in sport.segments if s['key'] == k), {})
         ml = 'ML' in (seg.get('markets') or ['ML'])
         sh = Row('Home teams (moneyline)') if ml else None
         sf = Row('Favorites (moneyline)') if ml else None
-        sa, so = Row('Favorites (spread)'), Row('O/U: Over')
+        spread = {'nhl': 'puck line', 'mlb': 'run line'}.get(sport.key, 'spread')
+        sa, so = Row(f'Favorites ({spread})'), Row('O/U: Over')
         rows = [x for x in (sh, sf, sa, so) if x]
         for g in games:
             r = done(g, k)
@@ -407,12 +414,13 @@ def seg_tag(sport, k):
 
 
 def result_segments(sport):
-    """The segments a Results box is drawn for (NHL and MLB: one box)."""
+    """The segments a Results box is drawn for (NHL 1P, MLB NRFI · F5, the
+    spread sports' first segments), then the full game."""
     if sport.key == 'nhl':
-        return ['1p']
+        return ['1p', 'game']
     if sport.doc.get('sportType') == 'baseball':
-        return ['f5']
-    return sport.seg_keys()
+        return ['f5', 'game']
+    return sport.seg_keys() + ['game']
 
 
 # ------------------------------------------------------ Yesterday's Best
@@ -1603,7 +1611,7 @@ def yesterdays_results(S, yday, root='', hub=False, week=None):
         if not segs:
             continue
         sport_opts.append((sport.key, sport.label))
-        tags = [(k, 'NRFI · F5' if k == 'f5' and sport.doc.get('sportType') == 'baseball' else seg_tag(sport, k)) for k, _ in segs]
+        tags = [(k, 'NRFI · F5' if k == 'f5' and sport.doc.get('sportType') == 'baseball' else 'Game' if k == 'game' else seg_tag(sport, k)) for k, _ in segs]
         inner = pills(f'{sport.label} segment', tags, segs[0][0])
         inner += ''.join(f'<div data-pane="{k}"{"" if i == 0 else " hidden"}>{box}</div>' for i, (k, box) in enumerate(segs))
         q = f"week={week['key']}" if week else f"date={yday}"
@@ -1613,7 +1621,7 @@ def yesterdays_results(S, yday, root='', hub=False, week=None):
         return ''
     named = 'Yesterday' if yday >= (datetime.now(ET).date() - timedelta(days=1)).isoformat() else Date.fromisoformat(yday).strftime('%A')
     if week:
-        named = 'Last Week'
+        named = 'This Week' if week['start'] <= datetime.now(ET).date().isoformat() <= week['end'] else 'Last Week'
     head = (f'<div class="fr-head"><h2>{named}&rsquo;s Results</h2><span class="fr-date">{esc(week["label"] if week else day_label(yday))}</span></div>'
             + (pills('Sport', sport_opts, sport_opts[0][0]) if not hub else ''))
     return f'<section class="fr-sec" id="results" data-tabs>{head}{panes}</section>'
@@ -1961,7 +1969,9 @@ def sections(S, now_utc, root='', hub=False, learn=''):
     res_day = st['last'] if no_games and st.get('last') else yday
     res_week = None
     if hub and S and next(iter(S.values())).weekly:
-        res_week = last_week(next(iter(S.values())), now_utc.astimezone(ET).date().isoformat())
+        # football: this week's results so far (none yet: no section)
+        sp0, today = next(iter(S.values())), now_utc.astimezone(ET).date().isoformat()
+        res_week = next((w for w in sp0.doc.get('weeks') or [] if w['start'] <= today <= w['end']), None)
 
     def box(cls, html):
         return f'<div class="{cls}">{html}</div>' if html else ''
