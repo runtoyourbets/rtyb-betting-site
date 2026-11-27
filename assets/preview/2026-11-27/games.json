@@ -168,7 +168,7 @@
    },
    {
     "label": "NCAAB · Liberty at St. Thomas · 12:00 PM ET",
-    "trends": 10,
+    "trends": 8,
     "value": "ncaab:401920848"
    },
    {
@@ -223,7 +223,7 @@
    },
    {
     "label": "NCAAB · Vermont at Merrimack · 1:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401924810"
    },
    {
@@ -548,7 +548,7 @@
    },
    {
     "label": "NCAAB · Miami at Alabama · 8:30 PM ET",
-    "trends": 7,
+    "trends": 9,
     "value": "ncaab:401920543"
    },
    {
@@ -558,12 +558,12 @@
    },
    {
     "label": "NCAAB · Tennessee at Louisville · 9:00 PM ET",
-    "trends": 8,
+    "trends": 10,
     "value": "ncaab:401920534"
    },
    {
     "label": "NCAAB · Wichita State at Kentucky · 9:00 PM ET",
-    "trends": 9,
+    "trends": 8,
     "value": "ncaab:401919033"
    },
    {
@@ -804,7 +804,7 @@
    },
    {
     "label": "Liberty at St. Thomas · 12:00 PM ET",
-    "trends": 10,
+    "trends": 8,
     "value": "ncaab:401920848"
    },
    {
@@ -819,7 +819,7 @@
    },
    {
     "label": "Vermont at Merrimack · 1:00 PM ET",
-    "trends": 8,
+    "trends": 9,
     "value": "ncaab:401924810"
    },
    {
@@ -1014,17 +1014,17 @@
    },
    {
     "label": "Miami at Alabama · 8:30 PM ET",
-    "trends": 7,
+    "trends": 9,
     "value": "ncaab:401920543"
    },
    {
     "label": "Tennessee at Louisville · 9:00 PM ET",
-    "trends": 8,
+    "trends": 10,
     "value": "ncaab:401920534"
    },
    {
     "label": "Wichita State at Kentucky · 9:00 PM ET",
-    "trends": 9,
+    "trends": 8,
     "value": "ncaab:401919033"
    },
    {

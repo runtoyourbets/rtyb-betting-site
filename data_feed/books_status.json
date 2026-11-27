@@ -41,10 +41,10 @@
   },
   "111": {
    "coverage": {
-    "nba": 85,
+    "nba": 87,
     "ncaab": 0,
     "ncaaf": 0,
-    "nfl": 88,
+    "nfl": 94,
     "nhl": 0
    },
    "group": "Exchange",
@@ -93,7 +93,7 @@
   },
   "36": {
    "coverage": {
-    "nba": 96,
+    "nba": 98,
     "ncaab": 76,
     "ncaaf": 100,
     "nfl": 100,
@@ -237,7 +237,7 @@
   "bovada": {
    "coverage": {
     "nba": 57,
-    "ncaab": 58,
+    "ncaab": 59,
     "ncaaf": 22,
     "nfl": 41,
     "nhl": 71
@@ -249,7 +249,7 @@
   },
   "fliff": {
    "coverage": {
-    "nba": 28,
+    "nba": 43,
     "ncaab": 0,
     "ncaaf": 19,
     "nfl": 29,
@@ -262,7 +262,7 @@
   },
   "hardrockbet": {
    "coverage": {
-    "nba": 65,
+    "nba": 83,
     "ncaab": 63,
     "ncaaf": 20,
     "nfl": 41,
