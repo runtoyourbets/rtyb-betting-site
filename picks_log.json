@@ -16484,53 +16484,6 @@
     "streakTeamName": "South Alabama"
    },
    {
-    "id": "ncaaf|401856756|1h|ats|home",
-    "game": "ncaaf|401856756",
-    "date": "2026-11-27",
-    "sport": "ncaaf",
-    "label": "NCAAF",
-    "slug": "college-football",
-    "start": "2026-11-28T00:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Texas @ Texas A&M",
-    "href": "college-football/matchups/",
-    "market": "ats",
-    "side": "home",
-    "line": 6.5,
-    "price": 104,
-    "title": "Texas A&M 1H +6.5",
-    "est": 0.5327,
-    "edge": 0.0425,
-    "agree": 3,
-    "sample": 11,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 5,
-    "streakTeam": "texas-aandm-aggies",
-    "angles": [
-     [
-      "Texas A&M 1H ATS at +6.5 at home",
-      "6-0"
-     ],
-     [
-      "Texas A&M 1H ATS at +6.5, season",
-      "9-2"
-     ],
-     [
-      "Texas A&M 1H ATS at +6.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Texas A&M avg 1H margin at home: +12.0",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Texas A&M"
-   },
-   {
     "id": "ncaaf|401869930|1q|ml|home",
     "game": "ncaaf|401869930",
     "date": "2026-11-27",
@@ -16629,6 +16582,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Minnesota"
+   },
+   {
+    "id": "ncaaf|401856756|1h|ats|home",
+    "game": "ncaaf|401856756",
+    "date": "2026-11-27",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Texas @ Texas A&M",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 6.5,
+    "price": 100,
+    "title": "Texas A&M 1H +6.5",
+    "est": 0.5399,
+    "edge": 0.0399,
+    "agree": 3,
+    "sample": 11,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 5,
+    "streakTeam": "texas-aandm-aggies",
+    "angles": [
+     [
+      "Texas A&M 1H ATS at +6.5 at home",
+      "6-0"
+     ],
+     [
+      "Texas A&M 1H ATS at +6.5, season",
+      "9-2"
+     ],
+     [
+      "Texas A&M 1H ATS at +6.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Texas A&M avg 1H margin at home: +12.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Texas A&M"
    }
   ]
  }
