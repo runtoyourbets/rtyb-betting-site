@@ -6,10 +6,12 @@ date: 2026-11-27
 written: 2026-11-27T13:15Z
 model: claude-opus-5-5
 check: ["20"]
-lead: ncaab:401926783
+lead: ncaab:401920543
 motd: ncaab:401921818
-league_trend: {"sport": "ncaab", "number": "62%", "line": "Fade teams off a blowout · Game ML · 303-183", "text": "Fading teams off a blowout has hit 62% (303-183); tonight it fits St. John's at Iowa State, Vermont at Merrimack and 5 more.", "id": "off_loss3:game:ml:fade"}
+league_trend: {"sport":"ncaab","number":"62%","line":"Fade teams off a blowout · Game ML · 303-183","text":"Fading teams off a blowout has hit 62% (303-183); tonight it fits St. John's at Iowa State, Vermont at Merrimack and 5 more.","id":"off_loss3:game:ml:fade"}
 ---
+# Fireworks expected between 'Canes and Tide
+
 STAT:
 EDGE:
 
