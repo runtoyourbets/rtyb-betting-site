@@ -16380,6 +16380,52 @@
     "streakTeamName": "Washington"
    },
    {
+    "id": "nba|401909333|1h|ats|away",
+    "game": "nba|401909333",
+    "date": "2026-11-27",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-28T02:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Lakers @ Spurs",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 3.5,
+    "price": -112,
+    "title": "Lakers 1H +3.5",
+    "est": 0.5787,
+    "edge": 0.0504,
+    "agree": 3,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "lal",
+    "angles": [
+     [
+      "Lakers 1H ATS at +3.5 on the road",
+      "8-0"
+     ],
+     [
+      "Lakers 1H ATS at +3.5, season",
+      "15-3"
+     ],
+     [
+      "Lakers 1H ATS at +3.5, last 8",
+      "6-2"
+     ]
+    ],
+    "info": "Lakers avg 1H margin on the road: +9.1",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Lakers"
+   },
+   {
     "id": "ncaaf|401866473|1q|ml|home",
     "game": "ncaaf|401866473",
     "date": "2026-11-27",
@@ -16426,52 +16472,6 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "Ohio"
-   },
-   {
-    "id": "nba|401909333|1h|ats|away",
-    "game": "nba|401909333",
-    "date": "2026-11-27",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-28T02:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Lakers @ Spurs",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 3.5,
-    "price": -115,
-    "title": "Lakers 1H +3.5",
-    "est": 0.5828,
-    "edge": 0.0479,
-    "agree": 3,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "lal",
-    "angles": [
-     [
-      "Lakers 1H ATS at +3.5 on the road",
-      "8-0"
-     ],
-     [
-      "Lakers 1H ATS at +3.5, season",
-      "15-3"
-     ],
-     [
-      "Lakers 1H ATS at +3.5, last 8",
-      "6-2"
-     ]
-    ],
-    "info": "Lakers avg 1H margin on the road: +9.1",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Lakers"
    },
    {
     "id": "ncaaf|401858536|1h|ats|away",

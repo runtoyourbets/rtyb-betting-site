@@ -212,19 +212,19 @@
     "value": "nhl:2026020402"
    },
    {
-    "label": "NCAAB · Hampton at UMass Lowell · 1:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401921416"
-   },
-   {
     "label": "NCAAB · Iowa State at St. John's · 1:00 PM ET",
     "trends": 13,
     "value": "ncaab:401920533"
    },
    {
-    "label": "NCAAB · Vermont at Merrimack · 1:00 PM ET",
+    "label": "NCAAB · Merrimack at Vermont · 1:00 PM ET",
     "trends": 9,
     "value": "ncaab:401924810"
+   },
+   {
+    "label": "NCAAB · UMass Lowell at Hampton · 1:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401921416"
    },
    {
     "label": "NCAAB · Wake Forest at Memphis · 1:30 PM ET",
@@ -808,19 +808,19 @@
     "value": "ncaab:401920848"
    },
    {
-    "label": "Hampton at UMass Lowell · 1:00 PM ET",
-    "trends": 5,
-    "value": "ncaab:401921416"
-   },
-   {
     "label": "Iowa State at St. John's · 1:00 PM ET",
     "trends": 13,
     "value": "ncaab:401920533"
    },
    {
-    "label": "Vermont at Merrimack · 1:00 PM ET",
+    "label": "Merrimack at Vermont · 1:00 PM ET",
     "trends": 9,
     "value": "ncaab:401924810"
+   },
+   {
+    "label": "UMass Lowell at Hampton · 1:00 PM ET",
+    "trends": 5,
+    "value": "ncaab:401921416"
    },
    {
     "label": "Wake Forest at Memphis · 1:30 PM ET",
