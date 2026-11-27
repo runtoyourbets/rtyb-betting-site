@@ -1,0 +1,1328 @@
+{
+ "sport": "College Basketball",
+ "segments": "1st half",
+ "date": "2026-11-27",
+ "games_on_the_slate": 49,
+ "lead_game": "Jacksonville State at Omaha",
+ "matchup_of_the_day": "Arkansas-Pine Bluff at Missouri",
+ "games": [
+  {
+   "id": "401920848",
+   "matchup": "Liberty at St. Thomas",
+   "away": {
+    "code": "LIB",
+    "name": "Liberty"
+   },
+   "home": {
+    "code": "STMN",
+    "name": "St. Thomas"
+   },
+   "start": "12:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Back small underdogs (Game Spread)",
+     "season_record": "138-103",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade small favorites (Game Spread)",
+     "season_record": "112-87",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "St. Thomas have covered the 1st half spread 3 straight",
+    "St. Thomas have won the 1st half 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "LIB": {
+       "open": -106,
+       "now": -106,
+       "best_book": "FanDuel"
+      },
+      "STMN": {
+       "open": -110,
+       "now": -110,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "LIB": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -105,
+       "best_book": "Caesars"
+      },
+      "STMN": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": -120,
+      "under": 100,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920533",
+   "matchup": "St. John's at Iowa State",
+   "away": {
+    "code": "SJU",
+    "name": "St. John's"
+   },
+   "home": {
+    "code": "ISU",
+    "name": "Iowa State"
+   },
+   "start": "1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (Game ML)",
+     "season_record": "303-183",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Over: back-to-back games (Game O/U)",
+     "season_record": "44-30",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "286-192",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Over: back-to-back games (1H O/U)",
+     "season_record": "43-31",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "St. John's 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "SJU": {
+       "open": -145,
+       "now": -145,
+       "best_book": "Caesars"
+      },
+      "ISU": {
+       "open": 138,
+       "now": 138,
+       "best_book": "FanDuel"
+      }
+     },
+     "spread": {
+      "SJU": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      },
+      "ISU": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -110,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": -115,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401924810",
+   "matchup": "Vermont at Merrimack",
+   "away": {
+    "code": "UVM",
+    "name": "Vermont"
+   },
+   "home": {
+    "code": "MRMK",
+    "name": "Merrimack"
+   },
+   "start": "1:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (Game ML)",
+     "season_record": "303-183",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "286-192",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back small underdogs (Game Spread)",
+     "season_record": "138-103",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade small favorites (Game Spread)",
+     "season_record": "112-87",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1H": {
+     "spread": {
+      "UVM": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "MRMK": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 62.5,
+      "now": 62.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401919786",
+   "matchup": "Maine at Le Moyne",
+   "away": {
+    "code": "MAIN",
+    "name": "Maine"
+   },
+   "home": {
+    "code": "LEMO",
+    "name": "Le Moyne"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (Game ML)",
+     "season_record": "303-183",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a loss (Game ML)",
+     "season_record": "347-262",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "286-192",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back small underdogs (Game Spread)",
+     "season_record": "138-103",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade small favorites (Game Spread)",
+     "season_record": "112-87",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Le Moyne 1st halves have gone Under 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "MAIN": {
+       "open": -129,
+       "now": -125,
+       "best_book": "DraftKings"
+      },
+      "LEMO": {
+       "open": 105,
+       "now": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "MAIN": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -115,
+       "best_book": "Hard Rock Bet"
+      },
+      "LEMO": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 65.5,
+      "now": 67.5,
+      "over": -134,
+      "under": -103,
+      "best_book_over": "BetRivers"
+     }
+    }
+   }
+  },
+  {
+   "id": "401929181",
+   "matchup": "South Alabama at Fresno State",
+   "away": {
+    "code": "USA",
+    "name": "South Alabama"
+   },
+   "home": {
+    "code": "FRES",
+    "name": "Fresno State"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Fresno State 1st halves have gone Over 4 straight",
+    "Fresno State have covered the 1st half spread 3 straight",
+    "Fresno State have won the 1st half 6 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "USA": {
+       "open": -114,
+       "now": -114,
+       "best_book": "FanDuel"
+      },
+      "FRES": {
+       "open": -105,
+       "now": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "USA": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -104,
+       "best_book": "FanDuel"
+      },
+      "FRES": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -115,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 67.5,
+      "now": 67.5,
+      "over": -110,
+      "under": -105,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921827",
+   "matchup": "Southern at Vanderbilt",
+   "away": {
+    "code": "SOU",
+    "name": "Southern"
+   },
+   "home": {
+    "code": "VAN",
+    "name": "Vanderbilt"
+   },
+   "start": "2:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (Game ML)",
+     "season_record": "303-183",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a loss (Game ML)",
+     "season_record": "347-262",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "286-192",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Southern have failed to cover the 1st half spread 3 straight",
+    "Vanderbilt have failed to cover the 1st half spread 3 straight",
+    "Vanderbilt 1st halves have gone Under 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "SOU": {
+       "open": 3000,
+       "now": 3000,
+       "best_book": "DraftKings"
+      },
+      "VAN": {
+       "open": -10000,
+       "now": -10000,
+       "best_book": "Hard Rock Bet"
+      }
+     },
+     "spread": {
+      "SOU": {
+       "open": 20.5,
+       "now": 20.5,
+       "price": -106,
+       "best_book": "FanDuel"
+      },
+      "VAN": {
+       "open": -20.5,
+       "now": -20.5,
+       "price": -118,
+       "best_book": "FanDuel"
+      }
+     },
+     "total": {
+      "open": 72.5,
+      "now": 72.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401928468",
+   "matchup": "Texas State at Louisiana Tech",
+   "away": {
+    "code": "TXST",
+    "name": "Texas State"
+   },
+   "home": {
+    "code": "LT",
+    "name": "Louisiana Tech"
+   },
+   "start": "3:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Texas State 1st halves have gone Over 5 straight",
+    "Louisiana Tech 1st halves have gone Under 5 straight",
+    "Texas State have won the 1st half 8 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "TXST": {
+       "open": -190,
+       "now": -190,
+       "best_book": "Caesars"
+      },
+      "LT": {
+       "open": 158,
+       "now": 158,
+       "best_book": "Caesars"
+      }
+     },
+     "spread": {
+      "TXST": {
+       "open": -2.5,
+       "now": -2.5,
+       "price": -115,
+       "best_book": "Caesars"
+      },
+      "LT": {
+       "open": 2.5,
+       "now": 2.5,
+       "price": -105,
+       "best_book": "Caesars"
+      }
+     },
+     "total": {
+      "open": 64.5,
+      "now": 64.5,
+      "over": -125,
+      "under": 102,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921818",
+   "matchup": "Arkansas-Pine Bluff at Missouri",
+   "away": {
+    "code": "UAPB",
+    "name": "Arkansas-Pine Bluff"
+   },
+   "home": {
+    "code": "MIZ",
+    "name": "Missouri"
+   },
+   "start": "4:00 PM ET",
+   "matchup_of_the_day": true,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (Game ML)",
+     "season_record": "303-183",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a loss (Game ML)",
+     "season_record": "347-262",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "286-192",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Arkansas-Pine Bluff have lost the 1st half 7 straight",
+    "Missouri have won the 1st half 3 straight",
+    "Arkansas-Pine Bluff have failed to cover the 1st half spread 3 straight",
+    "Missouri 1st halves have gone Under 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "UAPB": {
+       "open": 24.5,
+       "now": 24.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      },
+      "MIZ": {
+       "open": -24.5,
+       "now": -24.5,
+       "price": -110,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 75.5,
+      "now": 75.5,
+      "over": -105,
+      "under": -115,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401921718",
+   "matchup": "Texas at Saint Mary's",
+   "away": {
+    "code": "TEX",
+    "name": "Texas"
+   },
+   "home": {
+    "code": "SMC",
+    "name": "Saint Mary's"
+   },
+   "start": "5:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: back-to-back games (Game O/U)",
+     "season_record": "44-30",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: back-to-back games (1H O/U)",
+     "season_record": "43-31",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Texas have won the 1st half 7 straight",
+    "Saint Mary's have won the 1st half 5 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "TEX": {
+       "open": -280,
+       "now": -280,
+       "best_book": "DraftKings"
+      },
+      "SMC": {
+       "open": 210,
+       "now": 210,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "TEX": {
+       "open": -4.5,
+       "now": -4.5,
+       "price": -112,
+       "best_book": "FanDuel"
+      },
+      "SMC": {
+       "open": 4.5,
+       "now": 4.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 74.5,
+      "now": 74.5,
+      "over": -115,
+      "under": -110,
+      "best_book_over": "FanDuel"
+     }
+    }
+   }
+  },
+  {
+   "id": "401911380",
+   "matchup": "Charleston Southern at East Tennessee State",
+   "away": {
+    "code": "CHSO",
+    "name": "Charleston Southern"
+   },
+   "home": {
+    "code": "ETSU",
+    "name": "East Tennessee State"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (Game ML)",
+     "season_record": "303-183",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a loss (Game ML)",
+     "season_record": "347-262",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "286-192",
+     "season_pct": "60%"
+    }
+   ],
+   "streaks": [
+    "Charleston Southern have lost the 1st half 3 straight",
+    "East Tennessee State have failed to cover the 1st half spread 3 straight",
+    "Charleston Southern 1st halves have gone Under 3 straight"
+   ],
+   "lines": {}
+  },
+  {
+   "id": "401912711",
+   "matchup": "West Virginia at North Carolina",
+   "away": {
+    "code": "WVU",
+    "name": "West Virginia"
+   },
+   "home": {
+    "code": "UNC",
+    "name": "North Carolina"
+   },
+   "start": "7:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Fade teams off a blowout (Game ML)",
+     "season_record": "303-183",
+     "season_pct": "62%"
+    },
+    {
+     "trend": "Fade teams off a loss (Game ML)",
+     "season_record": "347-262",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade teams off a blowout (1H ML)",
+     "season_record": "286-192",
+     "season_pct": "60%"
+    },
+    {
+     "trend": "Back small underdogs (Game Spread)",
+     "season_record": "138-103",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade small favorites (Game Spread)",
+     "season_record": "112-87",
+     "season_pct": "56%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "WVU": {
+       "open": -160,
+       "now": -160,
+       "best_book": "DraftKings"
+      },
+      "UNC": {
+       "open": 124,
+       "now": 124,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "WVU": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -105,
+       "best_book": "Fanatics"
+      },
+      "UNC": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": -110,
+      "under": -110,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401911524",
+   "matchup": "Pacific at UC Davis",
+   "away": {
+    "code": "PAC",
+    "name": "Pacific"
+   },
+   "home": {
+    "code": "UCD",
+    "name": "UC Davis"
+   },
+   "start": "8:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: back-to-back games (Game O/U)",
+     "season_record": "44-30",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: back-to-back games (1H O/U)",
+     "season_record": "43-31",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "UC Davis have failed to cover the 1st half spread 3 straight",
+    "UC Davis 1st halves have gone Under 3 straight",
+    "UC Davis have lost the 1st half 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "PAC": {
+       "open": -2.5,
+       "now": -3.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "UCD": {
+       "open": 2.5,
+       "now": 3.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 65.5,
+      "now": 65.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920543",
+   "matchup": "Miami at Alabama",
+   "away": {
+    "code": "MIA",
+    "name": "Miami"
+   },
+   "home": {
+    "code": "ALA",
+    "name": "Alabama"
+   },
+   "start": "8:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: back-to-back games (Game O/U)",
+     "season_record": "44-30",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: back-to-back games (1H O/U)",
+     "season_record": "43-31",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Back small underdogs (Game Spread)",
+     "season_record": "138-103",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade small favorites (Game Spread)",
+     "season_record": "112-87",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Miami 1st halves have gone Over 3 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "MIA": {
+       "open": -145,
+       "now": -145,
+       "best_book": "DraftKings"
+      },
+      "ALA": {
+       "open": 114,
+       "now": 114,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "MIA": {
+       "open": -1.5,
+       "now": -1.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      },
+      "ALA": {
+       "open": 1.5,
+       "now": 1.5,
+       "price": -115,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 79.5,
+      "now": 80.5,
+      "over": -115,
+      "under": -115,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401920534",
+   "matchup": "Tennessee at Louisville",
+   "away": {
+    "code": "TENN",
+    "name": "Tennessee"
+   },
+   "home": {
+    "code": "LOU",
+    "name": "Louisville"
+   },
+   "start": "9:00 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": false,
+   "trends": [
+    {
+     "trend": "Over: back-to-back games (Game O/U)",
+     "season_record": "44-30",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: back-to-back games (1H O/U)",
+     "season_record": "43-31",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    },
+    {
+     "trend": "Back small underdogs (Game Spread)",
+     "season_record": "138-103",
+     "season_pct": "57%"
+    },
+    {
+     "trend": "Fade small favorites (Game Spread)",
+     "season_record": "112-87",
+     "season_pct": "56%"
+    }
+   ],
+   "streaks": [
+    "Tennessee have won the 1st half 7 straight",
+    "Louisville have won the 1st half 6 straight"
+   ],
+   "lines": {
+    "1H": {
+     "moneyline": {
+      "TENN": {
+       "open": -125,
+       "now": -125,
+       "best_book": "DraftKings"
+      },
+      "LOU": {
+       "open": -105,
+       "now": -105,
+       "best_book": "DraftKings"
+      }
+     },
+     "spread": {
+      "TENN": {
+       "open": -0.5,
+       "now": -0.5,
+       "price": -110,
+       "best_book": "DraftKings"
+      },
+      "LOU": {
+       "open": 0.5,
+       "now": 0.5,
+       "price": -120,
+       "best_book": "DraftKings"
+      }
+     },
+     "total": {
+      "open": 70.5,
+      "now": 70.5,
+      "over": -115,
+      "under": -115,
+      "best_book_over": "DraftKings"
+     }
+    }
+   }
+  },
+  {
+   "id": "401926783",
+   "matchup": "Jacksonville State at Omaha",
+   "away": {
+    "code": "JXST",
+    "name": "Jacksonville State"
+   },
+   "home": {
+    "code": "OMA",
+    "name": "Omaha"
+   },
+   "start": "10:30 PM ET",
+   "matchup_of_the_day": false,
+   "lead_game": true,
+   "trends": [
+    {
+     "trend": "Over: back-to-back games (Game O/U)",
+     "season_record": "44-30",
+     "season_pct": "59%"
+    },
+    {
+     "trend": "Over: back-to-back games (1H O/U)",
+     "season_record": "43-31",
+     "season_pct": "58%"
+    },
+    {
+     "trend": "Over: home underdog games (1H O/U)",
+     "season_record": "120-97",
+     "season_pct": "55%"
+    }
+   ],
+   "streaks": [
+    "Omaha 1st halves have gone Under 4 straight"
+   ],
+   "lines": {
+    "1H": {
+     "spread": {
+      "JXST": {
+       "open": -3.5,
+       "now": -3.5,
+       "price": 100,
+       "best_book": "Fanatics"
+      },
+      "OMA": {
+       "open": 3.5,
+       "now": 3.5,
+       "price": -120,
+       "best_book": "Fanatics"
+      }
+     },
+     "total": {
+      "open": 68.5,
+      "now": 68.5,
+      "over": 100,
+      "under": -120,
+      "best_book_over": "Fanatics"
+     }
+    }
+   },
+   "headline_trend": {
+    "trend": "Over: back-to-back games (Game O/U)",
+    "card": "OVER: BACK-TO-BACK GAMES · GAME O/U · 59% (44-30)"
+   }
+  }
+ ],
+ "trends_page": "/college-basketball/trends/",
+ "teams": {
+  "ALA": {
+   "name": "Alabama",
+   "rates": []
+  },
+  "UAPB": {
+   "name": "Arkansas-Pine Bluff",
+   "rates": []
+  },
+  "CHSO": {
+   "name": "Charleston Southern",
+   "rates": []
+  },
+  "ETSU": {
+   "name": "East Tennessee State",
+   "rates": []
+  },
+  "FRES": {
+   "name": "Fresno State",
+   "rates": []
+  },
+  "ISU": {
+   "name": "Iowa State",
+   "rates": []
+  },
+  "JXST": {
+   "name": "Jacksonville State",
+   "rates": []
+  },
+  "LEMO": {
+   "name": "Le Moyne",
+   "rates": []
+  },
+  "LIB": {
+   "name": "Liberty",
+   "rates": []
+  },
+  "LT": {
+   "name": "Louisiana Tech",
+   "rates": []
+  },
+  "LOU": {
+   "name": "Louisville",
+   "rates": []
+  },
+  "MAIN": {
+   "name": "Maine",
+   "rates": []
+  },
+  "MRMK": {
+   "name": "Merrimack",
+   "rates": []
+  },
+  "MIA": {
+   "name": "Miami",
+   "rates": []
+  },
+  "MIZ": {
+   "name": "Missouri",
+   "rates": []
+  },
+  "UNC": {
+   "name": "North Carolina",
+   "rates": []
+  },
+  "OMA": {
+   "name": "Omaha",
+   "rates": []
+  },
+  "PAC": {
+   "name": "Pacific",
+   "rates": []
+  },
+  "SMC": {
+   "name": "Saint Mary's",
+   "rates": []
+  },
+  "USA": {
+   "name": "South Alabama",
+   "rates": []
+  },
+  "SOU": {
+   "name": "Southern",
+   "rates": []
+  },
+  "SJU": {
+   "name": "St. John's",
+   "rates": []
+  },
+  "STMN": {
+   "name": "St. Thomas",
+   "rates": []
+  },
+  "TENN": {
+   "name": "Tennessee",
+   "rates": []
+  },
+  "TEX": {
+   "name": "Texas",
+   "rates": []
+  },
+  "TXST": {
+   "name": "Texas State",
+   "rates": []
+  },
+  "UCD": {
+   "name": "UC Davis",
+   "rates": []
+  },
+  "VAN": {
+   "name": "Vanderbilt",
+   "rates": []
+  },
+  "UVM": {
+   "name": "Vermont",
+   "rates": []
+  },
+  "WVU": {
+   "name": "West Virginia",
+   "rates": []
+  }
+ },
+ "league_trends": [
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "Game ML",
+   "record": "303-183",
+   "pct": "62%",
+   "games": 486,
+   "fits_tonight": [
+    "St. John's at Iowa State",
+    "Vermont at Merrimack",
+    "Maine at Le Moyne",
+    "Southern at Vanderbilt",
+    "Arkansas-Pine Bluff at Missouri",
+    "Charleston Southern at East Tennessee State",
+    "West Virginia at North Carolina"
+   ]
+  },
+  {
+   "trend": "Over: back-to-back games",
+   "market": "Game O/U",
+   "record": "44-30",
+   "pct": "59%",
+   "games": 74,
+   "fits_tonight": [
+    "St. John's at Iowa State",
+    "Texas at Saint Mary's",
+    "Pacific at UC Davis",
+    "Miami at Alabama",
+    "Tennessee at Louisville",
+    "Jacksonville State at Omaha"
+   ]
+  },
+  {
+   "trend": "Fade teams off a blowout",
+   "market": "1H ML",
+   "record": "286-192",
+   "pct": "60%",
+   "games": 478,
+   "fits_tonight": [
+    "St. John's at Iowa State",
+    "Vermont at Merrimack",
+    "Maine at Le Moyne",
+    "Southern at Vanderbilt",
+    "Arkansas-Pine Bluff at Missouri",
+    "Charleston Southern at East Tennessee State",
+    "West Virginia at North Carolina"
+   ]
+  },
+  {
+   "trend": "Over: back-to-back games",
+   "market": "1H O/U",
+   "record": "43-31",
+   "pct": "58%",
+   "games": 74,
+   "fits_tonight": [
+    "St. John's at Iowa State",
+    "Texas at Saint Mary's",
+    "Pacific at UC Davis",
+    "Miami at Alabama",
+    "Tennessee at Louisville",
+    "Jacksonville State at Omaha"
+   ]
+  },
+  {
+   "trend": "Back small underdogs",
+   "market": "Game Spread",
+   "record": "138-103",
+   "pct": "57%",
+   "games": 241,
+   "fits_tonight": [
+    "Liberty at St. Thomas",
+    "Vermont at Merrimack",
+    "Maine at Le Moyne",
+    "West Virginia at North Carolina",
+    "Miami at Alabama",
+    "Tennessee at Louisville"
+   ]
+  },
+  {
+   "trend": "Fade teams off a loss",
+   "market": "Game ML",
+   "record": "347-262",
+   "pct": "57%",
+   "games": 609,
+   "fits_tonight": [
+    "Maine at Le Moyne",
+    "Southern at Vanderbilt",
+    "Arkansas-Pine Bluff at Missouri",
+    "Charleston Southern at East Tennessee State",
+    "West Virginia at North Carolina"
+   ]
+  },
+  {
+   "trend": "Over: home underdog games",
+   "market": "1H O/U",
+   "record": "120-97",
+   "pct": "55%",
+   "games": 217,
+   "fits_tonight": [
+    "St. John's at Iowa State",
+    "Vermont at Merrimack",
+    "Maine at Le Moyne",
+    "South Alabama at Fresno State",
+    "Texas State at Louisiana Tech",
+    "Texas at Saint Mary's",
+    "West Virginia at North Carolina",
+    "Pacific at UC Davis",
+    "Miami at Alabama",
+    "Tennessee at Louisville",
+    "Jacksonville State at Omaha"
+   ]
+  },
+  {
+   "trend": "Fade small favorites",
+   "market": "Game Spread",
+   "record": "112-87",
+   "pct": "56%",
+   "games": 199,
+   "fits_tonight": [
+    "Liberty at St. Thomas",
+    "Vermont at Merrimack",
+    "Maine at Le Moyne",
+    "West Virginia at North Carolina",
+    "Miami at Alabama",
+    "Tennessee at Louisville"
+   ]
+  }
+ ],
+ "edge_plays": [],
+ "boxes": {
+  "league_trend": {
+   "sport": "ncaab",
+   "number": "62%",
+   "line": "Fade teams off a blowout · Game ML · 303-183",
+   "text": "Fade teams off a blowout 303-183 this season; tonight it fits St. John's at Iowa State and 16 more games.",
+   "id": "off_loss3:game:ml:fade"
+  }
+ }
+}
