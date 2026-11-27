@@ -16199,53 +16199,6 @@
     "streakTeamName": "Nebraska"
    },
    {
-    "id": "nhl|2026020406|1p|btts|yes",
-    "game": "nhl|2026020406",
-    "date": "2026-11-27",
-    "sport": "nhl",
-    "label": "NHL",
-    "slug": "nhl",
-    "start": "2026-11-27T20:00:00Z",
-    "seg": "1p",
-    "segTag": "1P",
-    "matchup": "Florida @ Washington",
-    "href": "nhl/matchups/?date=2026-11-27",
-    "market": "btts",
-    "side": "yes",
-    "line": null,
-    "price": 148,
-    "title": "1P BTTS Yes",
-    "est": 0.4583,
-    "edge": 0.055,
-    "agree": 3,
-    "sample": 25,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 6,
-    "streakTeam": "WSH",
-    "angles": [
-     [
-      "Washington 1P BTTS, last 8",
-      "7-1"
-     ],
-     [
-      "Washington 1P BTTS at home",
-      "10-4"
-     ],
-     [
-      "Washington 1P BTTS, season",
-      "14-8"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Washington"
-   },
-   {
     "id": "nhl|2026020412|1p|ml|home",
     "game": "nhl|2026020412",
     "date": "2026-11-27",
@@ -16294,6 +16247,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "NY Islanders"
+   },
+   {
+    "id": "nhl|2026020406|1p|btts|yes",
+    "game": "nhl|2026020406",
+    "date": "2026-11-27",
+    "sport": "nhl",
+    "label": "NHL",
+    "slug": "nhl",
+    "start": "2026-11-27T20:00:00Z",
+    "seg": "1p",
+    "segTag": "1P",
+    "matchup": "Florida @ Washington",
+    "href": "nhl/matchups/?date=2026-11-27",
+    "market": "btts",
+    "side": "yes",
+    "line": null,
+    "price": 145,
+    "title": "1P BTTS Yes",
+    "est": 0.461,
+    "edge": 0.0528,
+    "agree": 3,
+    "sample": 25,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "WSH",
+    "angles": [
+     [
+      "Washington 1P BTTS, last 8",
+      "7-1"
+     ],
+     [
+      "Washington 1P BTTS at home",
+      "10-4"
+     ],
+     [
+      "Washington 1P BTTS, season",
+      "14-8"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Washington"
    },
    {
     "id": "ncaaf|401866473|1q|ml|home",
