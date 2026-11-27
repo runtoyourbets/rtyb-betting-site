@@ -217,7 +217,7 @@
     "value": "ncaab:401921416"
    },
    {
-    "label": "NCAAB · St. John's at Iowa State · 1:00 PM ET",
+    "label": "NCAAB · Iowa State at St. John's · 1:00 PM ET",
     "trends": 13,
     "value": "ncaab:401920533"
    },
@@ -322,7 +322,7 @@
     "value": "ncaab:401921417"
    },
    {
-    "label": "NCAAB · Oregon at Maryland · 3:30 PM ET",
+    "label": "NCAAB · Maryland at Oregon · 3:30 PM ET",
     "trends": 7,
     "value": "ncaab:401920532"
    },
@@ -813,7 +813,7 @@
     "value": "ncaab:401921416"
    },
    {
-    "label": "St. John's at Iowa State · 1:00 PM ET",
+    "label": "Iowa State at St. John's · 1:00 PM ET",
     "trends": 13,
     "value": "ncaab:401920533"
    },
@@ -883,7 +883,7 @@
     "value": "ncaab:401921417"
    },
    {
-    "label": "Oregon at Maryland · 3:30 PM ET",
+    "label": "Maryland at Oregon · 3:30 PM ET",
     "trends": 7,
     "value": "ncaab:401920532"
    },
@@ -1044,7 +1044,7 @@
    }
   ],
   "lead": "ncaab:401926783",
-  "motd": "ncaab:401920533"
+  "motd": "ncaab:401921818"
  },
  "ncaaf": {
   "codes": [
