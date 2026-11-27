@@ -2018,13 +2018,13 @@
     var card2 = rows.map(function(r) { return fbRow(r.label, r.n, n, max2, r.label); }).join('');
     var sub = n + ' game' + (n === 1 ? '' : 's') + (missing ? ' &middot; ' + missing + ' missing ' + esc(segWord(k)) + ' scores' : '');
     function sortLink(v, label) {
-      return '<button type="button" class="fb-sort' + (fbState.sort === v ? ' on' : '') + '" data-fb-sort="' + v + '" aria-pressed="' + (fbState.sort === v) + '">' + label + '</button>';
+      return '<button type="button" class="seg-btn fb-sort" data-fb-sort="' + v + '" aria-pressed="' + (fbState.sort === v) + '">' + label + '</button>';
     }
     var none = emptyNote('No games with ' + esc(s.label) + ' scores in this range.');
     return '<div class="st-grid">' +
       stCard(s.tag === 'NRFI' ? '1st Inning' : s.tag + ' Scoring', sub, n ? card0 : none) +
       stCard('Most Common Scores', sub, '<div class="hdist">' + (n ? card1 : none) + '</div>') +
-      stCard('Scoring Distribution', sub, '<div class="fb-sorts">Sort: ' + sortLink('common', 'Common') + ' <span aria-hidden="true">|</span> ' + sortLink('range', 'Range') + '</div>' +
+      stCard('Scoring Distribution', sub, '<div class="seg-toggle fb-sorts" role="group" aria-label="Sort">' + sortLink('common', 'Common') + sortLink('range', 'Range') + '</div>' +
         '<div class="hdist" id="fbDist">' + (n ? card2 : none) + '</div>') +
       '</div>';
   }
@@ -4335,11 +4335,13 @@
   function dfSegOf(k) { return DUE.segs.filter(function(x) { return x.k === k; })[0]; }
   // the segmented bar: every option the same width
   function dfBar(name, attr, opts, cur, extra) {
-    return '<div class="df2-bar' + (extra || '') + '" role="group" aria-label="' + name + '" style="--n:' + opts.length + '">' + opts.map(function(o) {
-      return '<button type="button" class="df2-opt' + (o.fr ? ' fr-pill' : '') + '" ' + attr + '="' + esc(o.k) + '" aria-pressed="' + (o.k === cur) + '">' +
-        (o.fr && premiumLocked('fullRun') ? FR_LOCK : '') + (o.s && o.s !== o.label ? '<span class="df2-wide">' + esc(o.label) + '</span><span class="df2-narrow">' + esc(o.s) + '</span>' : esc(o.label)) + '</button>';
+    // the standard pills (Chris, Nov 27: no wide boxed bars anywhere)
+    return '<div class="seg-toggle tr-frow' + (extra || '') + '" role="group" aria-label="' + name + '">' + opts.map(function(o) {
+      return '<button type="button" class="seg-btn' + (o.fr ? ' fr-pill' : '') + '" ' + attr + '="' + esc(o.k) + '" aria-pressed="' + (o.k === cur) + '">' + (o.fr && premiumLocked('fullRun') ? FR_LOCK : '') +
+        (o.s && o.s !== o.label ? '<span class="tn-full">' + esc(o.label) + '</span><span class="tn-short">' + esc(o.s) + '</span>' : esc(o.label)) + '</button>';
     }).join('') + '</div>';
   }
+
   function dfTable(first, m, data, totalLabel, base) {
     // phones: the short label ("Nov 25", "Last 10") so nothing is cut off
     function row(label, c, cls, short) {
