@@ -167,7 +167,7 @@
     "value": "ncaab:401920429"
    },
    {
-    "label": "NCAAB · Liberty at St. Thomas · 12:00 PM ET",
+    "label": "NCAAB · St. Thomas at Liberty · 12:00 PM ET",
     "trends": 9,
     "value": "ncaab:401920848"
    },
@@ -348,7 +348,7 @@
    },
    {
     "label": "NHL · Los Angeles Kings at Anaheim Ducks · 4:00 PM ET",
-    "trends": 8,
+    "trends": 11,
     "value": "nhl:2026020409"
    },
    {
@@ -438,7 +438,7 @@
    },
    {
     "label": "NBA · Miami Heat at New York Knicks · 7:00 PM ET",
-    "trends": 16,
+    "trends": 14,
     "value": "nba:401909326"
    },
    {
@@ -478,7 +478,7 @@
    },
    {
     "label": "NBA · Philadelphia 76ers at Indiana Pacers · 7:30 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401909328"
    },
    {
@@ -638,7 +638,7 @@
   "games": [
    {
     "label": "Miami Heat at New York Knicks · 7:00 PM ET",
-    "trends": 16,
+    "trends": 14,
     "value": "nba:401909326"
    },
    {
@@ -653,7 +653,7 @@
    },
    {
     "label": "Philadelphia 76ers at Indiana Pacers · 7:30 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401909328"
    },
    {
@@ -803,7 +803,7 @@
     "value": "ncaab:401920429"
    },
    {
-    "label": "Liberty at St. Thomas · 12:00 PM ET",
+    "label": "St. Thomas at Liberty · 12:00 PM ET",
     "trends": 9,
     "value": "ncaab:401920848"
    },
@@ -1691,7 +1691,7 @@
    },
    {
     "label": "Los Angeles Kings at Anaheim Ducks · 4:00 PM ET",
-    "trends": 8,
+    "trends": 11,
     "value": "nhl:2026020409"
    },
    {
