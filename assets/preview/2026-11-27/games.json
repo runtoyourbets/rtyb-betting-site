@@ -427,14 +427,14 @@
     "value": "ncaab:401911030"
    },
    {
-    "label": "NCAAB · Towson at Pennsylvania · 6:00 PM ET",
-    "trends": 7,
-    "value": "ncaab:401921185"
-   },
-   {
     "label": "NCAAB · Western Kentucky at Illinois · 6:00 PM ET",
     "trends": 7,
     "value": "ncaab:401913531"
+   },
+   {
+    "label": "NCAAB · Towson at Pennsylvania · 6:40 PM ET",
+    "trends": 7,
+    "value": "ncaab:401921185"
    },
    {
     "label": "NBA · Miami Heat at New York Knicks · 7:00 PM ET",
@@ -948,14 +948,14 @@
     "value": "ncaab:401911030"
    },
    {
-    "label": "Towson at Pennsylvania · 6:00 PM ET",
-    "trends": 7,
-    "value": "ncaab:401921185"
-   },
-   {
     "label": "Western Kentucky at Illinois · 6:00 PM ET",
     "trends": 7,
     "value": "ncaab:401913531"
+   },
+   {
+    "label": "Towson at Pennsylvania · 6:40 PM ET",
+    "trends": 7,
+    "value": "ncaab:401921185"
    },
    {
     "label": "Charleston Southern at East Tennessee State · 7:00 PM ET",
