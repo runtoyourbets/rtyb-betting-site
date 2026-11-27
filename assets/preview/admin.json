@@ -13,13 +13,13 @@
   "all": [
    {
     "date": "2026-11-27",
-    "headline": "San José State Has Stayed Under the First-Quarter Total 11 of 12",
-    "live": false,
+    "headline": "San José State's First Quarter Has Gone Under 11 of 12",
+    "live": true,
     "page": "admin/preview/all-2026-11-27/",
-    "path": "content/drafts/all-preview-2026-11-27.md",
-    "published": null,
+    "path": "content/published/all-preview-2026-11-27.md",
+    "published": "2026-11-27T13:18:55Z",
     "week": null,
-    "written": "2026-11-27T13:17Z"
+    "written": "2026-11-27T13:16Z"
    },
    {
     "date": "2026-11-26",
@@ -86,10 +86,10 @@
    {
     "date": "2026-11-27",
     "headline": "Jazz Have Lost the First Half 79% (15-4) Ahead of Nuggets",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nba-2026-11-27/",
-    "path": "content/drafts/nba-preview-2026-11-27.md",
-    "published": null,
+    "path": "content/published/nba-preview-2026-11-27.md",
+    "published": "2026-11-27T13:19:03Z",
     "week": null,
     "written": "2026-11-27T13:14Z"
    },
@@ -264,10 +264,10 @@
    {
     "date": "2026-11-27",
     "headline": "One Team Held Scoreless in 81% (22-5) of Oilers First Periods",
-    "live": false,
+    "live": true,
     "page": "admin/preview/nhl-2026-11-27/",
-    "path": "content/drafts/nhl-preview-2026-11-27.md",
-    "published": null,
+    "path": "content/published/nhl-preview-2026-11-27.md",
+    "published": "2026-11-27T13:18:58Z",
     "week": null,
     "written": "2026-11-27T13:13Z"
    },
