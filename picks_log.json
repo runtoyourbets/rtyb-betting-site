@@ -16862,13 +16862,13 @@
     "market": "ats",
     "side": "away",
     "line": 14.5,
-    "price": -105,
+    "price": -108,
     "title": "West Virginia 1H +14.5",
-    "est": 0.5531,
-    "edge": 0.0409,
+    "est": 0.5582,
+    "edge": 0.039,
     "agree": 3,
     "sample": 11,
-    "tier": "B",
+    "tier": "C",
     "tags": [
      "Dog Hunter"
     ],
@@ -16894,54 +16894,51 @@
     "streakTeamName": "West Virginia"
    },
    {
-    "id": "ncaaf|401858544|1q|total|over",
-    "game": "ncaaf|401858544",
+    "id": "ncaaf|401856756|1h|ats|home",
+    "game": "ncaaf|401856756",
     "date": "2026-11-27",
     "sport": "ncaaf",
     "label": "NCAAF",
     "slug": "college-football",
     "start": "2026-11-28T00:30Z",
-    "seg": "1q",
-    "segTag": "1Q",
-    "matchup": "Minnesota @ Wisconsin",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Texas @ Texas A&M",
     "href": "college-football/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 7.5,
-    "price": 130,
-    "title": "1Q Over 7.5",
-    "est": 0.4755,
-    "edge": 0.0407,
-    "agree": 5,
+    "market": "ats",
+    "side": "home",
+    "line": 6.5,
+    "price": -102,
+    "title": "Texas A&M 1H +6.5",
+    "est": 0.5435,
+    "edge": 0.0386,
+    "agree": 3,
     "sample": 11,
-    "tier": "B",
+    "tier": "C",
     "tags": [
-     "Over Lover"
+     "Dog Hunter",
+     "Streak Rider"
     ],
-    "streak": -1,
-    "streakTeam": "minnesota-golden-gophers",
+    "streak": 5,
+    "streakTeam": "texas-aandm-aggies",
     "angles": [
      [
-      "Minnesota 1Q overs on the road (7.5)",
-      "4-0"
+      "Texas A&M 1H ATS at +6.5 at home",
+      "6-0"
      ],
      [
-      "Wisconsin 1Q overs at home (7.5)",
-      "4-1"
+      "Texas A&M 1H ATS at +6.5, season",
+      "9-2"
      ],
      [
-      "Minnesota 1Q overs, season (7.5)",
-      "8-3"
-     ],
-     [
-      "Wisconsin 1Q overs, season (7.5)",
-      "7-4"
+      "Texas A&M 1H ATS at +6.5, last 8",
+      "6-2"
      ]
     ],
-    "info": "Avg 1Q total in their games: Wisconsin 9.7 \u00b7 Minnesota 9.9",
+    "info": "Texas A&M avg 1H margin at home: +12.0",
     "status": "pending",
     "units": null,
-    "streakTeamName": "Minnesota"
+    "streakTeamName": "Texas A&M"
    }
   ]
  }

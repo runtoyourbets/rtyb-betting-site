@@ -50912,3 +50912,11 @@
 {"credits": 6, "endpoint": "/sports/basketball_ncaab/events/70b5b5c697f509bfd278d01f32999aba/odds", "job": "live", "remaining": 3549835, "sport": "ncaab", "time": "2026-11-27T20:25:38+00:00"}
 {"credits": 6, "endpoint": "/sports/basketball_ncaab/events/7183152f6944c6c86a45fe3c134d8b85/odds", "job": "live", "remaining": 3549829, "sport": "ncaab", "time": "2026-11-27T20:25:38+00:00"}
 {"credits": 6, "endpoint": "/sports/basketball_ncaab/events/01bd058905375db1fe1874b7964352ab/odds", "job": "live", "remaining": 3549823, "sport": "ncaab", "time": "2026-11-27T20:25:38+00:00"}
+{"credits": 0, "endpoint": "/sports/icehockey_nhl/events", "job": "live", "remaining": 3549823, "sport": "nhl", "time": "2026-11-27T20:45:43+00:00"}
+{"credits": 7, "endpoint": "/sports/icehockey_nhl/events/634c54722c6860c9773604c369f6e062/odds", "job": "live", "remaining": 3549816, "sport": "nhl", "time": "2026-11-27T20:45:43+00:00"}
+{"credits": 7, "endpoint": "/sports/icehockey_nhl/events/d86dc755fe06568141403800fce290fb/odds", "job": "live", "remaining": 3549809, "sport": "nhl", "time": "2026-11-27T20:45:43+00:00"}
+{"credits": 7, "endpoint": "/sports/icehockey_nhl/events/80ad2e83d5b53a2f48a70cfdecd3dc5c/odds", "job": "live", "remaining": 3549802, "sport": "nhl", "time": "2026-11-27T20:45:44+00:00"}
+{"credits": 0, "endpoint": "/sports/basketball_ncaab/events", "job": "live", "remaining": 3549802, "sport": "ncaab", "time": "2026-11-27T20:45:44+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/1aacf2782e5f8757794eb47c59712dcf/odds", "job": "live", "remaining": 3549796, "sport": "ncaab", "time": "2026-11-27T20:45:44+00:00"}
+{"credits": 5, "endpoint": "/sports/basketball_ncaab/events/76843c506b1ba5d7d938c6379d8cf4d3/odds", "job": "live", "remaining": 3549791, "sport": "ncaab", "time": "2026-11-27T20:45:44+00:00"}
+{"credits": 6, "endpoint": "/sports/basketball_ncaab/events/c335ca4fcf33e4467182cbd8cab09aa5/odds", "job": "live", "remaining": 3549785, "sport": "ncaab", "time": "2026-11-27T20:45:44+00:00"}
