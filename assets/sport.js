@@ -2782,10 +2782,10 @@
     if (st.mkt !== 'all' && !trMkts(st.seg).some(function(x) { return x[1] === st.mkt; })) st.mkt = 'all';
     return st;
   }
-  // desktop "1st Quarter · 1st Half · Game", phones "1Q · 1H · FG"; MLB "1st Inning · First 5"
+  // "1st Quarter · 1st Half · Game" on every device; MLB "1st Inning · First 5"
   function trSegLabel(s) {
-    var full = s.key === 'game' ? 'Game' : s.label, short = s.key === 'game' ? 'FG' : D.sportType === 'baseball' ? (s.key === 'f5' ? 'F5' : '1st Inn') : s.tag;
-    return '<span class="tn-full">' + esc(full) + '</span><span class="tn-short">' + esc(short) + '</span>';
+    // phones too: the pills wrap, so the full name fits (Chris, Nov 27)
+    return esc(s.key === 'game' ? 'Game' : s.label);
   }
   // the site's market names: Spread · O/U · Moneyline; NHL Moneyline · O/U 1.5 · BTTS · 3-Way; MLB NRFI/YRFI · F5 ML · F5 Run Line · F5 Total
   function trMktLabel(x) {
@@ -4379,7 +4379,7 @@
       '<span><i class="df2-sw"></i>Even</span>' + (post ? '<span><i class="df2-post"></i>Postseason</span>' : '') + '<span class="df2-hint">Click a day for that day&rsquo;s matchups</span></div>';
   }
   // the Trends pills (small, left-aligned; phones scroll sideways, short labels)
-  var DF_SEG_SHORT = { '1st Quarter': '1Q', '1st Half': '1H', '2nd Half': '2H', 'Full Game': 'FG', '1st Period': '1P', '2nd Period': '2P', '3rd Period': '3P', '1st Inning': '1st Inn', 'First 5': 'F5' };
+  var DF_SEG_SHORT = {};   // phones show the full segment names too (Chris, Nov 27)
   function dfPills(name, attr, opts, cur) {
     return '<div class="seg-toggle tr-frow" role="group" aria-label="' + name + '">' + opts.map(function(o) {
       return '<button type="button" class="seg-btn" ' + attr + '="' + esc(o.k) + '" aria-pressed="' + (o.k === cur) + '">' +
@@ -4591,7 +4591,7 @@
       }).join('') + '</div>';
     }
     function segTxt(x) {
-      var full = x.k === 'game' ? 'Game' : x.label, short = x.k === 'game' ? 'FG' : x.short;
+      var full = x.k === 'game' ? 'Game' : x.label, short = full;
       return full === short ? esc(full) : '<span class="tn-full">' + esc(full) + '</span><span class="tn-short">' + esc(short) + '</span>';
     }
     var ctrl = '<div class="tr-filters sk-ctrl">' +
