@@ -17602,53 +17602,6 @@
     "streakTeamName": "UCLA"
    },
    {
-    "id": "nba|401910050|1h|ats|away",
-    "game": "nba|401910050",
-    "date": "2026-11-28",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-29T01:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "76ers @ Rockets",
-    "href": "nba/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 7.5,
-    "price": -110,
-    "title": "76ers 1H +7.5",
-    "est": 0.5836,
-    "edge": 0.0597,
-    "agree": 3,
-    "sample": 20,
-    "tier": "B",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 8,
-    "streakTeam": "phi",
-    "angles": [
-     [
-      "76ers 1H ATS at +7.5, last 8",
-      "8-0"
-     ],
-     [
-      "76ers 1H ATS at +7.5 on the road",
-      "8-1"
-     ],
-     [
-      "76ers 1H ATS at +7.5, season",
-      "16-4"
-     ]
-    ],
-    "info": "76ers avg 1H margin on the road: +5.2",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "76ers"
-   },
-   {
     "id": "ncaaf|401858541|1h|ml|away",
     "game": "ncaaf|401858541",
     "date": "2026-11-28",
@@ -17786,6 +17739,53 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Missouri State"
+   },
+   {
+    "id": "nba|401910050|1h|ats|away",
+    "game": "nba|401910050",
+    "date": "2026-11-28",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-29T01:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "76ers @ Rockets",
+    "href": "nba/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 7.5,
+    "price": -118,
+    "title": "76ers 1H +7.5",
+    "est": 0.594,
+    "edge": 0.0528,
+    "agree": 3,
+    "sample": 20,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 8,
+    "streakTeam": "phi",
+    "angles": [
+     [
+      "76ers 1H ATS at +7.5, last 8",
+      "8-0"
+     ],
+     [
+      "76ers 1H ATS at +7.5 on the road",
+      "8-1"
+     ],
+     [
+      "76ers 1H ATS at +7.5, season",
+      "16-4"
+     ]
+    ],
+    "info": "76ers avg 1H margin on the road: +5.2",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "76ers"
    },
    {
     "id": "ncaaf|401858314|1q|ats|home",
