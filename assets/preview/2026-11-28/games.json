@@ -45,6 +45,7 @@
    "COLO",
    "COLU",
    "CONN",
+   "CREI",
    "CSU",
    "CSUB",
    "CSUF",
@@ -906,6 +907,11 @@
     "value": "ncaaf:401860927"
    },
    {
+    "label": "NCAAB · Creighton at Louisville · 10:30 PM ET",
+    "trends": 5,
+    "value": "ncaab:401920536"
+   },
+   {
     "label": "NCAAF · Sacramento State at Hawai'i · 11:00 PM ET",
     "trends": 11,
     "value": "ncaaf:401864547"
@@ -980,6 +986,7 @@
    "CIT",
    "COLG",
    "COLU",
+   "CREI",
    "CSUB",
    "CSUF",
    "DEL",
@@ -1011,6 +1018,7 @@
    "LEMO",
    "LIB",
    "LMU",
+   "LOU",
    "MAIN",
    "MANH",
    "MCNS",
@@ -1394,6 +1402,11 @@
     "label": "Loyola Marymount at UC San Diego · 10:00 PM ET",
     "trends": 6,
     "value": "ncaab:401917551"
+   },
+   {
+    "label": "Creighton at Louisville · 10:30 PM ET",
+    "trends": 5,
+    "value": "ncaab:401920536"
    }
   ],
   "lead": "ncaab:401919787",
