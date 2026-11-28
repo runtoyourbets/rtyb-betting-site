@@ -16244,57 +16244,6 @@
     "streakTeamName": "Florida State"
    },
    {
-    "id": "nba|401909336|1h|total|over",
-    "game": "nba|401909336",
-    "date": "2026-11-27",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-28T02:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Warriors @ Trail Blazers",
-    "href": "nba/matchups/",
-    "market": "total",
-    "side": "over",
-    "line": 105.5,
-    "price": -104,
-    "title": "1H Over 105.5",
-    "est": 0.5688,
-    "edge": 0.059,
-    "agree": 5,
-    "sample": 18,
-    "tier": "B",
-    "tags": [
-     "Over Lover",
-     "Streak Rider"
-    ],
-    "streak": 4,
-    "streakTeam": "por",
-    "angles": [
-     [
-      "Trail Blazers 1H overs at home (105.5)",
-      "6-0"
-     ],
-     [
-      "Trail Blazers 1H overs, season (105.5)",
-      "16-2"
-     ],
-     [
-      "Trail Blazers 1H overs, last 8 (105.5)",
-      "7-1"
-     ],
-     [
-      "Warriors 1H overs, season (105.5)",
-      "13-5"
-     ]
-    ],
-    "info": "Avg 1H total in their games: Trail Blazers 116.8 \u00b7 Warriors 108.3",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Trail Blazers"
-   },
-   {
     "id": "ncaab|401909789|1h|ml|away",
     "game": "ncaab|401909789",
     "date": "2026-11-27",
@@ -16382,6 +16331,57 @@
     "status": "L",
     "units": -1.0,
     "streakTeamName": "Nebraska"
+   },
+   {
+    "id": "nba|401909336|1h|total|over",
+    "game": "nba|401909336",
+    "date": "2026-11-27",
+    "sport": "nba",
+    "label": "NBA",
+    "slug": "nba",
+    "start": "2026-11-28T02:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Warriors @ Trail Blazers",
+    "href": "nba/matchups/",
+    "market": "total",
+    "side": "over",
+    "line": 105.5,
+    "price": -108,
+    "title": "1H Over 105.5",
+    "est": 0.5747,
+    "edge": 0.0554,
+    "agree": 5,
+    "sample": 18,
+    "tier": "B",
+    "tags": [
+     "Over Lover",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "por",
+    "angles": [
+     [
+      "Trail Blazers 1H overs at home (105.5)",
+      "6-0"
+     ],
+     [
+      "Trail Blazers 1H overs, season (105.5)",
+      "16-2"
+     ],
+     [
+      "Trail Blazers 1H overs, last 8 (105.5)",
+      "7-1"
+     ],
+     [
+      "Warriors 1H overs, season (105.5)",
+      "13-5"
+     ]
+    ],
+    "info": "Avg 1H total in their games: Trail Blazers 116.8 \u00b7 Warriors 108.3",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Trail Blazers"
    },
    {
     "id": "nhl|2026020406|1p|btts|yes",
