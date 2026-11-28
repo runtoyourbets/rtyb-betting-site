@@ -17181,6 +17181,53 @@
     "streakTeamName": "Hawks"
    },
    {
+    "id": "ncaab|401922264|1h|ats|away",
+    "game": "ncaab|401922264",
+    "date": "2026-11-27",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-28T01:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Idaho @ Washington State",
+    "href": "college-basketball/matchups/",
+    "market": "ats",
+    "side": "away",
+    "line": 6.5,
+    "price": -110,
+    "title": "Idaho 1H +6.5",
+    "est": 0.5572,
+    "edge": 0.0334,
+    "agree": 3,
+    "sample": 7,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 7,
+    "streakTeam": "idaho-vandals",
+    "angles": [
+     [
+      "Idaho 1H ATS at +6.5, season",
+      "7-0"
+     ],
+     [
+      "Idaho 1H ATS at +6.5, last 8",
+      "7-0"
+     ],
+     [
+      "Washington State\u2019s opponents 1H ATS at +6.5, Washington State at home",
+      "2-1"
+     ]
+    ],
+    "info": "Idaho avg 1H margin on the road: -1.5",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Idaho"
+   },
+   {
     "id": "nhl|2026020414|1p|ml|home",
     "game": "nhl|2026020414",
     "date": "2026-11-27",
@@ -17275,53 +17322,6 @@
     "status": "pending",
     "units": null,
     "streakTeamName": "Grizzlies"
-   },
-   {
-    "id": "ncaab|401922264|1h|ats|away",
-    "game": "ncaab|401922264",
-    "date": "2026-11-27",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-28T01:00Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "Idaho @ Washington State",
-    "href": "college-basketball/matchups/",
-    "market": "ats",
-    "side": "away",
-    "line": 6.5,
-    "price": -115,
-    "title": "Idaho 1H +6.5",
-    "est": 0.5662,
-    "edge": 0.0313,
-    "agree": 3,
-    "sample": 7,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter",
-     "Streak Rider"
-    ],
-    "streak": 7,
-    "streakTeam": "idaho-vandals",
-    "angles": [
-     [
-      "Idaho 1H ATS at +6.5, season",
-      "7-0"
-     ],
-     [
-      "Idaho 1H ATS at +6.5, last 8",
-      "7-0"
-     ],
-     [
-      "Washington State\u2019s opponents 1H ATS at +6.5, Washington State at home",
-      "2-1"
-     ]
-    ],
-    "info": "Idaho avg 1H margin on the road: -1.5",
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "Idaho"
    }
   ]
  }
