@@ -315,6 +315,15 @@ def build(template, nhl_data, logo_svg, now_utc=None):
     meta = streaks.index_meta()
     body = f'<div class="ix"><div class="ix-head"><h1>{esc(meta["h1"])}</h1></div></div>' + streaks.index_html('../')
     out = page(meta['title'], meta['desc'], body, status, depth='../', current='streaks').replace('__LOGO_SVG__', logo_svg)
+    # the sport below the pills is drawn by assets/sport.js (the sport pages' Streaks code), the first sport first
+    import re
+    import hashlib
+    m = re.search(r'data-first="([a-z-]*)"', body)
+    if m and m.group(1):
+        with open(os.path.join(ROOT, 'assets', 'sport.js'), 'rb') as f:
+            ver = hashlib.sha1(f.read()).hexdigest()[:10]
+        out = out.replace('<body class="home">', f'<body class="home" data-sport-slug="{m.group(1)}">', 1)
+        out = out.replace('</body>', f'<script src="../assets/sport.js?v={ver}"></script></body>', 1)
     os.makedirs(os.path.join(ROOT, 'streaks'), exist_ok=True)
     with open(os.path.join(ROOT, 'streaks', 'index.html'), 'w', encoding='utf-8') as f:
         f.write(out)

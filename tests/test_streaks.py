@@ -103,19 +103,22 @@ class PageTest(unittest.TestCase):
 
 @unittest.skipUnless(NODE, 'node is not installed')
 class QuietTest(unittest.TestCase):
-    def test_nhl_over_05_and_scored_only_when_their_market_is_picked(self):
-        js = '\n'.join([function(SRC, 'skMatch').replace('function skMatch', 'var SK_QUIET = { o05: 1, scored: 1 };\nfunction skMatch'), """
-var rows = ['o05', 'scored', 'tot', 'su'].map(function(m) { return { k: '2p', m: m, v: 'all' }; }), out = {};
-[['all', 'all'], ['2p', 'all'], ['all', 'o05'], ['2p', 'scored']].forEach(function(f) {
-  SKF = { seg: f[0], m: f[1], v: 'all' };
-  out[f.join(' ')] = rows.filter(skMatch).map(function(s) { return s.m; });
+    def test_one_segment_and_one_market_always_picked(self):
+        js = '\n'.join([function(SRC, 'skMatch'), """
+var rows = [{ k: '1p', m: 'su', v: 'all' }, { k: '1p', m: 'tot', v: 'all' }, { k: 'game', m: 'su', v: 'all' }, { k: '1p', m: 'su', v: 'home', gt: 1 }, { k: '1p', m: 'su', v: 'home', gt: 0 }], out = {};
+[['1p', 'su', 'all'], ['1p', 'su', 'home'], ['game', 'su', 'all']].forEach(function(f) {
+  SKF = { seg: f[0], m: f[1], v: f[2] };
+  out[f.join(' ')] = rows.filter(skMatch).length;
 });
 console.log(JSON.stringify(out));"""])
         out = subprocess.run([NODE, '-e', 'var SKF; function confTeam() { return true; }' + js], capture_output=True, text=True)
         self.assertEqual(out.returncode, 0, out.stderr)
-        self.assertEqual(json.loads(out.stdout), {'all all': ['tot', 'su'], '2p all': ['tot', 'su'], 'all o05': ['o05'], '2p scored': ['scored']})
-        self.assertIn("var SK_QUIET = { o05: 1, scored: 1 };", SRC)
-        self.assertEqual(streaks.QUIET, ('o05', 'scored'))
+        self.assertEqual(json.loads(out.stdout), {'1p su all': 2, '1p su home': 2, 'game su all': 1})
+        self.assertNotIn('SK_QUIET', SRC)
+        segs = {k: ms for k, *_, ms in streaks.segments(sports.BY_KEY['nhl'])}
+        self.assertEqual(list(segs), ['1p', 'game'])   # no 2nd / 3rd Period, Scored or Over 0.5
+        for key in sports.COLLEGE:
+            self.assertTrue(all('su' not in ms for *_, ms in streaks.segments(sports.BY_KEY[key])))
 
     def test_the_index_leaves_them_out(self):
         html = streaks.index_html('../')

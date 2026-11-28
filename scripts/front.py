@@ -363,7 +363,7 @@ def result_rows(sport, games, k):
                 fo.add({'O': 'W', 'U': 'L'}.get(r['tot'], 'T'), u_at(u, 'tot', 0))
     if k == 'game' or not (sport.key == 'nhl' or sport.doc.get('sportType') == 'baseball'):
         seg = next((s for s in sport.segments if s['key'] == k), {})
-        ml = 'ML' in (seg.get('markets') or ['ML'])
+        ml = 'ML' in (seg.get('markets') or ['ML']) and sport.key not in sports.COLLEGE   # college: no moneyline here
         sh = Row('Home teams (moneyline)') if ml else None
         sf = Row('Favorites (moneyline)') if ml else None
         spread = {'nhl': 'puck line', 'mlb': 'run line'}.get(sport.key, 'spread')
@@ -447,7 +447,7 @@ def best_rows(sport, games, k):
     seg = 'f5' if base else k
     tag = 'F5' if base else seg_tag(sport, k)
     seg_info = next((s for s in sport.segments if s['key'] == seg), {})
-    has_ml = nhl or base or 'ML' in (seg_info.get('markets') or ['ML'])
+    has_ml = (nhl or base or 'ML' in (seg_info.get('markets') or ['ML'])) and sport.key not in sports.COLLEGE   # college: no moneyline on the home page
     rows = {}
 
     def add(label, res, u):
@@ -930,7 +930,7 @@ def hot_cards(S, now_utc, bar=True, day=None, left=False):
         cards = (((sport.trends.get('slates') or {}).get(key) or {}).get('cards')) or []
         by_id = {str(g['id']): g for _, g in sport.all_games()}
         for c in cards:
-            if c.get('mk') == 'ml3' or (c.get('units') or 0) <= 0 or (c.get('rate') or 0) < TREND_MIN_RATE - 1e-9:
+            if c.get('mk') == 'ml3' or (c.get('mk') == 'ml' and sport.key in sports.COLLEGE) or (c.get('units') or 0) <= 0 or (c.get('rate') or 0) < TREND_MIN_RATE - 1e-9:
                 continue
             if bar and ((c.get('n') or 0) < TREND_MIN_N or (c.get('rate') or 0) - (c.get('base') or 0) < TREND_MIN_EDGE - 1e-9):
                 continue
@@ -1207,8 +1207,8 @@ STREAK_ORDER = {'ml': 0, 'ats': 1, 'total': 2, 'btts': 3, 'rfi': 4}   # ties: a 
 def streak_line(sport, m, st, k):
     """The market first, then the run: "1H Under · 7 straight"."""
     tag = seg_tag(sport, k)
-    w = {'ml': f"{tag} ML {'wins' if st['kind'] == 'W' else 'losses'}",
-         'ats': f"{tag} Spread {'covers' if st['kind'] == 'W' else 'losses'}",
+    w = {'ml': f"{'Won' if st['kind'] == 'W' else 'Lost'} {tag}",
+         'ats': f"{tag} ATS {'W' if st['kind'] == 'W' else 'L'}",
          'total': f"{tag} {'Over' if st['kind'] == 'O' else 'Under'}" + (' 1.5' if sport.key == 'nhl' else ''),
          'btts': f"{tag} BTTS {'Yes' if st['kind'] == 'Y' else 'No'}",
          'rfi': 'YRFI' if st['kind'] == 'Y' else 'NRFI'}[m]
@@ -1233,14 +1233,18 @@ STREAK_PHONE = 5        # Matchup of the Day card's height), and on phones
 
 
 def streak_day(sport, now_utc, hub=False):
-    """[(date, game)] the block covers, not started: the displayed day
-    (today's games, else the next game day's); a football hub: the week's."""
+    """[(date, game)] the block covers, fixed for the day (Chris, Nov 27: the
+    top streak never changes as games start): today's games, else the next
+    game day's; a football hub: the week's, started or not."""
     today = now_utc.astimezone(ET).date().isoformat()
-    games = upcoming(sport, today, now_utc)
     if hub and sport.weekly:
         wk = week_key(sport, today)
-        return [(d, g) for d, g in games if g.get('wk') == wk] if wk else []
-    return [(d, g) for d, g in games if d == games[0][0]] if games else []
+        return [(d, g) for d, g in sport.all_games() if wk and g.get('wk') == wk and game_lined(sport, g)]
+    for d in sorted(x for x in (sport.doc.get('games') or {}) if x >= today):
+        day = [(d, g) for g in sport.games(d) if game_lined(sport, g) and g.get('state') not in ('postponed', 'canceled')]
+        if day:
+            return sorted(day, key=lambda x: (x[1].get('start') or '', x[1]['away']))
+    return []
 
 
 def streak_next_day(sport, now_utc, hub=False):
@@ -1374,7 +1378,7 @@ def streaks_watch(S, now_utc, root='', hub=False):
     in the first has started. Neither has any: no block, and Matchup of the
     Day goes full width (.fv.sw-none)."""
     lists = []
-    for nxt in (False, True):
+    for nxt in (False,):   # fixed for the day: no next-day list to swap in (Chris, Nov 27)
         xs = streaks(S, now_utc, hub, nxt)[:STREAK_ROWS + 1]
         if xs:
             lists.append((xs, streak_when(xs, now_utc, hub)))
@@ -1589,7 +1593,7 @@ def week_results(sport, wk, now_utc, root=''):
     inner = (records + pair(part('Best results', ''.join(bet_row(*x) for x in best)),
                             part('Biggest misses', ''.join(bet_row(*x, miss=True) for x in worst)))
              + pair(part('Streaks that grew', ''.join(streak_row(c) for c in grew)),
-                    part('Streaks that ended', ''.join(streak_row(c) for c in ended))) + coming)
+                    '') + coming)   # no "Streaks that ended" (Chris, Nov 27: no Run's Over anywhere)
     return (f'<section class="fr-sec yb yb-hero wr" id="week-results"><div class="st-card yb-card">'
             f'<div class="st-head"><h4>{esc(wk["label"])} Results</h4></div>{inner}</div></section>')
 
@@ -1834,16 +1838,17 @@ FRONT_JS = '''
       g.closest('section').querySelectorAll('[data-season]').forEach(function(p) { p.hidden = p.getAttribute('data-season') !== v; });
     });
   });
-  // Streaks to Watch: a streak drops off when its game starts and the next
-  // moves up (never a team from the Preview's lead game on top); phones keep
+  // Streaks to Watch: fixed for the day, started games included (never a
+  // team from the Preview's lead game on top); phones keep
   // 5 rows, desktop 5+ rows, filled to Matchup of the Day's height
   var wide = window.matchMedia('(min-width: 900px)');
   function streaksFit(sec) {
     // the first list with a streak still to start (the next game day's once today's have)
+    // fixed for the day (Chris, Nov 27): every streak stays, started or not
     var lists = [].slice.call(sec.querySelectorAll('.sw-list'));
-    var list = lists.filter(function(l) { return [].some.call(l.children, function(i) { return !isOn(i); }); })[0] || lists[0];
+    var list = lists[0];
     lists.forEach(function(l) { l.hidden = l !== list; });
-    var items = [].slice.call(list.children), alive = items.filter(function(i) { return !isOn(i); });
+    var items = [].slice.call(list.children), alive = items;
     var top = alive.filter(function(i) { return !i.hasAttribute('data-lead'); })[0] || null;
     items.forEach(function(i) { i.hidden = alive.indexOf(i) === -1; i.classList.toggle('sw-top', i === top); i.classList.remove('sw-cut'); });
     if (top && list.firstElementChild !== top) list.insertBefore(top, list.firstElementChild);
