@@ -17029,8 +17029,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Wichita State"
    },
    {
@@ -17453,8 +17453,8 @@
      ]
     ],
     "info": "West Virginia avg 1Q margin on the road: -2.0",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "West Virginia"
    }
   ]
