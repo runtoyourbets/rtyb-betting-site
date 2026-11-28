@@ -280,6 +280,18 @@ def set_updated(page_html, when):
     return page_html[:m.end()] + line + page_html[m.end():] if m and 'class="pv-h1"' not in page_html else page_html
 
 
+def move_updated(page_html):
+    """The Updated line sits at the page bottom, right above How to read /
+    About (Chris, Nov 27), in the small label size."""
+    m = re.search(r'\s*<p class="seo-upd[^"]*">.*?</p>', page_html, re.S)
+    if not m or '<details class="how-to-read' not in page_html:
+        return page_html
+    line = m.group(0).strip().replace('seo-upd t-price', 'seo-upd')
+    page_html = page_html[:m.start()] + page_html[m.end():]
+    i = page_html.index('<details class="how-to-read')
+    return page_html[:i] + line + '\n  ' + page_html[i:]
+
+
 def crumbs(rel, sp, team_name=None):
     base = seo_site()
     items = [('Home', base)]
@@ -847,6 +859,7 @@ class Pass:
         self.counts['description'] += 1
         self.counts['about'] += 1
         page_html = place_about(page_html, about_html(body, root, self.h1s))
+        page_html = move_updated(page_html)
         if graph:
             page_html = page_html.replace('</head>', ld(graph) + '</head>', 1)
         return page_html

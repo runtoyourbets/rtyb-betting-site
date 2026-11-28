@@ -1233,14 +1233,18 @@ STREAK_PHONE = 5        # Matchup of the Day card's height), and on phones
 
 
 def streak_day(sport, now_utc, hub=False):
-    """[(date, game)] the block covers, not started: the displayed day
-    (today's games, else the next game day's); a football hub: the week's."""
+    """[(date, game)] the block covers, fixed for the day (Chris, Nov 27: the
+    top streak never changes as games start): today's games, else the next
+    game day's; a football hub: the week's, started or not."""
     today = now_utc.astimezone(ET).date().isoformat()
-    games = upcoming(sport, today, now_utc)
     if hub and sport.weekly:
         wk = week_key(sport, today)
-        return [(d, g) for d, g in games if g.get('wk') == wk] if wk else []
-    return [(d, g) for d, g in games if d == games[0][0]] if games else []
+        return [(d, g) for d, g in sport.all_games() if wk and g.get('wk') == wk and game_lined(sport, g)]
+    for d in sorted(x for x in (sport.doc.get('games') or {}) if x >= today):
+        day = [(d, g) for g in sport.games(d) if game_lined(sport, g) and g.get('state') not in ('postponed', 'canceled')]
+        if day:
+            return sorted(day, key=lambda x: (x[1].get('start') or '', x[1]['away']))
+    return []
 
 
 def streak_next_day(sport, now_utc, hub=False):
@@ -1834,16 +1838,17 @@ FRONT_JS = '''
       g.closest('section').querySelectorAll('[data-season]').forEach(function(p) { p.hidden = p.getAttribute('data-season') !== v; });
     });
   });
-  // Streaks to Watch: a streak drops off when its game starts and the next
-  // moves up (never a team from the Preview's lead game on top); phones keep
+  // Streaks to Watch: fixed for the day, started games included (never a
+  // team from the Preview's lead game on top); phones keep
   // 5 rows, desktop 5+ rows, filled to Matchup of the Day's height
   var wide = window.matchMedia('(min-width: 900px)');
   function streaksFit(sec) {
     // the first list with a streak still to start (the next game day's once today's have)
+    // fixed for the day (Chris, Nov 27): every streak stays, started or not
     var lists = [].slice.call(sec.querySelectorAll('.sw-list'));
-    var list = lists.filter(function(l) { return [].some.call(l.children, function(i) { return !isOn(i); }); })[0] || lists[0];
+    var list = lists[0];
     lists.forEach(function(l) { l.hidden = l !== list; });
-    var items = [].slice.call(list.children), alive = items.filter(function(i) { return !isOn(i); });
+    var items = [].slice.call(list.children), alive = items;
     var top = alive.filter(function(i) { return !i.hasAttribute('data-lead'); })[0] || null;
     items.forEach(function(i) { i.hidden = alive.indexOf(i) === -1; i.classList.toggle('sw-top', i === top); i.classList.remove('sw-cut'); });
     if (top && list.firstElementChild !== top) list.insertBefore(top, list.firstElementChild);
