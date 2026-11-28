@@ -672,7 +672,7 @@
    },
    {
     "label": "NBA · Orlando Magic at Washington Wizards · 5:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "nba:401910046"
    },
    {
@@ -697,7 +697,7 @@
    },
    {
     "label": "NBA · Brooklyn Nets at Charlotte Hornets · 6:00 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "nba:401910047"
    },
    {
@@ -842,7 +842,7 @@
    },
    {
     "label": "NBA · Oklahoma City Thunder at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401910049"
    },
    {
@@ -930,12 +930,12 @@
   "games": [
    {
     "label": "Orlando Magic at Washington Wizards · 5:00 PM ET",
-    "trends": 7,
+    "trends": 8,
     "value": "nba:401910046"
    },
    {
     "label": "Brooklyn Nets at Charlotte Hornets · 6:00 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "nba:401910047"
    },
    {
@@ -945,7 +945,7 @@
    },
    {
     "label": "Oklahoma City Thunder at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 19,
+    "trends": 20,
     "value": "nba:401910049"
    },
    {
