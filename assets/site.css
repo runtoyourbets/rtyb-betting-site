@@ -1694,11 +1694,29 @@
   /* Streaks (/{sport}/streaks/, assets/sport.js renderStreaks; /streaks/, scripts/streaks.py) */
   .sk-over { background: var(--cell); color: var(--text-muted); text-decoration: line-through; }
   /* Streaks: Top Streak card, Streaks to Watch in two columns (phones one), Still Running sorts */
+  /* Top Streak of the Day: the big chip, then the team, the run, both teams' season records and the game with its price */
   .sk-top { margin-top: 0; }
-  .sk-top .stk-row { border-top: 0; padding: 4px 0 2px; grid-template-columns: 40px minmax(0, 1fr); }
-  .sk-top .sk-len { width: 40px; padding: 6px 0; }
-  .sk-top .stk-l1 .gm-team { font-size: var(--fs-team); font-weight: var(--fw-team); }
-  .sk-top .stk-l2 { padding-left: 34px; }
+  .sk-topc { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; align-items: start; }
+  .sk-len.sk-topn { width: 64px; min-width: 0; padding: 14px 0; border-radius: 12px; font-family: var(--ff-display); font-size: var(--fs-title); font-weight: var(--fw-title); line-height: 1; }
+  .sk-topb { min-width: 0; display: grid; gap: 8px; }
+  .sk-topt a { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-family: var(--ff-body); font-size: var(--fs-team); font-weight: var(--fw-team); }
+  .sk-topw { margin: 0; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-num); color: var(--text); }
+  .sk-topr { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 16px; margin: 0; font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); }
+  .sk-topr dt { color: var(--text-muted); }
+  .sk-topr dd { margin: 0; color: var(--text); font-weight: var(--fw-num); }
+  .sk-topg { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding-top: 8px; border-top: 1px solid var(--border-soft); font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .sk-topp { color: var(--text); font-weight: var(--fw-num); }
+  .sk-topl { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
+  .sk-topg .sk-mu { margin-left: auto; }
+  .sk-plain { margin-top: 0; }
+  .sk-h .sk-sorts { margin: 0 0 0 auto; }
+  @media (max-width: 640px) {
+    .sk-topc { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; }
+    .sk-len.sk-topn { width: 48px; padding: 10px 0; }
+    .sk-topr { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .sk-topr dd { margin-bottom: 4px; }
+    .sk-topg .sk-mu { margin-left: 0; }
+  }
   .sk-wgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
   .sk-wgrid .stk-row:nth-child(-n+2), .sk-list > .stk-row:first-child { border-top: 0; }
   .sk-sorts { margin: 0 0 6px; }
@@ -2271,7 +2289,7 @@
   /* ---------- About this page (scripts/seo_text.py, content/seo/) ---------- */
   .seo-about .dp-body { color: var(--text); }
   .seo-about .dp-body > :first-child { margin-top: 8px; }
-  .seo-upd { margin: 6px 0 0; }
+  .seo-upd { margin: 24px 0 8px; font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-body); color: var(--text-muted); }
   .seo-learn { margin-top: var(--section-gap); }
   .seo-learn .hl-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .seo-oss { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; max-width: 720px; }
