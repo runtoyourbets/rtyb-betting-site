@@ -17974,50 +17974,56 @@
     "streakTeamName": "Kansas"
    },
    {
-    "id": "nba|401910050|1h|ml|away",
-    "game": "nba|401910050",
+    "id": "ncaaf|401858314|1h|ats|home",
+    "game": "ncaaf|401858314",
     "date": "2026-11-28",
-    "sport": "nba",
-    "label": "NBA",
-    "slug": "nba",
-    "start": "2026-11-29T01:30Z",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T17:00Z",
     "seg": "1h",
     "segTag": "1H",
-    "matchup": "76ers @ Rockets",
-    "href": "nba/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 290,
-    "title": "76ers 1H ML",
-    "est": 0.3053,
-    "edge": 0.0489,
-    "agree": 3,
-    "sample": 18,
+    "matchup": "Notre Dame @ Syracuse",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 14.5,
+    "price": -120,
+    "title": "Syracuse 1H +14.5",
+    "est": 0.5953,
+    "edge": 0.0499,
+    "agree": 4,
+    "sample": 11,
     "tier": "B",
     "tags": [
-     "Dog Hunter"
+     "Dog Hunter",
+     "Streak Rider",
+     "Early Bird"
     ],
-    "streak": 2,
-    "streakTeam": "phi",
+    "streak": 11,
+    "streakTeam": "syracuse-orange",
     "angles": [
      [
-      "76ers 1H ML, last 8",
-      "5-1-2"
+      "Syracuse 1H ATS at +14.5, season",
+      "11-0"
      ],
      [
-      "76ers 1H ML, season",
-      "12-6-2"
+      "Syracuse 1H ATS at +14.5, last 8",
+      "8-0"
      ],
      [
-      "76ers 1H ML on the road",
-      "6-3"
+      "Syracuse 1H ATS at +14.5 at home",
+      "5-0"
+     ],
+     [
+      "Notre Dame\u2019s opponents 1H ATS at +14.5, Notre Dame on the road",
+      "3-1"
      ]
     ],
-    "info": null,
+    "info": "Syracuse avg 1H margin at home: +9.6",
     "status": "pending",
     "units": null,
-    "streakTeamName": "76ers"
+    "streakTeamName": "Syracuse"
    }
   ]
  }
