@@ -263,14 +263,22 @@ def pct_rec(w, l):
 
 
 def market_keys(doc):
-    """[(segment, market)] the pages show, the 3-way left to the league cards."""
-    return [(x[0], x[1]) for x in doc.get('markets') or [] if x[1] in HIT]
+    """[(segment, market)] the pages show, the 3-way left to the league cards;
+    college: no moneyline (Chris, Nov 27: never on the home page or Matchup of the Day)."""
+    return [(x[0], x[1]) for x in doc.get('markets') or [] if x[1] in HIT and not (x[1] == 'ml' and no_ml(doc))]
+
+
+def no_ml(doc):
+    """College: moneyline bets never show on the home page, hubs or Matchup of the Day."""
+    return doc.get('sport') in sports.COLLEGE
 
 
 def game_trends(doc, g, cards, seqs_by_seg):
     """{(segment, market, pick): [trend, ...]} for one game."""
     out = {}
     for c in cards:
+        if c.get('mk') == 'ml' and no_ml(doc):
+            continue
         for x in c.get('games') or []:
             if str(x.get('id')) != str(g['id']):
                 continue

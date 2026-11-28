@@ -363,7 +363,7 @@ def result_rows(sport, games, k):
                 fo.add({'O': 'W', 'U': 'L'}.get(r['tot'], 'T'), u_at(u, 'tot', 0))
     if k == 'game' or not (sport.key == 'nhl' or sport.doc.get('sportType') == 'baseball'):
         seg = next((s for s in sport.segments if s['key'] == k), {})
-        ml = 'ML' in (seg.get('markets') or ['ML'])
+        ml = 'ML' in (seg.get('markets') or ['ML']) and sport.key not in sports.COLLEGE   # college: no moneyline here
         sh = Row('Home teams (moneyline)') if ml else None
         sf = Row('Favorites (moneyline)') if ml else None
         spread = {'nhl': 'puck line', 'mlb': 'run line'}.get(sport.key, 'spread')
@@ -447,7 +447,7 @@ def best_rows(sport, games, k):
     seg = 'f5' if base else k
     tag = 'F5' if base else seg_tag(sport, k)
     seg_info = next((s for s in sport.segments if s['key'] == seg), {})
-    has_ml = nhl or base or 'ML' in (seg_info.get('markets') or ['ML'])
+    has_ml = (nhl or base or 'ML' in (seg_info.get('markets') or ['ML'])) and sport.key not in sports.COLLEGE   # college: no moneyline on the home page
     rows = {}
 
     def add(label, res, u):
@@ -930,7 +930,7 @@ def hot_cards(S, now_utc, bar=True, day=None, left=False):
         cards = (((sport.trends.get('slates') or {}).get(key) or {}).get('cards')) or []
         by_id = {str(g['id']): g for _, g in sport.all_games()}
         for c in cards:
-            if c.get('mk') == 'ml3' or (c.get('units') or 0) <= 0 or (c.get('rate') or 0) < TREND_MIN_RATE - 1e-9:
+            if c.get('mk') == 'ml3' or (c.get('mk') == 'ml' and sport.key in sports.COLLEGE) or (c.get('units') or 0) <= 0 or (c.get('rate') or 0) < TREND_MIN_RATE - 1e-9:
                 continue
             if bar and ((c.get('n') or 0) < TREND_MIN_N or (c.get('rate') or 0) - (c.get('base') or 0) < TREND_MIN_EDGE - 1e-9):
                 continue
@@ -1207,8 +1207,8 @@ STREAK_ORDER = {'ml': 0, 'ats': 1, 'total': 2, 'btts': 3, 'rfi': 4}   # ties: a 
 def streak_line(sport, m, st, k):
     """The market first, then the run: "1H Under · 7 straight"."""
     tag = seg_tag(sport, k)
-    w = {'ml': f"{tag} ML {'wins' if st['kind'] == 'W' else 'losses'}",
-         'ats': f"{tag} Spread {'covers' if st['kind'] == 'W' else 'losses'}",
+    w = {'ml': f"{'Won' if st['kind'] == 'W' else 'Lost'} {tag}",
+         'ats': f"{tag} ATS {'W' if st['kind'] == 'W' else 'L'}",
          'total': f"{tag} {'Over' if st['kind'] == 'O' else 'Under'}" + (' 1.5' if sport.key == 'nhl' else ''),
          'btts': f"{tag} BTTS {'Yes' if st['kind'] == 'Y' else 'No'}",
          'rfi': 'YRFI' if st['kind'] == 'Y' else 'NRFI'}[m]
@@ -1589,7 +1589,7 @@ def week_results(sport, wk, now_utc, root=''):
     inner = (records + pair(part('Best results', ''.join(bet_row(*x) for x in best)),
                             part('Biggest misses', ''.join(bet_row(*x, miss=True) for x in worst)))
              + pair(part('Streaks that grew', ''.join(streak_row(c) for c in grew)),
-                    part('Streaks that ended', ''.join(streak_row(c) for c in ended))) + coming)
+                    '') + coming)   # no "Streaks that ended" (Chris, Nov 27: no Run's Over anywhere)
     return (f'<section class="fr-sec yb yb-hero wr" id="week-results"><div class="st-card yb-card">'
             f'<div class="st-head"><h4>{esc(wk["label"])} Results</h4></div>{inner}</div></section>')
 

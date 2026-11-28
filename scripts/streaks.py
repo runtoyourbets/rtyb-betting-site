@@ -33,7 +33,7 @@ streaks.json:
   R: {t, kd, n, a, b (first / last day), alive}
 """
 import os
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 import due_factor
 import front
@@ -61,10 +61,10 @@ def segments(sp):
     """[(seg key, label, phone label, words tag, Full Run?, [market id])]."""
     key = sp['key']
     if key == 'nhl':
+        # no 2nd / 3rd Period, Scored or Over 0.5 (Chris, Nov 27: results-only
+        # periods, nothing to bet before the game)
         return [('1p', '1st Period', '1P', '1P', False, ['su', 'tot', 'btts', 'ml3']),
-                ('game', 'Full Game', 'Game', 'Game', True, ['su', 'ats', 'tot']),
-                ('2p', '2nd Period', '2P', '2P', True, ['su', 'scored', 'o05', 'tot']),
-                ('3p', '3rd Period', '3P', '3P', True, ['su', 'scored', 'o05', 'tot'])]
+                ('game', 'Full Game', 'Game', 'Game', True, ['su', 'ats', 'tot'])]
     if key == 'mlb':
         return [('1i', '1st Inning', '1st Inn', '', False, ['rfi']),
                 ('f5', 'First 5', 'F5', 'F5', False, ['su', 'ats', 'tot']),
@@ -72,8 +72,8 @@ def segments(sp):
     out = []
     for s, fr in [(s, False) for s in sp['segments']] + [(s, True) for s in sp.get('full_run') or []]:
         tag = 'Game' if s['key'] == 'game' else s['tag']
-        # College Basketball: no moneyline streaks (Chris, Nov 26: too many lopsided games)
-        out.append((s['key'], s['label'], tag, tag, fr, ['ats', 'tot'] if key == 'ncaab' else ['su', 'ats', 'tot']))
+        # college: no moneyline streaks (Chris, Nov 26-27: too many lopsided games)
+        out.append((s['key'], s['label'], tag, tag, fr, ['ats', 'tot'] if key in sports.COLLEGE else ['su', 'ats', 'tot']))
     return out
 
 
@@ -140,11 +140,11 @@ def week_of(g, day):
 
 
 # ------------------------------------------------------------- the runs
-def sequences(sp, doc):
+def sequences(sp, doc, league=None):
     """{(team, seg, market, venue): [(value, day, game, side)]}, oldest first,
     for every league team, from every graded segment (a game in progress
     counts its finished halves / periods, as the team pages do)."""
-    league = doc.get('teams') or {}
+    league = doc.get('teams') or league or {}   # last season's file has no teams: this season's
     games = []
     for d in sorted(doc.get('games') or {}):
         for g in doc['games'][d]:
@@ -279,9 +279,9 @@ def next_games(doc, today):
     return out
 
 
-def season_doc(sp, doc, cur, today):
+def season_doc(sp, doc, cur, today, league=None):
     """One season's running, ended and records."""
-    seqs = sequences(sp, doc)
+    seqs = sequences(sp, doc, league)
     live = running_of(seqs)
     overall = {(t, k, m): r for (t, k, m, v), r in live.items() if v == 'all'}
     running = []
@@ -376,7 +376,7 @@ def build(sp, today=None):
     for i, (doc, is_cur) in enumerate(docs):
         live = cur and is_cur
         upto = cutoff(sp, doc, today.isoformat()) if live else None
-        s = season_doc(sp, before(doc, upto) if upto else doc, live, today)
+        s = season_doc(sp, before(doc, upto) if upto else doc, live, today, league=(docs[0][0].get('teams') if docs else None))
         if i == 0:
             out['running'], out['ended'] = s['running'], s['ended']
             if live:
@@ -471,43 +471,102 @@ def _ended_row(sport, e, root, sport_tag=True):
             + f' &middot; ended at {e["n"]} &middot; <span class="sk2-opp">{game}</span></span></li>')
 
 
+def _seg_label(sport, k):
+    return 'Game' if k == 'game' else next((x['tag'] for x in sport.segments if x['key'] == k), k.upper())
+
+
+def top_card(sport, x, now_utc, root):
+    """The Top Streak of the Day card (the home page's top streak), as the
+    sport pages draw it (sport.js skTop): the big chip, the team, the run,
+    both teams' season records in the market and the game with its price."""
+    import hub as H
+    g, side, m, k, st = x['game'], x['side'], x['m'], x['k'], x['st']
+    slug, opp = g[side], g['home' if side == 'away' else 'away']
+    seqs = H.team_seqs(sport.doc, x['day'], k)
+    tag = _seg_label(sport, k)
+
+    def rec(t):
+        seq = (seqs.get(t) or {}).get(m) or []
+        hit, miss = H.HIT[m], H.MISS[m]
+        w, l = seq.count(hit), seq.count(miss)
+        if m in ('ml', 'ats'):   # the team's own record, a losing one too
+            x1, y1 = w, l
+        else:                    # totals, BTTS, NRFI: the side the run is on
+            x1, y1 = (w, l) if st['kind'] == hit else (l, w)
+        return f"{round(100 * x1 / (x1 + y1)) if x1 + y1 else 0}% ({x1}-{y1})" if x1 + y1 else '-'
+    mk = {'ml': f'{tag} ML', 'ats': f'{tag} ATS', 'total': f"{tag} {'Over' if st['kind'] == 'O' else 'Under'}",
+          'btts': f"{tag} BTTS {'Yes' if st['kind'] == 'Y' else 'No'}", 'rfi': 'NRFI' if st['kind'] == 'N' else 'YRFI'}[m]
+    # the best price now, from the day's odds file
+    price = ''
+    od = front.read_json(os.path.join(ROOT, sport.sp['slug'], 'odds', f"{x['day']}.json"), {}) or {}
+    og = next((o for o in od.get('games') or [] if o.get('away') == g['away'] and o.get('home') == g['home']), None)
+    if og:
+        src = ((og.get('full') or {}).get('best') or {}).get('game') if k == 'game' else (og.get('best') or {}).get(k)
+        o = (src or {}).get(m) or {}
+
+        def px(v):
+            return f'{v:+d}' if isinstance(v, int) else (f'{int(v):+d}' if isinstance(v, float) else '')
+        if m == 'ml' and o.get('away') is not None:
+            price = f"{sport.code(g['away'])} {px(o.get('away'))} · {sport.code(g['home'])} {px(o.get('home'))}"
+        elif m == 'ats' and o.get('away') and o.get('home'):
+            ln = lambda v: f'{v:+g}'
+            price = (f"{sport.code(g['away'])} {ln(o['away']['line'])} {px(o['away'].get('price'))} · "
+                     f"{sport.code(g['home'])} {ln(o['home']['line'])} {px(o['home'].get('price'))}")
+        elif m == 'total' and isinstance(o.get('line'), (int, float)):
+            price = f"O {o['line']:g} {px(o.get('over'))} · U {o['line']:g} {px(o.get('under'))}"
+        elif m == 'btts':
+            price = f"Yes {px(o.get('yes'))} · No {px(o.get('no'))}"
+        elif m == 'rfi':
+            price = f"NRFI {px(o.get('nrfi'))} · YRFI {px(o.get('yrfi'))}"
+    mname = {'ml': 'Moneyline', 'ats': {'nhl': 'Puck Line', 'mlb': 'Run Line'}.get(sport.key, 'Spread'), 'total': 'Total', 'btts': 'BTTS', 'rfi': 'NRFI'}[m]
+    href = f"{root}{sport.matchups}"
+    ta, tb = sport.team(slug), sport.team(opp)
+    if ta.get('mu') and tb.get('mu'):
+        a, b = sorted([ta['mu'], tb['mu']])
+        href = f"{root}{sport.matchups}{a}-vs-{b}/"
+    run = front.streak_line(sport, m, st, k).split(' · ')[0]
+    return (f'<div class="st-card sk-card sk-top"><div class="st-head"><h4>{icons.sport_icon(sport.sp)}{esc(sport.label)} &middot; Hottest Run</h4></div><div class="sk-topc">'
+            f'<span class="sk-len sk-topn {front.heat_cls(st["n"])}">{st["n"]}</span><div class="sk-topb">'
+            f'<div class="sk-topt">{sport.link(slug, sport.badge(slug, 32, root) + "<span class=sk-topname>" + sport.name_html(slug) + "</span>", root, "sk2-team")}</div>'
+            f'<p class="sk-topw">{esc(run)} &middot; {st["n"]} straight</p>'
+            f'<dl class="sk-topr"><dt>{esc(mk)} this season</dt><dd>{esc(sport.code(slug))} {esc(rec(slug))}</dd>'
+            f'<dt>Opponent</dt><dd>{esc(sport.code(opp))} {esc(rec(opp))}</dd></dl>'
+            f'<div class="sk-topg"><span>{front.next_txt(sport, x, now_utc, short=True)}</span><span class="sk-topp">'
+            + (f'<span class="sk-topl">{esc(tag + " " + mname)}</span> ' + ' · '.join(f'<span class="nw">{esc(p)}</span>' for p in price.split(' · ')) if price else esc(f'{tag} line not posted yet'))
+            + f'</span><a class="sk-mu" href="{esc(href)}">Matchup &rarr;</a></div></div></div></div>')
+
+
 def index_html(root=''):
-    """/streaks/: the sport pills (All + the sports in season), Still Running
-    across sports, Run's Over from the last game day, a card per sport in
-    season, then the off-season sports with last season's longest."""
-    today = datetime.now(sport_build.ET).date()
+    """/streaks/: "Streaks for [today]", the Top Streak of the Day (the home
+    page's top streak), Streaks to Watch: the sport pills (the sports in
+    season, in the admin's menu order; the first picked, no All), then that
+    sport's Segment · Market · Home / Away pills, In Play Today, Still
+    Running and Records (assets/sport.js, data-multi); the off-season sports
+    with last season's longest under it."""
+    now_utc = datetime.now(timezone.utc)
+    today = now_utc.astimezone(sport_build.ET).date()
     live, off = [], []
     for sp in sports.LAUNCHED:
         doc = front.read_json(os.path.join(ROOT, sp['slug'], 'streaks.json'), None) or write_data(sp, today)
         (live if doc.get('cur') else off).append((front.Sport(sp), doc))
-    pills = '<button type="button" class="seg-btn sk2-pill" data-skp="all" aria-pressed="true">All</button>' + ''.join(
-        f'<button type="button" class="seg-btn sk2-pill" data-skp="{esc(s.key)}" aria-pressed="false">{icons.sport_icon(s.sp)}{esc(s.label)}</button>'
+    first = live[0][0] if live else None
+    pills = ''.join(
+        f'<button type="button" class="seg-btn sk2-pill" data-skp="{esc(s.sp["slug"])}" aria-pressed="{str(s is first).lower()}">{icons.sport_icon(s.sp)}{esc(s.label)}</button>'
         for s, _ in live)
-
-    def shown(xs):
-        return [x for x in xs if (x['v'] == 'all' or x.get('gt')) and x['m'] not in QUIET]
-    run = sorted([(s, x) for s, d in live for x in shown(d['running'])], key=lambda p: -p[1]['n'])
-    # the top INDEX_TOP across sports (All), and each sport's own top INDEX_TOP (its pill)
-    per, rows = {}, ''
-    for i, (s, x) in enumerate(run):
-        per[s.key] = per.get(s.key, 0) + 1
-        if i < INDEX_TOP or per[s.key] <= INDEX_TOP:
-            rows += _row(s, x, root, alt=i >= INDEX_TOP)
-    ended = sorted([(s, x) for s, d in live for x in shown(d['ended']['list'])], key=lambda p: -p[1]['n'])
-    erows = ''.join(_ended_row(s, x, root) for s, x in ended)
-    still = (f'<section class="st-card sk2-card" aria-labelledby="skRun"><div class="st-head"><h4 id="skRun">Still Running</h4></div>'
-             f'<ul class="sk2-list">{rows}</ul>' + ('' if rows else '<p class="tp-none">No streaks of 3 or more right now.</p>') + '</section>')
-    over = (f'<section class="st-card sk2-card" aria-labelledby="skOver"><div class="st-head"><h4 id="skOver">Run&rsquo;s Over</h4></div>'
-            f'<ul class="sk2-list">{erows}</ul>' + ('' if erows else '<p class="tp-none">No streak of 5 or more ended last night.</p>') + '</section>')
-    cards = ''
-    for s, d in live:
-        top = next(iter(shown(d['running'])), None)
-        body = f'<ul class="sk2-list">{_row(s, top, root, False)}</ul>' if top else '<p class="tp-none">No streaks of 3 or more right now.</p>'
-        cards += (f'<section class="st-card sk2-card sk2-sport" data-sport="{esc(s.key)}"><div class="st-head"><h4>{icons.sport_icon(s.sp)}{esc(s.label)}</h4></div>'
-                  f'<p class="sk2-lab">Longest running</p>{body}<p class="sk2-more"><a href="{root}{sports.section_path(s.sp, "streaks").lstrip("/")}">All {esc(s.label)} streaks &rarr;</a></p></section>')
+    top = ''
+    if live:
+        S = {s.key: s for s, _ in live}
+        xs = front.streaks(S, now_utc)
+        x = next((y for y in xs if y['k'] not in ('2h', '2p', '3p')), None)
+        if x:
+            top = ('<div class="tph sk-h"><div><h2>Top Streak of the Day</h2></div></div>' + top_card(x['sport'], x, now_utc, root))
+    d = today
+    head = f'<h2 class="tr-head">Streaks for {d.strftime("%A")}, {d.strftime("%b")} {d.day}</h2>'
+    app = (f'<div class="tph sk-h"><div><h2>Streaks to Watch</h2></div></div><div class="sk2-pills" role="group" aria-label="Sports">{pills}</div>'
+           f'<div id="sportApp" data-section="streaks" data-multi><div class="no-games-note">Loading&hellip;</div></div>') if live else ''
     offc = ''
-    for s, d in off:
-        rec = (d['records'] or [{}])[0]
+    for s, d2 in off:
+        rec = (d2['records'] or [{}])[0]
         best = sorted([(k, r) for k, rs in (rec.get('list') or {}).items() if k.endswith('|all') for r in rs[:1]], key=lambda p: -p[1]['n'])
         body = ''
         if best:
@@ -520,26 +579,22 @@ def index_html(root=''):
                  f'<p class="sk2-lab">{esc(rec.get("label") or "")} longest</p>{body or "<p class=tp-none>No streaks last season.</p>"}'
                  f'<p class="sk2-more"><a href="{root}{sports.section_path(s.sp, "streaks").lstrip("/")}">All {esc(s.label)} streaks &rarr;</a></p></section>')
     off_block = (f'<h2 class="sk2-h">Off-season</h2><div class="sk2-grid">{offc}</div>') if offc else ''
-    return (f'<div class="sk2-index" id="skIndex"><div class="sk2-pills" role="group" aria-label="Sports">{pills}</div>'
-            f'<div class="sk2-two">{still}{over}</div><div class="sk2-grid">{cards}</div>{off_block}</div>' + INDEX_JS)
+    return (f'<div class="sk2-index" id="skIndex" data-first="{esc(first.sp["slug"]) if first else ""}">{head}{top}{app}{off_block}</div>' + INDEX_JS)
 
 
-INDEX_JS = '''<script>
+INDEX_JS = """<script>
 (function() {
-  // the sport pills: All, or one sport's rows and card
+  // the sport pills: one sport at a time (assets/sport.js draws it)
   var box = document.getElementById('skIndex');
   if (!box) return;
-  function show(sp) {
-    box.querySelectorAll('[data-skp]').forEach(function(b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-skp') === sp)); });
-    box.querySelectorAll('.sk2-two [data-sport]').forEach(function(r) {
-      r.hidden = sp === 'all' ? r.classList.contains('sk2-alt') : r.getAttribute('data-sport') !== sp;
-    });
-    box.querySelectorAll('.sk2-sport[data-sport]').forEach(function(c) { c.hidden = sp !== 'all' && c.getAttribute('data-sport') !== sp; });
-  }
-  box.addEventListener('click', function(e) { var b = e.target.closest('[data-skp]'); if (b) show(b.getAttribute('data-skp')); });
-  show('all');
+  box.addEventListener('click', function(e) {
+    var b = e.target.closest('[data-skp]');
+    if (!b) return;
+    box.querySelectorAll('[data-skp]').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
+    if (window.rtybStreaksSport) window.rtybStreaksSport(b.getAttribute('data-skp'));
+  });
 })();
-</script>'''
+</script>"""
 
 
 def index_meta():
