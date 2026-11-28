@@ -293,9 +293,14 @@ def game_trends(doc, g, cards, seqs_by_seg):
             found = []
             ln, st = lean_of(m, seq), streak_of(seq)
             if ln:
+                # moneyline / spread: the team's own record, a losing one too
+                # ("DET · 1Q ATS · 19% (5-21)", Chris, Nov 27); totals the side it leans to
+                own = m in ('ml', 'ats')
+                wins = sum(1 for x in seq if x == HIT[m])
                 found.append((ln['kind'], {'kind': 'matchup', 'side': side, 'text': lean_words(doc, g[side], m, ln['kind'], k),
-                                           'short': f"{code(doc, g[side])} · {market_short(doc, m, ln['kind'], k)}",
-                                           'rec': pct_rec(ln['x'], ln['y'] - ln['x']), 'edge': ln['rate'] - league_rate(seqs, m, ln['kind']), 'rate': ln['rate']}))
+                                           'short': f"{code(doc, g[side])} · " + (f"{seg_of(doc, k)['tag']} {'ML' if m == 'ml' else 'ATS'}" if own else market_short(doc, m, ln['kind'], k)),
+                                           'rec': pct_rec(wins, ln['y'] - wins) if own else pct_rec(ln['x'], ln['y'] - ln['x']),
+                                           'edge': ln['rate'] - league_rate(seqs, m, ln['kind']), 'rate': ln['rate']}))
             if st and st['n'] >= 3:
                 found.append((st['kind'], {'kind': 'streak', 'text': streak_words(doc, g[side], m, st, k),
                                            'short': f"{code(doc, g[side])} · {market_short(doc, m, st['kind'], k)}", 'rec': f"{st['n']} straight", 'edge': None}))

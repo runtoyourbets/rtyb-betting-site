@@ -496,44 +496,47 @@ def top_card(sport, x, now_utc, root):
         return f"{round(100 * x1 / (x1 + y1)) if x1 + y1 else 0}% ({x1}-{y1})" if x1 + y1 else '-'
     mk = {'ml': f'{tag} ML', 'ats': f'{tag} ATS', 'total': f"{tag} {'Over' if st['kind'] == 'O' else 'Under'}",
           'btts': f"{tag} BTTS {'Yes' if st['kind'] == 'Y' else 'No'}", 'rfi': 'NRFI' if st['kind'] == 'N' else 'YRFI'}[m]
-    # the best price now, from the day's odds file
-    price = ''
+    # Best odds: the book with the best price on the side that keeps the run going
+    best_html = ''
     od = front.read_json(os.path.join(ROOT, sport.sp['slug'], 'odds', f"{x['day']}.json"), {}) or {}
     og = next((o for o in od.get('games') or [] if o.get('away') == g['away'] and o.get('home') == g['home']), None)
     if og:
-        src = ((og.get('full') or {}).get('best') or {}).get('game') if k == 'game' else (og.get('best') or {}).get(k)
-        o = (src or {}).get(m) or {}
-
-        def px(v):
-            return f'{v:+d}' if isinstance(v, int) else (f'{int(v):+d}' if isinstance(v, float) else '')
-        if m == 'ml' and o.get('away') is not None:
-            price = f"{sport.code(g['away'])} {px(o.get('away'))} · {sport.code(g['home'])} {px(o.get('home'))}"
-        elif m == 'ats' and o.get('away') and o.get('home'):
-            ln = lambda v: f'{v:+g}'
-            price = (f"{sport.code(g['away'])} {ln(o['away']['line'])} {px(o['away'].get('price'))} · "
-                     f"{sport.code(g['home'])} {ln(o['home']['line'])} {px(o['home'].get('price'))}")
-        elif m == 'total' and isinstance(o.get('line'), (int, float)):
-            price = f"O {o['line']:g} {px(o.get('over'))} · U {o['line']:g} {px(o.get('under'))}"
-        elif m == 'btts':
-            price = f"Yes {px(o.get('yes'))} · No {px(o.get('no'))}"
-        elif m == 'rfi':
-            price = f"NRFI {px(o.get('nrfi'))} · YRFI {px(o.get('yrfi'))}"
-    mname = {'ml': 'Moneyline', 'ats': {'nhl': 'Puck Line', 'mlb': 'Run Line'}.get(sport.key, 'Spread'), 'total': 'Total', 'btts': 'BTTS', 'rfi': 'NRFI'}[m]
+        src = (og.get('full') or {}) if k == 'game' else og
+        kk = 'game' if k == 'game' else k
+        best = ((src.get('best') or {}).get(kk) or {}).get(m) or {}
+        books = ((src.get('books') or {}).get(kk) or {}).get(m) or {}
+        mine = side
+        hit = st['kind'] == H.HIT[m]
+        bside = {'ml': mine if hit else ('home' if mine == 'away' else 'away'), 'ats': mine if hit else ('home' if mine == 'away' else 'away'),
+                 'total': 'over' if st['kind'] == 'O' else 'under', 'btts': 'yes' if st['kind'] == 'Y' else 'no',
+                 'rfi': 'yrfi' if st['kind'] == 'Y' else 'nrfi'}[m]
+        want = ({'line': best.get('line'), 'price': best.get(bside)} if m == 'total' else best.get(bside) if m == 'ats'
+                else {'price': best.get(bside)})
+        if want and want.get('price') is not None:
+            def val(r):
+                return {'line': r.get('line'), 'price': (r.get(bside) or {}).get('price')} if m == 'total' else (r.get(bside) or {})
+            bid = next((b for b, r in books.items() if val(r).get('price') == want['price']
+                        and (want.get('line') is None or val(r).get('line') == want.get('line')) and not (sport.sources.get(b) or {}).get('nb')), None)
+            top = (sport.code(g[bside]) if m == 'ml' else f"{want['line']:+g}" if m == 'ats' else f"{'o' if bside == 'over' else 'u'}{want['line']:g}" if m == 'total'
+                   else bside.title() if m == 'btts' else bside.upper())
+            best_html = (f'<span class="sk-topbo"><span class="sk-topl">Best odds</span><span class="bn-odds sk-best"><span class="bn-book">{front.book_html(sport, bid, root)}</span>'
+                         f'<span class="bn-cell">{front.cell(esc(top), esc(front.price_txt(want["price"])))}</span></span></span>')
     href = f"{root}{sport.matchups}"
     ta, tb = sport.team(slug), sport.team(opp)
     if ta.get('mu') and tb.get('mu'):
         a, b = sorted([ta['mu'], tb['mu']])
         href = f"{root}{sport.matchups}{a}-vs-{b}/"
     run = front.streak_line(sport, m, st, k).split(' · ')[0]
+    when = front.next_txt(sport, x, now_utc)
     return (f'<div class="st-card sk-card sk-top"><div class="st-head"><h4>{icons.sport_icon(sport.sp)}{esc(sport.label)} &middot; Hottest Run</h4></div><div class="sk-topc">'
             f'<span class="sk-len sk-topn {front.heat_cls(st["n"])}">{st["n"]}</span><div class="sk-topb">'
-            f'<div class="sk-topt">{sport.link(slug, sport.badge(slug, 32, root) + "<span class=sk-topname>" + sport.name_html(slug) + "</span>", root, "sk2-team")}</div>'
+            f'<div class="sk-topt">{sport.link(slug, sport.badge(slug, 32, root) + "<span class=sk-topname>" + esc(sport.full_name(slug)) + "</span>", root, "sk2-team")}</div>'
             f'<p class="sk-topw">{esc(run)} &middot; {st["n"]} straight</p>'
-            f'<dl class="sk-topr"><dt>{esc(mk)} this season</dt><dd>{esc(sport.code(slug))} {esc(rec(slug))}</dd>'
-            f'<dt>Opponent</dt><dd>{esc(sport.code(opp))} {esc(rec(opp))}</dd></dl>'
-            f'<div class="sk-topg"><span>{front.next_txt(sport, x, now_utc, short=True)}</span><span class="sk-topp">'
-            + (f'<span class="sk-topl">{esc(tag + " " + mname)}</span> ' + ' · '.join(f'<span class="nw">{esc(p)}</span>' for p in price.split(' · ')) if price else esc(f'{tag} line not posted yet'))
-            + f'</span><a class="sk-mu" href="{esc(href)}">Matchup &rarr;</a></div></div></div></div>')
+            f'<dl class="sk-topr"><dt>{esc(mk)} this season</dt><dd>{esc(sport.full_name(slug))} {esc(rec(slug))}</dd>'
+            f'<dt>Opponent</dt><dd>{esc(sport.full_name(opp))} {esc(rec(opp))}</dd></dl>'
+            f'<div class="sk-topg"><span>{when}</span>'
+            + (best_html or f'<span class="sk-topp">{esc(tag)} line not posted yet</span>')
+            + f'<a class="sk-mu" href="{esc(href)}">Matchup &rarr;</a></div></div></div></div>')
 
 
 def index_html(root=''):

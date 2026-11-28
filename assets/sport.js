@@ -4451,12 +4451,15 @@
     var ms = skSegMkts(SKF.seg);
     if (ms.indexOf(SKF.m) === -1) SKF.m = ms[0];
   }
-  // Home / Away All: overall streaks plus home / road ones longer than the overall run
+  // All: each team's overall streak (home and road games together); Home /
+  // Away: its home-only or road-only streak (Chris, Nov 27: no mixing)
   function skMatch(s) {
     if (!confTeam(s.t)) return false;
     if (s.k !== SKF.seg || s.m !== SKF.m) return false;
-    return SKF.v === 'all' ? s.v === 'all' || !!s.gt : s.v === SKF.v;
+    return s.v === SKF.v;
   }
+  // the whole name: pro teams' full name (Milwaukee Bucks), college the school
+  function skFull(slug) { return tlCollege() ? shortName(slug) : (team(slug).name || shortName(slug)); }
   // "Game ATS L", "1Q Under", "Lost 2H", "NRFI" (the chip is the count)
   function skWhat(s) {
     var tag = skSeg(s.k).tag || '', nhl15 = D.sport === 'nhl' && s.k !== 'game';
@@ -4492,7 +4495,7 @@
   function skLine(s, sub) {
     return '<div class="stk-row sk-line"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span>' +
       '<span class="stk-l1">' + teamLink(s.t, badge(s.t, 20) + '<span>' + esc(tcode(s.t)) + '</span>') +
-      '<span class="stk-run">' + esc(skWhat(s)) + '</span>' + skVenue(s) + '</span>' +
+      '<span class="stk-run">' + esc(skWhat(s)) + '</span></span>' +
       (sub ? '<span class="stk-l2">' + esc(sub) + '</span>' : '') + '</div>';
   }
   function skWatchList() {
@@ -4542,7 +4545,7 @@
   // the Top Streak: the longest on the day's card (never a 2nd half); football:
   // from the next game still to play (that game's longest)
   function skTopPick() {
-    var list = skWatchList().filter(function(x) { return !SK_TOP_SKIP[x.s.k] && (x.s.v === 'all' || x.s.gt) && confTeam(x.s.t); });
+    var list = skWatchList().filter(function(x) { return !SK_TOP_SKIP[x.s.k] && x.s.v === 'all' && confTeam(x.s.t); });
     if (SK.weekly) {
       var now = Date.now(), up = list.filter(function(x) { return !x.g.start || Date.parse(x.g.start) > now; });
       if (up.length) {
@@ -4554,19 +4557,49 @@
     list.forEach(function(x) { if (!best || x.s.n > best.s.n) best = x; });
     return best;
   }
+  // the bet that keeps the run going: its side in the odds file
+  function skSide(s, g) {
+    var mine = g.away === s.t ? 'away' : 'home', other = mine === 'away' ? 'home' : 'away';
+    if (s.m === 'su' || s.m === 'ats') return { mk: s.m === 'su' ? 'ml' : 'ats', side: s.kd === 'W' ? mine : other };
+    if (s.m === 'ml3') return s.kd === 'W' ? { mk: 'ml3', side: mine } : null;
+    if (s.m === 'tot') return { mk: 'total', side: s.kd === 'O' ? 'over' : 'under' };
+    if (s.m === 'btts') return { mk: 'btts', side: s.kd === 'Y' ? 'yes' : 'no' };
+    if (s.m === 'rfi') return { mk: 'rfi', side: s.kd === 'Y' ? 'yrfi' : 'nrfi' };
+    return null;
+  }
+  // Best odds: the book with the best price on that side, its logo and the cell
+  function skBest(s, g) {
+    var og = (SK_ODDS[g.day] || {})[g.away + '@' + g.home], b = skSide(s, g);
+    if (!og || !b) return '';
+    var src = s.k === 'game' ? (og.full || {}) : og, kk = s.k === 'game' ? 'game' : s.k;
+    var best = (((src.best || {})[kk] || {})[b.mk] || {}), books = (((src.books || {})[kk] || {})[b.mk]) || {};
+    var want = b.mk === 'total' ? { line: best.line, price: best[b.side] } : b.mk === 'ats' ? best[b.side] : { price: best[b.side] };
+    if (!want || want.price == null) return '';
+    var srcs = SK_SRC || {}, id = Object.keys(books).filter(function(x) {
+      var r = books[x] || {}, v = b.mk === 'total' ? { line: r.line, price: (r[b.side] || {}).price } : (r[b.side] || {});
+      return v.price === want.price && (want.line == null || v.line === want.line) && !(srcs[x] || {}).nb;
+    })[0];
+    var info = srcs[id] || {}, nm = info.name || '';
+    var logo = info.logo ? '<img class="sl-book" src="' + ROOT + info.logo + '" alt="' + esc(nm) + '" title="' + esc(nm) + '" loading="lazy">' : (nm ? '<span class="sl-bname">' + esc(nm) + '</span>' : '');
+    var top = b.mk === 'ml' || b.mk === 'ml3' ? tcode(g[b.side]) : b.mk === 'ats' ? signedLine(want.line) : b.mk === 'total' ? (b.side === 'over' ? 'o' : 'u') + want.line
+      : b.mk === 'btts' ? (b.side === 'yes' ? 'Yes' : 'No') : b.side.toUpperCase();
+    return '<span class="bn-odds sk-best"><span class="bn-book">' + logo + '</span><span class="bn-cell"><span class="cell"><span class="ob-ln">' + esc(top) + '</span><span class="ob-pr">' + esc(priceTxt(want.price)) + '</span></span></span></span>';
+  }
   function skTop() {
     var x = skTopPick();
     if (!x) return '';
-    var s = x.s, g = x.g, opp = g.away === s.t ? g.home : g.away, price = skPrice(s, g), mk = skMktName(s);
+    var s = x.s, g = x.g, opp = g.away === s.t ? g.home : g.away, mk = skMktName(s), best = skBest(s, g);
     var line = skSeg(s.k).fr ? 'Game' : skSeg(s.k).tag;
+    var when = (g.away === s.t ? '@ ' : 'vs ') + skFull(opp) + (g.start ? ' · ' + timeET(g.start) : '');
     return '<div class="st-card sk-card sk-top"><div class="st-head"><h4>Hottest Run</h4></div><div class="sk-topc">' +
       '<span class="sk-len sk-topn ' + heatCls(s.n) + '">' + s.n + '</span>' +
-      '<div class="sk-topb"><div class="sk-topt">' + teamLink(s.t, badge(s.t, 32) + '<span class="sk-topname">' + nameHtml(s.t) + '</span>') + '</div>' +
-      '<p class="sk-topw">' + esc(skWhat(s)) + ' &middot; ' + s.n + ' straight' + skVenue(s) + '</p>' +
-      '<dl class="sk-topr"><dt>' + esc(mk + ' this season') + '</dt><dd>' + esc(tcode(s.t)) + ' ' + esc(skRecord(s.t, s)) + '</dd>' +
-      '<dt>' + esc('Opponent') + '</dt><dd>' + esc(tcode(opp)) + ' ' + esc(skRecord(opp, s)) + '</dd></dl>' +
-      '<div class="sk-topg"><span>' + esc(x.sub) + '</span><span class="sk-topp">' + (price ? '<span class="sk-topl">' + esc(line + ' ' + skMkt(s.m).label) + '</span> ' + price.split(' · ').map(function(x) { return '<span class="nw">' + esc(x) + '</span>'; }).join(' · ')
-        : esc(line + ' line not posted yet')) + '</span><a class="sk-mu" href="' + skMatchup(g.away, g.home, g.day) + '">Matchup &rarr;</a></div></div></div></div>';
+      '<div class="sk-topb"><div class="sk-topt">' + teamLink(s.t, badge(s.t, 32) + '<span class="sk-topname">' + esc(skFull(s.t)) + '</span>') + '</div>' +
+      '<p class="sk-topw">' + esc(skWhat(s)) + ' &middot; ' + s.n + ' straight</p>' +
+      '<dl class="sk-topr"><dt>' + esc(mk + ' this season') + '</dt><dd>' + esc(skFull(s.t)) + ' ' + esc(skRecord(s.t, s)) + '</dd>' +
+      '<dt>Opponent</dt><dd>' + esc(skFull(opp)) + ' ' + esc(skRecord(opp, s)) + '</dd></dl>' +
+      '<div class="sk-topg"><span>' + esc(when) + '</span>' +
+      (best ? '<span class="sk-topbo"><span class="sk-topl">Best odds</span>' + best + '</span>' : '<span class="sk-topp">' + esc(line + ' line not posted yet') + '</span>') +
+      '<a class="sk-mu" href="' + skMatchup(g.away, g.home, g.day) + '">Matchup &rarr;</a></div></div></div></div>';
   }
   function skSorts(attr, cur) {
     return '<div class="seg-toggle sk-sorts" role="group" aria-label="Sort">' + [['all', 'All'], ['next', 'Up Next']].map(function(o) {
@@ -4614,9 +4647,8 @@
       var locked = seg.fr && premiumLocked('fullRun');
       var rows = rs.map(function(r, i) {
         var s = { k: seg.k, m: m, kd: r.kd };
-        return '<li class="sk-rrow"><span class="sk-len ' + heatCls(r.n) + '">' + r.n + '</span><span class="sk-who">' + skTeam(r.t) + '</span>' +
-          '<span class="sk-what">' + esc(skWhat(s)) + '<span class="sk-rmeta"><span class="sk-dates nw">' + esc(dfShort(r.a)) + ' - ' + esc(dfShort(r.b)) + '</span>' +
-          (r.alive ? '<span class="sk-alive">alive</span>' : '') + (r.alive && i === 0 && season === SK.records[0] ? '<span class="sk-best">Longest this season</span>' : '') + '</span></span></li>';
+        return '<li class="sk-rrow"><span class="sk-len ' + heatCls(r.n) + '">' + r.n + '</span><span class="sk-who">' + teamLink(r.t, badge(r.t, 22) + '<span>' + esc(skFull(r.t)) + '</span>') + '</span>' +
+          '<span class="sk-what">' + esc(skWhat(s)) + '<span class="sk-rmeta"><span class="sk-dates nw">' + esc(dfShort(r.a)) + ' - ' + esc(dfShort(r.b)) + '</span></span></span></li>';
       }).join('');
       var body = '<ul class="sk-list">' + rows + '</ul>';
       cards.push('<div class="st-card sk-card sk-rcard' + (seg.fr ? ' sk-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + skMkt(m).label) + '</h4></div>' +
@@ -4647,12 +4679,15 @@
     wireConf(app, function() { SKF.more = false; SKF.watchMore = false; drawStreaks(); });
   }
   // the day's odds file (the Top Streak's price), once
+  var SK_SRC = null;
   function skOdds() {
     var x = SK.cur && !SK_MULTI ? skTopPick() : null;
     if (!x || SK_ODDS[x.g.day]) return;
     SK_ODDS[x.g.day] = {};
-    fetch(dataUrl(SPORT_SLUG + '/odds/' + x.g.day + '.json')).then(function(r) { return r.ok ? r.json() : { games: [] }; }).then(function(doc) {
-      (doc.games || []).forEach(function(og) { SK_ODDS[x.g.day][og.away + '@' + og.home] = og; });
+    Promise.all([fetch(dataUrl(SPORT_SLUG + '/odds/' + x.g.day + '.json')).then(function(r) { return r.ok ? r.json() : { games: [] }; }),
+                 fetch(dataUrl(SPORT_SLUG + '/odds.json')).then(function(r) { return r.ok ? r.json() : {}; })]).then(function(v) {
+      (v[0].games || []).forEach(function(og) { SK_ODDS[x.g.day][og.away + '@' + og.home] = og; });
+      SK_SRC = v[1].sources || {};
       drawStreaks();
     }).catch(function() {});
   }
