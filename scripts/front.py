@@ -1378,7 +1378,7 @@ def streaks_watch(S, now_utc, root='', hub=False):
     in the first has started. Neither has any: no block, and Matchup of the
     Day goes full width (.fv.sw-none)."""
     lists = []
-    for nxt in (False, True):
+    for nxt in (False,):   # fixed for the day: no next-day list to swap in (Chris, Nov 27)
         xs = streaks(S, now_utc, hub, nxt)[:STREAK_ROWS + 1]
         if xs:
             lists.append((xs, streak_when(xs, now_utc, hub)))
