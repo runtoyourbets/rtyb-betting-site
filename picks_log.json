@@ -16097,8 +16097,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 1.6,
     "streakTeamName": "Lakers"
    },
    {
@@ -16379,8 +16379,8 @@
      ]
     ],
     "info": "Avg 1H total in their games: Trail Blazers 116.8 \u00b7 Warriors 108.3",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.9259,
     "streakTeamName": "Trail Blazers"
    },
    {
@@ -16472,8 +16472,8 @@
      ]
     ],
     "info": "Lakers avg 1H margin on the road: +9.1",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.9091,
     "streakTeamName": "Lakers"
    },
    {
@@ -16940,8 +16940,8 @@
      ]
     ],
     "info": "West Virginia avg 1H margin on the road: -3.5",
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "West Virginia"
    },
    {
@@ -17273,8 +17273,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "Edmonton"
    },
    {
