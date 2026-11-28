@@ -17218,8 +17218,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "L",
+    "units": -1.0,
     "streakTeamName": "San Diego State"
    },
    {
@@ -17570,10 +17570,10 @@
     "market": "ml",
     "side": "home",
     "line": null,
-    "price": 166,
+    "price": 170,
     "title": "UCLA 1H ML",
-    "est": 0.444,
-    "edge": 0.0681,
+    "est": 0.4396,
+    "edge": 0.0693,
     "agree": 3,
     "sample": 8,
     "tier": "C",
