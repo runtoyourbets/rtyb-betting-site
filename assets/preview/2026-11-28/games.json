@@ -672,7 +672,7 @@
    },
    {
     "label": "NBA · Orlando Magic at Washington Wizards · 5:00 PM ET",
-    "trends": 8,
+    "trends": 15,
     "value": "nba:401910046"
    },
    {
@@ -697,7 +697,7 @@
    },
    {
     "label": "NBA · Brooklyn Nets at Charlotte Hornets · 6:00 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "nba:401910047"
    },
    {
@@ -837,12 +837,12 @@
    },
    {
     "label": "NBA · Indiana Pacers at Chicago Bulls · 8:00 PM ET",
-    "trends": 18,
+    "trends": 22,
     "value": "nba:401910048"
    },
    {
     "label": "NBA · Oklahoma City Thunder at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 20,
+    "trends": 24,
     "value": "nba:401910049"
    },
    {
@@ -857,7 +857,7 @@
    },
    {
     "label": "NBA · Philadelphia 76ers at Houston Rockets · 8:30 PM ET",
-    "trends": 16,
+    "trends": 17,
     "value": "nba:401910050"
    },
    {
@@ -912,7 +912,7 @@
    }
   ],
   "lead": "ncaaf:401862837",
-  "motd": "nhl:2026020421"
+  "motd": "nba:401910049"
  },
  "nba": {
   "codes": [
@@ -930,32 +930,32 @@
   "games": [
    {
     "label": "Orlando Magic at Washington Wizards · 5:00 PM ET",
-    "trends": 8,
+    "trends": 15,
     "value": "nba:401910046"
    },
    {
     "label": "Brooklyn Nets at Charlotte Hornets · 6:00 PM ET",
-    "trends": 19,
+    "trends": 22,
     "value": "nba:401910047"
    },
    {
     "label": "Indiana Pacers at Chicago Bulls · 8:00 PM ET",
-    "trends": 18,
+    "trends": 22,
     "value": "nba:401910048"
    },
    {
     "label": "Oklahoma City Thunder at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 20,
+    "trends": 24,
     "value": "nba:401910049"
    },
    {
     "label": "Philadelphia 76ers at Houston Rockets · 8:30 PM ET",
-    "trends": 16,
+    "trends": 17,
     "value": "nba:401910050"
    }
   ],
   "lead": "nba:401910049",
-  "motd": null
+  "motd": "nba:401910049"
  },
  "ncaab": {
   "codes": [
