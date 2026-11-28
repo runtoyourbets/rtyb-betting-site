@@ -113,7 +113,7 @@ var rows = [{ k: '1p', m: 'su', v: 'all' }, { k: '1p', m: 'tot', v: 'all' }, { k
 console.log(JSON.stringify(out));"""])
         out = subprocess.run([NODE, '-e', 'var SKF; function confTeam() { return true; }' + js], capture_output=True, text=True)
         self.assertEqual(out.returncode, 0, out.stderr)
-        self.assertEqual(json.loads(out.stdout), {'1p su all': 2, '1p su home': 2, 'game su all': 1})
+        self.assertEqual(json.loads(out.stdout), {'1p su all': 1, '1p su home': 2, 'game su all': 1})   # All: the overall streak only
         self.assertNotIn('SK_QUIET', SRC)
         segs = {k: ms for k, *_, ms in streaks.segments(sports.BY_KEY['nhl'])}
         self.assertEqual(list(segs), ['1p', 'game'])   # no 2nd / 3rd Period, Scored or Over 0.5
