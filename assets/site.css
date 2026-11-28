@@ -1722,6 +1722,19 @@
   .sk-wgrid .stk-row:nth-child(-n+2), .sk-list > .stk-row:first-child { border-top: 0; }
   .sk-sorts { margin: 0 0 6px; }
   .sk-line .stk-run { flex: 0 1 auto; }
+  /* In Play and Still Running: the name never cut off (wraps if it must), the chip at the top */
+  .sk-line { align-items: start; }
+  .sk-line .sk-len { align-self: start; }
+  .sk-line .stk-l1 { flex-wrap: wrap; row-gap: 2px; column-gap: 8px; }
+  .sk-line .gm-team { white-space: normal; flex: 0 1 auto; }
+  .sk-line .stk-run { white-space: normal; overflow: visible; }
+  .sk-nm { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-team); color: var(--text); }
+  /* Records: stacked, the whole name on top, then the run and its dates */
+  .sk-list .sk-rrow { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
+  .sk-rbody { display: grid; gap: 2px; min-width: 0; }
+  .sk-rrow .sk-who, .sk-rrow .gm-team { overflow: visible; white-space: normal; }
+  .sk-rwhat { font-family: var(--ff-body); font-size: var(--fs-body); font-weight: var(--fw-body); color: var(--text); }
+  .sk-rwhat .sk-dates { margin-left: 6px; }
   .sk-ctrl { margin-top: 0; }
   .sk-h { margin-top: 22px; }
   .mt-head { margin: 14px 0 4px; font-family: var(--ff-display); font-size: var(--fs-section); font-weight: var(--fw-section); color: var(--text); }
