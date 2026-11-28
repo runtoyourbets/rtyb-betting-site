@@ -576,7 +576,7 @@ def index_html(root=''):
             k, r = best[0]
             seg, m, _ = k.split('|')
             body = (f'<ul class="sk2-list"><li class="sk2-row"><span class="sk-len {front.heat_cls(r["n"])}">{r["n"]}</span>'
-                    f'<span class="sk2-who">{s.link(r["t"], s.badge(r["t"], 22, root) + s.name_html(r["t"]), root, "sk2-team")}</span>'
+                    f'<span class="sk2-who">{s.link(r["t"], s.badge(r["t"], 22, root) + esc(s.full_name(r["t"])), root, "sk2-team")}</span>'
                     f'<span class="sk2-what">{esc(what(s.sp, seg, m, r["kd"]))} &middot; {esc(short_day(r["a"]))} - {esc(short_day(r["b"]))}</span></li></ul>')
         offc += (f'<section class="st-card sk2-card sk2-sport sk2-offs"><div class="st-head"><h4>{icons.sport_icon(s.sp)}{esc(s.label)}</h4></div>'
                  f'<p class="sk2-lab">{esc(rec.get("label") or "")} longest</p>{body or "<p class=tp-none>No streaks last season.</p>"}'
