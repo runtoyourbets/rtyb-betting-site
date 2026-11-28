@@ -17181,6 +17181,48 @@
     "streakTeamName": "Suns"
    },
    {
+    "id": "ncaab|401920535|1h|ml|away",
+    "game": "ncaab|401920535",
+    "date": "2026-11-27",
+    "sport": "ncaab",
+    "label": "NCAAB",
+    "slug": "college-basketball",
+    "start": "2026-11-28T04:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "San Diego State @ Texas Tech",
+    "href": "college-basketball/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 225,
+    "title": "San Diego State 1H ML",
+    "est": 0.3418,
+    "edge": 0.0341,
+    "agree": 2,
+    "sample": 7,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 1,
+    "streakTeam": "san-diego-state-aztecs",
+    "angles": [
+     [
+      "San Diego State 1H ML, season",
+      "6-1"
+     ],
+     [
+      "San Diego State 1H ML, last 8",
+      "6-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "San Diego State"
+   },
+   {
     "id": "ncaab|401922264|1h|ats|away",
     "game": "ncaab|401922264",
     "date": "2026-11-27",
@@ -17322,48 +17364,6 @@
     "status": "W",
     "units": 0.9091,
     "streakTeamName": "Grizzlies"
-   },
-   {
-    "id": "ncaab|401920535|1h|ml|away",
-    "game": "ncaab|401920535",
-    "date": "2026-11-27",
-    "sport": "ncaab",
-    "label": "NCAAB",
-    "slug": "college-basketball",
-    "start": "2026-11-28T04:30Z",
-    "seg": "1h",
-    "segTag": "1H",
-    "matchup": "San Diego State @ Texas Tech",
-    "href": "college-basketball/matchups/",
-    "market": "ml",
-    "side": "away",
-    "line": null,
-    "price": 210,
-    "title": "San Diego State 1H ML",
-    "est": 0.3539,
-    "edge": 0.0313,
-    "agree": 2,
-    "sample": 7,
-    "tier": "C",
-    "tags": [
-     "Dog Hunter"
-    ],
-    "streak": 1,
-    "streakTeam": "san-diego-state-aztecs",
-    "angles": [
-     [
-      "San Diego State 1H ML, season",
-      "6-1"
-     ],
-     [
-      "San Diego State 1H ML, last 8",
-      "6-1"
-     ]
-    ],
-    "info": null,
-    "status": "pending",
-    "units": null,
-    "streakTeamName": "San Diego State"
    },
    {
     "id": "nba|401909334|1q|ml|home",
