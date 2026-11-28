@@ -524,5 +524,61 @@
    "start": "2026-11-28T01:00:00Z",
    "trend": "EDM has gone BTTS No"
   }
+ },
+ "2026-11-28": {
+  "all": {
+   "away": "florida-atlantic-owls",
+   "chip": "ECU UNDER 1Q TOTAL · 11 OF 11",
+   "home": "east-carolina-pirates",
+   "id": "401862837",
+   "sport": "ncaaf",
+   "start": "2026-11-28T18:00Z",
+   "trend": "ECU has gone Under the 1st quarter total"
+  },
+  "nba": {
+   "away": "okc",
+   "chip": "MIL UNDER 1Q TOTAL · 17 OF 20",
+   "home": "mil",
+   "id": "401910049",
+   "sport": "nba",
+   "start": "2026-11-29T01:00Z",
+   "trend": "MIL has gone Under the 1st quarter total"
+  },
+  "ncaab": {
+   "away": "le-moyne-dolphins",
+   "chip": "OVER: BACK-TO-BACK GAMES · GAME O/U · 59% (50-35)",
+   "home": "niagara-purple-eagles",
+   "id": "401919787",
+   "sport": "ncaab",
+   "start": "2026-11-28T19:00Z",
+   "trend": "Over: back-to-back games (Game O/U)"
+  },
+  "ncaaf": {
+   "away": "florida-atlantic-owls",
+   "chip": "ECU UNDER 1Q TOTAL · 11 OF 11",
+   "home": "east-carolina-pirates",
+   "id": "401862837",
+   "sport": "ncaaf",
+   "start": "2026-11-28T18:00Z",
+   "trend": "ECU has gone Under the 1st quarter total"
+  },
+  "nfl": {
+   "away": "sea",
+   "chip": "SF WON 1H · 9 OF 10",
+   "home": "sf",
+   "id": "401873091",
+   "sport": "nfl",
+   "start": "2026-11-29T21:25Z",
+   "trend": "SF has won the 1st half"
+  },
+  "nhl": {
+   "away": "EDM",
+   "chip": "EDM BTTS NO 1P · 23 OF 28",
+   "home": "SEA",
+   "id": "2026020427",
+   "sport": "nhl",
+   "start": "2026-11-29T03:00:00Z",
+   "trend": "EDM has gone BTTS No"
+  }
  }
 }

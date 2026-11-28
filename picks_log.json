@@ -17458,5 +17458,577 @@
     "streakTeamName": "West Virginia"
    }
   ]
+ },
+ "2026-11-28": {
+  "plays": [
+   {
+    "id": "ncaaf|401862842|1h|ml|home",
+    "game": "ncaaf|401862842",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T17:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Navy @ Charlotte",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 400,
+    "title": "Charlotte 1H ML",
+    "est": 0.2871,
+    "edge": 0.0871,
+    "agree": 2,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Early Bird"
+    ],
+    "streak": 0,
+    "streakTeam": "charlotte-49ers",
+    "angles": [
+     [
+      "Navy\u2019s opponents 1H ML, Navy on the road",
+      "4-0"
+     ],
+     [
+      "Charlotte 1H ML at home",
+      "3-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Charlotte"
+   },
+   {
+    "id": "ncaaf|401856877|1q|ml|away",
+    "game": "ncaaf|401856877",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T23:15Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Kansas @ Oklahoma State",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 144,
+    "title": "Kansas 1Q ML",
+    "est": 0.4857,
+    "edge": 0.0759,
+    "agree": 4,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 4,
+    "streakTeam": "kansas-jayhawks",
+    "angles": [
+     [
+      "Kansas 1Q ML, last 8",
+      "6-1-1"
+     ],
+     [
+      "Oklahoma State\u2019s opponents 1Q ML, Oklahoma State at home",
+      "4-1"
+     ],
+     [
+      "Kansas 1Q ML, season",
+      "7-2-2"
+     ],
+     [
+      "Kansas 1Q ML on the road",
+      "3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Kansas"
+   },
+   {
+    "id": "ncaaf|401858543|1h|ml|home",
+    "game": "ncaaf|401858543",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T20:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "USC @ UCLA",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 166,
+    "title": "UCLA 1H ML",
+    "est": 0.444,
+    "edge": 0.0681,
+    "agree": 3,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "ucla-bruins",
+    "angles": [
+     [
+      "UCLA 1H ML, season",
+      "8-0-3"
+     ],
+     [
+      "UCLA 1H ML, last 8",
+      "6-0-2"
+     ],
+     [
+      "UCLA 1H ML at home",
+      "5-0-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "UCLA"
+   },
+   {
+    "id": "ncaaf|401858541|1h|ml|away",
+    "game": "ncaaf|401858541",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-29T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Washington @ Oregon",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 290,
+    "title": "Washington 1H ML",
+    "est": 0.3142,
+    "edge": 0.0577,
+    "agree": 3,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "washington-huskies",
+    "angles": [
+     [
+      "Oregon\u2019s opponents 1H ML, Oregon at home",
+      "4-2"
+     ],
+     [
+      "Washington 1H ML on the road",
+      "2-1-1"
+     ],
+     [
+      "Washington 1H ML, season",
+      "5-4-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Washington"
+   },
+   {
+    "id": "ncaaf|401858543|1h|ats|home",
+    "game": "ncaaf|401858543",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T20:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "USC @ UCLA",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 3.5,
+    "price": -110,
+    "title": "UCLA 1H +3.5",
+    "est": 0.5804,
+    "edge": 0.0566,
+    "agree": 4,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 11,
+    "streakTeam": "ucla-bruins",
+    "angles": [
+     [
+      "UCLA 1H ATS at +3.5, season",
+      "11-0"
+     ],
+     [
+      "UCLA 1H ATS at +3.5, last 8",
+      "8-0"
+     ],
+     [
+      "UCLA 1H ATS at +3.5 at home",
+      "6-0"
+     ],
+     [
+      "USC\u2019s opponents 1H ATS at +3.5, USC on the road",
+      "3-1"
+     ]
+    ],
+    "info": "UCLA avg 1H margin at home: +7.8",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "UCLA"
+   },
+   {
+    "id": "ncaaf|401871063|1h|ml|home",
+    "game": "ncaaf|401871063",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T19:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Liberty @ Missouri State",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "home",
+    "line": null,
+    "price": 425,
+    "title": "Missouri State 1H ML",
+    "est": 0.2469,
+    "edge": 0.0564,
+    "agree": 2,
+    "sample": 10,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "missouri-state-bears",
+    "angles": [
+     [
+      "Missouri State 1H ML at home",
+      "3-2"
+     ],
+     [
+      "Missouri State 1H ML, last 8",
+      "4-3-1"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Missouri State"
+   },
+   {
+    "id": "ncaaf|401858314|1q|ats|home",
+    "game": "ncaaf|401858314",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T17:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Notre Dame @ Syracuse",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 6.5,
+    "price": 115,
+    "title": "Syracuse 1Q +6.5",
+    "est": 0.5175,
+    "edge": 0.0524,
+    "agree": 3,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider",
+     "Early Bird"
+    ],
+    "streak": 4,
+    "streakTeam": "syracuse-orange",
+    "angles": [
+     [
+      "Syracuse 1Q ATS at +6.5 at home",
+      "5-0"
+     ],
+     [
+      "Syracuse 1Q ATS at +6.5, last 8",
+      "7-1"
+     ],
+     [
+      "Syracuse 1Q ATS at +6.5, season",
+      "9-2"
+     ]
+    ],
+    "info": "Syracuse avg 1Q margin at home: +1.4",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Syracuse"
+   },
+   {
+    "id": "ncaaf|401864548|1q|ml|away",
+    "game": "ncaaf|401864548",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-29T02:00Z",
+    "seg": "1q",
+    "segTag": "1Q",
+    "matchup": "Nevada @ UNLV",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 138,
+    "title": "Nevada 1Q ML",
+    "est": 0.471,
+    "edge": 0.0509,
+    "agree": 4,
+    "sample": 8,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 0,
+    "streakTeam": "nevada-wolf-pack",
+    "angles": [
+     [
+      "Nevada 1Q ML, last 8",
+      "4-2-2"
+     ],
+     [
+      "Nevada 1Q ML on the road",
+      "2-1-2"
+     ],
+     [
+      "UNLV\u2019s opponents 1Q ML, UNLV at home",
+      "2-1-2"
+     ],
+     [
+      "Nevada 1Q ML, season",
+      "5-3-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Nevada"
+   },
+   {
+    "id": "ncaaf|401856757|1h|ml|away",
+    "game": "ncaaf|401856757",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-29T00:30Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Auburn @ Alabama",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 390,
+    "title": "Auburn 1H ML",
+    "est": 0.2548,
+    "edge": 0.0507,
+    "agree": 3,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "auburn-tigers",
+    "angles": [
+     [
+      "Auburn 1H ML on the road",
+      "3-1"
+     ],
+     [
+      "Auburn 1H ML, season",
+      "7-4"
+     ],
+     [
+      "Auburn 1H ML, last 8",
+      "5-3"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Auburn"
+   },
+   {
+    "id": "ncaaf|401856877|1h|ml|away",
+    "game": "ncaaf|401856877",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T23:15Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Kansas @ Oklahoma State",
+    "href": "college-football/matchups/",
+    "market": "ml",
+    "side": "away",
+    "line": null,
+    "price": 160,
+    "title": "Kansas 1H ML",
+    "est": 0.4351,
+    "edge": 0.0505,
+    "agree": 2,
+    "sample": 9,
+    "tier": "C",
+    "tags": [
+     "Dog Hunter"
+    ],
+    "streak": 2,
+    "streakTeam": "kansas-jayhawks",
+    "angles": [
+     [
+      "Kansas 1H ML, last 8",
+      "4-3-1"
+     ],
+     [
+      "Kansas 1H ML, season",
+      "5-4-2"
+     ]
+    ],
+    "info": null,
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Kansas"
+   },
+   {
+    "id": "ncaaf|401858314|1h|ats|home",
+    "game": "ncaaf|401858314",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T17:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Notre Dame @ Syracuse",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 14.5,
+    "price": -122,
+    "title": "Syracuse 1H +14.5",
+    "est": 0.5983,
+    "edge": 0.0488,
+    "agree": 4,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider",
+     "Early Bird"
+    ],
+    "streak": 11,
+    "streakTeam": "syracuse-orange",
+    "angles": [
+     [
+      "Syracuse 1H ATS at +14.5, season",
+      "11-0"
+     ],
+     [
+      "Syracuse 1H ATS at +14.5, last 8",
+      "8-0"
+     ],
+     [
+      "Syracuse 1H ATS at +14.5 at home",
+      "5-0"
+     ],
+     [
+      "Notre Dame\u2019s opponents 1H ATS at +14.5, Notre Dame on the road",
+      "3-1"
+     ]
+    ],
+    "info": "Syracuse avg 1H margin at home: +9.6",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Syracuse"
+   },
+   {
+    "id": "ncaaf|401871063|1h|ats|home",
+    "game": "ncaaf|401871063",
+    "date": "2026-11-28",
+    "sport": "ncaaf",
+    "label": "NCAAF",
+    "slug": "college-football",
+    "start": "2026-11-28T19:00Z",
+    "seg": "1h",
+    "segTag": "1H",
+    "matchup": "Liberty @ Missouri State",
+    "href": "college-football/matchups/",
+    "market": "ats",
+    "side": "home",
+    "line": 9.5,
+    "price": 100,
+    "title": "Missouri State 1H +9.5",
+    "est": 0.5433,
+    "edge": 0.0433,
+    "agree": 4,
+    "sample": 11,
+    "tier": "B",
+    "tags": [
+     "Dog Hunter",
+     "Streak Rider"
+    ],
+    "streak": 6,
+    "streakTeam": "missouri-state-bears",
+    "angles": [
+     [
+      "Missouri State 1H ATS at +9.5 at home",
+      "5-0"
+     ],
+     [
+      "Missouri State 1H ATS at +9.5, last 8",
+      "7-1"
+     ],
+     [
+      "Missouri State 1H ATS at +9.5, season",
+      "9-2"
+     ],
+     [
+      "Liberty\u2019s opponents 1H ATS at +9.5, Liberty on the road",
+      "3-2"
+     ]
+    ],
+    "info": "Missouri State avg 1H margin at home: +8.0",
+    "status": "pending",
+    "units": null,
+    "streakTeamName": "Missouri State"
+   }
+  ]
  }
 }
