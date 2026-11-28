@@ -519,7 +519,7 @@ def top_card(sport, x, now_utc, root):
                         and (want.get('line') is None or val(r).get('line') == want.get('line')) and not (sport.sources.get(b) or {}).get('nb')), None)
             top = (sport.code(g[bside]) if m == 'ml' else f"{want['line']:+g}" if m == 'ats' else f"{'o' if bside == 'over' else 'u'}{want['line']:g}" if m == 'total'
                    else bside.title() if m == 'btts' else bside.upper())
-            best_html = (f'<span class="sk-topbo"><span class="sk-topl">Best odds</span><span class="bn-odds sk-best"><span class="bn-book">{front.book_html(sport, bid, root)}</span>'
+            best_html = (f'<span class="sk-topbo"><span class="sk-topl">Best odds</span><span class="bn-odds sk-bo"><span class="bn-book">{front.book_html(sport, bid, root)}</span>'
                          f'<span class="bn-cell">{front.cell(esc(top), esc(front.price_txt(want["price"])))}</span></span></span>')
     href = f"{root}{sport.matchups}"
     ta, tb = sport.team(slug), sport.team(opp)

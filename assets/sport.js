@@ -4512,8 +4512,14 @@
   // a team's season record in the streak's market: moneyline / spread its own
   // record ("1H ML 16% (3-16)"); totals, BTTS and NRFI the side it leans to
   var SK_TM = { su: 'ml', ats: 'ats', tot: 'total', btts: 'btts', ml3: 'ml3', rfi: 'rfi' };
+  // the games before the day's card (the page is fixed for the day)
+  function skGames(slug) {
+    var day = (SK.tonight || {}).day || SK.today, out = [];
+    allDates().forEach(function(d) { if (d < day) D.games[d].forEach(function(g) { if (g.away === slug || g.home === slug) out.push(g); }); });
+    return out;
+  }
   function skRecord(slug, s) {
-    var tm = SK_TM[s.m], a = tmAgg(slug, s.k, tm, 'all', teamGames(slug));
+    var tm = SK_TM[s.m], a = tmAgg(slug, s.k, tm, 'all', skGames(slug));
     if (!a.gp) return '-';
     if (tm === 'ml' || tm === 'ats' || tm === 'ml3') return tmPct(a.pct) + ' (' + a.w + '-' + a.l + (a.t ? '-' + a.t : '') + ')';
     var hitSide = { tot: 'O', btts: 'Y', rfi: 'N' }[s.m], mine = s.kd === hitSide;
@@ -4567,7 +4573,7 @@
     if (s.m === 'rfi') return { mk: 'rfi', side: s.kd === 'Y' ? 'yrfi' : 'nrfi' };
     return null;
   }
-  // Best odds: the book with the best price on that side, its logo and the cell
+  // Best odds: the book with the top price on that side, its logo and the cell
   function skBest(s, g) {
     var og = (SK_ODDS[g.day] || {})[g.away + '@' + g.home], b = skSide(s, g);
     if (!og || !b) return '';
@@ -4583,7 +4589,7 @@
     var logo = info.logo ? '<img class="sl-book" src="' + ROOT + info.logo + '" alt="' + esc(nm) + '" title="' + esc(nm) + '" loading="lazy">' : (nm ? '<span class="sl-bname">' + esc(nm) + '</span>' : '');
     var top = b.mk === 'ml' || b.mk === 'ml3' ? tcode(g[b.side]) : b.mk === 'ats' ? signedLine(want.line) : b.mk === 'total' ? (b.side === 'over' ? 'o' : 'u') + want.line
       : b.mk === 'btts' ? (b.side === 'yes' ? 'Yes' : 'No') : b.side.toUpperCase();
-    return '<span class="bn-odds sk-best"><span class="bn-book">' + logo + '</span><span class="bn-cell"><span class="cell"><span class="ob-ln">' + esc(top) + '</span><span class="ob-pr">' + esc(priceTxt(want.price)) + '</span></span></span></span>';
+    return '<span class="bn-odds sk-bo"><span class="bn-book">' + logo + '</span><span class="bn-cell"><span class="cell"><span class="ob-ln">' + esc(top) + '</span><span class="ob-pr">' + esc(priceTxt(want.price)) + '</span></span></span></span>';
   }
   function skTop() {
     var x = skTopPick();
