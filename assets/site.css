@@ -1708,6 +1708,7 @@
   .sk-topp { color: var(--text); font-weight: var(--fw-num); }
   .sk-topl { font-family: var(--ff-body); font-size: var(--fs-label); font-weight: var(--fw-label); text-transform: uppercase; letter-spacing: var(--ls-label); color: var(--text-muted); }
   .sk-topg .sk-mu { margin-left: auto; }
+  .sk-topbo { display: inline-flex; align-items: center; gap: 10px; }
   .sk-plain { margin-top: 0; }
   .sk-h .sk-sorts { margin: 0 0 0 auto; }
   @media (max-width: 640px) {

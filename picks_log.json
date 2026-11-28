@@ -17176,8 +17176,8 @@
      ]
     ],
     "info": null,
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.7407,
     "streakTeamName": "Suns"
    },
    {
@@ -17319,8 +17319,8 @@
      ]
     ],
     "info": "Grizzlies avg 1H margin on the road: +1.7",
-    "status": "pending",
-    "units": null,
+    "status": "W",
+    "units": 0.9091,
     "streakTeamName": "Grizzlies"
    },
    {

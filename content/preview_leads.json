@@ -481,12 +481,12 @@
   },
   "nba": {
    "away": "den",
-   "chip": "UTA LOST 1H · 15 OF 19",
+   "chip": "FADE BIG UNDERDOGS · GAME ML · 75% (139-46)",
    "home": "utah",
    "id": "401909334",
    "sport": "nba",
    "start": "2026-11-28T02:30Z",
-   "trend": "UTA has lost the 1st half"
+   "trend": "Fade big underdogs (Game ML)"
   },
   "ncaab": {
    "away": "jacksonville-state-gamecocks",
@@ -508,12 +508,12 @@
   },
   "nfl": {
    "away": "ten",
-   "chip": "TEN LOST 1H · 10 OF 10",
+   "chip": "FADE BIG UNDERDOGS · 1H ML · 77% (58-17)",
    "home": "jax",
    "id": "401873090",
    "sport": "nfl",
    "start": "2026-11-29T18:00Z",
-   "trend": "TEN has lost the 1st half"
+   "trend": "Fade big underdogs (1H ML)"
   },
   "nhl": {
    "away": "SEA",
