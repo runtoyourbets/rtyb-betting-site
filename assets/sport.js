@@ -4492,9 +4492,10 @@
     return (nx.ha === 'home' ? 'vs ' : '@ ') + tcode(nx.opp) + (when ? ' · ' + when : '');
   }
   // chip · logo + code (no underline) + streak, the next game under it
+  // the name, never cut off: pro teams the nickname (Bruins), college the school; it wraps when it must
   function skLine(s, sub) {
     return '<div class="stk-row sk-line"><span class="sk-len ' + heatCls(s.n) + '">' + s.n + '</span>' +
-      '<span class="stk-l1">' + teamLink(s.t, badge(s.t, 20) + '<span>' + esc(tcode(s.t)) + '</span>') +
+      '<span class="stk-l1">' + teamLink(s.t, badge(s.t, 20) + '<span class="sk-nm">' + esc(shortName(s.t)) + '</span>') +
       '<span class="stk-run">' + esc(skWhat(s)) + '</span></span>' +
       (sub ? '<span class="stk-l2">' + esc(sub) + '</span>' : '') + '</div>';
   }
@@ -4653,8 +4654,9 @@
       var locked = seg.fr && premiumLocked('fullRun');
       var rows = rs.map(function(r, i) {
         var s = { k: seg.k, m: m, kd: r.kd };
-        return '<li class="sk-rrow"><span class="sk-len ' + heatCls(r.n) + '">' + r.n + '</span><span class="sk-who">' + teamLink(r.t, badge(r.t, 22) + '<span>' + esc(skFull(r.t)) + '</span>') + '</span>' +
-          '<span class="sk-what">' + esc(skWhat(s)) + '<span class="sk-rmeta"><span class="sk-dates nw">' + esc(dfShort(r.a)) + ' - ' + esc(dfShort(r.b)) + '</span></span></span></li>';
+        // stacked: the whole name on top (never cut off), the run and its dates under it
+        return '<li class="sk-rrow"><span class="sk-len ' + heatCls(r.n) + '">' + r.n + '</span><span class="sk-rbody"><span class="sk-who">' + teamLink(r.t, badge(r.t, 22) + '<span>' + esc(skFull(r.t)) + '</span>') + '</span>' +
+          '<span class="sk-rwhat">' + esc(skWhat(s)) + ' <span class="sk-dates nw">' + esc(dfShort(r.a)) + ' - ' + esc(dfShort(r.b)) + '</span></span></span></li>';
       }).join('');
       var body = '<ul class="sk-list">' + rows + '</ul>';
       cards.push('<div class="st-card sk-card sk-rcard' + (seg.fr ? ' sk-fr' : '') + '"><div class="st-head"><h4>' + esc(seg.label + ' · ' + skMkt(m).label) + '</h4></div>' +
