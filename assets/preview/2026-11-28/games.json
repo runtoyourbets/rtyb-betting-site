@@ -697,7 +697,7 @@
    },
    {
     "label": "NBA · Brooklyn Nets at Charlotte Hornets · 6:00 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "nba:401910047"
    },
    {
@@ -837,12 +837,12 @@
    },
    {
     "label": "NBA · Indiana Pacers at Chicago Bulls · 8:00 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "nba:401910048"
    },
    {
     "label": "NBA · Oklahoma City Thunder at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "nba:401910049"
    },
    {
@@ -935,17 +935,17 @@
    },
    {
     "label": "Brooklyn Nets at Charlotte Hornets · 6:00 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "nba:401910047"
    },
    {
     "label": "Indiana Pacers at Chicago Bulls · 8:00 PM ET",
-    "trends": 17,
+    "trends": 18,
     "value": "nba:401910048"
    },
    {
     "label": "Oklahoma City Thunder at Milwaukee Bucks · 8:00 PM ET",
-    "trends": 18,
+    "trends": 19,
     "value": "nba:401910049"
    },
    {
@@ -1397,7 +1397,7 @@
    }
   ],
   "lead": "ncaab:401919787",
-  "motd": null
+  "motd": "ncaab:401919787"
  },
  "ncaaf": {
   "codes": [
